@@ -42,6 +42,7 @@
                 "value": 5
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -56,7 +57,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Dero stalkers are those charged with exploring the surface world by night and seeking out new victims to abduct.</p>",
+            "publicNotes": "<p>Dero stalkers are those charged with exploring the surface world by night and seeking out new victims to abduct.</p>\n<hr />\n<p>Deros are short, wiry humanoids with milky white eyes, gray-blue skin, and wild shocks of off-white or gray hair. The descendants of a mysterious type of fey abandoned in the deepest, darkest caverns of Golarion, deros are the subject of fearful legends and folk tales to most of the world's surface races. They skulk beneath major metropolitan areas, performing cruel and twisted experiments on unwilling subjects. A dero is 3 feet tall and weighs approximately 70 pounds.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -88,7 +89,12 @@
                 "value": []
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "type": "vulnerable-to-sunlight",
+                    "value": 0
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -118,7 +124,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "JXF2hD4tSX7TbRCR",
+            "_id": "u1eOXRbLwSvouuEB",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -139,7 +145,7 @@
                     "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -232,7 +238,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "MQvo7g1i3S0qogV6",
+            "_id": "KDSYCvqvPSy2jtbS",
             "data": {
                 "ability": {
                     "value": ""
@@ -240,6 +246,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -257,10 +266,19 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -272,7 +290,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "JXF2hD4tSX7TbRCR"
+                    "value": "u1eOXRbLwSvouuEB"
                 },
                 "materials": {
                     "value": ""
@@ -280,12 +298,15 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "will"
                 },
                 "scaling": {
@@ -297,9 +318,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -331,14 +358,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "8ZWgBSgGMZOe7b4S",
+            "_id": "eGCApWwqBk8nPtaj",
             "data": {
                 "ability": {
                     "value": ""
@@ -346,6 +377,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -366,7 +400,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened</strong> The range increases to 120 feet.</p>"
+                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -378,12 +412,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "JXF2hD4tSX7TbRCR"
+                    "value": "u1eOXRbLwSvouuEB"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -397,9 +434,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ghost-sound",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=132"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -429,14 +472,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.atlgGNI1E1Ox3O3a"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "1K1JwlaskfbxyExy",
+            "_id": "7vuGsKs2Xq5FsUyw",
             "data": {
                 "MAP": {
                     "value": "5"
@@ -605,7 +652,7 @@
             "type": "weapon"
         },
         {
-            "_id": "WA6rot4y2RPcNWil",
+            "_id": "7s6KDdl3oF2Jorsu",
             "data": {
                 "MAP": {
                     "value": ""
@@ -769,7 +816,7 @@
             "type": "weapon"
         },
         {
-            "_id": "TInDJV4JA5M8mu46",
+            "_id": "pHf9s6Kk9Sg2No4f",
             "data": {
                 "activation": {
                     "condition": "",
@@ -800,7 +847,7 @@
                     "value": false
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "poison"
                 },
                 "consume": {
                     "_deprecated": true,
@@ -923,7 +970,7 @@
             "type": "consumable"
         },
         {
-            "_id": "qodmd0Fk2nDpPqpK",
+            "_id": "QKd1GqmFfIMctS2O",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1212,7 +1259,7 @@
             "type": "melee"
         },
         {
-            "_id": "zH1aFhIUWtQFn64Z",
+            "_id": "cPMrUDg67L1MxOgP",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1270,12 +1317,28 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> The dero stalker is not encumbered.</p>\n<p><strong>Trigger</strong> A creature targets the dero with an attack and the dero can see the attacker.</p>\n</div>\n<p><strong>Effect</strong> The dero dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> The dero stalker is not @Compendium[pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> A creature targets the dero with an attack and the dero can see the attacker.</p>\n</div>\n<p><strong>Effect</strong> The dero dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.nimbleDodge"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nimbleDodge"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1339,7 +1402,7 @@
             "type": "action"
         },
         {
-            "_id": "spocsjjtXFxfNtJT",
+            "_id": "eI1CqQ6uSb4iGiLS",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
