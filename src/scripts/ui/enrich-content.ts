@@ -131,6 +131,9 @@ export const EnrichContent = {
                 traits.push(...itemTraits.custom.split(",").map((trait) => trait.trim()));
             }
         }
+        // Add traits for basic checks
+        if (params.basic === "true") traits.push("damaging-effect");
+
         // Add param traits
         if (params.traits) traits.push(...params.traits.split(",").map((trait) => trait.trim()));
 
@@ -235,7 +238,7 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
 
         switch (type) {
             case "flat":
-                return base.toString();
+                return params.immutable === "false" ? getStatisticValue([]) : base.toString();
             case "perception":
                 return getStatisticValue(["perception", "wis-based", "all"]);
             case "fortitude":
