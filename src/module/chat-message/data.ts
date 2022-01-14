@@ -1,22 +1,23 @@
 import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { RawModifier } from "@module/modifiers";
+import { DegreeOfSuccessString } from "@system/check-degree-of-success";
 import { CheckModifiersContext } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
 
-export interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
+interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
     extends foundry.data.ChatMessageData<TChatMessage> {
     readonly _source: ChatMessageSourcePF2e;
     flags: ChatMessageFlagsPF2e;
 }
 
-export interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
+interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;
 }
 
-export type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
+type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
     pf2e: {
-        damageRoll?: boolean;
+        damageRoll?: DamageRollFlag;
         context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
         origin?: { type: ItemType; uuid: string } | null;
         casting?: { id: string; tradition: MagicTradition } | null;
@@ -31,3 +32,15 @@ export type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
         [key: string]: unknown;
     };
 };
+
+interface DamageRollFlag {
+    outcome: DegreeOfSuccessString;
+    rollMode: RollMode;
+    total: number;
+    traits: string[];
+    types: Record<string, Record<string, number>>;
+    diceResults: Record<string, Record<string, number[]>>;
+    baseDamageDice: number;
+}
+
+export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag };
