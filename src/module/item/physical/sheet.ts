@@ -29,7 +29,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         };
     }
 
-    override activateListeners($html: JQuery<HTMLElement>) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {

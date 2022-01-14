@@ -21,7 +21,7 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
         return "systems/pf2e/templates/journal/sheet.html";
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         InlineRollsLinks.listen($html);
     }

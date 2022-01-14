@@ -21,10 +21,6 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
-    }
-
     override async _updateObject(
         _event: Event,
         formData: Record<string, unknown> & { selection?: boolean }
