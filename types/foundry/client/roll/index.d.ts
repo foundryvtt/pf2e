@@ -465,7 +465,11 @@ declare global {
          * const roll = Roll.fromTerms([t1, plus, t2]);
          * roll.formula; // 4d8 + 8
          */
-        static fromTerms<T extends Roll>(this: T, terms: RollTerm[], options?: Record<string, unknown>): T;
+        static fromTerms<T extends Roll>(
+            this: ConstructorOf<T>,
+            terms: RollTerm[],
+            options?: Record<string, unknown>
+        ): T;
     }
 
     interface RollData {
