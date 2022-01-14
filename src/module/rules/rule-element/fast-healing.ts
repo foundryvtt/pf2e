@@ -1,5 +1,6 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { LocalizePF2e } from "@system/localize";
 import { tupleHasValue, objectHasKey, localizeList } from "@util";
 import { RuleElementPF2e, RuleElementData, RuleElementSource } from ".";
@@ -47,7 +48,7 @@ class FastHealingRuleElement extends RuleElementPF2e {
     }
 
     /** Refresh the actor's temporary hit points at the start of its turn */
-    override onTurnStart(): void {
+    override async onTurnStart(): Promise<void> {
         if (this.ignored) return;
 
         const value = this.resolveValue(this.data.value);
@@ -56,14 +57,14 @@ class FastHealingRuleElement extends RuleElementPF2e {
             return;
         }
 
-        const roll = new Roll(`${value}`).evaluate({ async: false });
+        const roll = await new Roll(`${value}`).evaluate({ async: true });
         const { FastHealingLabel, RegenerationLabel } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing;
         const preFlavor = game.i18n.localize(this.data.type === "fast-healing" ? FastHealingLabel : RegenerationLabel);
         const details = this.details;
         const postFlavor = details ? `<div data-visibility="owner">${details}</div>` : "";
         const flavor = `${preFlavor}${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : game.settings.get("core", "rollMode");
-        ChatMessage.createDocuments([{ flavor, type: CONST.CHAT_MESSAGE_TYPES.ROLL, roll }], { rollMode });
+        ChatMessagePF2e.create({ flavor, type: CONST.CHAT_MESSAGE_TYPES.ROLL, roll }, { rollMode });
     }
 }
 
