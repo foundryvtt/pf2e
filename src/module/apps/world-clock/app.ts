@@ -176,7 +176,7 @@ export class WorldClock extends Application {
     }
 
     /** Advance the world time by a static or input value */
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html.find("button[data-advance-time]").on("click", (event) => {

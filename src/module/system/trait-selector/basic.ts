@@ -90,7 +90,7 @@ export class TagSelectorBasic extends TagSelectorBase {
         };
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         // Search filtering

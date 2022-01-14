@@ -67,18 +67,18 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         };
     }
 
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         // rollable stats
-        html.find('[data-saving-throw]:not([data-saving-throw=""])').on("click", "*", (event) => {
+        $html.find('[data-saving-throw]:not([data-saving-throw=""])').on("click", "*", (event) => {
             const save = $(event.currentTarget).closest("[data-saving-throw]").attr("data-saving-throw");
             if (objectHasKey(this.actor.saves, save)) {
                 this.actor.saves[save].check.roll(eventToRollParams(event));
             }
         });
 
-        html.find("[data-skill-check] *").on("click", (event) => {
+        $html.find("[data-skill-check] *").on("click", (event) => {
             const skill = $(event.currentTarget)
                 .closest("[data-skill-check]")
                 .attr("data-skill-check") as SkillAbbreviation;
@@ -86,29 +86,29 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
             this.actor.data.data.skills[skill].roll({ event, options });
         });
 
-        html.find("[data-perception-check] *").on("click", (event) => {
+        $html.find("[data-perception-check] *").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "perception"]);
             this.actor.attributes.perception.roll({ event, options });
         });
 
-        html.find("[data-attack-roll] *").on("click", (event) => {
+        $html.find("[data-attack-roll] *").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "attack"]);
             this.actor.data.data.attack.roll({ event, options });
         });
 
         // expand and condense item description
-        html.find(".item-list").on("click", ".expandable", (event) => {
+        $html.find(".item-list").on("click", ".expandable", (event) => {
             $(event.currentTarget).removeClass("expandable").addClass("expanded");
         });
 
-        html.find(".item-list").on("click", ".expanded", (event) => {
+        $html.find(".item-list").on("click", ".expanded", (event) => {
             $(event.currentTarget).removeClass("expanded").addClass("expandable");
         });
 
         if (!this.isEditable) return;
 
         // item controls
-        html.find(".item-list").on("click", '[data-item-id]:not([data-item-id=""]) .item-edit', (event) => {
+        $html.find(".item-list").on("click", '[data-item-id]:not([data-item-id=""]) .item-edit', (event) => {
             const itemID = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
             const item = this.actor.items.get(itemID ?? "");
             if (item) {
@@ -116,7 +116,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
             }
         });
 
-        html.find(".item-list").on("click", '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {
+        $html.find(".item-list").on("click", '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {
             const itemID = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemID);
             if (!item) return;

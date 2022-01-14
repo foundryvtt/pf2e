@@ -58,7 +58,7 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
         };
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html.find('button[data-action="remigrate"]').on("click", async (event) => {

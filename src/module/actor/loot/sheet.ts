@@ -37,17 +37,19 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         return { ...sheetData, isLoot };
     }
 
-    override activateListeners(html: JQuery<HTMLElement>) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         if (this.options.editable) {
-            html.find(".split-coins")
+            $html
+                .find(".split-coins")
                 .removeAttr("disabled")
                 .on("click", (event) => this.distributeCoins(event));
-            html.find(".loot-npcs")
+            $html
+                .find(".loot-npcs")
                 .removeAttr("disabled")
                 .on("click", (event) => this.lootNPCs(event));
-            html.find("i.fa-info-circle.help[title]").tooltipster({
+            $html.find("i.fa-info-circle.help[title]").tooltipster({
                 maxWidth: 275,
                 position: "right",
                 theme: "crb-hover",

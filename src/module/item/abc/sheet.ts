@@ -108,8 +108,8 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         });
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
-        html.on("click", "[data-action=remove]", (ev) => this.removeItem(ev));
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        $html.on("click", "[data-action=remove]", (ev) => this.removeItem(ev));
     }
 }
