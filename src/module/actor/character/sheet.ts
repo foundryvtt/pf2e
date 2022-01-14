@@ -612,12 +612,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /**
-     * Activate event listeners using the prepared sheet HTML
-     * @param html The prepared HTML object ready to be rendered into the DOM
-     */
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         // Initiative button
         if (game.combat) {
@@ -627,7 +623,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
-        html.find(".roll-init").on("mouseenter", (event) => {
+        $html.find(".roll-init").on("mouseenter", (event) => {
             const $target = $(event.currentTarget);
             if ($target.hasClass("disabled") && game.combat) {
                 this.enableInitiativeButton();
@@ -637,7 +633,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // ACTIONS
-        html.find('[name="ammo-used"]').on("change", (event) => {
+        $html.find('[name="ammo-used"]').on("change", (event) => {
             event.stopPropagation();
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
@@ -649,27 +645,27 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
-        html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
-        html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
-        html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
-        html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
+        $html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
+        $html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
+        $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
+        $html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
 
         {
             // ensure correct tab name is displayed after actor update
             const title = $(".sheet-navigation .active").data("tabTitle");
             if (title) {
-                html.find(".navigation-title").text(title);
+                $html.find(".navigation-title").text(title);
             }
         }
 
-        html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
+        $html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
             const title = event.currentTarget.dataset.tabTitle;
             if (title) {
                 $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
             }
         });
 
-        html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
+        $html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
             const parent = $(event.currentTarget).parents(".sheet-navigation");
             const title = parent.find(".item.active").data("tabTitle");
             if (title) {
@@ -678,7 +674,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // open ancestry, background, or class compendium
-        html.find(".open-compendium").on("click", (event) => {
+        $html.find(".open-compendium").on("click", (event) => {
             if (event.currentTarget.dataset.compendium) {
                 const compendium = game.packs.get(event.currentTarget.dataset.compendium);
                 if (compendium) {
@@ -688,7 +684,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // filter strikes
-        html.find(".toggle-unready-strikes").on("click", () => {
+        $html.find(".toggle-unready-strikes").on("click", () => {
             this.actor.setFlag(
                 game.system.id,
                 "showUnreadyStrikes",
@@ -696,15 +692,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             );
         });
 
-        html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
 
-        html.find(".actions-list span[data-roll-option]").on("click", (event) => {
+        $html.find(".actions-list span[data-roll-option]").on("click", (event) => {
             const { rollName, rollOption } = event.currentTarget.dataset;
             if (!(rollName && rollOption)) return;
             this.actor.toggleRollOption(rollName, rollOption);
         });
 
-        const $strikesList = html.find(".tab.actions .strikes-list");
+        const $strikesList = $html.find(".tab.actions .strikes-list");
 
         // Set damage-formula tooltips on damage buttons
         const damageButtonSelectors = [
@@ -742,19 +738,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             theme: "crb-hover",
         });
 
-        html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
-        html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));
-        html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.onAddCustomModifier(event));
-        html.find(".modifier-list .remove-modifier").on("click", (event) => this.onRemoveCustomModifier(event));
+        $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
+        $html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));
+        $html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.onAddCustomModifier(event));
+        $html.find(".modifier-list .remove-modifier").on("click", (event) => this.onRemoveCustomModifier(event));
 
         // Toggle invested state
-        html.find(".item-toggle-invest").on("click", (event) => {
+        $html.find(".item-toggle-invest").on("click", (event) => {
             const f = $(event.currentTarget);
             const itemId = f.parents(".item").attr("data-item-id") ?? "";
             this.actor.toggleInvested(itemId);
         });
 
-        html.find("i.fa-info-circle.small[title]").tooltipster({
+        $html.find("i.fa-info-circle.small[title]").tooltipster({
             maxWidth: 275,
             position: "right",
             theme: "crb-hover",
@@ -763,7 +759,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         {
             // Add and remove combat proficiencies
-            const $tab = html.find(".tab.proficiencies");
+            const $tab = $html.find(".tab.proficiencies");
             const $header = $tab.find("ol.combat-proficiencies");
             $header.find("a.add").on("click", (event) => {
                 ManageCombatProficiencies.add(this.actor, event);
@@ -774,7 +770,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
         }
 
-        html.find(".hover").tooltipster({
+        $html.find(".hover").tooltipster({
             trigger: "click",
             arrow: false,
             contentAsHTML: true,
@@ -786,7 +782,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // Toggle Dying, Wounded, or Doomed
-        html.find("aside > .sidebar > .hitpoints")
+        $html
+            .find("aside > .sidebar > .hitpoints")
             .find(".dots.dying, .dots.wounded, .dots.doomed")
             .on("click contextmenu", (event) => {
                 type ConditionName = "dying" | "wounded" | "doomed";
@@ -799,7 +796,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         // Spontaneous Spell slot reset handler:
-        html.find(".spell-slots-increment-reset").on("click", (event) => {
+        $html.find(".spell-slots-increment-reset").on("click", (event) => {
             const target = $(event.currentTarget);
             const itemId = target.data().itemId;
             const itemLevel = target.data().level;
@@ -815,7 +812,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             item.update(data);
         });
 
-        const $craftingOptions = html.find(".crafting-options").find("input:checkbox");
+        const $craftingOptions = $html.find(".crafting-options").find("input:checkbox");
         $craftingOptions.on("click", async (event) => {
             const flags: string[] = [];
             $craftingOptions.each((_index, element) => {
@@ -828,7 +825,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
         });
 
-        const $formulas = html.find(".craftingEntry-list");
+        const $formulas = $html.find(".craftingEntry-list");
 
         $formulas.find(".craft-item").on("click", async (event) => {
             const { itemUuid } = event.currentTarget.dataset;
@@ -940,7 +937,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
-        PCSheetTabManager.initialize(this.actor, html.find<HTMLAnchorElement>('a[data-action="manage-tabs"]')[0]);
+        PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>('a[data-action="manage-tabs"]')[0]);
     }
 
     /** Handle changing of proficiency-rank via dropdown */

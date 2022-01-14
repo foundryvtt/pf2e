@@ -88,8 +88,8 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         });
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
-        html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        $html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
     }
 }
