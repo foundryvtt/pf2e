@@ -1001,15 +1001,35 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Kickback trait
-        if (weapon.traits.has("kickback")) {
+        if (weaponTraits.has("kickback")) {
             // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with 14 or
             // more Strength ignore the penalty."
-            const penalty = new ModifierPF2e(CONFIG.PF2E.weaponTraits.kickback, -2, MODIFIER_TYPE.CIRCUMSTANCE);
-            const strengthLessThan14 = "self:ability:strength:less-than-14";
-            penalty.predicate = new PredicatePF2e({ all: [strengthLessThan14] });
-            const attackRollOptions = (this.rollOptions["attack-roll"] ??= {});
-            penalty.ignored = !(attackRollOptions[strengthLessThan14] = this.data.data.abilities.str.value < 14);
+            const penalty = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.kickback,
+                modifier: -2,
+                type: MODIFIER_TYPE.CIRCUMSTANCE,
+                predicate: new PredicatePF2e({ all: [{ lt: ["self:ability:str:score", 14] }] }),
+            });
+            penalty.ignored = !penalty.predicate.test(this.getRollOptions(["all", "attack-roll"]));
             modifiers.push(penalty);
+        }
+
+        // Volley trait
+        const volleyTrait = Array.from(weaponTraits).find((t) => /^volley-\d+$/.test(t));
+        if (volleyTrait && weapon.range) {
+            const penaltyRange = Number(/-(\d+)$/.exec(volleyTrait)![1]);
+            const penalty = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits[volleyTrait],
+                modifier: -2,
+                type: MODIFIER_TYPE.UNTYPED,
+                ignored: true,
+                predicate: new PredicatePF2e({
+                    all: [{ lte: ["target:distance", penaltyRange] }],
+                    not: ["self:ignore-volley-penalty"],
+                }),
+            });
+            modifiers.push(penalty);
+            weaponRollOptions.push("volley", "weapon:trait:volley");
         }
 
         // Get best weapon potency
