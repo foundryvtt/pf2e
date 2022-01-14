@@ -117,15 +117,7 @@ declare global {
          * console.log(r.result); // 5 + 4 + 2
          * console.log(r.total);  // 11
          */
-        evaluate({
-            minimize,
-            maximize,
-            async,
-        }?: {
-            minimize?: boolean;
-            maximize?: boolean;
-            async?: false;
-        }): Rolled<this>;
+        evaluate({ minimize, maximize, async }: { minimize?: boolean; maximize?: boolean; async: false }): Rolled<this>;
         evaluate({
             minimize,
             maximize,
@@ -139,10 +131,10 @@ declare global {
             minimize,
             maximize,
             async,
-        }?: {
+        }: {
             minimize?: boolean;
             maximize?: boolean;
-            async?: boolean;
+            async: boolean;
         }): Rolled<this> | Promise<Rolled<this>>;
 
         /**
