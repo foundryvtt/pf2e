@@ -23,7 +23,7 @@
         "customModifiers": {},
         "details": {
             "description": "<p>Malevolent spirits led by a ghostly image of Ludika rise and begin a deadly brawl. These spirits attempt to overwhelm living creatures, forcing them to join the battle.</p>",
-            "disable": "<p><span data-pf2-check=\"religion\" data-pf2-traits=\"haunt,complex\" data-pf2-label=\"Exorcise DC\" data-pf2-dc=\"35\" data-pf2-show-dc=\"gm\">Religion</span> (master) three times to exorcise the spirits or <span data-pf2-check=\"diplomacy\" data-pf2-traits=\"haunt,complex\" data-pf2-label=\"Talk Down DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Diplomacy</span> (expert) three times to talk them down.</p>",
+            "disable": "<p>@Check[type:religion|dc:35|name:Exorcise|traits:haunt,complex] (master) three times to exorcise the spirits or @Check[type:diplomacy|dc:39|name:Talk Down|traits:haunt,complex] (expert) three times to talk them down.</p>",
             "isComplex": true,
             "level": {
                 "value": 16
@@ -87,7 +87,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> At least three creatures enter area <strong>H10</strong>.</p>\n<p><strong>Effect</strong> The haunt takes control of all creatures in the prison, affecting them with <em>@Compendium[pf2e.spells-srd.Confusion]{Confusion}</em> (8th level, <span data-pf2-check=\"will\" data-pf2-traits=\"emotion, fear, illusion, mental, occult\" data-pf2-label=\"Confuse DC\" data-pf2-dc=\"37\" data-pf2-show-dc=\"gm\">Will</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> At least three creatures enter area <strong>H10</strong>.</p>\n<p><strong>Effect</strong> The haunt takes control of all creatures in the prison, affecting them with <em>@Compendium[pf2e.spells-srd.Confusion]{Confusion}</em> (8th level, @Check[type:will|dc:37|name:Confuse|traits:emotion, fear, illusion, mental, occult] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -142,7 +142,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>On hit the creature must attempt a new <span data-pf2-check=\"will\" data-pf2-dc=\"37\" data-pf2-label=\"Spectral Fist Confusion DC\" data-pf2-show-dc=\"gm\">Will</span> save against <em>@Compendium[pf2e.spells-srd.Confusion]{Confusion}</em> if it's not already @Compendium[pf2e.conditionitems.Confused]{Confused}.</p>"
+                    "value": "<p>On hit the creature must attempt a new @Check[type:will|dc:37|name:Spectral Fist Confusion] save against <em>@Compendium[pf2e.spells-srd.Confusion]{Confusion}</em> if it's not already @Compendium[pf2e.conditionitems.Confused]{Confused}.</p>"
                 },
                 "rules": [],
                 "slug": null,
