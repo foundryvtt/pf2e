@@ -12,7 +12,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
     constructor(protected sheet: ActorSheet<AType, ItemPF2e>) {}
 
     activateListeners($html: JQuery) {
-        $html.find(".item .item-name h4, .item .melee-name h4").on("click", async (event) => {
+        $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
             const $target = $(event.currentTarget);
             const $li = $target.closest("li");
             await this.toggleItemSummary($li);
@@ -54,7 +54,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             const $summary = $('<div class="item-summary">');
             const chatData = item.getChatData({ secrets: actor.isOwner }, $li.data());
             this.renderItemSummary($summary, item, chatData);
-            $li.children(".item-name, .item-controls").last().after($summary);
+            $li.children(".item-name, .item-controls, .action-header").last().after($summary);
             if (options.instant) {
                 InlineRollsLinks.listen($summary);
             } else {
