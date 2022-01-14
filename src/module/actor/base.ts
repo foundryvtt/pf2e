@@ -513,18 +513,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             // This would be a nested ternary, except prettier thoroughly mangles it
             if (damage === 0) return translations.TakesNoDamage;
             if (damage > 0 && hideDamageNumbers) {
-                return damage > hpDamage && shieldDamage > 0
-                    ? translations.DamagedShield
-                    : translations.Damaged;
+                return damage > hpDamage && shieldDamage > 0 ? translations.DamagedShield : translations.Damaged;
             }
             if (damage > 0) {
                 return damage > hpDamage && shieldDamage > 0
                     ? translations.DamagedForNShield
                     : translations.DamagedForN;
             }
-            return hideDamageNumbers
-                ? translations.Healed
-                : translations.HealedForN;
+            return hideDamageNumbers ? translations.Healed : translations.HealedForN;
         })();
 
         const updatedShield = this.attributes.shield;
