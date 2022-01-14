@@ -521,7 +521,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 : null;
         const statements = [hpStatement, shieldStatement]
             .filter((s): s is string => !!s)
-            .map((s) => game.i18n.format(s, { actor: token.name, hpDamage, absorbedDamage, shieldDamage }))
+            .map((s) =>
+                game.i18n.format(s, { actor: token.name, hpDamage: Math.abs(hpDamage), absorbedDamage, shieldDamage })
+            )
             .join(" ");
 
         await ChatMessagePF2e.create({
