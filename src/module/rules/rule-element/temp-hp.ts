@@ -1,5 +1,6 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 
 /**
@@ -98,7 +99,7 @@ class TempHPRuleElement extends RuleElementPF2e {
         const [actor, item] = [this.actor.name, this.item.name];
         const content = game.i18n.format(singularOrPlural, { actor, newQuantity, wasAt, item });
         const recipients = game.users.filter((u) => this.actor.testUserPermission(u, "OWNER")).map((u) => u.id);
-        ChatMessage.createDocuments([{ content, whisper: recipients }]);
+        ChatMessagePF2e.create({ content, whisper: recipients });
     }
 }
 

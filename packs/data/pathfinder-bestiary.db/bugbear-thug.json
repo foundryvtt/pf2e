@@ -42,6 +42,7 @@
                 "value": 7
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -56,7 +57,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>The more common bugbear thug specializes in the art of lurking in the shadows.</p>",
+            "publicNotes": "<p>The more common bugbear thug specializes in the art of lurking in the shadows.</p>\n<hr />\n<p>These stealthy and cruel goblinoid creatures delight in spreading fear and tormenting their victims. Bugbears are the monsters lurking in the closet and hiding under the bed. Preying on remote farmsteads, bugbears reveal their presence with thumps in the night or creaks of boards to build lurking dread and arouse suspicion and fear.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -113,7 +114,7 @@
     "img": "systems/pf2e/icons/bestiary-1/bugbear.webp",
     "items": [
         {
-            "_id": "E0xnI3Q8LpEavI4v",
+            "_id": "iSTirw6VbSG9cG1W",
             "data": {
                 "MAP": {
                     "value": ""
@@ -239,7 +240,7 @@
                 },
                 "slug": "bastard-sword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -279,7 +280,7 @@
             "type": "weapon"
         },
         {
-            "_id": "xCQO7cD7hITDTzDN",
+            "_id": "bo618nMPJiUpNZ9C",
             "data": {
                 "MAP": {
                     "value": ""
@@ -405,7 +406,7 @@
                 },
                 "slug": "javelin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -445,7 +446,7 @@
             "type": "weapon"
         },
         {
-            "_id": "EH5FnIJ55jI2iKgz",
+            "_id": "oXbpRMLMAGNRfezi",
             "data": {
                 "armor": {
                     "value": 1
@@ -548,7 +549,7 @@
                 },
                 "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -604,7 +605,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -719,7 +739,7 @@
             "type": "melee"
         },
         {
-            "_id": "n4MdO8pZL4dF6aNS",
+            "_id": "sz9GGQOjyrluDIX3",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -765,7 +785,7 @@
             "type": "action"
         },
         {
-            "_id": "DQHjB55wnVOVzwR1",
+            "_id": "Jxa5SzH4ybrGFB9q",
             "data": {
                 "actionCategory": {
                     "value": "interaction"

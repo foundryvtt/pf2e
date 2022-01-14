@@ -1,4 +1,6 @@
-import { ModifierPF2e } from "@module/modifiers";
+import { AbilityString } from "@actor/data";
+import { ZeroToFour } from "@module/data";
+import { ModifierPF2e, RawModifier } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
@@ -31,6 +33,8 @@ export interface StatisticDifficultyClassData {
 export interface BaseStatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
+    ability?: AbilityString;
+    rank?: ZeroToFour;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];
@@ -70,12 +74,5 @@ export interface StatisticCompatData {
     totalModifier: number;
     value: number;
     breakdown: string;
-    _modifiers: {
-        slug: string;
-        label: string;
-        modifier: number;
-        type: string;
-        enabled: boolean;
-        custom: boolean;
-    }[];
+    _modifiers: Required<RawModifier>[];
 }

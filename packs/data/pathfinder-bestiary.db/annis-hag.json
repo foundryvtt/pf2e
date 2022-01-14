@@ -42,6 +42,7 @@
                 "value": 15
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "40"
             }
@@ -84,10 +85,9 @@
             },
             "dr": [
                 {
-                    "exceptions": "bludgeoning",
-                    "label": "Physical",
+                    "exceptions": "except bludgeoning",
                     "type": "physical",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
@@ -127,9 +127,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 16
@@ -169,7 +167,53 @@
             "type": "melee"
         },
         {
-            "_id": "aJafkSw35Q7C36JV",
+            "_id": "9oO34owbXFTjCGng",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "xrTNYpA1abm4LPwG",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -187,7 +231,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "coven",
                 "source": {
                     "value": ""
                 },
@@ -208,10 +252,76 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.52CdldlWMiVTZk1F"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Coven",
-            "sort": 200000,
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "e0fcFHdf91dsur91",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -257,11 +367,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Bonds of Iron",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "wuLaA7NsMPb5IMj7",
+            "_id": "1AemwaFBoSAJ1UHj",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -279,7 +389,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "change-shape",
                 "source": {
                     "value": ""
                 },
@@ -289,8 +399,8 @@
                     "value": [
                         "concentrate",
                         "occult",
-                        "transmutation",
-                        "polymorph"
+                        "polymorph",
+                        "transmutation"
                     ]
                 },
                 "trigger": {
@@ -301,14 +411,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.eQM5hQ1W3d1uen97"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "eTZH8Uz8QGRnbvxz",
+            "_id": "OFtZ11CEYiceib4W",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -326,7 +440,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
@@ -343,14 +457,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "tmqb9aM0KnWEneN2",
+            "_id": "7aIGZtbifYYVXpiV",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -362,13 +480,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -385,10 +503,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -421,7 +543,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -442,7 +564,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Grapple",
+                        "label": "PF2E.SkillVariant.Grapple",
                         "predicate": {
                             "all": [
                                 "action:grapple"
@@ -472,7 +594,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -505,7 +627,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -538,7 +660,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -571,7 +693,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -604,7 +726,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],

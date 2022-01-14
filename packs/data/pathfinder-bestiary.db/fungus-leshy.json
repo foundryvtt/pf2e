@@ -42,6 +42,7 @@
                 "value": 6
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -56,7 +57,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Fungus leshys guard caves, bogs, and damp, dark places. Their fungus gardens are bizarre by most standards, but fungus leshys are extremely proud of their works.</p>",
+            "publicNotes": "<p>Fungus leshys guard caves, bogs, and damp, dark places. Their fungus gardens are bizarre by most standards, but fungus leshys are extremely proud of their works.</p>\n<hr />\n<p>Leshys are intelligent plant creatures that guard areas of primeval wilderness or earthly power. Originally created by powerful fey, they manifest when a skilled practitioner of primal magic-typically a druid-combines a nature spirit with a body carefully grown from local vegetation. The rites and materials required to create a leshy vary depending on the type of leshy. They are typically given life in an area of great natural significance, such as an arboreal's grove, a druidic circle, a fairy ring, or a great natural wonder.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -90,7 +91,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "Speak With Plants ",
+                "custom": "Speak With Plants (Fungi Only)",
                 "selected": [],
                 "value": [
                     "common",
@@ -119,7 +120,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "6jR4yPS2dCh2ZVxp",
+            "_id": "TziDQnLmJx7Ty2df",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -137,10 +138,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -214,7 +215,7 @@
                 "spelldc": {
                     "dc": 16,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": "primal"
@@ -233,7 +234,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "YVTqAwcI8AgpsxWs",
+            "_id": "amSvuFJZrW9kA3mr",
             "data": {
                 "ability": {
                     "value": ""
@@ -241,6 +242,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -269,16 +273,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "6jR4yPS2dCh2ZVxp"
+                    "value": "TziDQnLmJx7Ty2df"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -292,9 +302,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "speak-with-plants",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=294"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -322,7 +338,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qvwIwJ9QBihy8R0t"
+                }
+            },
             "img": "systems/pf2e/icons/spells/speak-with-plants.webp",
             "name": "Speak with Plants",
             "sort": 200000,
@@ -335,6 +355,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -380,6 +401,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "spores"
                     ]
@@ -420,6 +442,52 @@
             "type": "melee"
         },
         {
+            "_id": "d0rdYMltT1ZmbABn",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "Y2DikEsO4R95MHFo",
             "data": {
                 "actionCategory": {
@@ -432,7 +500,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a fungus leshy dies, a burst of primal energy explodes from its body, restoring 2d8 Hit Points to each fungi creature in a @Template[type:emanation|distance:30]. This area is filled with fungi, becoming difficult terrain. If the terrain is not a viable environment for this fungi, they wither after 24 hours.</p>"
+                    "value": "<p>When a fungus leshy dies, a burst of primal energy explodes from its body, restoring [[/r 2d8 #Restored Hit Points]]{2d8 Hit Points} to each fungi creature in a @Template[type:emanation|distance:30]. This area is filled with fungi, becoming difficult terrain. If the terrain is not a viable environment for this fungi, they wither after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -460,11 +528,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Verdant Burst",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "v0PkNuJvWiJlIkta",
+            "_id": "ki3C4xNREH5G9Knv",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -482,7 +550,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "change-shape",
                 "source": {
                     "value": ""
                 },
@@ -491,9 +559,9 @@
                     "rarity": "common",
                     "value": [
                         "concentrate",
+                        "polymorph",
                         "primal",
-                        "transmutation",
-                        "polymorph"
+                        "transmutation"
                     ]
                 },
                 "trigger": {
@@ -504,10 +572,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.eQM5hQ1W3d1uen97"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -523,7 +595,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>A fungus leshy can unleash a cloud of spores that irritates the eyes and throats of non-fungi creatures in a @Template[type:emanation|distance:15]. Each creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"poison,damaging-effect\" data-pf2-label=\"Spore Cloud DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r {1}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (or 10 feet, on a critical failure).</p>"
+                    "value": "<p>A fungus leshy can unleash a cloud of spores that irritates the eyes and throats of non-fungi creatures in a @Template[type:emanation|distance:15]. Each creature must succeed at a @Check[type:fortitude|dc:16|name:Spore Cloud|traits:poison,damaging-effect] save or take [[/r {1}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (or 10 feet, on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -551,7 +623,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spore Cloud",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -567,7 +639,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that takes damage from a fungus leshy's spore pod Strike must attempt a saving throw with the same DC and effect as its Spore Cloud ability</p>"
+                    "value": "<p>A creature that takes damage from a fungus leshy's spore pod Strike must attempt a saving throw with the same DC and effect as its Spore Cloud ability.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -593,7 +665,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spores",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -626,7 +698,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -659,7 +731,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -692,7 +764,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

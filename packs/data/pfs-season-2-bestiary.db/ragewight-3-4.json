@@ -42,6 +42,7 @@
                 "value": 11
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -155,7 +156,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "coldiron"
+                        "coldIron"
                     ]
                 },
                 "weaponType": {
@@ -281,7 +282,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the ragewight damages a living creature with its claw Strike, the ragewight gains 3 temporary Hit Points and the creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Drain Life DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt to the creature by the ragewight increases the amount of drain by 1 on a failed save, to a maximum of @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
+                    "value": "<p>When the ragewight damages a living creature with its claw Strike, the ragewight gains 3 temporary Hit Points and the creature must succeed at a @Check[type:fortitude|dc:18|name:Drain Life|traits:divine,necromancy] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt to the creature by the ragewight increases the amount of drain by 1 on a failed save, to a maximum of @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -368,7 +369,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ragewight goes into a frenzy, gaining 8 temporary Hit Points. Its Strikes deal 2 additional damage, and it takes a –1 penalty to AC. This lasts for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: NPC Rage]{Effect: Rage}</p>"
+                    "value": "<p>The ragewight goes into a frenzy, gaining 8 temporary Hit Points. Its Strikes deal 2 additional damage, and it takes a -1 penalty to AC.</p>\n<p data-visibility=\"gm\">This lasts for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.feature-effects.Effect: Rage]{Effect: Rage}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -378,7 +379,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "ragewight-rage"
+                                "self:effect:rage"
                             ]
                         },
                         "selector": "ac",
@@ -388,7 +389,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "ragewight-rage"
+                                "self:effect:rage"
                             ]
                         },
                         "selector": "damage",
@@ -396,9 +397,9 @@
                     },
                     {
                         "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "data.custom.modifiers.rageMod",
-                        "value": -1
+                        "mode": "override",
+                        "path": "flags.pf2e.rageTempHP",
+                        "value": 8
                     }
                 ],
                 "slug": null,

@@ -2631,11 +2631,12 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Use Staff Two-Handed",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
                         "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
                     },
                     {
                         "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
                         "override": {
                             "dieSize": "d8"
                         },
@@ -2772,7 +2773,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Nemmia has a +2 circumstance bonus when using the Seek action to find hidden or undetected creatures within 30 feet. When she targets a concealed or hidden opponent, she reduces the DC of the flat check to <span data-pf2-check=\"flat\" data-pf2-dc=\"3\">3</span> for a concealed target or <span data-pf2-check=\"flat\" data-pf2-dc=\"9\">9</span> for a hidden one.</p>"
+                    "value": "<p>Nemmia has a +2 circumstance bonus when using the Seek action to find hidden or undetected creatures within 30 feet. When she targets a concealed or hidden opponent, she reduces the DC of the flat check to @Check[type:flat|dc:3]{3} for a concealed target or @Check[type:flat|dc:9]{9} for a hidden one.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2803,7 +2804,7 @@
                             ]
                         },
                         "selector": "attack",
-                        "text": "<p class='compact text'><strong>Keen Eyes</strong> The target is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, make a <span data-pf2-check='flat' data-pf2-traits='target:condition:concealed' data-pf2-dc='3'>Flat Check</span></p>"
+                        "text": "<p class='compact text'><strong>Keen Eyes</strong> The target is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, make a @Check[type:flat|dc:3|traits:target:condition:concealed] check</p>"
                     },
                     {
                         "key": "Note",
@@ -2813,7 +2814,7 @@
                             ]
                         },
                         "selector": "attack",
-                        "text": "<p class='compact text'><strong>Keen Eyes</strong> The target is @Compendium[pf2e.conditionitems.Hidden]{Hidden}, make a <span data-pf2-check='flat' data-pf2-traits='target:condition:concealed' data-pf2-dc='9'>Flat Check</span></p>"
+                        "text": "<p class='compact text'><strong>Keen Eyes</strong> The target is @Compendium[pf2e.conditionitems.Hidden]{Hidden}, make a @Check[type:flat|dc:9|traits:target:condition:concealed] check</p>"
                     }
                 ],
                 "slug": null,

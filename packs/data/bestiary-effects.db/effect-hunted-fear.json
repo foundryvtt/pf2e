@@ -1,8 +1,9 @@
 {
-    "_id": "bQhNDVpMJ5MEoFu1",
+    "_id": "mFnSXW6HTwS7Iu1k",
     "data": {
+        "badge": null,
         "description": {
-            "value": ""
+            "value": "<p>The creature takes a -2 circumstance penalty to Survival checks to avoid getting lost.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -11,24 +12,20 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 4
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "npc-rage"
-            },
-            {
-                "key": "TempHP",
-                "label": "Rage",
-                "value": "@actor.level + @actor.abilities.con.mod + @actor.data.data.custom.modifiers.rageMod"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "data.custom.modifiers.rageMod",
-                "value": 0
+                "key": "FlatModifier",
+                "label": "PF2E.NPCAbility.HuntedFear.Survival",
+                "predicate": {
+                    "all": [
+                        "action:sense-direction"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": -2
             }
         ],
         "source": {
@@ -50,7 +47,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/rage.webp",
-    "name": "Effect: NPC Rage",
+    "img": "systems/pf2e/icons/spells/fear.webp",
+    "name": "Effect: Hunted Fear",
     "type": "effect"
 }

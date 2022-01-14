@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A magic mirror replaces characters with evil mirror duplicates from another dimension.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-label=\"Retrieve a Creature DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Thievery</span> (legendary) to retrieve a creature from the other dimension within 10 minutes of the switch (possible only if their mirror duplicate is dead), <span data-pf2-check=\"thievery\" data-pf2-label=\"Disable the Mirror DC\" data-pf2-dc=\"45\" data-pf2-show-dc=\"gm\">Thievery</span> (master) to permanently disable the mirror once all mirror duplicates are dead, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (8th level; counteract DC 37) to counteract the mirror for 1 minute and prevent additional replacements during that time</p>\n<p>the mirror can't be damaged while any mirror duplicate is alive</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Retrieve a Creature] (legendary) to retrieve a creature from the other dimension within 10 minutes of the switch (possible only if their mirror duplicate is dead), @Check[type:thievery|dc:45|name:Disable the Mirror] (master) to permanently disable the mirror once all mirror duplicates are dead, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (8th level; counteract DC 37) to counteract the mirror for 1 minute and prevent additional replacements during that time</p>\n<p>the mirror can't be damaged while any mirror duplicate is alive</p>",
             "isComplex": true,
             "level": {
                 "value": 19
@@ -87,7 +87,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A non-evil creature is reflected in the mirror</p>\n<p><strong>Effect</strong> The mirror absorbs the creature into the mirror, replacing it with an evil mirror duplicate (<span data-pf2-check=\"reflex\" data-pf2-traits=\"arcane, conjuration, teleportation\" data-pf2-label=\"Reflection of Evil DC\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">Reflex</span> to avoid being absorbed into the mirror), and rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A non-evil creature is reflected in the mirror</p>\n<p><strong>Effect</strong> The mirror absorbs the creature into the mirror, replacing it with an evil mirror duplicate (@Check[type:reflex|dc:41|name:Reflection of Evil|traits:arcane,conjuration,teleportation] to avoid being absorbed into the mirror), and rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""

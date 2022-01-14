@@ -897,7 +897,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1123,7 +1142,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"25\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:25|name:Frightful Presence|traits:aura,emotion,fear,mental]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1216,7 +1235,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The nuckelavee breathes a @Template[type:cone|distance:30] of foulness, dealing [[/r {8d6}[negative]]]{8d6 negative damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"disease,necromancy,poison,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save) to living creatures in the area. A creature that fails also takes [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p>The nuckelavee can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The nuckelavee breathes a @Template[type:cone|distance:30] of foulness, dealing [[/r {8d6}[negative]]]{8d6 negative damage} (@Check[type:fortitude|dc:28|basic:true|name:Breath Weapon|traits:disease,necromancy,poison,primal,damaging-effect] save) to living creatures in the area. A creature that fails also takes [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p>The nuckelavee can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1263,7 +1282,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The target can't recover from the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition caused by mortasheen until the disease is cured. Mortasheen gains the virulent trait against animals and plants <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"disease,virulent\" data-pf2-label=\"Mortasheen (Animal or Plant) DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"disease\" data-pf2-label=\"Mortasheen DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Stage 1</strong> Carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
+                    "value": "<p>The target can't recover from the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition caused by mortasheen until the disease is cured. Mortasheen gains the virulent trait against animals and plants @Check[type:fortitude|dc:28|name:Mortasheen (Animal or Plant)|traits:disease,virulent]</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28|name:Mortasheen|traits:disease]</p>\n<p><strong>Stage 1</strong> Carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1310,7 +1329,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Medium or smaller, hoof, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Medium or smaller, hoof, @Check[type:reflex|dc:28|basic:true|name:Trample|traits:damaging-effect]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "requirements": {
                     "value": ""

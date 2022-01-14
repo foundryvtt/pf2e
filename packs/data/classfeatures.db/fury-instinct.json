@@ -136,6 +136,23 @@
                 "selector": "damage",
                 "slug": "dedication-instinct-rage-agile",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "postFilter": {
+                        "not": [
+                            "item:draconic-arrogance"
+                        ]
+                    },
+                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"barbarian\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.furyInstinct}"
             }
         ],
         "source": {

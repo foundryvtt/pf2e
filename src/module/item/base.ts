@@ -1,11 +1,4 @@
 import { ChatMessagePF2e } from "@module/chat-message";
-import {
-    AbilityModifier,
-    ensureProficiencyOption,
-    ModifierPF2e,
-    ProficiencyModifier,
-    StatisticModifier,
-} from "@module/modifiers";
 import { ErrorPF2e, sluggify } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
@@ -14,11 +7,9 @@ import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./
 import { isItemSystemData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { ItemSheetPF2e } from "./sheet/base";
-import { AbilityString } from "@actor/data/base";
 import { isCreatureData } from "@actor/data/helpers";
 import { NPCSystemData } from "@actor/npc/data";
 import { HazardSystemData } from "@actor/hazard/data";
-import { CheckPF2e } from "@system/rolls";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
@@ -347,80 +338,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         });
     }
 
-    /**
-     * Roll Counteract check
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollCounteract(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) {
-            return;
-        }
-        const itemData =
-            this.data.type === "consumable" && this.data.data.spell?.data
-                ? duplicate(this.data.data.spell.data)
-                : this.toObject();
-        if (itemData.type !== "spell") throw ErrorPF2e("Wrong item type!");
-
-        const spellcastingEntry = this.actor.spellcasting.get(itemData.data.location.value);
-        if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
-
-        const modifiers: ModifierPF2e[] = [];
-        const ability: AbilityString = spellcastingEntry.data.data.ability?.value || "int";
-        const score = this.actor.data.data.abilities[ability]?.value ?? 0;
-        modifiers.push(AbilityModifier.fromScore(ability, score));
-
-        const proficiencyRank = spellcastingEntry.rank;
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
-
-        const rollOptions = ["all", "counteract-check"];
-        const traits = itemData.data.traits.value;
-
-        let flavor = "<hr>";
-        flavor += `<h3>${game.i18n.localize("PF2E.Counteract")}</h3>`;
-        flavor += `<hr>`;
-
-        const spellLevel = (() => {
-            const button = event.currentTarget;
-            const card = button.closest("*[data-spell-lvl]");
-            const cardData = card ? card.dataset : {};
-            return Number(cardData.spellLvl) || 1;
-        })();
-
-        const addFlavor = (success: string, level: number) => {
-            const title = game.i18n.localize(`PF2E.${success}`);
-            const desc = game.i18n.format(`PF2E.CounteractDescription.${success}`, {
-                level: level,
-            });
-            flavor += `<b>${title}</b> ${desc}<br>`;
-        };
-        flavor += `<p>${game.i18n.localize("PF2E.CounteractDescription.Hint")}</p>`;
-        flavor += "<p>";
-        addFlavor("CritSuccess", spellLevel + 3);
-        addFlavor("Success", spellLevel + 1);
-        addFlavor("Failure", spellLevel);
-        addFlavor("CritFailure", 0);
-        flavor += "</p>";
-        const check = new StatisticModifier(flavor, modifiers);
-        const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
-        ensureProficiencyOption(finalOptions, proficiencyRank);
-        const spellTraits = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.magicSchools, ...CONFIG.PF2E.magicTraditions };
-        const traitObjects = traits.map((trait) => ({
-            name: trait,
-            label: spellTraits[trait],
-        }));
-        CheckPF2e.roll(
-            check,
-            {
-                actor: this.actor,
-                type: "counteract-check",
-                options: finalOptions,
-                title: game.i18n.localize("PF2E.Counteract"),
-                traits: traitObjects,
-            },
-            event
-        );
-    }
-
     createTemplate() {
         const itemData =
             this.data.type === "consumable" && this.data.data.spell?.data
@@ -519,10 +436,15 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** If necessary, migrate this item before importing */
     override async importFromJSON(json: string): Promise<this> {
-        const source = this.collection.fromCompendium(JSON.parse(json));
+        const source = JSON.parse(json);
         source._id = this.id;
-        const data = new ItemPF2e.schema(source);
-        this.data.update(data.toObject(), { recursive: false });
+        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
+        const data = new (this.constructor as typeof ItemPF2e).schema(processed);
+
+        const { folder, sort, permission } = this.data;
+        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
+            recursive: false,
+        });
 
         await MigrationRunner.ensureSchemaVersion(
             this,
@@ -591,6 +513,9 @@ class ItemPF2e extends Item<ActorPF2e> {
             // Ensure imported items are current on their schema version
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
         }
+
+        // Remove any rule elements that request their own removal upon item creation
+        this.data._source.data.rules = this.data._source.data.rules.filter((r) => !r.removeUponCreate);
     }
 
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
@@ -605,71 +530,68 @@ class ItemPF2e extends Item<ActorPF2e> {
         await super._preUpdate(changed, options, user);
     }
 
-    /** Call onDelete rule-element hooks, refresh effects panel */
+    /** Call onCreate rule-element hooks */
     protected override _onCreate(
         data: ItemSourcePF2e,
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        if (this.actor) {
-            // Rule Elements
-            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
+        super._onCreate(data, options, userId);
+
+        if (this.actor && game.user.id === userId) {
+            this.actor.prepareData();
             const actorUpdates: Record<string, unknown> = {};
-            for (const rule of this.rules) rule.onCreate?.(actorUpdates);
+            for (const rule of this.rules) {
+                rule.onCreate?.(actorUpdates);
+            }
             this.actor.update(actorUpdates);
         }
-
-        super._onCreate(data, options, userId);
     }
 
     /** Call onDelete rule-element hooks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
-        if (this.actor) {
-            if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
-            const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
-            for (const rule of this.rules) rule.onDelete?.(actorUpdates);
+        super._onDelete(options, userId);
+        if (!(this.actor && game.user.id === userId)) return;
 
-            // Remove attack effect from melee items if this deleted item was the source
-            if (this.actor instanceof NPCPF2e && ["action", "consumable"].includes(this.type)) {
-                const slug = this.slug ?? sluggify(this.name);
-                if (!this.actor.isToken) {
-                    const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];
-                    this.actor.itemTypes.melee.forEach((item) => {
-                        const attackEffects = item.data.data.attackEffects.value;
-                        if (attackEffects.includes(slug)) {
-                            const updatedEffects = attackEffects.filter((effect) => effect !== slug);
-                            itemUpdates.push({
-                                _id: item.id,
-                                data: {
-                                    attackEffects: {
-                                        value: updatedEffects,
-                                    },
-                                },
-                            });
-                        }
-                    });
-                    if (itemUpdates.length > 0) {
-                        mergeObject(actorUpdates, { items: itemUpdates });
+        if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
+        const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
+        for (const rule of this.rules) rule.onDelete?.(actorUpdates);
+
+        // Remove attack effect from melee items if this deleted item was the source
+        if (this.actor instanceof NPCPF2e && ["action", "consumable"].includes(this.type)) {
+            const slug = this.slug ?? sluggify(this.name);
+            if (!this.actor.isToken) {
+                const itemUpdates: DocumentUpdateData<ItemPF2e>[] = [];
+                this.actor.itemTypes.melee.forEach((item) => {
+                    const attackEffects = item.data.data.attackEffects.value;
+                    if (attackEffects.includes(slug)) {
+                        const updatedEffects = attackEffects.filter((effect) => effect !== slug);
+                        itemUpdates.push({
+                            _id: item.id,
+                            data: { attackEffects: { value: updatedEffects } },
+                        });
                     }
-                } else {
-                    // The above method of updating embedded items in an actor update does not work with synthetic actors
-                    const promises: Promise<ItemPF2e>[] = [];
-                    this.actor.itemTypes.melee.forEach((item) => {
-                        const attackEffects = item.data.data.attackEffects.value;
-                        if (attackEffects.includes(slug)) {
-                            const updatedEffects = attackEffects.filter((effect) => effect !== slug);
-                            promises.push(item.update({ ["data.attackEffects.value"]: updatedEffects }));
-                        }
-                    });
-                    if (promises.length > 0) {
-                        Promise.allSettled(promises);
+                });
+                if (itemUpdates.length > 0) {
+                    mergeObject(actorUpdates, { items: itemUpdates });
+                }
+            } else {
+                // The above method of updating embedded items in an actor update does not work with synthetic actors
+                const promises: Promise<ItemPF2e>[] = [];
+                this.actor.itemTypes.melee.forEach((item) => {
+                    const attackEffects = item.data.data.attackEffects.value;
+                    if (attackEffects.includes(slug)) {
+                        const updatedEffects = attackEffects.filter((effect) => effect !== slug);
+                        promises.push(item.update({ ["data.attackEffects.value"]: updatedEffects }));
                     }
+                });
+                if (promises.length > 0) {
+                    Promise.allSettled(promises);
                 }
             }
-
-            this.actor.update(actorUpdates);
         }
-        super._onDelete(options, userId);
+
+        this.actor.update(actorUpdates);
     }
 }
 

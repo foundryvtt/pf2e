@@ -47,11 +47,6 @@ export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 export interface BaseRawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */
     slug?: string;
-    /**
-     * Both a slug and a label
-     * @deprecated
-     */
-    name?: string;
     /** The display name of this modifier; can be a localization key (see en.json). */
     label: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
@@ -65,21 +60,23 @@ export interface BaseRawModifier {
     /** If true, these custom dice are being ignored in the damage calculation. */
     ignored?: boolean;
     /** The source from which this modifier originates, if any. */
-    source?: string;
+    source?: string | null;
     /** If true, this modifier is a custom player-provided modifier. */
     custom?: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType?: string;
+    damageType?: string | null;
     /** The damage category */
-    damageCategory?: string;
+    damageCategory?: string | null;
     /** A predicate which determines when this modifier is active. */
     predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
-    critical?: boolean;
+    critical?: boolean | null;
     /** Any notes about this modifier. */
     notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
+    /** Hide this modifier in UIs if it is disabled */
+    hideIfDisabled?: boolean;
 }
 
 export interface RawModifier extends BaseRawModifier {
@@ -95,14 +92,15 @@ export class ModifierPF2e implements RawModifier {
     ability: AbilityString | null;
     enabled: boolean;
     ignored: boolean;
-    source?: string;
+    source: string | null;
     custom: boolean;
-    damageType?: string;
-    damageCategory?: string;
+    damageType: string | null;
+    damageCategory: string | null;
     predicate: PredicatePF2e;
-    critical?: boolean;
-    traits?: string[];
-    notes?: string;
+    critical: boolean | null;
+    traits: string[];
+    notes: string;
+    hideIfDisabled: boolean;
 
     /**
      * Create a new modifier.
@@ -114,12 +112,12 @@ export class ModifierPF2e implements RawModifier {
      * @param source The source from which this modifier originates, if any.
      * @param notes Any notes about this modifier.
      */
-    constructor(args: RawModifier);
+    constructor(args: ModifierObjectParams);
     constructor(...args: ModifierOrderedParams);
-    constructor(...args: [RawModifier] | ModifierOrderedParams) {
-        const isLegacyParams = (args: [RawModifier] | ModifierOrderedParams): args is ModifierOrderedParams =>
+    constructor(...args: [ModifierObjectParams] | ModifierOrderedParams) {
+        const isLegacyParams = (args: [ModifierObjectParams] | ModifierOrderedParams): args is ModifierOrderedParams =>
             typeof args[0] === "string";
-        const params: RawModifier = isLegacyParams(args)
+        const params: ModifierObjectParams = isLegacyParams(args)
             ? {
                   label: args[0],
                   modifier: args[1],
@@ -139,15 +137,17 @@ export class ModifierPF2e implements RawModifier {
         this.modifier = params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
-        this.damageType = params.damageType;
-        this.damageCategory = params.damageCategory;
+        this.damageType = params.damageType ?? null;
+        this.damageCategory = params.damageCategory ?? null;
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
-        this.source = params.source;
+        this.critical = params.critical ?? null;
+        this.source = params.source ?? null;
         this.predicate = new PredicatePF2e(params.predicate);
-        this.notes = params.notes;
+        this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
+        this.hideIfDisabled = params.hideIfDisabled ?? false;
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -162,9 +162,17 @@ export class ModifierPF2e implements RawModifier {
         this.ignored = !this.predicate.test(options);
     }
 
+    toObject(): Required<RawModifier> {
+        return duplicate(this);
+    }
+
     toString() {
         return this.label;
     }
+}
+
+interface ModifierObjectParams extends RawModifier {
+    name?: string;
 }
 
 type ModifierOrderedParams = [

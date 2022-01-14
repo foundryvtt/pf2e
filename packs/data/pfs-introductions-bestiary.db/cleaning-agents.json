@@ -21,13 +21,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>Solvents and detergents spray from the ceiling and run down the walls where they combine in dangerous ways.</p>",
-            "disable": "<p><span data-pf2-check=\"engineering-lore\" data-pf2-traits=\"mechanical,complex\" data-pf2-label=\"Disable Control Panel DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Engineering Lore</span> (trained) or <span data-pf2-check=\"thievery\" data-pf2-traits=\"mechanical,complex\" data-pf2-label=\"Disable Control Panel DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) to deactivate the control panel, or <span data-pf2-check=\"athletics\" data-pf2-traits=\"mechanical,complex\" data-pf2-label=\"Plug the Spouts DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Athletics</span> or <span data-pf2-check=\"acrobatics\" data-pf2-traits=\"mechanical,complex\" data-pf2-label=\"Plug the Spouts DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Acrobatics</span> to plug the spouts that release the chemicals; three successes are required to disable the trap.</p>",
+            "disable": "<p>@Check[type:engineering-lore|dc:20|name:Disable Control Panel|traits:mechanical,complex]{Engineering Lore} (trained) or @Check[type:thievery|dc:20|name:Disable Control Panel|traits:mechanical,complex] (trained) to deactivate the control panel, or @Check[type:athletics|dc:21|name:Plug the Spouts|traits:mechanical,complex] or @Check[type:acrobatics|dc:21|name:Plug the Spouts|traits:mechanical,complex] to plug the spouts that release the chemicals; three successes are required to disable the trap.</p>",
             "isComplex": true,
             "level": {
                 "value": 3
             },
             "reset": "<p>The trap deactivates after 1 minute and resets in 1 hour.</p>",
-            "routine": "<p><span class=\"pf2-icon\">3</span> The trap fills the room with a cloud of caustic vapor and deals [[/r {2d6+2}[acid]]]{2d6+2 acid damage} to all creatures in the area (<span data-pf2-check=\"fortitude\" data-pf2-traits=\"acid\" data-pf2-label=\"Cleaning Agent DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">basic Fortitude</span>).</p>"
+            "routine": "<p><span class=\"pf2-icon\">3</span> The trap fills the room with a cloud of caustic vapor and deals [[/r {2d6+2}[acid]]]{2d6+2 acid damage} to all creatures in the area (@Check[type:fortitude|dc:20|basic:true|name:Cleaning Agent|traits:acid]).</p>"
         },
         "saves": {
             "fortitude": {
@@ -85,7 +85,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature enters the room.</p>\n<p><strong>Effect</strong> The trap sprays cleaning chemicals at the triggering creature dealing [[/r {1d8+4}[acid]]]{1d4+8 acid damage}. The creature must attempt a <span data-pf2-check=\"reflex\" data-pf2-traits=\"acid,damaging-effect\" data-pf2-label=\"Decontamination Spray DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Reflex</span> save, and the trap then rolls initiative.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Blinded]{Blind} for 1 round.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature enters the room.</p>\n<p><strong>Effect</strong> The trap sprays cleaning chemicals at the triggering creature dealing [[/r {1d8+4}[acid]]]{1d4+8 acid damage}. The creature must attempt a @Check[type:reflex|dc:20|name:Decontamination Spray|traits:acid,damaging-effect] save, and the trap then rolls initiative.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Blinded]{Blind} for 1 round.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""

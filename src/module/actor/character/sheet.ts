@@ -152,7 +152,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         sheetData.crafting = {
-            noCost: this.actor.data.flags.pf2e.freeCrafting,
+            noCost: this.actor.data.flags.pf2e.freeCrafting || this.actor.data.flags.pf2e.quickAlchemy,
+            hasQuickAlchemy: this.actor.itemTypes.action.some((a) => a.slug === "quick-alchemy"),
             knownFormulas: formulasByLevel,
             entries: await this.prepareCraftingEntries(),
         };
@@ -236,14 +237,25 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             label: string;
             feats: SlottedFeat[];
             bonusFeats: { data: FeatData; grants: GrantedFeat[] }[];
+            featFilter?: string;
         }
 
         const tempFeats: FeatData[] = [];
         const featSlots: Record<string, FeatSlot> = {
             ancestryfeature: { label: "PF2E.FeaturesAncestryHeader", feats: [], bonusFeats: [] },
             classfeature: { label: "PF2E.FeaturesClassHeader", feats: [], bonusFeats: [] },
-            ancestry: { label: "PF2E.FeatAncestryHeader", feats: [], bonusFeats: [] },
-            class: { label: "PF2E.FeatClassHeader", feats: [], bonusFeats: [] },
+            ancestry: {
+                label: "PF2E.FeatAncestryHeader",
+                feats: [],
+                bonusFeats: [],
+                featFilter: "ancestry-" + this.actor.ancestry?.slug,
+            },
+            class: {
+                label: "PF2E.FeatClassHeader",
+                feats: [],
+                bonusFeats: [],
+                featFilter: "classes-" + this.actor.class?.slug,
+            },
             dualclass: { label: "PF2E.FeatDualClassHeader", feats: [], bonusFeats: [] },
             archetype: { label: "PF2E.FeatArchetypeHeader", feats: [], bonusFeats: [] },
             skill: { label: "PF2E.FeatSkillHeader", feats: [], bonusFeats: [] },
@@ -457,7 +469,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
         for (const featData of tempFeats) {
-            if (featData.flags.pf2e.grantedBy) {
+            if (featData.flags.pf2e.grantedBy && !featData.data.location) {
                 const granter = this.actor.items.get(featData.flags.pf2e.grantedBy);
                 if (granter instanceof FeatPF2e) continue;
             }
@@ -472,7 +484,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const getGrants = (grantedIds: string[]): GrantedFeat[] => {
                 return grantedIds.flatMap((grantedId: string) => {
                     const item = this.actor.items.get(grantedId);
-                    return item instanceof FeatPF2e
+                    return item instanceof FeatPF2e && !item.data.data.location
                         ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
                         : [];
                 });
@@ -548,7 +560,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
                 const entry = this.actor.spellcasting.get(itemData._id);
-                if (!entry) continue;
+                if (!(entry instanceof SpellcastingEntryPF2e)) continue;
                 sheetData.spellcastingEntries.push({
                     ...itemData,
                     ...entry.getSpellData(),
@@ -803,6 +815,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             item.update(data);
         });
 
+        const $craftingOptions = html.find(".crafting-options").find("input:checkbox");
+        $craftingOptions.on("click", async (event) => {
+            const flags: string[] = [];
+            $craftingOptions.each((_index, element) => {
+                if (element !== event.target) {
+                    flags.push($(element).attr("flag") as string);
+                }
+            });
+            flags.forEach(async (flag) => {
+                await this.actor.setFlag("pf2e", flag, false);
+            });
+        });
+
         const $formulas = html.find(".craftingEntry-list");
 
         $formulas.find(".craft-item").on("click", async (event) => {
@@ -811,6 +836,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
             const formula = this.knownFormulas.get(itemUuid ?? "");
             if (!formula) return;
+
+            if (this.actor.data.flags.pf2e.quickAlchemy) {
+                const reagentValue = this.actor.data.data.resources.crafting.infusedReagents.value - itemQuantity;
+                if (reagentValue < 0) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+                    return;
+                }
+                await this.actor.update({ "data.resources.crafting.infusedReagents.value": reagentValue });
+                craftItem(formula.item, itemQuantity, this.actor, true);
+                return;
+            }
 
             if (this.actor.data.flags.pf2e.freeCrafting) {
                 const itemId = itemUuid?.split(".").pop() ?? "";

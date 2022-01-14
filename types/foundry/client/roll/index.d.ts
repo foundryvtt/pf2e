@@ -27,7 +27,7 @@ declare global {
      * console.log(r.total);    // 22
      */
     class Roll<TData extends RollData = RollData> {
-        constructor(formula: string, data?: TData, options?: RollData);
+        constructor(formula: string, data?: Partial<TData>, options?: Partial<TData>);
 
         /** The original provided data object which substitutes into attributes of the roll formula */
         data: TData;
@@ -117,15 +117,7 @@ declare global {
          * console.log(r.result); // 5 + 4 + 2
          * console.log(r.total);  // 11
          */
-        evaluate({
-            minimize,
-            maximize,
-            async,
-        }?: {
-            minimize?: boolean;
-            maximize?: boolean;
-            async?: false;
-        }): Rolled<this>;
+        evaluate({ minimize, maximize, async }: { minimize?: boolean; maximize?: boolean; async: false }): Rolled<this>;
         evaluate({
             minimize,
             maximize,
@@ -139,10 +131,10 @@ declare global {
             minimize,
             maximize,
             async,
-        }?: {
+        }: {
             minimize?: boolean;
             maximize?: boolean;
-            async?: boolean;
+            async: boolean;
         }): Rolled<this> | Promise<Rolled<this>>;
 
         /**

@@ -3,7 +3,6 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { ItemSourcePF2e } from "@item/data";
-import { MartialProficiency } from "@actor/character/data";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "./multiple-attack-penalty";
 import { StrikingPF2e } from "./striking";
@@ -22,6 +21,7 @@ export type RuleElementSource = {
     priority?: number;
     ignored?: boolean;
     requiresInvestment?: boolean;
+    removeUponCreate?: unknown;
 };
 
 export interface RuleElementData extends RuleElementSource {
@@ -35,6 +35,8 @@ export interface RuleElementData extends RuleElementSource {
     predicate?: PredicatePF2e;
     priority: number;
     ignored: boolean;
+    requiresInvestment?: boolean;
+    removeUponCreate: boolean;
 }
 
 export type RuleValue = string | number | boolean | object | null;
@@ -72,7 +74,6 @@ export interface REPreDeleteParameters {
 
 export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
-    martialProficiencies: Record<string, MartialProficiency>;
     multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     senses: SenseSynthetic[];

@@ -1000,7 +1000,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Khakkhara",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD10",
+                        "override": {
+                            "dieSize": "d10"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1441,7 +1460,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Abbot Tsujon's khakkhara holds a glowing orb from Absorb Worldly Influence</p>\n<p><strong>Effect</strong> Abbot Tsujon strikes her prayer staff once upon the ground, releasing the energy she captured in it along with the jingling of its rings. She blasts a wave of force in a 30- foot emanation, dealing [[/r {2d6}[force]]]{2d6 force damage} per level of the ability she counteracted (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,divine, evocation, force,manipulate\" data-pf2-label=\"Release Worldly Passions DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). If the ability she counteracted usually deals energy damage, she can choose to deal this type of damage instead (for instance, if she used Absorb Worldly Influence to counteract a fireball, she could deal either fire or force damage).</p>"
+                    "value": "<p><strong>Requirements</strong> Abbot Tsujon's khakkhara holds a glowing orb from Absorb Worldly Influence</p>\n<p><strong>Effect</strong> Abbot Tsujon strikes her prayer staff once upon the ground, releasing the energy she captured in it along with the jingling of its rings. She blasts a wave of force in a 30- foot emanation, dealing [[/r {2d6}[force]]]{2d6 force damage} per level of the ability she counteracted (@Check[type:reflex|dc:40|basic:true|name:Release Worldly Passions|traits:damaging-effect,divine, evocation, force,manipulate] save). If the ability she counteracted usually deals energy damage, she can choose to deal this type of damage instead (for instance, if she used Absorb Worldly Influence to counteract a fireball, she could deal either fire or force damage).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1488,7 +1507,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> Abbot Tsujon makes two Strikes, each of which must be an unarmed Strike or crying temple bell Strike. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. If either Strike hits and deals damage, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Stunning Flurry DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> Abbot Tsujon makes two Strikes, each of which must be an unarmed Strike or crying temple bell Strike. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. If either Strike hits and deals damage, the target must succeed at a @Check[type:fortitude|dc:39|name:Stunning Flurry|traits:incapacitation] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
                 },
                 "requirements": {
                     "value": ""

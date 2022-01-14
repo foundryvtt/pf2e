@@ -74,9 +74,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             // Set the item flag in case other preCreate REs need it
             this.item.data.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
-            // Now that a selection is made, other rule elements can be set back to unignored
             for (const rule of this.item.rules) {
+                // Now that a selection is made, other rule elements can be set back to unignored
                 rule.ignored = false;
+                // Call any AE-likes in case roll options are required for later rules
+                rule.onApplyActiveEffects?.();
             }
         } else {
             ruleSource.ignored = true;
@@ -143,7 +145,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
 
         const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
-        if (choices.filter) choices.filter = new PredicatePF2e(choices.filter);
+        if (choices.postFilter) choices.postFilter = new PredicatePF2e(choices.postFilter);
 
         try {
             // Resolve any injected properties in the query
@@ -168,8 +170,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
 
             // Apply the followup predication filter if there is one
-            const filtered = choices.filter
-                ? feats.filter((f) => choices.filter!.test(f.getItemRollOptions("item")))
+            const filtered = choices.postFilter
+                ? feats.filter((f) => choices.postFilter!.test(f.getItemRollOptions("item")))
                 : feats;
 
             // Exclude any feat the character already has and return final list

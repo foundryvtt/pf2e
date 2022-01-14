@@ -1577,7 +1577,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1599,51 +1618,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bastard Sword",
             "sort": 1200000,
-            "type": "melee"
-        },
-        {
-            "_id": "knUcVnGxqZex298A",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "201y449xjgdf0lrs2paz": {
-                        "damage": "3d12+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "two-hand-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bastard Sword (Two Handed)",
-            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1691,7 +1665,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1730,7 +1704,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Link",
-            "sort": 1500000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1776,7 +1750,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1600000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1815,7 +1789,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Disrupted Link",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1854,7 +1828,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Calm",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1910,7 +1884,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Tactics",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1940,7 +1914,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1970,7 +1944,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2100000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2000,7 +1974,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2030,7 +2004,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2300000,
+            "sort": 2200000,
             "type": "lore"
         }
     ],

@@ -538,7 +538,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Broom",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -559,50 +578,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Broom",
             "sort": 400000,
-            "type": "melee"
-        },
-        {
-            "_id": "vrUWfAoqyDVUKeL8",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "ngucq0lzd5rddxu6ce7wl": {
-                        "damage": "1d8+2",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Broom (Two-Handed)",
-            "sort": 500000,
             "type": "melee"
         },
         {
@@ -647,7 +622,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 600000,
+            "sort": 500000,
             "type": "melee"
         },
         {
@@ -692,7 +667,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ledger",
-            "sort": 700000,
+            "sort": 600000,
             "type": "melee"
         },
         {
@@ -734,7 +709,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Font of Gossip",
-            "sort": 800000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -815,7 +790,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Home Turf",
-            "sort": 900000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -848,7 +823,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Accounting Lore",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -881,7 +856,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Cooking Lore",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -914,7 +889,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -947,7 +922,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -980,7 +955,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

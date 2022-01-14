@@ -1,4 +1,3 @@
-import { ActorPF2e } from "@actor/base";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { LocalizePF2e } from "@module/system/localize";
 
@@ -35,19 +34,19 @@ export const DamageButtons = {
         html.find("button.shield-block").attr({ title: LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock });
         // Handle button clicks
         full.on("click", (event) => {
-            applyDamage(html, 1, event.shiftKey);
+            applyDamage(message, 1, 0, event.shiftKey);
         });
 
         half.on("click", (event) => {
-            applyDamage(html, 0.5, event.shiftKey);
+            applyDamage(message, 0.5, 0, event.shiftKey);
         });
 
         double.on("click", (event) => {
-            applyDamage(html, 2, event.shiftKey);
+            applyDamage(message, 2, 0, event.shiftKey);
         });
 
         triple?.on("click", (event) => {
-            applyDamage(html, 3, event.shiftKey);
+            applyDamage(message, 3, 0, event.shiftKey);
         });
 
         $shield.on("click", async (event) => {
@@ -102,29 +101,31 @@ export const DamageButtons = {
         });
 
         heal.on("click", (event) => {
-            applyDamage(html, -1, event.shiftKey);
+            applyDamage(message, -1, 0, event.shiftKey);
         });
     },
 };
 
-function applyDamage(html: JQuery<HTMLElement>, multiplier: number, promptModifier = false) {
-    let attribute = "attributes.hp";
-    const $button = html.find("button.shield-block");
-    if (CONFIG.PF2E.chatDamageButtonShieldToggle && multiplier > 0) {
-        attribute = "attributes.shield";
-        $button.removeClass("shield-activated");
-        CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-    }
-    const shieldID = $button.attr("data-shield-id") ?? undefined;
-
+async function applyDamage(message: ChatMessagePF2e, multiplier: number, adjustment = 0, promptModifier = false) {
     if (promptModifier) {
-        shiftModifyDamage(html, multiplier, attribute);
+        shiftModifyDamage(message, multiplier);
     } else {
-        ActorPF2e.applyDamage(html, multiplier, attribute, 0, { shieldID: shieldID });
+        const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+        if (tokens.length === 0) {
+            const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
+            ui.notifications.error(errorMsg);
+            return;
+        }
+
+        for await (const token of tokens) {
+            const damage = message.roll!.total * multiplier + adjustment;
+            await token.actor?.applyDamage(damage, token, CONFIG.PF2E.chatDamageButtonShieldToggle);
+        }
     }
+    toggleOffShieldBlock(message.id);
 }
 
-function shiftModifyDamage(html: JQuery<HTMLElement>, multiplier: number, attributePassed = "attributes.hp") {
+function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
     new Dialog({
         title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
         content: `<form>
@@ -141,21 +142,27 @@ function shiftModifyDamage(html: JQuery<HTMLElement>, multiplier: number, attrib
         buttons: {
             ok: {
                 label: "Ok",
-                callback: async (dialogHtml: JQuery) => {
-                    let modifier = parseFloat(<string>dialogHtml.find('[name="modifier"]').val());
-                    if (Number.isNaN(modifier)) {
-                        modifier = 0;
-                    }
-                    if (modifier !== undefined) {
-                        // In case of healing, multipler will have negative sign. The user will expect that positive
-                        // modifier would increase healing value, while negative would decrease.
-                        modifier *= Math.sign(multiplier);
-                        await ActorPF2e.applyDamage(html, multiplier, attributePassed, modifier);
-                    }
+                callback: async ($dialog: JQuery) => {
+                    // In case of healing, multipler will have negative sign. The user will expect that positive
+                    // modifier would increase healing value, while negative would decrease.
+                    const adjustment = (Number($dialog.find('[name="modifier"]').val()) || 0) * Math.sign(multiplier);
+                    applyDamage(message, multiplier, adjustment);
                 },
             },
         },
         default: "ok",
-        close: () => {},
+        close: () => {
+            toggleOffShieldBlock(message.id);
+        },
     }).render(true);
+}
+
+/** Toggle off the Shield Block button on a damage chat message */
+function toggleOffShieldBlock(messageId: string): void {
+    if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
+        const $message = $(`#chat-log > li.chat-message[data-message-id="${messageId}"]`);
+        const $button = $message.find("button.shield-block");
+        $button.removeClass("shield-activated");
+        CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+    }
 }

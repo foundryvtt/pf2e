@@ -2522,7 +2522,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2543,51 +2562,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
             "sort": 2100000,
-            "type": "melee"
-        },
-        {
-            "_id": "3Cz6TPlBqKRmFjpf",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "f1qmx878yr9t3fy3cmox": {
-                        "damage": "1d8+6",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff (Two-Handed)",
-            "sort": 2200000,
             "type": "melee"
         },
         {
@@ -2633,7 +2607,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 2300000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2686,7 +2660,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 2400000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2734,7 +2708,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
-            "sort": 2500000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2782,7 +2756,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Masterpiece",
-            "sort": 2600000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2798,7 +2772,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22|name:Ghoul Fever|traits:disease]</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -2830,7 +2804,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghoul Fever",
-            "sort": 2700000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -2846,7 +2820,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
+                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a @Check[type:fortitude|dc:22|name:Paralysis|traits:incapacitation,occult,necromancy] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2880,7 +2854,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
-            "sort": 2800000,
+            "sort": 2700000,
             "type": "action"
         },
         {
@@ -2928,7 +2902,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 2900000,
+            "sort": 2800000,
             "type": "action"
         },
         {
@@ -2961,7 +2935,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 3000000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2994,7 +2968,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 3100000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -3027,7 +3001,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3200000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -3060,7 +3034,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 3300000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -3093,7 +3067,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 3400000,
+            "sort": 3300000,
             "type": "lore"
         },
         {
@@ -3126,7 +3100,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3500000,
+            "sort": 3400000,
             "type": "lore"
         }
     ],

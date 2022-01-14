@@ -92,7 +92,7 @@
                 "custom": "",
                 "value": [
                     "cold",
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "paralyzed",
                     "poison",
@@ -1713,7 +1713,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm attempts to counteract any <em>@Compendium[pf2e.spells-srd.Death Ward]{Death Ward}</em> effect on the creature ([[/r 1d20+30 #Counteract]]{+30 counteract modifier}) and then deals [[/r {4d6}[slashing]]]{4d6 slashing damage} and [[/r {4d6}[negative]]]{4d6 negative damage} to the creature, with a <span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"air,aura,divine,necromancy,damaging-effect\" data-pf2-label=\"Shard Storm DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm attempts to counteract any <em>@Compendium[pf2e.spells-srd.Death Ward]{Death Ward}</em> effect on the creature ([[/r 1d20+30 #Counteract]]{+30 counteract modifier}) and then deals [[/r {4d6}[slashing]]]{4d6 slashing damage} and [[/r {4d6}[negative]]]{4d6 negative damage} to the creature, with a @Check[type:reflex|dc:40|basic:true|name:Shard Storm|traits:air,aura,divine,necromancy,damaging-effect] save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1760,7 +1760,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm.</p>\n<p>The creature must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Bonetaker DC\" data-pf2-show-dc=\"gm\">Will</span> save<span data-visibility=\"gm\"> or rise as a @Compendium[pf2e.pathfinder-bestiary.Skeletal Champion]{Skeletal Champion} in [[/br 1d4 #rounds]]{1d4 rounds}. These skeletal champions are controlled by the skulltaker</span>.</p>"
+                    "value": "<p>Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm.</p>\n<p>The creature must succeed at a @Check[type:will|dc:40|name:Bonetaker|traits:divine,necromancy] save<span data-visibility=\"gm\"> or rise as a @Compendium[pf2e.pathfinder-bestiary.Skeletal Champion]{Skeletal Champion} in [[/br 1d4 #rounds]]{1d4 rounds}. These skeletal champions are controlled by the skulltaker</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1805,7 +1805,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a skulltaker hits with a melee Strike, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Energy Drain DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>"
+                    "value": "<p>When a skulltaker hits with a melee Strike, the target must succeed at a @Check[type:fortitude|dc:40|name:Energy Drain|traits:divine,necromancy] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1850,7 +1850,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The skulltaker causes splintered bones to erupt from all solid surfaces in a @Template[type:emanation|distance:100], except for surfaces of worked stone.</p>\n<p>A creature moving through the bones takes [[/r {10}[piercing]+{10}[negative]]]{10 piercing damage and 10 negative damage} for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"40\" data-pf2-label=\"Splintered Ground DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or take a -10-foot circumstance penalty to all Speeds for 10 minutes, or a -15-foot circumstance penalty for 24 hours on a critical failure.</p>\n<p>The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Splintered Ground]{Effect: Splintered Ground}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Splintered Ground (Critical Failure)]{Effect: Splintered Ground (Critical Failure)}</p>"
+                    "value": "<p>The skulltaker causes splintered bones to erupt from all solid surfaces in a @Template[type:emanation|distance:100], except for surfaces of worked stone.</p>\n<p>A creature moving through the bones takes [[/r {10}[piercing]+{10}[negative]]]{10 piercing damage and 10 negative damage} for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a @Check[type:reflex|dc:40|name:Splintered Ground] save or take a -10-foot circumstance penalty to all Speeds for 10 minutes, or a -15-foot circumstance penalty for 24 hours on a critical failure.</p>\n<p>The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Splintered Ground]{Effect: Splintered Ground}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Splintered Ground (Critical Failure)]{Effect: Splintered Ground (Critical Failure)}</p>"
                 },
                 "requirements": {
                     "value": ""

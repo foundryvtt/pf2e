@@ -145,11 +145,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const itemData = this.item.clone({}, { keepId: true }).data;
         itemData.data.rules = itemData.toObject().data.rules;
 
-        const rollData = this.item.getRollData();
-        itemData.data.description.value = game.pf2e.TextEditor.enrichHTML(itemData.data.description.value, {
-            rollData,
-        });
-
         const isEditable = this.isEditable;
         return {
             itemType: null,
@@ -375,6 +370,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollsLinks.listen(html);
+
+        // Work around core bug present as of v9.241 in which contenteditable is ignored by `KeyboardManager` unless
+        // it has the value "true"
+        html.find('span[contenteditable=""]').attr({ contenteditable: "true" });
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {

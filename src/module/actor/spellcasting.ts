@@ -2,9 +2,14 @@ import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
 import { ErrorPF2e, tupleHasValue } from "@util";
 
-export class ActorSpellcasting extends Collection<Embedded<SpellcastingEntryPF2e>> {
-    constructor(public readonly actor: ActorPF2e, entries?: Embedded<SpellcastingEntryPF2e>[]) {
+export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
+    constructor(public readonly actor: ActorPF2e, entries?: SpellcastingEntryPF2e[]) {
         super(entries?.map((entry) => [entry.id, entry]));
+    }
+
+    /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
+    get regular() {
+        return this.filter((entry): entry is SpellcastingEntryPF2e => entry instanceof SpellcastingEntryPF2e);
     }
 
     /**
@@ -12,7 +17,7 @@ export class ActorSpellcasting extends Collection<Embedded<SpellcastingEntryPF2e
      * full fledged spellcasting feature for wands and scrolls.
      */
     get spellcastingFeatures() {
-        return this.filter((entry) => entry.isPrepared || entry.isSpontaneous);
+        return this.regular.filter((entry) => entry.isPrepared || entry.isSpontaneous);
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {

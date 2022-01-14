@@ -191,7 +191,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const $spellEl = $(event.currentTarget).closest(".item");
             const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
             const entry = this.actor.spellcasting.get(entryId);
-            if (!entry) {
+            if (!(entry instanceof SpellcastingEntryPF2e)) {
                 console.warn("PF2E System | Failed to load spellcasting entry");
                 return;
             }

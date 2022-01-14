@@ -42,6 +42,7 @@
                 "value": 8
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -56,7 +57,7 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Dero magisters are leaders among dero society. They perform the bulk of the cruel operations and memory-altering procedures inflicted upon their victims.</p>",
+            "publicNotes": "<p>Dero magisters are leaders among dero society. They perform the bulk of the cruel operations and memory-altering procedures inflicted upon their victims.</p>\n<hr />\n<p>Deros are short, wiry humanoids with milky white eyes, gray-blue skin, and wild shocks of off-white or gray hair. The descendants of a mysterious type of fey abandoned in the deepest, darkest caverns of Golarion, deros are the subject of fearful legends and folk tales to most of the world's surface races. They skulk beneath major metropolitan areas, performing cruel and twisted experiments on unwilling subjects. A dero is 3 feet tall and weighs approximately 70 pounds.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -90,7 +91,12 @@
                 ]
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "type": "vulnerable-to-sunlight",
+                    "value": 0
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -120,7 +126,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "eo5LDTv81KwAix4V",
+            "_id": "YuejnaqH1UUSFEtm",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -138,10 +144,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": false
+                    "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -153,9 +159,9 @@
                         "value": 0
                     },
                     "slot1": {
-                        "max": "4",
+                        "max": 4,
                         "prepared": [],
-                        "value": "4"
+                        "value": 4
                     },
                     "slot10": {
                         "max": 0,
@@ -168,14 +174,14 @@
                         "value": 0
                     },
                     "slot2": {
-                        "max": "4",
+                        "max": 4,
                         "prepared": [],
-                        "value": "4"
+                        "value": 4
                     },
                     "slot3": {
-                        "max": "3",
+                        "max": 3,
                         "prepared": [],
-                        "value": "3"
+                        "value": 3
                     },
                     "slot4": {
                         "max": 0,
@@ -234,10 +240,10 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "xUKSK5Kb3EcIMbWP",
+            "_id": "bKldotvWkspZfjHv",
             "data": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
                     "value": ""
@@ -255,7 +261,7 @@
                     "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -348,7 +354,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "Xbti7891QEKBooFi",
+            "_id": "tmYMK1XVL4glUBN6",
             "data": {
                 "ability": {
                     "value": ""
@@ -356,6 +362,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -376,7 +385,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You alter the target's memories, either erasing a memory, enhancing a memory's clarity, altering a memory, or adding a false memory. The target can attempt a Will save to resist the spell.Any memories you've altered remain changed as long as the spell is active. If the target moves out of range before the 5 minutes is up, you can't alter any further memories.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and realizes you tried to alter its memory.\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of modify memory, unless it identifies the spell.</p>\n<p><strong>Failure</strong> During the first 5 minutes of the spell's duration, you can Sustain the Spell to modify a memory once each round. When you do, you imagine up to 6 seconds of memory to modify, to a maximum of 5 continuous minutes of memory.</p>\n<hr /><strong>Heightened</strong> You can cast the spell on a willing target to suppress all memory of a particular topic, detailed in 50 words or fewer. The effect is permanent, and it patches these omissions with an indistinct haze."
+                    "value": "<p>You alter the target's memories, either erasing a memory, enhancing a memory's clarity, altering a memory, or adding a false memory. The target can attempt a Will save to resist the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and realizes you tried to alter its memory.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of modify memory, unless it identifies the spell.</p>\n<p><strong>Failure</strong> During the first 5 minutes of the spell's duration, you can Sustain the Spell to modify a memory once each round. When you do, you imagine up to 6 seconds of memory to modify, to a maximum of 5 continuous minutes of memory.</p>\n<p>Any memories you've altered remain changed as long as the spell is active. If the target moves out of range before the 5 minutes is up, you can't alter any further memories.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can cast the spell on a willing target to suppress all memory of a particular topic, detailed in 50 words or fewer. The effect is permanent, and it patches these omissions with an indistinct haze.</p>"
                 },
                 "duration": {
                     "value": "unlimited"
@@ -384,16 +393,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "xUKSK5Kb3EcIMbWP"
+                    "value": "bKldotvWkspZfjHv"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -402,14 +417,20 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "modify-memory",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=200"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -430,21 +451,25 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
+                    "rarity": "uncommon",
                     "value": [
                         "mental"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.FhOaQDTSnsY7tiam"
+                }
+            },
             "img": "systems/pf2e/icons/spells/modify-memory.webp",
             "name": "Modify Memory",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "xwZxfqJvmJ65l5ic",
+            "_id": "O27iOfNeQZRvqXtM",
             "data": {
                 "ability": {
                     "value": ""
@@ -452,6 +477,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -472,7 +500,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>"
+                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is Blinded for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Blinded permanently.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -480,16 +508,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 3
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -503,9 +537,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blindness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=26"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -536,14 +576,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VosLNn2M8S7JH67D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/blindness.webp",
             "name": "Blindness",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "dV16qqM15sVTh7Hh",
+            "_id": "ktOCZxYYZSbFmO10",
             "data": {
                 "ability": {
                     "value": ""
@@ -551,6 +595,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -579,7 +626,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -587,16 +634,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 3
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -607,12 +660,24 @@
                     "basic": "basic",
                     "value": "fortitude"
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "vampiric-touch",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=354"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -643,14 +708,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
             "name": "Vampiric Touch",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "XqMtBX8ujsDxPPhp",
+            "_id": "TAYmc59V4sXfSfw5",
             "data": {
                 "ability": {
                     "value": ""
@@ -658,6 +727,9 @@
                 "area": {
                     "areaType": "burst",
                     "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -678,7 +750,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -686,16 +758,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "xUKSK5Kb3EcIMbWP"
+                    "value": "bKldotvWkspZfjHv"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -709,9 +787,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -742,14 +826,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.webp",
-            "name": "Darkness (At will)",
+            "name": "Darkness (At Will)",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "YBCrAr8gzDHvgLTR",
+            "_id": "HkdEGyFCz3KJQDFe",
             "data": {
                 "ability": {
                     "value": ""
@@ -757,6 +845,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -785,16 +876,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -808,9 +905,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hideous-laughter",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=150"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -840,14 +943,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tlSE7Ly8vi1Dgddv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "WhobBYWbPd42BLl2",
+            "_id": "LGQ2ibpBXbZjiSBO",
             "data": {
                 "ability": {
                     "value": ""
@@ -855,6 +962,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -875,7 +985,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @Compendium[pf2e.conditionitems.Unfriendly]{Unfriendly} to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><strong>Heightened</strong> You can target up to 5 creatures."
+                    "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @Compendium[pf2e.conditionitems.Unfriendly]{Unfriendly} to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><strong>Heightened (6th)</strong> You can target up to 5 creatures."
                 },
                 "duration": {
                     "value": "1 minute"
@@ -883,16 +993,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -906,9 +1022,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "paranoia",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=214"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -936,21 +1058,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Mkbq9xlAUxHUHyR2"
+                }
+            },
             "img": "systems/pf2e/icons/spells/paranoia.webp",
             "name": "Paranoia",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "w6toYGmkLyDyUvAj",
+            "_id": "TuM7xwEDIHACG7NZ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 10
+                    "value": "10"
+                },
+                "areasize": {
+                    "value": "10-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -979,7 +1108,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A cacophonous noise blasts out, dealing 2d10 sonic damage. Each creature must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute, and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr /><strong>Heightened</strong> The damage increases by 1d10."
+                    "value": "<p>A cacophonous noise blasts out, dealing 2d10 sonic damage. Each creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is Deafened for 1 minute, and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -987,16 +1116,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "xUKSK5Kb3EcIMbWP"
+                    "value": "bKldotvWkspZfjHv"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1007,12 +1142,24 @@
                     "basic": "",
                     "value": "fortitude"
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sound-burst",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=292"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1041,14 +1188,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wzLkNU3AAqOSKFPR"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sound-burst.webp",
             "name": "Sound Burst",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "JVzxTdCVWENwFHwr",
+            "_id": "q6YTPtO71XZsmIBT",
             "data": {
                 "ability": {
                     "value": ""
@@ -1056,6 +1207,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1073,15 +1227,7 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "untyped"
-                            },
-                            "value": "1d6"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
                     "value": "<p>You create a semicorporeal hand out of your essence that delivers touch spells for you. Whenever you Cast a Spell with a range of touch, you can have the hand crawl to a target within range along the ground, touch it, and then crawl back to you. When making a melee spell attack with the hand, you use your normal bonuses. The hand can move as far as it needs to within range. The hand has your AC and saves, but any damage to the hand destroys it and causes you to take 1d6 damage.</p>"
@@ -1092,16 +1238,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1115,9 +1267,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "spectral-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=295"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1144,14 +1302,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rthC6dGm3nNrt1xN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/spectral-hand.webp",
             "name": "Spectral Hand",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "sxHh9ornmdEYJfWd",
+            "_id": "1kBYCVWKgh7Adoob",
             "data": {
                 "ability": {
                     "value": ""
@@ -1159,6 +1321,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1179,7 +1344,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You dull the target's mind; the target must attempt a Will save.</p>\n<hr /><strong>Success</strong> The target is unaffected.\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4}.</p>"
+                    "value": "<p>You dull the target's mind; the target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1187,16 +1352,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1205,14 +1376,20 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "touch-of-idiocy",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=341"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1241,21 +1418,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.CQb8HtQ1BPeZmu9h"
+                }
+            },
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "boTLU9eWD5idhxyL",
+            "_id": "OmcfUYyCkGRjSKmB",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1285,7 +1469,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1297,12 +1481,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1322,9 +1509,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chill-touch",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1355,14 +1548,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mAMEt4FFbdqoRnkN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "YP4Tj1XCFNxOb4Jq",
+            "_id": "cIbdrH5jcFj8t5ik",
             "data": {
                 "ability": {
                     "value": ""
@@ -1370,6 +1567,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1402,12 +1602,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1421,9 +1624,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dancing-lights",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1455,14 +1664,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "axmqyJ6qIBFE4vQU",
+            "_id": "p8EZCiPuYDGVa8gR",
             "data": {
                 "ability": {
                     "value": ""
@@ -1470,6 +1683,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1487,10 +1703,19 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1502,7 +1727,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "xUKSK5Kb3EcIMbWP"
+                    "value": "bKldotvWkspZfjHv"
                 },
                 "materials": {
                     "value": ""
@@ -1510,12 +1735,15 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "will"
                 },
                 "scaling": {
@@ -1527,9 +1755,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1561,21 +1795,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "wnH36vEhFKXCRvDh",
+            "_id": "Va0XfogT4F60cFwg",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1596,7 +1837,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1608,12 +1849,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1627,9 +1871,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1638,7 +1888,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "30-foot emination"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -1662,14 +1912,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
             "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "weWX0pOf9GcqIcKo",
+            "_id": "qfUlje8uIZvyiwdl",
             "data": {
                 "ability": {
                     "value": ""
@@ -1677,6 +1931,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1697,7 +1954,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<hr />\n<p><strong>Heightened</strong> The status bonus increases to +2.</p>"
+                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Forbidding Ward]{Spell Effect: Forbidding Ward}</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -1709,12 +1966,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1728,9 +1988,15 @@
                 "school": {
                     "value": "abjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "forbidding-ward",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=126"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1759,14 +2025,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.RA7VKcen3p56rVyZ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
             "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "HmS0ZzDHTPPTrfsc",
+            "_id": "Gw1aL6nvi3vctrVz",
             "data": {
                 "ability": {
                     "value": ""
@@ -1774,6 +2044,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1794,7 +2067,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened</strong> The range increases to 120 feet.</p>"
+                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1806,12 +2079,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "xUKSK5Kb3EcIMbWP"
+                    "value": "bKldotvWkspZfjHv"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1825,9 +2101,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ghost-sound",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=132"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1857,14 +2139,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.atlgGNI1E1Ox3O3a"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
             "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "3uhHKJEMacKtL3zN",
+            "_id": "rlUeL3r4Q1tTG2zt",
             "data": {
                 "ability": {
                     "value": ""
@@ -1872,6 +2158,9 @@
                 "area": {
                     "areaType": "line",
                     "value": 30
+                },
+                "areasize": {
+                    "value": "30-foot line"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1900,7 +2189,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
                 },
                 "duration": {
                     "value": ""
@@ -1908,16 +2197,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1928,12 +2223,24 @@
                     "basic": "",
                     "value": "fortitude"
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "grim-tendrils",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=141"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1962,14 +2269,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.k34hDOfIIMAxNL4a"
+                }
+            },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
             "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "SshtVHtMzd1xaFgy",
+            "_id": "LJv30DGfMEFT9EHc",
             "data": {
                 "ability": {
                     "value": ""
@@ -1977,6 +2288,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2005,7 +2319,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened</strong> You shoot one additional missile with each action you spend.</p>"
+                    "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2013,16 +2327,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2036,9 +2356,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "magic-missile",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=180"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2050,7 +2376,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "value": [
@@ -2067,14 +2393,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gKKqvLohtrSJj3BM"
+                }
+            },
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
             "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "oISrBn4FXBoSiMQE",
+            "_id": "p7M7UC9dplhPVlfb",
             "data": {
                 "ability": {
                     "value": ""
@@ -2082,6 +2412,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2092,7 +2425,7 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": true,
+                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -2102,7 +2435,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 500 feet.</p>"
+                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
                 },
                 "duration": {
                     "value": "see below"
@@ -2114,12 +2447,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2133,9 +2469,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "message",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=190"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2147,7 +2489,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traditions": {
                     "value": [
@@ -2168,14 +2510,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLzFcIaSXs7YTIqJ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
             "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "wA3eVm9FmagP88qz",
+            "_id": "zXqiG5p6MwIqhfOo",
             "data": {
                 "ability": {
                     "value": ""
@@ -2183,6 +2529,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2202,16 +2551,27 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "mental"
                             },
                             "value": "2d4"
+                        },
+                        "1": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "persistent",
+                                "value": "mental"
+                            },
+                            "value": "1d4"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r {1d4}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being @Compendium[pf2e.conditionitems.Sickened]{Sickened}, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by 1d4."
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r {1d4}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2219,16 +2579,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2237,14 +2603,27 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "2d4",
+                        "1": "1d4"
+                    },
+                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "phantom-pain",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=220"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -2273,14 +2652,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.R8bqnYiThB6MYTxD"
+                }
+            },
             "img": "systems/pf2e/icons/spells/phantom-pain.webp",
             "name": "Phantom Pain",
             "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "CSZo6cuY6rIbzNrp",
+            "_id": "T5RTOEKfn1xH57j3",
             "data": {
                 "ability": {
                     "value": ""
@@ -2288,6 +2671,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -2309,14 +2695,14 @@
                         "0": {
                             "type": {
                                 "categories": [],
-                                "value": "mental"
+                                "value": "healing"
                             },
-                            "value": "1d10"
+                            "value": "1d10+4"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing increases by 1d10+4.</p>"
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2324,16 +2710,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "eo5LDTv81KwAix4V"
+                    "value": "YuejnaqH1UUSFEtm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2344,12 +2736,24 @@
                     "basic": "",
                     "value": ""
                 },
+                "scaling": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1
+                },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "soothe",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=291"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -2379,14 +2783,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.szIyEsvihc5e1w8n"
+                }
+            },
             "img": "systems/pf2e/icons/spells/soothe.webp",
             "name": "Soothe",
             "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "9LRsfsjGUFroYlJK",
+            "_id": "7IjR4hMNtoS1jTfK",
             "data": {
                 "MAP": {
                     "value": "5"
@@ -2647,7 +3055,7 @@
             "type": "melee"
         },
         {
-            "_id": "PvxyaexYPGa9p7Ht",
+            "_id": "ubptAi7h2I8spy2V",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -2693,7 +3101,7 @@
             "type": "action"
         },
         {
-            "_id": "PhlTPUaN9Y2JI6ai",
+            "_id": "bgmY8mouK9Yal1iO",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -2793,7 +3201,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The magister focuses their gaze on a creature they can see within 30 feet. The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round and must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-label=\"Cytillesh Stare DC\" data-pf2-show-dc=\"gm\">Will</span> saving throw or be @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The magister focuses their gaze on a creature they can see within 30 feet. The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round and must succeed at a @Check[type:will|dc:24] saving throw or be @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2806,7 +3214,12 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "concentrate",
+                        "incapacitation",
+                        "mental",
+                        "visual"
+                    ]
                 },
                 "trigger": {
                     "value": ""

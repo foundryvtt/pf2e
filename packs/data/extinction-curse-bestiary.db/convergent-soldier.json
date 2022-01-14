@@ -858,7 +858,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -880,51 +899,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bastard Sword",
             "sort": 600000,
-            "type": "melee"
-        },
-        {
-            "_id": "tcuYaiMvUqRCx8cK",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 31
-                },
-                "damageRolls": {
-                    "8h2b102uwe5l0po0wkqb": {
-                        "damage": "2d12+12",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "two-hand-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bastard Sword (Two Handed)",
-            "sort": 700000,
             "type": "melee"
         },
         {
@@ -971,7 +945,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longbow",
-            "sort": 800000,
+            "sort": 700000,
             "type": "melee"
         },
         {
@@ -1010,7 +984,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Link",
-            "sort": 900000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1056,7 +1030,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1095,7 +1069,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Disrupted Link",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1151,7 +1125,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Tactics",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1167,7 +1141,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Utopian runes burst from the convergent soldier.</p>\n<p>Any creature @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} by the @Compendium[pf2e.extinction-curse-bestiary.Convergence Lattice]{Convergence Lattice} who is within 100 feet of the convergent soldier and can see the runes must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"34\" data-pf2-traits=\"divine,illusion,mental,visual\" data-pf2-label=\"Force Communication DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Failure</strong> For 1 round, the creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures with the convergent link ability and counts as an ally with convergent tactics for the purposes of activating the convergent tactics ability.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round due to the information overload.</p>\n</div>"
+                    "value": "<p>Utopian runes burst from the convergent soldier.</p>\n<p>Any creature @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} by the @Compendium[pf2e.extinction-curse-bestiary.Convergence Lattice]{Convergence Lattice} who is within 100 feet of the convergent soldier and can see the runes must attempt a @Check[type:will|dc:34|name:Force Communication|traits:divine,illusion,mental,visual] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Failure</strong> For 1 round, the creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures with the convergent link ability and counts as an ally with convergent tactics for the purposes of activating the convergent tactics ability.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round due to the information overload.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -1195,7 +1169,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Force Communication",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         }
     ],

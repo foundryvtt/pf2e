@@ -60,6 +60,9 @@ export class HazardPF2e extends ActorPF2e {
         }
 
         this.prepareSaves(synthetics);
+
+        // Update this.synthetics; This should always be at the end of prepareDerivedData
+        mergeObject(this.synthetics, synthetics);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -67,7 +70,6 @@ export class HazardPF2e extends ActorPF2e {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const synthetics: RuleElementSynthetics = {
             damageDice: {},
-            martialProficiencies: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],

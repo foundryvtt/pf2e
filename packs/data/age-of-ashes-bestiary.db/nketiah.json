@@ -3560,7 +3560,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Adder venom is a simple but effective way to enhance a weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"alchemical,consumable,injury,poison\" data-pf2-label=\"Black Adder Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d8}[poison]]]{1d8 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d10}[poison]]]{1d10 poison damage} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage} (1 round)</p>"
+                    "value": "<p>Adder venom is a simple but effective way to enhance a weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18|name:Black Adder Venom|traits:alchemical,consumable,injury,poison]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d8}[poison]]]{1d8 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d10}[poison]]]{1d10 poison damage} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage} (1 round)</p>"
                 },
                 "duration": {
                     "units": "",
@@ -3891,11 +3891,12 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Using Verdant Staff Two Handed",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
                         "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
                     },
                     {
                         "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
                         "override": {
                             "dieSize": "d8"
                         },

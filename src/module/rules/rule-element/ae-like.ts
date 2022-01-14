@@ -8,7 +8,7 @@ import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleValue } from "
 class AELikeRuleElement extends RuleElementPF2e {
     static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
 
-    constructor(data: AELikeConstructionData, item: Embedded<ItemPF2e>) {
+    constructor(data: AELikeRuleElementSource, item: Embedded<ItemPF2e>) {
         data = deepClone(data);
         data.priority ??=
             typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
@@ -172,7 +172,7 @@ interface AELikeRuleElement extends RuleElementPF2e {
 
 type AELikeChangeMode = "add" | "multiply" | "upgrade" | "downgrade" | "override";
 
-interface AELikeRuleElementData extends RuleElementData {
+export interface AELikeRuleElementData extends RuleElementData {
     path: string;
     value: RuleValue;
     mode: AELikeChangeMode;
@@ -180,7 +180,7 @@ interface AELikeRuleElementData extends RuleElementData {
     phase: "applyAEs" | "beforeDerived" | "afterDerived";
 }
 
-export interface AELikeConstructionData extends RuleElementSource {
+export interface AELikeRuleElementSource extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
     phase?: "applyAEs" | "beforeDerived" | "afterDerived";

@@ -69,6 +69,7 @@ export const Init = {
 
             CONFIG.Token.documentClass = TokenDocumentPF2e;
             CONFIG.Token.objectClass = TokenPF2e;
+            CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
             DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;

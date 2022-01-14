@@ -783,7 +783,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>The head of this bolt is made from gleaming copper.</p>\n<p>When an activated <em>storm bolt</em> hits a target, it is buffeted by raging winds and struck by a bolt of lightning that deals [[/r 3d12]] electricity damage and the target must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"25\" data-pf2-traits=\"air,consumable,electricity,evocation,magical\" data-pf2-label=\"Storm Arrow DC\" data-pf2-show-dc=\"gm\">Reflex</span> saving throw.</p>\n<p>If this bolt is shot from a weapon with a shock property rune, the save DC increases to 27, though the attack doesn't benefit from the <em>shock</em> property rune itself.</p>\n<hr />\n<p><strong>Critical Success</strong> The foe is unaffected.</p>\n<p><strong>Success</strong> The foe takes half damage and isn't affected by the wind.</p>\n<p><strong>Failure</strong> The foe takes full damage and is buffeted by winds for 1 round, taking a -2 circumstance penalty to ranged attack rolls and a -10-foot circumstance penalty to its fly Speed.</p>\n<p><strong>Critical Failure</strong> As failure, but the foe takes double damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>The head of this bolt is made from gleaming copper.</p>\n<p>When an activated <em>storm bolt</em> hits a target, it is buffeted by raging winds and struck by a bolt of lightning that deals [[/r 3d12]] electricity damage and the target must attempt a @Check[type:reflex|dc:25|name:Storm Arrow|traits:air,consumable,electricity,evocation,magical] saving throw.</p>\n<p>If this bolt is shot from a weapon with a shock property rune, the save DC increases to 27, though the attack doesn't benefit from the <em>shock</em> property rune itself.</p>\n<hr />\n<p><strong>Critical Success</strong> The foe is unaffected.</p>\n<p><strong>Success</strong> The foe takes half damage and isn't affected by the wind.</p>\n<p><strong>Failure</strong> The foe takes full damage and is buffeted by winds for 1 round, taking a -2 circumstance penalty to ranged attack rolls and a -10-foot circumstance penalty to its fly Speed.</p>\n<p><strong>Critical Failure</strong> As failure, but the foe takes double damage.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -993,7 +993,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target must succeed at a <span data-pf2-check='fortitude' data-pf2-label='Brawling Critical Specialization DC' data-pf2-dc='28' data-pf2-show-dc='gm'>Fortitude</span> save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of Bharlen Sajor's next turn</p>"
+                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target must succeed at a @Check[type:fortitude|dc:28|name:Brawling Critical Specialization] save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of Bharlen Sajor's next turn</p>"
                     }
                 ],
                 "slug": null,
@@ -1055,7 +1055,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a <span data-pf2-check='athletics' data-pf2-label='Bow Critical Specialization DC' data-pf2-dc='10' data-pf2-show-dc='gm'>Athletics</span> check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort. </p>"
+                        "text": "<p class='compact-text'><strong>Critical Specialization</strong> If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Bow Critical Specialization] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort.</p>"
                     }
                 ],
                 "slug": null,
@@ -1435,7 +1435,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Bharlen unleashes crackling lightning in a @Template[type:cone|distance:30|damaging:yes]{30-foot cone}. Creatures in the area take [[/r {6d12}[electricity]]]{6d12 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"arcane,electricity,evocation,damaging-effect\" data-pf2-label=\"Devastating Blast DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">Bharlen can use this ability once every [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Bharlen unleashes crackling lightning in a @Template[type:cone|distance:30|damaging:yes]{30-foot cone}. Creatures in the area take [[/r {6d12}[electricity]]]{6d12 electricity damage} (@Check[type:reflex|dc:30|basic:true|name:Devastating Blast|traits:arcane,electricity,evocation,damaging-effect] save).</p>\n<p data-visibility=\"gm\">Bharlen can use this ability once every [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1478,7 +1478,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\">This curse affects anyone who wears a graveknight's armor for at least 1 hour.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"will\" data-pf2-traits=\"curse\" data-pf2-label=\"Graveknight's Curse DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Will</span> save</p>\n<div data-visibility=\"gm\">\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and cannot remove the armor (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Doomed]{Doomed 2}, all speeds reduced by 10, and cannot remove the armor (1 day)</p>\n<p><strong>Stage 3</strong> dies and transforms into the armor's graveknight.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\">This curse affects anyone who wears a graveknight's armor for at least 1 hour.</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:40|name:Graveknight's Curse|traits:curse] save</p>\n<div data-visibility=\"gm\">\n<p><strong>Onset</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and cannot remove the armor (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Doomed]{Doomed 2}, all speeds reduced by 10, and cannot remove the armor (1 day)</p>\n<p><strong>Stage 3</strong> dies and transforms into the armor's graveknight.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""

@@ -1,3 +1,4 @@
+import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { ConditionData, ConditionType } from "./data";
@@ -45,9 +46,60 @@ export class ConditionPF2e extends ItemPF2e {
     /** Set a self roll option for this condition */
     override prepareActorData(this: Embedded<ConditionPF2e>): void {
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`${self}:condition:${slug}`] = true;
+        this.actor.rollOptions.all[`self:condition:${slug}`] = true;
         if (this.slug === "flat-footed") {
             this.actor.rollOptions.all["self:flatFooted"] = true;
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ConditionModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        options.conditionValue = this.value;
+        return super._preUpdate(changed, options, user);
+    }
+
+    protected override _onCreate(
+        data: this["data"]["_source"],
+        options: DocumentModificationContext<this>,
+        userId: string
+    ): void {
+        super._onCreate(data, options, userId);
+
+        /* Suppress floaty text on "linked" conditions */
+        if (this.data.data.references.parent?.type !== "condition") {
+            this.actor?.showFloatyStatus(true, this.name, this.value);
+        }
+    }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: ConditionModificationContext<this>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        /* Suppress floaty text on "linked" conditions */
+        if (this.data.data.references.parent?.type !== "condition") {
+            const valueChange = (this.value ?? 0) - (options.conditionValue ?? 0);
+            if (valueChange) {
+                this.actor?.showFloatyStatus(valueChange >= 0, this.name, this.value);
+            }
+        }
+    }
+
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+        super._onDelete(options, userId);
+
+        /* Suppress floaty text on "linked" conditions */
+        if (this.data.data.references.parent?.type !== "condition") {
+            this.actor?.showFloatyStatus(false, this.name, null);
         }
     }
 }
@@ -61,4 +113,8 @@ export interface ConditionPF2e {
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;
     getFlag(scope: "pf2e", key: "condition"): true | undefined;
     getFlag(scope: string, key: string): any;
+}
+
+export interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
+    conditionValue?: number | null;
 }

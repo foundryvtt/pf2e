@@ -1,21 +1,21 @@
 {
-    "_id": "2HEhlngODb1KfSwE",
+    "_id": "1Mn1KhwyL6gU4TRl",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 3
             },
             "con": {
-                "mod": 4
+                "mod": 6
             },
             "dex": {
-                "mod": 1
+                "mod": 3
             },
             "int": {
-                "mod": 0
+                "mod": 4
             },
             "str": {
-                "mod": 4
+                "mod": 7
             },
             "wis": {
                 "mod": 3
@@ -24,56 +24,65 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 28
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
-                "max": 50,
+                "details": "regeneration 5 (deactivated by good)",
+                "max": 180,
                 "temp": 0,
-                "value": 50
+                "value": 180
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 10
+                "value": 18
+            },
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
-                "value": "25"
+                "special": "",
+                "value": "0"
             }
         },
         "details": {
             "alignment": {
-                "value": "LE"
+                "value": "CE"
             },
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 3
+                "value": 9
             },
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 2-24: Breaking The Storm: Parting Clouds"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 11
+                "value": 21
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 6
+                "value": 16
             },
             "will": {
                 "saveDetail": "",
-                "value": 10
+                "value": 18
             }
         },
         "traits": {
@@ -83,33 +92,44 @@
                 "value": [
                     "death-effects",
                     "disease",
-                    "paralyze",
-                    "poison",
-                    "unconscious"
+                    "mental",
+                    "poison"
                 ]
             },
-            "dr": [],
-            "dv": [],
+            "dr": [
+                {
+                    "exceptions": "",
+                    "type": "fire",
+                    "value": 10
+                }
+            ],
+            "dv": [
+                {
+                    "type": "coldiron",
+                    "value": 10
+                },
+                {
+                    "type": "good",
+                    "value": 10
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
+                "value": []
             },
-            "rarity": "common",
+            "rarity": "unique",
             "senses": {
-                "value": "darkvision"
+                "value": ""
             },
             "size": {
-                "value": "med"
+                "value": "lg"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "undead",
-                    "wight"
+                    "demon",
+                    "fiend"
                 ]
             }
         }
@@ -119,22 +139,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "fawXJJlKHhoDYYnm",
+            "_id": "8kxrqlfm8cj2whva",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "drain-life"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
-                    "value": 12
+                    "value": 19
                 },
                 "damageRolls": {
-                    "j3wlza1577g36ssy5jp0": {
-                        "damage": "1d12+4",
+                    "oNl3u4nK7lhFL32K": {
+                        "damage": "2d12+17",
                         "damageType": "slashing"
                     }
                 },
@@ -149,7 +168,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "reach-1000"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -158,31 +180,26 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bastard Sword",
+            "name": "Grasping Claw",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "sbzYC1zM004b3AiZ",
+            "_id": "7vmhgd9oifizfpwo",
             "data": {
-                "attack": {
-                    "value": ""
+                "actionCategory": {
+                    "value": "interaction"
                 },
-                "attackEffects": {
-                    "value": [
-                        "drain-life"
-                    ]
+                "actionType": {
+                    "value": "passive"
                 },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "ij2lhqmlq2rsyqlo9pzg": {
-                        "damage": "1d4+4",
-                        "damageType": "slashing"
-                    }
+                "actions": {
+                    "value": null
                 },
                 "description": {
+                    "value": "<p>The hand of Urxehl begins with 4 fingers embedded outside of the rift. At the beginning of the encounter, the hand is @Compendium[pf2e.conditionitems.Quickened]{Quickened 1}, and can use this additional action to make grasping claw Strikes. For every 45 damage the hand of Urxehl takes, one of these fingers recedes and the hand loses 1 action, first losing the quickened condition, then becoming @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} before being defeated at 0 Hit Points.</p>"
+                },
+                "requirements": {
                     "value": ""
                 },
                 "rules": [],
@@ -195,19 +212,110 @@
                     "rarity": "common",
                     "value": []
                 },
-                "weaponType": {
-                    "value": "melee"
+                "trigger": {
+                    "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw (agile)",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Grasping Fingers",
             "sort": 200000,
-            "type": "melee"
+            "type": "action"
         },
         {
-            "_id": "9YeccAinNXXb9X3i",
+            "_id": "0BCKC4XkbrvMsHMK",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 5 (Deactivated by Good)",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "2ph7hoq3gg2wr6kx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}.</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:will|dc:28|name:Dominating Will|traits:aura,divine,enchantment,mental,fear] save.</p>\n<div data-visibility=\"gm\">\n<hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d6}[evil]]]{2d6 evil damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d6}[evil]]]{4d6 evil damage} and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {8d6}[evil]]]{8d6 evil damage} and is frightened 1 as long as the portal to the Abyss remains open.</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "enchantment",
+                        "mental",
+                        "fear"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dominating Will",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "kkibcb6my2j14udj",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -219,7 +327,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The wight is reduced to 0 Hit Points.</p>\n<p><strong>Effect</strong> The wight makes a Strike before being destroyed.</p>\n<p>It doesn't gain any temporary HP from drain life on this Strike.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The hand takes enough damage to lose an action</p>\n<hr />\n<p><strong>Effect</strong> the hand thrashes about in pain, causing a minor earthquake. Creatures within 60 feet of the portal must succeed at a @Check[type:reflex|dc:28|name:Thrash About] save or be knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -236,119 +344,23 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Final Spite",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "phZZdWi7ix5NnYwY",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When the wight damages a living creature with its claw Strike, the wight gains 3 temporary Hit Points and the creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Drain Life DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become drained 1. Further damage dealt by the wraith increases the amount of drain by 1 on a failed save to a maximum of drained 4.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Drain Life",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "a9JneKSS7vMZdGi6",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A living humanoid slain by a wight's claw Strike rises as a wight after [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>This wight spawn is under the command of the wight that killed it. It doesn't have Drain Life or and becomes clumsy 2 for as long as it is a wight spawn. If the creator of the wight spawn dies, the wight spawn becomes a full-fledged, autonomous wight; it regains its free will, gains Drain Life and Wight Spawn, and is no longer clumsy.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wight Spawn",
+            "name": "Thrash About",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "H9jAFuwn64uCRmBg",
+            "_id": "0ql8m8wtu6ocdq97",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 11
+                    "value": 21
                 },
                 "proficient": {
                     "value": 0
@@ -370,81 +382,15 @@
             "name": "Athletics",
             "sort": 600000,
             "type": "lore"
-        },
-        {
-            "_id": "OmI0TkVAAYJXFVDu",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 700000,
-            "type": "lore"
-        },
-        {
-            "_id": "gA8vh28tKg7uNeyn",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "type": "lore"
         }
     ],
-    "name": "Cairn Wight (1-20)",
+    "name": "Hand Of Urxehl (7-8)",
     "token": {
         "disposition": -1,
-        "height": 1,
+        "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Cairn Wight",
-        "width": 1
+        "name": "Hand Of Urxehl",
+        "width": 2
     },
     "type": "npc"
 }

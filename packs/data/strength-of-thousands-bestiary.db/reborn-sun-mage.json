@@ -4892,7 +4892,26 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -5075,7 +5094,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the sun mage is destroyed, they explode in a blast of flame that deals [[/r {6d6}[fire]]]{6d6 fire damage} in a @Template[type:emanation|distance:10] (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect, divine, evocation, fire\" data-pf2-label=\"Burning Sacrifice DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Creatures that critically fail their saves are marked with Walkena's religious symbol on a visible area of their body, which remains for 1 day. This mark allows Walkena to treat the creature as if he knew the creature's identity but not having met them for the purposes of <em>@Compendium[pf2e.spells-srd.Scrying]{Scrying}</em>, lowering the spell's DC by 2. The sun mage's gear and treasure are unaffected by the explosion and left in a pile where they die.</p>"
+                    "value": "<p>When the sun mage is destroyed, they explode in a blast of flame that deals [[/r {6d6}[fire]]]{6d6 fire damage} in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:27|basic:true|name:Burning Sacrifice|traits:damaging-effect, divine, evocation, fire] save). Creatures that critically fail their saves are marked with Walkena's religious symbol on a visible area of their body, which remains for 1 day. This mark allows Walkena to treat the creature as if he knew the creature's identity but not having met them for the purposes of <em>@Compendium[pf2e.spells-srd.Scrying]{Scrying}</em>, lowering the spell's DC by 2. The sun mage's gear and treasure are unaffected by the explosion and left in a pile where they die.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -20,8 +20,8 @@
         },
         "creatureType": "",
         "details": {
-            "description": "Ebeshra slithers across the ground, causing the earth to tremble as though from a powerful earthquake.",
-            "disable": "<p>three <span data-pf2-check=\"athletics\" data-pf2-traits=\"environmental,kaiju,hazard\" data-pf2-label=\"Brace for Earthquake DC (Athletics)\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Athletics</span> (trained), <span data-pf2-check=\"crafting\" data-pf2-traits=\"environmental,kaiju,hazard\" data-pf2-label=\"Brace for Earthquake DC (Crafting)\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Crafting</span> (trained), or <span data-pf2-check=\"engineering\" data-pf2-traits=\"environmental,kaiju,hazard\" data-pf2-label=\"Brace for Earthquake DC (Engineering)\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Engineering Lore</span> (trained) checks to brace a small structure or surface to cancel the effects of the quake in that area, or a single <span data-pf2-check=\"diplomacy\" data-pf2-traits=\"environmental,kaiju,hazard\" data-pf2-label=\"Entreat With Ebeshra DC\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">Diplomacy</span> (master) check to entreat Ebeshra to stand down</p>",
+            "description": "<p>Ebeshra slithers across the ground, causing the earth to tremble as though from a powerful earthquake.</p>",
+            "disable": "<p>three @Check[type:athletics|dc:38|name:Brace for Earthquake (Athletics)|traits:environmental,kaiju,hazard] (trained), @Check[type:crafting|dc:38|name:Brace for Earthquake (Crafting)|traits:environmental,kaiju,hazard] (trained), or @Check[type:engineering|dc:38|name:Brace for Earthquake (Engineering)|traits:environmental,kaiju,hazard]{Engineering Lore} (trained) checks to brace a small structure or surface to cancel the effects of the quake in that area, or a single @Check[type:diplomacy|dc:41|name:Entreat With Ebeshra|traits:environmental,kaiju,hazard] (master) check to entreat Ebeshra to stand down</p>",
             "isComplex": false,
             "level": {
                 "value": 14
@@ -30,7 +30,6 @@
             "routine": ""
         },
         "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -90,7 +89,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Ebeshra moves at least 60 feet on land</p>\n<p><strong>Effect</strong> The ground shakes in a @Template[type:emanation|distance:120] from Ebeshra's space. This creates a variety of effects depending on the surrounding environment.</p>\n<p>In an area without significant underground space, the ground becomes greater difficult terrain, and creatures on it are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 round.</p>\n<p>In areas with existing underground spaces (like sewers, sinkholes, or catacombs), fissures open up in the ground. Creatures in the area tumble into the resulting 80-foot-deep hole unless they succeed at a <span data-pf2-check=\"reflex\" data-pf2-traits=\"environmental,kaiju,hazard\" data-pf2-label=\"Avoid Fissure DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<p>In bays, on beaches, and in other relatively substantial but shallow bodies of water, the tremors create dangerous waves. Creatures in the water or within 60 feet of the waterline are struck by waves that deal [[/r {10d8}[bludgeoning]]]{10d8 bludgeoning damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"environmental,kaiju,hazard,damaging-effect\" data-pf2-label=\"Crashing Waves DC\" data-pf2-dc=\"35\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). On a critical failure, a creature is instantly swept 60 feet out to sea and 60 feet under the water's surface.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Ebeshra moves at least 60 feet on land</p>\n<p><strong>Effect</strong> The ground shakes in a @Template[type:emanation|distance:120] from Ebeshra's space. This creates a variety of effects depending on the surrounding environment.</p>\n<p>In an area without significant underground space, the ground becomes greater difficult terrain, and creatures on it are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 round.</p>\n<p>In areas with existing underground spaces (like sewers, sinkholes, or catacombs), fissures open up in the ground. Creatures in the area tumble into the resulting 80-foot-deep hole unless they succeed at a @Check[type:reflex|dc:40|name:Avoid Fissure|traits:environmental,kaiju,hazard] save.</p>\n<p>In bays, on beaches, and in other relatively substantial but shallow bodies of water, the tremors create dangerous waves. Creatures in the water or within 60 feet of the waterline are struck by waves that deal [[/r {10d8}[bludgeoning]]]{10d8 bludgeoning damage} (@Check[type:reflex|dc:35|basic:true|name:Crashing Waves|traits:environmental,kaiju,hazard,damaging-effect] save). On a critical failure, a creature is instantly swept 60 feet out to sea and 60 feet under the water's surface.</p>"
                 },
                 "requirements": {
                     "value": ""

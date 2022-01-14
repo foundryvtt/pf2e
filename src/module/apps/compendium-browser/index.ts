@@ -110,6 +110,7 @@ export class CompendiumBrowser extends Application {
 
     /** An initial filter to be applied upon loading a tab */
     private initialFilter: string[] = [];
+    private initialMaxLevel = 0;
 
     npcIndex = [
         "img",
@@ -166,6 +167,7 @@ export class CompendiumBrowser extends Application {
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
         this.initialFilter = [];
+        this.initialMaxLevel = 0;
         await super.close(options);
     }
 
@@ -272,10 +274,12 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string[] = []): Promise<void> {
+    async openTab(tab: TabName, filter: string[] = [], maxLevel = 0): Promise<void> {
         this.initialFilter = filter;
+        this.initialMaxLevel = maxLevel;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
+        this.initialMaxLevel = maxLevel;
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
@@ -917,11 +921,19 @@ export class CompendiumBrowser extends Application {
             this.render(true);
         });
 
+        const $activeControlArea = $html.find(".tab.active .control-area");
+
         // Pre-filter list if requested, filters can be separated with commas
-        for (const initialFilter of this.initialFilter) {
-            const $activeControlArea = $html.find(".tab.active .control-area");
-            const $filter = $activeControlArea.find(`input[type="checkbox"][name=${initialFilter}]`);
-            $filter.trigger("click");
+        for (let initialFilter of this.initialFilter) {
+            if (initialFilter.includes("dualclass")) initialFilter = "feattype-class";
+            const $filter = $activeControlArea.find(`input[type="checkbox"][name="${initialFilter}"]`);
+            if ($filter.length !== 0) $filter.trigger("click");
+        }
+
+        if (this.initialMaxLevel !== 0) {
+            const $filter = $activeControlArea.find(`input[type="number"][name="upperBound-level"]`);
+            if ($filter.length !== 0) $filter.val(this.initialMaxLevel).trigger("change");
+            if ($orderSelects.length !== 0) $orderSelects.val("level").trigger("change");
         }
     }
 
