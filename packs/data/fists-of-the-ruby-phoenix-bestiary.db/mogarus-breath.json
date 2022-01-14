@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Mogaru exhales a blast of intense flames to eradicate any meddlesome pests in the area.</p>",
-            "disable": "<p><span data-pf2-check=\"performance\" data-pf2-label=\"Divert Mogaru's Attention DC\" data-pf2-dc=\"50\" data-pf2-show-dc=\"gm\">Performance</span> (legendary) or <span data-pf2-check=\"deception\" data-pf2-label=\"Divert Mogaru's Attention DC\" data-pf2-dc=\"53\" data-pf2-show-dc=\"gm\">Deception</span> (legendary) to momentarily divert Mogaru's attention</p>",
+            "disable": "<p>@Check[type:performance|dc:50|name:Divert Mogaru's Attention] (legendary) or @Check[type:deception|dc:53|name:Divert Mogaru's Attention] (legendary) to momentarily divert Mogaru's attention</p>",
             "isComplex": false,
             "level": {
                 "value": 21
@@ -89,7 +89,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature takes a hostile action against Mogaru, produces a visible area effect, or flies within 120 feet of Mogaru</p>\n<p><strong>Effect</strong> Mogaru breathes a @Template[type:cone|distance:120] of fire toward the object of his ire. Flammable objects in the area immediately combust, and stone or metal surfaces warp into difficult terrain. Creatures in the area take [[/r {20d6}[fire]]]{20d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Volcanic Breath DC\" data-pf2-dc=\"44\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). On a failed or critically failed save, a creature also takes [[/r {3d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature takes a hostile action against Mogaru, produces a visible area effect, or flies within 120 feet of Mogaru</p>\n<p><strong>Effect</strong> Mogaru breathes a @Template[type:cone|distance:120] of fire toward the object of his ire. Flammable objects in the area immediately combust, and stone or metal surfaces warp into difficult terrain. Creatures in the area take [[/r {20d6}[fire]]]{20d6 fire damage} (@Check[type:reflex|dc:44|basic:true|name:Volcanic Breath|traits:damaging-effect] save). On a failed or critically failed save, a creature also takes [[/r {3d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
