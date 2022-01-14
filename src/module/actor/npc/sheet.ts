@@ -310,52 +310,49 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return sheetData;
     }
 
-    /**
-     * Subscribe to events from the sheet.
-     * @param html HTML content ready to render the sheet.
-     */
-    override activateListeners(html: JQuery<HTMLElement>) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
-            html.find(".tab.inventory").addClass("active");
+            $html.find(".tab.inventory").addClass("active");
         }
 
         // Subscribe to roll events
         const rollables = ["a.rollable", ".rollable a", ".item-icon.rollable"].join(", ");
-        html.find(rollables).on("click", (event) => this.onClickRollable(event));
-        html.find("a.chat, .spell-icon.rollable").on("click", (event) => this.onClickToChat(event));
+        $html.find(rollables).on("click", (event) => this.onClickRollable(event));
+        $html.find("a.chat, .spell-icon.rollable").on("click", (event) => this.onClickToChat(event));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        html.find(".trait-edit").on("click", (event) => this.onTraitSelector(event));
-        html.find(".skills-edit").on("click", () => {
+        $html.find(".trait-edit").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".skills-edit").on("click", () => {
             new NPCSkillsEditor(this.actor).render(true);
         });
 
         // Adjustments
-        html.find(".npc-elite-adjustment").on("click", () => this.onClickMakeElite());
-        html.find(".npc-weak-adjustment").on("click", () => this.onClickMakeWeak());
+        $html.find(".npc-elite-adjustment").on("click", () => this.onClickMakeElite());
+        $html.find(".npc-weak-adjustment").on("click", () => this.onClickMakeWeak());
 
         // Handle spellcastingEntry attack and DC updates
-        html.find(".spellcasting-entry")
+        $html
+            .find(".spellcasting-entry")
             .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
             .on("change", (event) => this.onChangeSpellcastingEntry(event));
 
         // Spontaneous Spell slot reset handler:
-        html.find(".spell-slots-increment-reset").on("click", (event) => this.onSpellSlotIncrementReset(event));
+        $html.find(".spell-slots-increment-reset").on("click", (event) => this.onSpellSlotIncrementReset(event));
 
-        html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
+        $html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
 
-        html.find(".recall-knowledge button.breakdown").on("click", (event) => {
+        $html.find(".recall-knowledge button.breakdown").on("click", (event) => {
             event.preventDefault();
             const identifyCreatureData = this.getIdentifyCreatureData();
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
 
-        html.find(".decrement").on("click", async (event) => {
+        $html.find(".decrement").on("click", async (event) => {
             const actor = this.actor;
             const target = $(event.currentTarget);
             const parent = target.parents(".item");
@@ -365,7 +362,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
         });
 
-        html.find(".increment").on("click", async (event) => {
+        $html.find(".increment").on("click", async (event) => {
             const actor = this.actor;
             const target = $(event.currentTarget);
             const parent = target.parents(".item");

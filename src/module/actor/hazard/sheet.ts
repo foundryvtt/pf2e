@@ -139,11 +139,11 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         // NPC Weapon Rolling
-        html.find("button").on("click", (event) => {
+        $html.find("button").on("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
 
@@ -189,7 +189,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         if (!this.options.editable) return;
 
-        html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
+        $html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
             this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
         });
     }

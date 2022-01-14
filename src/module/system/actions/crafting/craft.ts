@@ -36,10 +36,10 @@ class SelectItemDialog extends Application {
         return data;
     }
 
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
-        html.on("drop", async (event) => {
+        $html.on("drop", async (event) => {
             const json = event.originalEvent?.dataTransfer?.getData("text/plain");
             if (!json?.startsWith("{") || !json.endsWith("}")) return;
 
@@ -61,11 +61,11 @@ class SelectItemDialog extends Application {
             }
         });
 
-        html.find("[data-event-handler=craft]").on("click", () => {
+        $html.find("[data-event-handler=craft]").on("click", () => {
             this.close();
         });
 
-        html.find("[data-event-handler=cancel]").on("click", () => {
+        $html.find("[data-event-handler=cancel]").on("click", () => {
             this.item = null;
             this.close();
         });

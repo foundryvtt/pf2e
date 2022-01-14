@@ -39,7 +39,7 @@ class SpellcastingCreateAndEditDialog extends Application {
         return options;
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         const typeField = $html.find('[name="spellcastingType"]');
         const traditionField = $html.find('[name="magicTradition"]');
         const abilityField = $html.find('[name="ability"]');

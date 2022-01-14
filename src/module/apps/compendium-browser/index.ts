@@ -825,7 +825,7 @@ export class CompendiumBrowser extends Application {
         return newDirection;
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         this.resetFilters();
 

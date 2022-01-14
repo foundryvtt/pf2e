@@ -215,18 +215,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         // Pad field width
-        html.find("[data-wpad]").each((_i, e) => {
+        $html.find("[data-wpad]").each((_i, e) => {
             const text = e.tagName === "INPUT" ? (e as HTMLInputElement).value : e.innerText;
             const w = (text.length * Number(e?.getAttribute("data-wpad"))) / 2;
             e.setAttribute("style", `flex: 0 0 ${w}px`);
         });
 
         // Item summaries
-        this.itemRenderer.activateListeners(html);
+        this.itemRenderer.activateListeners($html);
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
@@ -235,10 +235,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (this.actor.type !== "character") InlineRollsLinks.listen(html);
+        if (this.actor.type !== "character") InlineRollsLinks.listen($html);
 
         // Roll Save Checks
-        html.find(".save-name").on("click", (event) => {
+        $html.find(".save-name").on("click", (event) => {
             event.preventDefault();
             const saveType = $(event.currentTarget).parents("[data-save]")[0].getAttribute("data-save") as SaveType;
             const save = this.actor.saves?.[saveType];
@@ -249,7 +249,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
-        html.find(".roll-init").on("click", (event) => {
+        $html.find(".roll-init").on("click", (event) => {
             const $target = $(event.currentTarget);
             const { attributes } = this.actor.data.data;
             if (!$target.hasClass("disabled") && "initiative" in attributes) {
@@ -260,7 +260,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Roll Attribute Checks
-        html.find(".attribute-name").on("click", (event) => {
+        $html.find(".attribute-name").on("click", (event) => {
             event.preventDefault();
             const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
             const isSecret = event.currentTarget.getAttribute("data-secret");
@@ -278,7 +278,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Remove Spell Slot
-        html.find(".item-unprepare").on("click", (event) => {
+        $html.find(".item-unprepare").on("click", (event) => {
             const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
@@ -289,7 +289,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Set Expended Status of Spell Slot
-        html.find(".item-toggle-prepare").on("click", (event) => {
+        $html.find(".item-toggle-prepare").on("click", (event) => {
             const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
             const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
             const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
@@ -304,7 +304,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Toggle equip
-        html.find(".item-toggle-equip").on("click", (event) => {
+        $html.find(".item-toggle-equip").on("click", (event) => {
             const f = $(event.currentTarget);
             const itemId = f.closest("[data-item-id]").attr("data-item-id") ?? "";
             const active = f.hasClass("active");
@@ -312,51 +312,51 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Trait Selector
-        html.find(".trait-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".trait-selector").on("click", (event) => this.onTraitSelector(event));
 
-        html.find(".add-coins-popup button").on("click", (event) => this.onAddCoinsPopup(event));
+        $html.find(".add-coins-popup button").on("click", (event) => this.onAddCoinsPopup(event));
 
-        html.find(".remove-coins-popup button").on("click", (event) => this.onRemoveCoinsPopup(event));
+        $html.find(".remove-coins-popup button").on("click", (event) => this.onRemoveCoinsPopup(event));
 
-        html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
+        $html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
 
         // Feat Browser
-        html.find(".feat-browse").on("click", (event) => this.onClickBrowseFeatCompendia(event));
+        $html.find(".feat-browse").on("click", (event) => this.onClickBrowseFeatCompendia(event));
 
         // Action Browser
-        html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+        $html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
 
         // Spell Browser
-        html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
+        $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
 
         // Inventory Browser
-        html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
+        $html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
 
         // Spell Create
-        html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
+        $html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
 
         // Adding/Editing/Removing Spellcasting entries
-        html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
-        html.find(".spellcasting-edit").on("click", (event) => this.editSpellcastingEntry(event));
-        html.find(".spellcasting-remove").on("click", (event) => this.removeSpellcastingEntry(event));
+        $html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
+        $html.find(".spellcasting-edit").on("click", (event) => this.editSpellcastingEntry(event));
+        $html.find(".spellcasting-remove").on("click", (event) => this.removeSpellcastingEntry(event));
 
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
 
         // Create New Item
-        html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
+        $html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
 
-        html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
+        $html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
 
         // Sell treasure item
-        html.find(".item-sell-treasure").on("click", (event) => {
+        $html.find(".item-sell-treasure").on("click", (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             sellTreasure(this.actor, itemId);
         });
 
         // Update an embedded item
-        html.find(".item-edit").on("click", (event) => {
+        $html.find(".item-edit").on("click", (event) => {
             const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
             const item = this.actor.items.get(itemId ?? "");
             if (item) {
@@ -365,7 +365,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Toggle identified
-        html.find(".item-toggle-identified").on("click", (event) => {
+        $html.find(".item-toggle-identified").on("click", (event) => {
             const f = $(event.currentTarget);
             const itemId = f.parents(".item").attr("data-item-id") ?? "";
             const identified = f.hasClass("identified");
@@ -384,10 +384,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Delete Inventory Item
-        html.find(".item-delete").on("click", (event) => this.onClickDeleteItem(event));
+        $html.find(".item-delete").on("click", (event) => this.onClickDeleteItem(event));
 
         // Increase Item Quantity
-        html.find(".item-increase-quantity").on("click", (event) => {
+        $html.find(".item-increase-quantity").on("click", (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId);
             if (!(item instanceof PhysicalItemPF2e)) {
@@ -402,7 +402,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Decrease Item Quantity
-        html.find(".item-decrease-quantity").on("click", (event) => {
+        $html.find(".item-decrease-quantity").on("click", (event) => {
             const li = $(event.currentTarget).parents(".item");
             const itemId = li.attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId);
@@ -420,10 +420,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Item Rolling
-        html.find(".item[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
+        $html.find(".item[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
 
         // Delete Formula
-        html.find(".formula-delete").on("click", (event) => {
+        $html.find(".formula-delete").on("click", (event) => {
             event.preventDefault();
 
             const itemUuid = $(event.currentTarget).parents(".item").attr("data-item-id");
@@ -437,7 +437,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Modify select element
-        html.find<HTMLSelectElement>(".ability-select").on("change", async (event) => {
+        $html.find<HTMLSelectElement>(".ability-select").on("change", async (event) => {
             event.preventDefault();
 
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
@@ -450,7 +450,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Update max slots for Spell Items
-        html.find(".prepared-toggle").on("click", async (event) => {
+        $html.find(".prepared-toggle").on("click", async (event) => {
             event.preventDefault();
 
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
@@ -467,7 +467,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             ]);
         });
 
-        html.find(".level-prepared-toggle").on("click", async (event) => {
+        $html.find(".level-prepared-toggle").on("click", async (event) => {
             event.preventDefault();
 
             const parentNode = $(event.currentTarget).parents(".spellbook-header");
@@ -491,7 +491,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             this.render();
         });
 
-        html.find(".slotless-level-toggle").on("click", async (event) => {
+        $html.find(".slotless-level-toggle").on("click", async (event) => {
             event.preventDefault();
 
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
@@ -509,12 +509,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Select all text in an input field on focus
-        html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
+        $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
             event.currentTarget.select();
         });
 
         // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs thus emulating input[type="number"]
-        html.find("input[data-allow-delta]").on("input", (event) => {
+        $html.find("input[data-allow-delta]").on("input", (event) => {
             const target = <HTMLInputElement>event.target;
             const match = target.value.match(/[+-]?\d*/);
             if (match) target.value = match[0];

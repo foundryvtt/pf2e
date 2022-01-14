@@ -46,7 +46,7 @@ export class WeaknessSelector extends TagSelectorBase<ActorPF2e> {
         return data;
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html
