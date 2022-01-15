@@ -112,9 +112,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
         // Add traits from potency rune
         const baseTraits = this.data.data.traits.value;
-        const fromRunes: ("invested" | "abjuration")[] = this.data.data.potencyRune.value
-            ? ["invested", "abjuration"]
-            : [];
+        const fromRunes: ("invested" | "abjuration")[] =
+            this.data.data.potencyRune.value || this.data.data.resiliencyRune.value ? ["invested", "abjuration"] : [];
         const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.includes(trait));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
