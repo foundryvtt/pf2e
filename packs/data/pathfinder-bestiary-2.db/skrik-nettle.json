@@ -41,13 +41,6 @@
             "perception": {
                 "value": 16
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -115,9 +108,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "motionsense 30 feet"
             },
@@ -167,9 +158,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -212,9 +201,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -229,50 +216,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Motionsense",
             "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "4CALESo8Bdrqe3vE",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The skrik nettle takes piercing or slashing damage</p>\n<p><strong>Effect</strong> The skrik nettle ejects its venom onto an adjacent creature. That creature is exposed to skrik nettle venom.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spill Venom",
-            "sort": 300000,
             "type": "action"
         },
         {
@@ -300,9 +243,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -320,6 +261,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 5",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "4CALESo8Bdrqe3vE",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The skrik nettle takes piercing or slashing damage</p>\n<p><strong>Effect</strong> The skrik nettle ejects its venom onto an adjacent creature. That creature is exposed to skrik nettle venom.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spill Venom",
             "sort": 400000,
             "type": "action"
         },
@@ -348,9 +331,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "evocation",
                         "primal"
@@ -383,7 +364,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"evocation,poison,primal\" data-pf2-label=\"Skrik Nettle Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and levitate upward 5 feet (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and levitate upward 10 feet (1 round)</p>\n<p>A levitating creature takes a -2 circumstance penalty to attack rolls. It can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If it's adjacent to a fixed object or stable terrain, it can move across the surface by climbing (if the surface is vertical) or crawling (if the surface is horizontal, such as a ceiling).</p>\n<p>A flying creature can move normally but still increases its altitude as appropriate from the venom. A creature that can't fly falls as soon as it recovers from skrik nettle venom.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:27]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and levitate upward 5 feet (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and levitate upward 10 feet (1 round)</p>\n<p>A levitating creature takes a -2 circumstance penalty to attack rolls. It can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If it's adjacent to a fixed object or stable terrain, it can move across the surface by climbing (if the surface is vertical) or crawling (if the surface is horizontal, such as a ceiling).</p>\n<p>A flying creature can move normally but still increases its altitude as appropriate from the venom. A creature that can't fly falls as soon as it recovers from skrik nettle venom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,9 +376,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "evocation",
                         "poison",
@@ -440,9 +419,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

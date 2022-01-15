@@ -104,6 +104,7 @@ export const WEAKNESS_TYPES = new Set([
     "vampire-weaknesses",
     "vorpal",
     "vorpal-fear",
+    "vulnerable-to-sunlight",
 ] as const);
 
 export const RESISTANCE_TYPES = new Set([
@@ -153,7 +154,7 @@ export const SKILL_DICTIONARY = {
     ste: "stealth",
     sur: "survival",
     thi: "thievery",
-};
+} as const;
 
 interface SkillExpanded {
     ability: AbilityString;

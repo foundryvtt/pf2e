@@ -41,13 +41,6 @@
             "perception": {
                 "value": 14
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -116,9 +109,7 @@
                     "infernal"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -241,9 +232,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -355,9 +344,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "teleportation"
                     ]
@@ -406,9 +393,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "evil",
                         "magical"
@@ -461,9 +446,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "evil",
@@ -481,52 +464,6 @@
             "name": "Hoof",
             "sort": 400000,
             "type": "melee"
-        },
-        {
-            "_id": "nbWXPfh7WyVCERN9",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The nightmare continually exhales black smoke that creates @Compendium[pf2e.conditionitems.Concealed]{concealment} in an aura around it. Nightmares and their riders can see through this smoke.</p>\n<p>A creature that begins its turn in the area becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"23\" data-pf2-traits=\"aura\" data-pf2-label=\"Smoke DC\" data-pf2-show-dc=\"gm\">Fortitude</span> negates) and is then temporarily immune sickness from the smoke for 1 minute.</p>\n<p>The nightmare, its rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke",
-            "sort": 500000,
-            "type": "action"
         },
         {
             "_id": "aJJ9Rf0YrlaMFBa8",
@@ -553,9 +490,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -573,6 +508,50 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "nbWXPfh7WyVCERN9",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The nightmare continually exhales black smoke that creates @Compendium[pf2e.conditionitems.Concealed]{concealment} in an aura around it. Nightmares and their riders can see through this smoke.</p>\n<p>A creature that begins its turn in the area becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (@Check[type:fortitude|dc:23] negates) and is then temporarily immune sickness from the smoke for 1 minute.</p>\n<p>The nightmare, its rider, any creature currently holding its breath (or that does not need to breathe), and any creature immune to poison are immune to the aura's sickened effect but not the concealment.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke",
             "sort": 600000,
             "type": "action"
         },
@@ -589,7 +568,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing [[/r {3d6}[fire]]]{3d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Flaming Gallop DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) once to each creature other than the nightmare's rider that the nightmare moves adjacent to during its gallop.</p>"
+                    "value": "<p>The nightmare Strides or Flies up to triple its Speed. Its hooves burst with intense flame, dealing [[/r {3d6}[fire]]]{3d6 fire damage} (@Check[type:reflex|dc:24|basic:true] save) once to each creature other than the nightmare's rider that the nightmare moves adjacent to during its gallop.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -601,9 +580,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "fire"
                     ]
@@ -644,9 +621,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -679,9 +654,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -714,9 +687,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -749,9 +720,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

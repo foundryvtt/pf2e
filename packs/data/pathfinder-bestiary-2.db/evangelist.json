@@ -41,13 +41,6 @@
             "perception": {
                 "value": 13
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -116,9 +109,7 @@
                     "shadowtongue"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "greater darkvision, painsight"
             },
@@ -169,9 +160,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disarm",
                         "evil",
@@ -216,9 +205,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -264,9 +251,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divination",
                         "divine"
@@ -284,57 +269,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Painsight",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "TM2S9CZ5bTyxKkXp",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"21\" data-pf2-traits=\"aura,divine,enchantment,fear,mental,visual\" data-pf2-label=\"Unnerving Gaze DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "divine",
-                        "enchantment",
-                        "fear",
-                        "mental",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unnerving Gaze",
-            "sort": 400000,
             "type": "action"
         },
         {
@@ -378,9 +312,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -394,6 +326,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "GhoTNgQqndSEwa43",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (deactivated by good or silver)",
             "sort": 500000,
             "type": "action"
         },
@@ -422,9 +400,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -446,7 +422,7 @@
             "type": "action"
         },
         {
-            "_id": "GhoTNgQqndSEwa43",
+            "_id": "TM2S9CZ5bTyxKkXp",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -458,22 +434,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "regeneration",
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "enchantment",
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -483,13 +464,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 10 (deactivated by good or silver)",
+            "name": "Unnerving Gaze",
             "sort": 700000,
             "type": "action"
         },
@@ -518,9 +495,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "transmutation"
@@ -565,9 +540,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "divine",
@@ -616,9 +589,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -657,9 +628,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -692,9 +661,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -727,9 +694,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -762,9 +727,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -797,9 +760,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -832,9 +793,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

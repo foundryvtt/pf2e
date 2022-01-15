@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>With a rumble, this statue of a former Pathfinder slides across the schoolyard. Its legs pump up and down as it advances.</p>",
-            "disable": "<p><span data-pf2-check=\"athletics\" data-pf2-traits=\"complex,hazard,magical,trap\" data-pf2-label=\"Hold Back Statue DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Athletics</span> to hold it back, <span data-pf2-check=\"crafting\" data-pf2-traits=\"complex,hazard,magical,trap\" data-pf2-label=\"Break Statue DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">Crafting</span> (trained) to break the statue by exploiting a flaw, <span data-pf2-check=\"occultism\" data-pf2-traits=\"complex,hazard,magical,trap\" data-pf2-label=\"Dispel Planar Energies DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Occultism</span> (trained) to dispel the planar energies</p>",
+            "disable": "<p>@Check[type:athletics|dc:20|name:Hold Back Statue|traits:complex,hazard,magical,trap] to hold it back, @Check[type:crafting|dc:17|name:Break Statue|traits:complex,hazard,magical,trap] (trained) to break the statue by exploiting a flaw, @Check[type:occultism|dc:16|name:Dispel Planar Energies|traits:complex,hazard,magical,trap] (trained) to dispel the planar energies</p>",
             "isComplex": true,
             "level": {
                 "value": 1
@@ -56,9 +56,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "size": {
                 "value": "med"
             },
@@ -100,9 +98,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -129,7 +125,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature approaches within 10 feet of the trap.</p>\n<p><strong>Effect</strong> The statue Strides up to 30 feet in the direction of the triggering creature. It deals [[/r {1d6+3}]]{1d6+3 damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,complex,hazard,magical,trap\" data-pf2-label=\"Slide DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) to each creature whose space it enters.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature approaches within 10 feet of the trap.</p>\n<p><strong>Effect</strong> The statue Strides up to 30 feet in the direction of the triggering creature. It deals [[/r {1d6+3}]]{1d6+3 damage} (@Check[type:reflex|dc:17|basic:true|traits:complex,hazard,magical,trap] save) to each creature whose space it enters.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -141,9 +137,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -185,9 +179,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -214,7 +206,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Medium or smaller, crushing feet <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-show-dc=\"gm\">Reflex</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Medium or smaller, crushing feet @Check[type:reflex|dc:17|traits:damaging-effect]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -226,9 +218,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

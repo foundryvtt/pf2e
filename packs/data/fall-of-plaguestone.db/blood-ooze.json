@@ -41,14 +41,8 @@
             "perception": {
                 "value": 8
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -107,9 +101,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "motion sense 60 feet, no vision"
             },
@@ -157,9 +149,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -200,9 +190,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -220,19 +208,19 @@
             "type": "action"
         },
         {
-            "_id": "SFYGEt1kIUwWpB3A",
+            "_id": "HiQcVHR1RtpepohY",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The blood ooze is damaged by a piercing or slashing attack.</p>\n<p><strong>Effect</strong> The blood ooze forms a clot around the wound, reducing the damage taken by 5 (to a minimum of 0).</p>"
+                    "value": "<p>A blood ooze can sense nearby motion through vibration and air movement.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -244,9 +232,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -258,8 +244,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Clot",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
             "sort": 300000,
             "type": "action"
         },
@@ -288,9 +274,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -308,6 +292,48 @@
             "type": "action"
         },
         {
+            "_id": "SFYGEt1kIUwWpB3A",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The blood ooze is damaged by a piercing or slashing attack.</p>\n<p><strong>Effect</strong> The blood ooze forms a clot around the wound, reducing the damage taken by 5 (to a minimum of 0).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Clot",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "63gZ6gnBQpFdDSNz",
             "data": {
                 "actionCategory": {
@@ -320,7 +346,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The blood ooze draws forth blood from nearby creatures, causing their flesh to break open and blood to spill out which replenishes the blood ooze. Each living creature within 15 feet takes [[/r {3d6}[slashing]]]{3d6 slashing damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Siphon Vitality DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). The blood ooze regains an amount of Hit Points equal to half the damage Siphon Vitality dealt to the single creature that took the most damage.</p>"
+                    "value": "<p>The blood ooze draws forth blood from nearby creatures, causing their flesh to break open and blood to spill out which replenishes the blood ooze. Each living creature @Template[type:emanation|distance:15]{within 15 feet} takes [[/r {3d6}[slashing]]]{3d6 slashing damage} (@Check[type:fortitude|dc:21|basic:true] save).</p>\n<p>The blood ooze regains an amount of Hit Points equal to half the damage Siphon Vitality dealt to the single creature that took the most damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -332,9 +358,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -348,7 +372,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Siphon Vitality",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -373,9 +397,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -383,17 +405,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
-            "_id": "aRnpJoIEPrqJsNIJ",
+            "_id": "Y7v6VkboCmFBNWkx",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 4
@@ -401,24 +420,40 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "If Hiding Inside a Body",
+                        "predicate": {
+                            "all": [
+                                "hidingBody"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 8
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 if hiding inside a body",
+                        "options": "hidingBody"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth (+12 if hiding inside a dead body)",
-            "sort": 700000,
+            "name": "Stealth",
+            "sort": 800000,
             "type": "lore"
         }
     ],

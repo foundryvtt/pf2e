@@ -41,13 +41,6 @@
             "perception": {
                 "value": 12
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [
@@ -113,9 +106,7 @@
                     "draconic"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet, smoke vision"
             },
@@ -168,9 +159,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -213,9 +202,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -230,50 +217,6 @@
             "name": "Tail",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "S6FJYbxVlzTTwn0T",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Smoke doesn't impair a flame drake's vision; it ignores concealment from smoke.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "7FBfwJUTcunYRHu6",
@@ -300,9 +243,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -320,7 +261,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 400000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -348,9 +289,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -368,6 +307,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "S6FJYbxVlzTTwn0T",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Smoke doesn't impair a flame drake's vision; it ignores concealment from smoke.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
             "sort": 500000,
             "type": "action"
         },
@@ -396,9 +377,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -444,9 +423,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -476,7 +453,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The flame drake expels a ball of flame to a range of 180 feet that explodes in a 20-footburst. Creatures in the burst take [[/r {6d6}[fire]]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"arcane,evocation,fire,damaging-effect\" data-pf2-label=\"Fireball Breath DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The flame drake can't use Fireball Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>The flame drake expels a ball of flame to a range of 180 feet that explodes in a 20-footburst. Creatures in the burst take [[/r {6d6}[fire]]]{6d6 fire damage} (@Check[type:reflex|dc:22|basic:true] save). The flame drake can't use Fireball Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -488,9 +465,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
@@ -536,9 +511,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -579,9 +552,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -614,9 +585,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -649,9 +618,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -684,9 +651,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

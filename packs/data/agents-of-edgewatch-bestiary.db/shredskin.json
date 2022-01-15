@@ -41,13 +41,6 @@
             "perception": {
                 "value": 11
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -114,9 +107,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -166,9 +157,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -213,9 +202,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -229,50 +216,6 @@
             "name": "Jaws",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "DGsILrvl3LJIeZIu",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The shredskin is grabbing a creature</p>\n<p><strong>Effect</strong> The shredskin attempts to pin the creature and wrap itself around the creature like a shirt. The shredskin rolls an Athletics check against the creature's Fortitude DC.</p>\n<p>On a success, the creature becomes @Compendium[pf2e.conditionitems.Restrained]{Restrained} and the shredskin can take control of the creature as if using Control Body.</p>\n<p>At the start of its turn, the shredskin can automatically Constrict the enshrouded creature as a free action.</p>\n<p>An enshrouded creature can attempt a DC 16 Escape check to break free (DC 18 if the shredskin critically succeeded its Athletics check to Enshroud).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Enshroud",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "3g9fOfW6T5VklwH5",
@@ -299,9 +242,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -316,6 +257,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Compression",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "rr5bpEab2TNVmDUt",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>[[/r {1d4+4}[bludgeoning]]]{1d4+4 bludgeoning damage}, @Check[type:fortitude|dc:16|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
             "sort": 400000,
             "type": "action"
         },
@@ -344,9 +331,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -362,6 +347,48 @@
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Control Body",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "DGsILrvl3LJIeZIu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The shredskin is grabbing a creature</p>\n<p><strong>Effect</strong> The shredskin attempts to pin the creature and wrap itself around the creature like a shirt. The shredskin rolls an Athletics check against the creature's Fortitude DC.</p>\n<p>On a success, the creature becomes @Compendium[pf2e.conditionitems.Restrained]{Restrained} and the shredskin can take control of the creature as if using Control Body.</p>\n<p>At the start of its turn, the shredskin can automatically Constrict the enshrouded creature as a free action.</p>\n<p>An enshrouded creature can attempt a DC 16 Escape check to break free (DC 18 if the shredskin critically succeeded its Athletics check to Enshroud).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Enshroud",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -389,9 +416,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -409,54 +434,6 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "rr5bpEab2TNVmDUt",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>[[/r {1d4+4}[bludgeoning]]]{1d4+4 bludgeoning damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "constrict",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
             "sort": 700000,
             "type": "action"
         },
@@ -482,9 +459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -517,9 +492,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -552,9 +525,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -587,9 +558,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

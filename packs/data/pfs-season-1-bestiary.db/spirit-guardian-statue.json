@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -5
             },
             "con": {
                 "mod": 5
@@ -12,7 +12,7 @@
                 "mod": -2
             },
             "int": {
-                "mod": 0
+                "mod": -5
             },
             "str": {
                 "mod": 4
@@ -29,8 +29,11 @@
             "allSaves": {
                 "value": ""
             },
+            "hardness": {
+                "value": 6
+            },
             "hp": {
-                "details": "Hardness 6",
+                "details": "",
                 "max": 35,
                 "temp": 0,
                 "value": 35
@@ -41,14 +44,8 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -65,7 +62,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-06: Lost on the Spirit Road"
             }
         },
         "resources": {},
@@ -101,7 +98,7 @@
                     "paralyzed",
                     "poison",
                     "sickened",
-                    "unconscious Construct Armor"
+                    "unconscious"
                 ]
             },
             "dr": [],
@@ -111,9 +108,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -163,9 +158,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical"
                     ]
@@ -182,7 +175,53 @@
             "type": "melee"
         },
         {
-            "_id": "LqAdxa3FAi4XKeY4",
+            "_id": "5DWVfIm4WkqtwlOp",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "fubdZdYViakyxZv7",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -194,21 +233,35 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Like normal objects, a spirit guardian statue has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once a spirit guardian statue is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 16.</p>"
+                    "value": "<p>Like normal objects, a spirit guardian statue has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness.</p>\n<p>Once the statue is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 16.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Broken",
+                        "property": "flags.pf2e.rollOptions.all.constructArmor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "constructArmor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": -3
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -221,8 +274,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
-            "sort": 200000,
+            "name": "Construct Armor (Hardness 6)",
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -250,9 +303,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -268,7 +319,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Follow Trespasser",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "LxsjnplQGijTh3K6",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -293,9 +390,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -303,7 +398,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         }
     ],

@@ -4,22 +4,23 @@ aside {
     font-family: var(--serif);
     font-size: 10px;
     font-weight: 600;
-    text-transform: uppercase;
-    background: url('../assets/sheet/red_sidebar.webp') no-repeat top center;
-    background-size: 247px;
-    height: 100%;
-    width: 247px;
+    margin-left: 8px;
+    background-image: url("../assets/sheet/red_sidebar_top.webp"), url("../assets/sheet/red_sidebar_bottom.webp");
+    background-repeat: no-repeat;
+    background-position: top center, bottom center;
+    background-size: 222px calc(100% - 52px), 222px 52px;
+    display: flex;
+    flex-direction: column;
 
     .logo {
-        margin-top: 5px;
+        margin: 5px -6px 0 -6px;
         border: none;
-        position: relative;
         z-index: 10;
+        max-width: unset;
     }
     .sidebar {
-        margin: -17px 23px 0 30px;
-        overflow-x: hidden;
-        height: calc(100% - 6em);
+        padding: 0 2px 2px 8px;
+        margin-bottom: 42px;
         @include scrollbar;
 
         &::-webkit-scrollbar-track {
@@ -108,7 +109,7 @@ aside {
             & > * {
                 flex-basis: 1;
             }
-            input[type='number'],
+            input[type="number"],
             h2 {
                 color: $sidebar-label;
                 text-align: center;
@@ -130,6 +131,9 @@ aside {
                 &::-webkit-inner-spin-button {
                     -webkit-appearance: none;
                     margin: 0;
+                }
+                &:read-only {
+                    pointer-events: none;
                 }
             }
         }

@@ -20,8 +20,8 @@
         },
         "creatureType": "",
         "details": {
-            "description": "Ebeshra fires a crystal at a creature to pin them onto the Material Plane.",
-            "disable": "<p><span data-pf2-check=\"occultism\" data-pf2-traits=\"abjuration,divine,environmental,kaiju,hazard\" data-pf2-label=\"Earn Ebeshra's Favor DC (Occultism)\" data-pf2-dc=\"48\" data-pf2-show-dc=\"gm\">Occultism</span> (legendary) or <span data-pf2-check=\"religion\" data-pf2-traits=\"abjuration,divine,environmental,kaiju,hazard\" data-pf2-label=\"Earn Ebeshra's Favor DC (Religion)\" data-pf2-dc=\"48\" data-pf2-show-dc=\"gm\">Religion</span> (legendary) to earn Ebeshra's favor and allow safe travel or <span data-pf2-check=\"deception\" data-pf2-traits=\"abjuration,divine,environmental,kaiju,hazard\" data-pf2-label=\"Divert Ebeshra's Attention DC\" data-pf2-dc=\"51\" data-pf2-show-dc=\"gm\">Deception</span> (master) to momentarily divert Ebeshra's attention</p>",
+            "description": "<p>Ebeshra fires a crystal at a creature to pin them onto the Material Plane.</p>",
+            "disable": "<p>@Check[type:occultism|dc:48|name:Earn Ebeshra's Favor (Occultism)|traits:abjuration,divine,environmental,kaiju,hazard] (legendary) or @Check[type:religion|dc:48|name:Earn Ebeshra's Favor (Religion)|traits:abjuration,divine,environmental,kaiju,hazard] (legendary) to earn Ebeshra's favor and allow safe travel or @Check[type:deception|dc:51|name:Divert Ebeshra's Attention|traits:abjuration,divine,environmental,kaiju,hazard] (master) to momentarily divert Ebeshra's attention</p>",
             "isComplex": false,
             "level": {
                 "value": 20
@@ -30,7 +30,6 @@
             "routine": ""
         },
         "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -60,9 +59,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "size": {
                 "value": "med"
             },
@@ -94,7 +91,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature Ebeshra can see begins to use a teleportation effect or an effect that would move any number of targets to a different plane;</p>\n<p><strong>Effect</strong> Ebeshra hurls a crystal at the triggering creature. The triggering creature and all creatures within 50 feet of the creature take [[/r {16d8}[piercing]]]{16d8 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,abjuration,divine,environmental,kaiju,hazard\" data-pf2-label=\"Fire Pin DC\" data-pf2-dc=\"45\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) and additional effects based on the result of their save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The effect is counteracted, and the creature can't use teleportation effects or planar travel effects for 1 minute.</p>\n<p><strong>Failure</strong> As success, but for 1 day instead of 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but for 1 week instead of 1 minute. Additionally, the creature becomes pinned under the crystal and must succeed at 3 total DC 45 checks to @Compendium[pf2e.actionspf2e.Escape]{Escape} from under the crystal.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature Ebeshra can see begins to use a teleportation effect or an effect that would move any number of targets to a different plane;</p>\n<p><strong>Effect</strong> Ebeshra hurls a crystal at the triggering creature. The triggering creature and all creatures within 50 feet of the creature take [[/r {16d8}[piercing]]]{16d8 piercing damage} (@Check[type:reflex|dc:45|basic:true|traits:abjuration,divine,environmental,kaiju,hazard] save) and additional effects based on the result of their save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The effect is counteracted, and the creature can't use teleportation effects or planar travel effects for 1 minute.</p>\n<p><strong>Failure</strong> As success, but for 1 day instead of 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but for 1 week instead of 1 minute. Additionally, the creature becomes pinned under the crystal and must succeed at 3 total DC 45 checks to @Compendium[pf2e.actionspf2e.Escape]{Escape} from under the crystal.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -106,9 +103,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

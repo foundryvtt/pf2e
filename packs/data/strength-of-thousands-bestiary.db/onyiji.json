@@ -47,13 +47,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -105,9 +98,7 @@
                     "orcish"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },
@@ -260,9 +251,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -372,9 +361,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "detection",
                         "cantrip"
@@ -509,9 +496,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "fire",
@@ -647,9 +632,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cold",
@@ -770,9 +753,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "force"
@@ -905,9 +886,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "electricity"
@@ -1026,9 +1005,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "fortune"
                     ]
@@ -1188,9 +1165,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -1238,18 +1213,18 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Two-handed Wielding",
-                        "property": "flags.pf2e.rollOptions.damage-roll.two-handed"
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
                     },
                     {
                         "key": "DamageDice",
-                        "label": "Two handed d8",
+                        "label": "PF2E.TraitTwoHandD8",
                         "override": {
                             "dieSize": "d8"
                         },
                         "predicate": {
                             "all": [
-                                "two-handed"
+                                "twoHanded"
                             ]
                         },
                         "selector": "{item|_id}-damage"
@@ -1261,9 +1236,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "two-hand-d8"
@@ -1305,9 +1278,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1326,6 +1297,52 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "eE5N1vPm1xizTXu4",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1369,9 +1386,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate"
                     ]
@@ -1384,54 +1399,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Orc Superstition",
-            "sort": 1100000,
-            "type": "action"
-        },
-        {
-            "_id": "eE5N1vPm1xizTXu4",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
             "sort": 1200000,
             "type": "action"
         },
@@ -1460,9 +1427,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1501,9 +1466,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1536,9 +1499,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1568,9 +1529,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1600,9 +1559,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1632,9 +1589,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1664,9 +1619,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1696,9 +1649,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

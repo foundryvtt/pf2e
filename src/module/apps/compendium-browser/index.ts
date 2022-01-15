@@ -109,7 +109,8 @@ export class CompendiumBrowser extends Application {
     private userIsDragging = false;
 
     /** An initial filter to be applied upon loading a tab */
-    private initialFilter: string | null = null;
+    private initialFilter: string[] = [];
+    private initialMaxLevel = 0;
 
     npcIndex = [
         "img",
@@ -165,7 +166,8 @@ export class CompendiumBrowser extends Application {
 
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.initialFilter = null;
+        this.initialFilter = [];
+        this.initialMaxLevel = 0;
         await super.close(options);
     }
 
@@ -272,10 +274,12 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string | null = null): Promise<void> {
+    async openTab(tab: TabName, filter: string[] = [], maxLevel = 0): Promise<void> {
         this.initialFilter = filter;
+        this.initialMaxLevel = maxLevel;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
+        this.initialMaxLevel = maxLevel;
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
@@ -389,7 +393,7 @@ export class CompendiumBrowser extends Application {
                     bestiaryActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
-                    actorData.filters.rarity = actorData.data.traits.rarity.value;
+                    actorData.filters.rarity = actorData.data.traits.rarity;
 
                     CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
                 }
@@ -414,7 +418,6 @@ export class CompendiumBrowser extends Application {
 
         const hazardActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
-        const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
         const indexFields = this.hazardNPCIndex;
 
         for await (const { pack, index } of packLoader.loadPacks("Actor", this.loadedPacks("hazard"), indexFields)) {
@@ -442,15 +445,7 @@ export class CompendiumBrowser extends Application {
                     hazardActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
-                    actorData.filters.rarity = (() => {
-                        if (actorData.data.traits.rarity) return actorData.data.traits.rarity.value; // TODO: only look in one place once data is fixed
-                        if (actorData.data.rarity) return actorData.data.rarity.value;
-                        for (const rarity of rarities) {
-                            const indexOfRarity = actorData.data.traits.traits.value.indexOf(rarity);
-                            if (indexOfRarity >= 0) return actorData.data.traits.traits.value[indexOfRarity];
-                        }
-                        return "common";
-                    })();
+                    actorData.filters.rarity = String(actorData.data.traits.rarity) || "common";
 
                     CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
                 }
@@ -507,7 +502,7 @@ export class CompendiumBrowser extends Application {
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
-                    itemData.data.rarity = { value: itemData.data.traits.rarity.value };
+                    itemData.data.rarity = itemData.data.traits.rarity;
                     itemData.filters = [
                         "itemTypes",
                         "rarity",
@@ -830,7 +825,7 @@ export class CompendiumBrowser extends Application {
         return newDirection;
     }
 
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         this.resetFilters();
 
@@ -926,11 +921,19 @@ export class CompendiumBrowser extends Application {
             this.render(true);
         });
 
-        // Pre-filter list if requested
-        if (this.initialFilter) {
-            const $activeControlArea = $html.find(".tab.active .control-area");
-            const $filter = $activeControlArea.find(`input[type="checkbox"][name=${this.initialFilter}]`);
-            $filter.trigger("click");
+        const $activeControlArea = $html.find(".tab.active .control-area");
+
+        // Pre-filter list if requested, filters can be separated with commas
+        for (let initialFilter of this.initialFilter) {
+            if (initialFilter.includes("dualclass")) initialFilter = "feattype-class";
+            const $filter = $activeControlArea.find(`input[type="checkbox"][name="${initialFilter}"]`);
+            if ($filter.length !== 0) $filter.trigger("click");
+        }
+
+        if (this.initialMaxLevel !== 0) {
+            const $filter = $activeControlArea.find(`input[type="number"][name="upperBound-level"]`);
+            if ($filter.length !== 0) $filter.val(this.initialMaxLevel).trigger("change");
+            if ($orderSelects.length !== 0) $orderSelects.val("level").trigger("change");
         }
     }
 

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -101,9 +94,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -151,9 +142,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -195,9 +184,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "brutal",
                         "range-increment-30",
@@ -240,9 +227,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -264,53 +249,6 @@
             "type": "action"
         },
         {
-            "_id": "2dCxELrxVI7zUWB3",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The young sea serpent extends the spines along its back and Swims or Strides. Each creature the serpent is adjacent to at any point during its movement takes [[/r {1d8+4}[slashing]]]{1d8+4 slashing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"attack,move,damaging-effect\" data-pf2-label=\"Spine Rake DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack",
-                        "move"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spine Rake",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "JFLlg2bZWCLVLPTw",
             "data": {
                 "actionCategory": {
@@ -323,7 +261,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The water in the ballast organs around the sea serpent's neck is full of psychotropic algae.</p>\n<p><strong>Saving throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison,incapacitation\" data-pf2-label=\"Adolescent Sea Serpent Algae Poison DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Confused]{Confused} and, if flying, spends its first action each turn to descend 20 feet (1 round)</p>\n</div>"
+                    "value": "<p>The water in the ballast organs around the sea serpent's neck is full of psychotropic algae.</p>\n<p><strong>Saving throw</strong> @Check[type:fortitude|dc:20|name:Adolescent Sea Serpent Algae Poison]</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Confused]{Confused} and, if flying, spends its first action each turn to descend 20 feet (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -335,9 +273,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "poison"
@@ -354,7 +290,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Adolescent Sea Serpent Algae",
-            "sort": 500000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -382,9 +318,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -402,6 +336,51 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "2dCxELrxVI7zUWB3",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The young sea serpent extends the spines along its back and Swims or Strides. Each creature the serpent is adjacent to at any point during its movement takes [[/r {1d8+4}[slashing]]]{1d8+4 slashing damage} (@Check[type:reflex|dc:17|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "move"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spine Rake",
             "sort": 600000,
             "type": "action"
         },
@@ -427,9 +406,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -472,9 +449,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {
@@ -513,9 +488,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

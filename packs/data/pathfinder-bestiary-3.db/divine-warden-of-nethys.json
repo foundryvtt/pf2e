@@ -41,13 +41,6 @@
             "perception": {
                 "value": 11
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "30"
@@ -115,9 +108,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -245,9 +236,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -362,9 +351,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -490,9 +477,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "cleric",
                         "sonic"
@@ -603,9 +588,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "cleric"
                     ]
@@ -734,9 +717,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "mental",
@@ -786,9 +767,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10"
@@ -829,16 +808,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
@@ -881,9 +877,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -917,7 +911,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the divine warden is reduced to 0 HP, it erupts with divine energy in a 30-foot emanation, dealing 1d6 damage per level. This damage is either positive or negative, determined by the patron deity's divine font (chosen at the divine warden's creation if the deity offers a choice), and this ability gains the corresponding trait. Each creature in the area must attempt a Will save with the following outcomes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half damage.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes temporarily cursed by the patron deity. The creature becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 day; this is a curse effect that uses the Will save DC as the counteract DC.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>"
+                    "value": "<p>When the divine warden is reduced to 0 HP, it erupts with divine energy in a @Template[type:emanation|distance:30], dealing 1d6 damage per level. This damage is either positive or negative, determined by the patron deity's divine font (chosen at the divine warden's creation if the deity offers a choice), and this ability gains the corresponding trait. Each creature in the area must attempt a Will save with the following outcomes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half damage.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes temporarily cursed by the patron deity. The creature becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 day; this is a curse effect that uses the Will save DC as the counteract DC.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -929,9 +923,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -976,9 +968,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "abjuration",
                         "divine"
@@ -996,54 +986,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Faith Bound",
             "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "DKeP0NHGZX49S9dE",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1071,9 +1013,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1087,7 +1027,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Divine Domain Spells (Divine Warden)",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1115,9 +1055,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1131,7 +1069,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Divine Innate Spells (Divine Warden)",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1159,9 +1097,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1175,7 +1111,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Faithful Weapon",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1203,9 +1139,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1219,6 +1153,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Instrument of Faith",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "DKeP0NHGZX49S9dE",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 1500000,
             "type": "action"
         },
@@ -1244,9 +1224,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

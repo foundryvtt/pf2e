@@ -41,16 +41,14 @@
             "perception": {
                 "value": 21
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": "30"
+                    }
+                ],
                 "value": "40"
             }
         },
@@ -99,15 +97,13 @@
             ],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(Can't Speak)",
                 "selected": [],
                 "value": [
                     "undercommon"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -157,9 +153,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -202,9 +196,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
@@ -222,7 +214,7 @@
             "type": "melee"
         },
         {
-            "_id": "FFwama0YxHv4l10h",
+            "_id": "HAG0BZUyUX7lvLH9",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -246,9 +238,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -267,6 +257,52 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "7EDZA6PRAkgmOYfB",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "all-around-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -294,9 +330,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -312,7 +346,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Skittering Reposition",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -328,7 +362,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The gogiteth can move at its full Speed while it has a creature grabbed in its jaws, bringing the grabbed creature along.</p>"
+                    "value": "<p>The gogiteth can move at its full Speed while it has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in its jaws, bringing the grabbed creature along.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -340,9 +374,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -356,7 +388,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Carry Off Prey",
-            "sort": 500000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "yHE4jDWkyfO5E7mM",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>[[/r {3d6+12}[bludgeoning]]]{3d6+12 bludgeoning}, @Check[type:fortitude|dc:32|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -384,9 +462,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -400,11 +476,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Skittering Assault",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "UDu1sGzqn8ZI71N4",
+            "_id": "zK2aR7Xwx6ctIIxv",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -428,9 +504,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -448,55 +522,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "BPOmT5iB7eRC8TuT",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>[[/r {3d6+12}[bludgeoning]]]{3d6+12 bludgeoning}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "constrict",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -521,9 +547,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -531,7 +555,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -556,9 +580,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -566,7 +588,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -591,9 +613,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -601,7 +621,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -638,9 +658,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {
@@ -654,7 +672,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

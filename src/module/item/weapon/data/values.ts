@@ -29,4 +29,5 @@ export const CROSSBOW_WEAPONS = new Set([
     "repeating-crossbow",
     "repeating-hand-crossbow",
     "repeating-heavy-crossbow",
+    "taw-launcher",
 ] as const);

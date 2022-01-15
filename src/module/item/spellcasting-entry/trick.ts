@@ -1,8 +1,9 @@
 import { CharacterPF2e } from "@actor";
 import { AbilityString } from "@actor/data";
 import { SpellPF2e } from "@item";
-import { AbilityModifier, ProficiencyModifier } from "@module/modifiers";
+import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
+import { SpellcastingEntry } from "./data";
 
 export const TRICK_MAGIC_SKILLS = ["arc", "nat", "occ", "rel"] as const;
 export type TrickMagicItemSkill = typeof TRICK_MAGIC_SKILLS[number];
@@ -11,18 +12,29 @@ const TrickMagicTradition = {
     arc: "arcane",
     nat: "primal",
     occ: "occult",
-    rel: "religion",
-};
+    rel: "divine",
+} as const;
+
+export const TraditionSkills = {
+    arcane: "arc",
+    divine: "rel",
+    occult: "occ",
+    primal: "nat",
+} as const;
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
-export class TrickMagicItemEntry {
+export class TrickMagicItemEntry implements SpellcastingEntry {
+    id = `trick-${this.skill}`;
+
     statistic: Statistic;
 
     ability: AbilityString;
 
-    constructor(actor: CharacterPF2e, skill: TrickMagicItemSkill) {
+    tradition = TrickMagicTradition[this.skill];
+
+    constructor(actor: CharacterPF2e, public skill: TrickMagicItemSkill) {
         const { abilities } = actor.data.data;
-        const { ability, value } = (["int", "wis", "cha"] as const)
+        const { ability } = (["int", "wis", "cha"] as const)
             .map((ability) => {
                 return { ability, value: abilities[ability].value };
             })
@@ -36,20 +48,33 @@ export class TrickMagicItemEntry {
 
         this.ability = ability;
         const tradition = TrickMagicTradition[skill];
-        const skillRank = actor.data.data.skills[skill].rank;
-        const baseModifiers = [
-            AbilityModifier.fromScore(ability, value),
-            ProficiencyModifier.fromLevelAndRank(actor.level, Math.max(0, skillRank - 2)),
+
+        const selectors = [`${ability}-based`, "all", "spell-attack-dc"];
+        const attackSelectors = [
+            `${tradition}-spell-attack`,
+            "spell-attack",
+            "spell-attack-roll",
+            "attack",
+            "attack-roll",
         ];
+        const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
-            modifiers: baseModifiers,
+            ability,
+            rank: actor.data.data.skills[skill].rank,
+            modifiers: extractModifiers(actor.synthetics.statisticsModifiers, selectors),
+            domains: selectors,
             check: {
                 label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
                 type: "spell-attack-roll",
+                modifiers: extractModifiers(actor.synthetics.statisticsModifiers, attackSelectors),
+                domains: attackSelectors,
             },
-            dc: {},
+            dc: {
+                modifiers: extractModifiers(actor.synthetics.statisticsModifiers, saveSelectors),
+                domains: saveSelectors,
+            },
         });
     }
 

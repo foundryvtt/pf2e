@@ -29,8 +29,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
 
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
-        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
-        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== "common";
+        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
+        sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
 
         // Update broken threshold
         if (sheetData.data.attributes !== undefined) {
@@ -161,22 +161,22 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         actorData.actions = actions;
     }
 
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
         {
             // ensure correct tab name is displayed after actor update
             const title = $(".sheet-navigation .active").data("tabTitle");
             if (title) {
-                html.find(".navigation-title").text(title);
+                $html.find(".navigation-title").text(title);
             }
         }
-        html.find(".sheet-navigation").on("mouseover", ".item", (event) => {
+        $html.find(".sheet-navigation").on("mouseover", ".item", (event) => {
             const title = event.currentTarget.dataset.tabTitle;
             if (title) {
                 $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
             }
         });
-        html.find(".sheet-navigation").on("mouseout", ".item", (event) => {
+        $html.find(".sheet-navigation").on("mouseout", ".item", (event) => {
             const parent = $(event.currentTarget).parents(".sheet-navigation");
             const title = parent.find(".item.active").data("tabTitle");
             if (title) {
@@ -185,6 +185,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         });
 
         // get buttons
-        html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
     }
 }

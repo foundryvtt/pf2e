@@ -41,14 +41,8 @@
             "perception": {
                 "value": 8
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -101,9 +95,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision, scent (imprecise) 30 feet"
             },
@@ -120,7 +112,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/bestiary-1/gorilla.webp",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "T50Unm8nAUbNCLxu",
@@ -151,9 +143,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
@@ -199,9 +189,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -214,54 +202,6 @@
             "name": "Jaws",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "r6CoZc9HQihbtMvD",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "scent",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 30 feet",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "QK1RgrbqCLvwpciW",
@@ -288,9 +228,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -308,6 +246,52 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "r6CoZc9HQihbtMvD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -324,7 +308,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gorilla beats its chest in a terrifying display. Creatures within @Template[type:emanation|distance:30]{30 feet} must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Frightening Display DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\">\n<p>While a creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} by this ability, it is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the gorilla.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect and temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n</div>"
+                    "value": "<p>The gorilla beats its chest in a terrifying display. Creatures within @Template[type:emanation|distance:30]{30 feet} must attempt a @Check[type:will|dc:20] save.</p>\n<div data-visibility=\"gm\">\n<p>While a creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} by this ability, it is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the gorilla.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect and temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -336,9 +320,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "emotion",
@@ -382,9 +364,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -417,9 +397,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -452,9 +430,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -470,7 +446,7 @@
     "token": {
         "disposition": -1,
         "height": 2,
-        "img": "systems/pf2e/icons/bestiary-1/gorilla.webp",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "name": "Gorilla",
         "width": 2
     },

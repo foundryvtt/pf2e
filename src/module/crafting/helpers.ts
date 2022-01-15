@@ -108,10 +108,15 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
     }
 }
 
-export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e) {
+export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e, infused?: boolean) {
     const itemSource = item.toObject();
     itemSource.data.quantity.value = itemQuantity;
-
+    const itemTraits = item.traits;
+    if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
+        const sourceTraits: string[] = itemSource.data.traits.value;
+        sourceTraits.push("infused");
+        itemSource.data.temporary = { value: true };
+    }
     const result = await actor.addToInventory(itemSource);
     if (!result) {
         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));

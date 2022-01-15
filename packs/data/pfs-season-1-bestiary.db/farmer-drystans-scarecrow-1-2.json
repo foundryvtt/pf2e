@@ -41,20 +41,9 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "Woodwalk",
-                        "value": ""
-                    }
-                ],
+                "details": "woodwalk",
+                "otherSpeeds": [],
                 "value": "25"
             }
         },
@@ -70,7 +59,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario #1-15: The Blooming Catastrophe"
             }
         },
         "resources": {},
@@ -95,7 +84,7 @@
                 "value": [
                     "bleed",
                     "death-effects",
-                    "diseased",
+                    "disease",
                     "doomed",
                     "drained",
                     "fatigued",
@@ -109,17 +98,22 @@
                 ]
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "type": "fire",
+                    "value": 3
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "abyssal"
+                ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
-                "value": "darkvision Language Abyssal"
+                "value": "darkvision"
             },
             "size": {
                 "value": "lg"
@@ -159,7 +153,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, finesse, reach 10 feet, versatile P)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -168,9 +162,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -190,6 +182,52 @@
             "type": "melee"
         },
         {
+            "_id": "ux9QnsrhLP6gBd79",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "j6vgAFFZcJv35gpP",
             "data": {
                 "actionCategory": {
@@ -202,21 +240,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The scarecrow does not take a penalty to Intimidation checks when using the Demoralize action against targets with whom it does not share a language.</p>"
+                    "value": "<p>The scarecrow does not take a penalty to Intimidation checks when using the @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} action against targets with whom it does not share a language.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "action:demoralize"
+                            ]
+                        },
+                        "selector": "intimidation",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> The scarecrow does not take a penalty to Intimidation checks when using the @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} action against targets with whom it does not share a language.</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -230,7 +277,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spooky",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -246,7 +293,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The scarecrow makes two claw Strikes against a single creature, then Demoralizes that creature.</p>"
+                    "value": "<p>The scarecrow makes two claw Strikes against a single creature, then @Compendium[pf2e.actionspf2e.Demoralize]{Demoralizes} that creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -258,9 +305,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -274,7 +319,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Haunting Assault",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -302,9 +347,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -318,7 +361,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Woodwalk",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -326,9 +369,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 7
@@ -343,9 +383,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -353,7 +391,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -361,9 +399,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 9
@@ -378,9 +413,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -388,7 +421,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -396,9 +429,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 7
@@ -413,9 +443,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -423,7 +451,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         }
     ],

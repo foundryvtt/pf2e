@@ -41,16 +41,6 @@
             "perception": {
                 "value": 18
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "hp": {
-                    "value": 0
-                },
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [],
@@ -165,9 +155,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -219,9 +207,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -265,9 +251,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
@@ -309,9 +293,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -330,68 +312,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "7LrXSjw6oX8NtpUt",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The giant pirate skeleton's poor vision makes it easily distracted by creatures that flank it. Whenever it has the flat-footed condition from being flanked, increase the penalty to its AC to –4.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Easily Distracted",
-                        "predicate": {
-                            "all": [
-                                "flanked"
-                            ]
-                        },
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": -4
-                    },
-                    {
-                        "key": "ToggleProperty",
-                        "label": "Is flanked?",
-                        "property": "flags.pf2e.rollOptions.all.flanked"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Easily Distracted",
-            "sort": 400000,
             "type": "action"
         },
         {
@@ -426,9 +346,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -446,14 +364,14 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 500000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "9LrnTtrOFInnVVZB",
+            "_id": "7LrXSjw6oX8NtpUt",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -462,21 +380,37 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature critically hit by the giant pirate skeleton's gaff hook is impaled upon it.</p>\n<p>The creature is @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grabbed} by the giant pirate skeleton and whenever the giant pirate skeleton maintains the grab, the creature takes [[/r {1d10+10}[piercing]]]{1d10+10 piercing damage} from the agonizing wound.</p>"
+                    "value": "<p>The giant pirate skeleton's poor vision makes it easily distracted by creatures that flank it. Whenever it has the flat-footed condition from being flanked, increase the penalty to its AC to -4.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Easily Distracted",
+                        "predicate": {
+                            "all": [
+                                "flanked"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": -4
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Is flanked?",
+                        "property": "flags.pf2e.rollOptions.all.flanked"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -489,8 +423,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Impaling Hook",
-            "sort": 600000,
+            "name": "Easily Distracted",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -518,9 +452,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -534,6 +466,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Focused Assault",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "9LrnTtrOFInnVVZB",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature critically hit by the giant pirate skeleton's gaff hook is impaled upon it.</p>\n<p>The creature is @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grabbed} by the giant pirate skeleton and whenever the giant pirate skeleton maintains the grab, the creature takes [[/r {1d10+10}[piercing]]]{1d10+10 piercing damage} from the agonizing wound.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Impaling Hook",
             "sort": 700000,
             "type": "action"
         },
@@ -559,9 +533,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -594,9 +566,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

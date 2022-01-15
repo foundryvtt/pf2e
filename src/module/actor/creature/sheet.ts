@@ -85,18 +85,18 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         return icons[level];
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
             const baseValue: number = getProperty(this.actor.data._source, propertyPath);
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
-        html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
@@ -106,7 +106,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
-        html.find(selectors).on("change", (event) => {
+        $html.find(selectors).on("change", (event) => {
             const $target = $(event.target);
 
             const { itemId, itemProperty } = event.target.dataset;
@@ -142,7 +142,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // Roll skill checks
-        html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
+        $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
             const skills: Record<string, Rollable | undefined> = this.actor.data.data.skills;
             const key = event.currentTarget.parentElement?.getAttribute("data-skill") ?? "";
             const skill = skills[key];
@@ -154,12 +154,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // Roll recovery flat check when Dying
-        html.find(".recoveryCheck.rollable").on("click", (event) => {
+        $html.find(".recoveryCheck.rollable").on("click", (event) => {
             this.actor.rollRecovery(event);
         });
 
         // strikes
-        const $strikesList = html.find("ol.strikes-list");
+        const $strikesList = $html.find("ol.strikes-list");
 
         $strikesList.find('button[data-action="strike-damage"]').on("click", (event) => {
             if (!["character", "npc"].includes(this.actor.data.type)) {
@@ -175,7 +175,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
-        html.find(".spell-attack").on("click", (event) => {
+        $html.find(".spell-attack").on("click", (event) => {
             if (!["character"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters");
             }
@@ -187,11 +187,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // Casting spells and consuming slots
-        html.find(".cast-spell-button").on("click", (event) => {
+        $html.find(".cast-spell-button").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");
             const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
             const entry = this.actor.spellcasting.get(entryId);
-            if (!entry) {
+            if (!(entry instanceof SpellcastingEntryPF2e)) {
                 console.warn("PF2E System | Failed to load spellcasting entry");
                 return;
             }
@@ -228,11 +228,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         // We can't use form submission for these updates since duplicates force array updates.
         // We'll have to move focus points to the top of the sheet to remove this
-        html.find(".focus-pool").on("change", (evt) =>
-            this.actor.update({ "data.resources.focus.max": $(evt.target).val() })
-        );
+        $html
+            .find(".focus-pool")
+            .on("change", (evt) => this.actor.update({ "data.resources.focus.max": $(evt.target).val() }));
 
-        html.find(".spell-list .focus-points").on("click contextmenu", (event) => {
+        $html.find(".spell-list .focus-points").on("click contextmenu", (event) => {
             if (!(this.actor.data.type === "character" || this.actor.data.type === "npc")) return;
 
             const change = event.type === "click" ? 1 : -1;
@@ -241,7 +241,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.actor.update({ "data.resources.focus.value": points });
         });
 
-        html.find(".toggle-signature-spell").on("click", (event) => {
+        $html.find(".toggle-signature-spell").on("click", (event) => {
             this.onToggleSignatureSpell(event);
         });
     }
@@ -303,5 +303,18 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         }
 
         return super._onSubmit(event, options);
+    }
+
+    /** Redirect an update to shield HP to the actual item */
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        const heldShield = this.actor.heldShield;
+        if (heldShield && typeof formData["data.attributes.shield.hp.value"] === "number") {
+            await heldShield.update({
+                "data.hp.value": formData["data.attributes.shield.hp.value"],
+            });
+        }
+        delete formData["data.attributes.shield.hp.value"];
+
+        await super._updateObject(event, formData);
     }
 }

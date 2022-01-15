@@ -22,7 +22,6 @@ import { MeleePF2e } from "@item/melee";
 import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
-import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { ConsumablePF2e } from "@item";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
@@ -110,16 +109,17 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.data.category ||= "simple";
-        this.data.data.group ||= null;
-        this.data.data.baseItem ||= null;
-        this.data.data.potencyRune.value ||= null;
-        this.data.data.strikingRune.value ||= null;
-        this.data.data.propertyRune1.value ||= null;
-        this.data.data.propertyRune2.value ||= null;
-        this.data.data.propertyRune3.value ||= null;
-        this.data.data.propertyRune4.value ||= null;
-        this.data.data.traits.otherTags = [];
+        const systemData = this.data.data;
+        systemData.category ||= "simple";
+        systemData.group ||= null;
+        systemData.baseItem ||= null;
+        systemData.potencyRune.value ||= null;
+        systemData.strikingRune.value ||= null;
+        systemData.propertyRune1.value ||= null;
+        systemData.propertyRune2.value ||= null;
+        systemData.propertyRune3.value ||= null;
+        systemData.propertyRune4.value ||= null;
+        systemData.traits.otherTags ??= [];
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
         const traitSet = this.traits;
@@ -169,10 +169,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         // Collect all traits from the runes and apply them to the weapon
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
-        const traitsFromRunes = runesData.flatMap((datum: { traits: readonly WeaponTrait[] }) => datum.traits);
-        const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
-        const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
-        systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
+        const magicTraits: "magical"[] = this.data.data.potencyRune.value ? ["magical"] : [];
+        systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
         systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));
@@ -210,7 +208,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             unique: 3,
         };
         const baseRarity = this.rarity;
-        systemData.traits.rarity.value = runesData
+        systemData.traits.rarity = runesData
             .map((runeData) => runeData.rarity)
             .concat(materialData?.rarity ?? "common")
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);

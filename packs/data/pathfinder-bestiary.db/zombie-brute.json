@@ -41,14 +41,8 @@
             "perception": {
                 "value": 4
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -102,14 +96,12 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Slashing",
                     "type": "slashing",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -117,9 +109,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -140,6 +130,76 @@
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
+        {
+            "_id": "9j9kz8bv8i4ae8b7",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Slowed",
+                "description": {
+                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "slowed"
+                },
+                "modifiers": [],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "slowed",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 1
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/slowed.webp",
+            "name": "Slowed",
+            "sort": 100000,
+            "type": "condition"
+        },
         {
             "_id": "wdsdNrRHG7tMUw5P",
             "data": {
@@ -171,9 +231,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -186,8 +244,54 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 100000,
+            "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "QWBpk7SbuXW6RHU1",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "TtcFIJZjrZ4Vaaml",
@@ -214,9 +318,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -230,59 +332,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "OvNDXDsQn6S6DDkJ",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "oNSDlUCQr0RZoHRA",
+            "_id": "BOFFwI5nKDfABluP",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -313,9 +367,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -333,11 +385,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "z19geYbKtL4SFTvi",
+            "_id": "Is4V63biDtNBVpi2",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -361,9 +413,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -380,8 +430,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Push",
-            "sort": 500000,
+            "name": "Improved Push 5 feet",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -406,9 +456,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -416,7 +464,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],

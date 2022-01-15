@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -1
             },
             "con": {
                 "mod": 2
@@ -41,14 +41,8 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -91,21 +85,20 @@
             },
             "dr": [
                 {
-                    "label": "Electricity",
+                    "exceptions": "",
                     "type": "electricity",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Poison",
+                    "exceptions": "",
                     "type": "poison",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "3"
+                    "value": 3
                 }
             ],
             "languages": {
@@ -113,9 +106,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet"
             },
@@ -142,8 +133,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "knockdown"
+                        "knockdown",
+                        "pack-attack"
                     ]
                 },
                 "bonus": {
@@ -165,9 +158,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -182,7 +173,99 @@
             "type": "melee"
         },
         {
-            "_id": "EhAiHVNaM9C5C7eG",
+            "_id": "wrAEK8zz0CszI6AJ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "VyBZbrON0TldOYvl",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "pBAPuoNaSyHoRG4V",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -194,21 +277,19 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -219,10 +300,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -238,7 +323,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The blood wolf moves up to half its Speed. This movement doesn't trigger reactions. At the end of the movement, it attempts an Intimidation check to Demoralize a target within 5 feet of it. This Intimidation check doesn't take the -4 circumstance penalty for the wolf not speaking a language.</p>"
+                    "value": "<p>The blood wolf moves up to half its Speed. This movement doesn't trigger reactions. At the end of the movement, it attempts an Intimidation check to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} a target within 5 feet of it. This Intimidation check doesn't take the -4 circumstance penalty for the wolf not speaking a language.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -250,9 +335,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -268,7 +351,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Aggressive Rush",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -289,16 +372,31 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -312,7 +410,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "W0iJibS7qX5Av9oY",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -337,9 +481,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -347,7 +489,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -372,9 +514,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -382,7 +522,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -407,9 +547,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -417,7 +555,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -442,9 +580,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -452,7 +588,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -477,9 +613,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -487,7 +621,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

@@ -41,14 +41,8 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -63,7 +57,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>The more common bugbear thug specializes in the art of lurking in the shadows.</p>",
+            "publicNotes": "<p>The more common bugbear thug specializes in the art of lurking in the shadows.</p>\n<hr />\n<p>These stealthy and cruel goblinoid creatures delight in spreading fear and tormenting their victims. Bugbears are the monsters lurking in the closet and hiding under the bed. Preying on remote farmsteads, bugbears reveal their presence with thumps in the night or creaks of boards to build lurking dread and arouse suspicion and fear.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -99,9 +93,7 @@
                     "goblin"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet"
             },
@@ -119,10 +111,10 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/bestiary-1/bugbear.webp",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "E0xnI3Q8LpEavI4v",
+            "_id": "iSTirw6VbSG9cG1W",
             "data": {
                 "MAP": {
                     "value": ""
@@ -248,7 +240,7 @@
                 },
                 "slug": "bastard-sword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -264,9 +256,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d12"
                     ]
@@ -290,7 +280,7 @@
             "type": "weapon"
         },
         {
-            "_id": "xCQO7cD7hITDTzDN",
+            "_id": "bo618nMPJiUpNZ9C",
             "data": {
                 "MAP": {
                     "value": ""
@@ -416,7 +406,7 @@
                 },
                 "slug": "javelin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -432,9 +422,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "thrown"
                     ]
@@ -458,7 +446,7 @@
             "type": "weapon"
         },
         {
-            "_id": "EH5FnIJ55jI2iKgz",
+            "_id": "oXbpRMLMAGNRfezi",
             "data": {
                 "armor": {
                     "value": 1
@@ -561,7 +549,7 @@
                 },
                 "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -574,9 +562,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -619,16 +605,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d12"
                     ]
@@ -673,9 +676,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "nonlethal"
@@ -721,9 +722,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "thrown-30"
                     ]
@@ -740,7 +739,7 @@
             "type": "melee"
         },
         {
-            "_id": "n4MdO8pZL4dF6aNS",
+            "_id": "sz9GGQOjyrluDIX3",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -764,9 +763,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -788,7 +785,7 @@
             "type": "action"
         },
         {
-            "_id": "DQHjB55wnVOVzwR1",
+            "_id": "Jxa5SzH4ybrGFB9q",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -812,9 +809,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -860,9 +855,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -916,9 +909,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -957,9 +948,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -992,9 +981,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1027,9 +1014,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1062,9 +1047,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1080,7 +1063,7 @@
     "token": {
         "disposition": -1,
         "height": 1,
-        "img": "systems/pf2e/icons/bestiary-1/bugbear.webp",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "name": "Bugbear Thug",
         "width": 1
     },

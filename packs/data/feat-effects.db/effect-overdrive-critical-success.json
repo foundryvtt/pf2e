@@ -1,6 +1,7 @@
 {
     "_id": "1XlJ9xLzL19GHoOL",
     "data": {
+        "badge": null,
         "description": {
             "value": "<p>Your gizmos go into a state of incredible efficiency called critical overdrive, adding great power to your attacks. Your Strikes deal additional damage equal to your Intelligence modifier for 1 minute. After the Overdrive ends, your gizmos become unusable as they cool down or reset, and you can't use Overdrive for 1 minute.</p>"
         },
@@ -16,29 +17,53 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": "@actor.abilities.int.mod"
-                        },
-                        {
-                            "end": 6,
-                            "start": 3,
-                            "value": "@actor.abilities.int.mod+1"
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": "@actor.abilities.int.mod+2"
-                        },
-                        {
-                            "start": 15,
-                            "value": "@actor.abilities.int.mod+3"
-                        }
+                "predicate": {
+                    "not": [
+                        "self:feature:expert-overdrive"
                     ]
-                }
+                },
+                "selector": "damage",
+                "slug": "overdrive",
+                "value": "@actor.abilities.int.mod"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:feature:expert-overdrive"
+                    ],
+                    "not": [
+                        "self:feature:master-overdrive"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "overdrive-expert",
+                "value": "@actor.abilities.int.mod+1"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:feature:master-overdrive"
+                    ],
+                    "not": [
+                        "self:feature:legendary-overdrive"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "overdrive-master",
+                "value": "@actor.abilities.int.mod+2"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:feature:legendary-overdrive"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "overdrive-legendary",
+                "value": "@actor.abilities.int.mod+3"
             }
         ],
         "source": {
@@ -54,9 +79,7 @@
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": []
         }
     },

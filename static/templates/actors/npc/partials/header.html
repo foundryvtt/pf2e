@@ -9,8 +9,8 @@
     <div class="flexrow" style="justify-content: space-between; width: 100%;">
         <div class="flexrow" style="flex: auto;">
             {{!-- TRAITS HERE --}}
-            <select class="rarity-select traits-list-item rarity {{data.traits.rarity.value}}" name="data.traits.rarity.value" data-dtype="String">
-                {{#select data.traits.rarity.value}}
+            <select class="rarity-select traits-list-item rarity {{data.traits.rarity}}" name="data.traits.rarity" data-dtype="String">
+                {{#select data.traits.rarity}}
                     {{#each rarity as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>
                     {{/each}}

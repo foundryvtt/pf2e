@@ -1,6 +1,6 @@
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DiceModifierPF2e } from "@module/modifiers";
-import { isBlank, toNumber } from "@util";
+import { isBlank } from "@util";
 import { DegreeOfSuccessString } from "@system/check-degree-of-success";
 import { DamageDieSize } from "@system/damage/damage";
 import { PredicateStatement, RawPredicate } from "@system/predication";
@@ -39,14 +39,14 @@ export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number
 
 export function getAttackBonus(itemData: WeaponSystemData): number {
     if (itemData.group === "bomb") {
-        return toNumber(itemData?.bonus?.value) ?? 0;
+        return Number(itemData?.bonus?.value) || 0;
     }
     return itemData.potencyRune.value ?? 0;
 }
 
 export function getArmorBonus(itemData: ArmorData["data"]): number {
     const potencyRune = itemData.potencyRune.value;
-    const baseArmor = toNumber(itemData.armor.value) ?? 0;
+    const baseArmor = Number(itemData.armor.value) || 0;
     return baseArmor + potencyRune;
 }
 
@@ -913,19 +913,14 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
     },
 };
 
-export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
-    return getPropertyRunes(itemData, getPropertySlots(itemData)).flatMap((rune) => {
+export function getPropertyRuneModifiers(runes: string[]): DiceModifierPF2e[] {
+    return runes.flatMap((rune) => {
         const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
         if (runeConfig) {
             return runeConfig.damage?.dice ? toModifiers(rune, runeConfig.damage.dice) : [];
         }
         return [];
     });
-}
-
-export function hasGhostTouchRune(itemData: WeaponData): boolean {
-    const runes = new Set(getPropertyRunes(itemData, getPropertySlots(itemData)));
-    return runes.has("ghostTouch");
 }
 
 /* -------------------------------------------- */

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "5"
@@ -110,9 +103,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "tremorsense 30 feet, low-light vision"
             },
@@ -162,9 +153,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -179,54 +168,6 @@
             "name": "Vine",
             "sort": 100000,
             "type": "melee"
-        },
-        {
-            "_id": "nvEMR0N4HLFwMTMQ",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "tremorsense",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense",
-            "sort": 200000,
-            "type": "action"
         },
         {
             "_id": "61nmK3yvcoeX2PbG",
@@ -253,9 +194,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -273,6 +212,52 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "nvEMR0N4HLFwMTMQ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense",
             "sort": 300000,
             "type": "action"
         },
@@ -301,9 +286,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -333,7 +316,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The assassin vine detects a creature within 20 feet via @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense}</p>\n<p><strong>Effect</strong> The assassin vine causes vegetation within a 20-foot emanation to writhe for 1 round, turning this area into difficult terrain. When a creature starts its turn in this area, it must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"20\" data-pf2-traits=\"primal,transmutation\" data-pf2-label=\"Grasping Foliage DC\" data-pf2-show-dc=\"gm\">Reflex</span> save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure it is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. A creature can attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} to remove these effects.</p>\n<p>Assassin vines are immune to Grasping Foliage.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The assassin vine detects a creature within 20 feet via @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense}</p>\n<p><strong>Effect</strong> The assassin vine causes vegetation within a @Template[type:emanation|distance:20] to writhe for 1 round, turning this area into difficult terrain. When a creature starts its turn in this area, it must attempt a @Check[type:reflex|dc:20] save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure it is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. A creature can attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} to remove these effects.</p>\n<p>Assassin vines are immune to Grasping Foliage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -345,9 +328,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "primal",
                         "transmutation"
@@ -380,7 +361,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+4}[bludgeoning]]]{1d8+4 bludgeoning}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d8+4}[bludgeoning]]]{1d8+4 bludgeoning}, @Check[type:fortitude|dc:20|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -392,9 +373,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -440,9 +419,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -485,9 +462,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -533,9 +508,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {

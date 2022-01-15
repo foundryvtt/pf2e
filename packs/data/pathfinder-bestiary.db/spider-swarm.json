@@ -41,13 +41,6 @@
             "perception": {
                 "value": 4
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -129,9 +122,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, web sense"
             },
@@ -176,9 +167,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -224,9 +213,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -268,9 +255,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -292,50 +277,6 @@
             "type": "action"
         },
         {
-            "_id": "bEsmMOS1PqhLHHbh",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Each enemy in the spider swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} with a <span data-pf2-check=\"reflex\" data-pf2-dc=\"14\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>\n<p data-visibility=\"gm\">A creature that fails its save is exposed to spider swarm venom.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swarming Bites",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "NIgj8uAlgosxMdVf",
             "data": {
                 "actionCategory": {
@@ -348,7 +289,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Spider Swarm Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1 #poison]]{1 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d4}[poison]]]{1d4 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:14]</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1 #poison]]{1 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d4}[poison]]]{1d4 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -360,9 +301,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -378,6 +317,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spider Swarm Venom",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "bEsmMOS1PqhLHHbh",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Each enemy in the spider swarm's space takes [[/r {1d4}[piercing]]]{1d4 piercing damage} with a @Check[type:reflex|dc:14|basic:true] save.</p>\n<p data-visibility=\"gm\">A creature that fails its save is exposed to spider swarm venom.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Bites",
             "sort": 500000,
             "type": "action"
         },
@@ -403,9 +384,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -438,9 +417,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -473,9 +450,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

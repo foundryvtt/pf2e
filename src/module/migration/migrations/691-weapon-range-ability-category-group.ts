@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { WeaponCategory, WeaponGroup, WeaponRange, WeaponSystemSource } from "@item/weapon/data";
 import { RANGED_WEAPON_GROUPS } from "@item/weapon/data/values";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 

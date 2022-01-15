@@ -41,14 +41,8 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -109,9 +103,7 @@
                     "necril"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -162,9 +154,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "coldiron"
                     ]
@@ -205,9 +195,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -260,9 +248,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -281,6 +267,51 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "f42OKdvtvGvdcunj",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When the ragewight damages a living creature with its claw Strike, the ragewight gains 3 temporary Hit Points and the creature must succeed at a @Check[type:fortitude|dc:21] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt to the creature by the ragewight increases the amount of drain by 1 on a failed save, to a maximum of @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Drain Life",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -308,9 +339,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -324,53 +353,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Furious Grab",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "f42OKdvtvGvdcunj",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When the ragewight damages a living creature with its claw Strike, the ragewight gains 3 temporary Hit Points and the creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Drain Life DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt to the creature by the ragewight increases the amount of drain by 1 on a failed save, to a maximum of @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Drain Life",
             "sort": 500000,
             "type": "action"
         },
@@ -387,7 +369,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ragewight goes into a frenzy, gaining 10 temporary Hit Points. Its Strikes deal 2 additional damage, and it takes a –1 penalty to AC. This lasts for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: NPC Rage]{Effect: Rage}</p>"
+                    "value": "<p>The ragewight goes into a frenzy, gaining 10 temporary Hit Points. Its Strikes deal 2 additional damage, and it takes a -1 penalty to AC.</p>\n<p data-visibility=\"gm\">This lasts for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.feature-effects.Effect: Rage]{Effect: Rage}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -397,7 +379,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "ragewight-rage"
+                                "self:effect:rage"
                             ]
                         },
                         "selector": "ac",
@@ -407,7 +389,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "ragewight-rage"
+                                "self:effect:rage"
                             ]
                         },
                         "selector": "damage",
@@ -415,9 +397,9 @@
                     },
                     {
                         "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "data.custom.modifiers.rageMod",
-                        "value": -1
+                        "mode": "override",
+                        "path": "flags.pf2e.rageTempHP",
+                        "value": 10
                     }
                 ],
                 "slug": null,
@@ -426,9 +408,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -470,9 +450,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -514,9 +492,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -549,9 +525,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -584,9 +558,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

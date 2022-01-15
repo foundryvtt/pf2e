@@ -41,13 +41,6 @@
             "perception": {
                 "value": 3
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -128,9 +121,7 @@
                     "ignan"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision, steam vision"
             },
@@ -254,9 +245,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -363,9 +352,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "water"
                     ]
@@ -410,9 +397,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse"
@@ -428,50 +413,6 @@
             "name": "Claw",
             "sort": 300000,
             "type": "melee"
-        },
-        {
-            "_id": "0IwQxSLxEqwPcB3q",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The steam mephit ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from mist and steam.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Steam Vision",
-            "sort": 400000,
-            "type": "action"
         },
         {
             "_id": "jK8jhXaoNnEEDRLV",
@@ -498,9 +439,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -518,6 +457,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "0IwQxSLxEqwPcB3q",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The steam mephit ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from mist and steam.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Steam Vision",
             "sort": 500000,
             "type": "action"
         },
@@ -546,9 +527,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -582,7 +561,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The steam mephit calls down a rain boiling water that surrounds them in a 10-foot emanation. Creatures in the area take [[/r {2d8}[fire]]]{2d8 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,conjuration,fire,water,damaging-effect\" data-pf2-label=\"Boiling Rain DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save), and small unattended flames (such as torches) are extinguished.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The steam mephit calls down a rain boiling water that surrounds them in a @Template[type:emanation|distance:10]. Creatures in the area take [[/r {2d8}[fire]]]{2d8 fire damage} (@Check[type:reflex|dc:17|basic:true] save), and small unattended flames (such as torches) are extinguished.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -594,9 +573,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "conjuration",
@@ -631,7 +608,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The steam mephit spits a cloud of steam in a 15-foot cone that deals [[/r {2d6}[fire]]]{2d6 fire damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>The steam mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The steam mephit spits a cloud of steam in a @Template[type:cone|distance:15] that deals [[/r {2d6}[fire]]]{2d6 fire damage} to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The steam mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -643,9 +620,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "fire"
@@ -687,9 +662,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -722,9 +695,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

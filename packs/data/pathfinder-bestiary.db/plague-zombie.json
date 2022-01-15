@@ -41,14 +41,8 @@
             "perception": {
                 "value": 3
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -102,14 +96,12 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Slashing",
                     "type": "slashing",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -117,9 +109,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -140,6 +130,76 @@
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
+        {
+            "_id": "xe58zyk07wl19azb",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Slowed",
+                "description": {
+                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "slowed"
+                },
+                "modifiers": [],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "slowed",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 1
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/slowed.webp",
+            "name": "Slowed",
+            "sort": 100000,
+            "type": "condition"
+        },
         {
             "_id": "tvnn3d6VCprLkoQ2",
             "data": {
@@ -172,9 +232,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -185,7 +243,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 100000,
+            "sort": 200000,
             "type": "melee"
         },
         {
@@ -219,9 +277,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -232,11 +288,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 200000,
+            "sort": 300000,
             "type": "melee"
         },
         {
-            "_id": "E3pFSQaAKa0jdAzT",
+            "_id": "fTPjypXzhscP42dn",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -260,9 +316,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -280,7 +334,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -308,9 +362,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -324,11 +376,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "Z3dDRI2zRmSvj4Jo",
+            "_id": "Jcl5rz38QkHYDfHx",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -359,9 +411,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -379,7 +429,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -395,7 +445,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\">An infected creature can't heal damage it takes from zombie rot until it has been cured of the disease.</p>\n<hr />\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"disease,necromancy\" data-pf2-label=\"Zombie Rot DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[negative]]]{1d6 negative damage} (1 day)</p>\n<p><strong>Stage 3</strong> [[/r {1d6}[negative]]]{1d6 negative damage} (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {1d6}[negative]]]{1d6 negative damage} (1 day)</p>\n<p><strong>Stage 5</strong> dead, rising as a plague zombie immediately</p>\n</div>"
+                    "value": "<p>An infected creature can't heal damage it takes from zombie rot until it has been cured of the disease.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[negative]]]{1d6 negative damage} (1 day)</p>\n<p><strong>Stage 3</strong> [[/r {1d6}[negative]]]{1d6 negative damage} (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {1d6}[negative]]]{1d6 negative damage} (1 day)</p>\n<p><strong>Stage 5</strong> dead, rising as a plague zombie immediately</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -407,9 +457,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disease",
                         "necromancy"
@@ -426,11 +474,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Zombie Rot",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "MZaKVoYnYFZbId5S",
+            "_id": "MRMj6jc7E8e5c7UF",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -454,9 +502,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -474,7 +520,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -499,9 +545,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -509,7 +553,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],

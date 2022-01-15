@@ -41,13 +41,6 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -103,9 +96,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": ""
             },
@@ -257,9 +248,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -369,9 +358,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "detection",
                         "cantrip"
@@ -485,9 +472,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -598,9 +583,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "force"
                     ]
@@ -713,9 +696,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip"
                     ]
@@ -831,9 +812,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "detection",
                         "cantrip"
@@ -950,9 +929,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip"
                     ]
@@ -1065,9 +1042,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "mental",
@@ -1197,9 +1172,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cantrip"
@@ -1313,9 +1286,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "mindless"
                     ]
@@ -1475,9 +1446,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -1581,9 +1550,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1681,9 +1648,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1785,9 +1750,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1829,16 +1792,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -1852,52 +1832,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
             "sort": 1500000,
-            "type": "melee"
-        },
-        {
-            "_id": "HbNZtC9779H8iSaI",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 6
-                },
-                "damageRolls": {
-                    "gym7fhy8a9okprlmxit74a": {
-                        "damage": "1d8",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff (Two-Handed)",
-            "sort": 1600000,
             "type": "melee"
         },
         {
@@ -1925,9 +1859,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1941,7 +1873,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Living Sextant",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1969,9 +1901,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1985,7 +1915,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Counterspell",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2010,9 +1940,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2020,7 +1948,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -2045,9 +1973,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2055,7 +1981,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Astronomy Lore",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -2080,9 +2006,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2090,7 +2014,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2100000,
+            "sort": 2000000,
             "type": "lore"
         }
     ],

@@ -14,19 +14,19 @@
                 "value": 0
             },
             "stealth": {
-                "details": "(trained); DC 0 to spot the balanced boulders",
+                "details": "<p>(trained); DC 0 to spot the balanced boulders</p>",
                 "value": 15
             }
         },
         "creatureType": "",
         "details": {
-            "description": "A weight-sensitive plate buried underneath sand pulls a boulder over a cliff ledge, causing it to fall on targets within the entrance.",
-            "disable": "<p><span data-pf2-check=\"crafting\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Disable the Plate DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">Crafting</span> (expert) or <span data-pf2-check=\"thievery\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Disable the Plate DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) to find and disconnect the plate from the tipping mechanism</p>",
+            "description": "<p>A weight-sensitive plate buried underneath sand pulls a boulder over a cliff ledge, causing it to fall on targets within the entrance.</p>",
+            "disable": "<p>@Check[type:crafting|dc:27|name:Disable the Plate|traits:mechanical,trap] (expert) or @Check[type:thievery|dc:25|name:Disable the Plate|traits:mechanical,trap] (expert) to find and disconnect the plate from the tipping mechanism</p>",
             "isComplex": false,
             "level": {
                 "value": 7
             },
-            "reset": "Resetting the boulders in the trap is a labor-intensive project that takes 2 hours.",
+            "reset": "<p>Resetting the boulders in the trap is a labor-intensive project that takes 2 hours.</p>",
             "routine": ""
         },
         "saves": {
@@ -56,9 +56,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "size": {
                 "value": "med"
             },
@@ -88,7 +86,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature enters the area without taking care to avoid the hidden trigger plate</p>\n<p><strong>Effect</strong> Creatures within 10 feet of the cave entrance take [[/r {4d10+18}[bludgeoning]]]{4d10+18 bludgeoning damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"mechanical,trap,damaging-effect\" data-pf2-label=\"Dodge Falling Rocks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature enters the area without taking care to avoid the hidden trigger plate</p>\n<p><strong>Effect</strong> Creatures within 10 feet of the cave entrance take [[/r {4d10+18}[bludgeoning]]]{4d10+18 bludgeoning damage} (@Check[type:reflex|dc:25|basic:true|name:Dodge Falling Rocks|traits:mechanical,trap] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -100,9 +98,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

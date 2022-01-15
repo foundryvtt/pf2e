@@ -14,6 +14,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
 
         const grid = canvas.grid;
         const dimensions = canvas.dimensions;
+        if (!(grid && dimensions)) return;
 
         // Only highlight for objects which have a defined shape
         if (!this.id || !this.shape) return;
@@ -103,6 +104,8 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
 
     /** Measure distance using Pathfinder 2e grid-counting rules */
     static measureDistance(p0: Point, p1: Point): number {
+        if (!canvas.dimensions) return NaN;
+
         const gridSize = canvas.dimensions.size;
         const ray = new Ray(p0, p1);
         const nx = Math.ceil(Math.abs(ray.dx / gridSize));

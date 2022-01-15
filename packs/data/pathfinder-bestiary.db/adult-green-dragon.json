@@ -41,13 +41,6 @@
             "perception": {
                 "value": 22
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "trackless step, woodland stride",
                 "otherSpeeds": [
@@ -120,9 +113,7 @@
                     "sylvan"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, scent (imprecise) 60 feet"
             },
@@ -245,9 +236,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -357,9 +346,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "linguistic",
@@ -476,9 +463,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "plant"
                     ]
@@ -593,9 +578,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "plant"
                     ]
@@ -712,9 +695,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "incapacitation",
@@ -766,9 +747,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "poison",
@@ -815,9 +794,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "magical",
@@ -864,9 +841,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-20"
@@ -912,9 +887,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-15"
@@ -956,9 +929,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1004,9 +975,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1052,9 +1021,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1076,6 +1043,68 @@
             "type": "action"
         },
         {
+            "_id": "yaVkTfBp829HhTYC",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
             "_id": "bT8ABzfkEP7llB3c",
             "data": {
                 "actionCategory": {
@@ -1088,7 +1117,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"31\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:31]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1100,9 +1129,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "aura",
                         "emotion",
@@ -1125,7 +1152,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1170,7 +1197,7 @@
                             ]
                         },
                         "selector": "tail-attack",
-                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> If the attack hits, the dragon disrupts the creature’s action.</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> If the attack hits, the dragon disrupts the creature's action.</p>"
                     }
                 ],
                 "slug": null,
@@ -1179,9 +1206,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1195,70 +1220,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Twisting Tail",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "yaVkTfBp829HhTYC",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
-                "slug": "1-status-to-all-saves-vs-magic",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs Magic",
             "sort": 1500000,
             "type": "action"
         },
@@ -1275,7 +1236,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {13d6}[poison]]]{13d6 poison damage} in a @Template[type:cone|distance:50]{50-foot cone} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"31\" data-pf2-traits=\"arcane,evocation,poison,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {13d6}[poison]]]{13d6 poison damage} in a @Template[type:cone|distance:50]{50-foot cone} (@Check[type:fortitude|dc:31|basic:true] save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1287,9 +1248,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
@@ -1335,9 +1294,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1379,9 +1336,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1423,9 +1378,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1467,9 +1420,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1508,9 +1459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1543,9 +1492,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1578,9 +1525,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1613,9 +1558,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1648,9 +1591,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1683,9 +1624,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1718,9 +1657,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1753,9 +1690,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1788,9 +1723,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1823,9 +1756,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {}

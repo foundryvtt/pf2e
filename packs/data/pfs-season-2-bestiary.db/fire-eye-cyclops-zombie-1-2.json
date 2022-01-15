@@ -41,13 +41,6 @@
             "perception": {
                 "value": 5
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -118,9 +111,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": {
                 "value": "darkvision"
             },
@@ -170,9 +161,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -226,9 +215,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "brutal",
                         "range-increment-30"
@@ -244,50 +231,6 @@
             "name": "Eye",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "WCbXOYW55njv5jXG",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Slow",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "ToHjgayPfqWN3OAS",
@@ -314,9 +257,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -334,14 +275,14 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 400000,
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "WqeQzrDArNCcoIcF",
+            "_id": "WCbXOYW55njv5jXG",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -350,35 +291,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The fire-eye zombie emits an aura of heat that causes open wounds to sizzle.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and isn't at full HP must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r {1d4}[fire]]]{1d4 fire damage} as its wounds burn.</p>\n<p>Creatures critically hit by the fire-eye zombie's Strikes must attempt this saving throw immediately.</p>"
+                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "damage",
-                        "text": "<p class='compact-text'><strong>Searing Aura</strong> On a critical hit a creature must immediately succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r {1d4}[fire]]]{1d4 fire damage} as its wounds burn.</p>"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "fire",
-                        "necromancy"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -390,8 +316,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Searing Aura",
-            "sort": 500000,
+            "name": "Slow",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -426,9 +352,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -446,6 +370,61 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "WqeQzrDArNCcoIcF",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The fire-eye zombie emits an aura of heat that causes open wounds to sizzle.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and isn't at full HP must succeed at a @Check[type:fortitude|dc:17|traits:damaging-effect] save or take [[/r {1d4}[fire]]]{1d4 fire damage} as its wounds burn.</p>\n<p>Creatures critically hit by the fire-eye zombie's Strikes must attempt this saving throw immediately.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>Searing Aura</strong> On a critical hit a creature must immediately succeed at a @Check[type:fortitude|dc:17|traits:damaging-effect] save or take [[/r {1d4}[fire]]]{1d4 fire damage} as its wounds burn.</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Searing Aura",
             "sort": 600000,
             "type": "action"
         },
@@ -474,9 +453,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -515,9 +492,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Sinister runes adorn the doorway, opening a portal to a realm of nightmares if anyone other than Dwandek opens the door.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"magical,trap,hazard\" data-pf2-label=\"Seal the Rift DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Thievery</span> (master) to seal the rift using materials strongly grounded to the Material Plane, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (7th‑level, counteract DC 33) to counteract the portal.</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Seal the Rift|traits:magical,trap,hazard] (master) to seal the rift using materials strongly grounded to the Material Plane, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (7th‑level, counteract DC 33) to counteract the portal.</p>",
             "isComplex": false,
             "level": {
                 "value": 15
@@ -60,9 +60,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "size": {
                 "value": "med"
             },
@@ -92,7 +90,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature other than Dwandek opens the door</p>\n<p><strong>Effect</strong> The triggering creature is drawn into a pocket plane of pure nightmare (<span data-pf2-check=\"will\" data-pf2-traits=\"arcane,conjuration,teleportation\" data-pf2-label=\"Drawn to Nightmare DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Will</span> save to resist). Each round at the start of their turn, the creature takes [[/r {4d8}[mental]]]{4d8 mental damage} as they are assaulted by otherworldly visions, and must succeed at a new Will save against the original DC to be ejected from the pocket plane and deposited in the center of area <strong>A5</strong>.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature other than Dwandek opens the door</p>\n<p><strong>Effect</strong> The triggering creature is drawn into a pocket plane of pure nightmare (@Check[type:will|dc:38] save to resist). Each round at the start of their turn, the creature takes [[/r {4d8}[mental]]]{4d8 mental damage} as they are assaulted by otherworldly visions, and must succeed at a new Will save against the original DC to be ejected from the pocket plane and deposited in the center of area <strong>A5</strong>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -104,9 +102,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "conjuration",

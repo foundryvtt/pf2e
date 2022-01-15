@@ -41,13 +41,6 @@
             "perception": {
                 "value": 16
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -122,9 +115,7 @@
                     "sylvan"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision"
             },
@@ -247,9 +238,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -363,9 +352,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -472,9 +459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "water"
                     ]
@@ -587,9 +572,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "negative",
                         "plant"
@@ -703,9 +686,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -865,9 +846,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d12"
                     ]
@@ -918,16 +897,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10",
@@ -980,9 +976,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -1029,9 +1023,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -1070,9 +1062,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1091,103 +1081,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
             "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "GQ4af1lP9hWhVhkx",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} <span data-pf2-check=\"will\" data-pf2-dc=\"25\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "frightful-presence",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Frightful Presence",
-            "sort": 1100000,
-            "type": "action"
-        },
-        {
-            "_id": "aTTUtcIk2CfsuqEX",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Unpolluted fresh water burns a nuckelavee like acid, dealing [[/r 1d6]] damage to it and causing it to be @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}. A nuckelavee can't heal from damage when it's in an area that isn't polluted (subject to GM discretion).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Purity Vulnerability",
-            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1215,9 +1108,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1235,6 +1126,99 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "GQ4af1lP9hWhVhkx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:25]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "frightful-presence",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "aTTUtcIk2CfsuqEX",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Unpolluted fresh water burns a nuckelavee like acid, dealing [[/r 1d6]] damage to it and causing it to be @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}. A nuckelavee can't heal from damage when it's in an area that isn't polluted (subject to GM discretion).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Purity Vulnerability",
             "sort": 1300000,
             "type": "action"
         },
@@ -1251,7 +1235,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The nuckelavee breathes a 30-foot cone of foulness, dealing [[/r {8d6}[negative]]]{8d6 negative damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"disease,necromancy,poison,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save) to living creatures in the area. A creature that fails also takes [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p>The nuckelavee can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The nuckelavee breathes a @Template[type:cone|distance:30] of foulness, dealing [[/r {8d6}[negative]]]{8d6 negative damage} (@Check[type:fortitude|dc:28|basic:true] save) to living creatures in the area. A creature that fails also takes [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p>The nuckelavee can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1263,9 +1247,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disease",
                         "necromancy",
@@ -1300,7 +1282,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The target can't recover from the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition caused by mortasheen until the disease is cured. Mortasheen gains the virulent trait against animals and plants <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"disease,virulent\" data-pf2-label=\"Mortasheen (Animal or Plant) DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<hr />\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"disease\" data-pf2-label=\"Mortasheen DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Stage 1</strong> Carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
+                    "value": "<p>The target can't recover from the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition caused by mortasheen until the disease is cured. Mortasheen gains the virulent trait against animals and plants @Check[type:fortitude|dc:28|name:Mortasheen (Animal or Plant)]</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> Carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1312,9 +1294,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disease",
                         "virulent",
@@ -1349,7 +1329,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Medium or smaller, hoof, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Medium or smaller, hoof, @Check[type:reflex|dc:28|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1361,9 +1341,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1406,9 +1384,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1441,9 +1417,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1476,9 +1450,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1511,9 +1483,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1546,9 +1516,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

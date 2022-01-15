@@ -41,13 +41,6 @@
             "perception": {
                 "value": 27
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -128,9 +121,7 @@
                     "sylvan"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision, scent (imprecise) 60 feet, true seeing"
             },
@@ -254,9 +245,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -364,9 +353,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -479,9 +466,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "revelation"
                     ]
@@ -529,9 +514,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-20"
@@ -576,9 +559,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "magical",
@@ -626,9 +607,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-25"
@@ -670,9 +649,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -718,9 +695,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -766,9 +741,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -829,9 +802,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -849,7 +820,7 @@
             "type": "action"
         },
         {
-            "_id": "2oTY3Ohbh0C59vOv",
+            "_id": "4CyhH5ZkHNlxJtIP",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -861,26 +832,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature slays a shoal linnorm, it must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"curse,primal,water\" data-pf2-label=\"Curse of Drowning DC\" data-pf2-show-dc=\"gm\">Will</span> save or become cursed. As long as the curse of drowning persists, the character must spend 3 actions when drinking any liquid. Attempting to drink liquid faster causes the victim to begin drowning, immediately running out of air and falling unconscious.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "curse",
-                        "primal",
-                        "water"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -890,9 +855,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Curse of Drowning",
+            "name": "Regeneration 10 (deactivated by cold iron)",
             "sort": 1100000,
             "type": "action"
         },
@@ -921,9 +890,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -945,7 +912,7 @@
             "type": "action"
         },
         {
-            "_id": "4CyhH5ZkHNlxJtIP",
+            "_id": "2oTY3Ohbh0C59vOv",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -957,22 +924,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                    "value": "<p>When a creature slays a shoal linnorm, it must succeed at a @Check[type:will|dc:38] save or become cursed. As long as the curse of drowning persists, the character must spend 3 actions when drinking any liquid. Attempting to drink liquid faster causes the victim to begin drowning, immediately running out of air and falling unconscious.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "regeneration",
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "primal",
+                        "water"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -982,13 +951,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 10 (deactivated by cold iron)",
+            "name": "Curse of Drowning",
             "sort": 1300000,
             "type": "action"
         },
@@ -1005,7 +970,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r {12d8}[fire]]]{12d8 fire damage} in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"36\" data-pf2-traits=\"evocation,fire,primal,water,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r {6d8}[fire]]]{6d8 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"36\" data-pf2-traits=\"evocation,fire,primal,water,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Reflex</span> save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r {12d8}[fire]]]{12d8 fire damage} in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:36|basic:true] save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r {6d8}[fire]]]{6d8 fire damage} (@Check[type:reflex|dc:36|traits:damaging-effect] save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1017,9 +982,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "evocation",
                         "fire",
@@ -1054,7 +1017,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"36\" data-pf2-traits=\"fire,poison\" data-pf2-label=\"Shoal Linnorm Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[fire]]]{4d6 fire damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[fire]]]{6d6 fire damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:36]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[fire]]]{4d6 fire damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[fire]]]{6d6 fire damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1066,9 +1029,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "fire",
                         "poison"
@@ -1113,9 +1074,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1158,9 +1117,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1193,9 +1150,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1228,9 +1183,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

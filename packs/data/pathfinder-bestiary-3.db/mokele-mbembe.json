@@ -41,13 +41,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -101,9 +94,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet"
             },
@@ -151,9 +142,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-15"
                     ]
@@ -198,9 +187,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-20"
@@ -246,9 +233,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -289,9 +274,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -337,9 +320,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -361,53 +342,6 @@
             "type": "action"
         },
         {
-            "_id": "MHWhouO72rbCG3vP",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The mokele-mbembe cracks its tail, creating a sonic boom in a 5-foot burst centered on a corner within reach of its tail Strike.</p>\n<p>Each creature in the burst's area must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"incapacitation,sonic\" data-pf2-label=\"Whip Tail DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. Mokele-mbembes are immune.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "incapacitation",
-                        "sonic"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Whip Tail",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
             "_id": "uDO2KFHi9xxyZa8l",
             "data": {
                 "actionCategory": {
@@ -420,7 +354,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Large or smaller, foot, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Large or smaller, foot, @Check[type:reflex|dc:28|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -432,9 +366,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -452,6 +384,51 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "MHWhouO72rbCG3vP",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The mokele-mbembe cracks its tail, creating a sonic boom in a @Template[type:burst|distance:5] centered on a corner within reach of its tail Strike.</p>\n<p>Each creature in the burst's area must attempt a @Check[type:fortitude|dc:28] save. Mokele-mbembes are immune.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Whip Tail",
             "sort": 700000,
             "type": "action"
         },
@@ -477,9 +454,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -512,9 +487,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -547,9 +520,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

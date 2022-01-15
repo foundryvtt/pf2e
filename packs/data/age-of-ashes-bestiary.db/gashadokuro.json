@@ -41,13 +41,6 @@
             "perception": {
                 "value": 24
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -133,9 +126,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -185,9 +176,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -231,9 +220,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-15"
@@ -275,9 +262,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -296,52 +281,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "BhPrjJ8Nftcev2Lj",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Any creature that ends its turn in the aura feels the intense pain of starvation and must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"aura, divine, mental, necromancy\" data-pf2-label=\"Starvation Aura DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p data-visibility=\"gm\">On a failure, the creature becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and takes [[/r {6d6}]]{6d6 damage}. Damage and fatigue a creature takes from this aura can't be healed until the affected creature has eaten a full meal.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "divine",
-                        "mental",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Starvation Aura",
-            "sort": 400000,
             "type": "action"
         },
         {
@@ -376,9 +315,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -396,6 +333,50 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "BhPrjJ8Nftcev2Lj",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Any creature that ends its turn in the aura feels the intense pain of starvation and must attempt a @Check[type:fortitude|dc:30] save.</p>\n<p data-visibility=\"gm\">On a failure, the creature becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and takes [[/r {6d6}]]{6d6 damage}. Damage and fatigue a creature takes from this aura can't be healed until the affected creature has eaten a full meal.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Starvation Aura",
             "sort": 500000,
             "type": "action"
         },
@@ -412,7 +393,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gashadokuro breathes a spray of bone shards in a @Template[type:cone|distance:30]. Each creature in the area takes [[/r {8d12}[piercing]]]{8d12 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,divine,necromancy\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"34\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The gashadokuro breathes a spray of bone shards in a @Template[type:cone|distance:30]. Each creature in the area takes [[/r {8d12}[piercing]]]{8d12 piercing damage} (@Check[type:reflex|dc:34|basic:true] save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -424,9 +405,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -441,56 +420,6 @@
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
             "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "R8g2j3sTyDPQGaWZ",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Large, [[/r {3d6+8}[bludgeoning]]]{3d6+8 bludgeoning damage}, Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
-            "sort": 700000,
             "type": "action"
         },
         {
@@ -518,9 +447,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -534,6 +461,54 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Corpse Consumption",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "R8g2j3sTyDPQGaWZ",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Large, [[/r {3d6+8}[bludgeoning]]]{3d6+8 bludgeoning damage}, Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
             "sort": 800000,
             "type": "action"
         },
@@ -562,9 +537,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -607,9 +580,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -642,9 +613,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

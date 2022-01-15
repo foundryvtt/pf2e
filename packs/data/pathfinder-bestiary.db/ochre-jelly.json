@@ -41,14 +41,8 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -68,7 +62,7 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Ochre jellies are animate masses of protoplasm with a sickly combination of yellow, orange, and brown hues. Their acidic bodies dissolve flesh but leave other materials, including a victim's gear and bones, intact. Some ancient cultures would entomb bodies in stone sarcophaguses with ochre jellies to allow the ooze to break down the flesh and clean and polish the bones.</p>",
+            "publicNotes": "<p>Ochre jellies are animate masses of protoplasm with a sickly combination of yellow, orange, and brown hues. Their acidic bodies dissolve flesh but leave other materials, including a victim's gear and bones, intact. Some ancient cultures would entomb bodies in stone sarcophaguses with ochre jellies to allow the ooze to break down the flesh and clean and polish the bones.</p>\n<hr />\n<p>Slimes, molds, and other oozes can be found in dank dungeons and shadowed forests. While not necessarily evil, some grow to enormous sizes and have insatiable appetites.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -114,9 +108,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "motion sense 60 feet, no vision"
             },
@@ -143,6 +135,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -170,9 +163,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -211,9 +202,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -255,9 +244,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -275,7 +262,7 @@
             "type": "action"
         },
         {
-            "_id": "11RcQOrr0VYYlU5P",
+            "_id": "8CYcAwzfjTavahvb",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -287,7 +274,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+3}[bludgeoning]]]{1d8+3 bludgeoning damage} plus [[/r {1d4}[acid]]]{1d4 acid damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d8+3}[bludgeoning]+{1d4}[acid]]]{1d8+3 bludgeoning damage plus 2d4 acid damage}, @Check[type:fortitude|dc:23|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -299,9 +286,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -320,54 +305,6 @@
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "ElLBwPTYZKleJljN",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -395,9 +332,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -411,6 +346,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ochre Acid",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "NC141aBluvAWkdH5",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 600000,
             "type": "action"
         },
@@ -436,9 +417,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

@@ -1,0 +1,33 @@
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeHeritage")}}</h4>
+<div class="feat-details">
+    <div class="form-group required-ancestry">
+        <label class="pf-title">{{localize "ITEM.TypeAncestry"}}</label>
+        <div class="drop-zone{{#if ancestryRefBroken}} ancestry-ref-broken{{/if}}" title="{{#if ancestryRefBroken}}{{localize "PF2E.Item.Heritage.AncestryNotFound"}}{{else}}{{localize "PF2E.Item.Heritage.DragAncestryHere"}}{{/if}}">
+            {{!-- Check data.ancestry instead of the ancestry item in case the required ancestry has a broken UUID reference  --}}
+            {{#if data.ancestry}}
+                {{!-- Reference the retrieved ancestry item's name for localization purposes --}}
+                {{#if ancestry}}{{ancestry.name}}{{else}}{{data.ancestry.name}}{{/if}}
+                <a class="remove-ancestry" data-action="remove-ancestry" title="{{localize "PF2E.Item.Heritage.RemoveAncestry"}}"><i class="fas fa-trash"></i></a>
+            {{else}}
+                {{localize "PF2E.Item.Heritage.NoneVersatile"}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Rarity"}}</label>
+        <select name="data.traits.rarity">
+            {{#select data.traits.rarity}}
+                {{#each rarities as |rarity|}}
+                    <option value="{{rarity.value}}">{{localize rarity.label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <ol class="item-tags tags">
+        {{#each traits}}
+            {{#if this.selected}}
+                <li class="tag tag_transparent">{{localize this.label}}</li>
+            {{/if}}
+        {{/each}}
+    </ol>
+</div>

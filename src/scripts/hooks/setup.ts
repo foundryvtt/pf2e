@@ -18,7 +18,7 @@ import {
     StatisticModifier,
 } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
-import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
+import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { ConditionManager } from "@system/conditions";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { EffectsPanel } from "@module/apps/effects-panel";
@@ -27,6 +27,7 @@ import { remigrate } from "@scripts/system/remigrate";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { HomebrewElements } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
+import { sluggify } from "@util";
 
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const Setup = {
@@ -51,13 +52,8 @@ export const Setup = {
             };
             game.pf2e.rollItemMacro = rollItemMacro;
             game.pf2e.rollActionMacro = rollActionMacro;
-            game.pf2e.gm = {
-                calculateXP,
-                launchTravelSheet,
-            };
-            game.pf2e.system = {
-                remigrate,
-            };
+            game.pf2e.gm = { calculateXP, launchTravelSheet };
+            game.pf2e.system = { remigrate, sluggify };
             game.pf2e.Dice = DicePF2e;
             game.pf2e.StatusEffects = StatusEffects;
             game.pf2e.ConditionManager = ConditionManager;

@@ -41,14 +41,8 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "suction",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -113,9 +107,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "motion sense 60 feet, no vision"
             },
@@ -171,9 +163,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -214,9 +204,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -246,7 +234,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that hits the pudding with a metal or wooden weapon must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-label=\"Corrosive Mass DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or the weapon takes [[/r {2d6}[acid]]]{2d6 acid damage} (after dealing damage to the black pudding as normal). Thrown weapons and ammunition take this damage automatically with no save.</p>"
+                    "value": "<p>A creature that hits the pudding with a metal or wooden weapon must succeed at a @Check[type:reflex|dc:22] save or the weapon takes [[/r {2d6}[acid]]]{2d6 acid damage} (after dealing damage to the black pudding as normal). Thrown weapons and ammunition take this damage automatically with no save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -258,9 +246,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -302,9 +288,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -319,6 +303,52 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Split",
             "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "dH7eKw8pDJQDkR3P",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>[[/r {1d8+7}[bludgeoning]+{1d6}[acid]]]{1d8+7 bludgeoning damage plus 1d6 acid damage}, @Check[type:fortitude|dc:26|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -346,9 +376,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -362,7 +390,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Corrosive Touch",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -390,9 +418,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -406,59 +432,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Suction",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "r2pIAOf6GgO5F8sy",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>[[/r {1d8+7}[bludgeoning]]]{1d8+7 bludgeoning damage} plus [[/r {1d6}[acid]]]{1d6 acid damage}. <span data-pf2-check=\"fortitude\" data-pf2-traits=\"acid,bludgeoning,damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "constrict",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "iarJltZyQf4z8F3Q",
+            "_id": "Hczu635vDDik3NIJ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -482,9 +460,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -527,9 +503,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

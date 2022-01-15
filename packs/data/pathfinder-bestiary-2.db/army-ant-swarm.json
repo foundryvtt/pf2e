@@ -41,13 +41,6 @@
             "perception": {
                 "value": 11
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -134,9 +127,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet"
             },
@@ -181,9 +172,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -229,9 +218,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -250,50 +237,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scent",
             "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "54mSt8tnFXfSUjhU",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<p><strong>Effect</strong> The swarm takes [[/r {1d6}]]{1d6 damage} as ants cling to the creature and continue biting, dealing [[/r {3d6}[persistent,piercing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Piercing Damage}. High winds or immersion in water reduces the DC of the flat check to end this persistent damage to 5. Any area damage dealt to the creature destroys these clinging ants.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Cling",
-            "sort": 300000,
             "type": "action"
         },
         {
@@ -321,9 +264,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -341,6 +282,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swarm Mind",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "54mSt8tnFXfSUjhU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<p><strong>Effect</strong> The swarm takes [[/r {1d6}]]{1d6 damage} as ants cling to the creature and continue biting, dealing [[/r {3d6}[persistent,piercing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Piercing Damage}. High winds or immersion in water reduces the DC of the flat check to end this persistent damage to 5. Any area damage dealt to the creature destroys these clinging ants.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Cling",
             "sort": 400000,
             "type": "action"
         },
@@ -357,7 +340,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[piercing]]]{3d6 piercing damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"concentrate,manipulate,damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save against Swarming Bites becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round. If the creature attempts a concentrate or manipulate action while affected, it must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"5\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">flat check</span> or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[piercing]]]{3d6 piercing damage} (@Check[type:fortitude|dc:21|basic:true] save). A creature that fails its save against Swarming Bites becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round. If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[type:flat|dc:5] check or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -369,9 +352,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "manipulate"
@@ -413,9 +394,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

@@ -41,14 +41,8 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -99,9 +93,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -111,9 +104,7 @@
                     "aklo"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet"
             },
@@ -160,9 +151,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -189,7 +178,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When Hiding, the yeti is concealed by any snowfall, even if it's not thick enough to make other creatures concealed.</p>"
+                    "value": "<p>When @Compendium[pf2e.actionspf2e.Hide]{Hiding}, the yeti is @Compendium[pf2e.conditionitems.Concealed]{Concealed} by any snowfall, even if it's not thick enough to make other creatures concealed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -201,9 +190,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -233,21 +220,73 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Yetis gain a +4 status bonus to saves against fear and against spells and abilities that affect dreams. A yeti that falls prey to a supernatural nightmare loses this ability and becomes permanently enraged, gaining a [[/r +1 # status bonus to attack and damage]] status bonus to attack and damage rolls and a -1 status penalty to AC.</p>"
+                    "value": "<p>Yetis gain a +4 status bonus to saves against fear and against spells and abilities that affect dreams. A yeti that falls prey to a supernatural nightmare loses this ability and becomes permanently enraged, gaining a +1 status bonus to attack and damage rolls and a -1 status penalty to AC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.NPCAbility.NightmareGuardianRage",
+                        "property": "flags.pf2e.rollOptions.all.nightmareGuardianRage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nightmareGuardianRage"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nightmareGuardianRage"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nightmareGuardianRage"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "status",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "dream",
+                                "fear"
+                            ],
+                            "not": [
+                                "nightmareGuardianRage"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -277,7 +316,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The yeti is hidden or undetected while not in combat, and a creature would observe it.</p>\n<p><strong>Effect</strong> The yeti Strides or Climbs up to half its Speed to a location where it can Hide, then Hides. If its new Stealth check result meets or exceeds the triggering creature's Perception DC, the yeti remains hidden.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The yeti is @Compendium[pf2e.conditionitems.Hidden]{Hidden} or @Compendium[pf2e.conditionitems.Undetected]{Undetected} while not in combat, and a creature would observe it.</p>\n<p><strong>Effect</strong> The yeti Strides or Climbs up to half its Speed to a location where it can @Compendium[pf2e.actionspf2e.Hide]{Hide}, then Hides. If its new Stealth check result meets or exceeds the triggering creature's Perception DC, the yeti remains hidden.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -289,9 +328,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -321,7 +358,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The yeti hits a creature in the first round of combat and the yeti was @Compendium[pf2e.conditionitems.Hidden]{Hidden} from that creature at the start of combat.</p>\n<p><strong>Effect</strong> Each enemy within 30 feet that witnesses the attack (including the target of the attack) must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"23\" data-pf2-traits=\"emotion,fear,mental\" data-pf2-label=\"Grizzly Arrival DC\" data-pf2-show-dc=\"gm\">Will</span> save. On a failure, the creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}; on a critical failure, it's frightened 4.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The yeti hits a creature in the first round of combat and the yeti was @Compendium[pf2e.conditionitems.Hidden]{Hidden} from that creature at the start of combat.</p>\n<p><strong>Effect</strong> Each enemy within @Template[type:emanation|distance:30]{30 feet} that witnesses the attack (including the target of the attack) must attempt a @Check[type:will|dc:23] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}; on a critical failure, it's @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -333,9 +370,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "fear",
@@ -357,7 +392,7 @@
             "type": "action"
         },
         {
-            "_id": "d6DBWwMMDV6H3B6X",
+            "_id": "mxb42HlUBxVyw38F",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -369,21 +404,19 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                    "value": "<p>claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -394,7 +427,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
             "sort": 600000,
@@ -422,9 +459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -453,7 +488,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In Snow",
+                        "label": "PF2E.SkillVariant.Snow",
                         "predicate": {
                             "all": [
                                 "terrain:snow"
@@ -469,9 +504,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {
@@ -510,9 +543,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

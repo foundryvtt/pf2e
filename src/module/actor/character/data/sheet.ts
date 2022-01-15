@@ -1,7 +1,7 @@
 import { CharacterPF2e } from "@actor";
 import { SpellcastingSheetData } from "@actor/npc/sheet";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, HeritagePF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { CraftingFormula } from "@module/crafting/formula";
@@ -56,6 +56,7 @@ interface CraftingEntries {
 
 interface CraftingData {
     noCost: boolean;
+    hasQuickAlchemy: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
     entries: CraftingEntries;
 }
@@ -64,6 +65,7 @@ interface CraftingData {
 export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     abpEnabled: boolean;
     ancestry: Embedded<AncestryPF2e> | null;
+    heritage: Embedded<HeritagePF2e> | null;
     background: Embedded<BackgroundPF2e> | null;
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;

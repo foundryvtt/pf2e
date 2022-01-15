@@ -41,13 +41,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -120,9 +113,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -174,9 +165,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10"
@@ -218,9 +207,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "thrown-20"
@@ -250,7 +237,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An alchemical golem's body contains six alchemical chambers filled with different substances. When an alchemical golem ability calls upon a randomly determined alchemical effect, roll [[/r 1d6]] and consult the following (if you roll the result of a chamber that was shattered, there is no alchemical effect): <strong>1</strong> acid damage; <strong>2</strong> cold damage; <strong>3</strong> electricity damage; <strong>4</strong> fire damage; <strong>5</strong> poison damage; <strong>6</strong> sickness: <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-label=\"Alchemical Chambers DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure)</p>"
+                    "value": "<p>An alchemical golem's body contains six alchemical chambers filled with different substances. When an alchemical golem ability calls upon a randomly determined alchemical effect, roll [[/r 1d6]] and consult the following (if you roll the result of a chamber that was shattered, there is no alchemical effect): <strong>1</strong> acid damage; <strong>2</strong> cold damage; <strong>3</strong> electricity damage; <strong>4</strong> fire damage; <strong>5</strong> poison damage; <strong>6</strong> sickness: @Check[type:fortitude|dc:26] save or @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -262,9 +249,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -295,7 +280,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When an alchemical golem takes physical damage from a critical hit or is affected by a shatter spell, one glass chamber within its body shatters, spewing alchemical liquid in a 5-foot emanation. Roll on the alchemical chambers list (see above) to determine which one shatters-on a roll of 1-5, creatures in the area take [[/r {10d6}]]{10d6 damage} of the appropriate type (<span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Alchemical Rupture DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>). On a roll of 6, creatures must instead save against the @Compendium[pf2e.conditionitems.Sickened]{Sickness} effect.</p>"
+                    "value": "<p>When an alchemical golem takes physical damage from a critical hit or is affected by a shatter spell, one glass chamber within its body shatters, spewing alchemical liquid in a @Template[type:emanation|distance:5]. Roll on the alchemical chambers list (see above) to determine which one shatters-on a roll of 1-5, creatures in the area take [[/r {10d6}]]{10d6 damage} of the appropriate type (@Check[type:reflex|dc:28|basic:true]). On a roll of 6, creatures must instead save against the @Compendium[pf2e.conditionitems.Sickened]{Sickness} effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -307,9 +292,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -325,95 +308,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Alchemical Rupture",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "j2hIRiY8Zn7Egfco",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Harmed by sonic (5d8, [[/r 2d6 #from areas or persistent damage]] from areas or persistent damage); Healed by acid (area 2d4 HP); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem. <strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical. <strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical. <strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be slowed 1 for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round. <strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golem Antimagic",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "RAzDul5aLDAcZI57",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Casting a shatter spell on an alchemical golem affects the golem normally, but also causes an alchemical rupture (see above).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Vulnerable to Shatter",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -441,9 +335,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -458,6 +350,91 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Crystalline Construction",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "j2hIRiY8Zn7Egfco",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Harmed by sonic (5d8, [[/r 2d6 #from areas or persistent damage]] from areas or persistent damage); Healed by acid (area 2d4 HP); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem. <strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical. <strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical. <strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be slowed 1 for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round. <strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golem Antimagic",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "RAzDul5aLDAcZI57",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Casting a shatter spell on an alchemical golem affects the golem normally, but also causes an alchemical rupture (see above).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Shatter",
             "sort": 700000,
             "type": "action"
         },
@@ -486,9 +463,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -531,9 +506,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "manipulate"
                     ]
@@ -574,9 +547,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

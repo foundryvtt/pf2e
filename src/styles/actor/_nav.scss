@@ -21,16 +21,19 @@ nav.sheet-navigation {
         width: 7em;
     }
 
-    .item {
+    > a {
         @include flex-center;
+        margin: 0 6px;
+        font-size: 12px;
+    }
+
+    .item {
         height: 24px;
         width: 24px;
-        margin: 0 6px;
         border-radius: 50%;
         z-index: 1;
         transition: all 0.1s ease-out;
         color: var(--tertiary);
-        font-size: 12px;
         background-image: url('../assets/sheet/nav-item-inactive.webp');
         background-size: contain;
 

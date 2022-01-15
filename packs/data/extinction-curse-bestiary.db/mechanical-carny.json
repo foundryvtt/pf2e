@@ -41,14 +41,8 @@
             "perception": {
                 "value": 6
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -89,7 +83,7 @@
                 "custom": "",
                 "value": [
                     "bleed",
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "doomed",
                     "drained",
@@ -97,7 +91,7 @@
                     "healing",
                     "mental",
                     "necromancy",
-                    "nonlethal attacks",
+                    "nonlethal-attacks",
                     "paralyzed",
                     "poison",
                     "sickened",
@@ -106,10 +100,9 @@
             },
             "dr": [
                 {
-                    "exceptions": "adamantine",
-                    "label": "Physical",
+                    "exceptions": "except adamantine",
                     "type": "physical",
-                    "value": "3"
+                    "value": 3
                 }
             ],
             "dv": [
@@ -120,13 +113,13 @@
                 }
             ],
             "languages": {
-                "custom": "",
+                "custom": "(Can Speak Pre-Recorded Phrases Only)",
                 "selected": [],
-                "value": []
+                "value": [
+                    "common"
+                ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision"
             },
@@ -174,9 +167,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "nonlethal",
                         "reach-10"
@@ -221,9 +212,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -238,6 +227,52 @@
             "type": "melee"
         },
         {
+            "_id": "oeenNOAvMw2BAQWV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "bc9ZTQWLulMjdnJ5",
             "data": {
                 "actionCategory": {
@@ -250,7 +285,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A severely damaged mechanical carny has a chance of malfunctioning. If a mechanical carny has 15 or fewer Hit Points at the start of its turn, it must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"5\" data-pf2-label=\"Haywire DC\" data-pf2-show-dc=\"gm\">flat check</span> or go haywire. A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} plus Knockdown. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>"
+                    "value": "<p>A severely damaged mechanical carny has a chance of malfunctioning. If a mechanical carny has 15 or fewer Hit Points at the start of its turn, it must succeed at a @Check[type:flat|dc:5] check or go haywire. A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} plus @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown}. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Haywire]{Effect: Haywire}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -262,9 +297,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -278,7 +311,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Haywire",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -303,9 +336,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -313,7 +344,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -338,9 +369,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -348,7 +377,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -373,9 +402,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -383,7 +410,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],

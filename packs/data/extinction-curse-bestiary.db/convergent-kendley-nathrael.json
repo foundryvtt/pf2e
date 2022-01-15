@@ -41,13 +41,6 @@
             "perception": {
                 "value": 35
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -101,9 +94,7 @@
                     "utopian"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": ""
             },
@@ -226,9 +217,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -351,9 +340,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -467,9 +454,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "incapacitation",
@@ -587,9 +572,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "force"
@@ -704,9 +687,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "force"
@@ -835,9 +816,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cantrip"
@@ -998,9 +977,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d12"
                     ]
@@ -1166,9 +1143,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -1310,9 +1285,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "flexible",
                         "noisy"
@@ -1417,9 +1390,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1557,9 +1528,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1608,16 +1577,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "two-hand-d12"
@@ -1632,53 +1618,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bastard Sword",
             "sort": 1200000,
-            "type": "melee"
-        },
-        {
-            "_id": "knUcVnGxqZex298A",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 34
-                },
-                "damageRolls": {
-                    "201y449xjgdf0lrs2paz": {
-                        "damage": "3d12+11",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "magical",
-                        "two-hand-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bastard Sword (Two Handed)",
-            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1709,9 +1648,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-2d10",
                         "propulsive",
@@ -1728,56 +1665,8 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "melee"
-        },
-        {
-            "_id": "ggsHawTa7Uf05BIu",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1500000,
-            "type": "action"
         },
         {
             "_id": "iCvFkYwUNj1fDYM9",
@@ -1804,9 +1693,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1817,7 +1704,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Link",
-            "sort": 1600000,
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "ggsHawTa7Uf05BIu",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1845,9 +1778,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1858,7 +1789,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Disrupted Link",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1886,9 +1817,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1899,7 +1828,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Calm",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1944,9 +1873,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1957,7 +1884,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Convergent Tactics",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1979,9 +1906,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1989,7 +1914,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -2011,9 +1936,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2021,7 +1944,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2100000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2043,9 +1966,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2053,7 +1974,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2075,9 +1996,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2085,7 +2004,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2300000,
+            "sort": 2200000,
             "type": "lore"
         }
     ],

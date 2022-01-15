@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You practice a style of shooting that relies on unerring accuracy and perfect placement of your first shot. You keep hidden or at a distance, staying out of the fray and bringing unseen death to your foes.</p>\n<p><strong>Slinger's Reload</strong> Covered Reload</p>\n<p><strong>Deeds</strong> <em>Initial</em> One Shot, One Kill; <em>Advanced</em> Vital Shot; <em>Greater</em> Ghost Shot</p>\n<p><strong>Way Skill</strong> Stealth</p>"
+            "value": "<p>You practice a style of shooting that relies on unerring accuracy and perfect placement of your first shot. You keep hidden or at a distance, staying out of the fray and bringing unseen death to your foes.</p>\n<p><strong>Slinger's Reload</strong> @Compendium[pf2e.actionspf2e.Covered Reload]{Covered Reload}</p>\n<p><strong>Deeds</strong> <em>Initial</em> @Compendium[pf2e.actionspf2e.One Shot, One Kill]{One Shot, One Kill}; <em>Advanced</em> @Compendium[pf2e.actionspf2e.Vital Shot]{Vital Shot}; <em>Greater</em> @Compendium[pf2e.actionspf2e.Ghost Shot]{Ghost Shot}</p>\n<p><strong>Way Skill</strong> Stealth</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -23,15 +23,28 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Covered Reload"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.One Shot, One Kill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.ste.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "gunslinger"
             ]

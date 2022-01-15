@@ -41,13 +41,6 @@
             "perception": {
                 "value": 16
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [],
@@ -93,13 +86,15 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "Pidgin of Goblin, Jotun, and Orcish",
+                "custom": "(Pidgin Of The Three Languages)",
                 "selected": [],
-                "value": []
+                "value": [
+                    "goblin",
+                    "jotun",
+                    "orcish"
+                ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision"
             },
@@ -120,28 +115,48 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4tKaCVSJUjgMqPT6",
+            "_id": "jFmecEnOMdG3n3yw",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "flail",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>This weapon consists of a wooden handle attached to a spiked ball or cylinder by a chain, rope, or strap of leather.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "flail",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -175,49 +190,97 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 2
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
-                    "value": "med"
+                    "value": "lg"
                 },
-                "slug": null,
+                "slug": "flail",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "disarm",
+                        "sweep",
+                        "trip"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "flail (2)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.t5FbyZtRL4qV0V7k"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/flail.webp",
+            "name": "Flail",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "itqvdf5hwWK45QOe",
@@ -248,9 +311,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disarm",
                         "reach-10",
@@ -298,9 +359,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
@@ -318,51 +377,7 @@
             "type": "melee"
         },
         {
-            "_id": "fs49A2QDgfg74MTh",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Each of an ettin's heads rolls its own initiative and has its own turn. Neither head can Delay. At the start of a head's turn, that head gets 2 actions and 1 reaction. Each brain controls one of the ettin's arms, but both can move the legs. Any ability that would sever an ettin's head (such as the vorpal weapon property) doesn't cause the ettin to die if it still has its other head, but does cause it to lose the turns, actions, and reactions of the severed head. Mental effects that target a single creature affect only one of the ettin's heads.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Independent Brains",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "Zt6SozGgcFMY7br7",
+            "_id": "uh1IYK2wwc48sFKE",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -386,9 +401,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -406,11 +419,53 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "fs49A2QDgfg74MTh",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Each of an ettin's heads rolls its own initiative and has its own turn. Neither head can @Compendium[pf2e.actionspf2e.Delay]{Delay}. At the start of a head's turn, that head gets 2 actions and 1 reaction. Each brain controls one of the ettin's arms, but both can move the legs. Any ability that would sever an ettin's head (such as the <em>@Compendium[pf2e.equipment-srd.Vorpal]{Vorpal}</em> weapon property) doesn't cause the ettin to die if it still has its other head, but does cause it to lose the turns, actions, and reactions of the severed head. Mental effects that target a single creature affect only one of the ettin's heads.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Independent Brains",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "GFhDPV6VnOPnCpEv",
+            "_id": "lUtqPs1qhhuLgmEE",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -434,9 +489,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -479,9 +532,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -514,9 +565,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

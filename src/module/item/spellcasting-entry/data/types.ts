@@ -1,11 +1,18 @@
 import { AbilityString } from "@actor/data/base";
+import { SpellPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { StatisticData } from "@system/statistic";
+import { Statistic, StatisticChatData } from "@system/statistic";
 import { SpellcastingEntryPF2e } from "..";
+
+export interface SpellcastingEntry {
+    id: string;
+    statistic: Statistic;
+    cast(spell: SpellPF2e, options: {}): Promise<void>;
+}
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 export type SlotKey = `slot${ZeroToEleven}`;
@@ -60,7 +67,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         dc: number;
         mod: number;
     };
-    statisticData?: StatisticData;
+    statisticData?: StatisticChatData;
     tradition: {
         value: MagicTradition | "";
     };

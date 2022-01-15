@@ -41,13 +41,6 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "10"
@@ -106,9 +99,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": {
                 "value": "no vision, tremorsense (imprecise) 60 feet"
             },
@@ -159,9 +150,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -176,50 +165,6 @@
             "name": "Pseudopod",
             "sort": 100000,
             "type": "melee"
-        },
-        {
-            "_id": "D6GffrGRbXblVQ49",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A slithering pit is so clear it's difficult to spot. A successful <span data-pf2-check=\"perception\" data-pf2-dc=\"30\" data-pf2-label=\"Transparent DC\" data-pf2-show-dc=\"gm\">Perception</span> check is required to notice a stationary slithering pit, and a creature must be @Compendium[pf2e.actionspf2e.Search]{Searching} to attempt this check.</p>\n<p>A creature that walks into the pit's space might fall into any pit currently in effect due to Dimensional Pit.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Transparent",
-            "sort": 200000,
-            "type": "action"
         },
         {
             "_id": "K6p90DP5TOgu1uHl",
@@ -246,9 +191,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -266,6 +209,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "D6GffrGRbXblVQ49",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A slithering pit is so clear it's difficult to spot. A successful @Check[type:perception|dc:30] check is required to notice a stationary slithering pit, and a creature must be @Compendium[pf2e.actionspf2e.Search]{Searching} to attempt this check.</p>\n<p>A creature that walks into the pit's space might fall into any pit currently in effect due to Dimensional Pit.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Transparent",
             "sort": 300000,
             "type": "action"
         },
@@ -294,9 +279,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -311,6 +294,52 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Breach Vulnerability",
             "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "eiuG3n39AiXSGDav",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The slithering pit opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they're walls or similar blocking terrain.</p>\n<p>Any other creature occupying or entering pit spaces must succeed at a @Check[type:reflex|dc:22|traits:damaging-effect] save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature grabbed by the ooze falls in and is no longer grabbed, even if it was outside the pit squares.</p>\n<p>While a dimensional pit is open, the slithering pit is immobilized, can't be forced to move, and can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes [[/r {2d6}[acid]]]{2d6 acid damage}. Climbing the walls of the pit requires a @Check[type:athletics|dc:22|name:Climb Dimensional Pit|traits:damaging-effect] check.</p>\n<p>When the slithering pit dies, the dimensional pit closes and creatures inside are ejected, with the effects of Out You Go.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "extradimensional",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Dimensional Pit",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -338,9 +367,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -354,54 +381,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Flurry of Pods",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "eiuG3n39AiXSGDav",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The slithering pit opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they're walls or similar blocking terrain.</p>\n<p>Any other creature occupying or entering pit spaces must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"conjuration,extradimensional,occult,damaging-effect\" data-pf2-label=\"Dimensional Pit DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature grabbed by the ooze falls in and is no longer grabbed, even if it was outside the pit squares.</p>\n<p>While a dimensional pit is open, the slithering pit is immobilized, can't be forced to move, and can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes [[/r {2d6}[acid]]]{2d6 acid damage}. Climbing the walls of the pit requires a <span data-pf2-check=\"athletics\" data-pf2-dc=\"22\" data-pf2-traits=\"conjuration,extradimensional,occult,damaging-effect\" data-pf2-label=\"Climb Dimensional Pit DC\" data-pf2-show-dc=\"gm\">Athletics</span> check.</p>\n<p>When the slithering pit dies, the dimensional pit closes and creatures inside are ejected, with the effects of Out You Go.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "conjuration",
-                        "extradimensional",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Dimensional Pit",
             "sort": 600000,
             "type": "action"
         },
@@ -418,7 +397,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The slithering pit closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the pit opened. Each occupant takes [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Out You Go DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>The slithering pit closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the pit opened. Each occupant takes [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} (@Check[type:reflex|dc:22|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -430,9 +409,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -474,9 +451,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -519,9 +494,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -554,9 +527,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

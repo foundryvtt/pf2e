@@ -15,25 +15,24 @@
         },
         "rules": [
             {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "self:ignore-volley-penalty"
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Point-Blank Shot",
                 "predicate": {
                     "all": [
-                        "first-range-increment",
-                        "ranged"
+                        "target:range-increment:1",
+                        "weapon:ranged"
                     ],
                     "not": [
-                        "volley-30"
+                        "weapon:trait:volley"
                     ]
                 },
                 "selector": "damage",
                 "type": "circumstance",
                 "value": 2
-            },
-            {
-                "key": "ToggleProperty",
-                "label": "Target is within your first range increment",
-                "property": "flags.pf2e.rollOptions.damage-roll.first-range-increment"
             }
         ],
         "source": {
@@ -49,9 +48,7 @@
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": []
         }
     },

@@ -32,7 +32,7 @@ export class CheckModifiersDialog extends Application {
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
-            this.context.rollMode = game.settings.get("core", "rollMode") ?? "roll";
+            this.context.rollMode ??= game.settings.get("core", "rollMode");
         }
     }
 
@@ -42,7 +42,8 @@ export class CheckModifiersDialog extends Application {
         const none = fortune === misfortune;
         return {
             appId: this.id,
-            check: this.check,
+            modifiers: this.check.modifiers.filter((m) => m.enabled || !m.hideIfDisabled),
+            totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
@@ -52,26 +53,26 @@ export class CheckModifiersDialog extends Application {
         };
     }
 
-    override activateListeners(html: JQuery) {
-        html.find(".roll").on("click", (_event) => {
-            this.context.fate = html.find("input[type=radio][name=fate]:checked").val() as FateString;
+    override activateListeners($html: JQuery): void {
+        $html.find(".roll").on("click", () => {
+            this.context.fate = $html.find("input[type=radio][name=fate]:checked").val() as FateString;
             this.resolve(true);
             this.isResolved = true;
             this.close();
         });
 
-        html.find(".modifier-container").on("click", "input[type=checkbox]", (event) => {
+        $html.find(".modifier-container").on("click", "input[type=checkbox]", (event) => {
             const index = Number(event.currentTarget.getAttribute("data-modifier-index"));
             this.check.modifiers[index].ignored = event.currentTarget.checked;
             this.check.applyStackingRules();
             this.render();
         });
 
-        html.find(".add-modifier-panel").on("click", ".add-modifier", (event) => this.onAddModifier(event));
-        html.find("[name=rollmode]").on("change", (event) => this.onChangeRollMode(event));
+        $html.find(".add-modifier-panel").on("click", ".add-modifier", (event) => this.onAddModifier(event));
+        $html.find("[name=rollmode]").on("change", (event) => this.onChangeRollMode(event));
 
         // Dialog settings menu
-        const $settings = html.closest(`#${this.id}`).find("a.header-button.settings");
+        const $settings = $html.closest(`#${this.id}`).find("a.header-button.settings");
         const $tooltip = $settings.attr({ "data-tooltip-content": `#${this.id}-settings` }).tooltipster({
             animation: "fade",
             trigger: "click",
@@ -83,7 +84,7 @@ export class CheckModifiersDialog extends Application {
             theme: "crb-hover",
             minWidth: 165,
         });
-        html.find<HTMLInputElement>(".settings-list input.quick-rolls-submit").on("change", async (event) => {
+        $html.find<HTMLInputElement>(".settings-list input.quick-rolls-submit").on("change", async (event) => {
             const $checkbox = $(event.delegateTarget);
             await game.user.setFlag("pf2e", "settings.showRollDialogs", $checkbox[0].checked);
             $tooltip.tooltipster("close");
@@ -121,7 +122,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     onChangeRollMode(event: JQuery.ChangeEvent) {
-        this.context.rollMode = ($(event.currentTarget).val() ?? "roll") as RollMode;
+        this.context.rollMode = ($(event.currentTarget).val() ?? "publicroll") as RollMode;
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {

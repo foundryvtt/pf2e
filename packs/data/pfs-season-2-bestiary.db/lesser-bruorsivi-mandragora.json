@@ -41,13 +41,6 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -119,9 +112,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "blood scent, low-light vision"
             },
@@ -171,9 +162,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse"
                     ]
@@ -220,9 +209,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -239,50 +226,6 @@
             "name": "Thorny Vine",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "7Dwwk4c4cBxweZKc",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A mandragora can smell creatures with blood as an imprecise sense at a range of 30 feet, and it can smell demons, fey, and sorcerers with blood as a precise sense at a range of 30 feet.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blood Scent (Imprecise) 30 feet",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "XDB16NAqYNWk9I4K",
@@ -309,9 +252,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -329,6 +270,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "7Dwwk4c4cBxweZKc",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A mandragora can smell creatures with blood as an imprecise sense at a range of 30 feet, and it can smell demons, fey, and sorcerers with blood as a precise sense at a range of 30 feet.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Scent (Imprecise) 30 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -357,9 +340,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -389,7 +370,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Bruorsivi Sap Infusion DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[fire]]]{1d6 fire damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[fire]]]{1d6 fire damage} and stupefied 1 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[fire]]]{2d6 fire damage} and stupefied 1 (1 round)</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[fire]]]{1d6 fire damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[fire]]]{1d6 fire damage} and stupefied 1 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[fire]]]{2d6 fire damage} and stupefied 1 (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -401,9 +382,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -435,7 +414,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The mandragora emits an unsettling shriek. Each non-mandragora creature within 30 feet must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"auditory,evocation,mental,primal\" data-pf2-label=\"Piercing Shriek DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is sickened 2 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. As long as the creature remains sickened, this slowed condition value can't be reduced below 1.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The mandragora emits an unsettling shriek. Each non-mandragora creature within 30 feet must attempt a @Check[type:will|dc:20] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is sickened 2 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. As long as the creature remains sickened, this slowed condition value can't be reduced below 1.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -447,9 +426,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "evocation",
@@ -496,9 +473,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -541,9 +516,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -576,9 +549,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -604,7 +575,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In Vegetation",
+                        "label": "PF2E.SkillVariant.Vegetation",
                         "predicate": {
                             "all": [
                                 "terrain:vegetation"
@@ -621,9 +592,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {

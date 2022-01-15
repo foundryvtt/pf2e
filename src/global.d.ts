@@ -4,7 +4,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { MacroPF2e } from "@module/macro";
-import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
+import { RuleElementPF2e, RuleElements } from "@module/rules";
 import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
@@ -42,6 +42,7 @@ import { CanvasPF2e } from "@module/canvas";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
+import { sluggify } from "@util";
 
 declare global {
     interface Game {
@@ -49,7 +50,6 @@ declare global {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
             licenseViewer: LicenseViewer;
-            upwViewer: UnitedPaizoWorkers;
             worldClock: WorldClock;
             effectPanel: EffectsPanel;
             effectTracker: EffectTracker;
@@ -61,6 +61,7 @@ declare global {
             };
             system: {
                 remigrate: typeof remigrate;
+                sluggify: typeof sluggify;
             };
             importer: {
                 actor: typeof ActorImporter;
@@ -112,6 +113,7 @@ declare global {
 
         get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
+        get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
         get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";

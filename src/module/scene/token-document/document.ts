@@ -4,6 +4,7 @@ import { ScenePF2e, TokenConfigPF2e } from "@module/scene";
 import { TokenDataPF2e } from "./data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e } from "@module/encounter";
+import { PrototypeTokenDataPF2e } from "@actor/data/base";
 
 export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocument<TActor> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -64,9 +65,10 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
 
         if (!this.scene?.rulesBasedVision || this.actor.type === "npc") return;
-        this.data.brightSight = 0;
-        this.data.dimSight = 0;
-        this.data.sightAngle = 360;
+        for (const property of ["brightSight", "dimSight"] as const) {
+            this.data[property] = this.data._source[property] = 0;
+        }
+        this.data.sightAngle = this.data._source.sightAngle = 360;
     }
 
     override prepareDerivedData(): void {
@@ -77,7 +79,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
 
         // Token dimensions from actor size
-        this.prepareSize();
+        TokenDocumentPF2e.prepareSize(this.data, this.actor);
 
         // If a single token is controlled, darkvision is handled by setting globalLight and scene darkness
         // Setting vision radii is less performant but necessary if multiple tokens are controlled
@@ -88,9 +90,9 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         }
     }
 
-    /** Set this token's dimensions from actor data */
-    private prepareSize(): void {
-        if (!(this.actor && this.linkToActorSize)) return;
+    /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
+    static prepareSize(data: TokenDataPF2e | PrototypeTokenDataPF2e, actor: ActorPF2e | null): void {
+        if (!(actor && data.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
         const size = {
@@ -99,20 +101,21 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             med: 1,
             lg: 2,
             huge: 3,
-            grg: Math.max(this.data.width, 4),
-        }[this.actor.size];
-        if (this.actor instanceof VehiclePF2e) {
+            grg: Math.max(data.width, 4),
+        }[actor.size];
+        if (actor instanceof VehiclePF2e) {
             // Vehicles can have unequal dimensions
-            const { width, height } = this.actor.getTokenDimensions();
-            this.data.width = width;
-            this.data.height = height;
+            const { width, height } = actor.getTokenDimensions();
+            data.width = data._source.width = width;
+            data.height = data._source.height = height;
         } else {
-            this.data.width = this.data.height = size;
-            this.data.scale = game.settings.get("pf2e", "tokens.autoscale")
-                ? this.actor.size === "sm"
+            data.width = data._source.width = size;
+            data.height = data._source.height = size;
+            data.scale = data._source.scale = game.settings.get("pf2e", "tokens.autoscale")
+                ? actor.size === "sm"
                     ? 0.8
                     : 1
-                : this.data.scale;
+                : data.scale;
         }
     }
 
@@ -154,6 +157,24 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
                 },
             ]);
         }
+    }
+
+    /** Fix for Foundry bug: https://gitlab.com/foundrynet/foundryvtt/-/issues/6421 */
+    override async updateActorEmbeddedDocuments(
+        embeddedName: "Item" | "ActiveEffect",
+        updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>[],
+        options: DocumentModificationContext<this>
+    ): Promise<ActiveEffect[] | Item[]> {
+        if (embeddedName === "Item") {
+            for (const update of updates) {
+                if (Object.keys(flattenObject(update)).some((key) => key.includes("-="))) {
+                    // Update the ItemData in the local Collection to remove the properties that should be deleted.
+                    // The super update uses the local Collection as base data so the deletion will be persisted in the database
+                    this.actor!.items.get(update._id, { strict: true }).data.update(update);
+                }
+            }
+        }
+        return await super.updateActorEmbeddedDocuments(embeddedName, updates, options);
     }
 
     /* -------------------------------------------- */

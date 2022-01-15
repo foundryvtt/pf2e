@@ -41,13 +41,6 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [],
@@ -64,7 +57,7 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "<p>The snapping flytrap is a ravenous, carnivorous plant that is quick to bite at any creature that passes by. Snapping flytraps typically have two sets of tooth-edged leaves, each measuring 3 feet wide, at the end of 10-foot-long stalks.</p>",
+            "publicNotes": "<p>The snapping flytrap is a ravenous, carnivorous plant that is quick to bite at any creature that passes by. Snapping flytraps typically have two sets of tooth-edged leaves, each measuring 3 feet wide, at the end of 10-foot-long stalks.</p>\n<hr />\n<p>Flytraps are dangerous creatures as eager to feed on humanoids and larger prey as they are monstrous insects.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -110,9 +103,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "tremorsense (imprecise) 30 feet"
             },
@@ -167,9 +158,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -186,7 +175,7 @@
             "type": "melee"
         },
         {
-            "_id": "3bGgIxSs4lueeBDc",
+            "_id": "tyjUqs7S8mA70wiw",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -210,9 +199,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -258,9 +245,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -295,16 +280,30 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.focusedAssault"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "focusedAssault"
+                            ]
+                        },
+                        "selector": "leaf-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -339,16 +338,29 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.hungryFlurry"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hungryFlurry"
+                            ]
+                        },
+                        "selector": "leaf-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -366,7 +378,55 @@
             "type": "action"
         },
         {
-            "_id": "ZNaOoeCoCzFmCPp8",
+            "_id": "0JCakW3iPRouHFU2",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Medium, [[/r {1d8+1}[bludgeoning]+{1d6}[acid]]]{1d8+1 bludgeoning damage plus 1d6 acid damage}, Rupture 5</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "CyCkk2GjnKUtz2Va",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -390,9 +450,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -410,56 +468,6 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "ljyugrSf5Wb74hcT",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Medium, [[/r {1d8+1}[bludgeoning]]]{1d8+1 bludgeoning damage} plus [[/r {1d6}[acid]]]{1d6 acid damage}, Rupture 5</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
             "sort": 700000,
             "type": "action"
         },
@@ -485,9 +493,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -532,9 +538,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {

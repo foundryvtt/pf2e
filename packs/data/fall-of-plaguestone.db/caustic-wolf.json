@@ -41,14 +41,8 @@
             "perception": {
                 "value": 8
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "35"
             }
@@ -101,9 +95,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "low-light vision, scent (imprecise) 30 feet"
             },
@@ -157,9 +149,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -174,33 +164,31 @@
             "type": "melee"
         },
         {
-            "_id": "4qqgHXd5u2hOYOxU",
+            "_id": "ondKHdsDrwJXSCKI",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 2
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>The wolf unleashes a terrifying howl, allowing it to Demoralize all enemies within 30 feet. Wolves within 100 feet can spend a reaction to join the howl, causing the effect to emanate from them as well. This affects additional enemies within 30 feet of them and uses the caustic wolf's Intimidation check with a -4 circumstance penalty. Enemies cannot be affected by the howl more than once, even if they are near more than one howling wolf. All creatures targeted by this effect are temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -211,17 +199,67 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Howl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
             "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "BLbwTb4ttyINjBjm",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "ibMVoNbGTJRctcSf",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -230,7 +268,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The wolf unleashes a stream of bright green acid from its mouth, coating all creatures in a 30-foot line. All creatures in the line take [[/r {3d6}[acid]]]{3d6 acid damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"16\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Acid Breath DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>The caustic wolf cannot use this ability again for 1 minute.</p>"
+                    "value": "<p>The wolf unleashes a stream of bright green acid from its mouth, coating all creatures in a @Template[type:line|distance:30]. All creatures in the line take [[/r {3d6}[acid]]]{3d6 acid damage} (@Check[type:reflex|dc:16|basic:true] save).</p>\n<p data-visibility=\"gm\">The caustic wolf cannot use this ability again for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -242,9 +280,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -258,7 +294,95 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Acid Breath",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "4qqgHXd5u2hOYOxU",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The wolf unleashes a terrifying howl, allowing it to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} all enemies within @Template[type:emanation|distance:30]{30 feet}. Wolves within @Template[type:emanation|distance:100]{100 feet} can spend a reaction to join the howl, causing the effect to emanate from them as well. This affects additional enemies within 30 feet of them and uses the caustic wolf's Intimidation check with a -4 circumstance penalty.</p>\n<p data-visibility=\"gm\">Enemies cannot be affected by the howl more than once, even if they are near more than one howling wolf. All creatures targeted by this effect are temporarily immune for 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Howl",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "U7oXnn7vwcsPWhR0",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -283,9 +407,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -293,7 +415,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -318,9 +440,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -328,7 +448,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 500000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -353,9 +473,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -363,7 +481,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -388,9 +506,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -398,7 +514,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

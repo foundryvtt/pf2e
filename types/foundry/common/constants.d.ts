@@ -22,9 +22,14 @@ declare global {
 
         BASE_ENTITY_TYPE: "base";
 
-        /**
-         * Valid Chat Message types
-         */
+        CANVAS_PERFORMANCE_MODES: {
+            LOW: 0;
+            MED: 1;
+            HIGH: 2;
+            MAX: 3;
+        };
+
+        /** Valid Chat Message types */
         CHAT_MESSAGE_TYPES: {
             OTHER: 0;
             OOC: 1;
@@ -43,24 +48,18 @@ declare global {
         /** The default artwork used for Token images if none is provided */
         DEFAULT_TOKEN: ImagePath;
 
-        /**
-         * The default artwork used for Note placeables if none is provided
-         */
+        /** The default artwork used for Note placeables if none is provided */
         DEFAULT_NOTE_ICON: "icons/svg/book.svg";
 
-        /**
-         * The supported dice roll visibility modes
-         */
+        /** The supported dice roll visibility modes */
         DICE_ROLL_MODES: {
-            PUBLIC: "roll";
+            PUBLIC: "publicroll";
             PRIVATE: "gmroll";
             BLIND: "blindroll";
             SELF: "selfroll";
         };
 
-        /**
-         * The allowed Drawing types which may be saved
-         */
+        /** The allowed Drawing types which may be saved */
         DRAWING_TYPES: {
             RECTANGLE: "r";
             ELLIPSE: "e";
@@ -469,6 +468,7 @@ declare global {
         AUDIO_FILE_EXTENSIONS: ["flac", "m4a", "mp3", "ogg", "opus", "wav", "webm"];
     };
 
+    type CanvasPerformanceMode = typeof CONST.CANVAS_PERFORMANCE_MODES[keyof typeof CONST.CANVAS_PERFORMANCE_MODES];
     type ImageFileExtension = typeof CONST.IMAGE_FILE_EXTENSIONS[number];
     type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
     type AudioFileExtension = typeof CONST.AUDIO_FILE_EXTENSIONS[number];

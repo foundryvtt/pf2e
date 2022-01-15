@@ -41,13 +41,6 @@
             "perception": {
                 "value": 17
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "troop movement",
                 "otherSpeeds": [],
@@ -141,9 +134,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -190,9 +181,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -238,9 +227,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -286,9 +273,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -330,9 +315,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -354,50 +337,6 @@
             "type": "action"
         },
         {
-            "_id": "2lp8axHkLWnfErrb",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><span class=\"pf2-icon\">1</span> to <span class=\"pf2-icon\">3</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The skeletons engage in a coordinated longspear attack against each enemy within 10 feet (<span data-pf2-check=\"reflex\" data-pf2-dc=\"27\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Lower Spears! DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">1</span> [[/r {2d8}[piercing]]]{2d8 piercing damage}</p>\n<p><span class=\"pf2-icon\">2</span> [[/r {3d8+8}[piercing]]]{3d8+8 piercing damage}</p>\n<p><span class=\"pf2-icon\">3</span> [[/r {4d8+8}[piercing]]]{4d8+8 piercing damage}</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Lower Spears!",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
             "_id": "L4eZWrxPCscqkfv1",
             "data": {
                 "actionCategory": {
@@ -410,7 +349,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The troop's members throw a volley of javelins. Each creature in a 10-foot burst within 30 feet of the troop takes [[/r {2d6+10}[piercing]]]{2d6+10 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Hurl Javelins! DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>When the troop is reduced to 8 or fewer squares, this area decreases to a 5-foot burst.</p>"
+                    "value": "<p>The troop's members throw a volley of javelins. Each creature in a @Template[type:burst|distance:10] within 30 feet of the troop takes [[/r {2d6+10}[piercing]]]{2d6+10 piercing damage} (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>When the troop is reduced to 8 or fewer squares, this area decreases to a @Template[type:burst|distance:5].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -422,9 +361,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -438,6 +375,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Hurl Javelins!",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "2lp8axHkLWnfErrb",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><span class=\"pf2-icon\">1</span> to <span class=\"pf2-icon\">3</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The skeletons engage in a coordinated longspear attack against each enemy within 10 feet (@Check[type:reflex|dc:27|basic:true] save). The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">1</span> [[/r {2d8}[piercing]]]{2d8 piercing damage}</p>\n<p><span class=\"pf2-icon\">2</span> [[/r {3d8+8}[piercing]]]{3d8+8 piercing damage}</p>\n<p><span class=\"pf2-icon\">3</span> [[/r {4d8+8}[piercing]]]{4d8+8 piercing damage}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Lower Spears!",
             "sort": 600000,
             "type": "action"
         },
@@ -466,9 +445,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -510,9 +487,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -551,9 +526,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

@@ -21,13 +21,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>A complex clockwork of bright metal and delicately carved gemstones, the lattice's interlocking gears begin to whir as golden runes glow across its surface.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-dc=\"40\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Obliterate a Key Rune DC\" data-pf2-show-dc=\"gm\">Thievery</span> (master) or <span data-pf2-check=\"religion\" data-pf2-dc=\"35\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Obliterate a Key Rune DC\" data-pf2-show-dc=\"gm\">Religion</span> (master) four times to obliterate each of the four key runes.</p>\n<p>A <span data-pf2-check=\"thievery\" data-pf2-dc=\"45\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Stop the Clockwork's Movement DC\" data-pf2-show-dc=\"gm\">Thievery</span> (legendary) check (or breaking the lattice) stops the clockwork's movement and prevents it from resetting, but doesn't stop its current activation.</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Obliterate a Key Rune|traits:magical,trap] (master) or @Check[type:religion|dc:35|name:Obliterate a Key Rune|traits:magical,trap] (master) four times to obliterate each of the four key runes.</p>\n<p>A @Check[type:thievery|dc:45|name:Stop the Clockwork's Movement|traits:magical,trap] (legendary) check (or breaking the lattice) stops the clockwork's movement and prevents it from resetting, but doesn't stop its current activation.</p>",
             "isComplex": true,
             "level": {
                 "value": 20
             },
             "reset": "<p>The <em>convergence lattice</em> deactivates and resets after there are no uncontrolled targets within line of sight for 1 minute.</p>",
-            "routine": "<p>(3 actions) The <em>convergence lattice</em> uses its first action to call for aid. Each convergent creature within 100 feet of the lattice Strides toward the lattice as a reaction. Creatures thus called continue to move toward the lattice on their turn each round until they are adjacent to it, at which point they defend it with their lives.</p>\n<p>The lattice uses its second action to deal [[/r {16d6}[mental]]]{16d6 mental damage} (<span data-pf2-check=\"will\" data-pf2-dc=\"42\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Convergence Lattice DC\" data-pf2-show-dc=\"gm\">basic Will</span> save) to a non-convergent creature within 100 feet. This damage is nonlethal; a creature knocked out by this damage doesn't gain the dying condition and is automatically @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the convergence lattice when they awaken.</p>\n<p>The lattice uses its third action to make the same attack against a second non-convergent creature within 100 feet; if there isn't such a second creature, it doesn't take its third action.</p>"
+            "routine": "<p>(3 actions) The <em>convergence lattice</em> uses its first action to call for aid. Each convergent creature within 100 feet of the lattice Strides toward the lattice as a reaction. Creatures thus called continue to move toward the lattice on their turn each round until they are adjacent to it, at which point they defend it with their lives.</p>\n<p>The lattice uses its second action to deal [[/r {16d6}[mental]]]{16d6 mental damage} (@Check[type:will|dc:42|basic:true] save) to a non-convergent creature within 100 feet. This damage is nonlethal; a creature knocked out by this damage doesn't gain the dying condition and is automatically @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the convergence lattice when they awaken.</p>\n<p>The lattice uses its third action to make the same attack against a second non-convergent creature within 100 feet; if there isn't such a second creature, it doesn't take its third action.</p>"
         },
         "saves": {
             "fortitude": {
@@ -69,9 +69,7 @@
                     "value": "30"
                 }
             ],
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "size": {
                 "value": "med"
             },
@@ -113,9 +111,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

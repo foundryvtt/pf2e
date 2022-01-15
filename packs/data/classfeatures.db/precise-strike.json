@@ -27,7 +27,6 @@
             {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
-                "label": "precise-strike",
                 "predicate": {
                     "all": [
                         "panache",
@@ -35,14 +34,15 @@
                     ],
                     "any": [
                         "finesse",
-                        "agile"
+                        "agile",
+                        "self:class:swashbuckler"
                     ],
                     "not": [
-                        "finisher",
-                        "swashbuckler-dedication"
+                        "finisher"
                     ]
                 },
                 "selector": "damage",
+                "slug": "precise-strike",
                 "value": {
                     "brackets": [
                         {
@@ -83,13 +83,12 @@
                     ],
                     "any": [
                         "finesse",
-                        "agile"
-                    ],
-                    "not": [
-                        "swashbuckler-dedication"
+                        "agile",
+                        "self:class:swashbuckler"
                     ]
                 },
                 "selector": "damage",
+                "slug": "finisher",
                 "value": {
                     "brackets": [
                         {
@@ -132,46 +131,6 @@
                 "key": "ToggleProperty",
                 "label": "Finisher",
                 "property": "flags.pf2e.rollOptions.damage-roll.finisher"
-            },
-            {
-                "damageCategory": "precision",
-                "key": "FlatModifier",
-                "label": "dedication-precise-strike",
-                "predicate": {
-                    "all": [
-                        "panache",
-                        "melee",
-                        "swashbuckler-dedication"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile"
-                    ],
-                    "not": [
-                        "finisher"
-                    ]
-                },
-                "selector": "damage",
-                "value": 1
-            },
-            {
-                "category": "precision",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "finisher",
-                        "panache",
-                        "melee",
-                        "swashbuckler-dedication"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile"
-                    ]
-                },
-                "selector": "damage"
             }
         ],
         "source": {
@@ -179,9 +138,7 @@
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "swashbuckler"
             ]

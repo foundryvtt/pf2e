@@ -41,13 +41,6 @@
             "perception": {
                 "value": 11
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -107,9 +100,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -161,9 +152,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -207,9 +196,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -253,9 +240,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -299,9 +284,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -316,50 +299,6 @@
             "type": "melee"
         },
         {
-            "_id": "94P2S8OyxiovGujz",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When a creature within 10 feet uses a move action or leaves a square during a move action it's using, the dragon can use their reaction to make a tail Strike at the creature with a –2 penalty. If it hits, the creature stops moving in the square it was in when this reaction happened.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Twisting Tail",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
             "_id": "j90G6J5zvaIVNb1q",
             "data": {
                 "actionCategory": {
@@ -372,7 +311,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {5d6}[poison]]]{5d6 poison damage} in a 30-foot cone. Each creature in the area must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"arcane,evocation,poison,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save. The dragon can't use their Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {5d6}[poison]]]{5d6 poison damage} in a @Template[type:cone|distance:30]. Each creature in the area must attempt a @Check[type:reflex|dc:24|basic:true] save. The dragon can't use their Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -384,9 +323,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
@@ -404,7 +341,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -432,9 +369,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -448,7 +383,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 700000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -476,9 +411,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -492,6 +425,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "94P2S8OyxiovGujz",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When a creature within 10 feet uses a move action or leaves a square during a move action it's using, the dragon can use their reaction to make a tail Strike at the creature with a -2 penalty. If it hits, the creature stops moving in the square it was in when this reaction happened.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Twisting Tail",
             "sort": 800000,
             "type": "action"
         },
@@ -517,9 +492,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -552,9 +525,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -587,9 +558,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -622,9 +591,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -657,9 +624,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -692,9 +657,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -727,9 +690,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -762,9 +723,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -797,9 +756,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -832,9 +789,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

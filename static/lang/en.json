@@ -13,8 +13,8 @@
         "TypeAction": "Action",
         "TypeAncestry": "Ancestry",
         "TypeArmor": "Armor",
-        "TypeBackpack": "Container",
         "TypeBackground": "Background",
+        "TypeBackpack": "Container",
         "TypeBook": "Book",
         "TypeClass": "Class",
         "TypeCondition": "Condition",
@@ -23,6 +23,7 @@
         "TypeEffect": "Effect",
         "TypeEquipment": "Equipment",
         "TypeFeat": "Feat",
+        "TypeHeritage": "Heritage",
         "TypeKit": "Kit",
         "TypeLore": "Lore Skill",
         "TypeMartial": "Armor and Weapon Proficiency",
@@ -129,8 +130,8 @@
             },
             "BonMot": {
                 "Notes": {
-                    "criticalSuccess": "<strong>Critical Success</strong> The target is distracted and takes a –3 status penalty to Perception and Will saves for 1 minute. The target can end the effect early with a retort to your Bon Mot. This can either be a single action that has the concentrate trait or an appropriate skill action to frame their retort. The GM determines which skill actions qualify, though they must take at least 1 action. Typically, the retort needs to use a linguistic Charisma-based skill action. @Compendium[pf2e.feat-effects.CtrZFI3RV0yPNzTv]{Effect: Bon Mot (Critical Success)}",
-                    "success": "<strong>Success</strong> The target is distracted and takes a –2 status penalty to Perception and Will saves for 1 minute. The target can end the effect early with a retort to your Bon Mot. This can either be a single action that has the concentrate trait or an appropriate skill action to frame their retort. The GM determines which skill actions qualify, though they must take at least 1 action. Typically, the retort needs to use a linguistic Charisma-based skill action. @Compendium[pf2e.feat-effects.GoSls6SKCFmSoDxT]{Effect: Bon Mot}",
+                    "criticalSuccess": "<strong>Critical Success</strong> The target is distracted and takes a -3 status penalty to Perception and Will saves for 1 minute. The target can end the effect early with a retort to your Bon Mot. This can either be a single action that has the concentrate trait or an appropriate skill action to frame their retort. The GM determines which skill actions qualify, though they must take at least 1 action. Typically, the retort needs to use a linguistic Charisma-based skill action. @Compendium[pf2e.feat-effects.CtrZFI3RV0yPNzTv]{Effect: Bon Mot (Critical Success)}",
+                    "success": "<strong>Success</strong> The target is distracted and takes a -2 status penalty to Perception and Will saves for 1 minute. The target can end the effect early with a retort to your Bon Mot. This can either be a single action that has the concentrate trait or an appropriate skill action to frame their retort. The GM determines which skill actions qualify, though they must take at least 1 action. Typically, the retort needs to use a linguistic Charisma-based skill action. @Compendium[pf2e.feat-effects.GoSls6SKCFmSoDxT]{Effect: Bon Mot}",
                     "criticalFailure": "<strong>Critical Failure</strong> Your quip is atrocious. You take the same penalty an enemy would take had you succeeded. This ends after 1 minute or if you issue another Bon Mot and succeed. @Compendium[pf2e.feat-effects.GoSls6SKCFmSoDxT]{Effect: Bon Mot}"
                 },
                 "Title": "Bon Mot"
@@ -211,7 +212,7 @@
             "Disarm": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You knock the item out of the opponent's grasp. It falls to the ground in the opponent's space.",
-                    "success": "<strong>Success</strong> You weaken your opponent's grasp on the item. Until the start of that creature's turn, attempts to Disarm the opponent of that item gain a +2 circumstance bonus, and the target takes a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.",
+                    "success": "<strong>Success</strong> You weaken your opponent's grasp on the item. Until the start of that creature's turn, attempts to Disarm the opponent of that item gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.",
                     "criticalFailure": "<strong>Critical Failure</strong> You lose your balance and become @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
                 },
                 "Title": "Disarm"
@@ -248,7 +249,7 @@
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You open the door, window, container, or gate and can avoid damaging it in the process.",
                     "success": "<strong>Success</strong> You break the door, window, container, or gate open, and the door, window, container, or gate gains the @Compendium[pf2e.conditionitems.6dNUvdb1dhToNDj3]{Broken} condition. If it's especially sturdy, the GM might have it take damage but not be broken.",
-                    "criticalFailure": "<strong>Critical Failure</strong> Your attempt jams the door, window, container, or gate shut, imposing a –2 circumstance penalty on future attempts to Force it Open."
+                    "criticalFailure": "<strong>Critical Failure</strong> Your attempt jams the door, window, container, or gate shut, imposing a -2 circumstance penalty on future attempts to Force it Open."
                 },
                 "Title": "Force Open"
             },
@@ -480,6 +481,18 @@
             "DisableAutomation": "Disable Automation"
         },
         "Actor": {
+            "ApplyDamage": {
+                "AtFullHealth": "{actor} is already at full health.",
+                "DamagedForN": "{actor} takes {hpDamage} damage.",
+                "ShieldAbsorbsAll": "{actor} is unscathed, their shield completely absorbing {absorbedDamage} damage.",
+                "DamagedForNShield": "{actor}'s shield absorbs {absorbedDamage} damage, with an additional {hpDamage} making it through.",
+                "HealedForN": "{actor} is healed for {hpDamage} damage.",
+                "ShieldDamagedForN": "Their shield is also damaged for {shieldDamage}.",
+                "ShieldDamagedForNBroken": "Their shield also takes {shieldDamage} damage, breaking it.",
+                "ShieldDamagedForNDestroyed": "Their shield also takes {shieldDamage} damage, destroying it.",
+                "ShieldNotRaised": "{actor} has not raised their shield.",
+                "TakesNoDamage": "{actor} takes no damage."
+            },
             "Character": {
                 "AncestryClass": "{ancestry} {class}"
             },
@@ -683,6 +696,7 @@
                 "Pincer": "Pincer",
                 "Pseudopod": "Pseudopod",
                 "Rock": "Rock",
+                "Spine": "Spine",
                 "Stinger": "Stinger",
                 "Sunbeam": "Sunbeam",
                 "Tail": "Tail",
@@ -802,6 +816,7 @@
         "ClassTitle": "Your character's class",
         "ClickToSetInitiative": "Click to set initiative to selected token(s).",
         "ClickToSetInitiativeContext": "Set as Initiative",
+        "ColdIronStrikes": "Cold Iron Strikes",
         "CompendiumDirectory": {
             "Folders": {
                 "bestiaries": "Bestiaries",
@@ -939,11 +954,12 @@
                 "CharacterLevel": "Item level exceeds character level.",
                 "ItemMissingTraits": "Item is not compatible with crafting entry trait requirements, must match one of: {traits}",
                 "MaxItemLevel": "Item level exceeds maximum item level for entry.",
-                "MissingReagents": "Insufficient infused reagents to complete daily crafting."
+                "MissingReagents": "Insufficient infused reagents to complete crafting."
             },
             "CraftQuantityTitle": "Quantity",
             "ExpendFormula": "Expend Formula",
             "ToggleFreeCrafting": "Toggle Free Crafting",
+            "ToggleQuickAlchemy": "Quick Alchemy",
             "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted."
         },
         "CraftDCTitle": "DC",
@@ -1005,6 +1021,7 @@
         "DCBase": "Base DC 10",
         "DCLabel": "DC: {dc}",
         "DCWithValue": "DC {dc} {text}",
+        "DecrementEffectTitle": "Decrease Effect Level",
         "DefencesLabel": "Defences",
         "Deity": "Deity",
         "DeityTitle": "Your deity",
@@ -1032,6 +1049,11 @@
                     "PluralNew": "{actor} now has {newQuantity} temporary hit points{wasAt} from {item}.",
                     "SingleNew": "{actor} now has {newQuantity} temporary hit point{wasAt} from {item}.",
                     "WasAt": " (was at {oldQuantity})"
+                },
+                "FastHealing": {
+                    "FastHealingLabel": "Received Fast Healing",
+                    "RegenerationLabel": "Received Regeneration",
+                    "DeactivatedBy": "Deactivated by {types}"
                 }
             },
             "Budget": {
@@ -1080,7 +1102,9 @@
         "EffectsLabel": "Effects",
         "EffectPanel": {
             "AppliedBy": "Applied by: {condition-list}",
+            "DecrementToolTip": "[Right Click] Decrease value or remove effect",
             "Expired": "Expired",
+            "IncrementToolTip": "[Left Click] Increase value",
             "RemainingDuration": {
                 "MultipleYears": "{years} years remaining",
                 "SingleYear": "1 year remaining",
@@ -1146,7 +1170,6 @@
         "FeatTypeCurse": "Curse",
         "FeatTypeDeityboon": "Deity Boon",
         "FeatTypeGeneral": "General Feat",
-        "FeatTypeHeritage": "Heritage",
         "FeatTypeLabel": "Feat Type",
         "FeatTypePfsboon": "Society Boon",
         "FeatTypeSkill": "Skill Feat",
@@ -1213,10 +1236,18 @@
         "HitPointsDetailsTitle": "Additional information related to Hit Points such as Fast Healing or Regeneration",
         "ImageLabel": "Image",
         "ImmunitiesLabel": "Immunities",
+        "IncrementEffectTitle": "Increase Effect Level",
         "InitiativeHeader": "Initiative bonus",
         "InitativeIsNow": "{name}'s Initiative is now {value}!",
         "InitiativeLabel": "Initiative",
         "InitiativeWithSkill": "Initiative: {skillName}",
+        "InlineCheck": {
+            "BasicWithSave": "Basic {save}",
+            "DCWithName": "{name} DC",
+            "Errors": {
+                "TypeMissing": "Error in @Check: type parameter is mandatory"
+            }
+        },
         "InlineTemplateErrors": {
             "TypeMissing": "Error in @Template: type parameter is mandatory",
             "DistanceMissing": "Error in @Template: distance parameter is mandatory",
@@ -1295,6 +1326,12 @@
                 },
                 "ShowTokenIcon": "Show token icon?"
             },
+            "Heritage": {
+                "AncestryNotFound": "The referenced ancestry item was not found.",
+                "DragAncestryHere": "Drag an ancestry item here to set this heritage's required ancestry.",
+                "NoneVersatile": "None (Versatile)",
+                "RemoveAncestry": "Remove required ancestry"
+            },
             "NameLabel": "Name",
             "IconLabel": "Icon",
             "SidebarSummary": "{type} Summary",
@@ -1313,7 +1350,7 @@
                     "Potency": "+{potency} {base}",
                     "PotencyOneProperty": "+{potency} {property1} {base}",
                     "PotencyTwoProperties": "+{potency} {property1} {property2} {base}",
-                    "PotencyThreeProperties": "+{potency} {property1} {property2} {base}",
+                    "PotencyThreeProperties": "+{potency} {property1} {property2} {property3} {base}",
                     "PotencyFourProperties": "+{potency} {property1} {property2} {property3} {property4} {base}",
                     "Material": "{material} {base}",
                     "PotencyMaterial": "+{potency} {material} {base}",
@@ -1443,7 +1480,8 @@
         "LanguageLirgeni": "Lirgeni",
         "LanguageMahwek": "Mahwek",
         "LanguageMiGo": "Mi-Go",
-        "LanguageMinaten": "Minaten",
+        "LanguageMinaten": "Minatan",
+        "LanguageMinkaian": "Minkaian",
         "LanguageMunavri": "Munavri",
         "LanguageMwangi": "Mwangi",
         "LanguageMzunu": "Mzunu",
@@ -1515,6 +1553,12 @@
         "LicenseViewer": {
             "Label": "Legal Notice",
             "LandingPageText": "Use the tabs above to read the legal information"
+        },
+        "ListPartsOr": {
+            "two": "{first} or {second}",
+            "start": "{first}, {second}",
+            "middle": "{first}, {second}",
+            "end": "{first}, or {second}"
         },
         "Lore": "Lore",
         "LoreProficiencyDisclaimer": "Informational only. Will not change the skill modifier.",
@@ -1690,20 +1734,30 @@
         },
         "PotencyRuneLabel": "Potency Rune",
         "PreciousMaterialAdamantine": "Adamantine",
+        "PreciousMaterialAdamantineDescription": "Mined from rocks that fell from the heavens, adamantine is one of the hardest metals known. It has a shiny, black appearance, and it is prized for its amazing resiliency and ability to hold an incredibly sharp edge.",
         "PreciousMaterialColdIron": "Cold Iron",
+        "PreciousMaterialColdIronDescription": "Weapons made from cold iron are deadly to demons and fey alike. Cold iron looks like normal iron but is mined from particularly pure sources and shaped with little or no heat. This process is extremely difficult, especially for high-grade cold iron items.",
         "PreciousMaterialDarkwood": "Darkwood",
+        "PreciousMaterialDarkwoodDescription": "Darkwood is a very lightweight wood found primarily in old- growth forests in south-central Avistan; it is dark as ebony but has a slight purple tint. A darkwood item's Bulk is reduced by 1 (or to light Bulk if its normal Bulk is 1, with no effect on an item that normally has light Bulk). The Price of an item made of darkwood is based on the item's normal Bulk, not its reduced Bulk for being made of darkwood, but reduce the Bulk before making any further Bulk adjustments for the size of the item.",
         "PreciousMaterialDragonhide": "Dragonhide",
+        "PreciousMaterialDragonhideDescription": "The hide and scales of a dragon can be used to Craft any item normally made of ordinary leather or hide. Dragonhide varies in color from blue to glittering gold, depending on the dragon it came from. Due to the scales' resiliency, it can also be used to Craft armor usually made out of metal plates (such as a breastplate, half plate, and full plate), allowing such armor to be made without metal. Dragonhide objects are immune to one damage type, depending on the type of dragon.",
         "PreciousMaterialGradeLabel": "Precious Material Grade",
         "PreciousMaterialGrisantianPelt": "Grisantian Pelt",
+        "PreciousMaterialGrisantianPeltDescription": "This supernaturally tough animal skin is gold and shines in sunlight. It can be used to make any item usually made of cloth, leather, or hide. This material is immune to fire, and its Hardness is doubled against piercing or slashing damage. Up to 4 Bulk of grisantian pelt can be harvested from a single creature (this is usually more than enough for 4 suits of standard grade armor or 2 suit of high-grade armor).",
         "PreciousMaterialHighGrade": "High-Grade",
         "PreciousMaterialLabel": "Precious Material",
         "PreciousMaterialLowGrade": "Low-Grade",
         "PreciousMaterialMithral": "Mithral",
+        "PreciousMaterialMithralDescription": "Mithral is renowned for its lightness, durability, and effectiveness against a range of creatures including devils and lycanthropes. It has the same sheen as silver but a slightly lighter hue. Mithral weapons and armor are treated as if they were silver for the purpose of damaging creatures with weakness to silver. A metal item made of mithral is lighter than one made of iron or steel: the item's Bulk is reduced by 1 (reduced to light Bulk if its normal Bulk is 1, with no effect on an item that normally has light Bulk). The Price of an item made of this material is based on the item's normal Bulk, not its reduced Bulk for being made of mithral, but reduce the Bulk before making any further Bulk adjustments for the size of the item.",
         "PreciousMaterialOrichalcum": "Orichalcum",
+        "PreciousMaterialOrichalcumDescription": "The most rare and valuable skymetal, orichalcum is coveted for its incredible time-related magical properties. This dull, coppery metal isn't as physically sturdy as adamantine, but orichalcum's time-bending properties protect it, granting it greater Hardness and Hit Points. If an orichalcum item takes damage but isn't destroyed, it repairs itself completely 24 hours later.",
         "PreciousMaterialSilver": "Silver",
+        "PreciousMaterialSilverDescription": "Silver weapons are a bane to creatures ranging from devils to werewolves. Silver items are less durable than steel items, and low-grade silver items are usually merely silver-plated.",
         "PreciousMaterialSovereignSteel": "Sovereign Steel",
+        "PreciousMaterialSovereignSteelDescription": "Created by Black Sovereign Kevoth-Kul, this unique alloy of cold iron and the skymetal noqual can provide protection from magical assault. The process of cold-forging the two materials together is quite complicated and precise. Characters in search of sovereign steel weapons and armor will almost assuredly have to travel to Starfall to procure gear made from this rare alloy. While some believe it possible to craft shields of sovereign steel as well, in one of his fits, Kevoth-Kul yelled that he had no use for them and banned anyone from making such a thing. So far, his smiths have been too afraid to confirm whether or not it was a joke. All sovereign steel items (including weapon and armor below) have a +4 circumstance bonus on saves against magic that the item makes, and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).",
         "PreciousMaterialStandardGrade": "Standard-Grade",
         "PreciousMaterialWarpglass": "Warpglass",
+        "PreciousMaterialWarpglassDescription": "This bizarre substance is fashioned from the raw, chaotic quintessence of the Maelstrom. It can be fashioned into weapons and items, but is too unstable to make into useful armor or shields. Raw warpglass is an opalescent glassy material with surprising strength. When worked, it changes its appearance-though not its properties-to appear as random striations of other metals and types of stone.",
         "PreparationTypeInnate": "Innate",
         "PreparationTypePrepared": "Prepared",
         "PreparationTypeSpontaneous": "Spontaneous",
@@ -1779,6 +1833,7 @@
         "ResistancesLabel": "Resistances",
         "ResolvePointsShortLabel": "Resolve",
         "ResolveTitle": "The amount of resolve points you have",
+        "RestoreSpellTitle": "Restore Spell",
         "ResultLabel": "Result",
         "ResultOffset": "by {offset}",
         "Roll": {
@@ -2227,6 +2282,7 @@
         "SidebarAppearanceLabel": "Appearance",
         "Size": "Size",
         "SizeLabel": "Size",
+        "SilverStrikes": "Silver Strikes",
         "SkillAcr": "Acrobatics",
         "SkillAcrobatics": "Acrobatics",
         "SkillArc": "Arcana",
@@ -2636,7 +2692,7 @@
         "TraitDescriptionAir": "Effects with the air trait either manipulate or conjure air. Those that manipulate air have no effect in a vacuum or an area without air. Creatures with this trait consist primarily of air or have a magical connection to that element.",
         "TraitDescriptionAlchemical": "Alchemical items are powered by reactions of alchemical reagents. Alchemical items aren't magical and don't radiate a magical aura.",
         "TraitDescriptionAlchemist": "This indicates abilities from the alchemist class.",
-        "TraitDescriptionAmphibious": "An amphibious creature can breathe in water and in air, even outside of its preferred environment, usually indefinitely but at least for hours. These creatures often have a swim Speed. Their bludgeoning and slashing unarmed Strikes don't take the usual –2 penalty for being underwater.",
+        "TraitDescriptionAmphibious": "An amphibious creature can breathe in water and in air, even outside of its preferred environment, usually indefinitely but at least for hours. These creatures often have a swim Speed. Their bludgeoning and slashing unarmed Strikes don't take the usual -2 penalty for being underwater.",
         "TraitDescriptionAnadi": "A reclusive people from Garund who resemble spiders and can assume human forms.",
         "TraitDescriptionAnroid": "A synthetic humanoid ancestry created by artificial means. Most common in Numeria.",
         "TraitDescriptionAphorite": "A type of planar scion descended from a being from Axis, the Plane of Law.",
@@ -2771,7 +2827,7 @@
         "TraitDescriptionInvestigator": "This indicates abilities from the investigator class.",
         "TraitDescriptionJoustingD6": "The weapon is suited for mounted combat with a harness or similar means. When mounted, if you moved at least 10 feet on the action before your attack, add a circumstance bonus to damage for that attack equal to the number of damage dice for the weapon. In addition, while mounted, you can wield the weapon in one hand, changing the damage die to the listed value.",
         "TraitDescriptionKobold": "A creature with this trait is a member of the kobold ancestry.",
-        "TraitDescriptionKickback": "A kickback weapon is extra powerful and difficult to use due to its high recoil. A kickback weapon deals 1 additional damage with all attacks. Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with 14 or more Strength ignore the penalty. Attaching a kickback weapon to a deployed bipod, tripod, or other stabilizer can lower or negate this penalty.",
+        "TraitDescriptionKickback": "A kickback weapon is extra powerful and difficult to use due to its high recoil. A kickback weapon deals 1 additional damage with all attacks. Firing a kickback weapon gives a -2 circumstance penalty to the attack roll, but characters with 14 or more Strength ignore the penalty. Attaching a kickback weapon to a deployed bipod, tripod, or other stabilizer can lower or negate this penalty.",
         "TraitDescriptionKitsune": "Shapeshifting humanoids whose true forms resemble foxes.",
         "TraitDescriptionLawful": "Lawful effects often manipulate energy from law-aligned Outer Planes and are antithetical to chaotic divine servants or divine servants of chaotic deities. A creature with this trait is lawful in alignment. An ability with this trait can be selected or used by lawful creatures only.",
         "TraitDescriptionLeshy": "A creature with this trait is a member of the leshy ancestry.",
@@ -2784,7 +2840,7 @@
         "TraitDescriptionMechanical": "A hazard with this trait is a constructed physical object.",
         "TraitDescriptionMental": "A mental effect can alter the target's mind. It has no effect on an object or a mindless creature.",
         "TraitDescriptionMetamagic": "Actions with the metamagic trait, usually from metamagic feats, tweak the properties of your spells. You must use a metamagic action directly before Casting the Spell you want to alter. If you use any action (including free actions and reactions) other than Cast a Spell directly after, you waste the benefits of the metamagic action. Any additional effects added by a metamagic action are part of the spell's effect, not of the metamagic action itself.",
-        "TraitDescriptionMindless": "A mindless creature has either programmed or rudimentary mental attributes. Most, if not all, of their mental ability modifiers are –5. They are immune to all mental effects.",
+        "TraitDescriptionMindless": "A mindless creature has either programmed or rudimentary mental attributes. Most, if not all, of their mental ability modifiers are -5. They are immune to all mental effects.",
         "TraitDescriptionMinion": "Minions are creatures that directly serve another creature. A creature with this trait can use only 2 actions per turn and can't use reactions. Your minion acts on your turn in combat, once per turn, when you spend an action to issue it commands. For an animal companion, you Command an Animal; for a minion that's a spell or magic item effect, like a summoned minion, you Sustain a Spell or Sustain an Activation; if not otherwise specified, you issue a verbal command, a single action with the auditory and concentrate traits. If given no commands, minions use no actions except to defend themselves or to escape obvious harm. If left unattended for long enough, typically 1 minute, mindless minions usually don't act, animals follow their instincts, and sapient minions act how they please.",
         "TraitDescriptionMisfortune": "A misfortune effect detrimentally alters how you roll your dice. You can never have more than one misfortune effect alter a single roll. If multiple misfortune effects would apply, the GM decides which is worse and applies it. If a fortune effect and a misfortune effect would apply to the same roll, the two cancel each other out, and you roll normally.",
         "TraitDescriptionModification": "A feat with this trait alters the construction of your innovation. If you have the reconfigure class feature, you can retrain such a feat more easily.",
@@ -3116,6 +3172,7 @@
         "TraitRange180": "Range 180 ft",
         "TraitRange200": "Range 200 ft",
         "TraitRange240": "Range 240 ft",
+        "TraitRange500": "Range 500 ft",
         "TraitRangeIncrement10": "Range Increment 10 ft",
         "TraitRangeIncrement100": "Range Increment 100 ft",
         "TraitRangeIncrement110": "Range Increment 110 ft",
@@ -3146,7 +3203,6 @@
         "TraitRangeIncrement40": "Range Increment 40 ft",
         "TraitRangeIncrement5": "Range Increment 5 ft",
         "TraitRangeIncrement50": "Range Increment 50 ft",
-        "TraitRangeIncrement500": "Range Increment 500 ft",
         "TraitRangeIncrement60": "Range Increment 60 ft",
         "TraitRangeIncrement70": "Range Increment 70 ft",
         "TraitRangeIncrement75": "Range Increment 75 ft",
@@ -3167,6 +3223,7 @@
         "TraitReach50": "Reach 50 ft",
         "TraitReach60": "Reach 60 ft",
         "TraitReach100": "Reach 100 ft",
+        "TraitReach1000": "Reach 1,000 ft",
         "TraitReckless": "Reckless",
         "TraitReload0": "Reload 0",
         "TraitReload1": "Reload 1",
@@ -3293,6 +3350,7 @@
         "TraitVolley30": "Volley 30 ft.",
         "TraitVolley50": "Volley 50 ft.",
         "TraitVorpalFear": "Vorpal Fear",
+        "TraitVulnerableToSunlight": "Vulnerable to Sunlight",
         "TraitWand": "Wand",
         "TraitWater": "Water",
         "TraitWayang": "Wayang",
@@ -3643,20 +3701,20 @@
         "WeaponDamageLabel": "Base Damage",
         "WeaponDescriptionAxe": "Critical Specialization Effect: Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
         "WeaponDescriptionBomb": "Critical Specialization Effect: Increase the radius of the bomb's splash damage (if any) to 10 feet.",
-        "WeaponDescriptionBow": "Critical Specialization Effect: If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is immobilized and must spend an Interact action to attempt a DC 10 Athletics check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
-        "WeaponDescriptionBrawling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be slowed 1 until the end of your next turn.",
+        "WeaponDescriptionBow": "Critical Specialization Effect: If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is immobilized and must spend an Interact action to attempt a <span data-pf2-check=\"athletics\" data-pf2-label=\"Pull the Missile Free DC\" data-pf2-dc=\"10\" data-pf2-show-dc=\"all\">Athletics</span> check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
+        "WeaponDescriptionBrawling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.",
         "WeaponDescriptionClub": "Critical Specialization Effect: You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.",
-        "WeaponDescriptionDart": "Critical Specialization Effect: The target takes 1d6 persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
-        "WeaponDescriptionFirearm": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be stunned 1.",
-        "WeaponDescriptionFlail": "Critical Specialization Effect: The target is knocked prone.",
-        "WeaponDescriptionHammer": "Critical Specialization Effect: The target is knocked prone.",
-        "WeaponDescriptionKnife": "Critical Specialization Effect: The target takes 1d6 persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
+        "WeaponDescriptionDart": "Critical Specialization Effect: The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
+        "WeaponDescriptionFirearm": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.",
+        "WeaponDescriptionFlail": "Critical Specialization Effect: The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
+        "WeaponDescriptionHammer": "Critical Specialization Effect: The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
+        "WeaponDescriptionKnife": "Critical Specialization Effect: The target takes [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.",
         "WeaponDescriptionPick": "Critical Specialization Effect: The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die.",
         "WeaponDescriptionPolearm": "Critical Specialization Effect: The target is moved 5 feet in a direction of your choice. This is forced movement.",
         "WeaponDescriptionShield": "Critical Specialization Effect: You knock the target back from you 5 feet. This is forced movement.",
-        "WeaponDescriptionSling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be stunned 1.",
-        "WeaponDescriptionSpear": "Critical Specialization Effect: The weapon pierces the target, weakening its attacks. The target is clumsy 1 until the start of your next turn.",
-        "WeaponDescriptionSword": "Critical Specialization Effect: The target is made off‑balance by your attack, becoming flat‑footed until the start of your next turn.",
+        "WeaponDescriptionSling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.",
+        "WeaponDescriptionSpear": "Critical Specialization Effect: The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.",
+        "WeaponDescriptionSword": "Critical Specialization Effect: The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.",
         "WeaponGroups": "Weapon Groups",
         "WeaponGroupAxe": "Axe",
         "WeaponGroupBomb": "Bomb",
@@ -3690,7 +3748,7 @@
             "anarchic": {
                 "Name": "Anarchic Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Anarchic Rune</strong> When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
+                    "criticalSuccess": "<strong>Anarchic Rune</strong> When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6 #Anarchic Rune]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
                 }
             },
             "ancestralEchoing": {
@@ -3699,7 +3757,7 @@
             "anchoring": {
                 "Name": "Anchoring Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Anchoring Rune</strong> If you critically hit a target with an anchoring weapon, the weapon casts <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Anchoring Rune\" data-pf2-dc=\"27\">Will</span>, counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
+                    "criticalSuccess": "<strong>Anchoring Rune</strong> If you critically hit a target with an anchoring weapon, the weapon casts <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{Dimensional Anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Anchoring Rune DC\" data-pf2-dc=\"27\">Will</span>, counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
                 }
             },
             "axiomatic": {
@@ -3717,13 +3775,13 @@
             "bloodthirsty": {
                 "Name": "Bloodthirsty Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Bloodthirsty Rune</strong> When you critically hit a target that's taking persistent bleed damage, your target becomes @Compendium[pf2e.conditionitems.Drained]{drained 1}."
+                    "criticalSuccess": "<strong>Bloodthirsty Rune</strong> When you critically hit a target that's taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}, your target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}."
                 }
             },
             "brilliant": {
                 "Name": "Brilliant Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Brilliant Rune</strong> On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Brilliant Rune\" data-pf2-dc=\"29\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{blinded} for 1 round."
+                    "criticalSuccess": "<strong>Brilliant Rune</strong> On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Brilliant Rune DC\" data-pf2-dc=\"29\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round."
                 }
             },
             "conducting": {
@@ -3732,13 +3790,13 @@
             "corrosive": {
                 "Name": "Corrosive Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Corrosive Rune</strong> On a critical hit, the target's armor (if any) takes [[/r {3d6}[acid] # Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
+                    "criticalSuccess": "<strong>Corrosive Rune</strong> On a critical hit, the target's armor (if any) takes [[/r {3d6}[acid] #Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
                 }
             },
             "crushing": {
                 "Name": "Crushing Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Crushing Rune</strong> When you critically hit a target with this weapon, your target becomes @Compendium[pf2e.conditionitems.Clumsy]{clumsy 1} and @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn."
+                    "criticalSuccess": "<strong>Crushing Rune</strong> When you critically hit a target with this weapon, your target becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "cunning": {
@@ -3750,7 +3808,7 @@
             "disrupting": {
                 "Name": "Disrupting Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Disrupting Rune</strong> On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn."
+                    "criticalSuccess": "<strong>Disrupting Rune</strong> On a critical hit, the undead is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "energizing": {
@@ -3765,19 +3823,19 @@
             "fearsome": {
                 "Name": "Fearsome Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 1}."
+                    "criticalSuccess": "<strong>Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}."
                 }
             },
             "flaming": {
                 "Name": "Flaming Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Flaming Rune</strong> When you critically succeed at a Strike with this weapon, you deal an additional [[/r {1d10}[persistent,fire]]] # Flaming Rune]]{1d10 persistent fire} damage."
+                    "criticalSuccess": "<strong>Flaming Rune</strong> When you critically succeed at a Strike with this weapon, you deal an additional [[/r {1d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}."
                 }
             },
             "frost": {
                 "Name": "Frost Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Frost Rune</strong> On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune\" data-pf2-dc=\"24\">Fortitude</span> save."
+                    "criticalSuccess": "<strong>Frost Rune</strong> On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune DC\" data-pf2-dc=\"24\">Fortitude</span> save."
                 }
             },
             "ghostTouch": {
@@ -3787,8 +3845,8 @@
             "greaterAnchoring": {
                 "Name": "Greater Anchoring Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Anchoring Rune</strong> When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Greater Anchoring Rune\" data-pf2-dc=\"38\">Will</span>, counteract modifier [[/r 1d20+28 # Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
-                    "success": "<strong>Greater Anchoring Rune</strong> When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{dimensional anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 # Anchoring Rune Counteract Check]]{+28})."
+                    "criticalSuccess": "<strong>Greater Anchoring Rune</strong> When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{Dimensional Anchor}</em> on the target (<span data-pf2-check=\"will\" data-pf2-label=\"Greater Anchoring Rune DC\" data-pf2-dc=\"38\">Will</span>, counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
+                    "success": "<strong>Greater Anchoring Rune</strong> When you hit a target with the weapon but don't critically hit, the target is affected by 4th-level <em>@Compendium[pf2e.spells-srd.Dimensional Anchor]{Dimensional Anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28})."
                 }
             },
             "greaterBloodbane": {
@@ -3797,27 +3855,27 @@
             "greaterBrilliant": {
                 "Name": "Greater Brilliant Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance. On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Brilliant Rune\" data-pf2-dc=\"41\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{blinded} for 1 round.",
+                    "criticalSuccess": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance. On a critical hit, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Brilliant Rune DC\" data-pf2-dc=\"41\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.",
                     "success": "<strong>Greater Brilliant Rune</strong> Damage dealt by this weapon ignores the target's fire, good, or positive resistance."
                 }
             },
             "greaterCorrosive": {
                 "Name": "Greater Corrosive Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r {6d6}[acid] # Corrosive Rune]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
+                    "criticalSuccess": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r {6d6}[acid]]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
                     "success": "<strong>Greater Corrosive Rune</strong> The acid damage dealt by this weapon ignores the target's acid resistance."
                 }
             },
             "greaterCrushing": {
                 "Name": "Greater Crushing Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Crushing Rune</strong> Your critical hits leave the target @Compendium[pf2e.conditionitems.Clumsy]{clumsy 2} and @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 2} until the end of your next turn."
+                    "criticalSuccess": "<strong>Greater Crushing Rune</strong> Your critical hits leave the target @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} until the end of your next turn."
                 }
             },
             "greaterDisrupting": {
                 "Name": "Greater Disrupting Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Disrupting Rune</strong> On a critical hit the undead creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Greater Disrupting Rune\" data-pf2-dc=\"34\">Fortitude</span> save with the following effects. This is an incapacitation effect.<br /><br /><strong>Critical Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 2} until the end of your next turn.<br /><strong>Failure</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{enfeebled 3} until the end of your next turn.<br /><strong>Critical Failure</strong> It's destroyed."
+                    "criticalSuccess": "<strong>Greater Disrupting Rune</strong> On a critical hit the undead creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"incapacitation\" data-pf2-label=\"Greater Disrupting Rune DC\" data-pf2-dc=\"34\">Fortitude</span> save with the following effects. This is an incapacitation effect.<br /><br /><strong>Critical Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} until the end of your next turn.<br /><strong>Failure</strong> It's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} until the end of your next turn.<br /><strong>Critical Failure</strong> It's destroyed."
                 }
             },
             "greaterExtending": {
@@ -3829,20 +3887,20 @@
             "greaterFearsome": {
                 "Name": "Greater Fearsome Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 2}."
+                    "criticalSuccess": "<strong>Greater Fearsome Rune</strong> When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}."
                 }
             },
             "greaterFlaming": {
                 "Name": "Greater Flaming Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Flaming Rune</strong> Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance. When you critically succeed at a Strike with this weapon, you deal an additional [[/r {2d10}[persistent,fire]]] # Greater Flaming Rune]]{2d10 persistent fire} damage.",
+                    "criticalSuccess": "<strong>Greater Flaming Rune</strong> Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance. When you critically succeed at a Strike with this weapon, you deal an additional [[/r {2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.",
                     "success": "<strong>Greater Flaming Rune</strong> Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },
             "greaterFrost": {
                 "Name": "Greater Frost Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frost Rune\" data-pf2-dc=\"34\">Fortitude</span> save.",
+                    "criticalSuccess": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Frost Rune DC\" data-pf2-dc=\"34\">Fortitude</span> save.",
                     "success": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance."
                 }
             },
@@ -3852,7 +3910,7 @@
             "greaterImpactful": {
                 "Name": "Greater Impactful Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Impactful Rune\" data-pf2-dc=\"37\">Fortitude</span> save or be pushed 10 feet away from you."
+                    "criticalSuccess": "<strong>Greater Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Impactful Rune DC\" data-pf2-dc=\"37\">Fortitude</span> save or be pushed 10 feet away from you."
                 }
             },
             "greaterShock": {
@@ -3865,7 +3923,7 @@
             "greaterThundering": {
                 "Name": "Greater Thundering Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Greater Thundering Rune</strong> Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Thundering Rune\" data-pf2-dc=\"34\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{deafened} permanently.",
+                    "criticalSuccess": "<strong>Greater Thundering Rune</strong> Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Greater Thundering Rune DC\" data-pf2-dc=\"34\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} permanently.",
                     "success": "<strong>Greater Thundering Rune</strong> Sonic damage dealt by this weapon ignores the target's sonic resistance."
                 }
             },
@@ -3874,16 +3932,16 @@
                 "Note": {
                     "Axe": "<strong>Grievous Rune</strong> You can damage a third creature, with the same restrictions.",
                     "Bow": "<strong>Grievous Rune</strong> The Athletics check to pull the missile free is DC 20.",
-                    "Brawling": "<strong>Grievous Rune</strong> The target takes a –4 circumstance penalty to its save.",
+                    "Brawling": "<strong>Grievous Rune</strong> The target takes a -4 circumstance penalty to its save.",
                     "Club": "<strong>Grievous Rune</strong> You can knock the target up to 15 feet away.",
-                    "Dart": "<strong>Grievous Rune</strong> The base persistent bleed damage increases to 2d6.",
+                    "Dart": "<strong>Grievous Rune</strong> The base persistent bleed damage increases to [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.",
                     "Flail": "<strong>Grievous Rune</strong> You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
                     "Hammer": "<strong>Grievous Rune</strong> You can also knock the target 5 feet away from you.",
-                    "Knife": "<strong>Grievous Rune</strong> The target takes a –5-foot status penalty to its Speed while it has the persistent bleed damage.",
+                    "Knife": "<strong>Grievous Rune</strong> The target takes a -5-foot status penalty to its Speed while it has the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.",
                     "Pick": "<strong>Grievous Rune</strong> The extra damage from the critical specialization effect increases to 4 per weapon damage die.",
                     "Polearm": "<strong>Grievous Rune</strong> You can move the target up to 10 feet.",
                     "Shield": "<strong>Grievous Rune</strong> You can knock the target up to 10 feet away.",
-                    "Sling": "<strong>Grievous Rune</strong> The target also takes a –10-foot status penalty to its Speed for 1 round if it fails the save.",
+                    "Sling": "<strong>Grievous Rune</strong> The target also takes a -10-foot status penalty to its Speed for 1 round if it fails the save.",
                     "Spear": "<strong>Grievous Rune</strong> The clumsy condition lasts for 2 rounds.",
                     "Sword": "<strong>Grievous Rune</strong> The target is flat-footed until the end of your next turn."
                 }
@@ -3892,7 +3950,10 @@
                 "Name": "Hauling Rune"
             },
             "holy": {
-                "Name": "Holy Rune"
+                "Name": "Holy Rune",
+                "Note": {
+                    "criticalSuccess": "<strong>Holy Rune</strong> (<span class='pf2-icon'>R</span> command; once per day)<br /><br /><strong>Trigger</strong> You critically succeed at an attack roll against an evil creature with the weapon<br /><br /><strong>Effect</strong> You regain HP equal to double the evil creature's level. This is a good, positive, healing effect."
+                }
             },
             "hopeful": {
                 "Name": "Hopeful Rune",
@@ -3903,7 +3964,7 @@
             "impactful": {
                 "Name": "Impactful Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Impactful Rune\" data-pf2-dc=\"27\">Fortitude</span> save or be pushed 5 feet away from you."
+                    "criticalSuccess": "<strong>Impactful Rune</strong> On a critical hit, you can choose to force the target to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Impactful Rune DC\" data-pf2-dc=\"27\">Fortitude</span> save or be pushed 5 feet away from you."
                 }
             },
             "keen": {
@@ -3944,20 +4005,26 @@
             "thundering": {
                 "Name": "Thundering Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Thundering Rune</strong> On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Thundering Rune\" data-pf2-dc=\"24\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{deafened} for 1 minute (or 1 hour on a critical failure)."
+                    "criticalSuccess": "<strong>Thundering Rune</strong> On a critical hit, the target has to succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Thundering Rune DC\" data-pf2-dc=\"24\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute (or 1 hour on a critical failure)."
                 }
             },
             "unholy": {
-                "Name": "Unholy Rune"
+                "Name": "Unholy Rune",
+                "Note": {
+                    "criticalSuccess": "<strong>Unholy Rune</strong> (<span class='pf2-icon'>R</span> command; once per day)<br /><br /><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon<br /><br /><strong>Effect</strong> The target takes @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} equal to 1d8 per weapon damage die of the etched weapon."
+                }
             },
             "vorpal": {
-                "Name": "Vorpal Rune"
+                "Name": "Vorpal Rune",
+                "Note": {
+                    "criticalSuccess": "<strong>Vorpal Rune</strong> (<span class='pf2-icon'>R</span> envision (death, incapacitation))<br /><br /><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon, critically succeed, and deal slashing damage. The target must have a head<br /><br /><strong>Effect</strong> The target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Vorpal Rune DC\" data-pf2-traits=\"death,incapacitation\" data-pf2-dc=\"37\">Fortitude</span> save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
+                }
             },
             "wounding": {
                 "Name": "Wounding Rune",
                 "Note": {
-                    "criticalSuccess": "<strong>Wounding Rune</strong> When you critically hit a creature with a wounding weapon, you deal an extra [[/r {1d12}[persistent,bleed] # Wounding Rune]]{1d12 persistent bleed} damage.",
-                    "success": "<strong>Wounding Rune</strong> When you hit a creature with a wounding weapon, you deal an extra [[/r {1d6}[persistent,bleed] # Wounding Rune]]{1d6 persistent bleed} damage."
+                    "criticalSuccess": "<strong>Wounding Rune</strong> When you critically hit a creature with a wounding weapon, you deal an extra [[/r {1d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.",
+                    "success": "<strong>Wounding Rune</strong> When you hit a creature with a wounding weapon, you deal an extra [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}."
                 }
             }
         },
@@ -4327,7 +4394,7 @@
         },
         "UnitedPaizoWorkers": {
             "Title": "Announcement: United Paizo Workers",
-            "ReleaseIntro": "Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc – publisher of the Pathfinder and Starfinder roleplaying games – are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America's CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.",
+            "ReleaseIntro": "Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc - publisher of the Pathfinder and Starfinder roleplaying games - are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America's CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.",
             "PFSNote": "Note for Pathfinder Society players: In support of UPW, merchandise purchased from the union store will count in the Online PFS region for the <span class=\"hover\" title=\"When you use a Hero Point to reroll a check, add a +1 cirumstance bonus to the reroll\">Promotional Vestments</a> boon."
         },
         "identification": {
@@ -4553,6 +4620,7 @@
             "EditSpeed": "Edit Speed",
             "EditTraits": "Edit Traits",
             "EditWeaknesses": "Edit Weaknesses",
+            "EffectsTab": "Effects",
             "MainTab": "Main",
             "NotesTab": "Notes",
             "PassivesLabel": "Passives",

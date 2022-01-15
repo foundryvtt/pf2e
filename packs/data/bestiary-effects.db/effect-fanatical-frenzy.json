@@ -1,8 +1,9 @@
 {
     "_id": "3Wtzyb0ZgkaC7vHY",
     "data": {
+        "badge": null,
         "description": {
-            "value": "<p><strong>Requirements</strong> The cultist has taken damage and is neither @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} nor already in a frenzy</p>\n<p><strong>Effect</strong> The cultist flies into a frenzy that lasts 1 minute. While frenzied, the cultist gains a +1 status bonus to attack rolls and a +2 status bonus to damage rolls, and they take a -2 status penalty to AC. The cultist can't voluntarily stop their frenzy. After their frenzy, the cultist is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+            "value": "<p>The creature gains a +1 status bonus to attack rolls and a +2 status bonus to damage rolls, and takes a -2 status penalty to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,10 +16,22 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "flags.pf2e.rollOptions.all.fanatical-frenzy",
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "status",
                 "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": -2
             }
         ],
         "source": {
@@ -34,9 +47,7 @@
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": []
         }
     },

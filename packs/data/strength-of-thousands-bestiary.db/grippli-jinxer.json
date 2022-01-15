@@ -47,13 +47,6 @@
             "perception": {
                 "value": 16
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -110,9 +103,7 @@
                     "grippli"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -269,9 +260,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -383,9 +372,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation"
                     ]
@@ -499,9 +486,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "mental"
@@ -624,9 +609,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -755,9 +738,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -871,9 +852,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "mental"
                     ]
@@ -1002,9 +981,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "negative"
@@ -1127,9 +1104,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "fear",
@@ -1244,9 +1219,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip"
                     ]
@@ -1365,9 +1338,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "detection",
                         "cantrip"
@@ -1486,9 +1457,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -1606,9 +1575,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "force"
@@ -1734,9 +1701,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -1856,9 +1821,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1984,9 +1947,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cantrip"
@@ -2151,9 +2112,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "thrown"
@@ -2320,9 +2279,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -2369,16 +2326,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -2425,9 +2399,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "thrown-20"
@@ -2469,9 +2441,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -2505,7 +2475,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A hostile creature targets the jinxer with a melee Strike</p>\n<p><strong>Effect</strong> Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a <span data-pf2-check=\"will\" data-pf2-traits=\"grippli,humanoid\" data-pf2-label=\"Hypnotic Pattern DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Concealed]{Concealed} until the end of its turn.</p>\n<p><strong>Critical Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Hidden]{Hidden} until the end of its turn.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A hostile creature targets the jinxer with a melee Strike</p>\n<p><strong>Effect</strong> Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a @Check[type:will|dc:22|name:Hypnotic Pattern|traits:grippli,humanoid] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Concealed]{Concealed} until the end of its turn.</p>\n<p><strong>Critical Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Hidden]{Hidden} until the end of its turn.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -2517,9 +2487,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -2534,6 +2502,50 @@
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Hypnotic Tattoos",
             "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "D5SkUKuoy3RDeG52",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d4}[poison]]]{2d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d4}[poison]]]{2d4 poison damage}, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Baneback Poison",
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2561,9 +2573,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "necromancy",
                         "occult"
@@ -2580,7 +2590,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Curse of Baneful Venom",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2608,9 +2618,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -2624,52 +2632,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Jungle Stride",
-            "sort": 2300000,
-            "type": "action"
-        },
-        {
-            "_id": "D5SkUKuoy3RDeG52",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Baneback Poison DC\" data-pf2-dc=\"24\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d4}[poison]]]{2d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d4}[poison]]]{2d4 poison damage}, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n</div>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Baneback Poison",
             "sort": 2400000,
             "type": "action"
         },
@@ -2692,9 +2654,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2724,9 +2684,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2756,9 +2714,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2788,9 +2744,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2820,9 +2774,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2852,9 +2804,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

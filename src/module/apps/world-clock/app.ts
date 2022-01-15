@@ -176,7 +176,7 @@ export class WorldClock extends Application {
     }
 
     /** Advance the world time by a static or input value */
-    override activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html.find("button[data-advance-time]").on("click", (event) => {
@@ -196,6 +196,7 @@ export class WorldClock extends Application {
         for (const eventName of ["keydown.pf2e.world-clock", "keyup.pf2e.world-clock"]) {
             $(document).off(eventName);
             $(document).on(eventName, (event) => {
+                if (!(event.originalEvent instanceof KeyboardEvent) || event.originalEvent.repeat) return;
                 if (!(event.ctrlKey || this.ctrlKeyDown)) return;
                 const retractTime = event.type === "keydown";
                 this.ctrlKeyDown = retractTime;

@@ -130,8 +130,8 @@
             </ul>
         </div>
         <div class="flexrow" style="flex: auto;">
-            <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
-                {{#select data.traits.rarity.value}}
+            <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity }} {{data.traits.rarity }} {{else}} common {{/if}}" name="data.traits.rarity" data-dtype="String">
+                {{#select data.traits.rarity}}
                 {{#each actorRarities as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
@@ -156,7 +156,7 @@
         </li>
 
         <li class="list-row hazard-editor">
-          {{editor content=data.attributes.stealth.details target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
+          {{editor content=(enrichHTML data.attributes.stealth.details) target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
         </li>
 
         <li class="list-row action-header">
@@ -164,7 +164,7 @@
         </li>
 
         <li class="list-row hazard-editor">
-          {{editor content=data.details.description target="data.details.description" button=true owner=owner editable=editable}}
+          {{editor content=(enrichHTML data.details.description) target="data.details.description" button=true owner=owner editable=editable}}
         </li>
 
         <li class="list-row action-header">
@@ -172,7 +172,7 @@
         </li>
 
         <li class="list-row hazard-editor">
-          {{editor content=data.details.disable target="data.details.disable" button=true owner=owner editable=editable}}
+          {{editor content=(enrichHTML data.details.disable) target="data.details.disable" button=true owner=owner editable=editable}}
         </li>
 
         <li class="list-row action-header">
@@ -180,7 +180,7 @@
         </li>
 
         <li class="list-row hazard-editor">
-          {{editor content=data.details.routine target="data.details.routine" button=true owner=owner editable=editable}}
+          {{editor content=(enrichHTML data.details.routine) target="data.details.routine" button=true owner=owner editable=editable}}
         </li>
 
         <li class="list-row action-header">
@@ -188,7 +188,7 @@
         </li>
 
         <li class="list-row hazard-editor">
-          {{editor content=data.details.reset target="data.details.reset" button=true owner=owner editable=editable}}
+          {{editor content=(enrichHTML data.details.reset) target="data.details.reset" button=true owner=owner editable=editable}}
         </li>
 
         <!-- Action Header -->

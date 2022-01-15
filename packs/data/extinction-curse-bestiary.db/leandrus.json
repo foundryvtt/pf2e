@@ -41,14 +41,8 @@
             "perception": {
                 "value": 8
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "35"
             }
@@ -57,7 +51,7 @@
             "alignment": {
                 "value": "N"
             },
-            "blurb": "",
+            "blurb": "Male lion",
             "creatureType": "",
             "level": {
                 "value": 2
@@ -96,9 +90,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "low-light vision, scent (imprecise) 30 feet"
             },
@@ -146,9 +138,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -190,9 +180,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -209,6 +197,98 @@
             "type": "melee"
         },
         {
+            "_id": "C5CbW2c2gPmnN8il",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "Xh9l2gZgUXuevWZW",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "Z0JKKHnRuGwdq3gP",
             "data": {
                 "actionCategory": {
@@ -221,7 +301,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If Danika uses the Command an Animal action, Leandrus can use 2 actions on her turn. Otherwise, he can use only 1 action, which he can use to Stride or Strike.</p>"
+                    "value": "<p>If Danika uses the @Compendium[pf2e.actionspf2e.Command an Animal]{Command an Animal} action, Leandrus can use 2 actions on her turn. Otherwise, he can use only 1 action, which he can use to Stride or Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -233,9 +313,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -249,7 +327,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Minion",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -265,21 +343,32 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Leandrus deals an extra [[/r {1d4}[precision]]]{1d4 precision damage} against flat-footed targets.</p>"
+                    "value": "<p>Leandrus deals an extra [[/r {1d4}[precision]]]{1d4 precision damage} against @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -293,7 +382,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stalker",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -318,9 +407,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -328,7 +415,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -353,9 +440,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -363,7 +448,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -388,9 +473,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -398,7 +481,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -423,9 +506,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -433,7 +514,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -458,9 +539,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -468,7 +547,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],

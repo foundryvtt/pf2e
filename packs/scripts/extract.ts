@@ -23,7 +23,7 @@ global.window = global.document.defaultView!;
 import $ from "jquery";
 import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { NPCSystemData } from "@actor/npc/data";
-import { isActorSource, isItemSource } from "./packman/compendium-pack";
+import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
 import { isPhysicalData } from "@item/data/helpers";
 import { IdentificationData } from "@item/physical/data";
 import { ActorSourcePF2e } from "@actor/data";
@@ -105,8 +105,8 @@ const idsToNames: Map<string, Map<string, string>> = new Map();
 
 const linkPatterns = {
     world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/g,
-    compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
-    components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/,
+    compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
+    components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/,
 };
 
 type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
@@ -214,44 +214,44 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
     }
 }
 
-function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = { isEmbedded: false }): T {
+function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { isEmbedded: false }): T {
     // Clear non-core/pf2e flags
-    for (const flagScope in entityData.flags) {
+    for (const flagScope in docSource.flags) {
         if (!["core", "pf2e"].includes(flagScope) || !isEmbedded) {
-            delete entityData.flags[flagScope];
+            delete docSource.flags[flagScope];
         }
     }
 
     if (!isEmbedded) {
-        entityData.permission = { default: entityData.permission?.default ?? 0 };
-        delete (entityData as Partial<typeof entityData>).sort;
+        docSource.permission = { default: docSource.permission?.default ?? 0 };
+        delete (docSource as Partial<typeof docSource>).sort;
 
-        if (isItemSource(entityData)) {
-            const slug = entityData.data.slug;
-            if (typeof slug === "string" && slug !== sluggify(entityData.name)) {
+        if (isItemSource(docSource)) {
+            const slug = docSource.data.slug;
+            if (typeof slug === "string" && slug !== sluggify(docSource.name)) {
                 console.warn(
-                    `Warning: Name change detected on ${entityData.name}. ` +
+                    `Warning: Name change detected on ${docSource.name}. ` +
                         "Please remember to create a slug migration before next release."
                 );
             }
 
-            delete (entityData.data as { slug?: unknown }).slug;
-            entityData.flags = entityData.type === "condition" ? { pf2e: { condition: true } } : {};
+            delete (docSource.data as { slug?: unknown }).slug;
+            docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
         }
 
-        if (isActorSource(entityData)) {
-            if (!entityData.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
-                for (const effect of entityData.effects) {
+        if (isActorSource(docSource)) {
+            if (!docSource.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
+                for (const effect of docSource.effects) {
                     effect.origin = "";
                 }
             }
         }
     }
 
-    pruneTree(entityData, entityData);
+    pruneTree(docSource, docSource);
 
     // Clean up description HTML
-    const cleanDescription = (description: string) => {
+    const cleanDescription = (description: string): string => {
         if (!description) {
             return "";
         }
@@ -265,9 +265,7 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
                 );
             } catch (error) {
                 console.error(error);
-                throw PackError(
-                    `Failed to parse description of ${entityData.name} (${entityData._id}):\n${description}`
-                );
+                throw PackError(`Failed to parse description of ${docSource.name} (${docSource._id}):\n${description}`);
             }
         })();
 
@@ -314,69 +312,74 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
             .trim();
     };
 
-    if ("data" in entityData && "description" in entityData.data) {
-        const description = entityData.data.description;
+    if ("data" in docSource && "description" in docSource.data) {
+        const description = docSource.data.description;
         description.value = cleanDescription(description.value);
+    } else if ("content" in docSource) {
+        docSource.content = cleanDescription(docSource.content);
     }
 
-    return entityData;
+    return docSource;
 }
 
-const newEntityIdMap: Record<string, string> = {};
+const newDocIdMap: Record<string, string> = {};
 
-function convertLinks(entityData: PackEntry, packName: string): PackEntry {
-    newEntityIdMap[entityData._id] = entityData.name;
+function convertLinks(docSource: PackEntry, packName: string): PackEntry {
+    newDocIdMap[docSource._id] = docSource.name;
 
-    const sanitized = sanitizeDocument(entityData);
+    const sanitized = sanitizeDocument(docSource);
     if (isActorSource(sanitized)) {
         sanitized.items = sanitized.items.map((itemData) => sanitizeDocument(itemData, { isEmbedded: true }));
     }
-    const entityJson = JSON.stringify(sanitized);
 
-    // Link checks
-
-    const worldItemLinks = Array.from(entityJson.matchAll(linkPatterns.world));
-    if (worldItemLinks.length > 0) {
-        const linkString = worldItemLinks.map((match) => match[0]).join(", ");
-        console.warn(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
+    if (isItemSource(sanitized)) {
+        CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: idsToNames });
     }
 
-    const compendiumLinks = Array.from(entityJson.matchAll(linkPatterns.compendium)).map((match) => match[0]);
+    const docJSON = JSON.stringify(sanitized);
+
+    // Link checks
+    const worldItemLinks = Array.from(docJSON.matchAll(linkPatterns.world));
+    if (worldItemLinks.length > 0) {
+        const linkString = worldItemLinks.map((match) => match[0]).join(", ");
+        console.warn(`${docSource.name} (${packName}) has links to world items: ${linkString}`);
+    }
+
+    const compendiumLinks = Array.from(docJSON.matchAll(linkPatterns.compendium)).map((match) => match[0]);
     const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith("{"));
     if (linksLackingLabels.length > 0) {
         const linkString = linksLackingLabels.map((match) => match[0]).join(", ");
-        throw PackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
+        throw PackError(`${docSource.name} (${packName}) has links with no labels: ${linkString}`);
     }
 
     // Convert links by ID to links by name
-
     const notFound: string[] = [];
     const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
-        const match = linkPatterns.components.exec(linkById);
-        if (!Array.isArray(match)) {
-            throw PackError("Unexpected error looking for compendium link");
+        const parts = linkPatterns.components.exec(linkById);
+        if (!Array.isArray(parts)) {
+            throw PackError("Unexpected error parsing compendium link");
         }
-        const [packId, entityId] = match.slice(1, 3);
+        const [packId, docId] = parts.slice(1, 3);
         const packMap = idsToNames.get(packId);
         if (packMap === undefined) {
             throw PackError(`Pack ${packId} has no ID-to-name map.`);
         }
 
-        const entityName = packMap.get(entityId) ?? newEntityIdMap[entityId];
-        if (entityName === undefined) {
-            notFound.push(match[0].replace(/\{$/, ""));
+        const docName = packMap.get(docId) ?? newDocIdMap[docId];
+        if (docName === undefined) {
+            notFound.push(parts[0].replace(/\{$/, ""));
             return partiallyConverted;
         }
 
-        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}(?=\\])`, "g");
-        return partiallyConverted.replace(replacePattern, entityName);
-    }, entityJson);
+        const replacePattern = new RegExp(`(?<!"_?id":")${docId}(?=\\])`, "g");
+        return partiallyConverted.replace(replacePattern, docName);
+    }, docJSON);
 
     // In case some new items with links to other new items weren't found
     if (notFound.length > 0) {
         const idsNotFound = notFound.join(", ");
         console.debug(
-            `Warning: Unable to find names for the following links in ${entityData.name} ` +
+            `Warning: Unable to find names for the following links in ${docSource.name} ` +
                 `(${packName}): ${idsNotFound}`
         );
     }

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 18
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -157,9 +150,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -205,9 +196,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -226,102 +215,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "YXFicpAJz9WZdrnS",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When a clacking skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a 30-foot burst, dealing [[/r {2d12}[piercing]]]{2d12 piercing damage} and [[/r {2d12}[negative]]]{2d12 negative damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Boneshard Burst DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Boneshard Burst",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "dhMEgZcYzpqH15gY",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A clacking skull swarm emits a cacophony of chattering. A creature entering or beginning its turn within the area must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"29\" data-pf2-traits=\"arcane,auditory,aura,emotion,enchantment,incapacitation,mental\" data-pf2-label=\"Chattering Teeth DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round. A creature that successfully saves is immune to that swarm's chattering teeth for 24 hours. The swarm can stop or resume this ability as a free action.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "arcane",
-                        "auditory",
-                        "aura",
-                        "emotion",
-                        "enchantment",
-                        "incapacitation",
-                        "mental"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Chattering Teeth",
-            "sort": 300000,
             "type": "action"
         },
         {
@@ -356,9 +249,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -376,6 +267,98 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "YXFicpAJz9WZdrnS",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When a clacking skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {2d12}[piercing]]]{2d12 piercing damage} and [[/r {2d12}[negative]]]{2d12 negative damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Boneshard Burst",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "dhMEgZcYzpqH15gY",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A clacking skull swarm emits a cacophony of chattering. A creature entering or beginning its turn within the area must succeed at a @Check[type:will|dc:29] save or become @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round. A creature that successfully saves is immune to that swarm's chattering teeth for 24 hours. The swarm can stop or resume this ability as a free action.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "auditory",
+                        "aura",
+                        "emotion",
+                        "enchantment",
+                        "incapacitation",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Chattering Teeth",
             "sort": 400000,
             "type": "action"
         },
@@ -392,7 +375,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clacking skull swarm emits a terrifying, painful scream that deals [[/r {10d6}[sonic]]]{10d6 sonic damage} to all creatures in a 30-foot cone (<span data-pf2-check=\"will\" data-pf2-dc=\"29\" data-pf2-traits=\"auditory,emotion,enchantment,fear,mental,damaging-effect\" data-pf2-label=\"Shrieking Scream DC\" data-pf2-show-dc=\"gm\">basic Will</span> save). A creature that fails this save is also @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>\n<p>The swarm can't use Frightening Scream again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The clacking skull swarm emits a terrifying, painful scream that deals [[/r {10d6}[sonic]]]{10d6 sonic damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:will|dc:29|basic:true] save). A creature that fails this save is also @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>\n<p>The swarm can't use Frightening Scream again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -404,9 +387,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "emotion",
@@ -442,7 +423,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {4d8}[piercing]]]{4d8 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Gnaw DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {4d8}[piercing]]]{4d8 piercing damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -454,9 +435,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -495,9 +474,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

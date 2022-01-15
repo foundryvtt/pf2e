@@ -27,7 +27,7 @@ import {
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
 import { registerSettings } from "@system/settings";
-import { loadPF2ETemplates } from "@module/templates";
+import { registerTemplates } from "@scripts/register-templates";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
@@ -69,6 +69,7 @@ export const Init = {
 
             CONFIG.Token.documentClass = TokenDocumentPF2e;
             CONFIG.Token.objectClass = TokenPF2e;
+            CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
             DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
@@ -160,7 +161,7 @@ export const Init = {
             MystifiedTraits.compile();
 
             registerSettings();
-            loadPF2ETemplates();
+            registerTemplates();
             registerHandlebarsHelpers();
         });
     },

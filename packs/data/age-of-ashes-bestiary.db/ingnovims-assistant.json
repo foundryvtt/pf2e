@@ -41,13 +41,6 @@
             "perception": {
                 "value": 29
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "30"
@@ -100,9 +93,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": [],
             "size": {
                 "value": "med"
@@ -263,9 +254,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
@@ -405,9 +394,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "bulwark"
                     ]
@@ -458,9 +445,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "versatile-p"
@@ -476,53 +461,6 @@
             "name": "Longsword",
             "sort": 300000,
             "type": "melee"
-        },
-        {
-            "_id": "F3y7pLxdrd17fqdw",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When one of Ingnovim's assistants dies, it bursts open in a foul-sounding and smelling explosion of toxic viscera and poisonous vapors. All creatures within a 20-foot burst must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"alchemical,poison\" data-pf2-label=\"Death Throes DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Fortitude</span> save to resist this blast of poison.</p>/n<div data-visibility=\"gm\">/n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {7d8}[poison]]]{7d8 poison damage}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {14d8}[poison]]]{14d8 poison damage} and [[/r {2d8}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p></div>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "alchemical",
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death Throes",
-            "sort": 400000,
-            "type": "action"
         },
         {
             "_id": "MW0LxdUJZd9ozWtO",
@@ -549,9 +487,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -569,6 +505,51 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 20",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "F3y7pLxdrd17fqdw",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When one of Ingnovim's assistants dies, it bursts open in a foul-sounding and smelling explosion of toxic viscera and poisonous vapors. All creatures within a @Template[type:burst|distance:20] must attempt a @Check[type:fortitude|dc:38] save to resist this blast of poison.</p>/n<div data-visibility=\"gm\">/n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {7d8}[poison]]]{7d8 poison damage}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {14d8}[poison]]]{14d8 poison damage} and [[/r {2d8}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p></div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Throes",
             "sort": 500000,
             "type": "action"
         },
@@ -594,9 +575,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -629,9 +608,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

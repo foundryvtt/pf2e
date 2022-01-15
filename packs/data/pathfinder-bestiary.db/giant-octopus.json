@@ -41,14 +41,8 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "compression",
                 "otherSpeeds": [
                     {
                         "type": "swim",
@@ -96,9 +90,9 @@
             },
             "dr": [
                 {
-                    "label": "Cold",
+                    "exceptions": "",
                     "type": "cold",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -107,9 +101,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision"
             },
@@ -136,6 +128,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -159,9 +152,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-15"
@@ -185,6 +176,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "giant-octopus-venom"
                     ]
@@ -208,9 +200,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -225,6 +215,52 @@
             "type": "melee"
         },
         {
+            "_id": "H8zaV182Ql2iZqTg",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "4fZp6kK5h1WOCAAq",
             "data": {
                 "actionCategory": {
@@ -237,7 +273,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A giant octopus can move through a gap at least 2 feet wide without Squeezing, and can Squeeze through a gap at least 1 foot wide.</p>"
+                    "value": "<p>A giant octopus can move through a gap at least 2 feet wide without Squeezing, and can @Compendium[pf2e.actionspf2e.Squeeze]{Squeeze} through a gap at least 1 foot wide.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -249,9 +285,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -265,11 +299,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Compression",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "b2cvWy111f757s6t",
+            "_id": "PgvThxPk7tH5CoXV",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -281,7 +315,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>1d8+9 bludgeoning, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d8+9}[bludgeoning]]]{1d8+9 bludgeoning}</p>\n<p><em>Note: Paizo did not provide a listed DC for this ability. The suggested DC to use per the GMG is @Check[type:fortitude|dc:26|basic:true]</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -293,9 +327,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -313,7 +345,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -329,7 +361,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Octopus Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and flat-footed (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -341,9 +373,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -359,50 +389,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Giant Octopus Venom",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "1LLHUTxhHHgA7Did",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
             "sort": 600000,
             "type": "action"
         },
@@ -419,7 +405,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The octopus emits a cloud of black ink in a 30-foot emanation. This cloud has no effect outside of water. Creatures inside the cloud are undetected and can't use their sense of smell. The cloud dissipates after 1 minute. The octopus can't use Ink Cloud again for [[/br 2d6 #rounds]]{2d6 rounds}.</p>"
+                    "value": "<p>The octopus emits a cloud of black ink in a @Template[type:cone|distance:30]. This cloud has no effect outside of water. Creatures inside the cloud are @Compendium[pf2e.conditionitems.Undetected]{Undetected} and can't use their sense of smell. The cloud dissipates after 1 minute.</p>\n<p data-visibility=\"gm\">The octopus can't use Ink Cloud again for [[/br 2d6 #Recharge Ink Cloud]]{2d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -431,9 +417,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -475,9 +459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -509,7 +491,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The giant octopus makes up to four Strikes with different arms, each against a different target. Each attack counts separately for the octopus's multiple attack penalty, but the penalty doesn't increase the penalty until the octopus has made all the attacks. If the octopus subsequently uses the Grab action, it can Grab any number of creatures it hit with Writhing Arms.</p>"
+                    "value": "<p>The giant octopus makes up to four Strikes with different arms, each against a different target. Each attack counts separately for the octopus's multiple attack penalty, but the penalty doesn't increase the penalty until the octopus has made all the attacks. If the octopus subsequently uses the @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} action, it can Grab any number of creatures it hit with Writhing Arms.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -521,9 +503,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -538,6 +518,52 @@
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Writhing Arms",
             "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "5NPT2o7xLwm4QVG0",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -562,9 +588,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -572,7 +596,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -597,9 +621,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -607,7 +629,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -632,9 +654,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -642,7 +662,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

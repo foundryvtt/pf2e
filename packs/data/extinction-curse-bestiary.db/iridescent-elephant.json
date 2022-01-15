@@ -41,13 +41,6 @@
             "perception": {
                 "value": 11
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "40"
@@ -96,9 +89,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "scent (imprecise) 30 feet"
             },
@@ -145,9 +136,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -186,9 +175,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -232,9 +219,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -273,9 +258,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate"
                     ]
@@ -307,7 +290,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the iridescent elephant stomps its foot, a bright, disorienting burst of light pulses through its leg. Each creatures adjacent to the iridescent elephant when it makes a foot Strike (regardless of whether or not it hit) must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"visual\" data-pf2-label=\"Color Splash DC\" data-pf2-show-dc=\"gm\">Will</span> save or be flat-footed until the beginning of the elephant's next turn.</p>"
+                    "value": "<p>When the iridescent elephant stomps its foot, a bright, disorienting burst of light pulses through its leg. Each creatures adjacent to the iridescent elephant when it makes a foot Strike (regardless of whether or not it hit) must succeed at a @Check[type:will|dc:24] save or be flat-footed until the beginning of the elephant's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -319,9 +302,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "visual"
                     ]
@@ -338,6 +319,97 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Color Splash",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "f5FsjDd7M5zb0zrS",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "description": {
+                    "value": "<p>Large or smaller, foot, @Check[type:reflex|dc:22|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "trample",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "An5Bh0snG4EiSy6u",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The iridescent elephant blasts a beam of light from its trunk in a @Template[type:line|distance:30]. Each creature in the area must attempt a @Check[type:fortitude|dc:22] save.</p>\n<p>Critical Success The creature is unaffected.</p>\n<p>Success The creature is dazzled for 1 round.</p>\n<p>Failure The creature is blinded for 1 minute.</p>\n<p>Critical Failure The creature is blinded permanently.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "visual",
+                        "light"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Trunk Beam",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -365,9 +437,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -381,101 +451,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grabbing Trunk",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "f5FsjDd7M5zb0zrS",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "description": {
-                    "value": "<p>Large or smaller, foot, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "trample",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "An5Bh0snG4EiSy6u",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The iridescent elephant blasts a beam of light from its trunk in a 30-foot line. Each creature in the area must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"visual,light\" data-pf2-label=\"Trunk Beam DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p>Critical Success The creature is unaffected.</p>\n<p>Success The creature is dazzled for 1 round.</p>\n<p>Failure The creature is blinded for 1 minute.</p>\n<p>Critical Failure The creature is blinded permanently.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "visual",
-                        "light"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Trunk Beam",
             "sort": 800000,
             "type": "action"
         },
@@ -501,9 +476,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -536,9 +509,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

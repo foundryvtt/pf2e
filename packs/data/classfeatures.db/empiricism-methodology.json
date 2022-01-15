@@ -23,15 +23,52 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.That's Odd"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Expeditious Inspection"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "soc"
+                    }
+                ],
+                "flag": "skillChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.{item|flags.pf2e.rulesSelections.skillChoice}.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "investigator"
             ]

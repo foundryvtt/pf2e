@@ -23,15 +23,49 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:level:1",
+                        "item:trait:magus",
+                        "item:type:feature"
+                    ],
+                    "label": "level 1 magus class feature"
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Inexorable Iron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Laughing Shadow"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Sparkling Targe"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Starlit Span"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Twisting Tree"
+                    }
+                ],
+                "flag": "hybridStudyChoice",
+                "key": "ChoiceSet",
+                "prompt": "Select a hybrid study."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.hybridStudyChoice}"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "magus"
             ]

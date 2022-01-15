@@ -95,6 +95,17 @@ export class EffectsPanel extends Application {
                 this.refresh();
             }
         });
+
+        $icons.on("click", async (event) => {
+            const $target = $(event.currentTarget);
+            if ($target.attr("data-locked")) return;
+
+            const actor = this.actor;
+            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await actor?.increaseCondition(effect);
+            }
+        });
     }
 
     private static getParentConditionsBreakdown(conditions: ConditionReference[]): string {

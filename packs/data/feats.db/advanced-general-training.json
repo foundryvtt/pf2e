@@ -19,18 +19,37 @@
         "level": {
             "value": 13
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:type:feat",
+                        "item:trait:general"
+                    ],
+                    "label": "PF2E.SpecificRule.AdvancedGeneralTraining.AllowedDrops"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":{\"$lte\":7},\"data.traits.value\":{\"$elemMatch\":\"general\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AdvancedGeneralTraining.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedGeneralTraining}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "human"
             ]

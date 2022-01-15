@@ -20,8 +20,8 @@
         },
         "creatureType": "",
         "details": {
-            "description": "Ebeshra aligns its crystalline form to produce a blast of lightning that charges the surrounding area with electrical energy.",
-            "disable": "<p><span data-pf2-check=\"nature\" data-pf2-traits=\"divine,electricity,environmental,evocation,kaiju,hazard\" data-pf2-label=\"Balance the Electrical Charges DC\" data-pf2-dc=\"45\" data-pf2-show-dc=\"gm\">Nature</span> (master) to balance the electrical charges in the area or <span data-pf2-check=\"deception\" data-pf2-traits=\"divine,electricity,environmental,evocation,kaiju,hazard\" data-pf2-label=\"Divert Ebeshra's Attention DC\" data-pf2-dc=\"48\" data-pf2-show-dc=\"gm\">Deception</span> (expert) to momentarily divert Ebeshra's attention</p>",
+            "description": "<p>Ebeshra aligns its crystalline form to produce a blast of lightning that charges the surrounding area with electrical energy.</p>",
+            "disable": "<p>@Check[type:nature|dc:45|name:Balance the Electrical Charges|traits:divine,electricity,environmental,evocation,kaiju,hazard] (master) to balance the electrical charges in the area or @Check[type:deception|dc:48|name:Divert Ebeshra's Attention|traits:divine,electricity,environmental,evocation,kaiju,hazard] (expert) to momentarily divert Ebeshra's attention</p>",
             "isComplex": false,
             "level": {
                 "value": 18
@@ -30,7 +30,6 @@
             "routine": ""
         },
         "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -60,9 +59,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "size": {
                 "value": "med"
             },
@@ -95,7 +92,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature takes a hostile action against Ebeshra, produces a visible area effect, or flies within 120 feet of Ebeshra</p>\n<p><strong>Effect</strong> Ebeshra unleashes a @Template[type:line|distance:240] of electricity toward the triggering creature. Creatures in the line take [[/r {16d8}[electricity]]]{16d8 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,divine,electricity,environmental,evocation,kaiju,hazard\" data-pf2-label=\"Lightning Blast DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The electricity creates a static field in all squares that the line passed through and all adjacent squares. For 1 round, any creatures that enter a space in the static field take [[/r {4d8}[electricity]]]{4d8 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,divine,electricity,environmental,evocation,kaiju,hazard\" data-pf2-label=\"Static Field DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature takes a hostile action against Ebeshra, produces a visible area effect, or flies within 120 feet of Ebeshra</p>\n<p><strong>Effect</strong> Ebeshra unleashes a @Template[type:line|distance:240] of electricity toward the triggering creature. Creatures in the line take [[/r {16d8}[electricity]]]{16d8 electricity damage} (@Check[type:reflex|dc:42|basic:true|traits:divine,electricity,environmental,evocation,kaiju,hazard] save). The electricity creates a static field in all squares that the line passed through and all adjacent squares. For 1 round, any creatures that enter a space in the static field take [[/r {4d8}[electricity]]]{4d8 electricity damage} (@Check[type:reflex|dc:38|basic:true|name:Static Field|traits:divine,electricity,environmental,evocation,kaiju,hazard] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -107,9 +104,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

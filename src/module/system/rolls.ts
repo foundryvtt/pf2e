@@ -122,24 +122,22 @@ export class CheckPF2e {
             }
         }
 
-        if (context) {
-            const visible = (note: RollNotePF2e) => PredicatePF2e.test(note.predicate, context.options ?? []);
-            context.notes = (context.notes ?? []).filter(visible);
+        context.notes = (context.notes ?? []).filter((note: RollNotePF2e) =>
+            PredicatePF2e.test(note.predicate, context.options ?? [])
+        );
+        if (context.dc) {
+            const { adjustments } = context.dc;
+            if (adjustments) {
+                adjustments.forEach((adjustment) => {
+                    const merge = adjustment.predicate
+                        ? PredicatePF2e.test(adjustment.predicate, context.options ?? [])
+                        : true;
 
-            if (context.dc) {
-                const { adjustments } = context.dc;
-                if (adjustments) {
-                    adjustments.forEach((adjustment) => {
-                        const merge = adjustment.predicate
-                            ? PredicatePF2e.test(adjustment.predicate, context.options ?? [])
-                            : true;
-
-                        if (merge) {
-                            context.dc!.modifiers ??= {};
-                            mergeObject(context.dc!.modifiers, adjustment.modifiers);
-                        }
-                    });
-                }
+                    if (merge) {
+                        context.dc!.modifiers ??= {};
+                        mergeObject(context.dc!.modifiers, adjustment.modifiers);
+                    }
+                });
             }
         }
 
@@ -177,8 +175,7 @@ export class CheckPF2e {
         const item = context.item;
         delete context.item;
 
-        ctx.rollMode =
-            ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode") ?? "roll";
+        ctx.rollMode = ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
@@ -300,14 +297,15 @@ export class CheckPF2e {
         }
 
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
+        const coreFlags: Record<string, unknown> = { canPopout: true };
+        if (context.type === "initiative") coreFlags.initiativeRoll = true;
+
         const message = (await roll.toMessage(
             {
                 speaker: ChatMessage.getSpeaker(speaker),
                 flavor,
                 flags: {
-                    core: {
-                        canPopout: true,
-                    },
+                    core: coreFlags,
                     pf2e: {
                         canReroll: !["fortune", "misfortune"].includes(ctx.fate),
                         context,
@@ -319,7 +317,7 @@ export class CheckPF2e {
                 },
             },
             {
-                rollMode: ctx.rollMode ?? "roll",
+                rollMode: ctx.rollMode ?? "publicroll",
                 create: ctx.createMessage === undefined ? true : ctx.createMessage,
             }
         )) as ChatMessagePF2e | ChatMessageSourcePF2e;
@@ -328,6 +326,15 @@ export class CheckPF2e {
             // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData instance in v9
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
             await callback(roll, ctx.outcome, msg);
+        }
+
+        // Consume one unit of the weapon if it has the consumable trait
+        if (item instanceof WeaponPF2e && item.actor.items.has(item.id) && item.traits.has("consumable")) {
+            if (item.quantity <= 1) {
+                await item.delete();
+            } else {
+                await item.update({ "data.quantity.value": item.quantity - 1 });
+            }
         }
 
         return roll;
@@ -409,7 +416,7 @@ export class CheckPF2e {
                         },
                     },
                     {
-                        rollMode: context?.rollMode ?? "roll",
+                        rollMode: context.rollMode ?? "publicroll",
                     }
                 );
             });

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -101,9 +94,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "blood scent, darkvision, scent (imprecise) 100 feet"
             },
@@ -164,9 +155,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -220,9 +209,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -237,50 +224,6 @@
             "name": "Tail",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "i8xGkDyTBirx7HaW",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The bunyip can smell blood in the water from up to 1 mile away.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blood Scent",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "sRHkNxD3UkLsrrJp",
@@ -307,9 +250,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -327,6 +268,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "i8xGkDyTBirx7HaW",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The bunyip can smell blood in the water from up to 1 mile away.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Scent",
             "sort": 400000,
             "type": "action"
         },
@@ -355,9 +338,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -403,9 +384,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -483,9 +462,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -515,7 +492,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The bunyip lets out a loud and horrifying roar. Other creatures within @Template[type:emanation|distance:100]{100 feet} must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"21\" data-pf2-traits=\"auditory,concentrate,emotion,enchantment,fear,mental,primal\" data-pf2-label=\"Roar DC\" data-pf2-show-dc=\"gm\">Will</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure,@Compendium[pf2e.conditionitems.Frightened]{Frightened 1} on a success, or unaffected on a critical success)</span>.</p>\n<p data-visibility=\"gm\">No matter the result, the creature is temporarily immune to the effect for 1 minute.</p>"
+                    "value": "<p>The bunyip lets out a loud and horrifying roar. Other creatures within @Template[type:emanation|distance:100]{100 feet} must succeed at a @Check[type:will|dc:21] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure,@Compendium[pf2e.conditionitems.Frightened]{Frightened 1} on a success, or unaffected on a critical success)</span>.</p>\n<p data-visibility=\"gm\">No matter the result, the creature is temporarily immune to the effect for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -527,9 +504,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "concentrate",
@@ -590,9 +565,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "primal",
                         "transmutation"
@@ -637,9 +610,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -682,9 +653,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -717,9 +686,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -752,9 +719,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

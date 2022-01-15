@@ -1,7 +1,7 @@
 import { CreatureTrait } from "@actor/creature/data";
 import type { ItemPF2e } from "@item/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import { DocumentSchemaRecord, OneToThree, Rarity, ValuesList } from "@module/data";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
@@ -42,7 +42,7 @@ export interface ActionCost {
 }
 
 export interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
-    rarity: { value: Rarity };
+    rarity: Rarity;
 }
 
 export interface ItemFlagsPF2e extends foundry.data.ItemFlags {

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 20
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "swiftness",
                 "otherSpeeds": [
@@ -109,9 +102,7 @@
                     "auran"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -162,9 +153,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse",
                         "reach-20"
@@ -210,9 +199,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "range-increment-75"
                     ]
@@ -253,9 +240,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -274,53 +259,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "8ZY3GiKagZnMX8T1",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Air within the emanation is difficult terrain for Flying creatures that do not have the air trait.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "air",
-                        "aura"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "High Winds",
-            "sort": 400000,
             "type": "action"
         },
         {
@@ -348,9 +286,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -364,6 +300,51 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Disperse",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "8ZY3GiKagZnMX8T1",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Air within the emanation is difficult terrain for Flying creatures that do not have the air trait.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "air",
+                        "aura"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "High Winds",
             "sort": 500000,
             "type": "action"
         },
@@ -392,9 +373,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -424,7 +403,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The elemental breathes a @Template[type:cone|distance:30] of air. Creatures in the cone must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"air,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be knocked away from the elemental.</p>\n<div data-visibility=\"gm\">\n<p>A creature knocked into a solid object stops moving and takes [[/r {10d6}[bludgeoning]]]{10d6 bludgeoning damage}.</p>\n<p>The elemental hurricane can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is Pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is Pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is Pushed 40 feet and knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n</div>"
+                    "value": "<p>The elemental breathes a @Template[type:cone|distance:30] of air. Creatures in the cone must succeed at a @Check[type:fortitude|dc:29|traits:damaging-effect] save or be knocked away from the elemental.</p>\n<div data-visibility=\"gm\">\n<p>A creature knocked into a solid object stops moving and takes [[/r {10d6}[bludgeoning]]]{10d6 bludgeoning damage}.</p>\n<p>The elemental hurricane can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is Pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is Pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is Pushed 40 feet and knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -436,9 +415,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "air"
                     ]
@@ -482,9 +459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -527,9 +502,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -562,9 +535,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

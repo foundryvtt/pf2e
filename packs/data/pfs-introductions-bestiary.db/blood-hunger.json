@@ -21,13 +21,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>Blood flows from the fanged skull rune as if it were an open wound.</p>",
-            "disable": "<p><span data-pf2-check=\"religion\" data-pf2-traits=\"complex,haunt\" data-pf2-label=\"Exorcise Spirit DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Religion</span> (trained) to exorcise the spirit, <span data-pf2-check=\"religion\" data-pf2-traits=\"complex,haunt\" data-pf2-label=\"Sever Spiritual Connection DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Religion</span> or <span data-pf2-check=\"occultism\" data-pf2-traits=\"complex,haunt\" data-pf2-label=\"Sever Spiritual Connection DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Occultism</span> (trained) to sever the connection between <em>Hunger's Call</em> and the temple, or <span data-pf2-check=\"crafting\" data-pf2-traits=\"complex,haunt\" data-pf2-label=\"Break up the Mural\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Crafting</span> (trained) to break up the pattern of the mural; three total successes are required to disable the haunt.</p>",
+            "disable": "<p>@Check[type:religion|dc:20|name:Exorcise Spirit|traits:complex,haunt] (trained) to exorcise the spirit, @Check[type:religion|dc:21|name:Sever Spiritual Connection|traits:complex,haunt] or @Check[type:occultism|dc:21|name:Sever Spiritual Connection|traits:complex,haunt] (trained) to sever the connection between <em>Hunger's Call</em> and the temple, or @Check[type:crafting|dc:21|name:Break up the Mural|traits:complex,haunt] (trained) to break up the pattern of the mural; three total successes are required to disable the haunt.</p>",
             "isComplex": true,
             "level": {
                 "value": 3
             },
             "reset": "<p>The mosaic ceases its routine 2 rounds after all living creatures are out of sight of the stairs. After 6 hours the haunt is ready to trigger again.</p>",
-            "routine": "<p><span class=\"pf2-icon\">3</span> The bloody mosaic blasts shards of colored glass at anyone within 10 feet of the eastern wall, and they each take [[/r {1d10}[slashing]]]{1d10 slashing damage} plus [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"complex,haunt,slashing,damaging-effect\" data-pf2-label=\"Avoid the Glass Shards DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">basic Reflex</span> save; critical success negates the bleed damage).</p>"
+            "routine": "<p><span class=\"pf2-icon\">3</span> The bloody mosaic blasts shards of colored glass at anyone within 10 feet of the eastern wall, and they each take [[/r {1d10}[slashing]]]{1d10 slashing damage} plus [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (@Check[type:reflex|dc:20|basic:true|name:Avoid the Glass Shards|traits:complex,haunt,slashing] save; critical success negates the bleed damage).</p>"
         },
         "saves": {
             "fortitude": {
@@ -56,9 +56,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "size": {
                 "value": "med"
             },
@@ -87,7 +85,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature bearing <em>Hunger's Call</em> moves within 30 feet of the exit stairs</p>\n<p><strong>Effect</strong> Whispering voices fill the triggering creature's mind with a compulsion for blood of the living. The creature must attempt a <span data-pf2-check=\"will\" data-pf2-traits=\"mental,occult,haunt,complex\" data-pf2-label=\"Resist Hunger's Possession DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Will</span> save, and the haunt then rolls initiative.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2}.</p>\n<p><strong>Critical Failure</strong> The target loses control of their mind and on their next round must move to the nearest ally and make an unarmed bite attack. The ally is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this attack. The bite deals [[/r {1d4}[piercing]]] {1d4 piercing damage} and a critical hit deals an additional [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. At the end of their turn, the target regains control of their mind.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature bearing <em>Hunger's Call</em> moves within 30 feet of the exit stairs</p>\n<p><strong>Effect</strong> Whispering voices fill the triggering creature's mind with a compulsion for blood of the living. The creature must attempt a @Check[type:will|dc:20|name:Resist Hunger's Possession|traits:mental,occult,haunt,complex] save, and the haunt then rolls initiative.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2}.</p>\n<p><strong>Critical Failure</strong> The target loses control of their mind and on their next round must move to the nearest ally and make an unarmed bite attack. The ally is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this attack. The bite deals [[/r {1d4}[piercing]]] {1d4 piercing damage} and a critical hit deals an additional [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. At the end of their turn, the target regains control of their mind.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -99,9 +97,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

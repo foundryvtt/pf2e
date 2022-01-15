@@ -41,13 +41,6 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -125,9 +118,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -290,9 +281,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "sweep"
                     ]
@@ -432,9 +421,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -486,9 +473,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "sweep"
                     ]
@@ -535,9 +520,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -578,9 +561,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -599,54 +580,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "x3UFyZwCCZPJ4YMT",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A creature that slays a draugr is subjected to a <em>@Compendium[pf2e.spells-srd.Mariner's Curse]{Mariner's Curse}</em> spell with a save DC of 20. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "curse",
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "The Sea's Revenge",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -681,9 +614,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -701,6 +632,52 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "x3UFyZwCCZPJ4YMT",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature that slays a draugr is subjected to a <em>@Compendium[pf2e.spells-srd.Mariner's Curse]{Mariner's Curse}</em> spell with a save DC of 20. The curse ends if the draugr is buried in a calm sea or after 1 week passes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "curse",
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "The Sea's Revenge",
             "sort": 700000,
             "type": "action"
         },
@@ -717,7 +694,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A draugr's attacks spatter their targets with rancid flesh and rotting seaweed. A creature damaged by a draugr's Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"olfactory\" data-pf2-label=\"Grotesque Gift DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p>A draugr's attacks spatter their targets with rancid flesh and rotting seaweed. A creature damaged by a draugr's Strike must succeed at a @Check[type:fortitude|dc:18] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -729,9 +706,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "olfactory"
                     ]
@@ -775,9 +750,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -816,9 +789,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -851,9 +822,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
