@@ -42,6 +42,7 @@
                 "value": 14
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -2096,7 +2097,13 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -2105,7 +2112,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Whip (disarm, Finesse, Nonlethal, Reach, Trip)",
+            "name": "Whip",
             "sort": 1900000,
             "type": "melee"
         },
@@ -2138,7 +2145,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "nonlethal"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -2147,57 +2157,15 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Sap (agile, Nonlethal)",
+            "name": "Sap",
             "sort": 2000000,
             "type": "melee"
-        },
-        {
-            "_id": "Hf8CEeBOTQLBrCT7",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The Onyx Alliance agents deal an additional [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 2100000,
-            "type": "action"
         },
         {
             "_id": "Ch38V5xiFvdEzd59",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -2232,14 +2200,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Canny Reversal",
-            "sort": 2200000,
+            "sort": 2100000,
             "type": "action"
         },
         {
             "_id": "HD4nzh5fYyCJB4lX",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -2279,6 +2247,70 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Shadow Retreat",
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
+            "_id": "Qwexq23QaCB31Sf3",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
             "sort": 2300000,
             "type": "action"
         },
