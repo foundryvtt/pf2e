@@ -742,7 +742,9 @@ function populateIdNameMap() {
         idsToNames.set(metadata.name, packMap);
 
         const filenames = fs.readdirSync(path.resolve(dataPath, packDir));
-        const filePaths = filenames.map((filename) => path.resolve(dataPath, packDir, filename));
+        const filePaths = filenames
+            .filter((filename) => filename.endsWith(".json"))
+            .map((filename) => path.resolve(dataPath, packDir, filename));
 
         for (const filePath of filePaths) {
             const jsonString = fs.readFileSync(filePath, "utf-8");
