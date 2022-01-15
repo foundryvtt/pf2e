@@ -1,5 +1,116 @@
 # Changelog
 
+## Version 3.2.0
+
+### New Feature
+* (Eddie) Add Quick Alchemy crafting option
+* (stwlam) Implement Heritage items, migrate existing heritage ancestry features to them
+* (stwlam) Begin tracking relative distances between attackers and their targets, calculate Strike range increments
+  * No automatic range penalties yet, but Point-Blank Shot is now automated.
+* (Supe) Allow handwraps to transfer property runes
+* (Supe) Implement fast healing/regeneration
+
+### Bugfixes
+* (Abaddon) Fix magic weapon name generation for weapons with three property runes and no striking rune
+* (Ehlii) Fix ActorPF2e#increaseCondition not incrementing values if existing value is between min/max values.
+* (Ehlii) Improve visual clarity of expended prepared spellslots
+* (Cerapter) Fix CraftingFormula rule elements retrieving incorrect default batch sizes on some item types
+* (Chup) Fixed character sheet navigation tab icons being slightly off-center
+* (In3luki) Retrieve correct defensive proficiency when wearing light armor with no check penalty
+* (SoldierC4) Fix localization of common strikes
+* (stwlam) Fix bug causing stored weapon "other tags" to be wiped
+* (stwlam) Fix issue causing TokenImage rule element to not activate without reloading
+* (stwlam) Make label sluggification unicode-friendly
+* (stwlam) Show system Token config sheet for prototype tokens
+* (stwlam) Work around core bug in which keypresses on some form inputs were intercepted while typing
+* (stwlam) Ignore repeat triggers of keydown event on World Clock
+* (Supe) Fix Trick Magic Item and supporting rule elements
+* (Supe) Fix display bug with some ignored modifiers on actor sheets
+
+### Data Updates
+* (Abaddon) Brushup many Bestiary 1 actors
+* (Abaddon) Fix formatting of perception details
+* (Abaddon) Correct rune and critical specialization localizations
+* (Abaddon) Brushup estiary Effects
+* (Abaddon, SoldierC4, Tikael) Expand current localization support
+* (Arthur Trumpet) Consolidate Ki Form spell effect
+* (Attila) Correct Rarity of Beastkin and Ganzi heritages
+* (Drental) Automate item granted by Pilgrim's Token
+* (MnkyBrs) Brush up Agents of Edgewatch book 5 NPC
+* (Nullwolf) Correct name of Gasping Marsh spell
+* (Nullwolf) Add missing strike effect to Dream Spider
+* (Rectulo) Fix formatting error in Oracle mystery
+* (Rectulo) Fix formatting of several spells
+* (Rectulo) Fix formatting of Staff of Providence and Spider Guns
+* (Roxim) Brushup EC book 1 chapters 1 through 3 actors
+* (SpartanCPA) Brush up hags
+* (SpartanCPA) Standardize formatting of hazard text
+* (SpartanCPA) Move NPCs to standard rage effect
+* (SpartanCPA) Fix common formatting errors
+* (SpartanCPA) Correct typing of Coil Spy's bonuses
+* (SpartanCPA) Audit Fall of Plaguestone NPCs
+* (SpartanCPA) Rename generic Age of Ashes actor
+* (SpartanCPA) Brush up PFS 1-15 actors
+* (SpartanCPA, SoldierC4, stwlam, Tikael, VestOfHolding) Add choices to classes, features, feats, and heritages
+* (SoldierC4) Correct rule elements for many ancestries and heritages
+* (SoldierC4, Tikael) Move inlines saves to new @Check format
+* (stwlam) Add clan dagger ancestry feature
+* (stwlam) Fix filters for Natural Ambition
+* (stwlam) Consolidate Path to Perfection
+* (stwlam) Update Spell Effect: Shield to be usable for blocking
+* (Tikael) Automate selection for Sterling Dyanmo Dedication
+* (Tikael) Add initiative bonus while avoiding notice with cover
+* (Tikael) Correct ability used by un/holy water strikes
+* (Tikael) Correct minor errors in archetype journals
+* (Tikael) Correct description of Grand Bazaar alchemical bombs
+* (Tikael) Add effect for Catfolk Dance
+* (Tikael) Correct text formatting of Heal and Harm
+* (Tikael) Automate Reflexive Shield
+* (Tikael) Standardize text and implementation of NPC two handed dX strikes
+* (Tikael) Fix damage and scaling of Overdrive
+* (Tikael) Add missing ritual from Agents of Edgewatch
+* (Tikael) Automate Monastic Archer
+* (Tikael) Add skill bonuses to Ageless Patience
+* (Tikael) Add Witch Lessons as class features
+* (Tikael) Fix action type of Call Companion activity
+* (Tikael) Add equipment resizing to Enlarge and Giant's/Titan's stature effects
+* (Tikael) Add missing Agents of Edgewatch variant NPC
+* (Tikael) Finish brushup of Age of Ashes NPCs
+* (Tikael) Correct bonuses of Ki Form effect
+* (Tikael) Remove deprecated inline buttons
+* (Tikael) Add missing language and correct spelling of Minatan
+* (Tikael) Remove old notes on spell effects
+* (TMun) Remove preset token art
+* (TMun) Brushup many PFS actors
+* (TMun) Correct errors in Rowan Rifle
+* (TMun) Add missing items from Grand Bazaar
+
+### Core System Improvements
+* (Cerapter) Pre-filter compendium browser when looking up feats/features from PC sheets
+* (Chup) Adjust actor sheet sidebar banner styling
+* (fryguy) Remove separator from effects and conditions on NPC sidebar
+* (In3luki) Allows inline checks to be affected by elite /weak templates and conditions.
+* (In3luki) Extend enrichContent support to Hazards and Journals
+* (SkepticRobot) Add support for increasing condition values in Effects Panel
+* (SkepticRobot) Move display of conditions and other effects on NPC sheet to dedicated tab
+* (SoldierC4) Remove legacy NPC sheet
+* (SoldierC4) Add token floaty text for conditions and effects
+* (SoldierC4) Give text editor toolbar on PC sheet a contrasting fill color
+* (stwlam) Accommodate alternative ability modifiers for AC
+* (stwlam) Consume consumable weapons on attack roll
+* (stwlam) Remove hard-coded fist attack and replace with a Strike rule element
+* (stwlam) Add ability to preset the selection of a ChoiceSet RE from a GrantItem RE
+* (stwlam) Add support for predication of IWR rule elements
+* (stwlam) Add support for numeric comparisons in predication
+* (stwlam) Reimplement applyDamage as an instance method
+* (Supe) Indicate on NPC sheets whether attacks are melee or ranged
+* (Tikael) Add means of replacing the PC's default unarmed attack from Strike rule elements
+* (Tikael) Allow macros to set the roll mode in the roll dialogue menu
+* (Tikael) Add min/max size for CreatureSize rule element
+* (Vasher) Add support for blindrolls from item chat cards
+* (Vasher) Automatically set compendium browser filters when coming from feat slot
+
+
 ## Version 3.1.3
 
 ### Bugfixes
