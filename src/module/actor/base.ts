@@ -503,8 +503,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             // This would be a nested ternary, except prettier thoroughly mangles it
             if (damage === 0) return translations.TakesNoDamage;
             if (damage > 0) {
-                return damage > hpDamage && shieldDamage > 0
-                    ? translations.DamagedForNShield
+                return absorbedDamage > 0
+                    ? hpDamage > 0
+                        ? translations.DamagedForNShield
+                        : translations.ShieldAbsorbsAll
                     : translations.DamagedForN;
             }
             return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;

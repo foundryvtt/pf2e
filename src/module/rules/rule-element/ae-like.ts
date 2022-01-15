@@ -1,4 +1,5 @@
 import { FeatPF2e, ItemPF2e } from "@item";
+import { isObject } from "@util";
 import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleValue } from "./";
 
 /**
@@ -128,6 +129,12 @@ class AELikeRuleElement extends RuleElementPF2e {
             case "override": {
                 const currentValue = getProperty(this.actor.data, this.path);
                 if (typeof change === typeof currentValue || currentValue === undefined) {
+                    // Resolve all values if the override is an object
+                    if (isObject<Record<string, unknown>>(change)) {
+                        for (const [key, value] of Object.entries(change)) {
+                            if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
+                        }
+                    }
                     setProperty(this.actor.data, this.path, change);
                     if (typeof change === "string") this.logChange(change);
                 }
