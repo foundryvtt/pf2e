@@ -46,7 +46,7 @@ function dialogTemplate(xp) {
     </tr>
     <tr>
         <th>${game.i18n.localize("PF2E.Encounter.Budget.Reward")}</th>
-        <td>${xp.ratingXP} XP</td>
+        <td>${xp.xpPerPlayer} XP</td>
     </tr>
 </table>
 <h2>${game.i18n.localize("PF2E.Encounter.Budget.EncounterBudget")}</h2>
