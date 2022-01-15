@@ -408,6 +408,21 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 onclick: () => this.refreshItemFromCompendium(),
             });
         }
+
+        buttons.unshift({
+            label: "To Chat",
+            class: "to-chat",
+            icon: "fas fa-comment-alt",
+            onclick: async () => {
+                const actor = this.document.actor ?? canvas.tokens.controlled[0]?.actor ?? game.user?.character;
+                if (actor) {
+                    await this.document.toChat(undefined, { actor: actor });
+                } else {
+                    ui.notifications.error(`You must select a token`);
+                }
+            },
+        });
+
         return buttons;
     }
 
