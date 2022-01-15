@@ -386,463 +386,6 @@
             "type": "equipment"
         },
         {
-            "_id": "nFxNDxHPYmc47Mlx",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "vbenhaiq15rzcxxpbu71": {
-                        "damage": "1d4+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 300000,
-            "type": "melee"
-        },
-        {
-            "_id": "AWKTmRlR5ZVNFq1A",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "7lfjx3q77zr8y0svcznh": {
-                        "damage": "1d4+2",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "thrown-10",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 400000,
-            "type": "melee"
-        },
-        {
-            "_id": "kcbRLFttvvktolJn",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Azarketi must regularly submerge themselves in water to rehydrate their water-acclimated skin. After the first 24 hours outside of water, they gain a -1 status penalty to Fortitude saves as their skin cracks and their gills become painful. After 48 hours, they struggle to breathe air and begin to suffocate until returned to water.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "dayOutOfWater"
-                            ]
-                        },
-                        "selector": "fortitude",
-                        "type": "status",
-                        "value": -1
-                    },
-                    {
-                        "key": "ToggleProperty",
-                        "label": "Spent 24 Hours Out of the Water",
-                        "property": "flags.pf2e.rollOptions.all.dayOutOfWater"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hydration",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "HDAF4Nls9WJAWOeR",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>While submerged in water, an azarketi crab catcher gains a +2 circumstance bonus on their Stealth check, indicated above.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "terrain:underwater"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Submerged Stealth",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "tMYrLjnqdp2h4CWk",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirement</strong> The azarketi crab catcher is swimming</p>\n<p><strong>Trigger</strong> The azarketi crab catcher is targeted with an attack and can see the attacker;</p>\n<hr /></div>\n<p><strong>Effect</strong> The azarketi crab catcher gains a +2 circumstance bonus to AC against the triggering attack. After the attack, they Swim 5 feet.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.swimAway"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "swimAway"
-                            ]
-                        },
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Swim Away",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "xLUuOeUKIbtUPL9R",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:swim"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+6 to Swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "VfwAONSjkFXlSItx",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "BYB00KLH1MLqJdAy",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "E4oBlqhBaVqkShlq",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+7 underwater",
-                        "options": "terrain:underwater"
-                    }
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "type": "lore"
-        },
-        {
-            "_id": "DSuSkqi0XgKoMy9D",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1200000,
-            "type": "lore"
-        },
-        {
-            "_id": "3opCHH7my1xVzJSY",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Underwater Lore",
-            "sort": 1300000,
-            "type": "lore"
-        },
-        {
             "_id": "q2jwMpobArm6glKQ",
             "data": {
                 "baseItem": null,
@@ -954,8 +497,465 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/sack.webp",
             "name": "Sack",
-            "sort": 1400000,
+            "sort": 300000,
             "type": "backpack"
+        },
+        {
+            "_id": "nFxNDxHPYmc47Mlx",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "vbenhaiq15rzcxxpbu71": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 400000,
+            "type": "melee"
+        },
+        {
+            "_id": "AWKTmRlR5ZVNFq1A",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "7lfjx3q77zr8y0svcznh": {
+                        "damage": "1d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 500000,
+            "type": "melee"
+        },
+        {
+            "_id": "kcbRLFttvvktolJn",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Azarketi must regularly submerge themselves in water to rehydrate their water-acclimated skin. After the first 24 hours outside of water, they gain a -1 status penalty to Fortitude saves as their skin cracks and their gills become painful. After 48 hours, they struggle to breathe air and begin to suffocate until returned to water.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "dayOutOfWater"
+                            ]
+                        },
+                        "selector": "fortitude",
+                        "type": "status",
+                        "value": -1
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Spent 24 Hours Out of the Water",
+                        "property": "flags.pf2e.rollOptions.all.dayOutOfWater"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hydration",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "HDAF4Nls9WJAWOeR",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>While submerged in water, an azarketi crab catcher gains a +2 circumstance bonus on their Stealth check, indicated above.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "terrain:underwater"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Submerged Stealth",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "tMYrLjnqdp2h4CWk",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirement</strong> The azarketi crab catcher is swimming</p>\n<p><strong>Trigger</strong> The azarketi crab catcher is targeted with an attack and can see the attacker;</p>\n<hr /></div>\n<p><strong>Effect</strong> The azarketi crab catcher gains a +2 circumstance bonus to AC against the triggering attack. After the attack, they Swim 5 feet.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.swimAway"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "swimAway"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Swim Away",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "xLUuOeUKIbtUPL9R",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+6 to Swim",
+                        "options": "action:swim"
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "type": "lore"
+        },
+        {
+            "_id": "VfwAONSjkFXlSItx",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 3
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Diplomacy",
+            "sort": 1000000,
+            "type": "lore"
+        },
+        {
+            "_id": "BYB00KLH1MLqJdAy",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 3
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "sort": 1100000,
+            "type": "lore"
+        },
+        {
+            "_id": "E4oBlqhBaVqkShlq",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 underwater",
+                        "options": "terrain:underwater"
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1200000,
+            "type": "lore"
+        },
+        {
+            "_id": "DSuSkqi0XgKoMy9D",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1300000,
+            "type": "lore"
+        },
+        {
+            "_id": "3opCHH7my1xVzJSY",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underwater Lore",
+            "sort": 1400000,
+            "type": "lore"
         }
     ],
     "name": "Azarketi Crab Catcher",
