@@ -831,10 +831,10 @@
             "type": "melee"
         },
         {
-            "_id": "pSDcYNMhK5Kr7fuS",
+            "_id": "38HeHJZmZjDhTFjA",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -877,10 +877,10 @@
             "type": "action"
         },
         {
-            "_id": "jtF1PsrIK5F43NfA",
+            "_id": "6bfq0rhJCDqLPplC",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -889,22 +889,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{flat-footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Scorched Earth orcs deal an extra [[/r {2d6}[precision]]]{2d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
                     }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                ],
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
@@ -936,7 +944,7 @@
             "_id": "M8kfkkn8DehUAWGA",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
