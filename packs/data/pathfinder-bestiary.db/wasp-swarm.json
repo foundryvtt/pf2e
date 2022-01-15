@@ -41,14 +41,8 @@
             "perception": {
                 "value": 10
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -68,7 +62,7 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "<p>Wasp nests are made of chewed wood fibers foraged from the surrounding flora, which the wasps make into a material similar to paper. A single wasp nest can house thousands of individuals that emerge as a massive swarm. Most swarms attack only to protect their nest or if otherwise agitated, though druids and other primal enchanters can bend these venomous vermin to their will-to deadly effect.</p>",
+            "publicNotes": "<p>Wasp nests are made of chewed wood fibers foraged from the surrounding flora, which the wasps make into a material similar to paper. A single wasp nest can house thousands of individuals that emerge as a massive swarm. Most swarms attack only to protect their nest or if otherwise agitated, though druids and other primal enchanters can bend these venomous vermin to their will-to deadly effect.</p>\n<hr />\n<p>While the common wasp poses little threat to a hardy adventurer aside from an uncomfortable sting, a large and aggressive swarm of these territorial insects-to say nothing of their oversized kin-can lay low an entire party of heroes. The wasps represented here are of the common variety also known as yellowjackets, but many other sorts of dangerous wasps exist, such as a Garundi variant that swarms in such great numbers that it can decimate entire villages, and the dreaded extraplanar hellwasps, which build their nests within the corpses of their victims.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -99,31 +93,29 @@
             },
             "dr": [
                 {
-                    "label": "Bludgeoning",
+                    "exceptions": "",
                     "type": "bludgeoning",
-                    "value": "7"
+                    "value": 7
                 },
                 {
-                    "label": "Piercing",
+                    "exceptions": "",
                     "type": "piercing",
-                    "value": "7"
+                    "value": 7
                 },
                 {
-                    "label": "Slashing",
+                    "exceptions": "",
                     "type": "slashing",
-                    "value": "3"
+                    "value": 3
                 }
             ],
             "dv": [
                 {
-                    "label": "Area Damage",
                     "type": "area-damage",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Splash Damage",
                     "type": "splash-damage",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -131,9 +123,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -154,6 +144,98 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "1L0T2L67vRGgNyeg",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "HgRvaTh0mJv6CbTu",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.baA0nSMhQyFyJIia"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "z8Vh23jCIh7iroYs",
             "data": {
                 "actionCategory": {
@@ -166,7 +248,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8}[piercing]]]{2d8 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Stings DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) and is exposed to wasp venom. A successful save negates the poison exposure.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8}[piercing]]]{2d8 piercing damage} (@Check[type:reflex|dc:21|basic:true] save) and is exposed to wasp venom. A successful save negates the poison exposure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -178,9 +260,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -194,7 +274,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Stings",
-            "sort": 100000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -210,7 +290,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"poison\" data-pf2-label=\"Wasp Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> 1d6 poison (1 round)</p>\n<p><strong>Stage 2</strong> 2d6 poison and clumsy 2 (2 rounds)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (2 rounds)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -222,9 +302,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -240,7 +318,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wasp Venom",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -265,9 +343,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -275,7 +351,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 500000,
             "type": "lore"
         }
     ],

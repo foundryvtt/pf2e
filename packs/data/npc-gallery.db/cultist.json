@@ -41,14 +41,8 @@
             "perception": {
                 "value": 4
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -98,9 +92,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": ""
             },
@@ -121,7 +113,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PixdctveE2acahJ0",
+            "_id": "7Hepy2bK3kQbRIov",
             "data": {
                 "MAP": {
                     "value": ""
@@ -263,9 +255,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -292,7 +282,7 @@
             "type": "weapon"
         },
         {
-            "_id": "n41bjYa7rN4TekHe",
+            "_id": "ImjzyAwR4eEDXf0q",
             "data": {
                 "armor": {
                     "value": 1
@@ -408,9 +398,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -438,6 +426,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -459,9 +448,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "versatile-s"
@@ -485,6 +472,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -506,9 +494,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "thrown-10",
@@ -527,7 +513,7 @@
             "type": "melee"
         },
         {
-            "_id": "vjhCVd9dijxh3JSz",
+            "_id": "cHWzyBoiaRRRBq99",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -546,20 +532,18 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "label": "Interacting with a higher ranked cult member",
-                        "property": "flags.pf2e.rollOptions.all.higher-rank"
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "higher-rank"
+                                "higherRank"
                             ]
                         },
                         "selector": "will",
-                        "type": "status",
                         "value": -2
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.higherRank"
                     }
                 ],
                 "slug": "1-status-to-all-saves-vs-magic",
@@ -568,9 +552,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -587,7 +569,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "-2 Status to Will Saves vs Higher Ranking Cult Members",
+            "name": "-2 to Will Saves vs Higher Ranking Cult Members",
             "sort": 500000,
             "type": "action"
         },
@@ -601,58 +583,22 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The cultist has taken damage and is neither @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} nor already in a frenzy</p>\n<p><strong>Effect</strong> The cultist flies into a frenzy that lasts 1 minute. While frenzied, the cultist gains a +1 status bonus to attack rolls and a +2 status bonus to damage rolls, and they take a -2 status penalty to AC. The cultist can't voluntarily stop their frenzy. After their frenzy, the cultist is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The cultist has taken damage and is neither @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} nor already in a frenzy</p>\n<p><strong>Effect</strong> The cultist flies into a frenzy that lasts 1 minute. While frenzied, the cultist gains a +1 status bonus to attack rolls and a +2 status bonus to damage rolls, and they take a -2 status penalty to AC. The cultist can't voluntarily stop their frenzy. After their frenzy, the cultist is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Fanatical Frenzy]{Effect: Fanatical Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "fanatical-frenzy"
-                            ]
-                        },
-                        "selector": "ac",
-                        "type": "status",
-                        "value": -2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "fanatical-frenzy"
-                            ]
-                        },
-                        "selector": "damage",
-                        "type": "status",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "fanatical-frenzy"
-                            ]
-                        },
-                        "selector": "attack",
-                        "type": "status",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -691,16 +637,14 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Cult Lore (Applies to cultist's own cult)",
+            "name": "Cult Lore (applies to cultist's own cult)",
             "sort": 700000,
             "type": "lore"
         },
@@ -726,9 +670,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -761,9 +703,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -796,9 +736,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -831,9 +769,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -866,9 +802,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

@@ -1,12 +1,10 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/rolls";
 import { ErrorPF2e } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override _getEntryContextOptions(): EntryContextOption[] {
-        const options = super._getEntryContextOptions();
-
         const canApplyDamage: ContextOptionCondition = ($html) => {
             const messageId = $html.attr("data-message-id") ?? "";
             const message = game.messages.get(messageId, { strict: true });
@@ -42,36 +40,47 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             return message.isRerollable && actor instanceof CharacterPF2e && actor.heroPoints.value > 0;
         };
 
+        const applyDamage = async ($li: JQuery, multiplier: number): Promise<void> => {
+            const messageId = $li.attr("data-message-id") ?? "";
+            const roll = game.messages.get(messageId, { strict: true }).roll;
+            if (!roll) return;
+            for await (const token of canvas.tokens.controlled) {
+                if (!token.actor) continue;
+                await token.actor.applyDamage(roll.total * multiplier, token, CONFIG.PF2E.chatDamageButtonShieldToggle);
+            }
+        };
+
+        const options = super._getEntryContextOptions();
         options.push(
             {
                 name: "PF2E.DamageButton.FullContext",
                 icon: '<i class="fas fa-heart-broken"></i>',
                 condition: canApplyDamage,
-                callback: (li: JQuery) => ActorPF2e.applyDamage(li, 1),
+                callback: (li: JQuery) => applyDamage(li, 1),
             },
             {
                 name: "PF2E.DamageButton.HalfContext",
                 icon: '<i class="fas fa-heart-broken"></i>',
                 condition: canApplyDamage,
-                callback: (li) => ActorPF2e.applyDamage(li, 0.5),
+                callback: (li) => applyDamage(li, 0.5),
             },
             {
                 name: "PF2E.DamageButton.DoubleContext",
                 icon: '<i class="fas fa-heart-broken"></i>',
                 condition: canApplyDamage,
-                callback: (li) => ActorPF2e.applyDamage(li, 2),
+                callback: (li) => applyDamage(li, 2),
             },
             {
                 name: "PF2E.DamageButton.TripleContext",
                 icon: '<i class="fas fa-heart-broken"></i>',
                 condition: canApplyTripleDamage,
-                callback: (li) => ActorPF2e.applyDamage(li, 3),
+                callback: (li) => applyDamage(li, 3),
             },
             {
                 name: "PF2E.DamageButton.HealingContext",
                 icon: '<i class="fas fa-heart"></i>',
                 condition: canApplyDamage,
-                callback: (li: JQuery) => ActorPF2e.applyDamage(li, -1),
+                callback: (li: JQuery) => applyDamage(li, -1),
             },
             {
                 name: "PF2E.ClickToSetInitiativeContext",

@@ -27,15 +27,25 @@
             {
                 "adjustName": false,
                 "choices": {
-                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.prerequisites.value\":[],\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}"
+                    "postFilter": {
+                        "not": [
+                            "item:animal-companion",
+                            "item:animal-companion-druid",
+                            "item:bardic-lore",
+                            "item:fire-lung",
+                            "item:lingering-composition",
+                            "item:leshy-familiar",
+                            "item:martial-performance",
+                            "item:shore-step",
+                            "item:steadying-stone",
+                            "item:storm-born",
+                            "item:versatile-performance",
+                            "item:wild-shape"
+                        ]
+                    },
+                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}"
                 },
                 "key": "ChoiceSet",
-                "predicate": {
-                    "any": [
-                        "self:ancestry:human",
-                        "self:feat:adopted-ancestry"
-                    ]
-                },
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
             },
             {
@@ -48,9 +58,7 @@
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "human"
             ]

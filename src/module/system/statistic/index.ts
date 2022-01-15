@@ -1,6 +1,13 @@
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import {
+    AbilityModifier,
+    CheckModifier,
+    ModifierPF2e,
+    ProficiencyModifier,
+    PROFICIENCY_RANK_OPTION,
+    StatisticModifier,
+} from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import {
     BaseStatisticData,
     CheckType,
@@ -60,6 +67,8 @@ type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? Stati
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
+    abilityModifier?: ModifierPF2e;
+
     get slug() {
         return this.data.slug;
     }
@@ -68,7 +77,25 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         return this.data.modifiers ?? [];
     }
 
-    constructor(private actor: ActorPF2e, public readonly data: T) {}
+    constructor(private actor: ActorPF2e, public readonly data: T) {
+        // Add some base modifiers depending on data values
+        data.modifiers ??= [];
+        if (typeof data.rank !== "undefined") {
+            data.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+        }
+        if (actor instanceof CharacterPF2e && data.ability) {
+            this.abilityModifier = AbilityModifier.fromScore(data.ability, actor.abilities[data.ability].value);
+            data.modifiers.unshift(this.abilityModifier);
+        }
+
+        // Pre-test modifiers so that inspection outside of rolls works correctly
+        if (data.domains) {
+            const options = this.createRollOptions(data.domains, {});
+            data.modifiers?.forEach((mod) => mod.test(options));
+            data.check?.modifiers?.forEach((mod) => mod.test(options));
+            data.dc?.modifiers?.forEach((mod) => mod.test(options));
+        }
+    }
 
     /** Compatibility function which creates a statistic from a StatisticModifier instead of from StatisticData. */
     static from(
@@ -95,6 +122,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         const rollOptions: string[] = [];
         if (domains && domains.length) {
             rollOptions.push(...this.actor.getRollOptions(domains), ...this.actor.getSelfRollOptions());
+        }
+
+        if (typeof this.data.rank !== "undefined") {
+            rollOptions.push(PROFICIENCY_RANK_OPTION[this.data.rank]);
         }
 
         if (item) {
@@ -226,7 +257,6 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
     dc(options?: RollOptionParameters): T["dc"] extends object ? StatisticDifficultyClass : undefined;
-
     dc(options: RollOptionParameters = {}): StatisticDifficultyClass | undefined {
         const data = this.data;
         if (!data.dc) {
@@ -287,14 +317,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             value: checkValues.value ?? 0,
             totalModifier: checkValues.value ?? 0,
             breakdown: checkValues.breakdown ?? "",
-            _modifiers: check.modifiers.map((mod) => ({
-                slug: mod.slug,
-                label: mod.label,
-                modifier: mod.modifier,
-                type: mod.type,
-                enabled: mod.enabled,
-                custom: mod.custom ?? false,
-            })),
+            _modifiers: check.modifiers.map((m) => m.toObject()),
         };
     }
 }

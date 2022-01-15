@@ -41,14 +41,8 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -65,7 +59,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-06: Lost on the Spirit Road"
             }
         },
         "resources": {},
@@ -89,16 +83,26 @@
                 "custom": "",
                 "value": []
             },
-            "dr": [],
-            "dv": [
+            "dr": [
                 {
-                    "label": "Axe Vulnerability",
-                    "type": "axe vulnerability"
+                    "exceptions": "",
+                    "type": "bludgeoning",
+                    "value": 5
                 },
                 {
-                    "label": "Fire",
+                    "exceptions": "",
+                    "type": "piercing",
+                    "value": 5
+                }
+            ],
+            "dv": [
+                {
+                    "type": "axe",
+                    "value": 5
+                },
+                {
                     "type": "fire",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -111,11 +115,9 @@
                     "tien"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
-                "value": ", low-light vision"
+                "value": "low-light vision"
             },
             "size": {
                 "value": "med"
@@ -162,9 +164,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -177,6 +177,52 @@
             "name": "Branch",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "qPPVxOBaJ7Ft1uh8",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "LJ7moouiRvYEjzgz",
@@ -203,9 +249,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -219,7 +263,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Axe Vulnerability",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -229,13 +273,13 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>A pine brute's bark secretes sticky sap. Any creature that hits the pine brute with a melee attack, is hit by the pine brute, or otherwise touches the pine brute must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-label=\"Sap DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or suffer the effects of a lesser tanglefoot bag, also becoming clumsy 1 until the sticky substance is removed. A creature striking the pine brute with a weapon or object can automatically succeed at this Reflex save by leaving the object stuck to the pine brute. The object can then be removed with a successful <span data-pf2-check=\"athletics\" data-pf2-dc=\"17\" data-pf2-label=\"Unstick Object DC\" data-pf2-show-dc=\"gm\">Athletics</span> check (made as a single action).</p>\n<p>A pine brute can have any number of objects stuck to it at a time. The pine brute can release a stuck object by using a single action, and the sap dissolves 1 minute after the pine brute dies, releasing all stuck objects.</p>"
+                    "value": "<p>A pine brute's bark secretes sticky sap. Any creature that hits the pine brute with a melee attack, is hit by the pine brute, or otherwise touches the pine brute must succeed at a @Check[type:reflex|dc:17] save or suffer the effects of a lesser tanglefoot bag, also becoming @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the sticky substance is removed. A creature striking the pine brute with a weapon or object can automatically succeed at this Reflex save by leaving the object stuck to the pine brute. The object can then be removed with a successful @Check[type:athletics|dc:17|name:Unstick Object] check (made as a single action).</p>\n<p>A pine brute can have any number of objects stuck to it at a time. The pine brute can release a stuck object by using a single action, and the sap dissolves 1 minute after the pine brute dies, releasing all stuck objects.</p>\n<hr />\n<p>@Compendium[pf2e.equipment-effects.Effect: Tanglefoot Bag (Lesser)]{Effect: Tanglefoot Bag (Lesser)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -247,9 +291,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -261,9 +303,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sap",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -288,9 +330,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -298,7 +338,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -316,24 +356,40 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 in forests",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth (+8 in forests)",
-            "sort": 500000,
+            "name": "Stealth",
+            "sort": 600000,
             "type": "lore"
         }
     ],

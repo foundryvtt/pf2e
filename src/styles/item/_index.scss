@@ -1,365 +1,374 @@
-.pf2e.item.sheet form {
-    @import "abc-sheet";
-    @import "activations";
-    @import "identify-item";
-    @import "kit-sheet";
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-
-    > * {
-        flex: 1;
+.pf2e.item.sheet {
+    &.heritage form {
+        @import "heritage-sheet";
     }
 
-    .item-controls {
+    &.kit form {
+        @import "kit-sheet";
+    }
+
+    form {
+        @import "abc-sheet";
+        @import "activations";
+        @import "identify-item";
+
         display: flex;
-        margin: 0 4px;
-        align-items: baseline;
-        gap: 2px;
-    }
-
-    > header {
-        flex: 0 0 70px;
-        width: 100%;
-        padding-bottom: 6px;
-        border-bottom: 1px solid var(--secondary-background);
-
-        img {
-            border: none;
-            flex: 0 0 64px;
-            margin-right: 6px;
-        }
-
-        .level {
-            font-family: var(--serif-condensed);
-            font-weight: 700;
-            font-size: 34px;
-            flex: 0;
-            white-space: nowrap;
-            margin-left: auto;
-            padding-left: 8px;
-
-            i {
-                font-size: 0.6em;
-                margin-right: 4px;
-                margin-bottom: 4px;
-            }
-
-            input {
-                width: 40px;
-                text-align: center;
-                font: inherit;
-            }
-        }
-    }
-
-    > article {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        height: calc(100% - 35px);
-        overflow: hidden;
+        flex-direction: column;
+        flex-wrap: nowrap;
 
         > * {
             flex: 1;
         }
-        > section.sheet-sidebar, > section.sheet-body {
-            height: calc(100% - 10px);
-            overflow-y: auto;
+
+        .item-controls {
+            display: flex;
+            margin: 0 4px;
+            align-items: baseline;
+            gap: 2px;
         }
 
-        @import "sidebar";
+        > header {
+            flex: 0 0 70px;
+            width: 100%;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--secondary-background);
 
-        > section.sheet-body {
-            > .tabs {
-                border-bottom: 1px solid var(--secondary-background);
-                a {
-                    flex: 1 1 auto;
-                }
-                a.active {
-                    text-decoration: underline;
-                }
+            img {
+                border: none;
+                flex: 0 0 64px;
+                margin-right: 6px;
             }
 
-            input[type="text"], input[type="number"] {
-                background: rgba(255, 255, 255, 0.5);
-                border: 1px solid #aaa;
-                padding: 3px;
+            .level {
+                font-family: var(--serif-condensed);
+                font-weight: 700;
+                font-size: 34px;
+                flex: 0;
+                white-space: nowrap;
+                margin-left: auto;
+                padding-left: 8px;
+
+                i {
+                    font-size: 0.6em;
+                    margin-right: 4px;
+                    margin-bottom: 4px;
+                }
+
+                input {
+                    width: 40px;
+                    text-align: center;
+                    font: inherit;
+                }
+            }
+        }
+
+        > article {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            height: calc(100% - 35px);
+            overflow: hidden;
+
+            > * {
+                flex: 1;
+            }
+            > section.sheet-sidebar, > section.sheet-body {
+                height: calc(100% - 10px);
+                overflow-y: auto;
             }
 
-            > .tab.active {
-                padding-left: 10px;
+            @import "sidebar";
 
-                /** Any tab */
-                .editor {
-                    height: 100%;
-                }
-
-                /** Details */
-                &.item-details {
-                    padding: 8px 8px 0;
-                    overflow-y: auto;
-
-                    label {
-                        color: #353535;
-                        font-weight: bold;
+            > section.sheet-body {
+                > .tabs {
+                    border-bottom: 1px solid var(--secondary-background);
+                    a {
+                        flex: 1 1 auto;
                     }
-
-                    select {
-                        font-size: 12px;
-                        height: 24px;
+                    a.active {
+                        text-decoration: underline;
                     }
                 }
 
-                /** Rule Elements */
-                &.item-rules {
-                    overflow-y: scroll;
+                input[type="text"], input[type="number"] {
+                    background: rgba(255, 255, 255, 0.5);
+                    border: 1px solid #aaa;
+                    padding: 3px;
+                }
 
-                    .rules {
-                        padding: 7px;
+                > .tab.active {
+                    padding-left: 10px;
 
-                        .rule-element-header {
-                            display: flex;
-                            justify-content: space-between;
+                    /** Any tab */
+                    .editor {
+                        height: 100%;
+                    }
 
-                            h3.unrecognized {
-                                color: #880000;
+                    /** Details */
+                    &.item-details {
+                        padding: 8px 8px 0;
+                        overflow-y: auto;
+
+                        label {
+                            color: #353535;
+                            font-weight: bold;
+                        }
+
+                        select {
+                            font-size: 12px;
+                            height: 24px;
+                        }
+                    }
+
+                    /** Rule Elements */
+                    &.item-rules {
+                        overflow-y: scroll;
+
+                        .rules {
+                            padding: 7px;
+
+                            .rule-element-header {
+                                display: flex;
+                                justify-content: space-between;
+
+                                h3.unrecognized {
+                                    color: #880000;
+                                }
+                            }
+
+                            .add-rule-element {
+                                text-align: right;
                             }
                         }
-
-                        .add-rule-element {
-                            text-align: right;
-                        }
                     }
+                }
+
+                .editor {
+                    --space-s: 0.25em;
+                    --space-m: 0.5em;
+                    --space-l: 1em;
+                    --space-xl: 1.5em;
+                    --radius: 3px;
+                    @include tinymce-system-specific;
+                }
+            }
+        }
+
+        h3, header {
+            .item-controls {
+                float: right;
+                cursor: pointer;
+            }
+        }
+
+        .form-list {
+            border: 1px solid var(--secondary-background);
+            border-radius: 5px;
+            padding: 0.25em;
+            h3 {
+                font-size: 1.05em;
+                margin-bottom: 0.25em;
+            }
+        }
+
+        .form-group {
+            height: 24px;
+            margin: 2px 0;
+            font-weight: 500;
+
+            &.scalable {
+                height: auto;
+                min-height: 24px;
+
+                ul.traits-list {
+                    list-style-type: none;
                 }
             }
 
-            .editor {
-                --space-s: 0.25em;
-                --space-m: 0.5em;
-                --space-l: 1em;
-                --space-xl: 1.5em;
-                --radius: 3px;
-                @include tinymce-system-specific;
+            & > label:not(.large) {
+                max-width: 145px;
             }
-        }
-    }
 
-    h3, header {
-        .item-controls {
-            float: right;
-            cursor: pointer;
-        }
-    }
+            & > input[type="checkbox"] {
+                margin-left: auto;
+            }
 
-    .form-list {
-        border: 1px solid var(--secondary-background);
-        border-radius: 5px;
-        padding: 0.25em;
-        h3 {
-            font-size: 1.05em;
-            margin-bottom: 0.25em;
-        }
-    }
+            input[type="checkbox"]:last-child {
+                margin-right: 0;
+            }
 
-    .form-group {
-        height: 24px;
-        margin: 2px 0;
-        font-weight: 500;
-
-        &.scalable {
-            height: auto;
-            min-height: 24px;
-
-            ul.traits-list {
-                list-style-type: none;
+            .checkbox-pair {
+                display: flex;
+                align-items: center;
+                span {
+                    font-weight: 400;
+                }
             }
         }
 
-        & > label:not(.large) {
-            max-width: 145px;
+        .tags {
+            padding-left: 0;
         }
 
-        & > input[type="checkbox"] {
-            margin-left: auto;
+        .details-container {
+            display: grid;
+            grid: "dice die type" / 40px 60px auto;
         }
 
-        input[type="checkbox"]:last-child {
-            margin-right: 0;
+        .effects-container {
+            display: grid;
+            grid: "effect number" / auto 40px;
         }
 
-        .checkbox-pair {
-            display: flex;
-            align-items: center;
-            span {
-                font-weight: 400;
-            }
+        .details-container-two-columns {
+            display: grid;
+            grid: "size type" / 50% 50%;
         }
-    }
 
-    .tags {
-        padding-left: 0;
-    }
+        .details-container-three-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
 
-    .details-container {
-        display: grid;
-        grid: "dice die type" / 40px 60px auto;
-    }
-
-    .effects-container {
-        display: grid;
-        grid: "effect number" / auto 40px;
-    }
-
-    .details-container-two-columns {
-        display: grid;
-        grid: "size type" / 50% 50%;
-    }
-
-    .details-container-three-columns {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .details-container-flex-row {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 12px;
-
-        & > label {
+        .details-container-flex-row {
             display: flex;
             flex-direction: row;
             align-items: center;
-            white-space: nowrap;
+            justify-content: space-between;
+            font-size: 12px;
+
+            & > label {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                white-space: nowrap;
+            }
+
+            select {
+                flex: 1;
+            }
+
+            input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+                flex-basis: auto;
+            }
+
+            input[type="checkbox"]:first-child:last-child {
+                margin-left: auto;
+                justify-self: flex-end;
+            }
         }
 
-        select {
-            flex: 1;
-        }
-
-        input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            flex-basis: auto;
-        }
-
-        input[type="checkbox"]:first-child:last-child {
-            margin-left: auto;
-            justify-self: flex-end;
-        }
-    }
-
-    .consumable-details {
-        flex: 0 0 24px;
-
-        label {
-            font-weight: bold;
-        }
-
-        input {
+        .consumable-details {
             flex: 0 0 24px;
-            margin-right: 6px;
-            text-align: right;
+
+            label {
+                font-weight: bold;
+            }
+
+            input {
+                flex: 0 0 24px;
+                margin-right: 6px;
+                text-align: right;
+            }
+
+            span {
+                line-height: 24px;
+            }
+
+            .max-charges {
+                flex: 0 0 16px;
+                text-align: center;
+            }
         }
 
-        span {
-            line-height: 24px;
+        .consumable-charges {
+            label {
+                flex: 0 0 144px;
+            }
+
+            input {
+                flex: 0 0 64px;
+                text-align: center;
+            }
+
+            span.flex0 {
+                line-height: 24px;
+            }
         }
 
-        .max-charges {
-            flex: 0 0 16px;
-            text-align: center;
-        }
-    }
+        .feat-uses {
+            select {
+                flex: 2;
+                margin-right: 5px;
+            }
 
-    .consumable-charges {
-        label {
-            flex: 0 0 144px;
-        }
+            input {
+                flex: 1;
+                text-align: center;
+            }
 
-        input {
-            flex: 0 0 64px;
-            text-align: center;
-        }
-
-        span.flex0 {
-            line-height: 24px;
-        }
-    }
-
-    .feat-uses {
-        select {
-            flex: 2;
-            margin-right: 5px;
+            span.sep {
+                flex: 0 0 16px;
+                line-height: 24px;
+                font-size: 14px;
+                text-align: center;
+            }
         }
 
-        input {
-            flex: 1;
-            text-align: center;
+        .item-mystify {
+            padding: 8px 8px 0;
+            overflow-y: auto;
+
+            label {
+                color: #353535;
+                font-weight: bold;
+            }
         }
 
-        span.sep {
-            flex: 0 0 16px;
-            line-height: 24px;
-            font-size: 14px;
-            text-align: center;
+        .spell-components {
+            input {
+                margin-left: 0;
+            }
+            label {
+                padding-right: 6px;
+            }
         }
-    }
 
-    .item-mystify {
-        padding: 8px 8px 0;
-        overflow-y: auto;
+        .damage-formulas {
+            margin-top: 8px;
 
-        label {
-            color: #353535;
-            font-weight: bold;
+            .details-container-flex-row {
+                gap: 2px;
+                margin-top: 4px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 2px;
+            }
+
+            .traits-list {
+                display: flex;
+                margin-top: 2px;
+            }
+
+            .tag {
+                float: none; // remove when global rule is removed
+            }
         }
-    }
 
-    .spell-components {
-        input {
-            margin-left: 0;
-        }
-        label {
-            padding-right: 6px;
-        }
-    }
-
-    .damage-formulas {
-        margin-top: 8px;
-
-        .details-container-flex-row {
-            gap: 2px;
+        button[data-action="damage-add"] {
             margin-top: 4px;
         }
 
-        input[type="checkbox"] {
-            margin-left: 2px;
-        }
-
-        .traits-list {
-            display: flex;
-            margin-top: 2px;
-        }
-
-        .tag {
-            float: none; // remove when global rule is removed
-        }
-    }
-
-    button[data-action="damage-add"] {
-        margin-top: 4px;
-    }
-
-    input {
-        &.adjusted:not(:focus) {
-            font-weight: 700;
-            color: #009988;
+        input {
+            &.adjusted:not(:focus) {
+                font-weight: 700;
+                color: #009988;
+            }
         }
     }
 }

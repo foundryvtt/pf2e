@@ -20,8 +20,11 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
     override async getData(): Promise<ABCSheetData<TItem>> {
         const itemType = this.item.type;
 
+        const sheetData = this.getBaseData();
+        sheetData.data.items = this.item.toObject().data.items; // Exclude any added during data preparation
+
         return {
-            ...this.getBaseData(),
+            ...sheetData,
             hasSidebar: itemType !== "class",
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.html`,
             hasDetails: true,
@@ -105,8 +108,8 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         });
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
-        html.on("click", "[data-action=remove]", (ev) => this.removeItem(ev));
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        $html.on("click", "[data-action=remove]", (ev) => this.removeItem(ev));
     }
 }

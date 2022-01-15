@@ -41,13 +41,6 @@
             "perception": {
                 "value": 3
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [
@@ -120,9 +113,7 @@
                     "ignan"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, smoke vision"
             },
@@ -245,9 +236,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -370,9 +359,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "mental",
@@ -490,9 +477,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "light",
                         "cantrip"
@@ -543,9 +528,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse"
                     ]
@@ -560,51 +543,6 @@
             "name": "Jaws",
             "sort": 400000,
             "type": "melee"
-        },
-        {
-            "_id": "Tji1ev92INkjtI3U",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The fire mephit ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Smoke Vision",
-            "sort": 500000,
-            "type": "action"
         },
         {
             "_id": "EhZr8qLYudW24Syo",
@@ -631,9 +569,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -651,6 +587,49 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "Tji1ev92INkjtI3U",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The fire mephit ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
             "sort": 600000,
             "type": "action"
         },
@@ -679,9 +658,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -715,7 +692,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The fire mephit breathes flames in a @Template[type:cone|distance:15] that deals [[/r {2d4}[fire]]]{2d4 fire damage} and [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The fire mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The fire mephit breathes flames in a @Template[type:cone|distance:15] that deals [[/r {2d4}[fire]]]{2d4 fire damage} and [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p data-visibility=\"gm\">The fire mephit can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -727,9 +704,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "fire"
@@ -771,9 +746,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -806,9 +779,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

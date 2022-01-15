@@ -47,15 +47,32 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Refresh this token's image and size (usually after an actor update or override) */
     redraw(): void {
-        const sizeChanged = this.w !== this.hitArea.width;
+        const sizeChanged = !!this.hitArea && this.w !== this.hitArea.width;
         const scaleChanged = !!this.icon && Math.round((this.icon.width / this.w) * 10) / 10 !== this.data.scale;
         const imageChanged = !!this.icon && this.icon.src !== this.data.img;
 
         if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
-            this._drawHUD();
-            this.hitArea = new PIXI.Rectangle(0, 0, this.w, this.h);
-            this.refresh();
+
+            const redrawRest = () => {
+                this._drawHUD();
+                this.hitArea = new PIXI.Rectangle(0, 0, this.w, this.h);
+                this.refresh();
+            };
+
+            if (imageChanged && this.icon) {
+                this.removeChild(this.icon);
+                this.icon.destroy();
+                loadTexture(this.data.img, { fallback: CONST.DEFAULT_TOKEN }).then((texture) => {
+                    this.texture = texture;
+                    this._drawIcon().then((icon) => {
+                        this.icon = this.addChild(icon);
+                        redrawRest();
+                    });
+                });
+            } else {
+                redrawRest();
+            }
         }
     }
 

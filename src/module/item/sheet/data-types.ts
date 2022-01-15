@@ -4,6 +4,7 @@ import { AncestryPF2e } from "@item/ancestry";
 import { BackgroundPF2e } from "@item/background";
 import { ClassPF2e } from "@item/class";
 import { FeatPF2e } from "@item/feat";
+import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
 import { SpellPF2e } from "@item/spell";
 
@@ -101,4 +102,11 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
     spellScalingIntervals: number[];
+}
+
+export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
+    ancestry: AncestryPF2e | null;
+    ancestryRefBroken: boolean;
+    traits: SheetOptions;
+    rarities: SheetOptions;
 }

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 17
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -147,9 +140,7 @@
                     "aquan"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -202,9 +193,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse"
@@ -254,9 +243,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "thrown-20"
@@ -298,9 +285,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -322,7 +307,7 @@
             "type": "action"
         },
         {
-            "_id": "KUErEL0JPCYaIeu0",
+            "_id": "2ERFu4hiXliGhhKj",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -334,25 +319,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} [[/r {1d12}[electricity]]]{1d12 electricity damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"electricity,aura,damaging-effect\" data-pf2-label=\"Electrical Field DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>)</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "all-around-vision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "electricity",
-                        "aura"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -362,9 +342,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Electrical Field",
+            "name": "All-Around Vision",
             "sort": 400000,
             "type": "action"
         },
@@ -393,9 +377,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -417,7 +399,7 @@
             "type": "action"
         },
         {
-            "_id": "2ERFu4hiXliGhhKj",
+            "_id": "KUErEL0JPCYaIeu0",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -429,22 +411,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} [[/r {1d12}[electricity]]]{1d12 electricity damage} (@Check[type:reflex|dc:26|basic:true])</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "all-around-vision",
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "aura"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -454,13 +437,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
+            "name": "Electrical Field",
             "sort": 600000,
             "type": "action"
         },
@@ -477,7 +456,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The galvo Strides, ending its movement sharing a space with another creature, and deals [[/r {3d6}[piercing]]]{3d6 piercing damage} plus [[/r {2d12}[electricity]]]{2d12 electricity damage} to the creature. The creature must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Squirming Embrace DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>The galvo Strides, ending its movement sharing a space with another creature, and deals [[/r {3d6}[piercing]]]{3d6 piercing damage} plus [[/r {2d12}[electricity]]]{2d12 electricity damage} to the creature. The creature must attempt a @Check[type:reflex|dc:28|basic:true] save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -489,9 +468,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -533,9 +510,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate"
                     ]
@@ -576,9 +551,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -611,9 +584,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -646,9 +617,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

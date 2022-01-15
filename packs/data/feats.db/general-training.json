@@ -19,18 +19,38 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:type:feat",
+                        "item:level:1",
+                        "item:trait:general"
+                    ],
+                    "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"general\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.generalTraining}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "human"
             ]

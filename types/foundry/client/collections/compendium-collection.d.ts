@@ -57,7 +57,9 @@ declare global {
             ? "RollTable"
             : TDocument extends Scene
             ? "Scene"
-            : CompendiumDocumentType;
+            : TDocument extends CompendiumDocument
+            ? CompendiumDocumentType
+            : never;
 
         /** Track whether the Compendium Collection is locked for editing */
         get locked(): boolean;
@@ -175,7 +177,7 @@ declare global {
     type CompendiumDocumentType = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
     type CompendiumUUID = `Compendium.${string}.${string}`;
     type DocumentUUID = `${CompendiumDocumentType}.${string}` | CompendiumUUID | TokenDocumentUUID;
-    function fromUuid(uuid: string): Promise<ClientDocument | null>;
+    function fromUuid<T extends ClientDocument = ClientDocument>(uuid: string): Promise<T | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
         readonly type: T extends Actor

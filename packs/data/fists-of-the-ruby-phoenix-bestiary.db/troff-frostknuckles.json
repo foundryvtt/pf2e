@@ -41,13 +41,6 @@
             "perception": {
                 "value": 23
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -112,9 +105,7 @@
                     "taldane"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },
@@ -298,7 +289,7 @@
                             ]
                         },
                         "selector": "damage",
-                        "text": "<p class='compact-text'><strong>Frost Rune</strong> The target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a <span data-pf2-saving-throw='fortitude' data-pf2-dc='24' data-pf2-label='Frost Rune DC'><strong>DC 24 </strong>Fortitude</span> save.</p>"
+                        "text": "<p class='compact-text'><strong>Frost Rune</strong> The target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:24|name:Frost Rune]{<strong>DC 24</strong> Fortitude} save.</p>"
                     }
                 ],
                 "size": {
@@ -322,9 +313,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -451,9 +440,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "abjuration",
                         "invested",
@@ -510,9 +497,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -565,9 +550,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "backstabber",
@@ -611,9 +594,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -632,52 +613,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "a2Ht2VRQHOf9f798",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Troff rolls initiative or his turn starts</p>\n<p><strong>Effect</strong> Troff readies himself to strike suddenly, like a falling icicle. While in this stance, Troff can make icicle gouge Strikes. While Troff is above a creature and in icicle stance, that creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "stance"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Icicle Stance",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -705,9 +640,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -721,7 +654,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Avalanche Pummel",
-            "sort": 700000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -737,7 +670,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Troff is within reach of a creature that has taken cold damage since the end of Troff's last turn</p>\n<p><strong>Effect</strong> Troff jabs a pressure point on the creature made vulnerable by cold. The creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"cold,damaging-effect\" data-pf2-label=\"Chattering Blow DC\" data-pf2-dc=\"31\" data-pf2-show-dc=\"gm\">Fortitude</span> save as its skin freezes and its limbs turn sluggish and clammy.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and a –5-foot status penalty to its Speeds until the persistent cold damage ends. Dealing fire damage to the creature is an especially effective way to help end the persistent cold damage (allowing a new flat check to end it at DC 10).</p>\n<p><strong>Failure</strong> As success, but the damage is [[/r {4d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and the penalty is –15-foot.</p>\n<p><strong>Critical Failure</strong> As success, but the damage is [[/r {6d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} instead of taking a Speed penalty.</p>"
+                    "value": "<p><strong>Requirements</strong> Troff is within reach of a creature that has taken cold damage since the end of Troff's last turn</p>\n<p><strong>Effect</strong> Troff jabs a pressure point on the creature made vulnerable by cold. The creature must attempt a @Check[type:fortitude|dc:31|traits:damaging-effect] save as its skin freezes and its limbs turn sluggish and clammy.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and a -5-foot status penalty to its Speeds until the persistent cold damage ends. Dealing fire damage to the creature is an especially effective way to help end the persistent cold damage (allowing a new flat check to end it at DC 10).</p>\n<p><strong>Failure</strong> As success, but the damage is [[/r {4d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and the penalty is -15-foot.</p>\n<p><strong>Critical Failure</strong> As success, but the damage is [[/r {6d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} instead of taking a Speed penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -749,9 +682,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold",
                         "press"
@@ -768,7 +699,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Chattering Blow",
-            "sort": 800000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -796,9 +727,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "flourish"
                     ]
@@ -814,6 +743,50 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flurry of Blows",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "a2Ht2VRQHOf9f798",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Troff rolls initiative or his turn starts</p>\n<p><strong>Effect</strong> Troff readies himself to strike suddenly, like a falling icicle. While in this stance, Troff can make icicle gouge Strikes. While Troff is above a creature and in icicle stance, that creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "stance"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Icicle Stance",
             "sort": 900000,
             "type": "action"
         },
@@ -836,9 +809,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -868,9 +839,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -900,9 +869,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

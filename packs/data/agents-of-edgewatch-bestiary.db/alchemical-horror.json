@@ -41,13 +41,6 @@
             "perception": {
                 "value": 35
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -121,9 +114,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, wavesense (imprecise) 60 feet"
             },
@@ -177,9 +168,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid",
                         "magical",
@@ -229,9 +218,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid",
                         "magical",
@@ -274,9 +261,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -295,54 +280,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "uP5k61RUIateqmiN",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "wavesense",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.VdSMQ6yRZ3YXNXHL"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wavesense (Imprecise) 30 feet",
-            "sort": 400000,
             "type": "action"
         },
         {
@@ -370,9 +307,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -386,6 +321,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Alchemical Reaction",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "uP5k61RUIateqmiN",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "wavesense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.VdSMQ6yRZ3YXNXHL"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wavesense (Imprecise) 30 feet",
             "sort": 500000,
             "type": "action"
         },
@@ -402,7 +383,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The alchemical horror spews a torrent of alchemical fluids in a 30-foot cone that deals [[/r {20d6}[acid]]]{20d6 acid damage} to creatures in the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"43\" data-pf2-traits=\"acid,evocation,primal,damaging-effect\" data-pf2-label=\"Alchemical Torrent DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<div data-visibility=\"gm\">\n<p>The alchemical horror can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n</div>"
+                    "value": "<p>The alchemical horror spews a torrent of alchemical fluids in a @Template[type:cone|distance:30] that deals [[/r {20d6}[acid]]]{20d6 acid damage} to creatures in the area (@Check[type:reflex|dc:43|basic:true] save).</p>\n<div data-visibility=\"gm\">\n<p>The alchemical horror can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -414,9 +395,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid",
                         "evocation",
@@ -462,9 +441,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -512,9 +489,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -557,9 +532,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

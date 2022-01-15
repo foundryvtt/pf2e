@@ -41,13 +41,6 @@
             "perception": {
                 "value": 12
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "30"
@@ -99,9 +92,7 @@
                     "russian"
                 ]
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": {
                 "value": ""
             },
@@ -264,9 +255,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -372,9 +361,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -472,9 +459,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -533,7 +518,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a 10-foot burst, dealing [[/r 6d6]] fire damage to each creature in the area (including the target). Each creature must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"25\" data-pf2-traits=\"evocation,fire,magical\" data-pf2-label=\"Explosive Ammunition DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing [[/r 6d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true|name:Explosive Ammunition] save.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -612,9 +597,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "consumable",
                         "evocation",
@@ -679,7 +662,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Gunpowder Mastery</strong> On a critical hit with the bayonet, the target catches fire, taking [[/r {1d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Gunpowder Mastery DC\" data-pf2-show-dc=\"gm\">Reflex</span> negates).</p>"
+                        "text": "<p class='compact-text'><strong>Gunpowder Mastery</strong> On a critical hit with the bayonet, the target catches fire, taking [[/r {1d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:21|name:Gunpowder Mastery|traits:damaging-effect] negates).</p>"
                     }
                 ],
                 "slug": null,
@@ -688,9 +671,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -736,9 +717,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -758,6 +737,48 @@
             "type": "melee"
         },
         {
+            "_id": "cdnskjmsSLfq3f9S",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Semyon orders his troops to fire, selecting a single target he can see. All allies that can hear or see him gain a +1 status bonus to attack and damage rolls against that creature until the beginning of Semyon's next turn. (Note: The Guiding Words effect provides this bonus)</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Guiding Words]{Effect: Davai!}</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Davai!",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "MPOQCX5VmgDx3OR4",
             "data": {
                 "actionCategory": {
@@ -770,7 +791,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>With their rifles' firing ability ruined beyond repair, the soldiers put their gunpowder reserves to use, making explosive arrows and rigging their guns to let off sparks on each successful bayonet Strike. On a critical hit with the bayonet, the target catches fire, taking [[/r {1d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Gunpowder Mastery DC\" data-pf2-show-dc=\"gm\">Reflex</span> negates).</p>"
+                    "value": "<p>With their rifles' firing ability ruined beyond repair, the soldiers put their gunpowder reserves to use, making explosive arrows and rigging their guns to let off sparks on each successful bayonet Strike. On a critical hit with the bayonet, the target catches fire, taking [[/r {1d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:21|traits:damaging-effect] negates).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -782,9 +803,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -798,7 +817,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Gunpowder Mastery",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -826,9 +845,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -842,50 +859,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Trench Fighter",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "cdnskjmsSLfq3f9S",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Semyon orders his troops to fire, selecting a single target he can see. All allies that can hear or see him gain a +1 status bonus to attack and damage rolls against that creature until the beginning of Semyon's next turn. (Note: The Guiding Words effect provides this bonus)</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Guiding Words]{Effect: Davai!}</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Davai!",
             "sort": 900000,
             "type": "action"
         },
@@ -911,9 +884,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -946,9 +917,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -981,9 +950,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

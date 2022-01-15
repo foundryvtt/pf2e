@@ -41,13 +41,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -121,9 +114,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "motionsense 60 feet, no vision"
             },
@@ -174,9 +165,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse",
                         "reach-10"
@@ -218,9 +207,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -254,7 +241,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the dragon's blood puffball dies, it explodes, dealing [[/r {8d8}[poison]]]{8d8 poison damage} to each creature in a 20-foot emanation (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Spore Explosion DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).<span data-visibility=\"gm\"> Creatures that fail their save are exposed to skull rot.</span></p>"
+                    "value": "<p>When the dragon's blood puffball dies, it explodes, dealing [[/r {8d8}[poison]]]{8d8 poison damage} to each creature in a @Template[type:emanation|distance:20] (@Check[type:fortitude|dc:28|basic:true] save).<span data-visibility=\"gm\"> Creatures that fail their save are exposed to skull rot.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -266,9 +253,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -286,52 +271,6 @@
             "type": "action"
         },
         {
-            "_id": "WA3qxd5nl6en4BPF",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>The puffball releases a 30-foot cone of spores that deals [[/r {4d8}[poison]]]{4d8 poison damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"poison,damaging-effect\" data-pf2-label=\"Spore Cloud DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save) to creatures in the cone.<span data-visibility=\"gm\"> Creatures that fail this save are also exposed to skull rot.</span></p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Spore Cloud",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "zKQUDZzcDDJHuOiB",
             "data": {
                 "actionCategory": {
@@ -344,7 +283,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the puffball's tendril must succeed a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"28\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. The paralyzed creature can attempt a new save at the end of each of its turns.</p>"
+                    "value": "<p>A creature hit by the puffball's tendril must succeed a @Check[type:fortitude|dc:28] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. The paralyzed creature can attempt a new save at the end of each of its turns.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -356,9 +295,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "poison"
@@ -375,7 +312,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
-            "sort": 500000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -403,9 +340,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -421,6 +356,50 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Skull Rot",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "WA3qxd5nl6en4BPF",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>The puffball releases a @Template[type:cone|distance:30] of spores that deals [[/r {4d8}[poison]]]{4d8 poison damage} (@Check[type:fortitude|dc:28|basic:true] save) to creatures in the cone.<span data-visibility=\"gm\"> Creatures that fail this save are also exposed to skull rot.</span></p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spore Cloud",
             "sort": 600000,
             "type": "action"
         },
@@ -446,9 +425,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -481,9 +458,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

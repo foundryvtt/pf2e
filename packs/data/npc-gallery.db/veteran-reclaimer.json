@@ -41,13 +41,6 @@
             "perception": {
                 "value": 24
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "details": "ignores the effects of non-magical difficult terrain",
                 "otherSpeeds": [],
@@ -100,9 +93,7 @@
                     "orcish"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, low-light vision"
             },
@@ -266,9 +257,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d12"
                     ]
@@ -434,9 +423,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -604,9 +591,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -749,9 +734,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -893,9 +876,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "consumable",
                         "healing",
@@ -1051,9 +1032,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1102,16 +1081,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD12",
+                        "override": {
+                            "dieSize": "d12"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "two-hand-d12"
@@ -1126,53 +1122,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bastard Sword",
             "sort": 700000,
-            "type": "melee"
-        },
-        {
-            "_id": "3eIqPOMC3YpZxxTh",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 21
-                },
-                "damageRolls": {
-                    "6lpw8wsfmcirv7um1dnqj": {
-                        "damage": "2d12+8",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "magical",
-                        "two-hand-d12"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bastard Sword (Two-Handed)",
-            "sort": 800000,
             "type": "melee"
         },
         {
@@ -1203,9 +1152,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "versatile-s"
@@ -1219,7 +1166,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 900000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -1250,9 +1197,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "magical",
@@ -1270,7 +1215,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -1301,9 +1246,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "thrown-10",
@@ -1318,7 +1261,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
@@ -1346,9 +1289,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1366,7 +1307,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1394,9 +1335,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1410,7 +1349,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Crimson Vengeance",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1438,9 +1377,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1454,6 +1391,63 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Nature's Edge",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "NLeDblkhTEvLGjwy",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Successes are treated as Critical Successes</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "reflex",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Reflex save, you get a critical success instead.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "reflex",
+                        "type": "save"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Reflex Saves",
             "sort": 1400000,
             "type": "action"
         },
@@ -1511,9 +1505,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1588,9 +1580,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1605,65 +1595,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Weapon Mastery",
             "sort": 1600000,
-            "type": "action"
-        },
-        {
-            "_id": "NLeDblkhTEvLGjwy",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Successes are treated as Critical Successes</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "selector": "reflex",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Reflex save, you get a critical success instead.</p>"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "selector": "reflex",
-                        "type": "save"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Reflex Saves",
-            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1688,9 +1619,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1698,7 +1627,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1723,9 +1652,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1733,7 +1660,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1758,9 +1685,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1768,7 +1693,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1793,9 +1718,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1803,7 +1726,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 2100000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1828,9 +1751,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1838,7 +1759,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2200000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1863,9 +1784,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1873,7 +1792,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2300000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1898,9 +1817,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1908,7 +1825,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2400000,
+            "sort": 2300000,
             "type": "lore"
         }
     ],

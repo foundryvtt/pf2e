@@ -1,4 +1,12 @@
-import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValueAndMax, ValuesList } from "@module/data";
+import {
+    DocumentSchemaRecord,
+    LabeledNumber,
+    LabeledValue,
+    Rarity,
+    Size,
+    ValueAndMaybeMax,
+    ValuesList,
+} from "@module/data";
 import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -8,7 +16,7 @@ import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES
 import { RollParameters } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
-import { AutoChangeEntry } from "@module/rules/elements/ae-like";
+import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { WeaponPF2e } from "@item";
 import { ActorSizePF2e } from "@actor/data/size";
 import { SkillAbbreviation } from "@actor/creature/data";
@@ -34,6 +42,7 @@ export interface BaseActorDataPF2e
     extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, "effects" | "items" | "token"> {
     type: BaseActorSourcePF2e["type"];
     data: ActorSystemData;
+    token: PrototypeTokenDataPF2e;
     flags: ActorFlagsPF2e;
 
     readonly _source: BaseActorSourcePF2e;
@@ -41,7 +50,7 @@ export interface BaseActorDataPF2e
 
 export interface ActorSystemSource {
     attributes: {
-        hp?: ValueAndMax;
+        hp?: ValueAndMaybeMax;
     };
     traits?: BaseTraitsSource;
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
@@ -101,7 +110,7 @@ export interface LabeledResistance extends LabeledNumber {
 
 export interface BaseTraitsSource {
     /** The rarity of the actor (common, uncommon, etc.) */
-    rarity: { value: Rarity };
+    rarity: Rarity;
     /** The character size (such as 'med'). */
     size: { value: Size };
     /** Actual Pathfinder traits */
@@ -240,4 +249,12 @@ export interface RollToggle {
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
     roll: RollFunction;
+}
+
+export interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
+    flags: foundry.data.PrototypeTokenData["flags"] & {
+        pf2e: {
+            linkToActorSize: boolean;
+        };
+    };
 }

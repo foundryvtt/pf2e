@@ -23,15 +23,61 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:level:1",
+                        "item:trait:barbarian",
+                        "item:type:feature"
+                    ],
+                    "label": "level 1 barbarian class feature"
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Ape Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Bear Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Bull Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Cat Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Deer Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Frog Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Shark Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Snake Animal Instinct"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Wolf Animal Instinct"
+                    }
+                ],
+                "flag": "animalChoice",
+                "key": "ChoiceSet",
+                "prompt": "Select an Animal."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.animalChoice}"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "barbarian"
             ]

@@ -41,14 +41,8 @@
             "perception": {
                 "value": 6
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -63,7 +57,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>What first appears to be a simple shrub suddenly stirs to life.</p>\n<p>The bloodlash bush attempts to lacerate its foes, using its weeping wounds to irrigate the ground around itself. The seeds of a bloodlash bush can take root only in soil that has been soaked in blood.</p>",
+            "publicNotes": "<p>The bloodlash bush attempts to lacerate its foes, using its weeping wounds to irrigate the ground around itself. The seeds of a bloodlash bush can take root only in soil that has been soaked in blood.</p>\n<hr />\n<p>Often overlooked in light of more obvious threats, some plants can be just as deadly and dangerous as wild beasts.</p>\n<p>What first appears to be a simple shrub suddenly stirs to life.</p>",
             "source": {
                 "value": "Pathfinder Adventure: The Fall of Plaguestone"
             }
@@ -113,9 +107,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "tremorsense (imprecise) 30 feet"
             },
@@ -155,7 +147,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -164,9 +156,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
@@ -184,6 +174,52 @@
             "type": "melee"
         },
         {
+            "_id": "dbmjIDpE1N1vZOwC",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "NpPubKpYdINZXyln",
             "data": {
                 "actionCategory": {
@@ -196,7 +232,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The tendrils of the bush reach out to siphon the blood from a victim up to 20 feet away with persistent bleed damage, causing the victim to immediately take that amount of bleed damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-label=\"Blood Siphon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>). The bush regains an amount of Hit Points equal to double the damage dealt.</p>"
+                    "value": "<p>The tendrils of the bush reach out to siphon the blood from a victim up to 20 feet away with persistent bleed damage, causing the victim to immediately take that amount of bleed damage (@Check[type:reflex|dc:17|basic:true]).</p>\n<p>The bush regains an amount of Hit Points equal to double the damage dealt.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -208,9 +244,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -224,7 +258,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Blood Siphon",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -252,9 +286,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -268,7 +300,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Spinning Strike",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -284,7 +316,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A bloodlash bush's vines cause terrible lacerations that continue to bleed. A creature hit with a vine attack takes [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} ([[/r {2}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} on a critical hit). Unlike other forms of persistent damage, this damage is cumulative, to a maximum of 5 persistent bleed damage but it can be stopped like any other persistent bleed damage.</p>"
+                    "value": "<p>A bloodlash bush's vines cause terrible lacerations that continue to bleed. A creature hit with a vine attack takes [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} ([[/r {2}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} on a critical hit).</p>\n<p>Unlike other forms of persistent damage, this damage is cumulative, to a maximum of 5 persistent bleed damage but it can be stopped like any other persistent bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -296,9 +328,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -312,7 +342,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Weeping Wounds",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -337,9 +367,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -347,7 +375,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -372,9 +400,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -382,7 +408,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         }
     ],

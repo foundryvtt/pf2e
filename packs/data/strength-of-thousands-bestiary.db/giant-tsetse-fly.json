@@ -41,13 +41,6 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -104,9 +97,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "blood scent, scent (imprecise) 60 feet"
             },
@@ -156,9 +147,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -171,54 +160,6 @@
             "name": "Proboscis",
             "sort": 100000,
             "type": "melee"
-        },
-        {
-            "_id": "guBNSHErE7eCynRj",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "scent",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 60 feet",
-            "sort": 200000,
-            "type": "action"
         },
         {
             "_id": "9jgsemNqiooGONxn",
@@ -245,9 +186,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -261,6 +200,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Blood Scent",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "guBNSHErE7eCynRj",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
             "sort": 300000,
             "type": "action"
         },
@@ -289,9 +274,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -321,7 +304,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"disease\" data-pf2-label=\"Sleeping Sickness DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> enfeebled 1 and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}</p>\n<p>(1 day)</p>\n<p><strong>Stage 4</strong> as Stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> enfeebled 1 and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}</p>\n<p>(1 day)</p>\n<p><strong>Stage 4</strong> as Stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -333,9 +316,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disease"
                     ]
@@ -373,9 +354,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -401,7 +380,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Hide",
+                        "label": "PF2E.SkillVariant.Hide",
                         "predicate": {
                             "all": [
                                 "action:hide"
@@ -418,9 +397,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {

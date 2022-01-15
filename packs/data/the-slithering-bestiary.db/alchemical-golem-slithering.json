@@ -41,13 +41,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -123,9 +116,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "uncommon"
-            },
+            "rarity": "uncommon",
             "senses": {
                 "value": "darkvision"
             },
@@ -178,9 +169,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-10"
@@ -223,9 +212,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "thrown-20"
@@ -267,9 +254,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -303,7 +288,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An alchemical golem's body contains six alchemical chambers filled with different substances. When an alchemical golem ability calls upon a randomly determined alchemical effect, roll 1d6 and consult the following :</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>[[/r d6 #Alchemical Effect]]</th>\n<th>Alchemical Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>\n<p>Acid Damage</p>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cold Damage</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Electricity Damage</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Fire Damage</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Poison Damage</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Sickness: <span data-pf2-check=\"fortitude\" data-pf2-traits=\"disease\" data-pf2-label=\"Alchemical Sickness DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">Fortitude</span> Save or @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure)</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>An alchemical golem's body contains six alchemical chambers filled with different substances. When an alchemical golem ability calls upon a randomly determined alchemical effect, roll 1d6 and consult the following :</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>[[/r d6 #Alchemical Effect]]</th>\n<th>Alchemical Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>\n<p>Acid Damage</p>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cold Damage</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Electricity Damage</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Fire Damage</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Poison Damage</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Sickness: @Check[type:fortitude|dc:26|name:Alchemical Sickness|traits:disease] Save or @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure)</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "requirements": {
                     "value": ""
@@ -315,9 +300,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -347,7 +330,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When an alchemical golem takes physical damage from a critical hit or is affected by a shatter spell, one glass chamber within its body shatters, spewing alchemical liquid in a 5-foot emanation.</p>\n<p>Roll on the alchemical chambers list to determine which one shatters-on a roll of 1-5, creatures in the area take [[/r 10d6]] damage of the appropriate type. On a roll of 6, creatures must instead save against the sickness effect.</p>"
+                    "value": "<p>When an alchemical golem takes physical damage from a critical hit or is affected by a shatter spell, one glass chamber within its body shatters, spewing alchemical liquid in a @Template[type:emanation|distance:5].</p>\n<p>Roll on the alchemical chambers list to determine which one shatters-on a roll of 1-5, creatures in the area take [[/r 10d6]] damage of the appropriate type. On a roll of 6, creatures must instead save against the sickness effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -359,9 +342,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -376,6 +357,48 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Alchemical Rupture",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "pATLYmJ9TiraDyyy",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When the alchemical golem is reduced to 0 Hit Points, it explodes and deals damage from its alchemical rupture ability in a @Template[type:emanation|distance:10]. If a critical hit reduced the golem to 0 Hit Points, creatures in the area treat their saving throws against the rupture effects as one degree worse.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explode",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -403,9 +426,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -419,7 +440,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Golem Antimagic",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -447,9 +468,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -463,50 +482,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vulnerable to Shatter",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "pATLYmJ9TiraDyyy",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When the alchemical golem is reduced to 0 Hit Points, it explodes and deals damage from its alchemical rupture ability in a 10-foot emanation. If a critical hit reduced the golem to 0 Hit Points, creatures in the area treat their saving throws against the rupture effects as one degree worse.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explode",
             "sort": 800000,
             "type": "action"
         },
@@ -535,9 +510,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -579,9 +552,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "manipulate"
                     ]
@@ -622,9 +593,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

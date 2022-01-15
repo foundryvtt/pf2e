@@ -41,13 +41,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -124,9 +117,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "motion sense 60 feet, no vision"
             },
@@ -175,9 +166,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "versatile-s"
                     ]
@@ -218,9 +207,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -262,9 +249,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -294,7 +279,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or starts its turn within the aura must succeed at a <span data-pf2-check=\"will\" data-pf2-traits=\"auditory, aura, mental\" data-pf2-label=\"Subsonic Hum DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or starts its turn within the aura must succeed at a @Check[type:will|dc:28] save or become @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -306,9 +291,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "aura",
@@ -327,6 +310,96 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Subsonic Hum",
             "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "TTHC9vPRacUfSJco",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The crystal has a creature engulfed.</p>\n<p><strong>Effect</strong> The engulfed creature must succeed at a @Check[type:fortitude|dc:28|name:Crystalize] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until it is no longer engulfed. If the creature is already slowed, it becomes petrified as it is turned into crystal and expelled by the carnivorous crystal onto the ground</span>.</p>\n<p data-visibility=\"gm\">In [[/br 1d4 #hours]]{1d4 hours}, the petrified victim shatters and a new carnivorous crystal emerges from the remains.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Crystallize",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "Y1AIIIjE3wSGI9AA",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>@Check[type:reflex|dc:28|traits:damaging-effect], [[/r {2d6}[slashing]]]{2d6 slashing damage}, Escape DC 28, Rupture 25 (bludgeoning only).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "engulf",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.zU3Ovaet4xQ5Gmvy"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -354,9 +427,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate"
                     ]
@@ -372,53 +443,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Freeze",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "TTHC9vPRacUfSJco",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The crystal has a creature engulfed.</p>\n<p><strong>Effect</strong> The engulfed creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"attack\" data-pf2-label=\"Crystalize DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until it is no longer engulfed. If the creature is already slowed, it becomes petrified as it is turned into crystal and expelled by the carnivorous crystal onto the ground</span>.</p>\n<p data-visibility=\"gm\">In [[/br 1d4 #hours]]{1d4 hours}, the petrified victim shatters and a new carnivorous crystal emerges from the remains.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Crystallize",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -446,9 +471,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -462,54 +485,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Razor Sharp",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "Y1AIIIjE3wSGI9AA",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p><span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Engulf DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">Reflex</span>, [[/r {2d6}[slashing]]]{2d6 slashing damage}, Escape DC 28, Rupture 25 (bludgeoning only).</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "engulf",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.zU3Ovaet4xQ5Gmvy"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Engulf",
             "sort": 800000,
             "type": "action"
         },
@@ -535,9 +510,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

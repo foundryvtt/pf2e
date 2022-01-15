@@ -2,7 +2,7 @@ import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
 import { ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
-import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { RuleElementSource } from "@module/rules";
 import Tagify from "@yaireo/tagify";
 import {
     BasicConstructorOptions,
@@ -51,17 +51,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             hasDetails: [
                 "action",
                 "armor",
+                "backpack",
                 "book",
+                "condition",
                 "consumable",
                 "deity",
                 "equipment",
                 "feat",
+                "lore",
+                "melee",
                 "spell",
                 "weapon",
-                "melee",
-                "backpack",
-                "condition",
-                "lore",
             ].includes(itemData.type),
             detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
         }); // Damage types
@@ -139,14 +139,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(): ItemSheetDataPF2e<TItem> {
+    protected getBaseData(options: Partial<DocumentSheetOptions> = {}): ItemSheetDataPF2e<TItem> {
+        options.classes?.push(this.item.type);
+
         const itemData = this.item.clone({}, { keepId: true }).data;
         itemData.data.rules = itemData.toObject().data.rules;
-
-        const rollData = this.item.getRollData();
-        itemData.data.description.value = game.pf2e.TextEditor.enrichHTML(itemData.data.description.value, {
-            rollData,
-        });
 
         const isEditable = this.isEditable;
         return {
@@ -268,32 +265,68 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
+    /** Pull the latest system data from the source compendium and replace the item's with it */
+    private async refreshItemFromCompendium(): Promise<void> {
+        if (!this.item.isOwned) return ui.notifications.error("This utility may only be used on owned items");
+
+        const currentSource = this.item.toObject();
+        const latestSource = (await fromUuid<this["item"]>(this.item.sourceId ?? ""))?.toObject();
+        if (latestSource?.type === this.item.data.type) {
+            const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
+            const updates: DocumentUpdateData<this["item"]> = { img: updatedImage, data: latestSource.data };
+
+            // Preserve precious material and runes
+            if (currentSource.type === "weapon" || currentSource.type === "armor") {
+                const materialAndRunes: Record<string, unknown> = {
+                    "data.preciousMaterial": currentSource.data.preciousMaterial,
+                    "data.preciousMaterialGrade": currentSource.data.preciousMaterialGrade,
+                    "data.potencyRune": currentSource.data.potencyRune,
+                    "data.propertyRune1": currentSource.data.propertyRune1,
+                    "data.propertyRune2": currentSource.data.propertyRune2,
+                    "data.propertyRune3": currentSource.data.propertyRune3,
+                    "data.propertyRune4": currentSource.data.propertyRune4,
+                };
+                if (currentSource.type === "weapon") {
+                    materialAndRunes["data.strikingRune"] = currentSource.data.strikingRune;
+                } else {
+                    materialAndRunes["data.resiliencyRune"] = currentSource.data.resiliencyRune;
+                }
+                mergeObject(updates, expandObject(materialAndRunes));
+            }
+
+            await this.item.update(updates, { diff: false, recursive: false });
+            ui.notifications.info("The item has been refreshed.");
+        } else {
+            ui.notifications.error("The compendium item is of a different type than what is present on this actor");
+        }
+    }
+
     protected override _canDragDrop(_selector: string): boolean {
         return this.item.isOwner;
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
-        html.find('li.trait-item input[type="checkbox"]').on("click", (event) => {
+        $html.find('li.trait-item input[type="checkbox"]').on("click", (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
             }
         });
 
-        html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
+        $html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
 
         // Add Damage Roll
-        html.find(".add-damage").on("click", (ev) => {
+        $html.find(".add-damage").on("click", (ev) => {
             this.addDamageRoll(ev);
         });
 
         // Remove Damage Roll
-        html.find(".delete-damage").on("click", (ev) => {
+        $html.find(".delete-damage").on("click", (ev) => {
             this.deleteDamageRoll(ev);
         });
 
-        html.find(".add-rule-element").on("click", async (event) => {
+        $html.find(".add-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
@@ -303,7 +336,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
             });
         });
-        html.find(".rules .remove-rule-element").on("click", async (event) => {
+        $html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
@@ -316,7 +349,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
-        html.find(".add-skill-variant").on("click", (_event) => {
+        $html.find(".add-skill-variant").on("click", (_event) => {
             if (!(this.item instanceof LorePF2e)) return;
             const variants = this.item.data.data.variants ?? {};
             const index = Object.keys(variants).length;
@@ -324,19 +357,23 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 [`data.variants.${index}`]: { label: "+X in terrain", options: "" },
             });
         });
-        html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
+        $html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
 
-        const $prerequisites = html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
+        const $prerequisites = $html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
         if ($prerequisites[0]) {
             new Tagify($prerequisites[0], {
                 editTags: 1,
             });
         }
 
-        InlineRollsLinks.listen(html);
+        InlineRollsLinks.listen($html);
+
+        // Work around core bug present as of v9.241 in which contenteditable is ignored by `KeyboardManager` unless
+        // it has the value "true"
+        $html.find('span[contenteditable=""]').attr({ contenteditable: "true" });
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
@@ -356,6 +393,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const sheetButton = buttons.find((button) => button.class === "configure-sheet");
         if (!hasMultipleSheets && sheetButton) {
             buttons.splice(buttons.indexOf(sheetButton), 1);
+        }
+        // Convenenience utility for data entry; may make available to general users in the future
+        if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
+            buttons.unshift({
+                label: "Refresh",
+                class: "refresh-from-compendium",
+                icon: "fas fa-sync-alt",
+                onclick: () => this.refreshItemFromCompendium(),
+            });
         }
         return buttons;
     }

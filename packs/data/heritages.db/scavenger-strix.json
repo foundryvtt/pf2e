@@ -1,0 +1,48 @@
+{
+    "_id": "j0R1SyJP8k4G2Hkn",
+    "data": {
+        "ancestry": {
+            "name": "Strix",
+            "uuid": "Compendium.pf2e.ancestries.GXcC6oVa5quzgNHD"
+        },
+        "description": {
+            "value": "<p>Your ancestors originated from a land where food was scarce and threats were many. You are trained in Survival. You gain the @Compendium[pf2e.feats-srd.Forager]{Forager} skill feat as a bonus feat. Your thoroughness when gathering food provides you a +1 circumstance bonus to Survival checks to Subsist.</p>"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.sur.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Forager"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:subsist"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Scavenger Strix",
+    "type": "heritage"
+}

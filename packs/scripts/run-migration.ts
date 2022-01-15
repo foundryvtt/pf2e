@@ -25,6 +25,10 @@ import { Migration706FormulasAtInstanceLevelEverythingElse } from "@module/migra
 import { Migration707BracketedFormulasAtInstanceLevel } from "@module/migration/migrations/707-bracketed-formulas-at-instance-level";
 import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-specific-rule-label";
 import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
+import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
+import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
+import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
+import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fist-to-strike-re";
 
 const migrations: MigrationBase[] = [
     new Migration689EncumberanceActiveEffects(),
@@ -46,6 +50,10 @@ const migrations: MigrationBase[] = [
     new Migration707BracketedFormulasAtInstanceLevel(),
     new Migration708SpecificRuleLabel(),
     new Migration709REFormulasAtInstanceLevelRedux(),
+    new Migration710RarityToString(),
+    new Migration711HeritageItems(),
+    new Migration712ActorShieldStructure(),
+    new Migration713FistToStrikeRE(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
@@ -70,6 +78,13 @@ global.deepClone = function (original: any): any {
     return clone;
 };
 // eslint-enable @typescript-eslint/no-explicit-any
+
+global.randomID = function randomID(length = 16): string {
+    const rnd = () => Math.random().toString(36).substring(2);
+    let id = "";
+    while (id.length < length) id += rnd();
+    return id.substring(0, length);
+};
 
 const packsDataPath = path.resolve(process.cwd(), "packs/data");
 

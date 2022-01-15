@@ -41,13 +41,6 @@
             "perception": {
                 "value": 6
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -118,9 +111,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "motion sense 60 feet, no vision"
             },
@@ -170,9 +161,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse",
                         "magical"
@@ -218,9 +207,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "fire",
                         "magical",
@@ -263,9 +250,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "necromancy"
@@ -310,9 +295,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -327,111 +310,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Motion Sense 60 feet",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "5wlVfCVGmDq3fRKw",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The squirming swill reeks of food that is simultaneously burned and spoiled. A creature that enters or starts its turn in the emanation must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,conjuration,curse,magical,olfactory\" data-pf2-label=\"Malodorous Smoke DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>When a creature succeeds at a Fortitude save to recover from this sickness, it regurgitates a chunk of food that immediately slithers away to join the swill, restoring [[/r 3]] Hit Points to the swill.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "conjuration",
-                        "curse",
-                        "magical",
-                        "olfactory"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Malodorous Smoke",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "elcu7DQCtC0dX7Q4",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -471,9 +349,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -487,6 +363,107 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status Bonus on Saves vs Curses",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "elcu7DQCtC0dX7Q4",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "5wlVfCVGmDq3fRKw",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The squirming swill reeks of food that is simultaneously burned and spoiled. A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:17] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>When a creature succeeds at a Fortitude save to recover from this sickness, it regurgitates a chunk of food that immediately slithers away to join the swill, restoring [[/r 3]] Hit Points to the swill.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "conjuration",
+                        "curse",
+                        "magical",
+                        "olfactory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Malodorous Smoke",
             "sort": 700000,
             "type": "action"
         },
@@ -503,7 +480,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The first time on its turn that the squirming swill hits a creature with its Offal Strike, hot grease from its body splatters the ground in the target's space. The target must succeed at a <span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-label=\"Slippery Grease DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or Acrobatics check, falling @Compendium[pf2e.conditionitems.Prone]{Prone} on a failure.</p>"
+                    "value": "<p>The first time on its turn that the squirming swill hits a creature with its Offal Strike, hot grease from its body splatters the ground in the target's space. The target must succeed at a @Check[type:reflex|dc:17] save or Acrobatics check, falling @Compendium[pf2e.conditionitems.Prone]{Prone} on a failure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -515,9 +492,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -556,9 +531,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -591,9 +564,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

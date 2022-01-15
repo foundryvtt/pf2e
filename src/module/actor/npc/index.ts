@@ -9,25 +9,19 @@ import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
 import { DamageType } from "@module/damage-calculation";
 import { sluggify } from "@util";
-import { Rarity } from "@module/data";
 import { NPCData, NPCStrike } from "./data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
-import { NPCLegacySheetPF2e } from "./legacy-sheet";
 import { LocalizePF2e } from "@system/localize";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { RuleElementSynthetics } from "@module/rules/rules-data-definitions";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
+import { EnrichContent } from "@scripts/ui/enrich-content";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
         return NPCData;
-    }
-
-    get rarity(): Rarity {
-        return this.data.data.traits.rarity.value;
     }
 
     /** This NPC's ability scores */
@@ -114,11 +108,11 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const rules = this.rules.filter((rule) => !rule.ignored);
-        const synthetics = this.prepareCustomModifiers(rules);
+        const { synthetics } = this;
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
         const { details } = this.data.data;
+        const itemTypes = this.itemTypes;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -200,14 +194,15 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Speeds
-        data.attributes.speed = this.prepareSpeed("land", synthetics);
+        data.attributes.speed = this.prepareSpeed("land");
         const { otherSpeeds } = data.attributes.speed;
         for (let idx = 0; idx < otherSpeeds.length; idx++) {
-            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type, synthetics);
+            otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
         // Armor Class
         {
+            this.addShieldBonus(statisticsModifiers);
             const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
             const rollOptions = ["ac", "dex-based", "all"];
@@ -235,43 +230,7 @@ export class NPCPF2e extends CreaturePF2e {
             data.attributes.ac = stat;
         }
 
-        // Shield
-        {
-            const shield = this.heldShield?.data;
-            if (shield) {
-                // Use shield item data
-                const isBroken = shield.data.hp.value <= shield.data.brokenThreshold.value;
-                const shieldData = {
-                    value: shield.data.hp.value,
-                    max: shield.data.maxHp.value,
-                    ac: isBroken ? 0 : shield.data.armor.value,
-                    hardness: shield.data.hardness.value,
-                    brokenThreshold: shield.data.brokenThreshold.value,
-                };
-                data.attributes.shield = shieldData;
-            } else {
-                if (!data.attributes.shield.max) {
-                    // No shield and no existing data
-                    const shieldData = {
-                        value: 0,
-                        max: 0,
-                        ac: 0,
-                        hardness: 0,
-                        brokenThreshold: 0,
-                    };
-                    data.attributes.shield = shieldData;
-                } else {
-                    // Use existing data
-                    const isBroken =
-                        Number(data.attributes.shield.value) <= Number(data.attributes.shield.brokenThreshold);
-                    if (isBroken) {
-                        data.attributes.shield.ac = 0;
-                    }
-                }
-            }
-        }
-
-        this.prepareSaves(synthetics);
+        this.prepareSaves();
 
         // Perception
         {
@@ -686,68 +645,73 @@ export class NPCPF2e extends CreaturePF2e {
                 };
 
                 data.actions.push(action);
-            } else if (itemData.type === "spellcastingEntry") {
-                const tradition = itemData.data.tradition.value;
-                const ability = itemData.data.ability.value || "int";
-                const abilityMod = data.abilities[ability].mod;
+            }
+        }
 
-                // There are still some bestiary entries where these values are strings
-                itemData.data.spelldc.dc = Number(itemData.data.spelldc.dc);
-                itemData.data.spelldc.value = Number(itemData.data.spelldc.value);
+        // Spellcasting Entries
+        for (const entry of itemTypes.spellcastingEntry) {
+            const tradition = entry.tradition;
+            const ability = entry.ability;
+            const abilityMod = data.abilities[ability].mod;
 
-                const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
-                const attackSelectors = [
-                    `${tradition}-spell-attack`,
-                    "spell-attack",
-                    "spell-attack-roll",
-                    "attack",
-                    "attack-roll",
-                ];
-                const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
+            // There are still some bestiary entries where these values are strings
+            entry.data.data.spelldc.dc = Number(entry.data.data.spelldc.dc);
+            entry.data.data.spelldc.value = Number(entry.data.data.spelldc.value);
 
-                // Check Modifiers, calculate using the user configured value
-                const baseMod = Number(itemData.data?.spelldc?.value ?? 0);
-                const attackModifiers = [
-                    new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                    ...extractModifiers(statisticsModifiers, baseSelectors),
-                    ...extractModifiers(statisticsModifiers, attackSelectors),
-                ];
+            const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
+            const attackSelectors = [
+                `${tradition}-spell-attack`,
+                "spell-attack",
+                "spell-attack-roll",
+                "attack",
+                "attack-roll",
+            ];
+            const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
-                // Save Modifiers, reverse engineer using the user configured value - 10
-                const baseDC = Number(itemData.data?.spelldc?.dc ?? 0);
-                const saveModifiers = [
-                    new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
-                    ...extractModifiers(statisticsModifiers, baseSelectors),
-                    ...extractModifiers(statisticsModifiers, saveSelectors),
-                ];
+            // Check Modifiers, calculate using the user configured value
+            const baseMod = Number(entry.data.data?.spelldc?.value ?? 0);
+            const attackModifiers = [
+                new ModifierPF2e("PF2E.BaseModifier", baseMod - abilityMod, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                ...extractModifiers(statisticsModifiers, baseSelectors),
+                ...extractModifiers(statisticsModifiers, attackSelectors),
+            ];
 
-                // Assign statistic data to the spellcasting entry
-                itemData.data.statisticData = {
-                    slug: sluggify(itemData.name),
-                    notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
-                    domains: baseSelectors,
-                    check: {
-                        type: "spell-attack-roll",
-                        label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
-                        modifiers: attackModifiers,
-                        domains: attackSelectors,
-                    },
-                    dc: {
-                        modifiers: saveModifiers,
-                        domains: saveSelectors,
-                    },
-                };
+            // Save Modifiers, reverse engineer using the user configured value - 10
+            const baseDC = Number(entry.data.data?.spelldc?.dc ?? 0);
+            const saveModifiers = [
+                new ModifierPF2e("PF2E.BaseModifier", baseDC - 10 - abilityMod, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities[ability], abilityMod, MODIFIER_TYPE.ABILITY),
+                ...extractModifiers(statisticsModifiers, baseSelectors),
+                ...extractModifiers(statisticsModifiers, saveSelectors),
+            ];
 
-                // The elite/weak modifier doesn't update the source data, so we do it again here
-                if (this.isElite) {
-                    itemData.data.spelldc.dc += 2;
-                    itemData.data.spelldc.value += 2;
-                } else if (this.isWeak) {
-                    itemData.data.spelldc.dc -= 2;
-                    itemData.data.spelldc.value -= 2;
-                }
+            // Assign statistic data to the spellcasting entry
+            entry.statistic = new Statistic(this, {
+                slug: sluggify(entry.data.name),
+                notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
+                domains: baseSelectors,
+                check: {
+                    type: "spell-attack-roll",
+                    label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
+                    modifiers: attackModifiers,
+                    domains: attackSelectors,
+                },
+                dc: {
+                    modifiers: saveModifiers,
+                    domains: saveSelectors,
+                },
+            });
+
+            entry.data.data.statisticData = entry.statistic.getChatData();
+
+            // The elite/weak modifier doesn't update the source data, so we do it again here
+            if (this.isElite) {
+                entry.data.data.spelldc.dc += 2;
+                entry.data.data.spelldc.value += 2;
+            } else if (this.isWeak) {
+                entry.data.data.spelldc.dc -= 2;
+                entry.data.data.spelldc.value -= 2;
             }
         }
 
@@ -765,9 +729,9 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    prepareSaves(synthetics: RuleElementSynthetics) {
+    prepareSaves(): void {
         const data = this.data.data;
-        const { rollNotes, statisticsModifiers } = synthetics;
+        const { rollNotes, statisticsModifiers } = this.synthetics;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -797,6 +761,7 @@ export class NPCPF2e extends CreaturePF2e {
 
             saves[saveType] = stat;
             mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            this.data.data.saves[saveType].base = base;
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
@@ -819,7 +784,11 @@ export class NPCPF2e extends CreaturePF2e {
             }
             return item.name;
         };
-        const formatNoteText = (itemName: string, description: string) => {
+        const formatNoteText = (itemName: string, item: ItemPF2e) => {
+            // Call enrichString with the correct item context
+            const rollData = item.getRollData();
+            const description = EnrichContent.enrichString(item.description, { rollData });
+
             return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
         };
 
@@ -830,14 +799,14 @@ export class NPCPF2e extends CreaturePF2e {
             const note = new RollNotePF2e("all", "");
             if (item) {
                 // Get description from the actor item.
-                note.text = formatNoteText(formatItemName(item), item.description);
+                note.text = formatNoteText(formatItemName(item), item);
                 notes.push(note);
             } else {
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
                 const packItem = (await compendium.getDocuments({ "data.slug": { $in: [attackEffect] } }))[0];
                 if (packItem instanceof ItemPF2e) {
-                    note.text = formatNoteText(formatItemName(packItem), packItem.description);
+                    note.text = formatNoteText(formatItemName(packItem), packItem);
                     notes.push(note);
                 }
             }
@@ -947,5 +916,5 @@ export class NPCPF2e extends CreaturePF2e {
 
 export interface NPCPF2e {
     readonly data: NPCData;
-    _sheet: NPCSheetPF2e | NPCLegacySheetPF2e;
+    _sheet: NPCSheetPF2e;
 }

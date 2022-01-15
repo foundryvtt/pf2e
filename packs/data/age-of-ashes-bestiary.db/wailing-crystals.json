@@ -15,20 +15,20 @@
                 "value": 72
             },
             "stealth": {
-                "details": "<p>(master) or <span data-pf2-check=\"perception\" data-pf2-traits=\"hazard,complex,environmental,magical\" data-pf2-label=\"Notice Ghostly Faces DC\" data-pf2-dc=\"37\" data-pf2-show-dc=\"gm\">Perception</span> (master) to notice what appear to be screaming ghostly faces in the crystals</p>",
+                "details": "<p>(master) or @Check[type:perception|dc:37|name:Notice Ghostly Faces|traits:hazard,complex,environmental,magical] (master) to notice what appear to be screaming ghostly faces in the crystals</p>",
                 "value": 27
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>Three clusters of gleaming, colorful crystals are corrupted with necromantic energy that causes them to reflect negative emotions. All three must be disabled or destroyed to negate the hazard.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"hazard,complex,environmental,magical\" data-pf2-label=\"Fracture the Crystals DC\" data-pf2-dc=\"29\" data-pf2-show-dc=\"gm\">Thievery</span> (master) to carefully fracture the crystals or <span data-pf2-check=\"crafting\" data-pf2-traits=\"hazard,complex,environmental,magical\" data-pf2-label=\"Stop the Resonance DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">Crafting</span> (expert) to place objects to stop the resonance, both disabling one 5-foot patch of crystals.</p>",
+            "disable": "<p>@Check[type:thievery|dc:29|name:Fracture the Crystals|traits:hazard,complex,environmental,magical] (master) to carefully fracture the crystals or @Check[type:crafting|dc:27|name:Stop the Resonance|traits:hazard,complex,environmental,magical] (expert) to place objects to stop the resonance, both disabling one 5-foot patch of crystals.</p>",
             "isComplex": true,
             "level": {
                 "value": 13
             },
-            "reset": "The wailing crystals deactivate and reset once no living creatures are within 20 feet.",
-            "routine": "(3 actions) The hazard uses each action for an Anguished Shriek. The wailing crystals lose 1 action for each 5-foot patch of crystals that is broken or destroyed."
+            "reset": "<p>The wailing crystals deactivate and reset once no living creatures are within 20 feet.</p>",
+            "routine": "<p>(3 actions) The hazard uses each action for an Anguished Shriek. The wailing crystals lose 1 action for each 5-foot patch of crystals that is broken or destroyed.</p>"
         },
         "saves": {
             "fortitude": {
@@ -61,9 +61,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "size": {
                 "value": "med"
             },
@@ -105,9 +103,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -138,7 +134,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature approaches within 20 feet of a wailing crystal.</p>\n<hr />\n<p><strong>Effect</strong> A despairing chorus of cries echoes off the crystals, working its way into the minds of all living creatures in Jewelgate Way Station, affecting them with <em>@Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}</em> (7th level, <span data-pf2-check=\"will\" data-pf2-traits=\"mental,emotion,magical,spell\" data-pf2-label=\"Crushing Despair DC\" data-pf2-dc=\"33\" data-pf2-show-dc=\"gm\">Will</span> save).</p>\n<p>The hazard rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature approaches within 20 feet of a wailing crystal.</p>\n<hr />\n<p><strong>Effect</strong> A despairing chorus of cries echoes off the crystals, working its way into the minds of all living creatures in Jewelgate Way Station, affecting them with <em>@Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}</em> (7th level, @Check[type:will|dc:33|name:Crushing Despair|traits:mental,emotion,magical,spell] save).</p>\n<p>The hazard rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -150,9 +146,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "occult"
                     ]
@@ -184,7 +178,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A shrieking, distorted face composed of writhing necromantic energy lances out of the crystals to target a random living creature within 20 feet. The target takes [[/r {4d6}[mental] + {4d6}[sonic]]]{4d6 mental damage and 4d6 sonic damage} (<span data-pf2-check=\"will\" data-pf2-dc=\"33\" data-pf2-traits=\"emotion,enchantment,mental,occult,sonic,damaging-effect\" data-pf2-label=\"Anguished Shriek DC\" data-pf2-show-dc=\"gm\">basic Will</span> save).</p>"
+                    "value": "<p>A shrieking, distorted face composed of writhing necromantic energy lances out of the crystals to target a random living creature within 20 feet. The target takes [[/r {4d6}[mental] + {4d6}[sonic]]]{4d6 mental damage and 4d6 sonic damage} (@Check[type:will|dc:33|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,9 +190,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "enchantment",

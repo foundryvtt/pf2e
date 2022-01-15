@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "regeneration 15 (deactivated by fire)",
                 "max": 130,
                 "temp": 0,
                 "value": 130
@@ -41,15 +41,14 @@
             "perception": {
                 "value": 18
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
-                "otherSpeeds": [],
+                "details": "",
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": "30"
+                    }
+                ],
                 "value": "25"
             }
         },
@@ -102,9 +101,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision"
             },
@@ -158,9 +155,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid",
                         "agile"
@@ -208,12 +203,10 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid",
-                        "range-increment-30"
+                        "range-30"
                     ]
                 },
                 "weaponType": {
@@ -228,7 +221,7 @@
             "type": "melee"
         },
         {
-            "_id": "Vi6NXxHa4eMdcJpR",
+            "_id": "npH3O5fYofr6M5MP",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -252,9 +245,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -276,6 +267,52 @@
             "type": "action"
         },
         {
+            "_id": "XwFOwvH7yRyD2Pn6",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 15 (Deactivated by Fire)",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "9falExFfOIxN5EKp",
             "data": {
                 "actionCategory": {
@@ -288,7 +325,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. A creature entering the emanation must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. On a failure, the creature is sickened 1, and on a critical failure is also slowed 1. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at the save is temporarily immune to this effect for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature entering the emanation must attempt a @Check[type:fortitude|dc:27] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}, and on a critical failure is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at the save is temporarily immune to this effect for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -300,9 +337,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "aura",
                         "olfactory"
@@ -319,7 +354,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -335,7 +370,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"mental,poison\" data-pf2-label=\"Amnesia Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed}, and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> flat-footed and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Confused]{Confused}, flat-footed, and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -347,9 +382,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "mental",
                         "poison"
@@ -366,11 +399,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Amnesia Venom",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "JLHTW9wq4yP5QZg3",
+            "_id": "IL3VPaw5B0JI2Rce",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -382,7 +415,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>2d6+2 bludgeoning, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {2d6+2}[bludgeoning]]]{2d6+2 bludgeoning damage}</p>\n<p><em>Note: Paizo did not provide a listed DC for this ability. The suggested DC to use per the GMG is @Check[type:fortitude|dc:27|basic:true]</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -394,9 +427,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -414,7 +445,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -442,9 +473,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate"
                     ]
@@ -460,11 +489,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Root",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "t6mN0UbsWkljyeKM",
+            "_id": "oOto6dxiQZFhZzKY",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -488,9 +517,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -508,7 +535,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -533,9 +560,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -543,7 +568,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -568,9 +593,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -578,7 +601,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -616,9 +639,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {
@@ -632,7 +653,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

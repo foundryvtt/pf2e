@@ -41,13 +41,6 @@
             "perception": {
                 "value": 39
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "30"
@@ -135,9 +128,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision, true seeing"
             },
@@ -258,9 +249,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -369,9 +358,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "revelation"
                     ]
@@ -416,9 +403,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "reach-15"
@@ -463,9 +448,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "magical",
@@ -508,9 +491,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -556,9 +537,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -592,7 +571,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, <span data-pf2-check=\"will\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightening Presence DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">will</span> save</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, @Check[type:will|dc:42|name:Frightening Presence] save</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -604,9 +583,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "aura",
                         "emotion",
@@ -633,53 +610,6 @@
             "type": "action"
         },
         {
-            "_id": "DyilSr4hYYAgoPFF",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The dragonshard guardian takes cold, fire, electricity, or sonic damage from a non–dragonshard guardian source</p>\n<p><strong>Effect</strong> The dragonshard guardian's body absorbs the energy entirely, preventing the damage from harming the construct. Its body reverberates and transforms the absorbed energy before projecting it outward in a 60-foot burst.</p>\n<p>Each creature within the burst takes an amount of fire damage equal to the amount of energy damage absorbed by the triggering attack, including any damage resisted by the guardian's resistances and additional damage from its weakness (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,arcane,fire\" data-pf2-label=\"Reverberating Revenge DC\" data-pf2-dc=\"45\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>This fire damage doesn't harm objects or constructs.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "arcane",
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reverberating Revenge",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
             "_id": "b9ku7PIEzSu9iFAq",
             "data": {
                 "actionCategory": {
@@ -692,7 +622,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p>The construct breathes in one of two ways, then can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n</div><p>- Flame (arcane, evocation, fire) A blast of flame deals [[/r {15d10}[fire]]]{15d10 fire damage} to all creatures in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,arcane, evocation, fire\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"45\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). This fire damage does not harm objects or constructs.</p>\n<p>- Weakening Gas (arcane, necromancy) A cloud of gold-flecked gas forces each creature in a 60-foot cone to attempt a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"arcane, necromancy\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"45\" data-pf2-show-dc=\"gm\">Fortitude</span> save; the effect lasts 1 minute.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 5}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 8}.</p>\n</div>"
+                    "value": "<div data-visibility=\"gm\">\n<p>The construct breathes in one of two ways, then can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n</div><p>- Flame (arcane, evocation, fire) A blast of flame deals [[/r {15d10}[fire]]]{15d10 fire damage} to all creatures in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:45|basic:true] save). This fire damage does not harm objects or constructs.</p>\n<p>- Weakening Gas (arcane, necromancy) A cloud of gold-flecked gas forces each creature in a @Template[type:cone|distance:60] to attempt a @Check[type:fortitude|dc:45] save; the effect lasts 1 minute.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 5}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 8}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -704,9 +634,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
@@ -725,6 +653,51 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "DyilSr4hYYAgoPFF",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The dragonshard guardian takes cold, fire, electricity, or sonic damage from a non-dragonshard guardian source</p>\n<p><strong>Effect</strong> The dragonshard guardian's body absorbs the energy entirely, preventing the damage from harming the construct. Its body reverberates and transforms the absorbed energy before projecting it outward in a @Template[type:burst|distance:60].</p>\n<p>Each creature within the burst takes an amount of fire damage equal to the amount of energy damage absorbed by the triggering attack, including any damage resisted by the guardian's resistances and additional damage from its weakness (@Check[type:reflex|dc:45|basic:true] save).</p>\n<p>This fire damage doesn't harm objects or constructs.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reverberating Revenge",
             "sort": 900000,
             "type": "action"
         },
@@ -750,9 +723,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

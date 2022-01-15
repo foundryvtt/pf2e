@@ -47,13 +47,6 @@
             "perception": {
                 "value": 9
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "30"
@@ -105,9 +98,7 @@
                     "elven"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "low-light vision"
             },
@@ -270,9 +261,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -415,9 +404,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -519,9 +506,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -573,9 +558,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -624,9 +607,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "thrown-10",
@@ -669,9 +650,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -705,7 +684,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Creatures hit by Kiru's dagger Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"agile,versatile-s,damaging-effect\" data-pf2-label=\"Knife Jab DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Fortitude (Strike was a Success)</span><span data-pf2-check=\"fortitude\" data-pf2-traits=\"agile,versatile-s,damaging-effect\" data-pf2-label=\"Knife Jab DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">Fortitude (Strike was a Critical Success)</span> save or become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round (1 minute on a critical failure).</p>"
+                    "value": "<p>Creatures hit by Kiru's dagger Strike must succeed at a @Check[type:fortitude|dc:20|traits:agile,versatile-s,damaging-effect]{Fortitude (Strike was a Success)}@Check[type:fortitude|dc:25|traits:agile,versatile-s,damaging-effect]{Fortitude (Strike was a Critical Success)} save or become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round (1 minute on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -717,9 +696,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -734,50 +711,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Knife Jab",
             "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "xx9wx5cf43c7dj2f",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Kiru.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surprise Attack",
-            "sort": 800000,
             "type": "action"
         },
         {
@@ -823,9 +756,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -843,6 +774,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "xx9wx5cf43c7dj2f",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Kiru.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Surprise Attack",
             "sort": 900000,
             "type": "action"
         },
@@ -865,9 +838,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -897,9 +868,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -929,9 +898,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -961,9 +928,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -993,9 +958,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

@@ -23,15 +23,39 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:level:1",
+                        "item:trait:cleric",
+                        "item:type:feature"
+                    ],
+                    "label": "1st-level Cleric class feature"
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Cloistered Cleric"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Warpriest"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Select a doctrine."
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.doctrine}"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "cleric"
             ]

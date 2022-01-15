@@ -41,13 +41,6 @@
             "perception": {
                 "value": 18
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -106,9 +99,7 @@
                     "utopian"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision, low-light vision"
             },
@@ -272,9 +263,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -328,9 +317,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -376,9 +363,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -422,9 +407,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -439,50 +422,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Exemplar (Green Dragon)",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "SwMYfytCqfzpBdEd",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Urok would take bludgeoning piercing, or slashing damage</p>\n<p><strong>Effect</strong> Urok's body anticipates the blow and the impact area briefly reorganizes into a strengthened tissue lattice that blunts the attack. He gains resistance 9 against the triggering damage type, which applies against the triggering damage Urok can expend his daily use of Crystalline Dust when using this reaction. If he does, his daily use of isn't expended and he can use it a second time.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Preemptive Reconfiguration",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -510,9 +449,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -526,6 +463,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Crystalline Dust",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "SwMYfytCqfzpBdEd",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Urok would take bludgeoning piercing, or slashing damage</p>\n<p><strong>Effect</strong> Urok's body anticipates the blow and the impact area briefly reorganizes into a strengthened tissue lattice that blunts the attack. He gains resistance 9 against the triggering damage type, which applies against the triggering damage Urok can expend his daily use of Crystalline Dust when using this reaction. If he does, his daily use of isn't expended and he can use it a second time.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Preemptive Reconfiguration",
             "sort": 600000,
             "type": "action"
         },
@@ -542,7 +521,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Urok breathes a poisonous mist that deals [[/r {5d4}[poison]]]{5d4 poison damage} in a 15-foot cone (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"arcane,evocation,poison,damaging-effect\" data-pf2-label=\"Kobold Breath DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>\n<p>He can't use Kobold Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Urok breathes a poisonous mist that deals [[/r {5d4}[poison]]]{5d4 poison damage} in a @Template[type:cone|distance:15] (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>He can't use Kobold Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -554,9 +533,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
@@ -602,9 +579,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -664,9 +639,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -712,9 +685,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -753,9 +724,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -788,9 +757,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -823,9 +790,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -858,9 +823,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -893,9 +856,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -928,9 +889,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -963,9 +922,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -998,9 +955,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1033,9 +988,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1068,9 +1021,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1103,9 +1054,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1138,9 +1087,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1173,9 +1120,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

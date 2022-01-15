@@ -41,13 +41,6 @@
             "perception": {
                 "value": 17
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [],
@@ -64,7 +57,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>Because they blend in so well with surrounding foliage, giant flytraps can use the element of surprise to make quick strikes against unsuspecting adventurers and forest travelers.</p>",
+            "publicNotes": "<p>Because they blend in so well with surrounding foliage, giant flytraps can use the element of surprise to make quick strikes against unsuspecting adventurers and forest travelers.</p>\n<hr />\n<p>Flytraps are dangerous creatures as eager to feed on humanoids and larger prey as they are monstrous insects.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -110,9 +103,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "tremorsense (imprecise) 60 feet"
             },
@@ -167,9 +158,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-15"
                     ]
@@ -186,7 +175,7 @@
             "type": "melee"
         },
         {
-            "_id": "WGmigkS7JTgqEK51",
+            "_id": "j6xu1V9riuAOrTpK",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -210,9 +199,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -246,7 +233,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is grabbed in that leaf.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in that leaf.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -258,9 +245,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -295,16 +280,30 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.focusedAssault"
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "focusedAssault"
+                            ]
+                        },
+                        "selector": "leaf-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -339,16 +338,29 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.hungryFlurry"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hungryFlurry"
+                            ]
+                        },
+                        "selector": "leaf-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -366,7 +378,55 @@
             "type": "action"
         },
         {
-            "_id": "BT88TdSaFBfXtiXJ",
+            "_id": "FEiMSx6vAjQ1oKaY",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>Large, [[/r {2d8+3}[bludgeoning]+{2d6}[acid]]]{2d8+3 bludgeoning damage plus 2d6 acid damage}, Rupture 17</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "3nwKZarzSffmcKzH",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -390,9 +450,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -410,56 +468,6 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "VhZOhoKPpbbGF743",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>Large, [[/r {2d8+3}[bludgeoning]]]{2d8+3 bludgeoning damage} plus [[/r {2d6}[acid]]]{2d6 acid damage}, Rupture 17</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "swallow-whole",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swallow Whole",
             "sort": 700000,
             "type": "action"
         },
@@ -485,9 +493,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -532,9 +538,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {

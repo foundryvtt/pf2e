@@ -41,13 +41,6 @@
             "perception": {
                 "value": 11
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "swamp stride",
                 "otherSpeeds": [
@@ -114,9 +107,7 @@
                     "common"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -135,7 +126,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/bestiary-1/boggard_swampseer.webp",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "pFruogrBBB4pvImp",
@@ -274,9 +265,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -397,9 +386,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid",
                         "attack"
@@ -513,9 +500,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "water"
                     ]
@@ -639,9 +624,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "acid",
@@ -758,9 +741,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "light",
                         "cantrip"
@@ -876,9 +857,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "fear",
@@ -993,9 +972,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -1124,9 +1101,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cold",
@@ -1240,9 +1215,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "plant"
                     ]
@@ -1356,9 +1329,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cantrip",
@@ -1520,9 +1491,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -1567,16 +1536,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "two-hand-d8"
                     ]
@@ -1618,9 +1604,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -1661,9 +1645,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1697,7 +1679,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The swampseer utters a powerful croak that deals [[/r {4d6}[sonic]]]{4d6 sonic damage} to any non-boggard within a @Template[type:emanation|distance:15] (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"sonic,damaging-effect\" data-pf2-label=\"Destructive Croak DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>\n<div data-visibility=\"gm\">\n<p>Any creature with the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition takes additional sonic damage equal to twice the value of their frightened condition.</p>\n<p>The boggard can't use Destructive Croak again for [[/br 1d4 #rounds]]{1d4 rounds}</p>\n</div>"
+                    "value": "<p>The swampseer utters a powerful croak that deals [[/r {4d6}[sonic]]]{4d6 sonic damage} to any non-boggard within a @Template[type:emanation|distance:15] (@Check[type:fortitude|dc:19|basic:true] save).</p>\n<div data-visibility=\"gm\">\n<p>Any creature with the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition takes additional sonic damage equal to twice the value of their frightened condition.</p>\n<p>The boggard can't use Destructive Croak again for [[/br 1d4 #rounds]]{1d4 rounds}</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -1709,9 +1691,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "sonic"
                     ]
@@ -1743,7 +1723,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The boggard swampseer or one of its allies within 60 feet attempts a saving throw against an auditory or sonic effect.</p>\n<p><strong>Effect</strong> The swampseer releases a croak that drowns out other sound. It rolls a <span data-pf2-check=\"performance\" data-pf2-traits=\"auditory,mental,sonic\" data-pf2-label=\"Drowning Drone DC\">Performance</span> check. It and boggard allies in the area can use the higher result of the swampseer's Performance check or their saves to resolve the effects against the auditory or sonic effect.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The boggard swampseer or one of its allies within 60 feet attempts a saving throw against an auditory or sonic effect.</p>\n<p><strong>Effect</strong> The swampseer releases a croak that drowns out other sound. It rolls a @Check[type:performance] check. It and boggard allies in the area can use the higher result of the swampseer's Performance check or their saves to resolve the effects against the auditory or sonic effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1755,9 +1735,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "mental",
@@ -1803,9 +1781,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1835,7 +1811,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The boggard swampseer unleashes a terrifying croak. Any non-boggard within @Template[type:emanation|distance:30] becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} unless they succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"19\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Terrifying Croak DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p data-visibility=\"gm\">Those who critically succeed are temporarily immune for 1 minute.</p>"
+                    "value": "<p>The boggard swampseer unleashes a terrifying croak. Any non-boggard within @Template[type:emanation|distance:30] becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} unless they succeed at a @Check[type:will|dc:19] save.</p>\n<p data-visibility=\"gm\">Those who critically succeed are temporarily immune for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1847,9 +1823,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "emotion",
@@ -1896,9 +1870,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1937,9 +1909,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1972,9 +1942,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2007,9 +1975,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2042,9 +2008,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2077,9 +2041,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2112,9 +2074,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2130,7 +2090,7 @@
     "token": {
         "disposition": -1,
         "height": 1,
-        "img": "systems/pf2e/icons/bestiary-1/boggard_swampseer.webp",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "name": "Boggard Swampseer",
         "width": 1
     },

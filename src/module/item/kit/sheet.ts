@@ -14,8 +14,8 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    override async getData() {
-        const data = super.getBaseData();
+    override async getData(options: Partial<DocumentSheetOptions> = {}) {
+        const data = super.getBaseData(options);
         const traits = this.prepareOptions(CONFIG.PF2E.classTraits, data.data.traits, { selectedOnly: true });
         return {
             ...data,
@@ -88,8 +88,8 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         });
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
-        html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        $html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
     }
 }

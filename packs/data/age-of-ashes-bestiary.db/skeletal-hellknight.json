@@ -41,14 +41,8 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -96,7 +90,7 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "death effects",
+                    "death-effects",
                     "disease",
                     "paralyzed",
                     "poison",
@@ -113,9 +107,7 @@
                     "infernal"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },
@@ -136,7 +128,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RM2o84xGWPlNLzvX",
+            "_id": "DrODOsMSTXjJpF5S",
             "data": {
                 "MAP": {
                     "value": ""
@@ -215,13 +207,13 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "35 gp"
+                    "value": "2 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -238,16 +230,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
@@ -262,7 +254,7 @@
                 },
                 "slug": "halberd",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -278,9 +270,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach",
                         "versatile-s"
@@ -300,12 +290,12 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/halberd.webp",
-            "name": "+1 Halberd",
+            "name": "Halberd",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "nbuEzRHIhlz3CDXi",
+            "_id": "16PraXty9XoaTyQI",
             "data": {
                 "armor": {
                     "value": 5
@@ -408,7 +398,7 @@
                 },
                 "slug": "half-plate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -10
@@ -421,9 +411,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -475,9 +463,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10",
                         "versatile-s"
@@ -522,9 +508,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -541,7 +525,106 @@
             "type": "melee"
         },
         {
-            "_id": "TUjFQZpxYqVI1mXM",
+            "_id": "tdbB9sBzDpFxgzUz",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "e2jWaDeB99NST1wo",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "KiltiTEGGXxRaLvr",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -565,9 +648,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -585,7 +666,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -601,7 +682,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The skeletal Hellknight can direct the actions of the nearby skeleton guards, commanding them to perform tactics such as flanking foes and focusing their attacks on specific targets. As long as the skeletal Hellknight is active and commanding the skeletons, they gain the Attack of Opportunity reaction.</p>"
+                    "value": "<p>The skeletal Hellknight can direct the actions of the nearby skeleton guards, commanding them to perform tactics such as flanking foes and focusing their attacks on specific targets. As long as the skeletal Hellknight is active and commanding the skeletons, they gain the @Compendium[pf2e.bestiary-ability-glossary-srd.Attack of Opportunity]{Attack of Opportunity} reaction.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -613,9 +694,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -632,7 +711,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Command Skeletons",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -645,10 +724,10 @@
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The skeletal Hellknight hits a foe with a Strike.</p>\n<p><strong>Effect</strong> The skeletal Hellknight causes the creature struck to endure the pain of an Order of the Nail's reckoning—a rite of mortification Hellknights of that order use to focus their minds. The creature struck feels as if nails are being driven into their body, and must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"17\" data-pf2-traits=\"divine,enchantment,mental,damaging-effect\" data-pf2-label=\"Invoke Reckoning DC\" data-pf2-show-dc=\"gm\">Will</span> save or be stunned 1 from the pain. On a critical failure, the pain manifests as actual puncture wounds, dealing an additional [[/r {2d6}[piercing]]]{2d6 points of piercing damage} to the victim.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The skeletal Hellknight hits a foe with a Strike.</p>\n<p><strong>Effect</strong> The skeletal Hellknight causes the creature struck to endure the pain of an Order of the Nail's reckoning-a rite of mortification Hellknights of that order use to focus their minds. The creature struck feels as if nails are being driven into their body, and must succeed at a @Check[type:will|dc:17|traits:damaging-effect] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} from the pain. On a critical failure, the pain manifests as actual puncture wounds, dealing an additional [[/r {2d6}[piercing]]]{2d6 points of piercing damage} to the victim.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -660,9 +739,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "enchantment",
@@ -680,7 +757,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Invoke Reckoning",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -705,9 +782,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -715,7 +790,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -740,9 +815,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -750,7 +823,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 6
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -106,9 +99,7 @@
                     "sylvan"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },
@@ -230,9 +221,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -345,9 +334,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -456,9 +443,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "plant"
                     ]
@@ -568,9 +553,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "bard",
                         "composition",
@@ -683,9 +666,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "bard",
                         "cantrip",
@@ -734,9 +715,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse"
@@ -784,9 +763,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "range-increment-30"
                     ]
@@ -827,9 +804,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -863,7 +838,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When Rain in Cloudy Day dies, a burst of primal energy explodes from his body, restoring [[/r {2d8}[healing]]]{2d8 Hit Points} to each plant creature in a 30-foot emanation. This area is filled with fungi, becoming difficult terrain. If the terrain is not a viable environment for this fungus, it withers after 24 hours.</p>"
+                    "value": "<p>When Rain in Cloudy Day dies, a burst of primal energy explodes from his body, restoring [[/r {2d8}[healing]]]{2d8 Hit Points} to each plant creature in a @Template[type:emanation|distance:30]. This area is filled with fungi, becoming difficult terrain. If the terrain is not a viable environment for this fungus, it withers after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -875,9 +850,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "healing"
                     ]
@@ -891,47 +864,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Verdant Burst",
             "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "Qo6Zya98KMBBIXlg",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A creature that takes damage from Rain in Cloudy Day's spore pod Strike must attempt a saving throw with the same DC and effect as his Spore Cloud ability.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spores",
-            "sort": 1000000,
             "type": "action"
         },
         {
@@ -959,9 +891,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "polymorph",
@@ -977,7 +907,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -993,7 +923,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Rain in Cloudy Day can unleash a cloud of spores that irritates the eyes and throats of nonfungi creatures in a 15-foot emanation. Each creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Spore Cloud DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r {1}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (10 feet on a critical failure).</p>"
+                    "value": "<p>Rain in Cloudy Day can unleash a cloud of spores that irritates the eyes and throats of nonfungi creatures in a @Template[type:emanation|distance:15]. Each creature must succeed at a @Check[type:fortitude|dc:16] save or take [[/r {1}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (10 feet on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1005,9 +935,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -1020,6 +948,45 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spore Cloud",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "Qo6Zya98KMBBIXlg",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A creature that takes damage from Rain in Cloudy Day's spore pod Strike must attempt a saving throw with the same DC and effect as his Spore Cloud ability.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spores",
             "sort": 1200000,
             "type": "action"
         },
@@ -1042,9 +1009,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1074,9 +1039,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1106,9 +1069,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1138,9 +1099,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1170,9 +1129,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1202,9 +1159,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

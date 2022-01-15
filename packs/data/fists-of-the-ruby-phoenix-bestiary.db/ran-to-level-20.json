@@ -41,13 +41,6 @@
             "perception": {
                 "value": 33
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -106,9 +99,7 @@
                     "ysoki"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },
@@ -271,9 +262,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "free-hand"
@@ -440,9 +429,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
+                    "rarity": "uncommon",
                     "value": [
                         "halfling",
                         "propulsive"
@@ -583,9 +570,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -648,7 +633,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a 10-foot burst, dealing [[/r10d6]] fire damage to each creature in the area (including the target). Each creature must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"evocation,fire,magical\" data-pf2-label=\"Greater Explosive Ammunition DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing [[/r10d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:30|basic:true|name:Greater Explosive Ammunition] save.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -727,9 +712,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "consumable",
                         "evocation",
@@ -883,9 +866,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -944,9 +925,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "free-hand",
@@ -989,9 +968,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1049,9 +1026,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1093,9 +1068,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1117,33 +1090,31 @@
             "type": "action"
         },
         {
-            "_id": "wiYQxgx9VOGSSjwX",
+            "_id": "6BLjSkIvqblwYwBd",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "free"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                    "value": "<p><strong>Requirements</strong> Ran-to is grabbing a creature</p>\n<p><strong>Effect</strong> Ran-to throws his foe against the ground. The grabbed creature takes [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} (@Check[type:fortitude|dc:43|basic:true] save) and is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. The creature is no longer grabbed.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "improved-grab",
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1154,13 +1125,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Body Slam",
             "sort": 1000000,
             "type": "action"
         },
@@ -1177,7 +1144,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {7d4+5}[bludgeoning]]]{7d4+5 bludgeoning damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"43\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {7d4+5}[bludgeoning]]]{7d4+5 bludgeoning damage}, @Check[type:fortitude|dc:43|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1189,9 +1156,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1210,50 +1175,6 @@
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
             "sort": 1100000,
-            "type": "action"
-        },
-        {
-            "_id": "6BLjSkIvqblwYwBd",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> Ran-to is grabbing a creature</p>\n<p><strong>Effect</strong> Ran-to throws his foe against the ground. The grabbed creature takes [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} (<span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Body Slam DC\" data-pf2-dc=\"43\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save) and is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. The creature is no longer grabbed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Body Slam",
-            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1281,9 +1202,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1297,6 +1216,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Major Leaping Catch",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "6hhcC2F5R2dDrOEF",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>(certain kill)</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed and the creature is airborne</p>\n<p><strong>Effect</strong> Ran-to spins and increases the force of gravity, sending him and the creature to the ground. The target takes [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} from the fall and is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}; Ran-to is unharmed.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Plummeting Fall",
             "sort": 1300000,
             "type": "action"
         },
@@ -1325,9 +1286,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1357,7 +1316,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed</p>\n<p><strong>Effect</strong> Ran-to spins the creature he's holding, smashing it against any creatures within his reach, then throws the creature aside. Ran-to attempts an Athletics check against the grabbed creature's Fortitude DC. Regardless of the result, the creature is no longer grabbed after this activity.</p>\n<hr />\n<p><strong>Critical Success</strong> Ran-to tosses his foe mightily. The grabbed creature is thrown into a space within 20 feet, takes [[/r {16d6}[bludgeoning]]]{16d6 bludgeoning damage}, and falls @Compendium[pf2e.conditionitems.Prone]{Prone}. All creatures adjacent to Ran-to take the same amount of bludgeoning damage (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Whirlwind Toss DC\" data-pf2-dc=\"43\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p><strong>Success</strong> As critical success, except the grabbed creature is thrown into a space within 10 feet, and creatures take [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage}.</p>\n<p><strong>Failure</strong> Ran-to tosses his foe aside. The grabbed creature falls prone.</p>\n<p><strong>Critical Failure</strong> Ran-to loses hold of his foe.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed</p>\n<p><strong>Effect</strong> Ran-to spins the creature he's holding, smashing it against any creatures within his reach, then throws the creature aside. Ran-to attempts an Athletics check against the grabbed creature's Fortitude DC. Regardless of the result, the creature is no longer grabbed after this activity.</p>\n<hr />\n<p><strong>Critical Success</strong> Ran-to tosses his foe mightily. The grabbed creature is thrown into a space within 20 feet, takes [[/r {16d6}[bludgeoning]]]{16d6 bludgeoning damage}, and falls @Compendium[pf2e.conditionitems.Prone]{Prone}. All creatures adjacent to Ran-to take the same amount of bludgeoning damage (@Check[type:reflex|dc:43|basic:true] save).</p>\n<p><strong>Success</strong> As critical success, except the grabbed creature is thrown into a space within 10 feet, and creatures take [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage}.</p>\n<p><strong>Failure</strong> Ran-to tosses his foe aside. The grabbed creature falls prone.</p>\n<p><strong>Critical Failure</strong> Ran-to loses hold of his foe.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1369,9 +1328,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1389,33 +1346,31 @@
             "type": "action"
         },
         {
-            "_id": "6hhcC2F5R2dDrOEF",
+            "_id": "wiYQxgx9VOGSSjwX",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "free"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>(certain kill)</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed and the creature is airborne</p>\n<p><strong>Effect</strong> Ran-to spins and increases the force of gravity, sending him and the creature to the ground. The target takes [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} from the fall and is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}; Ran-to is unharmed.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1426,9 +1381,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Plummeting Fall",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
             "sort": 1600000,
             "type": "action"
         },
@@ -1451,9 +1410,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1483,9 +1440,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1515,9 +1470,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1547,9 +1500,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1579,9 +1530,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

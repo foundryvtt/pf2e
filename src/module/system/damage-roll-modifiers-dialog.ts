@@ -5,6 +5,7 @@ import { DamageTemplate } from "@system/damage/weapon";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorPF2e } from "@actor/index";
 import type { ItemPF2e } from "@item";
+import { DamageRollFlag } from "@module/chat-message/data";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
@@ -49,8 +50,7 @@ export class DamageRollModifiersDialog extends Application {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? "success") as DegreeOfSuccessString;
 
-        ctx.rollMode =
-            ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode") ?? "roll";
+        ctx.rollMode ??= (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
 
         let damageBaseModifier = "";
         if (damage.base.modifier) {
@@ -104,9 +104,10 @@ export class DamageRollModifiersDialog extends Application {
             ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
             return;
         }
-        const rollData: any = {
+
+        const rollData: DamageRollFlag = {
             outcome,
-            rollMode: ctx.rollMode ?? "roll",
+            rollMode: ctx.rollMode ?? "publicroll",
             traits: damage.traits ?? [],
             types: {},
             total: 0,
@@ -163,11 +164,7 @@ export class DamageRollModifiersDialog extends Application {
         const roll = (() => {
             if (rolls.length === 1) return rolls[0];
             const pool = PoolTerm.fromRolls(rolls);
-            // Work around foundry bug where `fromData` doubles the number of dice from a pool
-            const data = pool.toJSON();
-            delete data.rolls;
-            const roll = Roll.fromData({ formula: pool.formula, terms: [pool] });
-            return roll;
+            return Roll.fromTerms([pool]);
         })();
 
         const speaker: { actor?: ActorPF2e } = {
@@ -196,7 +193,7 @@ export class DamageRollModifiersDialog extends Application {
                 },
             },
             {
-                rollMode: ctx.rollMode ?? "roll",
+                rollMode: ctx.rollMode ?? "publicroll",
             }
         );
         Hooks.call(`${game.system.id}.damageRoll`, rollData);

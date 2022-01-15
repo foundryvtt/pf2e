@@ -19,7 +19,7 @@ declare global {
         constructor();
 
         /** A mapping of light sources which are active within the rendered Scene */
-        sources: foundry.utils.Collection<PointSource<TAmbientLight | Token>>;
+        sources: foundry.utils.Collection<LightSource<TAmbientLight | Token>>;
 
         /**
          * Increment this whenever lighting channels are re-configured.
@@ -39,33 +39,27 @@ declare global {
         /** The illumination container which visualizes darkness and light */
         illumination: IlluminationContainer | null;
 
-        /** A flag for whether the darkness level is currently animating */
-        protected _animating: boolean;
+        /** The background container which visualizes the background */
+        background: PIXI.Container | null;
 
         /** An array of light sources which are currently animated */
-        protected _animatedSources: PointSource<TAmbientLight>[];
-
-        /** The blur distance for soft shadows */
-        protected _blurDistance: boolean;
+        protected _animatedSources: LightSource<TAmbientLight>[];
 
         /** A mapping of different light level channels */
         channels: LightChannels;
 
         static override get layerOptions(): typeof PlaceablesLayer["layerOptions"] & {
+            name: "lighting";
             rotatableObjects: true;
-            objectClass: AmbientLight;
-            quadtree: true;
-            sheetClass: LightConfig;
-            zIndex: 200;
+            zIndex: 300;
         };
 
         /**
          * TODO: Significant portions of this method may no longer be needed
          * Configure the lighting channels which are inputs to the ShadowMap
-         * @param {object} [options]
-         * @param {number} [options.darkness]         Darkness level override.
-         * @param {number} [options.backgroundColor]  Canvas background color override.
-         * @returns {{black: object, dark: object, dim: object, bright: object}}
+         * @param [options]
+         * @param [options.darkness]        Darkness level override.
+         * @param [options.backgroundColor] Canvas background color override.
          */
         protected _configureChannels(options?: { darkness?: number; backgroundColor?: number }): LightChannels;
 
@@ -156,11 +150,15 @@ declare global {
     }
 
     interface LightChannels {
+        background: LightChannel;
         black: LightChannel;
-        dark: LightChannel;
-        dim: LightChannel;
         bright: LightChannel;
         canvas: LightChannel;
-        background: LightChannel;
+        dark: LightChannel;
+        darkness: {
+            level: number;
+            rgb: [number, number, number];
+        };
+        dim: LightChannel;
     }
 }

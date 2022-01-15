@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { Size } from "@module/data";
-import { BracketedValue, RuleElementSource, RuleValue } from "@module/rules/rules-data-definitions";
+import { BracketedValue, RuleElementSource, RuleValue } from "@module/rules/rule-element";
 import { MigrationBase } from "../base";
 
 /** Combine AE-likes altering creature size and TokenSize RuleElements into CreatureSize RuleElements */

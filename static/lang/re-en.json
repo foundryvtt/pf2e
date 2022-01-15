@@ -1,5 +1,17 @@
 {
     "PF2E": {
+        "NPCAbility": {
+            "FormationArea": "Formation (vs. Area Effects)",
+            "HuntedFear": {
+                "Demoralize": "Target is in maze or similarly difficult-to-navigate structure",
+                "Survival": "To Avoid Getting Lost"
+            },
+            "IgnoreConcealed": "The attack ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition.",
+            "IgnoreCover": "The target doesn't benefit from lesser cover, and it reduces the AC bonus from standard cover by 2 against the the attack.",
+            "IncreasedCriticalChance": "If the attack hits and the creature rolls a 19 on the d20 roll, the attack is a critical hit. This has no effect if the 19 would be a failure.",
+            "IncreasedReach5": "Reach increased by 5 feet",
+            "NightmareGuardianRage": "Nightmare Guardian Rage"
+        },
         "RuleElement": {
             "ActiveEffectLike": "ActiveEffect-Like",
             "ActorTraits": "Actor Traits",
@@ -13,6 +25,7 @@
             "EffectTarget": "Effect Target",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
+            "FastHealing": "Fast Healing/Regeneration",
             "FlatModifier": "Flat Modifier",
             "FixedProficiency": "Fixed Proficiency",
             "GrantItem": "Grant Item",
@@ -39,31 +52,65 @@
             "Unrecognized": "Unrecognized Rule Element"
         },
         "SkillVariant": {
+            "AboutCaves": "About Caves",
             "Blacksmithing": "For Blacksmithing",
             "Climb": "To Climb",
             "ClimbOrSwim": "To Climb or Swim",
+            "CraftTrapSnare": "To Craft Traps and Snares",
+            "Darkness": "In Darkness",
+            "Deserts": "In Deserts",
             "Disarm": "To Disarm",
+            "DisarmMetal": "To Disarm a Metal Item",
+            "DisarmStoneMetal": "To Disarm Stone or Metal Objects",
+            "Escape": "To Escape",
             "Forests": "In Forests",
             "ForestsOrSwamps": "In Forests or Swamps",
+            "Grapple": "To Grapple",
+            "Hide": "To Hide",
             "HighJumpOrLongJump": "To High Jump or Long Jump",
             "ImitateStone": "To Imitate Stone",
+            "Impersonate": "To Impersonate",
+            "ImpersonateCloakSheetRay": "To Impersonate a Cloak, Sheet, or Ray",
+            "Jungles": "In Jungles",
             "Lair": "In Lair",
+            "Mountains": "In Mountains",
+            "Navigate": "To Navigate",
+            "Paint": "To Paint",
+            "Sand": "In Sand",
+            "Sewers": "In Sewers",
+            "Shove": "To Shove",
             "Singing": "Singing",
+            "Snow": "In Snow",
+            "Steal": "To Steal",
+            "StonyOrIcyAreas": "In Stony or Icy Areas",
             "Squeeze": "To Squeeze",
             "Swamps": "In Swamps",
             "Swim": "To Swim",
             "TrackBleedingCreature": "To Track a Bleeding Creature",
             "Track": "To Track",
             "Traps": "Traps",
+            "TrashAndRubbish": "In Trash and Rubbish",
+            "Trip": "To Trip",
             "Underground": "Underground",
             "Undergrowth": "In Undergrowth",
+            "Vegetation": "In Vegetation",
             "VsArthropods": "vs. Arthropods",
-            "Water": "In Water"
+            "VsControlled": "vs. Controlled effects",
+            "VsDiseases": "vs. diseases",
+            "VsProne": "vs. Prone effects",
+            "VsShoveOrTrip": "vs. Shove or Trip",
+            "Water": "In Water",
+            "Weave": "To Weave"
         },
         "SpecificRule": {
+            "AdvancedGeneralTraining": {
+                "AllowedDrops": "7th-level or lower general feat",
+                "Prompt": "Select a 7th-level or lower general feat."
+            },
             "ClanWeapon": {
                 "Label": "Clan Weapon",
-                "Prompt": "Select a clan weapon."
+                "Prompt": "Select a clan weapon.",
+                "ClanPistol": "Clan Pistol (Ancestry Feat)"
             },
             "Cover": {
                 "Prompt": "Select a level of cover.",
@@ -109,6 +156,14 @@
                     "sword": "Simple & Martial Swords"
                 }
             },
+            "GeneralTraining": {
+                "AllowedDrops": "1st-level general feat",
+                "Prompt": "Select a 1st-level general feat."
+            },
+            "AncestralParagon": {
+                "AllowedDrops": "1st-level ancestry feat",
+                "Prompt": "Select a 1st-level ancestry feat."
+            },
             "MartialProficiency": {
                 "AdvancedAzarketiWeapons": "Advanced Azarketi Weapons",
                 "AdvancedCatfolkWeapons": "Advanced Catfolk Weapons",
@@ -142,7 +197,29 @@
                 "MartialKoboldWeapons": "Martial Kobold Weapons",
                 "MartialOrcWeapons": "Martial Orc Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
+                "MonasticArchery": "Monastic Archery",
                 "SimpleFirearmsCrossbows": "Simple Firearms & Crossbows"
+            },
+            "SpecialtyCrafting": {
+                "Alchemy": "Alchemy",
+                "Artistry": "Artistry",
+                "Blacksmithing": "Blacksmithing",
+                "Bookmaking": "Bookmaking",
+                "Glassmaking": "Glassmaking",
+                "Leatherworking": "Leatherworking",
+                "Pottery": "Pottery",
+                "Prompt": "Select a specialty.",
+                "Shipbuilding": "Shipbuilding",
+                "Stonemasonry": "Stonemasonry",
+                "Tailoring": "Tailoring",
+                "Weaving": "Weaving",
+                "Woodworking": "Woodworking"
+            },
+            "SterlingDynamo": {
+                "AutomaticPercussive": "Automatic Percussive Striker Dynamo",
+                "AutomaticPower": "Automatic Power Driver Dynamo",
+                "ManualPercussive": "Manual Percussive Striker Dynamo",
+                "ManualPower": "Manual Power Driver Dynamo"
             },
             "Multitalented": {
                 "AllowedDrops": "2nd-level multiclass dedication feat",
@@ -150,8 +227,20 @@
             },
             "Prompt": {
                 "CreatureSize": "Select a creature size.",
+                "Lesson": "Select a lesson.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
+                "PathToPerfection": "Select a path to perfection.",
+                "Skill": "Select a skill.",
                 "WeaponGroup": "Select a weapon group."
+            },
+            "TwoHanded": {
+                "BastardSword": "Use Bastard Sword Two-Handed",
+                "Broom": "Use Broom Two-Handed",
+                "Cane": "Use Cane Two-Handed",
+                "Katana": "Use Katana Two-Handed",
+                "Khakkhara": "Use Khakkhara Two-Handed",
+                "RhokaSword": "Use Rhoka Sword Two-Handed",
+                "Staff": "Use Staff Two-Handed"
             }
         },
         "UI": {

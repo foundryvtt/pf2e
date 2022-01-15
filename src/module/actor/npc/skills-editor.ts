@@ -46,17 +46,13 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         return { ...super.getData(), trainedSkills, untrainedSkills };
     }
 
-    /**
-     * Subscribe to events from HTML.
-     * @param html
-     */
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
-        html.find(".delete").on("click", (event) => this.onClickRemoveSkill(event));
-        html.find(".add-lore-button").on("click", (event) => this.onClickAddLoreSkill(event));
-        html.find(".item-edit").on("click", (event) => this.onClickEditSkill(event));
-        html.find(".add-skill-button").on("click", (event) => this.onClickAddSkill(event));
+        $html.find(".delete").on("click", (event) => this.onClickRemoveSkill(event));
+        $html.find(".add-lore-button").on("click", (event) => this.onClickAddLoreSkill(event));
+        $html.find(".item-edit").on("click", (event) => this.onClickEditSkill(event));
+        $html.find(".add-skill-button").on("click", (event) => this.onClickAddSkill(event));
     }
 
     private async onClickAddSkill(eventData: JQuery.ClickEvent) {

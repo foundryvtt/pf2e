@@ -41,13 +41,6 @@
             "perception": {
                 "value": 36
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -118,9 +111,7 @@
                     "undercommon"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "low-light vision, windsense 240 feet"
             },
@@ -169,9 +160,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-3d12",
                         "reach-30"
@@ -218,9 +207,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-100"
@@ -262,9 +249,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -306,9 +291,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -323,52 +306,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Enormous",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "VJqYJwxq4m0v6j2M",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>60 feet. A living creature that enters the area or ends its turn within it is corrupted by spores. It must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"42\" data-pf2-traits=\"aura\" data-pf2-label=\"Spores DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be clumsy 1, enfeebled 1, and slowed 1 for 1 round. Fungi and plants are immune.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Spores",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -396,9 +333,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -412,6 +347,50 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Grasping Tendrils",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "VJqYJwxq4m0v6j2M",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>60 feet. A living creature that enters the area or ends its turn within it is corrupted by spores. It must succeed at a @Check[type:fortitude|dc:42] save or be clumsy 1, enfeebled 1, and slowed 1 for 1 round. Fungi and plants are immune.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Spores",
             "sort": 600000,
             "type": "action"
         },
@@ -428,7 +407,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mu spore releases a cloud of burrowing spores in a 400-foot cone. The spores deal [[/r {22d6}[piercing]]]{22d6 piercing damage} to all creatures, objects, and wooden structures in the area, but not to plants or fungi (<span data-pf2-check=\"reflex\" data-pf2-dc=\"46\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Cough Spores DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The mu spore can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The mu spore releases a cloud of burrowing spores in a @Template[type:cone|distance:400]. The spores deal [[/r {22d6}[piercing]]]{22d6 piercing damage} to all creatures, objects, and wooden structures in the area, but not to plants or fungi (@Check[type:reflex|dc:46|basic:true] save). The mu spore can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -440,9 +419,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -472,7 +449,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mu spore pulls all creatures and objects in a 400-foot cone 400 feet towards it's mouth. A successful <span data-pf2-check=\"fortitude\" data-pf2-dc=\"43\" data-pf2-label=\"Enormous Inhalation DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save halves the distance, or avoids the pull on a critical success. The mu spore automatically attempts to Swallow Whole each creature adjacent to it at the end of the inhalation.</p>"
+                    "value": "<p>The mu spore pulls all creatures and objects in a @Template[type:cone|distance:400] 400 feet towards it's mouth. A successful @Check[type:fortitude|dc:43] save halves the distance, or avoids the pull on a critical success. The mu spore automatically attempts to Swallow Whole each creature adjacent to it at the end of the inhalation.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -484,9 +461,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -528,9 +503,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -572,9 +545,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -589,50 +560,6 @@
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Greater Constrict",
             "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "z0s5BCn1iwTpECIW",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 1100000,
             "type": "action"
         },
         {
@@ -660,9 +587,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -676,7 +601,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Overpowering Jaws",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -704,9 +629,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -722,6 +645,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "z0s5BCn1iwTpECIW",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
             "sort": 1300000,
             "type": "action"
         },
@@ -747,9 +712,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -782,9 +745,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -817,9 +778,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -852,9 +811,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

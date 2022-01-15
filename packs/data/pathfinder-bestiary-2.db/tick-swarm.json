@@ -41,13 +41,6 @@
             "perception": {
                 "value": 18
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -134,9 +127,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -181,9 +172,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -202,50 +191,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "nKL6rZMmn2WdRk3g",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<p><strong>Effect</strong> The swarm takes [[/r {1d6}]]{1d6 damage} as ticks cling to the creature and continue biting, dealing [[/r {3d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. Immersion in water reduces the DC of the flat check to end this persistent damage to 5, and any area damage dealt to the creature destroys these clinging ticks.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Cling",
-            "sort": 200000,
             "type": "action"
         },
         {
@@ -273,9 +218,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -289,6 +232,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swarm Mind",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "nKL6rZMmn2WdRk3g",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<p><strong>Effect</strong> The swarm takes [[/r {1d6}]]{1d6 damage} as ticks cling to the creature and continue biting, dealing [[/r {3d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. Immersion in water reduces the DC of the flat check to end this persistent damage to 5, and any area damage dealt to the creature destroys these clinging ticks.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Cling",
             "sort": 300000,
             "type": "action"
         },
@@ -305,7 +290,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[piercing]]]{3d6 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) plus Cling and exposure to tick fever.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[piercing]]]{3d6 piercing damage} (@Check[type:reflex|dc:28|basic:true] save) plus Cling and exposure to tick fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -317,9 +302,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -349,7 +332,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"disease\" data-pf2-label=\"Tick Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day).</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:27]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -361,9 +344,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disease"
                     ]
@@ -404,9 +385,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -439,9 +418,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

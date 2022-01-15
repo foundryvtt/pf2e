@@ -41,13 +41,6 @@
             "perception": {
                 "value": 14
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [
@@ -105,9 +98,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": {
                 "value": ""
             },
@@ -155,9 +146,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse",
                         "versatile-s"
@@ -207,9 +196,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse"
@@ -255,9 +242,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "range-increment-60"
                     ]
@@ -272,49 +257,6 @@
             "name": "Putrid Spit",
             "sort": 300000,
             "type": "melee"
-        },
-        {
-            "_id": "ifsv3qklt34pq18e",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When a spawn dies, its foulness seeps into the land in a @Template[type:burst|distance:100]{100-foot radius}. Non-magical plant life in the area decays within 1 hour, and new non-magical growth can't sprout for 1 month. A creature can act on the spawn's corpse within 1 minute of its death to limit this decay to a 10-foot square by succeeding at a <span data-pf2-check=\"medicine\" data-pf2-traits=\"poison\" data-pf2-label=\"Prevent Spread of Decay DC (Medicine)\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Medicine</span>, <span data-pf2-check=\"nature\" data-pf2-traits=\"poison\" data-pf2-label=\"Prevent Spread of Decay DC (Nature)\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Nature</span>, or <span data-pf2-check=\"occultism\" data-pf2-traits=\"poison\" data-pf2-label=\"Prevent Spread of Decay DC (Occultism)\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Occultism</span> check.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "poison"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Disharmonious Decay",
-            "sort": 400000,
-            "type": "action"
         },
         {
             "_id": "S1SwCvQJtmmCStfg",
@@ -341,9 +283,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -361,6 +301,47 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 10 (Deactivated by Good)",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "ifsv3qklt34pq18e",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When a spawn dies, its foulness seeps into the land in a @Template[type:burst|distance:100]{100-foot radius}. Non-magical plant life in the area decays within 1 hour, and new non-magical growth can't sprout for 1 month. A creature can act on the spawn's corpse within 1 minute of its death to limit this decay to a 10-foot square by succeeding at a @Check[type:medicine|dc:22|name:Prevent Spread of Decay (Medicine)], @Check[type:nature|dc:22|name:Prevent Spread of Decay (Nature)], or @Check[type:occultism|dc:22|name:Prevent Spread of Decay (Occultism)] check.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Disharmonious Decay",
             "sort": 500000,
             "type": "action"
         },
@@ -377,7 +358,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The spawn retches up thick, caustic sludge and spits it at a creature within 60 feet, causing equipment and flesh to melt and partially fuse together. The creature must succeed at a <span data-pf2-check=\"reflex\" data-pf2-traits=\"acid\" data-pf2-label=\"Fusing Spit DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">Reflex</span> save or be @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 minute.</p>"
+                    "value": "<p>The spawn retches up thick, caustic sludge and spits it at a creature within 60 feet, causing equipment and flesh to melt and partially fuse together. The creature must succeed at a @Check[type:reflex|dc:23] save or be @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -389,9 +370,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "acid"
                     ]
@@ -426,9 +405,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -458,9 +435,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -490,9 +465,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

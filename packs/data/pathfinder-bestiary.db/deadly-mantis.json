@@ -41,14 +41,8 @@
             "perception": {
                 "value": 20
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "climb",
@@ -68,7 +62,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "<p>These gigantic mantids make their homes within deep jungles and prehistoric forests where they hunt and devour equally massive prey.</p>",
+            "publicNotes": "<p>These gigantic mantids make their homes within deep jungles and prehistoric forests where they hunt and devour equally massive prey.</p>\n<hr />\n<p>These monstrously oversized insects are silent predators with lightning-quick forelegs and a bone-breaking bite.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -101,9 +95,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -129,6 +121,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -150,9 +143,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -175,6 +166,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -198,9 +190,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-20"
@@ -218,33 +208,31 @@
             "type": "melee"
         },
         {
-            "_id": "eQXJWfOvGPVUSqrz",
+            "_id": "rE3Xk58S3o4oHxdo",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -255,9 +243,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
             "sort": 300000,
             "type": "action"
         },
@@ -274,7 +266,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The deadly mantis flings a grabbed creature into the air, up to 30 feet overhead and up to 30 feet away from the mantis (the creature takes damage from the fall as normal). If the flung creature lands on another creature, the creature it lands on takes the same amount of bludgeoning damage. The creature being landed on can attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"31\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Fling DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save.</p>"
+                    "value": "<p>The deadly mantis flings a @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} creature into the air, up to 30 feet overhead and up to 30 feet away from the mantis (the creature takes damage from the fall as normal). If the flung creature lands on another creature, the creature it lands on takes the same amount of bludgeoning damage. The creature being landed on can attempt a @Check[type:reflex|dc:31|basic:true] save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -286,9 +278,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -318,7 +308,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mantis Leaps up to 40 feet vertically and 20 feet horizontally. At any point during the jump, it can make a leg Strike. If it hits, it automatically Grabs the target, bringing the creature along until the end of the jump.</p>"
+                    "value": "<p>The mantis Leaps up to 40 feet vertically and 20 feet horizontally. At any point during the jump, it can make a leg Strike. If it hits, it automatically @Compendium[pf2e.conditionitems.Grabbed]{Grabs} the target, bringing the creature along until the end of the jump.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -330,9 +320,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -362,7 +350,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The mantis makes a mandibles Strike against a creature it has grabbed. If that Strike hits and the creature is wearing armor with Hardness 12 or lower, the armor is broken. This Strike doesn't further damage armor that's already broken.</p>"
+                    "value": "<p>The mantis makes a mandibles Strike against a creature it has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. If that Strike hits and the creature is wearing armor with Hardness 12 or lower, the armor is @Compendium[pf2e.conditionitems.Broken]{Broken}. This Strike doesn't further damage armor that's already broken.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -374,9 +362,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -418,9 +404,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -435,6 +419,52 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sudden Strike",
             "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "LfYdkPPdY3ZvMyEk",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -459,9 +489,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -469,7 +497,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -494,9 +522,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -504,7 +530,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -529,9 +555,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -539,7 +563,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],

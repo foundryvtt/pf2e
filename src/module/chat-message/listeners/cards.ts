@@ -73,7 +73,7 @@ export const ChatCards = {
                 else if (action === "spellAttack2") spell?.rollAttack(event, 2);
                 else if (action === "spellAttack3") spell?.rollAttack(event, 3);
                 else if (action === "spellDamage") spell?.rollDamage(event);
-                else if (action === "spellCounteract") item.rollCounteract(event);
+                else if (action === "spellCounteract") spell?.rollCounteract(event);
                 else if (action === "spellTemplate") item.placeTemplate(event);
                 // Consumable usage
                 else if (action === "consume") {

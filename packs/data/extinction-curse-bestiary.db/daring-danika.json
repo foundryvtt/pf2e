@@ -27,7 +27,7 @@
                 "value": 17
             },
             "allSaves": {
-                "value": "+2 circumstance vs. Disarm"
+                "value": "+2 circumstance vs. disarm"
             },
             "hp": {
                 "details": "",
@@ -41,13 +41,6 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [],
@@ -58,7 +51,7 @@
             "alignment": {
                 "value": "LE"
             },
-            "blurb": "",
+            "blurb": "Female human lion-tamer",
             "creatureType": "",
             "level": {
                 "value": 2
@@ -97,9 +90,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": ""
             },
@@ -120,12 +111,12 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "s7lWUPOBDYjSDLDy",
+            "_id": "GnyZvsqkqcGqS4WQ",
             "data": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "whip",
                 "bonus": {
                     "value": 0
                 },
@@ -244,9 +235,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "whip",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -262,9 +253,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disarm",
                         "finesse",
@@ -281,14 +270,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.f1gwoTkf3Nn0v3PN"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
             "name": "Whip",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "UiEFmAs8dHxCMq3P",
+            "_id": "QKMTY0vHcMBDExoq",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -304,7 +297,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -350,7 +343,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 sp"
                 },
                 "quantity": {
                     "value": 1
@@ -359,18 +352,16 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "clothing-ordinary",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -381,8 +372,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ilbLQNy6TbBPW7sQ"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-ordinary.webp",
             "name": "Lion Tamer's Outfit",
             "sort": 200000,
             "type": "equipment"
@@ -468,9 +463,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -482,7 +475,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "systems/pf2e/icons/equipment/weapons/stool.webp",
             "name": "Short Stool",
             "sort": 300000,
             "type": "equipment"
@@ -515,9 +508,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disarm",
                         "finesse",
@@ -565,9 +556,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "disarm"
                     ]
@@ -584,6 +573,61 @@
             "type": "melee"
         },
         {
+            "_id": "w8UngXIC47fcMU5n",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:disarm"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Circumstance to All Saves vs. Disarm",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
             "_id": "KqUSudmO5lFvURLO",
             "data": {
                 "actionCategory": {
@@ -596,7 +640,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Danika targets a single minion creature within reach of her whip to spur its ferocity. That creature gains 5 temporary Hit Points. The target is temporarily immune to Sting of the Lash for 24 hours.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sting of the Lash]{Effect: Sting of the Lash}</p>"
+                    "value": "<p>Danika targets a single minion creature within reach of her whip to spur its ferocity. That creature gains 5 temporary Hit Points. The target is temporarily immune to Sting of the Lash for 24 hours.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sting of the Lash]{Effect: Sting of the Lash}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -608,9 +652,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -624,7 +666,57 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sting of the Lash",
-            "sort": 600000,
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "mtxgvU7yVCk7qxpV",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>You issue an order to an animal. Attempt a Nature check against the animal's Will DC. The GM might adjust the DC if the animal has a good attitude toward you, you suggest a course of action it was predisposed toward, or you offer it a treat.</p>\n<p>You automatically fail if the animal is hostile or unfriendly to you. If the animal is helpful to you, increase your degree of success by one step. You might be able to Command an Animal more easily with a feat like @Compendium[pf2e.feats-srd.Ride]{Ride}.</p>\n<p>Most animals know the Drop Prone, Leap, Seek, Stand, Stride, and Strike basic actions. If an animal knows an activity, such as a horse's Gallop, you can Command the Animal to perform the activity, but you must spend as many actions on Command an Animal as the activity's number of actions. You can also spend multiple actions to Command the Animal to perform that number of basic actions on its next turn; for instance, you could spend 3 actions to Command an Animal to Stride three times or to Stride twice and then Strike.</p>\n<hr />\n<p><strong>Success</strong> The animal does as you command on its next turn.</p>\n<p><strong>Failure</strong> The animal is hesitant or resistant, and it does nothing.</p>\n<p><strong>Critical Failure</strong> The animal misbehaves or misunderstands, and it takes some other action determined by the GM.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "command-an-animal",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "skill",
+                        "auditory"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.q9nbyIF0PEBqMtYe"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Command an Animal",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -642,7 +734,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Disarm",
+                        "label": "PF2E.SkillVariant.Disarm",
                         "predicate": {
                             "all": [
                                 "action:disarm"
@@ -658,14 +750,12 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {
                     "0": {
-                        "label": "+7 to Disarm",
+                        "label": "+7 to disarm",
                         "options": "action:disarm"
                     }
                 }
@@ -674,7 +764,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -699,9 +789,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -709,7 +797,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -734,9 +822,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -744,7 +830,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -769,9 +855,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -779,7 +863,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -804,9 +888,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -814,7 +896,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

@@ -41,16 +41,6 @@
             "resolve": {
                 "value": 0
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "hp": {
-                    "value": 0
-                },
-                "max": 0,
-                "value": 0
-            },
             "sp": {
                 "details": "",
                 "max": 0,
@@ -98,9 +88,6 @@
             },
             "height": {
                 "value": ""
-            },
-            "heritage": {
-                "value": "Seer Elf"
             },
             "keyability": {
                 "value": "str"
@@ -287,9 +274,7 @@
                 "speed": 30,
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "elf",
                         "humanoid"
@@ -340,9 +325,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "flourish",
                         "monk"
@@ -385,16 +368,37 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                        "key": "Strike",
+                        "label": "PF2E.Strike.Fist.Label",
+                        "range": null,
+                        "slug": "fist",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "nonlethal",
+                            "unarmed"
+                        ]
+                    }
+                ],
                 "slug": "powerful-fist",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "monk"
                     ]
@@ -654,9 +658,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -812,9 +814,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -865,9 +865,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "general",
                         "skill"
@@ -882,71 +880,6 @@
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Cat Fall",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
-            "_id": "2W3MUnr1emhBlgIg",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the <em>@Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic}</em> cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p>In addition, you gain a +1 circumstance bonus to checks to @Compendium[pf2e.actionspf2e.Identify Magic]{Identify Magic} and to @Compendium[pf2e.actionspf2e.Decipher Writing]{Decipher Writing} of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</p>"
-                },
-                "featType": {
-                    "value": "heritage"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Seer Elf (Identity Magic or Decipher Writing)",
-                        "predicate": {
-                            "any": [
-                                "action:identify-magic",
-                                "action:decipher-writing"
-                            ]
-                        },
-                        "selector": "skill-check",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": "seer-elf",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "elf"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.jEtVesbqYcWGbBYk"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/seer-elf.webp",
-            "name": "Seer Elf",
             "sort": 0,
             "type": "feat"
         },
@@ -1056,9 +989,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1168,9 +1099,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "detection",
                         "cantrip"
@@ -1220,9 +1149,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "elf"
                     ]
@@ -1336,9 +1263,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "force"
@@ -1392,9 +1317,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "monk",
                         "stance"
@@ -1431,9 +1354,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1604,9 +1525,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "alchemical",
                         "bomb",
@@ -1727,9 +1646,7 @@
                 "stowing": true,
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1831,9 +1748,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1997,9 +1912,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -2146,9 +2059,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
@@ -2262,9 +2173,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -2366,9 +2275,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -2470,9 +2377,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -2495,6 +2400,52 @@
             "name": "Silver Pieces",
             "sort": 0,
             "type": "treasure"
+        },
+        {
+            "_id": "f08y87sruseqldyd",
+            "data": {
+                "ancestry": {
+                    "name": "Elf",
+                    "uuid": "Compendium.pf2e.ancestries.PgKmsA2aKdbLU6O0"
+                },
+                "description": {
+                    "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the <em>@Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic}</em> cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p>In addition, you gain a +1 circumstance bonus to checks to @Compendium[pf2e.actionspf2e.Identify Magic]{Identify Magic} and to @Compendium[pf2e.actionspf2e.Decipher Writing]{Decipher Writing} of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</p>"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Seer Elf (Identity Magic or Decipher Writing)",
+                        "predicate": {
+                            "any": [
+                                "action:identify-magic",
+                                "action:decipher-writing"
+                            ]
+                        },
+                        "selector": "skill-check",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "seer-elf",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.jEtVesbqYcWGbBYk"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/seer-elf.webp",
+            "name": "Seer Elf",
+            "sort": 0,
+            "type": "heritage"
         }
     ],
     "name": "Ekene",

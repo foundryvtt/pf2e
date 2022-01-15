@@ -21,13 +21,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>The room shakes violently, as it did during the Rending, and the spirits of dozens of dwarves make a mad dash for safety, their terror palpable.</p>",
-            "disable": "<p><span data-pf2-check=\"diplomacy\" data-pf2-traits=\"unique,complex,haunt\" data-pf2-label=\"Calm the Spirits DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Diplomacy</span>, <span data-pf2-check=\"intimidation\" data-pf2-traits=\"unique,complex,haunt\" data-pf2-label=\"Calm the Spirits DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Intimidation</span>, or <span data-pf2-check=\"religion\" data-pf2-traits=\"unique,complex,haunt\" data-pf2-label=\"Calm the Spirits DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Religion</span> to calm the panicked spirits, or <span data-pf2-check=\"athletics\" data-pf2-traits=\"unique,complex,haunt\" data-pf2-label=\"Wrestle Spirits into Order DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Athletics</span> to wrestle them into a semblance of order. Two successful checks are required to deactivate the haunt, and each attempt requires two actions.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:18|name:Calm the Spirits|traits:unique,complex,haunt], @Check[type:intimidation|dc:18|name:Calm the Spirits|traits:unique,complex,haunt], or @Check[type:religion|dc:18|name:Calm the Spirits|traits:unique,complex,haunt] to calm the panicked spirits, or @Check[type:athletics|dc:20|name:Wrestle Spirits into Order|traits:unique,complex,haunt] to wrestle them into a semblance of order. Two successful checks are required to deactivate the haunt, and each attempt requires two actions.</p>",
             "isComplex": true,
             "level": {
                 "value": 2
             },
             "reset": "<p>Unless deactivated, the haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter. If deactivated, the haunt resets after 24 hours.</p>",
-            "routine": "<p><span class=\"pf2-icon\">1</span> Phantom dwarves trample toward the exit, dealing [[/r {1d10+4}[bludgeoning]]]{1d10+4 bludgeoning damage} to each living creature in the area (<span data-pf2-check=\"reflex\" data-pf2-traits=\"complex,haunt,unique,damaging-effect\" data-pf2-label=\"Trampled by Spirits DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). On a critical failure, a creature is also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p>A creature that attempts to Stand after being inside the haunt's area must succeed at a <span data-pf2-check=\"flat\" data-pf2-dc=\"11\">DC 11 flat check</span> or else get knocked back down by the trampling spirits.</p>"
+            "routine": "<p><span class=\"pf2-icon\">1</span> Phantom dwarves trample toward the exit, dealing [[/r {1d10+4}[bludgeoning]]]{1d10+4 bludgeoning damage} to each living creature in the area (@Check[type:reflex|dc:20|basic:true|name:Trampled by Spirits|traits:complex,haunt,unique] save). On a critical failure, a creature is also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p>A creature that attempts to Stand after being inside the haunt's area must succeed at a @Check[type:flat|dc:11] check or else get knocked back down by the trampling spirits.</p>"
         },
         "saves": {
             "fortitude": {
@@ -56,9 +56,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "size": {
                 "value": "med"
             },
@@ -87,7 +85,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature approaches within 10 feet of the lava</p>\n<p><strong>Effect</strong> The room rumbles and a blast of heat hits each creature in the area, followed by a surge of fear. The creatures must attempt a <span data-pf2-check=\"will\" data-pf2-traits=\"emotion,enchantment,fear,mental\" data-pf2-label=\"Eruption DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Will</span> save, and the haunt rolls initiative.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A living creature approaches within 10 feet of the lava</p>\n<p><strong>Effect</strong> The room rumbles and a blast of heat hits each creature in the area, followed by a surge of fear. The creatures must attempt a @Check[type:will|dc:18] save, and the haunt rolls initiative.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -99,9 +97,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "enchantment",

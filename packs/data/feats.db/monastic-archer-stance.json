@@ -23,15 +23,61 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:group:bow"
+                    ],
+                    "any": [
+                        "weapon:base:longbow",
+                        "weapon:base:shortbow",
+                        {
+                            "and": [
+                                "weapon:trait:monk",
+                                {
+                                    "or": [
+                                        "weapon:category:simple",
+                                        "weapon:category:martial"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MonasticArchery",
+                "slug": "monastic-archery"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.monastic-archery.rank",
+                "predicate": {
+                    "all": [
+                        "self:feature:expert-strikes"
+                    ]
+                },
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.monastic-archery.rank",
+                "predicate": {
+                    "all": [
+                        "self:feature:master-strikes"
+                    ]
+                },
+                "value": 3
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "value": [
                 "monk",
                 "stance"

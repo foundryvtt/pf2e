@@ -1,5 +1,4 @@
 import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { NPCLegacySheetPF2e } from "@actor/npc/legacy-sheet";
 import { ActionSheetPF2e } from "@item/action/sheet";
 import { HazardSheetPF2e } from "@actor/hazard/sheet";
 import { LootSheetPF2e } from "@actor/loot/sheet";
@@ -21,11 +20,11 @@ import { EffectSheetPF2e } from "@item/effect/sheet";
 import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
 import { ArmorSheetPF2e } from "@item/armor/sheet";
+import { HeritageSheetPF2e } from "@item/heritage";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
-    const sheetLabelOld = translations.SheetLabelOld;
 
     // ACTORS
     Actors.unregisterSheet("core", ActorSheet);
@@ -42,14 +41,7 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    // Register NPC Sheet
-    Actors.registerSheet("pf2e", NPCLegacySheetPF2e, {
-        types: ["npc"],
-        label: game.i18n.format(sheetLabelOld, { type: localizeType("npc") }),
-        makeDefault: false,
-    });
-
-    // Regiser NEW NPC Sheet (don't make it default, it's on testing phase)
+    // Regiser NPC Sheet
     Actors.registerSheet("pf2e", NPCSheetPF2e, {
         types: ["npc"],
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
@@ -99,16 +91,17 @@ export function registerSheets() {
     const sheetEntries = [
         ["action", ActionSheetPF2e],
         ["ancestry", AncestrySheetPF2e],
+        ["armor", ArmorSheetPF2e],
         ["background", BackgroundSheetPF2e],
         ["book", BookSheetPF2e],
         ["class", ClassSheetPF2e],
         ["deity", DeitySheetPF2e],
-        ["feat", FeatSheetPF2e],
         ["effect", EffectSheetPF2e],
-        ["spell", SpellSheetPF2e],
+        ["feat", FeatSheetPF2e],
+        ["heritage", HeritageSheetPF2e],
         ["kit", KitSheetPF2e],
+        ["spell", SpellSheetPF2e],
         ["weapon", WeaponSheetPF2e],
-        ["armor", ArmorSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
         Items.registerSheet("pf2e", Sheet, {

@@ -41,13 +41,6 @@
             "perception": {
                 "value": 14
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "40"
@@ -107,9 +100,7 @@
                     "jotun"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, scent (imprecise) 30 feet"
             },
@@ -163,9 +154,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold"
                     ]
@@ -206,9 +195,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -254,9 +241,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -302,9 +287,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -334,7 +317,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-label=\"Buck DC\" data-pf2-show-dc=\"gm\">Reflex</span></p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                    "value": "<p>@Check[type:reflex|dc:21]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -346,9 +329,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -382,7 +363,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The winter wolf breathes a cloud of frost in a 15-foot cone that deals [[/r {5d8}[cold]]]{5d8 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"23\" data-pf2-traits=\"cold,evocation,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The winter wolf can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The winter wolf breathes a cloud of frost in a @Template[type:cone|distance:15] that deals [[/r {5d8}[cold]]]{5d8 cold damage} (@Check[type:reflex|dc:23|basic:true] save). The winter wolf can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -394,9 +375,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold",
                         "evocation",
@@ -415,54 +394,6 @@
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
             "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "G3eZICbsEGae5Qa8",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "knockdown",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Knockdown",
-            "sort": 700000,
             "type": "action"
         },
         {
@@ -507,9 +438,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -523,6 +452,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "G3eZICbsEGae5Qa8",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
             "sort": 800000,
             "type": "action"
         },
@@ -548,9 +523,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -583,9 +556,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -618,9 +589,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -653,9 +622,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -684,7 +651,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "In Snow",
+                        "label": "PF2E.SkillVariant.Snow",
                         "predicate": {
                             "all": [
                                 "terrain:snow"
@@ -700,9 +667,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {
@@ -741,9 +706,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

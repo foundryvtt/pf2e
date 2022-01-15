@@ -41,13 +41,6 @@
             "perception": {
                 "value": 22
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -112,9 +105,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -162,9 +153,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -203,9 +192,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -239,7 +226,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a frost worm dies, it explodes in a 100-foot burst of searing cold blood. All creatures and objects in range take [[/r {10d8}[cold]]]{10d8 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"cold,evocation,primal,damaging-effect\" data-pf2-label=\"Death Throes DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r {10d8}[cold]]]{10d8 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -251,9 +238,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold",
                         "evocation",
@@ -275,6 +260,50 @@
             "type": "action"
         },
         {
+            "_id": "jISdvlh9f3wIBxZ8",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r {7d6}[cold]]]{7d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "cold"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Freezing Blood",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "GFW3IASGrcBSyETb",
             "data": {
                 "actionCategory": {
@@ -287,7 +316,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>5 feet.</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r {3d6}[cold]]]{3d6 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"aura,cold,evocation,primal,damaging-effect\" data-pf2-label=\"Worm Chill DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>5 feet.</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -299,9 +328,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "aura",
                         "cold",
@@ -320,52 +347,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Worm Chill",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "jISdvlh9f3wIBxZ8",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r {7d6}[cold]]]{7d6 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"29\" data-pf2-traits=\"cold,damaging-effect\" data-pf2-label=\"Freezing Blood DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "cold"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Freezing Blood",
             "sort": 500000,
             "type": "action"
         },
@@ -382,7 +363,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r {13d6}[cold]]]{13d6 cold damage} to creatures in a 50-foot cone (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"cold,evocation,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r {13d6}[cold]]]{13d6 cold damage} to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -394,9 +375,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold",
                         "evocation",
@@ -430,7 +409,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"32\" data-pf2-traits=\"auditory,concentrate,enchantment,mental,primal\" data-pf2-label=\"Worm Trill DC\" data-pf2-show-dc=\"gm\">Will</span> save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected.</p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm.</p>\n<p><strong>Critical Failure</strong> As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
+                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a @Check[type:will|dc:32] save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected.</p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm.</p>\n<p><strong>Critical Failure</strong> As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -442,9 +421,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "concentrate",
@@ -489,9 +466,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -537,9 +512,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "variants": {

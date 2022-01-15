@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A stretch of fence is electrified by a hidden Stasian coil.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"electricity,hazard,trap,mechanical\" data-pf2-label=\"Disconnect the coil from the fence DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) to carefully disconnect the coil from the fence or <span data-pf2-check=\"crafting\" data-pf2-traits=\"electricity,hazard,trap,mechanical\" data-pf2-label=\"Jury-rig a grounding device DC\" data-pf2-dc=\"30\" data-pf2-show-dc=\"gm\">Crafting</span> (master) to jury-rig a grounding device to nullify the shock</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Disconnect the coil from the fence|traits:electricity,hazard,trap,mechanical] (expert) to carefully disconnect the coil from the fence or @Check[type:crafting|dc:30|name:Jury-rig a grounding device|traits:electricity,hazard,trap,mechanical] (master) to jury-rig a grounding device to nullify the shock</p>",
             "isComplex": false,
             "level": {
                 "value": 8
@@ -58,9 +58,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "size": {
                 "value": "med"
             },
@@ -91,7 +89,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the fence directly or with a tool or weapon</p>\n<p><strong>Effect</strong> The fence deals [[/r {7d12}[electricity]]]{7d12 Electricity Damage} to the triggering creature (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,electricity,mechanical,trap,hazard\" data-pf2-label=\"Shock DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature touches the fence directly or with a tool or weapon</p>\n<p><strong>Effect</strong> The fence deals [[/r {7d12}[electricity]]]{7d12 Electricity Damage} to the triggering creature (@Check[type:reflex|dc:26|basic:true|traits:electricity,mechanical,trap,hazard] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -103,9 +101,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

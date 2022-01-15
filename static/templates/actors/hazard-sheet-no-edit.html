@@ -21,8 +21,8 @@
             <div class="top-stats-container">
 
                 <div class="traits-bar">
-                    {{#unless (eq data.traits.rarity.value "common")}}
-                        <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
+                    {{#unless (eq data.traits.rarity "common")}}
+                        <span class="trait {{data.traits.rarity}}">{{localize actorRarity}}</span>
                     {{/unless}}
                     {{#if data.details.isComplex}}<span class="trait">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
                     {{#each actorTraits as |trait id|}}
@@ -45,7 +45,7 @@
                             <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}}</label>
                             <span class="stat-value attribute-name">{{localize 'PF2E.DCLabel' dc=stealthDC}}</span>
                             {{#if hasStealthDescription}}
-                                <span class="stat-detail stealth attribute-name">{{{data.attributes.stealth.details}}}</span>
+                                <span class="stat-detail stealth attribute-name">{{enrichHTML data.attributes.stealth.details}}</span>
                             {{/if}}
                         </span>
                     </div>

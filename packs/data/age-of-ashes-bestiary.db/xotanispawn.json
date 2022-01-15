@@ -41,13 +41,6 @@
             "perception": {
                 "value": 29
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": "0",
-                "hardness": 0,
-                "max": "0",
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -116,9 +109,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": {
                 "value": "darkvision; tremorsense (imprecise) 60 feet"
             },
@@ -169,9 +160,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10"
                     ]
@@ -215,9 +204,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "reach-10"
@@ -259,9 +246,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -307,9 +292,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -355,9 +338,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -379,6 +360,50 @@
             "type": "action"
         },
         {
+            "_id": "qi5FtOzBWTiiCStB",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When a Xotanispawn dies, it explodes, dealing [[/r {15d8}[fire]]]{15d8 fire damage} to creatures in a @Template[type:emanation|distance:30] (@Check[type:reflex|dc:39|basic:true] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosion",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
             "_id": "XqfuKJG5gZuzeCDr",
             "data": {
                 "actionCategory": {
@@ -391,7 +416,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, <span data-pf2-check=\"will\" data-pf2-traits=\"aura, emotion, fear, mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Will</span> save</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, @Check[type:will|dc:36] save</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -403,9 +428,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "aura",
                         "emotion",
@@ -428,52 +451,6 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "qi5FtOzBWTiiCStB",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When a Xotanispawn dies, it explodes, dealing [[/r {15d8}[fire]]]{15d8 fire damage} to creatures in a 30-foot emanation (<span data-pf2-check=\"reflex\" data-pf2-dc=\"39\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "fire"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosion",
             "sort": 700000,
             "type": "action"
         },
@@ -490,7 +467,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature adjacent to the Xotanispawn touches it or hits it with a physical attack</p>\n<p><strong>Effect</strong> The triggering creature takes [[/r {5d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Internal Furnace DC\" data-pf2-show-dc=\"gm\">Reflex</span> save to negate).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature adjacent to the Xotanispawn touches it or hits it with a physical attack</p>\n<p><strong>Effect</strong> The triggering creature takes [[/r {5d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:37|traits:damaging-effect] save to negate).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -502,9 +479,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "fire"
                     ]
@@ -524,54 +499,6 @@
             "type": "action"
         },
         {
-            "_id": "2mthLx7yReK93i3n",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
             "_id": "D1apG8hCM6fFYauw",
             "data": {
                 "actionCategory": {
@@ -584,7 +511,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The Xotanispawn sprays a 60-foot cone of magma that deals [[/r {10d10}[fire]]]{10d10 fire damage} and [[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to all creatures in the area (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,arcane,evocation,fire\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The Xotanispawn can't use its Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The Xotanispawn sprays a @Template[type:cone|distance:60] of magma that deals [[/r {10d10}[fire]]]{10d10 fire damage} and [[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to all creatures in the area (@Check[type:reflex|dc:39|basic:true] save).</p>\n<p data-visibility=\"gm\">The Xotanispawn can't use its Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -596,9 +523,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "arcane",
                         "evocation",
@@ -616,7 +541,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -644,9 +569,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "selected": {},
                     "value": []
                 },
@@ -661,6 +584,52 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Heat Surge",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "2mthLx7yReK93i3n",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 1100000,
             "type": "action"
         },
@@ -686,9 +655,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -721,9 +688,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -756,9 +721,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

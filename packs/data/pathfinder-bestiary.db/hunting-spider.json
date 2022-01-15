@@ -41,13 +41,6 @@
             "perception": {
                 "value": 7
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -104,9 +97,7 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, web sense"
             },
@@ -156,9 +147,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "finesse"
                     ]
@@ -200,9 +189,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "range-increment-30"
                     ]
@@ -217,50 +204,6 @@
             "name": "Web",
             "sort": 200000,
             "type": "melee"
-        },
-        {
-            "_id": "DbfLZXVZVTQMJoyI",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The hunting spider has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Web Sense",
-            "sort": 300000,
-            "type": "action"
         },
         {
             "_id": "UW8qbPcbWR2N4HcI",
@@ -287,9 +230,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -307,6 +248,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "DbfLZXVZVTQMJoyI",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The hunting spider has imprecise @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense} to detect the vibrations of creatures touching its web.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Web Sense",
             "sort": 400000,
             "type": "action"
         },
@@ -335,9 +318,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -381,9 +362,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "move"
                     ]
@@ -415,7 +394,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Hunting Spider Venom\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d10}[poison]]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d10}[poison]]]{1d10 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -427,9 +406,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "poison"
                     ]
@@ -473,9 +450,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -514,9 +489,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -549,9 +522,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -584,9 +555,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

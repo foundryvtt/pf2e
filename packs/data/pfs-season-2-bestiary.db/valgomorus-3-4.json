@@ -41,13 +41,6 @@
             "perception": {
                 "value": 15
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "20"
@@ -136,9 +129,7 @@
                     "jotun"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -185,9 +176,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "reach-10",
                         "sweep"
@@ -235,9 +224,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "weaponType": {
@@ -276,9 +263,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -297,54 +282,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "tFc2Cv8iWNtqUXjr",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Valgomorus is about to roll a d20</p>\n<p><strong>Effect</strong> Valgomorus peers into an occluded spectrum of possible futures. He gets a success (but not a critical success) on the roll instead of rolling.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divination",
-                        "occult",
-                        "fortune"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Flash of Insight",
-            "sort": 400000,
             "type": "action"
         },
         {
@@ -379,9 +316,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -399,6 +334,52 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "tFc2Cv8iWNtqUXjr",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Valgomorus is about to roll a d20</p>\n<p><strong>Effect</strong> Valgomorus peers into an occluded spectrum of possible futures. He gets a success (but not a critical success) on the roll instead of rolling.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "occult",
+                        "fortune"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Flash of Insight",
             "sort": 500000,
             "type": "action"
         },
@@ -415,7 +396,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When Valgomorus damages a living creature with his claw Strike, <span data-visibility=\"gm\">he gains 3 temporary Hit Points and </span>the creature must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Drain Life DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p data-visibility=\"gm\">Further successful claw Strikes increase the drained value by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When Valgomorus damages a living creature with his claw Strike, <span data-visibility=\"gm\">he gains 3 temporary Hit Points and </span>the creature must succeed at a @Check[type:fortitude|dc:19] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p data-visibility=\"gm\">Further successful claw Strikes increase the drained value by 1 on a failed save, to a maximum of drained 4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -427,9 +408,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -474,9 +453,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "flourish"
                     ]
@@ -520,9 +497,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "divine",
                         "necromancy"
@@ -564,9 +539,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -599,9 +572,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -634,9 +605,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

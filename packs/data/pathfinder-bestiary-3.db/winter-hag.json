@@ -41,13 +41,6 @@
             "perception": {
                 "value": 16
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -128,9 +121,7 @@
                     "jotun"
                 ]
             },
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "senses": {
                 "value": "darkvision, see invisibility, snow vision"
             },
@@ -282,9 +273,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -392,9 +381,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "emotion",
                         "incapacitation",
@@ -510,9 +497,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -636,9 +621,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold"
                     ]
@@ -750,9 +733,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -864,9 +845,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "revelation"
                     ]
@@ -979,9 +958,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "emotion"
@@ -1096,9 +1073,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "mental"
@@ -1228,9 +1203,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cantrip",
                         "negative"
@@ -1360,9 +1333,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "attack",
                         "cold",
@@ -1407,16 +1378,33 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "two-hand-d8"
@@ -1466,9 +1454,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile"
                     ]
@@ -1483,50 +1469,6 @@
             "name": "Claw",
             "sort": 1200000,
             "type": "melee"
-        },
-        {
-            "_id": "9FrKdx9Hv7Nqbxqh",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Snow doesn't impair a winter hag's vision; she ignores concealment from snowfall.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Snow Vision",
-            "sort": 1300000,
-            "type": "action"
         },
         {
             "_id": "mX7yAH39yBUykxli",
@@ -1553,9 +1495,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1573,11 +1513,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "m03bX0sD03E32bCM",
+            "_id": "vpKKf7MXtmLs5zCF",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1589,22 +1529,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": "<p>A blood hag adds <em>@Compendium[pf2e.spells-srd.Cone of Cold]{Cone of Cold}</em>, <em>@Compendium[pf2e.spells-srd.Solid Fog]{Solid Fog}</em>, and <em>@Compendium[pf2e.spells-srd.Wall of Ice]{Wall of Ice}</em> to her coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "constant-spells",
+                "slug": "coven",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "mental",
+                        "occult"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -1616,11 +1558,53 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.52CdldlWMiVTZk1F"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
+            "name": "Coven",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "9FrKdx9Hv7Nqbxqh",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Snow doesn't impair a winter hag's vision; she ignores concealment from snowfall.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Snow Vision",
             "sort": 1500000,
             "type": "action"
         },
@@ -1649,9 +1633,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1673,7 +1655,7 @@
             "type": "action"
         },
         {
-            "_id": "vpKKf7MXtmLs5zCF",
+            "_id": "m03bX0sD03E32bCM",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1685,26 +1667,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A blood hag adds <em>@Compendium[pf2e.spells-srd.Cone of Cold]{Cone of Cold}</em>, <em>@Compendium[pf2e.spells-srd.Solid Fog]{Solid Fog}</em>, and <em>@Compendium[pf2e.spells-srd.Wall of Ice]{Wall of Ice}</em> to her coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                    "value": "<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "coven",
+                "slug": "constant-spells",
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "divination",
-                        "mental",
-                        "occult"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -1716,11 +1692,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.52CdldlWMiVTZk1F"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coven",
+            "name": "Constant Spells",
             "sort": 1700000,
             "type": "action"
         },
@@ -1749,9 +1725,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "cold",
                         "downtime",
@@ -1798,9 +1772,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1839,9 +1811,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1874,9 +1844,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1909,9 +1877,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1944,9 +1910,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1979,9 +1943,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

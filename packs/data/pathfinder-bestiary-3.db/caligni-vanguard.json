@@ -41,13 +41,6 @@
             "perception": {
                 "value": 13
             },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": "25"
@@ -115,9 +108,7 @@
                     "undercommon"
                 ]
             },
-            "rarity": {
-                "value": "rare"
-            },
+            "rarity": "rare",
             "senses": {
                 "value": "echolocation 60 feet, no vision"
             },
@@ -280,9 +271,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -450,9 +439,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
@@ -592,9 +579,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "bulwark"
                     ]
@@ -738,9 +723,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -797,9 +780,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
@@ -844,9 +825,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "range-increment-100",
@@ -889,9 +868,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -906,50 +883,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Echolocation (Precise) 60 feet",
             "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "sRU8pYLkFEMCRECp",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When the vanguard dies, their body combusts in a blaze of fire and armor shrapnel.</p>\n<p>All creatures within a @Template[type:emanation|distance:10] take [[/r {3d6}[fire] + {3d6}[piercing]]]{3d6 fire damage and 3d6 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"19\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Death Blaze DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The vanguard's armor is destroyed in the blaze, but their other gear is unaffected and left in a pile where they died.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Death Blaze",
-            "sort": 800000,
             "type": "action"
         },
         {
@@ -977,9 +910,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -997,6 +928,48 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "sRU8pYLkFEMCRECp",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When the vanguard dies, their body combusts in a blaze of fire and armor shrapnel.</p>\n<p>All creatures within a @Template[type:emanation|distance:10] take [[/r {3d6}[fire] + {3d6}[piercing]]]{3d6 fire damage and 3d6 piercing damage} (@Check[type:reflex|dc:19|basic:true] save).</p>\n<p data-visibility=\"gm\">The vanguard's armor is destroyed in the blaze, but their other gear is unaffected and left in a pile where they died.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Death Blaze",
             "sort": 900000,
             "type": "action"
         },
@@ -1025,9 +998,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "auditory",
                         "mental"
@@ -1060,7 +1031,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The vanguard makes a melee Strike, channeling shadowy essence into their weapon or unarmed attack to envelop the target. If the Strike hits, the target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"darkness\" data-pf2-label=\"Shadowed Blade DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn</span>.</p>"
+                    "value": "<p>The vanguard makes a melee Strike, channeling shadowy essence into their weapon or unarmed attack to envelop the target. If the Strike hits, the target must succeed at a @Check[type:fortitude|dc:19] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1072,9 +1043,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "darkness"
                     ]
@@ -1115,9 +1084,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1150,9 +1117,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },

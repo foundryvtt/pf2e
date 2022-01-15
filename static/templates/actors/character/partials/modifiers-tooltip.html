@@ -4,16 +4,18 @@
     </div>
     <ul class="modifier-list">
         {{#each _modifiers as |modifier|}}
-            <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-                <span class="tag-legacy">
-                    {{localize (add "PF2E.ModifierType." modifier.type)}}
-                </span>
-                <span class="label">{{modifier.label}}</span>
-                <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-                {{#if modifier.custom}}
-                    <i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
-                {{/if}}
-            </li>
+            {{#if (or modifier.enabled (not modifier.hideIfDisabled))}}
+                <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
+                    <span class="tag-legacy">
+                        {{localize (add "PF2E.ModifierType." modifier.type)}}
+                    </span>
+                    <span class="label">{{modifier.label}}</span>
+                    <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+                    {{#if modifier.custom}}
+                        <i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-slug="{{modifier.slug}}" title="{{localize "PF2E.RemoveModifierTitle"}}"></i>
+                    {{/if}}
+                </li>
+            {{/if}}
         {{/each}}
         <li class="item add-modifier">
             <div class="add-modifier-value">

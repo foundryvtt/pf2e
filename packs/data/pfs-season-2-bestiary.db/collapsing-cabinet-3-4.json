@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Fluids from leaking beakers have eaten nearly through the supports holding up this cabinet.</p>\n<p data-visibility=\"gm\">This Broken Threshold for this trap is 10, not 20.</p>",
-            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Support Cabinet DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) to gently place something under the cabinet to support its weight.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18|name:Support Cabinet|traits:mechanical,trap] (trained) to gently place something under the cabinet to support its weight.</p>",
             "isComplex": false,
             "level": {
                 "value": 3
@@ -59,9 +59,7 @@
             },
             "dr": [],
             "dv": [],
-            "rarity": {
-                "value": "common"
-            },
+            "rarity": "common",
             "size": {
                 "value": "med"
             },
@@ -91,7 +89,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Someone touches or otherwise interacts with the cabinet</p>\n<p><strong>Effect</strong> The cabinet falls, splintering on impact. If someone attempts to break the cabinet but its Broken Threshold is not reached in one hit, it falls as well. The cabinet deals [[/r {6d8}[bludgeoning]]]{6d8 bludgeoning damage} to anyone beneath (<span data-pf2-check=\"reflex\" data-pf2-traits=\"mechanical,trap,damaging-effect\" data-pf2-label=\"Slam Down DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Someone touches or otherwise interacts with the cabinet</p>\n<p><strong>Effect</strong> The cabinet falls, splintering on impact. If someone attempts to break the cabinet but its Broken Threshold is not reached in one hit, it falls as well. The cabinet deals [[/r {6d8}[bludgeoning]]]{6d8 bludgeoning damage} to anyone beneath (@Check[type:reflex|dc:23|basic:true|traits:mechanical,trap] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -103,9 +101,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {

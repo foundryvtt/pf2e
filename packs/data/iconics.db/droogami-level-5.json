@@ -45,16 +45,6 @@
             "resolve": {
                 "value": 0
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "hp": {
-                    "value": 0
-                },
-                "max": 0,
-                "value": 0
-            },
             "sp": {
                 "details": "",
                 "max": 0,
@@ -110,9 +100,6 @@
                 "value": ""
             },
             "height": {
-                "value": ""
-            },
-            "heritage": {
                 "value": ""
             },
             "keyability": {
@@ -310,9 +297,7 @@
                 "speed": 35,
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "vision": "normal"
@@ -441,9 +426,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -460,74 +443,6 @@
             "name": "Animal Companion",
             "sort": 200000,
             "type": "class"
-        },
-        {
-            "_id": "KohQcvMXbwCtXz8Q",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Droogami has a jaws unarmed attack that deals [[/r {2d6+2}[piercing]]]{2d6+2 piercing damage}. His jaws are in the brawling group and have the finesse and unarmed traits.</p>"
-                },
-                "featType": {
-                    "value": "heritage"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "piercing",
-                                "dice": 2,
-                                "die": "d6"
-                            }
-                        },
-                        "group": "brawling",
-                        "key": "Strike",
-                        "label": "Jaws",
-                        "range": null,
-                        "traits": [
-                            "finesse",
-                            "unarmed"
-                        ]
-                    }
-                ],
-                "slug": "strongjaw-kobold",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.WaCn0mcivFv1omNK"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/strongjaw-kobold.webp",
-            "name": "Cat Jaws",
-            "sort": 300000,
-            "type": "feat"
         },
         {
             "_id": "e4dDVmC3HLrn2vC2",
@@ -566,7 +481,7 @@
                         },
                         "group": "brawling",
                         "key": "Strike",
-                        "label": "Claws",
+                        "label": "PF2E.Weapon.Base.claw",
                         "range": null,
                         "traits": [
                             "finesse",
@@ -581,9 +496,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -644,9 +557,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "rogue"
                     ]
@@ -688,9 +599,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -706,6 +615,57 @@
             "name": "Support",
             "sort": 500000,
             "type": "action"
+        },
+        {
+            "_id": "1qop4nr7gszqxz7b",
+            "data": {
+                "ancestry": {
+                    "name": "Kobold",
+                    "uuid": "Compendium.pf2e.ancestries.7oQxL6wgsokD3QXG"
+                },
+                "description": {
+                    "value": "<p>Droogami has a jaws unarmed attack that deals [[/r {2d6+2}[piercing]]]{2d6+2 piercing damage}. His jaws are in the brawling group and have the finesse and unarmed traits.</p>"
+                },
+                "rules": [
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "key": "Strike",
+                        "label": "PF2E.Weapon.Base.jaws",
+                        "range": null,
+                        "traits": [
+                            "finesse",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "slug": "strongjaw-kobold",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.WaCn0mcivFv1omNK"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/strongjaw-kobold.webp",
+            "name": "Cat Jaws",
+            "sort": 300000,
+            "type": "heritage"
         }
     ],
     "name": "Droogami (Level 5)",

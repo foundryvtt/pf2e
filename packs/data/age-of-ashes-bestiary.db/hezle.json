@@ -41,13 +41,6 @@
             "perception": {
                 "value": 14
             },
-            "shield": {
-                "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
             "speed": {
                 "details": "",
                 "otherSpeeds": [],
@@ -103,9 +96,7 @@
                     "mwangi"
                 ]
             },
-            "rarity": {
-                "value": "unique"
-            },
+            "rarity": "unique",
             "senses": {
                 "value": "darkvision"
             },
@@ -268,9 +259,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -434,9 +423,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -605,9 +592,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "evocation",
                         "magical",
@@ -750,9 +735,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -894,9 +877,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
@@ -1050,9 +1031,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1122,7 +1101,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"alchemical,consumable,injury,poison\" data-pf2-label=\"Wyvern Poison DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {5d6}[poison]]]{5d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {8d6}[poison]]]{8d6 poison damage} (1 round)</p>"
+                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26|name:Wyvern Poison]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {5d6}[poison]]]{5d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {8d6}[poison]]]{8d6 poison damage} (1 round)</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1201,9 +1180,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
@@ -1357,9 +1334,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "consumable",
                         "healing",
@@ -1515,9 +1490,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "usage": {
@@ -1569,9 +1542,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -1614,18 +1585,18 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Two-handed Wielding",
-                        "property": "flags.pf2e.rollOptions.damage-roll.two-handed"
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
                     },
                     {
                         "key": "DamageDice",
-                        "label": "Two handed d8",
+                        "label": "PF2E.TraitTwoHandD8",
                         "override": {
                             "dieSize": "d8"
                         },
                         "predicate": {
                             "all": [
-                                "two-handed"
+                                "twoHanded"
                             ]
                         },
                         "selector": "{item|_id}-damage"
@@ -1637,9 +1608,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "two-hand-d8"
@@ -1687,9 +1656,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "magical",
                         "range-increment-120",
@@ -1735,9 +1702,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -1782,9 +1747,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -1818,7 +1781,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Cost</strong> 1 batch of infused reagents.</p>\n<p><strong>Effect</strong> Hezle quickly cobbles together an explosive bomb and lobs it up to 30 feet. All creatures in a @Template[type:burst|distance:5] take [[/r {5d6}[fire]]]{5d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"26\" data-pf2-traits=\"alchemical,fire,interact,damaging-effect\" data-pf2-label=\"Kobold Explosives DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Cost</strong> 1 batch of infused reagents.</p>\n<p><strong>Effect</strong> Hezle quickly cobbles together an explosive bomb and lobs it up to 30 feet. All creatures in a @Template[type:burst|distance:5] take [[/r {5d6}[fire]]]{5d6 fire damage} (@Check[type:reflex|dc:26|basic:true|traits:interact] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1830,9 +1793,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "alchemical",
                         "fire",
@@ -1866,7 +1827,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Cost</strong> 1 batch of infused reagents.</p>\n<p><strong>Requirements</strong> Hezle must be adjacent to at least one enemy.</p>\n</div>\n<p><strong>Effect</strong> Hezle throws a mix of special powders centered on a corner of her space, creating a plume of smoke filling a @Template[type:burst|distance:5] until the end of her turn that causes her to be @Compendium[pf2e.conditionitems.Hidden]{Hidden}. She then immediately @Compendium[pf2e.actionspf2e.Sneak]{Sneaks}, but must end her movement in a space that's not adjacent to any enemies.</p>\n<p>All creatures other than Hezle in the smoke cloud must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-traits=\"manipulate\" data-pf2-label=\"Smoky Retreat DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 3} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n</div>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Cost</strong> 1 batch of infused reagents.</p>\n<p><strong>Requirements</strong> Hezle must be adjacent to at least one enemy.</p>\n</div>\n<p><strong>Effect</strong> Hezle throws a mix of special powders centered on a corner of her space, creating a plume of smoke filling a @Template[type:burst|distance:5] until the end of her turn that causes her to be @Compendium[pf2e.conditionitems.Hidden]{Hidden}. She then immediately @Compendium[pf2e.actionspf2e.Sneak]{Sneaks}, but must end her movement in a space that's not adjacent to any enemies.</p>\n<p>All creatures other than Hezle in the smoke cloud must attempt a @Check[type:fortitude|dc:26] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 3} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -1878,9 +1839,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": [
                         "manipulate"
                     ]
@@ -1897,50 +1856,6 @@
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Smoky Retreat",
             "sort": 1600000,
-            "type": "action"
-        },
-        {
-            "_id": "EferdcZmtLTCxvjj",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "value": "<p>Although Hezle does not cast spells, her obsession with fire and long hours of practice allow her to cast spells from her <em>staff of fire</em> as if she had the spells on her spell list and could cast them. She still must expend charges from the staff normally; when she prepares the staff each morning, she is capable of placing 4 charges in the staff.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Staff Mastery",
-            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1986,9 +1901,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 },
                 "trigger": {
@@ -2006,6 +1919,48 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "EferdcZmtLTCxvjj",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "value": "<p>Although Hezle does not cast spells, her obsession with fire and long hours of practice allow her to cast spells from her <em>staff of fire</em> as if she had the spells on her spell list and could cast them. She still must expend charges from the staff normally; when she prepares the staff each morning, she is capable of placing 4 charges in the staff.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Staff Mastery",
             "sort": 1800000,
             "type": "action"
         },
@@ -2031,9 +1986,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2066,9 +2019,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2101,9 +2052,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2136,9 +2085,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2171,9 +2118,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -2206,9 +2151,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
+                    "rarity": "common",
                     "value": []
                 }
             },
