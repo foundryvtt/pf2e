@@ -33,7 +33,7 @@
                 "details": "",
                 "max": 300,
                 "temp": 0,
-                "value": 300
+                "value": 320
             },
             "initiative": {
                 "ability": "perception"
@@ -42,6 +42,7 @@
                 "value": 24
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "35"
             }
@@ -1464,7 +1465,7 @@
             "type": "spell"
         },
         {
-            "_id": "Terj82Qy9fW0Wq1q",
+            "_id": "6XI3M81vEpXJajio",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1488,8 +1489,8 @@
                 },
                 "charges": {
                     "_deprecated": true,
-                    "max": "1",
-                    "value": "1"
+                    "max": 1,
+                    "value": 1
                 },
                 "collapsed": {
                     "value": false
@@ -1505,7 +1506,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This liquid contains blood from a black dragon. For 1 hour after you imbibe the concoction, you can unleash a black dragon's breath weapon. The potency of the breath depends on the potion's type, based on the age of the dragon whose blood was used to make the potion.</p>\n<p>Exhaling dragon breath uses a single action. You create a @Template[type:line|distance:30] of acid which deals [[/r {10d6}[acid]]]{10d6 acid damage}. All creatures in the area must attempt a DC 37 basic Reflex save.</p>\n<p>After you use the breath weapon, you can't do so again for [[/r {1d4} #Breath Weapon Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>This liquid contains blood from a black dragon. For 1 hour after you imbibe the concoction, you can unleash a black dragon's breath weapon. The potency of the breath depends on the potion's type, based on the age of the dragon whose blood was used to make the potion.</p>\n<p>Exhaling dragon breath uses a single action. You create a @Template[type:line|distance:30] of acid which deals [[/r {10d6}[acid]]]{10d6 acid damage}. All creatures in the area must attempt a @Check[type:reflex|dc:37|basic:true|name:Wyrm Black Dragon's Breath Potion] save.</p>\n<p>After you use the breath weapon, you can't do so again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1566,9 +1567,9 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "black-dragons-breath-potion-wyrm",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -1586,6 +1587,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "acid",
                         "consumable",
                         "evocation",
                         "magical",
@@ -1607,7 +1609,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LR7Ke2V8vHjQYBni"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/consumables/potions/black-dragons-breath-potion.webp",
             "name": "Black Dragon's Breath Potion (Wyrm)",
             "sort": 1400000,
@@ -1936,6 +1942,48 @@
             "type": "action"
         },
         {
+            "_id": "CWOEh5RnFG5cysRk",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 15 feet of the lie-master uses a manipulate or move action, makes a ranged attack, or leaves a square during a move action it's using</p>\n<p><strong>Effect</strong> The creature must succeed at a @Check[type:reflex|dc:34] save or be knocked prone by the lie-master's clockwork tentacles.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Tentacle Trip",
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
             "_id": "bmbqZlQmEmeXm2DS",
             "data": {
                 "actionCategory": {
@@ -1974,7 +2022,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Treacherous Veil",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2019,7 +2067,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Twisted Desires",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2061,48 +2109,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 2400000,
-            "type": "action"
-        },
-        {
-            "_id": "CWOEh5RnFG5cysRk",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 15 feet of the lie-master uses a manipulate or move action, makes a ranged attack, or leaves a square during a move action it's using</p>\n<p><strong>Effect</strong> The creature must succeed at a @Check[type:reflex|dc:34] save or be knocked prone by the lie-master's clockwork tentacles.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Tentacle Trip",
             "sort": 2500000,
             "type": "action"
         },
