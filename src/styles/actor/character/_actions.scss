@@ -321,13 +321,12 @@
 
                 button {
                     @include button;
+                    @include micro;
                     margin: 0;
                     border: none;
-                    cursor: pointer;
                     padding: 5px;
                     color: white;
                     font-weight: 500;
-                    background: var(--secondary);
                     border-radius: 2px;
                     flex: 0;
                     white-space: nowrap;
@@ -342,14 +341,15 @@
                         margin-left: 0;
                     }
 
-                    &:hover {
-                        box-shadow: none;
-                        text-shadow: 0 0 2px white;
-                    }
-                }
+                    &:not(:disabled) {
+                        background: var(--secondary);
+                        cursor: pointer;
 
-                button {
-                    @include micro;
+                        &:hover {
+                            box-shadow: none;
+                            text-shadow: 0 0 2px white;
+                        }
+                    }
                 }
             }
         }
