@@ -728,7 +728,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         })();
 
         const appliedToHP = ((): number => {
-            const remaining = delta - appliedToSP;
+            const remaining = delta - appliedToTemp - appliedToSP;
             const applied = remaining > 0 ? Math.min(hp.value, remaining) : Math.max(hp.value - hp.max, remaining);
             updates["data.attributes.hp.value"] = hp.value - applied;
 
