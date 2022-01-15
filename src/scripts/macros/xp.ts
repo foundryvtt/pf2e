@@ -5,46 +5,49 @@
 import { DCOptions } from "@module/dc";
 
 // level without proficiency variant
-const xpVariantCreatureDifferences = new Map<number, number>();
-xpVariantCreatureDifferences.set(-7, 9);
-xpVariantCreatureDifferences.set(-6, 12);
-xpVariantCreatureDifferences.set(-5, 14);
-xpVariantCreatureDifferences.set(-4, 18);
-xpVariantCreatureDifferences.set(-3, 21);
-xpVariantCreatureDifferences.set(-2, 26);
-xpVariantCreatureDifferences.set(-1, 32);
-xpVariantCreatureDifferences.set(0, 40);
-xpVariantCreatureDifferences.set(1, 48);
-xpVariantCreatureDifferences.set(2, 60);
-xpVariantCreatureDifferences.set(3, 72);
-xpVariantCreatureDifferences.set(4, 90);
-xpVariantCreatureDifferences.set(5, 108);
-xpVariantCreatureDifferences.set(6, 135);
-xpVariantCreatureDifferences.set(7, 160);
+const xpVariantCreatureDifferences = new Map([
+    [-7, 9],
+    [-6, 12],
+    [-5, 14],
+    [-4, 18],
+    [-3, 21],
+    [-2, 26],
+    [-1, 32],
+    [0, 40],
+    [1, 48],
+    [2, 60],
+    [3, 72],
+    [4, 90],
+    [5, 108],
+    [6, 135],
+    [7, 160],
+]);
 
-const xpCreatureDifferences = new Map<number, number>();
-xpCreatureDifferences.set(-4, 10);
-xpCreatureDifferences.set(-3, 15);
-xpCreatureDifferences.set(-2, 20);
-xpCreatureDifferences.set(-1, 30);
-xpCreatureDifferences.set(0, 40);
-xpCreatureDifferences.set(1, 60);
-xpCreatureDifferences.set(2, 80);
-xpCreatureDifferences.set(3, 120);
-xpCreatureDifferences.set(4, 160);
+const xpCreatureDifferences = new Map([
+    [-4, 10],
+    [-3, 15],
+    [-2, 20],
+    [-1, 30],
+    [0, 40],
+    [1, 60],
+    [2, 80],
+    [3, 120],
+    [4, 160],
+]);
 
 // for some reason Paizo thought it was a good idea to give
 // simple hazards entirely different and incredibly small xp values
-const xpSimpleHazardDifferences = new Map<number, number>();
-xpSimpleHazardDifferences.set(-4, 2);
-xpSimpleHazardDifferences.set(-3, 3);
-xpSimpleHazardDifferences.set(-2, 4);
-xpSimpleHazardDifferences.set(-1, 6);
-xpSimpleHazardDifferences.set(0, 8);
-xpSimpleHazardDifferences.set(1, 12);
-xpSimpleHazardDifferences.set(2, 16);
-xpSimpleHazardDifferences.set(3, 24);
-xpSimpleHazardDifferences.set(4, 32);
+const xpSimpleHazardDifferences = new Map([
+    [-4, 2],
+    [-3, 3],
+    [-2, 4],
+    [-1, 6],
+    [0, 8],
+    [1, 12],
+    [2, 16],
+    [3, 24],
+    [4, 32],
+]);
 
 function getXPFromMap(partyLevel: number, entityLevel: number, values: Map<number, number>): number {
     // add +1 to all levels to account for -1 levels
