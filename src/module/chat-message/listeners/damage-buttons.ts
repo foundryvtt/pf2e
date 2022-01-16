@@ -106,21 +106,24 @@ export const DamageButtons = {
     },
 };
 
-async function applyDamage(message: ChatMessagePF2e, multiplier: number, adjustment = 0, promptModifier = false) {
-    if (promptModifier) {
-        shiftModifyDamage(message, multiplier);
-    } else {
-        const tokens = canvas.tokens.controlled.filter((token) => token.actor);
-        if (tokens.length === 0) {
-            const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
-            ui.notifications.error(errorMsg);
-            return;
-        }
+async function applyDamage(
+    message: ChatMessagePF2e,
+    multiplier: number,
+    adjustment = 0,
+    promptModifier = false
+): Promise<void> {
+    if (promptModifier) return shiftModifyDamage(message, multiplier);
 
-        for await (const token of tokens) {
-            const damage = message.roll!.total * multiplier + adjustment;
-            await token.actor?.applyDamage(damage, token, CONFIG.PF2E.chatDamageButtonShieldToggle);
-        }
+    const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+    if (tokens.length === 0) {
+        const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
+        ui.notifications.error(errorMsg);
+        return;
+    }
+
+    for await (const token of tokens) {
+        const damage = message.roll!.total * multiplier + adjustment;
+        await token.actor?.applyDamage(damage, token, CONFIG.PF2E.chatDamageButtonShieldToggle);
     }
     toggleOffShieldBlock(message.id);
 }
@@ -159,10 +162,8 @@ function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
 
 /** Toggle off the Shield Block button on a damage chat message */
 function toggleOffShieldBlock(messageId: string): void {
-    if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
-        const $message = $(`#chat-log > li.chat-message[data-message-id="${messageId}"]`);
-        const $button = $message.find("button.shield-block");
-        $button.removeClass("shield-activated");
-        CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-    }
+    const $message = $(`#chat-log > li.chat-message[data-message-id="${messageId}"]`);
+    const $button = $message.find("button.shield-block");
+    $button.removeClass("shield-activated");
+    CONFIG.PF2E.chatDamageButtonShieldToggle = false;
 }
