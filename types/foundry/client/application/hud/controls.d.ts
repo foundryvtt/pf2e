@@ -3,8 +3,10 @@ declare interface SceneControlTool {
     title: string;
     icon: string;
     visible: boolean;
-    onClick?: () => void;
+    toggle?: boolean;
+    active?: boolean;
     button?: boolean;
+    onClick?: () => void;
 }
 
 declare interface SceneControl {
