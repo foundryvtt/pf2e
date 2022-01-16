@@ -515,9 +515,12 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            modifiers.push(...(statisticsModifiers[`${acAbility}-based`] ?? []).map((m) => m.clone()));
+            const selectorsAndDomains = ["ac", `${acAbility}-based`, "all"];
+            for (const selector of selectorsAndDomains) {
+                modifiers.push(...(statisticsModifiers[selector] ?? []).map((m) => m.clone()));
+            }
 
-            const rollOptions = this.getRollOptions(["ac", `${acAbility}-based`, "all"]);
+            const rollOptions = this.getRollOptions(selectorsAndDomains);
             for (const modifier of modifiers) {
                 modifier.ignored = !modifier.predicate.test(rollOptions);
             }
