@@ -526,9 +526,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         : translations.ShieldAbsorbsAll
                     : translations.DamagedForN;
             }
-            return hpDamage < 0 
-                ? hideDamageNumbers 
-                    ? translations.Healed : translations.HealedForN 
+            return hpDamage < 0
+                ? hideDamageNumbers
+                    ? translations.Healed
+                    : translations.HealedForN
                 : translations.AtFullHealth;
         })();
 
