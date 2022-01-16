@@ -632,18 +632,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        // ACTIONS
-        $html.find('[name="ammo-used"]').on("change", (event) => {
-            event.stopPropagation();
-
-            const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
-            const action = this.actor.data.data.actions[Number(actionIndex)];
-            const weapon = this.actor.items.get(action.item);
-            const ammo = this.actor.items.get($(event.currentTarget).val() as string);
-
-            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
-        });
-
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         $html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
         $html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
@@ -683,8 +671,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
+        $html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
+
+        // ACTIONS
+        const $actions = $html.find(".tab.actions");
+
         // filter strikes
-        $html.find(".toggle-unready-strikes").on("click", () => {
+        $actions.find(".toggle-unready-strikes").on("click", () => {
             this.actor.setFlag(
                 game.system.id,
                 "showUnreadyStrikes",
@@ -692,15 +685,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             );
         });
 
-        $html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
-
-        $html.find(".actions-list span[data-roll-option]").on("click", (event) => {
+        $actions.find(".actions-list span[data-roll-option]").on("click", (event) => {
             const { rollName, rollOption } = event.currentTarget.dataset;
             if (!(rollName && rollOption)) return;
             this.actor.toggleRollOption(rollName, rollOption);
         });
 
-        const $strikesList = $html.find(".tab.actions .strikes-list");
+        const $strikesList = $actions.find(".strikes-list");
 
         // Set damage-formula tooltips on damage buttons
         const damageButtonSelectors = [
@@ -736,6 +727,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
             position: "left",
             theme: "crb-hover",
+        });
+
+        $strikesList.find('select[name="ammo-used"]').on("change", (event) => {
+            event.stopPropagation();
+
+            const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
+            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const weapon = this.actor.items.get(action.item);
+            const ammo = this.actor.items.get($(event.currentTarget).val() as string);
+
+            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
         });
 
         $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
