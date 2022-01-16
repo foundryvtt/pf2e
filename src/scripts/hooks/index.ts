@@ -12,7 +12,6 @@ import { Ready } from "./ready";
 import { RenderActorDirectory } from "./render-actor-directory";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
 import { RenderDialog } from "./render-dialog";
-import { RenderSceneControls } from "./render-scene-controls";
 import { RenderSettings } from "./render-settings";
 import { Setup } from "./setup";
 import { UpdateWorldTime } from "./update-world-time";
@@ -32,7 +31,6 @@ export const HooksPF2e = {
             PF2eStartTurn,
             Ready,
             RenderActorDirectory,
-            RenderSceneControls,
             RenderCombatTrackerConfig,
             RenderDialog,
             RenderSettings,
