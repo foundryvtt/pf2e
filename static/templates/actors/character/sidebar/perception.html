@@ -14,10 +14,10 @@
     </a>
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
 
-    <div class="perception-rank pf-rank adjust-stat" data-property="data.attributes.perception.rank" value="{{data.attributes.perception.rank}}">
-        <h4>
-            <span>{{data.attributes.perception.rankName}}</span>
-        </h4>
+    <div class="perception-prof button-group skill-container">
+        <select class="perception-proficiency pf-value pf-rank adjust-stat-select{{#if rank.immutable}} readonly{{/if}}" data-property="data.attributes.perception.rank" value="{{data.attributes.perception.rank}}">
+            {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=data.attributes.perception.rank}}
+        </select>
     </div>
 
 </div>
