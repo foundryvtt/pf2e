@@ -61,8 +61,6 @@ export interface REPreCreateParameters<T extends RuleElementSource = RuleElement
     pendingItems: PreCreate<ItemSourcePF2e>[];
     /** The context object from the `ItemPF2e.createDocuments` call */
     context: DocumentModificationContext<ItemPF2e>;
-    /** Whether to reassign `itemSource`'s `_id` property. Defaults to `true`, but applicable only to some REs */
-    reassignItemId?: boolean;
 }
 
 export interface REPreDeleteParameters {

@@ -25,7 +25,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
 
         const { itemSource, pendingItems, context } = args;
-        const reassignItemId = args.reassignItemId ?? true;
 
         const grantedItem: ClientDocument | null = await (async () => {
             const uuid = this.resolveInjectedProperties(this.data.uuid);
@@ -39,7 +38,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         if (!(grantedItem instanceof ItemPF2e)) return;
 
         // Set ids and flags on the granting and granted items
-        if (reassignItemId) itemSource._id = randomID();
+        itemSource._id ??= randomID();
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
 
@@ -118,7 +117,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 const ruleSource = grantedSource.data.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
                 await rule.preCreate?.({
                     ...originalArgs,
-                    reassignItemId: false,
                     itemSource: grantedSource,
                     ruleSource,
                 });

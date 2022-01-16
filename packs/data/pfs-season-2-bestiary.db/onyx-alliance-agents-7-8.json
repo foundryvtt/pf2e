@@ -42,6 +42,7 @@
                 "value": 17
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -2532,7 +2533,14 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "magical",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -2541,7 +2549,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Whip (disarm, Finesse, Magical, Nonlethal, Reach, Trip)",
+            "name": "Whip",
             "sort": 2300000,
             "type": "melee"
         },
@@ -2593,7 +2601,7 @@
             "_id": "cLydPbejmvuvP55z",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -2635,7 +2643,7 @@
             "_id": "Tqw4tDUBGZZ8fmwr",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -2679,10 +2687,10 @@
             "type": "action"
         },
         {
-            "_id": "m0sMTMLwl3DEmPr0",
+            "_id": "FPjWLeDA8csoEgo3",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -2691,13 +2699,31 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Onyx Alliance agents deals an additional [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -2714,7 +2740,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 2700000,
@@ -2725,9 +2755,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 17
@@ -2759,9 +2786,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 17
                 },
@@ -2791,9 +2815,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 17
@@ -2825,9 +2846,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 13
                 },
@@ -2858,9 +2876,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 18
                 },
@@ -2890,9 +2905,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 13

@@ -61,7 +61,7 @@ declare global {
          * @example
          * let distance = canvas.grid.measureDistance({x: 1000, y: 1000}, {x: 2000, y: 2000});
          */
-        measureDistance(origin: Point, target: Point): number | undefined;
+        measureDistance(origin: Point, target: Point): number;
 
         /**
          * Measure the distance traveled over an array of distance segments.
