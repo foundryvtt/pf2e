@@ -9,18 +9,22 @@
                     </div>
                 {{/if}}
                 <div class="instructions">
-                    {{#if condition.value}}
-                        <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
-                        <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
+                    {{#if (not condition.locked)}}
+                        {{#if condition.value}}
+                            <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
+                            <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
+                        {{else}}
+                            <p>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</p>
+                        {{/if}}
                     {{/if}}
                 </div>
             </div>
             <div class="icon" data-item-id="{{condition.id}}" data-locked="{{#if condition.locked}}true{{/if}}" style="background-image: url({{condition.img}});">
                 {{#if condition.locked}}
-                    <div class="badge"><i class="fas fa-link"></i></div>
+                    <div class="linked"><i class="fas fa-link"></i></div>
                 {{/if}}
                 {{#if condition.value}}
-                    <div class="badge"><strong>{{condition.value}}</strong></div>
+                    <div class="value"><strong>{{condition.value}}</strong></div>
                 {{/if}}
             </div>
         </div>
@@ -37,7 +41,7 @@
                     <div class="tag tag_secondary">{{this.data.remaining}}</div>
                 </div>
                 <div class="instructions">
-                    <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
+                    <p>{{localize "PF2E.EffectPanel.RemoveToolTip"}}</p>
                 </div>
             </div>
             <div class="icon" data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
