@@ -16,16 +16,12 @@
                 background: #ecc1b3;
 
                 .noUi-origin {
-                    &[disabled="disabled"] {
-                        pointer-events: none;
-                    }
-
                     .noUi-handle {
                         background: none;
                         border: none;
                         box-shadow: none;
                         color: white;
-                        cursor: pointer;
+                        cursor: grab;
                         font-size: 16px;
                         height: 14px;
                         width: 14px;
@@ -33,13 +29,12 @@
                         right: -7px; // Half width
                         text-shadow: 0 0 4px black;
 
+                        &:active {
+                            cursor: grabbing;
+                        }
+
                         &.threshold_darkness {
                             font-size: 14px;
-                        }
-                        &.threshold {
-                            &_bright-light, &_darkness {
-                                cursor: default; // Change to pointer when these become adjustable
-                            }
                         }
 
                         &.darkness-level {
