@@ -57,7 +57,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Loners at heart, drow rogues trust no one-least of all fellow slayers. Thees drow rely on awareness and adaptation to survive the cutthroat nature of their society.</p>",
+            "publicNotes": "<p>Loners at heart, drow rogues trust no one-least of all fellow slayers. Thees drow rely on awareness and adaptation to survive the cutthroat nature of their society.</p>\n<hr />\n<p>The first drow were elves who fled into the depths of the world from a devastating cataclysm thousands of years ago. In their journey below, they fell to bickering and in-fighting, drawing the attention of sinister intelligences beyond their own. Whether it was the influence of a specific demon lord, the Rough Beast Rovagug, or some other fell force is unknown, but in that time the elves transformed both spiritually and physically, tainting their hearts with desires for cruelty, sadism, and violence. The hues of their eyes became sinister red or bleached white, and their flesh adopted an unearthly lavender sheen that made the drow instantly recognizable. The drow also developed potent magical abilities and resistances that further empowered them, if at the cost of their souls.</p>\n<p>Over the centuries to follow, the drow developed into a powerful, if violently dysfunctional society, influenced by the worship of demon lords and focused on providing power and glory to a relatively small collection of noble houses. Many of these noble houses are matriarchal in nature and all hold allegiance to a specific demon lord patron-but traditions of worship, warfare, and wizardry help to bind the oft-bickering houses together enough that drow society doesn't simply consume itself from within. Fear of earning the wrath of one&rsquo;s superior-be it a teacher, a parent, a commander, or the demon one worships-is the real bond holding drow society together, and this system is held in esteem by the lowliest drow servant and by the most powerful drow priestess alike.</p>\n<p>The drow are infamous throughout the world, but until recently most assumed stories of demon-worshipping, underground-dwelling elves were spooky legends crafted to share around a campfire. Today, the existence of drow is an understood truth, and while their presence in the dark caverns deep below is unsettling, they seem content to leave the surface world alone for now.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -122,10 +122,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "h5gMevK3YjdXG7Th",
+            "_id": "mU73p7EYpTXgNAqN",
             "data": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 2
                 },
                 "description": {
                     "value": ""
@@ -140,10 +140,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": false
+                    "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -236,7 +236,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "lPmnTeiNSRQpw0yt",
+            "_id": "N0tdBKYLEcJAPSBf",
             "data": {
                 "ability": {
                     "value": ""
@@ -244,6 +244,9 @@
                 "area": {
                     "areaType": "burst",
                     "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -264,7 +267,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -272,16 +275,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "h5gMevK3YjdXG7Th"
+                    "value": "mU73p7EYpTXgNAqN"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -295,9 +304,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -328,14 +343,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At Will)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "zXh5bZm4BRKoyhRW",
+            "_id": "ABhY9VZVaL77tgAg",
             "data": {
                 "ability": {
                     "value": ""
@@ -343,6 +362,9 @@
                 "area": {
                     "areaType": "burst",
                     "value": "10"
+                },
+                "areasize": {
+                    "value": "10-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -363,7 +385,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>All creatures in the area when you cast the spell are limned in colorful, heatless fire of a color of your choice for the duration. Visible creatures can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} while affected by faerie fire. If the creatures are @Compendium[pf2e.conditionitems.Invisible]{Invisible}, they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} while affected by faerie fire, rather than being @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>"
+                    "value": "<p>All creatures in the area when you cast the spell are limned in colorful, heatless fire of a color of your choice for the duration. Visible creatures can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} while affected by faerie fire. If the creatures are @Compendium[pf2e.conditionitems.Invisible]{Invisible}, they are Concealed while affected by faerie fire, rather than being @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>"
                 },
                 "duration": {
                     "value": "5 minutes"
@@ -371,16 +393,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "h5gMevK3YjdXG7Th"
+                    "value": "mU73p7EYpTXgNAqN"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -394,9 +422,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "faerie-fire",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=107"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -426,14 +460,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.HRb2doyaLtaoCfi3"
+                }
+            },
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire (At Will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "nqdoGMXdpmwdxpx0",
+            "_id": "GDaBzRX7gdxnuWIr",
             "data": {
                 "ability": {
                     "value": ""
@@ -441,6 +479,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -473,12 +514,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "h5gMevK3YjdXG7Th"
+                    "value": "mU73p7EYpTXgNAqN"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -492,9 +536,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dancing-lights",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -526,14 +576,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "kLgH453g3iMk4vCM",
+            "_id": "oGkewc5MP1qP4IPz",
             "data": {
                 "MAP": {
                     "value": ""
@@ -697,7 +751,175 @@
             "type": "weapon"
         },
         {
-            "_id": "VyI8pebE8Clhm2KV",
+            "_id": "ohcSBFPjPRBQWZKd",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "category": "martial",
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "sword",
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "9 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "shortsword",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.7tKkkF8eZ4iCLJtp"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
+            "name": "Shortsword",
+            "sort": 600000,
+            "type": "weapon"
+        },
+        {
+            "_id": "H3BXO2ICYX5WlTsN",
             "data": {
                 "armor": {
                     "value": 2
@@ -831,11 +1053,11 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "Studded Leather Armor",
-            "sort": 600000,
+            "sort": 700000,
             "type": "armor"
         },
         {
-            "_id": "W4arvTsP3eSFl2D4",
+            "_id": "8ECuChVILpMetIvX",
             "data": {
                 "activation": {
                     "condition": "",
@@ -980,11 +1202,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 700000,
+            "sort": 800000,
             "type": "consumable"
         },
         {
-            "_id": "qfUh7PWEREF7SWea",
+            "_id": "DHgWWE7syBFkaVud",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1015,7 +1237,7 @@
                     "value": false
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "poison"
                 },
                 "consume": {
                     "_deprecated": true,
@@ -1136,7 +1358,7 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/lethargy-poison.webp",
             "name": "Lethargy Poison",
-            "sort": 800000,
+            "sort": 900000,
             "type": "consumable"
         },
         {
@@ -1183,7 +1405,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
@@ -1231,11 +1453,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hand Crossbow",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "melee"
         },
         {
-            "_id": "FuOTVApjoiw4Upm2",
+            "_id": "5IHmSdZpGxrw76lc",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1277,11 +1499,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "YjwYZVeQmk4iccgX",
+            "_id": "Adq96cMm6jUHjnw3",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1323,11 +1545,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "7mvZXfscCaVbu6hM",
+            "_id": "2u5CXi7tZODYDpbJ",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1385,11 +1607,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Magic",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "ie9nSUO2x0J7ppwr",
+            "_id": "GEvdLrMrI8fbxU9C",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1410,7 +1632,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "mental"
                             ]
                         },
@@ -1443,11 +1665,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs Mental",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "kcmmzu9HigFh8IZ9",
+            "_id": "ufap97U4FyUOrJZF",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1489,7 +1711,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1510,7 +1732,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.nimbleDodge"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nimbleDodge"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1528,7 +1766,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Dodge",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1544,7 +1782,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The drow rogue draws a weapon using the @Compendium[pf2e.actionspf2e.Interact]{Interact} action, then Strikes with that weapon.</p>"
+                    "value": "<p>The drow rogue draws a weapon using the Interact action, then Strikes with that weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1570,11 +1808,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Draw",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "action"
         },
         {
-            "_id": "cetaENmjg4NK1Rwe",
+            "_id": "NS7yHszQCqQS0Bfj",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1634,7 +1872,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1664,7 +1902,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1694,7 +1932,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1724,7 +1962,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1754,7 +1992,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1784,7 +2022,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],
