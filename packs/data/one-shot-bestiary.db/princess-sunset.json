@@ -23,11 +23,14 @@
         },
         "attributes": {
             "ac": {
-                "details": "Hardness 5, AC 13 when broken",
+                "details": "AC 13 when broken",
                 "value": 17
             },
             "allSaves": {
                 "value": ""
+            },
+            "hardness": {
+                "value": 5
             },
             "hp": {
                 "details": "",
@@ -42,8 +45,9 @@
                 "value": 6
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
-                "value": 25
+                "value": "25"
             }
         },
         "details": {
@@ -170,6 +174,64 @@
             "type": "melee"
         },
         {
+            "_id": "bDHxUX6Z1RFekU8z",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Like normal objects, an animated rocking horse has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once the animated rocking horse is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 13.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Construct Armor is Broken",
+                        "property": "flags.pf2e.rollOptions.all.constructArmor"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "constructArmor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 5)",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "r6NeyXy7urudFlGz",
             "data": {
                 "actionCategory": {
@@ -212,48 +274,6 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "bDHxUX6Z1RFekU8z",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Like normal objects, an animated rocking horse has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once the animated rocking horse is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 13.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
             "sort": 300000,
             "type": "action"
         },
@@ -262,9 +282,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 9

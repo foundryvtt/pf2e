@@ -725,7 +725,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
-        const weapons = [itemTypes.weapon, strikes].flat().filter((weapon) => weapon.quantity > 0);
+        const weapons = [itemTypes.weapon, strikes].flat();
         systemData.actions = weapons.map((weapon) =>
             this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
@@ -1091,6 +1091,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
             item: weapon.id,
+            quantity: weapon.quantity,
             slug: weapon.slug,
             ready: weapon.isEquipped,
             glyph: "A",

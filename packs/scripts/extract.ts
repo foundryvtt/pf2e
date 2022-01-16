@@ -403,6 +403,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         "equipment",
         "consumable",
         "treasure",
+        "backpack",
         "condition",
         "effect",
         "melee",

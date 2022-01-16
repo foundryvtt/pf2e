@@ -106,6 +106,10 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
     static measureDistance(p0: Point, p1: Point): number {
         if (!canvas.dimensions) return NaN;
 
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            return canvas.grid.measureDistance(p0, p1);
+        }
+
         const gridSize = canvas.dimensions.size;
         const ray = new Ray(p0, p1);
         const nx = Math.ceil(Math.abs(ray.dx / gridSize));

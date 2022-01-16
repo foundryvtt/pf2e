@@ -33,7 +33,7 @@
                 "details": "",
                 "max": 190,
                 "temp": 0,
-                "value": 190
+                "value": 210
             },
             "initiative": {
                 "ability": "perception"
@@ -42,6 +42,7 @@
                 "value": 23
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "20"
             }
@@ -50,7 +51,7 @@
             "alignment": {
                 "value": "N"
             },
-            "blurb": "",
+            "blurb": "Elite variant iron golem",
             "creatureType": "Construct",
             "level": {
                 "value": 14
@@ -125,7 +126,8 @@
                 "value": [
                     "construct",
                     "golem",
-                    "mindless"
+                    "mindless",
+                    "elite"
                 ]
             }
         }
@@ -398,6 +400,48 @@
             "type": "action"
         },
         {
+            "_id": "yhVKDXeyQEVchPJW",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Whenever Mr. Snips rolls a critical hit with a scissors Strike, in addition to dealing extra damage, the golem has a chance to dismember its victim. The target must roll a @Check[type:reflex|dc:39|traits:damaging-effect] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Success</strong> No additional effect</p>\n<p><strong>Failure</strong> The target takes [[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Critical Failure</strong> As failure, and one of the targets extremities is severed (the effects of this are up to the GM's discretion).</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Dismember",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "nhz5F428cTKGkc9v",
             "data": {
                 "actionCategory": {
@@ -436,7 +480,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Inexorable March",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -480,48 +524,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Iron Golem Poison",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "yhVKDXeyQEVchPJW",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Whenever Mr. Snips rolls a critical hit with a scissors Strike, in addition to dealing extra damage, the golem has a chance to dismember its victim. The target must roll a @Check[type:reflex|dc:39] save.</p>\n<p><strong>Success</strong> No additional effect</p>\n<p><strong>Failure</strong> The target takes [[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p><strong>Critical Failure</strong> As failure, and one of the targets extremities is severed (the effects of this are up to the GM's discretion).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Dismember",
             "sort": 900000,
             "type": "action"
         },
@@ -530,9 +532,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 30

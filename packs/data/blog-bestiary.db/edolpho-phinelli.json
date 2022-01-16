@@ -42,6 +42,7 @@
                 "value": 6
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -50,7 +51,7 @@
             "alignment": {
                 "value": "NE"
             },
-            "blurb": "",
+            "blurb": "Male half-elf charlatan",
             "creatureType": "",
             "level": {
                 "value": 3
@@ -2695,7 +2696,7 @@
             "_id": "hshaYWr40KtMapWR",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -2734,13 +2735,74 @@
             "type": "action"
         },
         {
+            "_id": "cQIOQMe8hOeHIJGT",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Edolpho deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 2500000,
+            "type": "action"
+        },
+        {
             "_id": "t3Mw3M6fASnsmW0I",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -2763,7 +2825,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2500000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2771,9 +2833,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 11
@@ -2796,7 +2855,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2600000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2804,9 +2863,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 9
@@ -2829,7 +2885,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2700000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2837,9 +2893,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 9
@@ -2862,7 +2915,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Lore",
-            "sort": 2800000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2870,9 +2923,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 7
@@ -2895,7 +2945,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2900000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2903,9 +2953,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 11
@@ -2928,7 +2975,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 3000000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2936,9 +2983,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 7
@@ -2961,7 +3005,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 3100000,
+            "sort": 3200000,
             "type": "lore"
         },
         {
@@ -2969,9 +3013,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -2994,7 +3035,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3200000,
+            "sort": 3300000,
             "type": "lore"
         },
         {
@@ -3002,9 +3043,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -3027,7 +3065,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 3300000,
+            "sort": 3400000,
             "type": "lore"
         }
     ],
