@@ -37,7 +37,7 @@ export abstract class TagSelectorBase<
 
     protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
-    override activateListeners($html: JQuery<HTMLElement>): void {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         $html.find<HTMLInputElement>('input[type="text"], input[type="number"]').on("focusin", (event) => {
             event.currentTarget.select();

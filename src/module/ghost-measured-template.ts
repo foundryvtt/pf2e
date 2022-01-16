@@ -19,6 +19,7 @@ export class GhostTemplate extends MeasuredTemplate {
         canvas.stage.off("mousedown", this._onLeftClick);
         canvas.stage.off("rightdown", this._onClickRight);
         canvas.app.view.onwheel = null;
+        canvas.activateLayer("tokens");
     };
 
     private _onLeftClick = (event: PIXI.InteractionEvent) => {

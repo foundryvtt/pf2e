@@ -43,6 +43,7 @@
                 "value": 16
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -831,10 +832,10 @@
             "type": "melee"
         },
         {
-            "_id": "pO6FHkKcKJQrEAzG",
+            "_id": "4nQFSndzSR5mnG6h",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -877,10 +878,10 @@
             "type": "action"
         },
         {
-            "_id": "9xbmbnDXp8MFaaE5",
+            "_id": "Ruod5PTighx98n3d",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -889,22 +890,12 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{wounded 3}, it can no longer use this ability</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": "ferocity",
                 "source": {
                     "value": ""
@@ -936,7 +927,7 @@
             "_id": "It5odVxK75mhokbs",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -979,34 +970,42 @@
             "type": "action"
         },
         {
-            "_id": "ma9FwSjZEyGdR6tn",
+            "_id": "0AOpB10JSPvgXByu",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{flat-footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>Scorched Earth orcs deal an extra [[/r {2d6}[precision]]]{2d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
                     }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                ],
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
@@ -1029,7 +1028,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1000000,
             "type": "action"
@@ -1039,9 +1038,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 15
@@ -1073,9 +1069,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 13
                 },
@@ -1105,9 +1098,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 16

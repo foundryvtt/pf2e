@@ -305,28 +305,28 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return this.item.isOwner;
     }
 
-    override activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
-        html.find('li.trait-item input[type="checkbox"]').on("click", (event) => {
+        $html.find('li.trait-item input[type="checkbox"]').on("click", (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
             }
         });
 
-        html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
+        $html.find(".trait-selector").on("click", (ev) => this.onTagSelector(ev));
 
         // Add Damage Roll
-        html.find(".add-damage").on("click", (ev) => {
+        $html.find(".add-damage").on("click", (ev) => {
             this.addDamageRoll(ev);
         });
 
         // Remove Damage Roll
-        html.find(".delete-damage").on("click", (ev) => {
+        $html.find(".delete-damage").on("click", (ev) => {
             this.deleteDamageRoll(ev);
         });
 
-        html.find(".add-rule-element").on("click", async (event) => {
+        $html.find(".add-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
@@ -336,7 +336,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
             });
         });
-        html.find(".rules .remove-rule-element").on("click", async (event) => {
+        $html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
@@ -349,7 +349,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
-        html.find(".add-skill-variant").on("click", (_event) => {
+        $html.find(".add-skill-variant").on("click", (_event) => {
             if (!(this.item instanceof LorePF2e)) return;
             const variants = this.item.data.data.variants ?? {};
             const index = Object.keys(variants).length;
@@ -357,23 +357,23 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 [`data.variants.${index}`]: { label: "+X in terrain", options: "" },
             });
         });
-        html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
+        $html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
 
-        const $prerequisites = html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
+        const $prerequisites = $html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
         if ($prerequisites[0]) {
             new Tagify($prerequisites[0], {
                 editTags: 1,
             });
         }
 
-        InlineRollsLinks.listen(html);
+        InlineRollsLinks.listen($html);
 
         // Work around core bug present as of v9.241 in which contenteditable is ignored by `KeyboardManager` unless
         // it has the value "true"
-        html.find('span[contenteditable=""]').attr({ contenteditable: "true" });
+        $html.find('span[contenteditable=""]').attr({ contenteditable: "true" });
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {

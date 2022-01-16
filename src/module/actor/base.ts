@@ -503,11 +503,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             // This would be a nested ternary, except prettier thoroughly mangles it
             if (damage === 0) return translations.TakesNoDamage;
             if (damage > 0) {
-                return damage > hpDamage && shieldDamage > 0
-                    ? translations.DamagedForNShield
+                return absorbedDamage > 0
+                    ? hpDamage > 0
+                        ? translations.DamagedForNShield
+                        : translations.ShieldAbsorbsAll
                     : translations.DamagedForN;
             }
-            return translations.HealedForN;
+            return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
         })();
 
         const updatedShield = this.attributes.shield;
@@ -521,7 +523,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 : null;
         const statements = [hpStatement, shieldStatement]
             .filter((s): s is string => !!s)
-            .map((s) => game.i18n.format(s, { actor: token.name, hpDamage, absorbedDamage, shieldDamage }))
+            .map((s) =>
+                game.i18n.format(s, { actor: token.name, hpDamage: Math.abs(hpDamage), absorbedDamage, shieldDamage })
+            )
             .join(" ");
 
         await ChatMessagePF2e.create({
@@ -705,31 +709,34 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }) {
         const updates: Record<string, number> = {};
         const { hp, sp, delta } = args;
-        const afterTempHP = ((): number => {
-            if (delta <= 0 || !hp.temp) return delta;
-            const appliedToTemp = Math.min(hp.temp, delta);
-            updates["data.attributes.hp.temp"] = hp.temp - appliedToTemp;
-            return delta - appliedToTemp;
+        const appliedToTemp = ((): number => {
+            if (delta <= 0 || !hp.temp) return 0;
+            const applied = Math.min(hp.temp, delta);
+            updates["data.attributes.hp.temp"] = hp.temp - applied;
+
+            return applied;
         })();
 
-        const afterStamina = ((): number => {
+        const appliedToSP = ((): number => {
             const staminaEnabled = !!sp && game.settings.get("pf2e", "staminaVariant");
-            if (afterTempHP === 0 || !staminaEnabled) return afterTempHP;
-            const appliedToSP =
-                afterTempHP > 0 ? Math.min(sp.value, afterTempHP) : Math.min(sp.max - sp.value, afterTempHP);
-            updates["data.attributes.sp.value"] = sp.value - appliedToSP;
-            return afterTempHP - appliedToSP;
+            if (!staminaEnabled) return 0;
+            const remaining = delta - appliedToTemp;
+            const applied = appliedToTemp > 0 ? Math.min(sp.value, remaining) : Math.max(sp.value - sp.max, remaining);
+            updates["data.attributes.sp.value"] = sp.value - applied;
+
+            return applied;
         })();
 
-        const remainder = ((): number => {
-            if (afterStamina === 0) return 0;
-            const appliedToHP =
-                afterStamina > 0 ? Math.min(hp.value, afterStamina) : Math.min(hp.max - hp.value, afterStamina);
-            updates["data.attributes.hp.value"] = hp.value - appliedToHP;
-            return afterStamina - appliedToHP;
-        })();
+        const appliedToHP = ((): number => {
+            const remaining = delta - appliedToTemp - appliedToSP;
+            const applied = remaining > 0 ? Math.min(hp.value, remaining) : Math.max(hp.value - hp.max, remaining);
+            updates["data.attributes.hp.value"] = hp.value - applied;
 
-        return { updates, totalApplied: delta - remainder };
+            return applied;
+        })();
+        const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
+
+        return { updates, totalApplied };
     }
 
     static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: ImagePath; actionGlyph: string } {

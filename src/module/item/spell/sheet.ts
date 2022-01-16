@@ -41,10 +41,10 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         };
     }
 
-    override activateListeners(html: JQuery<HTMLElement>): void {
-        super.activateListeners(html);
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
 
-        html.find(".toggle-trait").on("change", (evt) => {
+        $html.find(".toggle-trait").on("change", (evt) => {
             const target = evt.target as HTMLInputElement;
             const trait = target.dataset.trait ?? "";
             if (!objectHasKey(CONFIG.PF2E.spellTraits, trait)) {
@@ -61,7 +61,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }
         });
 
-        html.find("[data-action='damage-create']").on("click", (event) => {
+        $html.find("[data-action='damage-create']").on("click", (event) => {
             event.preventDefault();
             const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
             this.item.update({
@@ -69,7 +69,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             });
         });
 
-        html.find("[data-action='damage-delete']").on("click", (event) => {
+        $html.find("[data-action='damage-delete']").on("click", (event) => {
             event.preventDefault();
             const id = $(event.target).closest("[data-action='damage-delete']").attr("data-id");
             if (id) {
@@ -81,12 +81,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }
         });
 
-        html.find("[data-action='scaling-create']").on("click", (event) => {
+        $html.find("[data-action='scaling-create']").on("click", (event) => {
             event.preventDefault();
             this.item.update({ "data.scaling": DEFAULT_INTERVAL_SCALING });
         });
 
-        html.find("[data-action='scaling-delete']").on("click", (event) => {
+        $html.find("[data-action='scaling-delete']").on("click", (event) => {
             event.preventDefault();
             this.item.update({ "data.-=scaling": null });
         });

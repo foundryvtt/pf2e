@@ -42,8 +42,9 @@
                 "value": 7
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
-                "value": 30
+                "value": "30"
             }
         },
         "details": {
@@ -128,14 +129,9 @@
                 "value": []
             },
             "rarity": "common",
-            "senses": [
-                {
-                    "exceptions": "",
-                    "label": "Low-Light Vision",
-                    "type": "lowLightVision",
-                    "value": ""
-                }
-            ],
+            "senses": {
+                "value": "low-light vision"
+            },
             "size": {
                 "value": "sm"
             },
@@ -195,10 +191,10 @@
             "type": "melee"
         },
         {
-            "_id": "NhcqCfallZ7DaLf1",
+            "_id": "TBYbIOsAGvUsHWXX",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -207,12 +203,75 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A taxidermic dog's Strikes deal [[/r 1d4]] extra damage to creatures within the reach of the taxidermic dog's two allies.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "NhcqCfallZ7DaLf1",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A taxidermic dog's Strikes deal [[/r 1d4]]{1d4 extra damage} to creatures within the reach of the taxidermic dog's two allies.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.packAttack"
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "packAttack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -233,7 +292,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -241,9 +300,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 5
@@ -266,7 +322,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -274,9 +330,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 7
@@ -299,7 +352,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -307,9 +360,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 5
@@ -332,7 +382,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],

@@ -135,9 +135,9 @@ export class VariantRulesSettings extends FormApplication {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
-        html.find('button[name="reset"]').on("click", (event) => this.onResetDefaults(event));
+    override activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+        $html.find('button[name="reset"]').on("click", (event) => this.onResetDefaults(event));
     }
 
     /**

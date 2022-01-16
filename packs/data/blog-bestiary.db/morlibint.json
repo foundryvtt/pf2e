@@ -42,6 +42,7 @@
                 "value": 7
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "25"
             }
@@ -50,7 +51,7 @@
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Male human wizard",
             "creatureType": "",
             "level": {
                 "value": 4
@@ -146,7 +147,7 @@
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "signatureSpells": {
                     "value": []
@@ -2860,9 +2861,28 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(two-hand d8)</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2871,7 +2891,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "two-hand d8"
+                        "two-hand-d8"
                     ]
                 },
                 "weaponType": {
@@ -2889,7 +2909,7 @@
             "_id": "9YzpuGAd3hRkExm8",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -2935,7 +2955,7 @@
             "_id": "DOAqWLQqt4gV4zUR",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "free"
@@ -2981,9 +3001,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 12
                 },
@@ -3013,9 +3030,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 10
@@ -3047,9 +3061,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 8
                 },
@@ -3079,9 +3090,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -3113,9 +3121,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 7
                 },
@@ -3145,9 +3150,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 7
@@ -3179,9 +3181,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 10
                 },
@@ -3211,9 +3210,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -3245,9 +3241,6 @@
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
                     "value": 7
                 },
@@ -3277,9 +3270,6 @@
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 10

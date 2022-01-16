@@ -23,7 +23,135 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SterlingDynamo.AutomaticPercussive",
+                        "value": "self:feature:dynamo:automatic-percussive"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SterlingDynamo.AutomaticPower",
+                        "value": "self:feature:dynamo:automatic-power"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SterlingDynamo.ManualPercussive",
+                        "value": "self:feature:dynamo:manual-percussive"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SterlingDynamo.ManualPower",
+                        "value": "self:feature:dynamo:manual-power"
+                    }
+                ],
+                "flag": "dynamoChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "{item|flags.pf2e.rulesSelections.dynamoChoice}"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+                "key": "Strike",
+                "label": "Sterling Dynamo",
+                "predicate": {
+                    "all": [
+                        "self:feature:dynamo:manual-power"
+                    ]
+                },
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "shove"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+                "key": "Strike",
+                "label": "Sterling Dynamo",
+                "predicate": {
+                    "all": [
+                        "self:feature:dynamo:automatic-power"
+                    ]
+                },
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "shove"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+                "key": "Strike",
+                "label": "Sterling Dynamo",
+                "predicate": {
+                    "all": [
+                        "self:feature:dynamo:manual-percussive"
+                    ]
+                },
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist-earth-elemental.webp",
+                "key": "Strike",
+                "label": "Sterling Dynamo",
+                "predicate": {
+                    "all": [
+                        "self:feature:dynamo:automatic-percussive"
+                    ]
+                },
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
