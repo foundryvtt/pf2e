@@ -14,7 +14,7 @@ export class TreasurePF2e extends PhysicalItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         const systemData = this.data.data;
-        if (systemData.stackGroup.value === "coins") {
+        if (this.isCoinage) {
             systemData.size.value = "med";
         } else {
             const value = systemData.value.value;
