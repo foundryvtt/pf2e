@@ -7,7 +7,6 @@ import { GetSceneControlButtons } from "./get-scene-control-buttons";
 import { HotbarDrop } from "./hotbar-drop";
 import { Init } from "./init";
 import { LightingRefresh } from "./lighting-refresh";
-import { PF2eStartTurn } from "./pf2e-start-turn";
 import { Ready } from "./ready";
 import { RenderActorDirectory } from "./render-actor-directory";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
@@ -28,7 +27,6 @@ export const HooksPF2e = {
             Init,
             HotbarDrop,
             LightingRefresh,
-            PF2eStartTurn,
             Ready,
             RenderActorDirectory,
             RenderCombatTrackerConfig,
