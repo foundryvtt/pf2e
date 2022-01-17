@@ -1,8 +1,32 @@
 # Changelog
 
+## Version 3.2.1
+
+### Bugfixes
+* (SoldierC4) Prevent Effects Panel rows from moving on mouse hover
+* (stwlam) Refrain from deleting bomb items upon reaching zero quantity
+* (stwlam) Fix damage application to temporary hit points
+* (stwlam) Fix rule elements on Third Path to Perfection
+* (stwlam) Fix interactability of scene darkness slider when clicking on threshold icons
+* (Tikael) Make Resilient armor with no potency runes invested (ABP)
+* (Tikael) Return to token layer after placing a premade template
+
+### Core System Improvements
+* (stwlam) Add distance-measuring support for gridless scenes
+
+### Data Updates
+* (Abaddon) Brushup kobold warrior, scout, and dragon mages
+* (Abaddon) Brushup dhampir mage, doppelganger, harpy, medusa
+* (rectulo) Delete book reference in the description of the poppet ancestry
+* (SpartanCPA) Add a longer duration longstrider effect
+* (SpartanCPA) Fix Point-Blank Shot's damage bonus
+* (SpartanCPA) Audit Ethereal Sailor
+* (SpartanCPA) Add @Check to Marshal stances
+
+
 ## Version 3.2.0
 
-### New Feature
+### New Features
 * (Eddie) Add Quick Alchemy crafting option
 * (stwlam) Implement Heritage items, migrate existing heritage ancestry features to them
 * (stwlam) Begin tracking relative distances between attackers and their targets, calculate Strike range increments

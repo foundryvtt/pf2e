@@ -288,7 +288,7 @@ interface RuleElementPF2e {
      * updates to the actor.
      * @param actorUpdates A record containing update data for the actor
      */
-    onTurnStart?(actorUpdates: Record<string, unknown>): void;
+    onTurnStart?(actorUpdates: Record<string, unknown>): void | Promise<void>;
 
     /**
      * Runs after an item holding this rule is removed from an actor. This method is used for cleaning up any values

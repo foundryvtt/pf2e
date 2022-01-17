@@ -649,7 +649,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Calculate distance and set as a roll option
         const selfToken = canvas.tokens.controlled.find((token) => token.actor === this);
         const distance =
-            selfToken && target && canvas.grid?.grid instanceof SquareGrid
+            selfToken && target && !!canvas.grid
                 ? ((): number => {
                       const groundDistance = MeasuredTemplatePF2e.measureDistance(selfToken.position, target.position);
                       const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);

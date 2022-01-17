@@ -179,17 +179,19 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
         super._onUpdate(changed, options, userId);
 
         // No updates necessary if combat hasn't started or this combatant has already had a turn this round
-        if (!this.combatant?.actor || !this.started || this.combatant.roundOfLastTurn === this.round) return;
+        const combatant = this.combatant;
+        const actor = combatant?.actor;
+        const noActor = !combatant || !actor || !this.started;
+        const alreadyWent = combatant?.roundOfLastTurn === this.round;
 
         const { previous } = this;
         const isNextRound =
             typeof changed.round === "number" && (previous.round === null || changed.round > previous.round);
         const isNextTurn = typeof changed.turn === "number" && (previous.turn === null || changed.turn > previous.turn);
-        if (!(isNextRound || isNextTurn)) return;
 
-        const { actor } = this.combatant;
-        // Find the best user to make the update
+        // Find the best user to make the update, since players can end turns and this runs for everyone
         const updater = ((): UserPF2e | null => {
+            if (!actor) return null;
             const userUpdatingThis = game.users.get(userId, { strict: true });
 
             const activeUsers = game.users.filter((u) => u.active);
@@ -200,18 +202,28 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
                 ? userUpdatingThis
                 : assignedUser ?? firstGM ?? anyoneWithPermission ?? null;
         })();
-        if (game.user !== updater) return;
 
-        this.combatant.update({ "flags.pf2e.roundOfLastTurn": this.round }).then(() => {
-            // Now that a user has been found, make the updates if there are any
-            const actorUpdates: Record<string, unknown> = {};
-            for (const rule of actor.rules) {
-                rule.onTurnStart?.(actorUpdates);
+        // Update the combatant's data (if necessary), run any turn start events, then update the effect panel
+        (async () => {
+            if (!noActor && !alreadyWent && (isNextRound || isNextTurn) && game.user === updater) {
+                const actorUpdates: Record<string, unknown> = {};
+
+                // Run any turn start events before the effect tracker updates.
+                // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
+                for (const rule of actor.rules) {
+                    await rule.onTurnStart?.(actorUpdates);
+                }
+
+                // Now that a user has been found, make the updates if there are any
+                await combatant.update({ "flags.pf2e.roundOfLastTurn": this.round });
+                if (Object.keys(actorUpdates).length > 0) {
+                    await actor.update(actorUpdates);
+                }
             }
-            if (Object.keys(actorUpdates).length > 0) {
-                actor.update(actorUpdates);
-            }
-        });
+
+            await game.pf2e.effectTracker.refresh();
+            game.pf2e.effectPanel.refresh();
+        })();
     }
 }
 

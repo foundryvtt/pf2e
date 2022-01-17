@@ -53,13 +53,13 @@
                                                 {{/if}}
                                             </div>
                                             <!-- ATTACK/DAMAGE -->
-                                            {{#> attackDamage action}}action.{{/attackDamage}}
+                                            {{#> attackDamage action}}{{/attackDamage}}
                                         </div>
                                     </div>
                                     {{#if action.meleeUsage}}
                                         <div class="melee-usage" data-action="melee-usage">
                                             <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
-                                            {{#> attackDamage action.meleeUsage}}action.meleeUsage.{{/attackDamage}}
+                                            {{#> attackDamage action.meleeUsage}}{{/attackDamage}}
                                         </div>
                                     {{/if}}
                                     <div class="item-summary">
@@ -191,7 +191,8 @@
 {{#*inline "attackDamage"}}
     <div class="button-group tags">
         {{#each variants as |variant vi|}}
-            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
+            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
+                {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>{{variant.label}}</button>
         {{/each}}
         <button type="button" class="tag" data-action="strike-damage">{{localize "PF2E.DamageLabel"}}</button>
         <button type="button" class="tag" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>

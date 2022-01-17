@@ -34,7 +34,7 @@ import {
     CharacterSheetTabVisibility,
     LinkedProficiency,
 } from "./data";
-import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
+import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
@@ -515,9 +515,12 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            modifiers.push(...(statisticsModifiers[`${acAbility}-based`] ?? []).map((m) => m.clone()));
+            const selectorsAndDomains = ["ac", `${acAbility}-based`, "all"];
+            for (const selector of selectorsAndDomains) {
+                modifiers.push(...(statisticsModifiers[selector] ?? []).map((m) => m.clone()));
+            }
 
-            const rollOptions = this.getRollOptions(["ac", `${acAbility}-based`, "all"]);
+            const rollOptions = this.getRollOptions(selectorsAndDomains);
             for (const modifier of modifiers) {
                 modifier.ignored = !modifier.predicate.test(rollOptions);
             }
@@ -725,7 +728,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
-        const weapons = [itemTypes.weapon, strikes].flat().filter((weapon) => weapon.quantity > 0);
+        const weapons = [itemTypes.weapon, strikes].flat();
         systemData.actions = weapons.map((weapon) =>
             this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
@@ -1034,26 +1037,23 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Get best weapon potency
         const weaponPotency = (() => {
-            const potency: WeaponPotencyPF2e[] = selectors
-                .flatMap((key) => synthetics.weaponPotency[key] ?? [])
+            const potency = selectors
+                .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
+            AutomaticBonusProgression.applyPropertyRunes(potency, weapon);
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
+
             if (potencyRune) {
                 const property = getPropertyRunes(itemData, getPropertySlots(itemData));
-                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, property });
+                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, type: "item", property });
             }
-            if (potency.length > 0) {
-                return potency.reduce(
-                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    potency[0]
-                );
-            }
-
-            return null;
+            return potency.length > 0
+                ? potency.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
+                : null;
         })();
 
         if (weaponPotency) {
-            modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
+            modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             weaponTraits.add("magical");
         }
 
@@ -1091,6 +1091,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
             item: weapon.id,
+            quantity: weapon.quantity,
             slug: weapon.slug,
             ready: weapon.isEquipped,
             glyph: "A",

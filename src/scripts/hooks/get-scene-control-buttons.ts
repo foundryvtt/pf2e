@@ -1,3 +1,5 @@
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
+
 /** Insert system tool buttons to the control bar */
 export const GetSceneControlButtons = {
     listen: (): void => {
@@ -7,6 +9,7 @@ export const GetSceneControlButtons = {
                 name: "worldclock",
                 title: "CONTROLS.WorldClock",
                 icon: "fas fa-clock",
+                button: true,
                 visible:
                     game.settings.get("pf2e", "worldClock.showClockButton") &&
                     (game.user.isGM || game.settings.get("pf2e", "worldClock.playersCanView")),
@@ -28,6 +31,19 @@ export const GetSceneControlButtons = {
                 title: "CONTROLS.AdjustSceneDarkness",
                 icon: "fas fa-adjust",
                 visible: game.user.isGM && game.settings.get("pf2e", "automation.rulesBasedVision"),
+                toggle: true,
+                onClick: () => {
+                    const adjuster = SceneDarknessAdjuster.instance;
+                    if (adjuster.rendered) {
+                        $("#darkness-adjuster").fadeOut(() => {
+                            adjuster.close({ force: true });
+                        });
+                    } else {
+                        adjuster.render(true, { scene: canvas.scene }).then(() => {
+                            $("#darkness-adjuster").hide().fadeIn();
+                        });
+                    }
+                },
             });
         });
     },
