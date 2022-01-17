@@ -23,6 +23,7 @@ import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -120,6 +121,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.traits.otherTags ??= [];
+        AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
         const traitSet = this.traits;
@@ -169,7 +171,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         // Collect all traits from the runes and apply them to the weapon
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
-        const magicTraits: "magical"[] = this.data.data.potencyRune.value ? ["magical"] : [];
+        const hasRunes = (() => {
+            const hasFundamentalRunes = !!this.data.data.potencyRune.value || !!this.data.data.strikingRune.value;
+            const hasPropertyRunes = ([1, 2, 3, 4] as const)
+                .map((n) => this.data.data[`propertyRune${n}` as const])
+                .some((r) => !!r.value);
+            const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
+            return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
+        })();
+        const magicTraits: "magical"[] = hasRunes ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
@@ -293,7 +303,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             const key = ([potency, striking, properties, material]
                 .filter((keyPart): keyPart is string => !!keyPart)
                 .join("") || null) as keyof typeof formatStrings | null;
-            key;
             return key && formatStrings[key];
         })();
 
