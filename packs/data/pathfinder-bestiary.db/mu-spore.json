@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": ")",
+                "details": "regeneration 50 (deactivated by sonic)",
                 "max": 350,
                 "temp": 0,
                 "value": 350
@@ -42,6 +42,7 @@
                 "value": 36
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -53,7 +54,7 @@
         },
         "details": {
             "alignment": {
-                "value": "CE"
+                "value": "CN"
             },
             "blurb": "",
             "creatureType": "Fungus",
@@ -89,15 +90,14 @@
             },
             "dr": [
                 {
-                    "label": "Acid",
+                    "exceptions": "",
                     "type": "acid",
-                    "value": "20"
+                    "value": 20
                 },
                 {
-                    "exceptions": "sonic",
-                    "label": "All",
+                    "exceptions": "except sonic",
                     "type": "all",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -137,6 +137,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "improved-grab"
                     ]
@@ -184,6 +185,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "improved-grab"
                     ]
@@ -225,6 +227,52 @@
             "type": "melee"
         },
         {
+            "_id": "47Ksb5cr0D7tx1KE",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "Fzou6YacIfdWk8Rx",
             "data": {
                 "actionCategory": {
@@ -262,8 +310,54 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Windsense",
-            "sort": 300000,
+            "name": "Windsense 240 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "82HFjbpYVotosFsA",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 50 (Deactivated by Sonic)",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -305,7 +399,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Enormous",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -321,7 +415,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 10 feet of the mu spore moves or attacks the mu spore.</p>\n<p><strong>Effect</strong> The spore uses Grab on the triggering creature. There is no limit to how many creatures it can grab with the sticky tendrils that cover its body.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 10 feet of the mu spore moves or attacks the mu spore.</p>\n<p><strong>Effect</strong> The spore uses @Compendium[pf2e.bestiary-ability-glossary-srd.Improved Grab]{Grab} on the triggering creature. There is no limit to how many creatures it can grab with the sticky tendrils that cover its body.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -347,7 +441,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Grasping Tendrils",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -363,7 +457,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>60 feet. A living creature that enters the area or ends its turn within it is corrupted by spores. It must succeed at a @Check[type:fortitude|dc:42] save or be clumsy 1, enfeebled 1, and slowed 1 for 1 round. Fungi and plants are immune.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A living creature that enters the area or ends its turn within it is corrupted by spores. It must succeed at a @Check[type:fortitude|dc:42] save or be @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round. Fungi and plants are immune.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -391,7 +485,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spores",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -407,7 +501,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mu spore releases a cloud of burrowing spores in a @Template[type:cone|distance:400]. The spores deal [[/r {22d6}[piercing]]]{22d6 piercing damage} to all creatures, objects, and wooden structures in the area, but not to plants or fungi (@Check[type:reflex|dc:46|basic:true] save). The mu spore can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The mu spore releases a cloud of burrowing spores in a @Template[type:cone|distance:400]. The spores deal [[/r {22d6}[piercing]]]{22d6 piercing damage} to all creatures, objects, and wooden structures in the area, but not to plants or fungi (@Check[type:reflex|dc:46|basic:true] save).</p>\n<p>The mu spore can't use this ability again for [[/br 1d4 #Recharge Cough Spores]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -433,7 +527,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Cough Spores",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -475,7 +569,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Enormous Inhalation",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -491,7 +585,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The mu spore Grabs a creature with its jaws.</p>\n<p><strong>Effect</strong> The spore uses Swallow Whole.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The mu spore @Compendium[pf2e.conditionitems.Grabbed]{Grabs} a creature with its jaws.</p>\n<p><strong>Effect</strong> The spore uses Swallow Whole.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -517,11 +611,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Fast Swallow",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "taBgJqg86q98Aw05",
+            "_id": "fSUvadSPPhS9kOAB",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -533,13 +627,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>15 bludgeoning, DC 45.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r {15}[bludgeoning]]]{15 bludgeoning damage}, @Check[type:fortitude|dc:45|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "greater-constrict",
                 "source": {
                     "value": ""
                 },
@@ -556,10 +650,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.OmV6E3aELvq9CkK1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Greater Constrict",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -580,7 +678,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "selector": "jaws-attack",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -601,11 +708,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Overpowering Jaws",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "TPEePJ6qW4qwIM2o",
+            "_id": "lYUnEWGhnlYFvH6B",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -617,13 +724,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Gargantuan, [[/r {20d6+9}[acid]]]{20d6 acid damage}, Rupture 37.</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Gargantuan, [[/r {20d6+9}[acid]]]{20d6+9 acid damage}, Rupture 37.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -642,14 +749,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "z0s5BCn1iwTpECIW",
+            "_id": "Sjf1HpLuxn9U6lr2",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -661,13 +772,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
@@ -684,10 +795,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -717,7 +832,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -747,7 +862,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -777,7 +892,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -807,17 +922,17 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],
     "name": "Mu Spore",
     "token": {
         "disposition": -1,
-        "height": 4,
+        "height": 10,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "name": "Mu Spore",
-        "width": 4
+        "width": 10
     },
     "type": "npc"
 }

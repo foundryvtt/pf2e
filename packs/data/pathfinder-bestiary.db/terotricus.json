@@ -42,6 +42,7 @@
                 "value": 31
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "burrow",
@@ -95,39 +96,34 @@
                 "custom": "",
                 "value": [
                     "controlled",
-                    "paralyzed",
                     "disease",
+                    "paralyzed",
                     "sleep"
                 ]
             },
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "15"
+                    "value": 15
                 },
                 {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "15"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "10"
-                },
-                {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "15"
+                    "value": 15
+                },
+                {
+                    "type": "good",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
                 }
             ],
             "languages": {
@@ -189,7 +185,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Either Improved Grab of Improved Push</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -277,7 +273,7 @@
             "type": "melee"
         },
         {
-            "_id": "wDhxFGVoT8pJoV4M",
+            "_id": "xsknvVvLR4sL1ugG",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -323,7 +319,7 @@
             "type": "action"
         },
         {
-            "_id": "RzkYPr0bMWGWj9s4",
+            "_id": "TkDV0wPhRzYy8sii",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -369,7 +365,7 @@
             "type": "action"
         },
         {
-            "_id": "UT1biGVs3jsmAWcz",
+            "_id": "qSJwECMRJYL4xDUN",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -393,9 +389,9 @@
                             "any": [
                                 "magical",
                                 "arcane",
+                                "divine",
                                 "primal",
-                                "occult",
-                                "divine"
+                                "occult"
                             ]
                         },
                         "selector": "saving-throw",
@@ -403,7 +399,7 @@
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -420,14 +416,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs Magic",
+            "name": "+1 Status to All Saves vs Magic",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "O1bOjRoY3AbOWiXZ",
+            "_id": "xpcbUoWx3vMpIFDi",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -468,7 +468,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 35 (deactivated by cold)",
+            "name": "Regeneration 25 (Deactivated by Cold)",
             "sort": 600000,
             "type": "action"
         },
@@ -485,7 +485,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, disease; 30 feet.</p>\n<p>A creature entering the aura or starting its turn there is exposed to spore blight.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature entering the aura or starting its turn there is exposed to spore blight.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -530,7 +530,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<p><strong>Requirement</strong> The terotricus is in a swamp or forested area.</p>\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed 200 Hit Points.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirement</strong> The terotricus is in a swamp or forested area.</p>\n</div>\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r 200 #Healing]]{200 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -576,7 +576,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Plants and fungi are immune.</p>\n<hr />\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40|name:Sticky Spores]</p>\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}(1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled4} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong>@Compendium[pf2e.conditionitems.Controlled]{Controlled} by the terotricus (as <em>@Compendium[pf2e.spells-srd.Dominate]{Dominate}</em>; [[/r 5d8 #days]]{5d8 days})</p>\n<p><strong>Stage 4</strong> dead.</p>"
+                    "value": "<p>Plants and fungi are immune.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<hr />\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled4} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong>@Compendium[pf2e.conditionitems.Controlled]{Controlled} by the terotricus (as <em>@Compendium[pf2e.spells-srd.Dominate]{Dominate}</em>; [[/br 5d8 #Dureation Controlled]]{5d8 days})</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -620,7 +620,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by a terotricus's spores must succeed at a @Check[type:reflex|dc:40] save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is immobilized until it Escapes (DC 40).</p>"
+                    "value": "<p>A creature hit by a terotricus's spores must succeed at a @Check[type:reflex|dc:40] save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes (DC 40).</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sticky Spores]{Effect: Sticky Spores}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -650,7 +650,7 @@
             "type": "action"
         },
         {
-            "_id": "eDk2y4Jw9s28yjXS",
+            "_id": "ZfDN0qrqMsIVdq7W",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -696,7 +696,7 @@
             "type": "action"
         },
         {
-            "_id": "W3lLKGh07cal0OCP",
+            "_id": "pyVnqo4FLO0RWxrX",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -737,7 +737,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Push (20 feet, 40 feet on a Critical Hit)",
+            "name": "Improved Push 20 feet (40 feet on a Critical Hit)",
             "sort": 1200000,
             "type": "action"
         },
