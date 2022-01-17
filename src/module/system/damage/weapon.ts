@@ -503,24 +503,16 @@ export class WeaponDamagePF2e {
             },
         };
 
-        // custom dice
-        {
-            const stats: string[] = [];
-            stats.push(`${sluggify(weapon.name)}-damage`);
-
-            const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-            const baseItem = equivalentWeapons[weapon.data.baseItem ?? ""] ?? weapon.data.baseItem;
-            if (baseItem && !stats.includes(`${baseItem}-damage`)) {
-                stats.push(`${baseItem}-damage`);
-            }
-            stats.concat([`${weapon._id}-damage`, "damage"]).forEach((key) => {
-                (damageDice[key] || [])
-                    .map((d) => new DamageDicePF2e(d))
-                    .forEach((d) => {
-                        d.enabled = d.predicate.test(options);
-                        diceModifiers.push(d);
-                    });
-            });
+        // Damage dice from synthetics
+        for (const selector of selectors) {
+            const testedDice =
+                damageDice[selector]?.map((d) => {
+                    const dice = new DamageDicePF2e(d);
+                    dice.enabled = d.predicate.test(options);
+                    dice.ignored = !d.enabled;
+                    return dice;
+                }) ?? [];
+            diceModifiers.push(...testedDice);
         }
 
         // include dice number and size in damage tag
@@ -824,9 +816,9 @@ export class WeaponDamagePF2e {
     }
 
     private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
-        const selectors: string[] = [];
+        const selectors = [`${weapon._id}-damage`, "mundane-damage", "damage"];
         if (weapon.data.group) {
-            selectors.push(`${weapon.data.group.toLowerCase()}-weapon-group-damage`);
+            selectors.push(`${weapon.data.group}-weapon-group-damage`);
         }
         if (ability) {
             selectors.push(`${ability}-damage`);
@@ -843,6 +835,6 @@ export class WeaponDamagePF2e {
             selectors.push(`${baseType}-damage`);
         }
 
-        return selectors.concat([`${weapon._id}-damage`, "mundane-damage", "damage"]);
+        return selectors;
     }
 }
