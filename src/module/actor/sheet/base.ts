@@ -655,7 +655,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     private onClickBrowseFeatCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const maxLevel = Number($(event.currentTarget).attr("data-level"));
+        const maxLevel = Number($(event.currentTarget).attr("data-level")) || this.actor.level;
         const filter: string[] = [
             $(event.currentTarget).attr("data-filter"),
             $(event.currentTarget).attr("data-secondaryfilter"),
