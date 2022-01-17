@@ -34,7 +34,7 @@ import {
     CharacterSheetTabVisibility,
     LinkedProficiency,
 } from "./data";
-import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
+import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
@@ -1037,26 +1037,23 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Get best weapon potency
         const weaponPotency = (() => {
-            const potency: WeaponPotencyPF2e[] = selectors
-                .flatMap((key) => synthetics.weaponPotency[key] ?? [])
+            const potency = selectors
+                .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
+            AutomaticBonusProgression.applyPropertyRunes(potency, weapon);
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
+
             if (potencyRune) {
                 const property = getPropertyRunes(itemData, getPropertySlots(itemData));
-                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, property });
+                potency.push({ label: "PF2E.PotencyRuneLabel", bonus: potencyRune, type: "item", property });
             }
-            if (potency.length > 0) {
-                return potency.reduce(
-                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    potency[0]
-                );
-            }
-
-            return null;
+            return potency.length > 0
+                ? potency.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
+                : null;
         })();
 
         if (weaponPotency) {
-            modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
+            modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             weaponTraits.add("magical");
         }
 
