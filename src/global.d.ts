@@ -100,23 +100,24 @@ declare global {
     }
 
     interface ClientSettings {
-        get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
-        get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
         get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
+        get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
+        get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
-        get(module: "pf2e", setting: "deathIcon"): ImagePath;
+        get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
         get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
+        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
-        get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
-        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
@@ -128,16 +129,15 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
-        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
-
+        get(module: "pf2e", setting: "critFumbleButtons"): boolean;
+        get(module: "pf2e", setting: "deathIcon"): ImagePath;
+        get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
+        get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
+        get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
-        get(module: "pf2e", setting: "drawCritFumble"): boolean;
-        get(module: "pf2e", setting: "critFumbleButtons"): boolean;
-        get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
-        get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
     }
 
     interface ClientSettingsMap {

@@ -4,6 +4,7 @@ import { ActorType } from "@actor/data";
 import { RuleElementSource } from "..";
 import { getPropertyRunes, getPropertySlots } from "@item/runes";
 import { PredicatePF2e } from "@system/predication";
+import { MODIFIER_TYPE } from "@module/modifiers";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
@@ -24,7 +25,11 @@ class WeaponPotencyRuleElement extends RuleElementPF2e {
         const potencyValue = this.data.value ?? (item instanceof WeaponPF2e ? item.data.data.potencyRune.value : 0);
         const value = this.resolveValue(potencyValue);
         if (selector && typeof value === "number") {
-            const potency: WeaponPotencyPF2e = { label: this.label, bonus: value };
+            const bonusType =
+                game.settings.get("pf2e", "automaticBonusVariant") === "noABP"
+                    ? MODIFIER_TYPE.ITEM
+                    : MODIFIER_TYPE.POTENCY;
+            const potency: WeaponPotencyPF2e = { label: this.label, bonus: value, type: bonusType };
             if (this.data.predicate) {
                 potency.predicate = this.data.predicate;
             }
@@ -53,6 +58,7 @@ interface WeaponPotencyData extends RuleElementData {
 interface WeaponPotencyPF2e {
     label: string;
     bonus: number;
+    type: "item" | "potency";
     predicate?: PredicatePF2e;
     property?: string[];
 }
