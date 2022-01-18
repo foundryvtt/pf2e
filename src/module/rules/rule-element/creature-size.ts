@@ -1,7 +1,7 @@
 import { CreaturePF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, TreasurePF2e } from "@item";
 import { Size, SIZES } from "@module/data";
 import { tupleHasValue } from "@util";
 import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
@@ -27,17 +27,18 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         gargantuan: "grg",
     };
 
-    private incrementSize(size: Size): Size {
-        switch (size) {
-            case "tiny":
-                return "sm";
-            case "sm":
-                return "med";
-            case "lg":
-                return "huge";
-            default:
-                return "grg";
-        }
+    private static incrementMap = { tiny: "sm", sm: "med", med: "lg", lg: "huge", huge: "grg", grg: "grg" } as const;
+
+    private static decrementMap = { tiny: "tiny", sm: "tiny", med: "sm", lg: "med", huge: "lg", grg: "huge" } as const;
+
+    private incrementSize(size: Size, amount: number): Size {
+        if (amount === 0) return size;
+        return this.incrementSize(CreatureSizeRuleElement.incrementMap[size], amount - 1);
+    }
+
+    private decrementSize(size: Size, amount: number): Size {
+        if (amount === 0) return size;
+        return this.decrementSize(CreatureSizeRuleElement.decrementMap[size], amount - 1);
     }
 
     override onBeforePrepareData() {
@@ -52,14 +53,19 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
             return;
         }
         const size = CreatureSizeRuleElement.wordToAbbreviation[value] ?? value;
+        if (typeof size === "string" && !tupleHasValue(SIZES, size)) {
+            this.failValidation(`"${size}" is not a recognized size`);
+            return;
+        }
+        const originalSize = new ActorSizePF2e({ value: this.actor.size });
 
         if (value === 1) {
-            if (this.data.maximumSize && !this.actor.data.data.traits.size.isSmallerThan(this.data.maximumSize)) {
+            if (this.data.maximumSize && !originalSize.isSmallerThan(this.data.maximumSize)) {
                 return;
             }
             this.actor.data.data.traits.size.increment();
         } else if (value === -1) {
-            if (this.data.minimumSize && !this.actor.data.data.traits.size.isLargerThan(this.data.minimumSize)) {
+            if (this.data.minimumSize && !originalSize.isLargerThan(this.data.minimumSize)) {
                 return;
             }
             this.actor.data.data.traits.size.decrement();
@@ -77,8 +83,13 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         }
 
         if (this.data.resizeEquipment) {
-            for (const item of this.actor.physicalItems) {
-                item.data.data.size.value = this.incrementSize(item.size);
+            const sizeDifference = originalSize.difference(this.actor.data.data.traits.size);
+            for (const item of this.actor.physicalItems.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
+                if (sizeDifference < 0) {
+                    item.data.data.size.value = this.incrementSize(item.size, Math.abs(sizeDifference));
+                } else if (sizeDifference > 0) {
+                    item.data.data.size.value = this.decrementSize(item.size, Math.abs(sizeDifference));
+                }
             }
         }
     }

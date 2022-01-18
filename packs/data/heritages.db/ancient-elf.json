@@ -8,7 +8,28 @@
         "description": {
             "value": "<p>In your long life, you've dabbled in many paths and many styles. typical ancient elf is at least 100 years old, though you might be younger at the GM's discretion. Choose a class other than your own. You gain the multiclass dedication feat for that class, even though you don't meet its level prerequisite. You must still meet its other prerequisites to gain the feat.</p>"
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "all": [
+                        "item:trait:dedication",
+                        "item:trait:multiclass",
+                        "item:type:feat"
+                    ],
+                    "label": "PF2E.SpecificRule.AncientElf.AllowedDrops"
+                },
+                "choices": {
+                    "query": "{\"data.featType.value\":\"archetype\",\"$and\":[{\"data.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"data.traits.value\":{\"$elemMatch\":\"multiclass\"}}]}"
+
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncientElf.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.ancientElf}"
+            }
+        ],
         "source": {
             "value": ""
         },

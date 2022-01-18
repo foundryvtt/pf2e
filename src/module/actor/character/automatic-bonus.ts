@@ -1,3 +1,4 @@
+import { WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers";
 import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 
@@ -93,12 +94,21 @@ export class AutomaticBonusProgression {
             if (attack > 0) {
                 const potency: WeaponPotencyPF2e = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
+                    type: MODIFIER_TYPE.POTENCY,
                     bonus: attack,
                 };
                 synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
                     potency
                 );
             }
+        }
+    }
+
+    static applyPropertyRunes(potency: WeaponPotencyPF2e[], weapon: Embedded<WeaponPF2e>): void {
+        if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
+        const potencyBonuses = potency.filter((p) => p.type === "potency");
+        for (const bonus of potencyBonuses) {
+            bonus.property = deepClone(weapon.data.data.runes.property);
         }
     }
 

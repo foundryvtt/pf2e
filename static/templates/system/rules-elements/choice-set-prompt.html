@@ -8,21 +8,25 @@
                     <option value="{{choice.value}}">{{choice.label}}</option>
                 {{/each}}
             </select>
-
+            {{#> dropZone}}{{/dropZone}}
             <button type="button" value="">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
-    {{else}}
+        {{else}}
             {{#each choices as |choice|}}
                 <button type="button" value="{{choice.value}}"{{#if choice.img}} class="with-image"{{/if}}>
                     {{#if choice.img}}<img src="{{choice.img}}" />{{/if}}
                     <span>{{choice.label}}</span>
                 </button>
             {{/each}}
-            {{#if containsUUIDs}}
-                <div class="drop-zone with-image">
-                    <i class="fas fa-info-circle" title="{{localize "PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem"}}"></i>
-                    <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.HomebrewItem"}}</span>
-                </div>
-            {{/if}}
+            {{#> dropZone}}{{/dropZone}}
         {{/if}}
     </div>
 </div>
+
+{{#*inline "dropZone"}}
+    {{#if @root.containsUUIDs}}
+        <div class="drop-zone with-image">
+            <i class="fas fa-info-circle" title="{{localize "PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem"}}"></i>
+            <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.HomebrewItem"}}</span>
+        </div>
+    {{/if}}
+{{/inline}}
