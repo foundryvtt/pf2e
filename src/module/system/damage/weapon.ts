@@ -556,7 +556,7 @@ export class WeaponDamagePF2e {
 
         // First, increase the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
-        if (diceModifiers.some(dm => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
+        if (diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
             base.dieSize = nextDamageDieSize(base.dieSize);
         }
 

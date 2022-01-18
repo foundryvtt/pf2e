@@ -16,7 +16,6 @@ export function nextDamageDieSize(dieSize: DamageDieSize) {
         case "d12":
             return "d12";
     }
-
 }
 
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
