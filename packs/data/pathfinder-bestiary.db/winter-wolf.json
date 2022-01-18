@@ -42,6 +42,7 @@
                 "value": 14
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "40"
             }
@@ -87,9 +88,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -171,7 +171,7 @@
             "type": "melee"
         },
         {
-            "_id": "Frrjwe7TBU7SDJ4i",
+            "_id": "3SpNnQV9X8P44yW0",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -217,7 +217,7 @@
             "type": "action"
         },
         {
-            "_id": "9joFFUfTXKf9Snry",
+            "_id": "lV6uRtAWXQ1eYrO3",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -305,7 +305,7 @@
             "type": "action"
         },
         {
-            "_id": "01rO9MEsCBNi5Thc",
+            "_id": "hdyD6t2duHPLOLyi",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -317,7 +317,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:21]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                    "value": "<p>@Check[type:reflex|dc:21] @Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -363,7 +363,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The winter wolf breathes a cloud of frost in a @Template[type:cone|distance:15] that deals [[/r {5d8}[cold]]]{5d8 cold damage} (@Check[type:reflex|dc:23|basic:true] save). The winter wolf can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The winter wolf breathes a cloud of frost in a @Template[type:cone|distance:15] that deals [[/r {5d8}[cold]]]{5d8 cold damage} (@Check[type:reflex|dc:23|basic:true] save).</p>\n<p data-visibility=\"gm\">The winter wolf can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -417,16 +417,15 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
+                        "property": "flags.pf2e.rollOptions.damage-roll.packAttack"
                     },
                     {
-                        "damageType": "piercing",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "pack-attack"
+                                "packAttack"
                             ]
                         },
                         "selector": "damage"
@@ -456,7 +455,7 @@
             "type": "action"
         },
         {
-            "_id": "G3eZICbsEGae5Qa8",
+            "_id": "SlsCmJyWx3dgIo2X",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
