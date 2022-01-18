@@ -593,18 +593,12 @@ export class NPCPF2e extends CreaturePF2e {
                     const ctx = this.createDamageRollContext(args.event!);
                     // always add all weapon traits as options
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
-                    const clonedModifiers = Object.fromEntries(
-                        Object.entries(statisticsModifiers).map(([key, modifiers]) => [
-                            key,
-                            modifiers.map((modifier) => modifier.clone()),
-                        ])
-                    );
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
                         this,
                         action.traits,
-                        clonedModifiers,
-                        damageDice,
+                        this.cloneSyntheticsRecord(statisticsModifiers),
+                        this.cloneSyntheticsRecord(damageDice),
                         1,
                         options,
                         rollNotes
@@ -620,18 +614,12 @@ export class NPCPF2e extends CreaturePF2e {
                     const ctx = this.createDamageRollContext(args.event!);
                     // always add all weapon traits as options
                     const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
-                    const clonedModifiers = Object.fromEntries(
-                        Object.entries(statisticsModifiers).map(([key, modifiers]) => [
-                            key,
-                            modifiers.map((modifier) => modifier.clone()),
-                        ])
-                    );
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         itemData,
                         this,
                         action.traits,
-                        clonedModifiers,
-                        damageDice,
+                        this.cloneSyntheticsRecord(statisticsModifiers),
+                        this.cloneSyntheticsRecord(damageDice),
                         1,
                         options,
                         rollNotes
