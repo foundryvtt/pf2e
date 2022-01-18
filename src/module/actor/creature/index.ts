@@ -509,6 +509,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
+    /** Create a deep copy of a synthetics record of the form Record<string, object[]> */
+    protected cloneSyntheticsRecord<T extends { clone(): T }>(record: Record<string, T[]>): Record<string, T[]> {
+        return Object.fromEntries(
+            Object.entries(record).map(([key, synthetics]) => [key, synthetics.map((s) => s.clone())])
+        );
+    }
+
     override async updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],

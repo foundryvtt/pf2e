@@ -506,10 +506,9 @@ export class WeaponDamagePF2e {
         // Damage dice from synthetics
         for (const selector of selectors) {
             const testedDice =
-                damageDice[selector]?.map((d) => {
-                    const dice = new DamageDicePF2e(d);
-                    dice.enabled = d.predicate.test(options);
-                    dice.ignored = !d.enabled;
+                damageDice[selector]?.map((dice) => {
+                    dice.enabled = dice.predicate.test(options);
+                    dice.ignored = !dice.enabled;
                     return dice;
                 }) ?? [];
             diceModifiers.push(...testedDice);
