@@ -3,6 +3,22 @@ import { combineObjects } from "../../../util";
 /** The possible standard damage die sizes. */
 export type DamageDieSize = "d4" | "d6" | "d8" | "d10" | "d12";
 
+export function nextDamageDieSize(dieSize: DamageDieSize) {
+    switch (dieSize) {
+        case "d4":
+            return "d6";
+        case "d6":
+            return "d8";
+        case "d8":
+            return "d10";
+        case "d10":
+            return "d12";
+        case "d12":
+            return "d12";
+    }
+
+}
+
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
 export const DamageCategory = Object.freeze({
     /**
