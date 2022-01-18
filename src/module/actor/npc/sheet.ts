@@ -50,8 +50,6 @@ interface Attack {
     }[];
 }
 
-type Attacks = Attack[];
-
 /** Highlight such a statistic if adjusted by data preparation */
 interface WithAdjustments {
     adjustedHigher?: boolean;
@@ -82,7 +80,7 @@ interface NPCSystemSheetData extends NPCSystemData {
 /** Additional fields added in sheet data preparation */
 interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     actions: ActionActions;
-    attacks: Attacks;
+    attacks: Attack[];
     data: NPCSystemSheetData;
     items: SheetItemData[];
     effectItems: EffectData[];
@@ -542,7 +540,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actions = actions;
     }
 
-    private prepareAttacks(sheetData: NPCSystemSheetData): Attacks {
+    private prepareAttacks(sheetData: NPCSystemSheetData): Attack[] {
         const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
