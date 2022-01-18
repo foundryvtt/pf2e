@@ -42,6 +42,7 @@
                 "value": 16
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -135,7 +136,7 @@
                     },
                     "arc84499ycdq519e18zx": {
                         "damage": "2d6",
-                        "damageType": "energydamage"
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -294,7 +295,7 @@
             "type": "melee"
         },
         {
-            "_id": "N5SDcrHUgdwSOyQX",
+            "_id": "YyxKJRRXl2GdUfTt",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -340,7 +341,7 @@
             "type": "action"
         },
         {
-            "_id": "OloeqfUknhtXOArk",
+            "_id": "iu1YHlbvh64HBaor",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -386,7 +387,7 @@
             "type": "action"
         },
         {
-            "_id": "C4kpdqaZCyeNbstJ",
+            "_id": "5ulvx0zqprJryzvq",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -444,7 +445,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any ability that would sever a chimera's head (such as a critical hit with a vorpal weapon) severs one head at random. Losing a head doesn't kill a chimera (as long as it has one head left), but it does prevent it from making Strikes with the lost head or using the head's Breath Weapon.</p>"
+                    "value": "<p>Any ability that would sever a chimera's head (such as a critical hit with a <em>@Compendium[pf2e.equipment-srd.Vorpal]{Vorpal Weapon}</em>) severs one head at random. Losing a head doesn't kill a chimera (as long as it has one head left), but it does prevent it from making Strikes with the lost head or using the head's Breath Weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -528,7 +529,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The chimera breathes a cone or line that deals [[/r {9d6}]]{9d6 damage} to all creatures in the area (@Check[type:basic|dc:26|traits:damaging-effect] save of a type indicated below). The color of the chimera's dragon head determines the area of the Breath Weapon, the type of damage it deals, and the type of save to avoid it. The chimera can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<ul><li><strong>Black</strong> @Template[type:line|distance:60] of acid (Reflex)</li><li><strong>Blue</strong> @Template[type:line|distance:60] of electricity (Reflex)</li><li><strong>Green</strong> @Template[type:cone|distance:30] of poison (Fortitude)</li><li><strong>Red</strong> @Template[type:cone|distance:30] of fire (Reflex)</li><li><strong>White</strong> @Template[type:cone|distance:30] of cold (Reflex)</li></ul>"
+                    "value": "<p>The chimera breathes a @Template[type:cone|distance:30] of fire that deals [[/r {9d6}[fire]]]{9d6 fire damage} to all creatures in the area (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p data-visibility=\"gm\">The chimera can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -573,7 +574,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A chimera's dragon head deals an extra [[/r {2d6}]]{2d6 damage} of a type matching the dragon's color (see Breath Weapon).</p>"
+                    "value": "<p>A chimera's red dragon head deals an extra [[/r {2d6}[fire]]]{2d6 fire damage} <em>(aldready included)</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -620,7 +621,42 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.threeHeadedStrike"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "threeHeadedStrike"
+                            ]
+                        },
+                        "selector": "dragon-jaws-attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "threeHeadedStrike"
+                            ]
+                        },
+                        "selector": "lion-jaws-attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "threeHeadedStrike"
+                            ]
+                        },
+                        "selector": "goat-horns-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -735,7 +771,7 @@
             "type": "lore"
         }
     ],
-    "name": "Chimera",
+    "name": "Chimera (Red Dragon)",
     "token": {
         "disposition": -1,
         "height": 2,
