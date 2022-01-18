@@ -544,4 +544,8 @@ export class DamageDicePF2e extends DiceModifierPF2e {
             throw ErrorPF2e("Selector is mandatory");
         }
     }
+
+    clone(): DamageDicePF2e {
+        return new DamageDicePF2e(this);
+    }
 }
