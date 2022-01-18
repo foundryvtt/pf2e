@@ -155,7 +155,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                         obj[key] = this.resolveInjectedProperties(value);
                     } else if (Array.isArray(value)) {
                         obj[key] = value.map((e: unknown) =>
-                            typeof e === "string" ? this.resolveInjectedProperties(e) : e
+                            typeof e === "string"
+                                ? this.resolveInjectedProperties(e)
+                                : isObject<Record<string, unknown>>(e)
+                                ? resolveProperties(e)
+                                : e
                         );
                     } else if (isObject<Record<string, unknown>>(value)) {
                         obj[key] = resolveProperties(value);
