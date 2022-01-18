@@ -96,17 +96,17 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} } = {}
+        { create = true, actor = this.actor, data = {} } = {}
     ): Promise<ChatMessagePF2e | undefined> {
-        if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
+        if (!actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
-        const token = this.actor.token;
+        const token = actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = !isObjectEmpty(data) ? data : nearestItem.dataset || {};
         const templateData = {
-            actor: this.actor,
+            actor: actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
             item: this,
             data: this.getChatData(undefined, contextualData),
@@ -115,8 +115,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Basic chat message data
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
             speaker: ChatMessagePF2e.getSpeaker({
-                actor: this.actor,
-                token: this.actor.getActiveTokens()[0]?.document,
+                actor: actor,
+                token: actor.getActiveTokens()[0]?.document,
             }),
             flags: {
                 core: {
@@ -143,8 +143,8 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
-    async toChat(event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
-        return this.toMessage(event, { create: true });
+    async toChat(event?: JQuery.TriggeredEvent, { actor = this.actor } = {}): Promise<ChatMessagePF2e | undefined> {
+        return this.toMessage(event, { create: true, actor: actor });
     }
 
     /** Refresh the Item Directory if this item isn't owned */
