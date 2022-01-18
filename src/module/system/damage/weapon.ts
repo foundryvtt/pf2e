@@ -77,13 +77,11 @@ export class WeaponDamagePF2e {
         actor: NPCPF2e,
         traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
-        damageDice: any,
+        damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
         options: string[] = [],
         rollNotes: Record<string, RollNotePF2e[]>
     ): DamageTemplate {
-        damageDice = duplicate(damageDice);
-
         // adapt weapon type (melee, ranged, thrown)
         if (!weapon.data.range) {
             weapon.data.range =
@@ -136,15 +134,17 @@ export class WeaponDamagePF2e {
             if (parsedBaseDamage) {
                 // amend damage dice with any extra dice
                 if (dice && die) {
-                    const dd = damageDice.damage ?? [];
-                    dd.push({
-                        selector: "damage",
-                        name: "Base",
-                        diceNumber: dice,
-                        dieSize: die,
-                        damageType: dmg.damageType,
-                    });
-                    damageDice.damage = dd;
+                    const dd = (damageDice.damage ??= []);
+                    dd.push(
+                        new DamageDicePF2e({
+                            slug: "base",
+                            selector: "damage",
+                            name: "Base",
+                            diceNumber: dice,
+                            dieSize: die as DamageDieSize,
+                            damageType: dmg.damageType,
+                        })
+                    );
                 }
                 // amend numeric modifiers with any flat modifier
                 if (modifier) {
