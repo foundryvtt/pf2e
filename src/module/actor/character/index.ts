@@ -1365,6 +1365,12 @@ export class CharacterPF2e extends CreaturePF2e {
     ): Promise<void> {
         const characterData = this.data.data;
 
+        // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
+        const level = changed.data?.details?.level;
+        if (level?.value !== undefined) {
+            level.value = Math.clamped(Number(level.value) || 0, 0, 30);
+        }
+
         // Clamp Stamina and Resolve
         if (game.settings.get("pf2e", "staminaVariant")) {
             // Do not allow stamina to go over max
