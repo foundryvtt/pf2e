@@ -938,23 +938,27 @@ export class CharacterPF2e extends CreaturePF2e {
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
-        const defaultOptions = this.getRollOptions(["all", "attack-roll"])
+        const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
+        const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+        const baseSelectors = [
+            "attack",
+            "mundane-attack",
+            `${weapon.id}-attack`,
+            `${sluggify(weapon.name)}-attack`,
+            "strike-attack-roll",
+            `${unarmedOrWeapon}-attack-roll`,
+            `${meleeOrRanged}-attack-roll`,
+            "attack-roll",
+            "all",
+        ];
+        const defaultOptions = this.getRollOptions(baseSelectors)
             .concat(...weaponTraits) // always add weapon traits as options
             .concat(weaponRollOptions)
-            .concat(weapon.isMelee ? "melee" : "ranged");
+            .concat(meleeOrRanged);
         ensureProficiencyOption(defaultOptions, proficiencyRank);
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
-            const baseSelectors = [
-                "attack",
-                "mundane-attack",
-                `${weapon.id}-attack`,
-                `${sluggify(weapon.name)}-attack`,
-                "attack-roll",
-                "all",
-            ];
-
             const abilityModifier = [
                 ...modifiers,
                 ...baseSelectors.flatMap((selector) => statisticsModifiers[selector] ?? []),
@@ -1174,13 +1178,15 @@ export class CharacterPF2e extends CreaturePF2e {
             game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
         ];
         const checkModifiers = [
-            () => new CheckModifier(flavorText, action),
-            () =>
+            (otherModifiers: ModifierPF2e[]) => new CheckModifier(flavorText, action, otherModifiers),
+            (otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(flavorText, action, [
+                    ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
                 ]),
-            () =>
+            (otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier(flavorText, action, [
+                    ...otherModifiers,
                     new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
                 ]),
         ];
@@ -1188,8 +1194,24 @@ export class CharacterPF2e extends CreaturePF2e {
         const getRangeIncrement = (distance: number | null): number | null =>
             weapon.range && typeof distance === "number" ? Math.max(Math.ceil(distance / weapon.range), 1) : null;
 
+        const getRangePenalty = (increment: number | null): ModifierPF2e | null => {
+            if (!increment || increment === 1) return null;
+            const modifier = new ModifierPF2e({
+                label: "PF2E.RangePenalty",
+                slug: "range-penalty",
+                type: MODIFIER_TYPE.UNTYPED,
+                modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
+                predicate: { not: ["ignore-range-penalty", `ignore-range-penalty:${increment}`] },
+            });
+            modifier.ignored = !modifier.predicate.test(defaultOptions);
+            return modifier;
+        };
+
         action.variants = [0, 1, 2]
-            .map((index): [string, () => CheckModifier] => [labels[index], checkModifiers[index]])
+            .map((index): [string, (otherModifiers: ModifierPF2e[]) => CheckModifier] => [
+                labels[index],
+                checkModifiers[index],
+            ])
             .map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
@@ -1198,8 +1220,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
                     // Set range-increment roll option
                     const rangeIncrement = getRangeIncrement(context.distance);
-                    const incrementOption =
-                        typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
+                    const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
+                    const otherModifiers = [getRangePenalty(rangeIncrement) ?? []].flat();
+
                     args.options ??= [];
                     const options = Array.from(
                         new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
@@ -1217,7 +1240,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     ammo?.consume();
 
                     CheckPF2e.roll(
-                        constructModifier(),
+                        constructModifier(otherModifiers),
                         { actor: this, item: weapon, type: "attack-roll", options, notes, dc, traits: action.traits },
                         args.event,
                         args.callback
