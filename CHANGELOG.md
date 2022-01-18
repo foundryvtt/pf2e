@@ -1,5 +1,40 @@
 # Changelog
 
+## Version 3.2.2
+
+### Bugfixes
+* (In3luki) Fix secret sections in journals getting stripped out by the enrichHTML handlebar helper
+* (In3luki) Fix broken filter of feat browser button in the character sheet feat tab
+* (stwlam) Show drop zone on UUID ChoiceSet prompts with select menus
+* (stwlam) Fix premature toggling off shield-block button when shift-clicking to adjust damage application
+* (stwlam) Refrain from applying healing to stamina points
+* (stwlam) Restore retrieval of modifiers to AC from "all" synthetics selector
+* (stwlam) Fix inclusion of damage dice from rule elements
+* (stwlam) Apply weapon property runes when ABP variant permits it
+* (stwlam) Fix range increments always getting set to 1
+* (stwlam) Make Scene Darkness Adjuster go away when switching away from lighting controls
+* (stwlam) Provide necessary data for Ancestral Paragon to include versatile-heritage ancestry features
+* (stwlam) Correctly resize equipment when requested by Creature Size rule element
+* (Supe) Fix effect panel refresh for players, fix fast healing effect duration
+
+### Core System Improvements
+* (stwlam) Prevent modules from acting on drop canvas data handled by the system
+* (stwlam) Clamp PC level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
+* (SoldierC4) Improve styling of Effects Panel
+* (Supe) Always hide NPC fast healing regardless of setting
+
+### Data Updates
+* (Abaddon) Brushup several dozen Bestiary 1 creatures
+* (rectulo) Clean up description of Magical Fortitude class feature
+* (stwlam) Fix level-6 size upgrade on Elemental Form spell effects
+* (stwlam) Deprioritize AE-like on Gadget Specialist so as to get correct skill rank
+* (stwlam) Add ChoiceSet/GrantItem rule elements to Ancient Elf heritage
+* (Supe) Add effects for crimson shroud and repair module
+* (Tikael) Fix rule element for sneak attack
+* (TMun) Fix number of dice on unstable megaton strike
+* (TMun) Change serrating rune from consumable to equipment
+
+
 ## Version 3.2.1
 
 ### Bugfixes

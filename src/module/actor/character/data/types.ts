@@ -294,15 +294,10 @@ export type CharacterDetails = {
         value: number;
     };
 
-    /** Convenience information for easy access when the class instance isn't available */
-    class: {
-        name: string;
-        trait: string;
-    };
-    ancestry: {
-        name: string;
-        trait: string;
-    };
+    /** Convenience information for easy access when the item class instance isn't available */
+    ancestry: { name: string; trait: string };
+    heritage: { name: string; trait: string | null };
+    class: { name: string; trait: string };
 };
 
 export interface CharacterAttributes extends CreatureAttributes {

@@ -710,19 +710,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const updates: Record<string, number> = {};
         const { hp, sp, delta } = args;
         const appliedToTemp = ((): number => {
-            if (delta <= 0 || !hp.temp) return 0;
+            if (!hp.temp || delta <= 0) return 0;
             const applied = Math.min(hp.temp, delta);
-            updates["data.attributes.hp.temp"] = hp.temp - applied;
+            updates["data.attributes.hp.temp"] = Math.max(hp.temp - applied, 0);
 
             return applied;
         })();
 
         const appliedToSP = ((): number => {
             const staminaEnabled = !!sp && game.settings.get("pf2e", "staminaVariant");
-            if (!staminaEnabled) return 0;
+            if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
-            const applied = appliedToTemp > 0 ? Math.min(sp.value, remaining) : Math.max(sp.value - sp.max, remaining);
-            updates["data.attributes.sp.value"] = sp.value - applied;
+            const applied = Math.min(sp.value, remaining);
+            updates["data.attributes.sp.value"] = Math.max(sp.value - applied, 0);
 
             return applied;
         })();
@@ -730,7 +730,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const appliedToHP = ((): number => {
             const remaining = delta - appliedToTemp - appliedToSP;
             const applied = remaining > 0 ? Math.min(hp.value, remaining) : Math.max(hp.value - hp.max, remaining);
-            updates["data.attributes.hp.value"] = hp.value - applied;
+            updates["data.attributes.hp.value"] = Math.max(hp.value - applied, 0);
 
             return applied;
         })();
