@@ -7,6 +7,7 @@ import { DamageDicePF2e } from "@module/modifiers";
  */
 export class DamageDiceRuleElement extends RuleElementPF2e {
     override onBeforePrepareData({ damageDice }: RuleElementSynthetics) {
+        this.data.diceNumber = Number(this.resolveValue(this.data.diceNumber));
         const value: Omit<DamageDiceRuleElementData, "key"> & { key?: string } = deepClone(this.data);
         delete value.key;
         if (this.data.value) {
@@ -40,4 +41,5 @@ export interface DamageDiceRuleElement {
 interface DamageDiceRuleElementData extends RuleElementData {
     name?: string;
     damageType?: string;
+    diceNumber?: number;
 }
