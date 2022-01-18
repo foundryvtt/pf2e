@@ -214,7 +214,7 @@ export class Migration711HeritageItems extends MigrationBase {
             const items: object[] = actorSource.items;
             items.push(heritageSource);
 
-            const details: CharacterDetails & { heritage?: unknown; "-=heritage"?: null } = actorSource.data.details;
+            const details: MaybeWithStoredHeritage = actorSource.data.details;
             if (details.heritage) {
                 details["-=heritage"] = null;
                 if (!("game" in globalThis)) delete details.heritage;
@@ -261,3 +261,5 @@ type MaybeWithHeritageFeatType = ItemSourcePF2e & {
         };
     };
 };
+
+type MaybeWithStoredHeritage = Omit<CharacterDetails, "heritage"> & { heritage?: unknown; "-=heritage"?: null };
