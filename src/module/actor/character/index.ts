@@ -1199,7 +1199,7 @@ export class CharacterPF2e extends CreaturePF2e {
         ];
 
         const getRangeIncrement = (distance: number | null): number | null =>
-            weapon.range && typeof distance === "number" ? Math.min(Math.ceil(distance / weapon.range), 1) : null;
+            weapon.range && typeof distance === "number" ? Math.max(Math.ceil(distance / weapon.range), 1) : null;
 
         action.variants = [0, 1, 2]
             .map((index): [string, () => CheckModifier] => [labels[index], checkModifiers[index]])
