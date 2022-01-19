@@ -48,23 +48,18 @@ ol.difficulty-checks {
 
 ul.sidebar-saves {
     @include p-reset;
-    display: grid;
-    grid-template-columns: 1fr 1.1fr 1fr;
+    display: flex;
 
     .roll-data {
+        flex: 1 1 auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border-right: 1px solid rgba(black, 0.1);
-        border-left: 1px solid rgba(white, 0.1);
+        border-left: 1px solid #ffefbd30;
 
         &:first-child {
             border-left: none;
-        }
-
-        &:last-child {
-            border-right: none;
         }
 
         .save-label {
@@ -86,30 +81,6 @@ ul.sidebar-saves {
                 margin-left: 2px;
             }
         }
-
-        .save-rank,
-        .button {
-            border-radius: 2px;
-            border: 1px solid rgba(black, 0.5);
-            padding: 4px;
-            cursor: pointer;
-        }
-
-        .save-rank {
-            background-color: #{$rank-untrained};
-            box-shadow: inset 0 0 0 1px rgba(white, 0.1);
-
-            h4 {
-                color: white;
-                font-weight: 500;
-                padding-top: 1px;
-            }
-        }
-
-        .save-rank[value='1'] { background: #{$rank-trained}; }
-        .save-rank[value='2'] { background: #{$rank-expert}; }
-        .save-rank[value='3'] { background: #{$rank-master}; }
-        .save-rank[value='4'] { background: #{$rank-legendary}; }
 
         .button {
             box-shadow: inset 0 0 0 1px rgba(white, 0.4);

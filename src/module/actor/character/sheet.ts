@@ -1002,6 +1002,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
         }
+        if (newValue !== getProperty(this.actor.data, propertyKey)) {
+            ui.notifications.info(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+        }
     }
 
     /** Handle clicking of lore and spellcasting entry adjustment buttons */
