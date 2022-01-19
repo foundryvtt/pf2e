@@ -1,5 +1,5 @@
-import { AmbientLightPF2e } from "./ambient-light";
-import { TokenPF2e } from "./token";
+import { AmbientLightPF2e } from "../ambient-light";
+import { TokenPF2e } from "../token";
 
 export class LightingLayerPF2e<
     TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
