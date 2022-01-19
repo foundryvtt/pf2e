@@ -62,7 +62,7 @@
                 "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>Believed to be related to green dragons, jungle drakes are dangerous hunters equipped with a debilitating venom delivered by a large barbed stinger or their noxious phlegm. Their wings are equipped with vestigial claws that allow them to deftly maneuver through thick jungle foliage both in flight and on foot. Jungle drakes prefer to ambush their prey using hit-and-run tactics, picking off the weakest members of a group and dragging their victims off to finish their meals as they please.</p>",
+            "publicNotes": "<p>Believed to be related to green dragons, jungle drakes are dangerous hunters equipped with a debilitating venom delivered by a large barbed stinger or their noxious phlegm. Their wings are equipped with vestigial claws that allow them to deftly maneuver through thick jungle foliage both in flight and on foot. Jungle drakes prefer to ambush their prey using hit-and-run tactics, picking off the weakest members of a group and dragging their victims off to finish their meals as they please.</p>\n<hr />\n<p>Ravenous, bestial, and driven by instinct-drakes are primitive draconic monsters who bear a fraction of the terrifying might of their larger cousins but little (if any) of the cunning. While they're weaker, slower, and less inclined toward reason than dragons, drakes are nonetheless a menace to creatures and settlements around them. Their propensity for forming raiding parties-small social groups fittingly called \"rampages\"-makes them all the more dangerous; a single rampage of river drakes can quickly lay waste to a waterside village, and roving rampages of desert drakes are a plague to caravan traders.</p>\n<p>Drakes share a number of physical characteristics that unite them as one species despite their wide variety of habitats and abilities. For example, drakes lack forearms, leaving them only their formidable jaws and thick-scaled tails with which to attack if engaged at melee range. Most drakes would rather avoid close combat, however, preferring to use their breath weapons to wreak havoc in wide swaths from comfortable distances while flying overhead. Finally, all drakes have small reservoirs of their ancestral draconic power that they can tap into to perform incredible feats of speed.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -134,7 +134,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "predatory-grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -218,7 +218,7 @@
             "type": "melee"
         },
         {
-            "_id": "EQ31eHq47yvW4LBy",
+            "_id": "8ks0Roogu62RATk0",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -264,7 +264,7 @@
             "type": "action"
         },
         {
-            "_id": "PKlAD3GDyrnl3mVn",
+            "_id": "67MCs85SzER633da",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -406,7 +406,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<div data-visibility=\"gm\"><p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p></div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -438,25 +438,25 @@
             "type": "action"
         },
         {
-            "_id": "i1PWoIOI5fErtNsZ",
+            "_id": "kvbp3xXviiIXnVhS",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>As @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab}, but the jungle drake's Grab does not end if it moves away. Instead, it carries the grabbed creature with it.</p>\n<p>A jungle drake can't @Compendium[pf2e.actionspf2e.Fly]{Fly} while grabbing a creature unless that creature can also Fly.</p>"
+                    "value": "<p>As Grab, but the jungle drake's Grab does not end if it moves away. Instead, it carries the grabbed creature with it.</p>\n<p>A jungle drake can't Fly while grabbing a creature unless that creature can also Fly.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -473,8 +473,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Predatory Grab",
             "sort": 800000,
             "type": "action"
@@ -492,7 +496,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The jungle drake moves up to twice its Speed. It can do this three times per day</p>"
+                    "value": "<p>The jungle drake moves up to twice its Speed. It can do this three times per day.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -536,7 +540,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>A jungle drake can spit a sticky glob of its venom to a range of 50 feet that explodes in a 10-foot burst.</p>\n<p>Those in the burst must succeed at a @Check[type:reflex|dc:24] save or be exposed to jungle drake venom.</p>\n<p data-visibility=\"gm\">The jungle drake can't use Spit Venom again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>A jungle drake can spit a sticky glob of its venom to a range of 50 feet that explodes in a @Template[type:burst|distance:10]. Those in the burst must succeed at a @Check[type:reflex|dc:24] save or be exposed to jungle drake venom.</p>\n<p data-visibility=\"gm\">The jungle drake can't use Spit Venom again for [[/br 1d6 #Recharge Spit Venom]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

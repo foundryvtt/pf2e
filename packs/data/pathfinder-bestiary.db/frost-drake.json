@@ -70,7 +70,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "<p>Frost drakes pose an immense danger in the frozen reaches they call home, where they roam far and wide to hunt for prey such as caribou, wolves, small bears, and tundra-dwelling people. Related as they are to white dragons, these drakes share many habits and facets of their disposition with their draconic cousins. Indeed, just as white dragons are among the most bestial and craven of dragonkind, frost drakes are among the most depraved and openly malicious of the drakes. They are also especially insolent, and are less likely to back down from a flight compared to other drakes. Many frost drakes have met their ends trying to enact cruelties beyond their means, such as singly taking on an entire castle or well-fortified township. Although a frost drake can wreak much destruction on its own, tales of village-dwelling northerners banding together to defend their homes from these rogue menaces are fairly common.</p>\n<p>A frost drake's hunting grounds are quite large. Those frost drakes that live upon the permanently frozen peaks of high mountains have been known to swoop down to snatch up prey from the lowlands, leaving frozen swaths of earth from their breath as the only sign of their passing. Their frost-covered scales range from deep royal blue to crisp cyan and sometimes feature sporadic patches of violet. Their hides are thinner than most drakes'; when a frost drake is inhaling in preparation to launch its signature frozen breath, the monster's ice-blue blood can be seen beneath its scales.</p>",
+            "publicNotes": "<p>Frost drakes pose an immense danger in the frozen reaches they call home, where they roam far and wide to hunt for prey such as caribou, wolves, small bears, and tundra-dwelling people. Related as they are to white dragons, these drakes share many habits and facets of their disposition with their draconic cousins. Indeed, just as white dragons are among the most bestial and craven of dragonkind, frost drakes are among the most depraved and openly malicious of the drakes. They are also especially insolent, and are less likely to back down from a flight compared to other drakes. Many frost drakes have met their ends trying to enact cruelties beyond their means, such as singly taking on an entire castle or well-fortified township. Although a frost drake can wreak much destruction on its own, tales of village-dwelling northerners banding together to defend their homes from these rogue menaces are fairly common.</p>\n<p>A frost drake's hunting grounds are quite large. Those frost drakes that live upon the permanently frozen peaks of high mountains have been known to swoop down to snatch up prey from the lowlands, leaving frozen swaths of earth from their breath as the only sign of their passing. Their frost-covered scales range from deep royal blue to crisp cyan and sometimes feature sporadic patches of violet. Their hides are thinner than most drakes'; when a frost drake is inhaling in preparation to launch its signature frozen breath, the monster's ice-blue blood can be seen beneath its scales.</p>\n<hr />\n<p>Ravenous, bestial, and driven by instinct-drakes are primitive draconic monsters who bear a fraction of the terrifying might of their larger cousins but little (if any) of the cunning. While they're weaker, slower, and less inclined toward reason than dragons, drakes are nonetheless a menace to creatures and settlements around them. Their propensity for forming raiding parties-small social groups fittingly called \"rampages\"-makes them all the more dangerous; a single rampage of river drakes can quickly lay waste to a waterside village, and roving rampages of desert drakes are a plague to caravan traders.</p>\n<p>Drakes share a number of physical characteristics that unite them as one species despite their wide variety of habitats and abilities. For example, drakes lack forearms, leaving them only their formidable jaws and thick-scaled tails with which to attack if engaged at melee range. Most drakes would rather avoid close combat, however, preferring to use their breath weapons to wreak havoc in wide swaths from comfortable distances while flying overhead. Finally, all drakes have small reservoirs of their ancestral draconic power that they can tap into to perform incredible feats of speed.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -227,7 +227,7 @@
             "type": "melee"
         },
         {
-            "_id": "cUrnPiTdPNlfWNVm",
+            "_id": "so5dV8CQ2KVtaKsR",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -273,7 +273,7 @@
             "type": "action"
         },
         {
-            "_id": "kGrOZhr1lrOtjzlP",
+            "_id": "2DfR3FEW268SuAYe",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -331,7 +331,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Snow doesn't impair a frost drake's vision; it ignores concealment from\nsnowfall.</p>"
+                    "value": "<p>Snow doesn't impair a frost drake's vision; it ignores @Compendium[pf2e.conditionitems.Concealed]{Concealment} from snowfall.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -378,7 +378,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.retaliatoryStrike"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "retaliatoryStrike"
+                            ]
+                        },
+                        "selector": "tail-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -457,7 +473,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The frost drake spits a ball of liquid up to 60 feet that explodes into a 20-footburst cloud of freezing mist. Those in the burst take [[/r {8d6}[cold]]]{8d6 cold damage} (@Check[type:reflex|dc:25|basic:true] save). The mist cakes all surfaces in the area with a sheet of slippery ice that turns the area into difficult terrain for [[/br 2d4 #rounds]]{2d4 rounds}. It can't use Freezing Mist Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>The frost drake spits a ball of liquid up to 60 feet that explodes into a @Template[type:burst|distance:20] cloud of freezing mist. Those in the burst take [[/r {8d6}[cold]]]{8d6 cold damage} (@Check[type:reflex|dc:25|basic:true] save). The mist cakes all surfaces in the area with a sheet of slippery ice that turns the area into difficult terrain for [[/br 2d4 #Duration Freezing Mist]]{2d4 rounds}.</p>\n<p data-visibility=\"gm\">It can't use Freezing Mist Breath again for [[/br 1d6 #Recharge Freezing Mist Breath]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

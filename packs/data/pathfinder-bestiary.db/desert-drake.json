@@ -42,7 +42,7 @@
                 "value": 15
             },
             "speed": {
-                "details": "",
+                "details": "burrow sand only",
                 "otherSpeeds": [
                     {
                         "type": "burrow",
@@ -66,7 +66,7 @@
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>Distant cousins of blue dragons that lack their relatives' magical talents and intelligence, these desert-dwelling drakes are nonetheless dangerous ambush predators, preying upon isolated desert travelers and outposts for food and supplies. They retain their true-blooded forebears' resistance to electricity and affinity for sandy environs. Desert drakes' scales range in coloration from rust-brown to light tan and ocher shades, mimicking the colors of the dunes they call home.</p>\n<p>Desert drakes are among the lightest and most compact of the drakes, though this shouldn't be mistaken for frailty. Their swooped-back horns and feather-thin wings are adapted to make burrowing as easy as possible. Indeed, a desert drake's powerful neck makes wriggling through sand and other loose scree as easy as walking for it.</p>",
+            "publicNotes": "<p>Distant cousins of blue dragons that lack their relatives' magical talents and intelligence, these desert-dwelling drakes are nonetheless dangerous ambush predators, preying upon isolated desert travelers and outposts for food and supplies. They retain their true-blooded forebears' resistance to electricity and affinity for sandy environs. Desert drakes' scales range in coloration from rust-brown to light tan and ocher shades, mimicking the colors of the dunes they call home.</p>\n<p>Desert drakes are among the lightest and most compact of the drakes, though this shouldn't be mistaken for frailty. Their swooped-back horns and feather-thin wings are adapted to make burrowing as easy as possible. Indeed, a desert drake's powerful neck makes wriggling through sand and other loose scree as easy as walking for it.</p>\n<hr />\n<p>Ravenous, bestial, and driven by instinct-drakes are primitive draconic monsters who bear a fraction of the terrifying might of their larger cousins but little (if any) of the cunning. While they're weaker, slower, and less inclined toward reason than dragons, drakes are nonetheless a menace to creatures and settlements around them. Their propensity for forming raiding parties-small social groups fittingly called \"rampages\"-makes them all the more dangerous; a single rampage of river drakes can quickly lay waste to a waterside village, and roving rampages of desert drakes are a plague to caravan traders.</p>\n<p>Drakes share a number of physical characteristics that unite them as one species despite their wide variety of habitats and abilities. For example, drakes lack forearms, leaving them only their formidable jaws and thick-scaled tails with which to attack if engaged at melee range. Most drakes would rather avoid close combat, however, preferring to use their breath weapons to wreak havoc in wide swaths from comfortable distances while flying overhead. Finally, all drakes have small reservoirs of their ancestral draconic power that they can tap into to perform incredible feats of speed.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -185,7 +185,9 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "push"
+                    ]
                 },
                 "bonus": {
                     "value": 20
@@ -194,10 +196,6 @@
                     "pree57ywyji8j9sxvzg3": {
                         "damage": "2d10+8",
                         "damageType": "bludgeoning"
-                    },
-                    "ext9wvi3168xrn09inun": {
-                        "damage": "",
-                        "damageType": "chaotic"
                     }
                 },
                 "description": {
@@ -227,7 +225,7 @@
             "type": "melee"
         },
         {
-            "_id": "PLUuQqDOnCOVu7gD",
+            "_id": "xUwxwWrzgPri548T",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -273,7 +271,7 @@
             "type": "action"
         },
         {
-            "_id": "e7veBvzXnp9qB1xE",
+            "_id": "AkGZKjw58GNy5tNW",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -336,7 +334,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.wingDeflection"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "wingDeflection"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -415,7 +429,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The desert drake spits a ball of electrically charged sand to a range of 60 feet that explodes into a cloud with a 15-foot-radius burst. Creatures in the area take [[/r {9d6}[electricity]]]{9d6 electricity damage} (@Check[type:reflex|dc:27|basic:true] save). The cloud remains for [[/br 1d4 #rounds]]{1d4 rounds}, granting concealment to everything within. The desert drake can't use Sandstorm Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>The desert drake spits a ball of electrically charged sand to a range of 60 feet that explodes into a cloud with a @Template[type:burst|distance:15]. Creatures in the area take [[/r {9d6}[electricity]]]{9d6 electricity damage} (@Check[type:reflex|dc:27|basic:true] save). The cloud remains for [[/br 1d4 #Duration Sandstorm]]{1d4 rounds}, granting @Compendium[pf2e.conditionitems.Concealed]{Concealment} to everything within.</p>\n<p data-visibility=\"gm\">The desert drake can't use Sandstorm Breath again for [[/br 1d6 #Recharge Sandstorm Breath]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -474,7 +488,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "move"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -530,6 +546,52 @@
             "type": "action"
         },
         {
+            "_id": "IjsncXWh3Ja5Fvdo",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "push",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 5 feet",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
             "_id": "hFqds8smG1s5zEe0",
             "data": {
                 "description": {
@@ -556,7 +618,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -586,7 +648,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -616,7 +678,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -646,7 +708,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -676,7 +738,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         }
     ],
