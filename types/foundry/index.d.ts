@@ -70,7 +70,7 @@ import "./client/core/audio";
 import "./client/core/fonts";
 import "./client/core/game-time";
 import "./client/core/hooks";
-import "./client/core/keyboard";
+import "./client/core/keyboard-manager";
 import "./client/core/searchfilter";
 import "./client/core/settings";
 import "./client/core/socket";
