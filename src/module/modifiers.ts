@@ -464,7 +464,19 @@ export class CheckModifier extends StatisticModifier {
 }
 
 interface DamageDiceOverride {
+    /**
+     * Upgrade the damage dice to the next size
+     */
+    upgrade?: boolean;
+
+    /**
+     * Override with a set dice size
+     */
     dieSize?: DamageDieSize;
+
+    /**
+     * Override the damage type
+     */
     damageType?: string;
 }
 
