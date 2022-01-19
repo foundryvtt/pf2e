@@ -6,7 +6,7 @@ declare global {
         TAmbientLight extends AmbientLight = AmbientLight,
         TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
         TToken extends Token = Token,
-        TSightLayer extends SightLayer = SightLayer
+        TSightLayer extends SightLayer<TToken> = SightLayer<TToken>
     > {
         constructor();
 

@@ -1,5 +1,5 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
-import { TemplateLayerPF2e } from "./template-layer";
+import { TemplateLayerPF2e } from "./layer/template-layer";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
     get type(): MeasuredTemplateType {

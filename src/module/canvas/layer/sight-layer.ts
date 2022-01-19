@@ -1,5 +1,5 @@
 import { FogExplorationPF2e } from "@module/fog-exploration";
-import { TokenPF2e } from "./token";
+import { TokenPF2e } from "../token";
 
 export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
     /** Is the rules-based vision setting enabled? */
