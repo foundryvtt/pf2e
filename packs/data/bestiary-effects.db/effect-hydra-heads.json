@@ -1,0 +1,98 @@
+{
+    "_id": "uZJOdounIHaFDC1t",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>The number of heads the hydra currently has.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "01",
+                        "value": 0
+                    },
+                    {
+                        "label": "02",
+                        "value": 1
+                    },
+                    {
+                        "label": "03",
+                        "value": "2"
+                    },
+                    {
+                        "label": "04",
+                        "value": "3"
+                    },
+                    {
+                        "label": "05",
+                        "value": "4"
+                    },
+                    {
+                        "label": "06",
+                        "value": "5"
+                    },
+                    {
+                        "label": "07",
+                        "value": "6"
+                    },
+                    {
+                        "label": "08",
+                        "value": "7"
+                    },
+                    {
+                        "label": "09",
+                        "value": "8"
+                    },
+                    {
+                        "label": "10",
+                        "value": "9"
+                    }
+                ],
+                "flag": "headCount",
+                "key": "ChoiceSet"
+            },
+            {
+                "diceNumber": "{item|flags.pf2e.rulesSelections.headCount}",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "focusedAssault"
+                    ]
+                },
+                "selector": "damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Bestiary"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/summon-animal.webp",
+    "name": "Effect: Hydra Heads",
+    "type": "effect"
+}
