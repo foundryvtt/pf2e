@@ -151,6 +151,7 @@ const creatureTraits = {
     mindless: "PF2E.TraitMindless",
     minion: "PF2E.TraitMinion",
     monitor: "PF2E.TraitMonitor",
+    morlock: "PF2E.TraitMorlock",
     mortic: "PF2E.TraitMortic",
     mummy: "PF2E.TraitMummy",
     munavri: "PF2E.TraitMunavri",
