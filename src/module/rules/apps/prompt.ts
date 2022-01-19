@@ -80,6 +80,7 @@ abstract class RulesElementPrompt<T> extends Application {
 
     /** Close the dialog, applying the effect with configured target or warning the user that something went wrong. */
     override async close({ force = false } = {}): Promise<void> {
+        this.element.find("button, select").css({ pointerEvents: "none" });
         if (!this.selection) {
             if (force) {
                 ui.notifications.warn(
