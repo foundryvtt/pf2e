@@ -10,8 +10,8 @@ class TriggerListenerTogglePropertyRuleElement extends TriggerListenerRuleElemen
     }
 
     override async trigger() {
-        const currentValue = this.actor.getFlag("pf2e", this.data.property);
-        if (typeof currentValue === "boolean") {
+        const currentValue = this.actor.getFlag(this.data.propertyScope ?? "pf2e", this.data.property);
+        if (!currentValue || typeof currentValue === "boolean") {
             this.actor.setFlag(
                 this.data.propertyScope ?? "pf2e",
                 this.data.property,
