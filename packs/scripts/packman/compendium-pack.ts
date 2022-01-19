@@ -195,9 +195,6 @@ export class CompendiumPack {
                 if (namesToIds === undefined) {
                     throw PackError(`${docSource.name} (${this.name}) has a bad pack reference: ${link}`);
                 }
-                if (!match.endsWith("{")) {
-                    throw PackError(`${docSource.name} (${this.name}) has a link with no label: ${link}`);
-                }
 
                 const documentId: string | undefined = namesToIds.get(documentName);
                 if (documentId === undefined) {
@@ -205,8 +202,9 @@ export class CompendiumPack {
                         `${docSource.name} (${this.name}) has broken link to ${documentName} (${packName}).`
                     );
                 }
+                const labelBrace = match.endsWith("{") ? "{" : "";
 
-                return `@Compendium[pf2e.${packName}.${documentId}]{`;
+                return `@Compendium[pf2e.${packName}.${documentId}]${labelBrace}`;
             }
         );
     }
