@@ -303,6 +303,9 @@ interface RuleElementPF2e {
 
     /** An optional method for excluding damage modifiers and extra dice */
     applyDamageExclusion?(modifiers: BaseRawModifier[]): void;
+
+    /** Called when this rule's item is posted to chat */
+    onPost?(): void;
 }
 
 export { RuleElementPF2e };

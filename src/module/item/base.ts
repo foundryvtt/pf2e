@@ -138,8 +138,13 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Render the template
         chatData.content = await renderTemplate(template, templateData);
 
+        // Call any of this item's rules that trigger on posting
+        this.rules.forEach(async (rule) => rule.onPost?.());
+
         // Create the chat message
-        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
+        return create
+            ? ChatMessagePF2e.create(chatData, { renderSheet: false })
+            : new ChatMessagePF2e(chatData);
     }
 
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
@@ -174,7 +179,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected processChatData<T extends { properties?: (string | number | null)[]; [key: string]: unknown }>(
+    protected processChatData<T extends { properties?: (string | number | null)[];[key: string]: unknown }>(
         htmlOptions: EnrichHTMLOptions = {},
         data: T
     ): T {

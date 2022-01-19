@@ -19,6 +19,7 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -59,6 +60,21 @@
             {
                 "key": "ToggleProperty",
                 "property": "flags.pf2e.rollOptions.damage-roll.power-attack"
+            },
+            {
+                "key": "TriggerAction",
+                "triggerName": "power-attack",
+                "triggers": [
+                    "onPost"
+                ]
+            },
+            {
+                "key": "TriggerListenerToggleProperty",
+                "property": "rollOptions.damage-roll.power-attack",
+                "triggerNames": [
+                    "power-attack"
+                ],
+                "updateType": "enable"
             }
         ],
         "source": {
