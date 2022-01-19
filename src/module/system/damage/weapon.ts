@@ -12,7 +12,7 @@ import {
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DamageCategory, DamageDieSize } from "./damage";
+import { DamageCategory, DamageDieSize, nextDamageDieSize } from "./damage";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
@@ -554,7 +554,13 @@ export class WeaponDamagePF2e {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
-        // override first, to ensure the dice stacking works properly
+        // First, increase the damage die. This can only be done once, so we
+        // only need to find the presence of a rule that does this
+        if (diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
+            base.dieSize = nextDamageDieSize(base.dieSize);
+        }
+
+        // override next, to ensure the dice stacking works properly
         diceModifiers
             .filter((dm) => dm.enabled)
             .filter((dm) => dm.override)
