@@ -46,7 +46,7 @@ interface TriggerActionRuleElement {
 
 interface TriggerActionSource extends RuleElementSource {
     triggerName?: unknown;
-    trigger?: unknown;
+    triggers?: unknown;
 }
 
 /**
