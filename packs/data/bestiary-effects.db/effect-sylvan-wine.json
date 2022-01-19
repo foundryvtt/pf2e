@@ -1,25 +1,36 @@
 {
-    "_id": "wPIGBcpCqCWgrCiq",
+    "_id": "QDs8t1U1IepzYlyi",
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>The creature gains a +4 status bonus to damage rolls.</p>"
+            "value": "<p>The creature gains a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "hours",
             "value": 1
         },
         "level": {
-            "value": 5
+            "value": 4
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "damage",
-                "type": "status",
-                "value": 4
+                "selector": "will",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "will",
+                "type": "item",
+                "value": 3
             }
         ],
         "source": {
@@ -41,7 +52,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/blood-ward.webp",
-    "name": "Effect: Blood Soak",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+    "name": "Effect: Sylvan Wine",
     "type": "effect"
 }
