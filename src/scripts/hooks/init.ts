@@ -10,6 +10,7 @@ import {
     SightLayerPF2e,
     TokenPF2e,
     TemplateLayerPF2e,
+    TokenLayerPF2e,
 } from "@module/canvas";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -64,17 +65,20 @@ export const Init = {
 
             CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
             CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
+            CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
 
             CONFIG.Tile.documentClass = TileDocumentPF2e;
 
             CONFIG.Token.documentClass = TokenDocumentPF2e;
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
+            CONFIG.Token.layerClass = TokenLayerPF2e;
             DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+            CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
 
             // Make darkness visibility a little more appropriate for basic map use
             CONFIG.Canvas.lightLevels.dim = 0.25;

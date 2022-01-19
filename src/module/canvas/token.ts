@@ -1,4 +1,5 @@
 import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { TokenLayerPF2e } from "./layer/token-layer";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -153,5 +154,7 @@ interface TokenImage extends PIXI.Sprite {
 }
 
 export interface TokenPF2e extends Token<TokenDocumentPF2e> {
+    get layer(): TokenLayerPF2e<this>;
+
     icon?: TokenImage;
 }
