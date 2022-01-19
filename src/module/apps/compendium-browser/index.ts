@@ -105,9 +105,6 @@ export class CompendiumBrowser extends Application {
     navigationTab!: Tabs;
     data!: TabData<Record<string, unknown> | null>;
 
-    /** Is the user currently dragging a document from the browser? */
-    private userIsDragging = false;
-
     /** An initial filter to be applied upon loading a tab */
     private initialFilter: string[] = [];
     private initialMaxLevel = 0;
@@ -1016,7 +1013,6 @@ export class CompendiumBrowser extends Application {
 
     /** Set drag data and lower opacity of the application window to reveal any tokens */
     protected override _onDragStart(event: ElementDragEvent): void {
-        this.userIsDragging = true;
         this.element.animate({ opacity: 0.125 }, 250);
 
         const $item = $(event.currentTarget);
@@ -1033,52 +1029,17 @@ export class CompendiumBrowser extends Application {
         );
 
         $item.one("dragend", () => {
-            this.userIsDragging = false;
-            this.element.animate({ opacity: 1 }, 500);
+            window.setTimeout(() => {
+                this.element.animate({ opacity: 1 }, 250, () => {
+                    this.element.css({ pointerEvents: "" });
+                });
+            }, 500);
         });
     }
 
-    /** Simulate a drop event on the DOM element directly beneath the compendium browser */
-    protected override _onDrop(event: ElementDragEvent): void {
-        if (!this.userIsDragging) return;
-
-        // Get all elements beneath the compendium browser
-        const browserZIndex = Number(this.element.css("zIndex"));
-        const dropCandidates = Array.from(document.body.querySelectorAll("*")).filter(
-            (element): element is HTMLElement => {
-                if (!(element instanceof HTMLElement) || ["compendium-browser", "hud"].includes(element.id))
-                    return false;
-                const appBounds = element.getBoundingClientRect();
-                const zIndex = Number(element.style.zIndex);
-                if (!appBounds || zIndex > browserZIndex) return false;
-
-                return (
-                    event.clientX >= appBounds.left &&
-                    event.clientX <= appBounds.right &&
-                    event.clientY >= appBounds.top &&
-                    event.clientY <= appBounds.bottom
-                );
-            }
-        );
-
-        const highestElement = dropCandidates.reduce((highest: HTMLElement | null, candidate) => {
-            if (!highest) return candidate;
-            return Number(candidate.style.zIndex) > Number(highest.style.zIndex) ? candidate : highest;
-        }, null);
-
-        if (highestElement) {
-            const isSheet = /^actor-\w+$/.test(highestElement.id);
-            const sheetForm = isSheet && highestElement.querySelector("form.editable");
-            const dropTarget = isSheet && sheetForm instanceof HTMLElement ? sheetForm : highestElement;
-            const newEvent = new DragEvent(event.type, {
-                ...event,
-                clientX: event.clientX,
-                clientY: event.clientY,
-                dataTransfer: new DataTransfer(),
-            });
-            newEvent.dataTransfer?.setData("text/plain", event.dataTransfer.getData("text/plain"));
-            dropTarget.dispatchEvent(newEvent);
-        }
+    protected override _onDragOver(event: ElementDragEvent): void {
+        super._onDragOver(event);
+        this.element.css({ pointerEvents: "none" });
     }
 
     injectActorDirectory() {
