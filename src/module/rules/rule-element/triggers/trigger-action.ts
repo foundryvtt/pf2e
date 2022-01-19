@@ -35,7 +35,7 @@ class TriggerActionRuleElement extends RuleElementPF2e {
 
     async sendTrigger(action: ActionTrigger) {
         if (this.data.triggers.includes(action)) {
-            this.listeners.forEach((listener) => listener.trigger({}));
+            this.listeners.forEach((listener) => listener.trigger());
         }
     }
 }

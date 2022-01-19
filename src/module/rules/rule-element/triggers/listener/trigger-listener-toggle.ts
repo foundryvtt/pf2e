@@ -37,4 +37,4 @@ interface TriggerListenerTogglePropertyData extends TriggerListenerData {
     updateType: "enable" | "disable" | "toggle";
 }
 
-export { TriggerListenerTogglePropertyRuleElement }
+export { TriggerListenerTogglePropertyRuleElement };

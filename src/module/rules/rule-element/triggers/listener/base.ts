@@ -9,7 +9,7 @@ abstract class TriggerListenerRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    abstract trigger(event: TriggerEvent): void;
+    abstract trigger(): void;
 }
 
 interface TriggerListenerRuleElement {
@@ -22,9 +22,6 @@ export interface TriggerListenerSource extends RuleElementSource {
 
 export interface TriggerListenerData extends RuleElementData {
     triggerNames: string[];
-}
-
-export interface TriggerEvent {
 }
 
 export { TriggerListenerRuleElement };

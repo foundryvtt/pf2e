@@ -7,7 +7,6 @@ class TriggerListenerPostItemRuleElement extends TriggerListenerRuleElement {
     override async trigger() {
         this.item.toMessage();
     }
-
 }
 
-export { TriggerListenerPostItemRuleElement }
+export { TriggerListenerPostItemRuleElement };
