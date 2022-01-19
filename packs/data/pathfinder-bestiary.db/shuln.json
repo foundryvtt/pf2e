@@ -42,6 +42,7 @@
                 "value": 20
             },
             "speed": {
+                "details": "unstoppable burrow",
                 "otherSpeeds": [
                     {
                         "type": "burrow",
@@ -89,15 +90,14 @@
             },
             "dr": [
                 {
-                    "exceptions": "adamantine or bludgeoning",
-                    "label": "Physical",
+                    "exceptions": "except adamantine or bludgeoning",
                     "type": "physical",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Poison",
+                    "exceptions": "",
                     "type": "poison",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [],
@@ -132,6 +132,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -177,6 +178,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "shuln-saliva"
                     ]
@@ -217,6 +219,98 @@
             "type": "melee"
         },
         {
+            "_id": "t98B5FOZI1a1Ye46",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "vEwagos32fLnf4Zc",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "uuMoWLbelNwKPIUM",
             "data": {
                 "actionCategory": {
@@ -255,7 +349,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Armor-Rending",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -271,7 +365,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d6}[poison]]]{3d6 poison damage}, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/br 2d6 #hours]]{2d6 hours}. Shuln saliva overcomes the inexorable ability.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d6}[poison]]]{3d6 poison damage}, and slowed 1 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/br 2d6 #Duration Paralyzed]]{2d6 hours}. Shuln saliva overcomes the inexorable ability.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -300,7 +394,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shuln Saliva",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -342,7 +436,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unstoppable Burrow",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -372,7 +466,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -402,7 +496,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
