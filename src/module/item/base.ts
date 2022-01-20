@@ -4,7 +4,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
 import { RuleElements, RuleElementPF2e, RuleElementSource } from "../rules";
 import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
-import { isItemSystemData } from "./data/helpers";
+import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { ItemSheetPF2e } from "./sheet/base";
 import { isCreatureData } from "@actor/data/helpers";
@@ -164,6 +164,64 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     prepareRuleElements(this: Embedded<ItemPF2e>): RuleElementPF2e[] {
         return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this) : []);
+    }
+
+    /** Pull the latest system data from the source compendium and replace this item's with it */
+    async refreshFromCompendium(): Promise<void> {
+        if (!this.isOwned) return ui.notifications.error("This utility may only be used on owned items");
+
+        if (!this.sourceId?.startsWith("Compendium.")) {
+            ui.notifications.warn(`Item "${this.name}" has no compendium source.`);
+            return;
+        }
+
+        const currentSource = this.toObject();
+        const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
+        if (!latestSource) {
+            ui.notifications.warn(
+                `The compendium source for "${this.name}" (source ID: ${this.sourceId}) was not found.`
+            );
+            return;
+        } else if (latestSource.type !== this.data.type) {
+            ui.notifications.error(
+                `The compendium source for "${this.name}" is of a different type than what is present on this actor.`
+            );
+            return;
+        }
+
+        const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
+        const updates: DocumentUpdateData<this> = { img: updatedImage, data: latestSource.data };
+
+        if (isPhysicalData(currentSource)) {
+            // Preserve container ID
+            const containerId = currentSource.data.containerId.value ?? null;
+            mergeObject(updates, expandObject({ "data.containerId.value": containerId }));
+        } else if (currentSource.type === "spell") {
+            // Preserve spellcasting entry location
+            mergeObject(updates, expandObject({ "data.location.value": currentSource.data.location.value }));
+        }
+
+        // Preserve precious material and runes
+        if (currentSource.type === "weapon" || currentSource.type === "armor") {
+            const materialAndRunes: Record<string, unknown> = {
+                "data.preciousMaterial": currentSource.data.preciousMaterial,
+                "data.preciousMaterialGrade": currentSource.data.preciousMaterialGrade,
+                "data.potencyRune": currentSource.data.potencyRune,
+                "data.propertyRune1": currentSource.data.propertyRune1,
+                "data.propertyRune2": currentSource.data.propertyRune2,
+                "data.propertyRune3": currentSource.data.propertyRune3,
+                "data.propertyRune4": currentSource.data.propertyRune4,
+            };
+            if (currentSource.type === "weapon") {
+                materialAndRunes["data.strikingRune"] = currentSource.data.strikingRune;
+            } else {
+                materialAndRunes["data.resiliencyRune"] = currentSource.data.resiliencyRune;
+            }
+            mergeObject(updates, expandObject(materialAndRunes));
+        }
+
+        await this.update(updates, { diff: false, recursive: false });
+        ui.notifications.info(`Item "${this.name}" has been refreshed.`);
     }
 
     /* -------------------------------------------- */
