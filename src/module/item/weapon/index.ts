@@ -62,8 +62,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.range;
     }
 
-    get reload(): string {
-        return this.data.data.reload.value;
+    get reload(): string | null {
+        return this.data.data.reload.value || null;
     }
 
     get isSpecific(): boolean {
