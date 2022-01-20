@@ -95,17 +95,23 @@ class AELikeRuleElement extends RuleElementPF2e {
                 break;
             }
             case "add": {
-                if (
-                    !(
-                        typeof change === "number" &&
-                        (typeof current === "number" || current === undefined || current === null)
-                    )
-                ) {
-                    return this.warn("path");
+                // A numeric add is valid if the change value is a number and the current value is a number or nullish
+                const isNumericAdd =
+                    typeof change === "number" &&
+                    (typeof current === "number" || current === undefined || current === null);
+                // An array add is valid if the current value is an array and either empty or consisting of all elements
+                // of the same type as the change value
+                const isArrayAdd = Array.isArray(current) && current.every((e) => typeof e === typeof change);
+
+                if (isNumericAdd) {
+                    const newValue = (current ?? 0) + change;
+                    setProperty(this.actor.data, this.path, newValue);
+                    this.logChange(change);
+                } else if (isArrayAdd) {
+                    current.push(change);
+                } else {
+                    this.warn("path");
                 }
-                const newValue = (current ?? 0) + change;
-                setProperty(this.actor.data, this.path, newValue);
-                this.logChange(change);
                 break;
             }
             case "downgrade": {
