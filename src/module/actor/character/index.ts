@@ -336,12 +336,8 @@ export class CharacterPF2e extends CreaturePF2e {
             const modifiers = [new ModifierPF2e("PF2E.AncestryHP", ancestryHP, MODIFIER_TYPE.UNTYPED)];
 
             if (game.settings.get("pf2e", "staminaVariant")) {
-                const bonusSpPerLevel = (systemData.attributes.levelbonussp ?? 1) * this.level;
                 const halfClassHp = Math.floor(classHP / 2);
-                systemData.attributes.sp.max =
-                    (halfClassHp + systemData.abilities.con.mod) * this.level +
-                    bonusSpPerLevel +
-                    systemData.attributes.flatbonussp;
+                systemData.attributes.sp.max = (halfClassHp + systemData.abilities.con.mod) * this.level;
                 systemData.attributes.resolve.max = systemData.abilities[systemData.details.keyability.value].mod;
 
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
@@ -350,15 +346,6 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 const conLevelBonus = systemData.abilities.con.mod * this.level;
                 modifiers.push(new ModifierPF2e("PF2E.AbilityCon", conLevelBonus, MODIFIER_TYPE.ABILITY));
-            }
-
-            if (systemData.attributes.flatbonushp) {
-                const flatBonusHP = systemData.attributes.flatbonushp;
-                modifiers.push(new ModifierPF2e("PF2E.FlatBonusHP", flatBonusHP, MODIFIER_TYPE.UNTYPED));
-            }
-            if (systemData.attributes.levelbonushp) {
-                const bonusLevelHP = systemData.attributes.levelbonushp * this.level;
-                modifiers.push(new ModifierPF2e("PF2E.BonusHPperLevel", bonusLevelHP, MODIFIER_TYPE.UNTYPED));
             }
 
             modifiers.push(
