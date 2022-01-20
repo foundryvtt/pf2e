@@ -123,8 +123,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     ($target.attr("type") === "checkbox"
                         ? "Boolean"
                         : ["number", "range"].includes($target.attr("type") ?? "")
-                            ? "Number"
-                            : "String");
+                        ? "Number"
+                        : "String");
 
                 switch (dataType) {
                     case "Boolean":
