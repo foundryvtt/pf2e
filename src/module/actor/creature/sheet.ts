@@ -1,5 +1,5 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e, WeaponPF2e } from "@item";
+import { SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e } from "@util";
 import { ZeroToFour } from "@module/data";
@@ -212,12 +212,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!strike) return;
             const variantIndex = $(event.currentTarget).attr("data-variant-index");
 
-            const ammo = (() => {
-                const fromMeleeWeapon = strike.weapon instanceof WeaponPF2e && strike.weapon.isMelee;
-                if (!strike.selectedAmmoId || fromMeleeWeapon) return null;
-                const ammo = this.actor.items.get(strike.selectedAmmoId ?? "");
-                return ammo instanceof ConsumablePF2e ? ammo : null;
-            })();
+            const weapon = strike.weapon;
+            const ammo = weapon && !weapon.isMelee ? weapon.ammo : null;
             if (ammo && ammo.quantity < 1) {
                 ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
                 return;

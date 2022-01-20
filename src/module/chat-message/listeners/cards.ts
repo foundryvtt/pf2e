@@ -109,11 +109,22 @@ export const ChatCards = {
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
-                    if (action === "strikeAttack") strikeAction.variants[0].roll({ event: event, options });
-                    else if (action === "strikeAttack2") strikeAction.variants[1].roll({ event: event, options });
-                    else if (action === "strikeAttack3") strikeAction.variants[2].roll({ event: event, options });
-                    else if (action === "strikeDamage") strikeAction.damage?.({ event: event, options });
-                    else if (action === "strikeCritical") strikeAction.critical?.({ event: event, options });
+
+                    if (action?.startsWith("strikeAttack")) {
+                        const weapon = strikeAction.weapon;
+                        const ammo = weapon && !weapon.isMelee ? weapon.ammo : null;
+                        if (ammo && ammo.quantity < 1) {
+                            ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+                            return;
+                        }
+
+                        const variant = (parseInt(action.substring("strikeAttack".length)) || 1) - 1;
+                        strikeAction.variants[variant].roll({ event: event, options, callback: () => ammo?.consume() });
+                    } else if (action === "strikeDamage") {
+                        strikeAction.damage?.({ event: event, options });
+                    } else if (action === "strikeCritical") {
+                        strikeAction.critical?.({ event: event, options });
+                    }
                 }
                 if (action === "pay-crafting-costs") {
                     const itemUuid = card.attr("data-item-uuid") || "";
