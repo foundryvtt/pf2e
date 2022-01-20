@@ -1221,6 +1221,14 @@ export class CharacterPF2e extends CreaturePF2e {
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
                     }
+
+                    const ammo = weapon.ammo;
+                    if (ammo && ammo.quantity < 1) {
+                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+                        return;
+                    }
+                    ammo?.consume();
+
                     CheckPF2e.roll(
                         constructModifier(),
                         { actor: this, item: weapon, type: "attack-roll", options, notes, dc, traits: action.traits },

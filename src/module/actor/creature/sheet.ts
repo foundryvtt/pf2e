@@ -123,8 +123,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     ($target.attr("type") === "checkbox"
                         ? "Boolean"
                         : ["number", "range"].includes($target.attr("type") ?? "")
-                        ? "Number"
-                        : "String");
+                            ? "Number"
+                            : "String");
 
                 switch (dataType) {
                     case "Boolean":
@@ -211,15 +211,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;
             const variantIndex = $(event.currentTarget).attr("data-variant-index");
-
-            const weapon = strike.weapon;
-            const ammo = weapon && !weapon.isMelee ? weapon.ammo : null;
-            if (ammo && ammo.quantity < 1) {
-                ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                return;
-            }
-
-            strike.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
+            strike.variants[Number(variantIndex)]?.roll({ event });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.

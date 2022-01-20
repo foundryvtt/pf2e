@@ -111,15 +111,8 @@ export const ChatCards = {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
 
                     if (action?.startsWith("strikeAttack")) {
-                        const weapon = strikeAction.weapon;
-                        const ammo = weapon && !weapon.isMelee ? weapon.ammo : null;
-                        if (ammo && ammo.quantity < 1) {
-                            ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                            return;
-                        }
-
-                        const variant = (parseInt(action.substring("strikeAttack".length)) || 1) - 1;
-                        strikeAction.variants[variant].roll({ event: event, options, callback: () => ammo?.consume() });
+                        const variantIndex = (parseInt(action.substring("strikeAttack".length)) || 1) - 1;
+                        strikeAction.variants[variantIndex].roll({ event: event, options });
                     } else if (action === "strikeDamage") {
                         strikeAction.damage?.({ event: event, options });
                     } else if (action === "strikeCritical") {
