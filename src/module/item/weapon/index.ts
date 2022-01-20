@@ -62,6 +62,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.range;
     }
 
+    get reload(): string {
+        return this.data.data.reload.value;
+    }
+
     get isSpecific(): boolean {
         return this.data.data.specific?.value ?? false;
     }
@@ -93,6 +97,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
                 [`material:${this.material?.type}`]: !!this.material?.type,
+                [`range:${this.range}`]: !!this.range,
+                [`reload:${this.reload}`]: !!this.reload,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
