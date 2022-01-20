@@ -1,5 +1,5 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { ConsumablePF2e, SpellPF2e, SpellcastingEntryPF2e, WeaponPF2e } from "@item";
+import { SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e } from "@util";
 import { ZeroToFour } from "@module/data";
@@ -211,19 +211,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;
             const variantIndex = $(event.currentTarget).attr("data-variant-index");
-
-            const ammo = (() => {
-                const fromMeleeWeapon = strike.weapon instanceof WeaponPF2e && strike.weapon.isMelee;
-                if (!strike.selectedAmmoId || fromMeleeWeapon) return null;
-                const ammo = this.actor.items.get(strike.selectedAmmoId ?? "");
-                return ammo instanceof ConsumablePF2e ? ammo : null;
-            })();
-            if (ammo && ammo.quantity < 1) {
-                ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                return;
-            }
-
-            strike.variants[Number(variantIndex)]?.roll({ event, callback: () => ammo?.consume() });
+            strike.variants[Number(variantIndex)]?.roll({ event });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.

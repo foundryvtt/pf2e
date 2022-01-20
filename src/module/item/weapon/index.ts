@@ -78,7 +78,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.range !== null;
     }
 
-    get ammo(): ConsumablePF2e | null {
+    get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e ? ammo : null;
     }
