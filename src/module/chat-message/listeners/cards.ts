@@ -109,15 +109,11 @@ export const ChatCards = {
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
-
-                    if (action?.startsWith("strikeAttack")) {
-                        const variantIndex = (parseInt(action.substring("strikeAttack".length)) || 1) - 1;
-                        strikeAction.variants[variantIndex].roll({ event: event, options });
-                    } else if (action === "strikeDamage") {
-                        strikeAction.damage?.({ event: event, options });
-                    } else if (action === "strikeCritical") {
-                        strikeAction.critical?.({ event: event, options });
-                    }
+                    if (action === "strikeAttack") strikeAction.variants[0].roll({ event: event, options });
+                    else if (action === "strikeAttack2") strikeAction.variants[1].roll({ event: event, options });
+                    else if (action === "strikeAttack3") strikeAction.variants[2].roll({ event: event, options });
+                    else if (action === "strikeDamage") strikeAction.damage?.({ event: event, options });
+                    else if (action === "strikeCritical") strikeAction.critical?.({ event: event, options });
                 }
                 if (action === "pay-crafting-costs") {
                     const itemUuid = card.attr("data-item-uuid") || "";
