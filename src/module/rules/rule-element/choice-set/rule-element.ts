@@ -16,14 +16,13 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         super(data, item);
         this.setDefaultFlag(this.data);
         this.data.adjustName = Boolean(this.data.adjustName ?? true);
+        this.data.recordSlug = Boolean(this.data.recordSlug ?? false);
         this.data.allowedDrops = new PredicatePF2e(this.data.allowedDrops);
 
-        if (
-            !(
-                typeof this.data.flag === "string" &&
-                (!this.data.selection || ["string", "number"].includes(typeof this.data.selection))
-            )
-        ) {
+        const selectionMade =
+            typeof this.data.flag === "string" &&
+            (!this.data.selection || ["string", "number"].includes(typeof this.data.selection));
+        if (!selectionMade) {
             this.ignored = true;
             return;
         }
@@ -53,17 +52,23 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         const selection =
             this.getPreselection() ??
             (await new ChoiceSetPrompt({
-                // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
-                allowedDrops: this.data.allowedDrops,
                 prompt: this.data.prompt,
                 item: this.item,
                 title: this.label,
                 choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(selfDomain)),
                 containsUUIDs: this.data.containsUUIDs,
+                // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
+                allowedDrops: this.data.allowedDrops,
             }).resolveSelection());
 
         if (selection) {
-            ruleSource.selection = selection.value;
+            ruleSource.selection = await (async () => {
+                if (isItemUUID(selection.value) && this.data.recordSlug) {
+                    const item = await fromUuid(selection.value);
+                    return item instanceof ItemPF2e ? item.slug ?? sluggify(item.name) : null;
+                }
+                return selection.value;
+            })();
 
             if (this.data.adjustName) {
                 const effectName = this.item.data._source.name;
