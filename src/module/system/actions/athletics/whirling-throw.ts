@@ -46,6 +46,7 @@ export function whirlingThrow(options: SkillActionOptions) {
         traits: ["monk"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.WhirlingThrow", "criticalSuccess"),

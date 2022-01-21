@@ -51,6 +51,7 @@ export interface ActionDefaultOptions {
 
 export interface SkillActionOptions extends ActionDefaultOptions {
     skill?: string;
+    difficultyClass?: CheckDC;
 }
 
 export interface CheckResultCallback {

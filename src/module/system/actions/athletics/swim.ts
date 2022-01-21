@@ -14,6 +14,7 @@ export function swim(options: SkillActionOptions) {
         traits: ["move"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Swim", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.Swim", "success"),

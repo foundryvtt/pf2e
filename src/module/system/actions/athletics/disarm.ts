@@ -14,6 +14,7 @@ export function disarm(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Disarm", "criticalSuccess"),
