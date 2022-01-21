@@ -46,6 +46,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     private secondaryRecords = {
         weaponTraits: ["npcAttackTraits"],
         equipmentTraits: ["armorTraits", "consumableTraits"],
+        featTraits: ["actionTraits"],
     } as const;
 
     static override get defaultOptions() {
