@@ -9,7 +9,7 @@ import { tupleHasValue } from "@util";
  * @category RuleElement
  */
 export class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
-    override onAfterPrepareData() {
+    override afterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const adjustment = this.data.adjustment;
 

@@ -5,7 +5,7 @@ import { SaveType, SAVE_TYPES } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
-import { RuleElementPF2e, RuleElementSynthetics } from "@module/rules";
+import { RuleElementPF2e } from "@module/rules";
 
 export class HazardPF2e extends ActorPF2e {
     static override get schema(): typeof HazardData {
@@ -32,8 +32,8 @@ export class HazardPF2e extends ActorPF2e {
         const { data } = this.data;
 
         const rules = this.rules.filter((rule) => !rule.ignored);
-        const synthetics = this.prepareCustomModifiers(rules);
-        const { statisticsModifiers } = synthetics;
+        this.prepareCustomModifiers(rules);
+        const { statisticsModifiers } = this.synthetics;
 
         // Armor Class
         {
@@ -59,30 +59,17 @@ export class HazardPF2e extends ActorPF2e {
             data.attributes.ac = stat;
         }
 
-        this.prepareSaves(synthetics);
-
-        // Update this.synthetics; This should always be at the end of prepareDerivedData
-        mergeObject(this.synthetics, synthetics);
+        this.saves = this.prepareSaves();
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
+    protected prepareCustomModifiers(rules: RuleElementPF2e[]): void {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-        const synthetics: RuleElementSynthetics = {
-            damageDice: {},
-            multipleAttackPenalties: {},
-            rollNotes: {},
-            senses: [],
-            statisticsModifiers: {},
-            strikes: [],
-            striking: {},
-            weaponPotency: {},
-        };
-        const statisticsModifiers = synthetics.statisticsModifiers;
+        const statisticsModifiers = this.synthetics.statisticsModifiers;
 
         for (const rule of rules) {
             try {
-                rule.onBeforePrepareData?.(synthetics);
+                rule.beforePrepareData?.();
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
@@ -97,13 +84,11 @@ export class HazardPF2e extends ActorPF2e {
         for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions.values())) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
         }
-
-        return synthetics;
     }
 
-    protected prepareSaves(synthetics: RuleElementSynthetics) {
+    protected prepareSaves(): Record<SaveType, Statistic> {
         const data = this.data.data;
-        const { rollNotes, statisticsModifiers } = synthetics;
+        const { rollNotes, statisticsModifiers } = this.synthetics;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
@@ -136,7 +121,7 @@ export class HazardPF2e extends ActorPF2e {
             mergeObject(this.data.data.saves[saveType], stat.getCompatData());
         }
 
-        this.saves = saves as Record<SaveType, Statistic>;
+        return saves as Record<SaveType, Statistic>;
     }
 }
 

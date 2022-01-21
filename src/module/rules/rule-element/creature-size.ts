@@ -41,7 +41,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         return this.decrementSize(CreatureSizeRuleElement.decrementMap[size], amount - 1);
     }
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const value = this.resolveValue();

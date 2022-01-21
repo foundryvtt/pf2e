@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import { AELikeRuleElementSource, AELikeRuleElement } from "./ae-like";
+import { AELikeSource, AELikeRuleElement } from "./ae-like";
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -29,7 +29,7 @@ class RollOptionRuleElement extends AELikeRuleElement {
     }
 }
 
-interface RollOptionConstructionData extends AELikeRuleElementSource {
+interface RollOptionConstructionData extends AELikeSource {
     mode?: "override";
     path?: string;
     domain?: unknown;
