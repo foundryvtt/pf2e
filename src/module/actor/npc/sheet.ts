@@ -174,7 +174,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /** Use the token name as the title if showing a lootable NPC sheet */
     override get title() {
-        if (this.isLootSheet) {
+        if (this.isLootSheet || this.actor.limited) {
             const actorName = this.token?.name ?? this.actor.name;
             if (this.actor.isDead) {
                 return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
@@ -231,6 +231,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     override async getData(): Promise<NPCSheetData> {
         const sheetData: NPCSheetData = await super.getData();
+
+        // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
+        if (this.actor.limited || this.isLootSheet) {
+            sheetData.actor.name = this.actor.token?.name ?? sheetData.actor.name;
+        }
 
         // Filter out alignment traits for sheet presentation purposes
         const alignmentTraits: readonly string[] = ALIGNMENT_TRAITS;
