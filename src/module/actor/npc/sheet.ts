@@ -119,6 +119,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
+    isSpellcaster?: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
@@ -580,6 +581,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }
+
+        sheetData.isSpellcaster = this.actor.isSpellcaster;
     }
 
     /**
