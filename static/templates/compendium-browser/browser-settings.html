@@ -1,0 +1,62 @@
+<div class="compendium-browser-settings">
+    <form>
+        <div class="settings-container">
+            <div class="setting-section">
+                <h3>{{localize "PF2E.CompendiumBrowser.TabAction"}}</h3>
+                <dl>
+                    {{#each action as |conf pack|}}
+                        <label><dt><input type="checkbox" name="action-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+                    {{/each}}
+                </dl>
+            </div>
+
+            <div class="setting-section">
+                <h3>{{localize "PF2E.CompendiumBrowser.TabBestiary"}}</h3>
+                <dl>
+                    {{#each bestiary as |conf pack|}}
+                        <label><dt><input type="checkbox" name="bestiary-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+                    {{/each}}
+                </dl>
+            </div>
+
+            <div class="setting-section">
+                <h3>{{localize "PF2E.CompendiumBrowser.TabEquipment"}}</h3>
+                <dl>
+                    {{#each equipment as |conf pack|}}
+                        <label><dt><input type="checkbox" name="equipment-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+                    {{/each}}
+                </dl>
+            </div>
+
+            <div class="setting-section">
+                <h3>{{localize "PF2E.CompendiumBrowser.TabFeat"}}</h3>
+                <dl>
+                    {{#each feat as |conf pack|}}
+                        <label><dt><input type="checkbox" name="feat-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+                    {{/each}}
+                </dl>
+            </div>
+
+            <div class="setting-section">
+                <h3>{{localize "PF2E.CompendiumBrowser.TabHazard"}}</h3>
+                <dl>
+                    {{#each hazard as |conf pack|}}
+                        <label><dt><input type="checkbox" name="hazard-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+                    {{/each}}
+                </dl>
+            </div>
+
+            <div class="setting-section">
+                <h3>{{localize "PF2E.CompendiumBrowser.TabSpell"}}</h3>
+                <dl>
+                    {{#each spell as |conf pack|}}
+                        <label><dt><input type="checkbox" name="spell-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+                    {{/each}}
+                </dl>
+            </div>
+
+        </div>
+
+        <button class='save-settings' type='button'>{{localize "SETTINGS.Save"}}</button>
+    </form>
+</div>
