@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You become trained in simple and martial crossbows and simple and martial firearms. You become trained in gunslinger class DC. Choose a gunslinger way. You become trained in your way's associated skill; if you were already trained in this skill, you become trained in a skill of your choice. You don't gain any other abilities from your choice of way.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the gunslinger archetype.</p>"
+            "value": "<p>You become trained in simple and martial crossbows and simple and martial firearms. You become trained in gunslinger class DC. Choose a @Compendium[pf2e.classfeatures.Gunslinger's Way]{Gunslinger Way}. You become trained in your way's associated skill; if you were already trained in this skill, you become trained in a skill of your choice. You don't gain any other abilities from your choice of way.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the gunslinger archetype.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -27,7 +27,42 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Gunslinger's Way"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:simple"
+                    ],
+                    "any": [
+                        "weapon:group:firearm",
+                        "weapon:tag:crossbow"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleFirearmsCrossbows",
+                "slug": "simple-firearms-crossbows",
+                "value": 1
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:martial"
+                    ],
+                    "any": [
+                        "weapon:group:firearm",
+                        "weapon:tag:crossbow"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialFirearmsCrossbows",
+                "slug": "martial-firearms-crossbows",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
