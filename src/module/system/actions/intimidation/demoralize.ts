@@ -14,6 +14,7 @@ export function demoralize(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "emotion", "fear", "mental"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Demoralize", "criticalSuccess"),

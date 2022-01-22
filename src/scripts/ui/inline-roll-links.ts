@@ -6,6 +6,7 @@ import { CheckDC } from "@system/check-degree-of-success";
 import { Statistic } from "@system/statistic";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { sluggify } from "@util";
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -61,13 +62,19 @@ export const InlineRollsLinks = {
 
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { pf2Action, pf2Glyph, pf2Variant } = $target[0]?.dataset ?? {};
-            const action = game.pf2e.actions[pf2Action ?? ""];
+            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc } = $target[0]?.dataset ?? {};
+            const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
             if (pf2Action && action) {
                 action({
                     event,
                     glyph: pf2Glyph,
                     variant: pf2Variant,
+                    difficultyClass: pf2Dc
+                        ? {
+                              scope: "CheckOutcome",
+                              value: parseInt(pf2Dc),
+                          }
+                        : undefined,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
