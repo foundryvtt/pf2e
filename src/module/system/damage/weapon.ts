@@ -535,13 +535,7 @@ export class WeaponDamagePF2e {
             d.ignored = !d.enabled;
         });
 
-        this.excludeDamage(actor, numericModifiers, options);
-        this.excludeDamage(actor, diceModifiers, options);
-        for (const [key, modifiers] of Object.entries(statisticsModifiers)) {
-            if (key.endsWith("damage")) {
-                this.excludeDamage(actor, modifiers, options);
-            }
-        }
+        this.excludeDamage(actor, [...numericModifiers, ...diceModifiers], options);
 
         damage.formula.success = this.getFormula(damage, false);
         damage.formula.criticalSuccess = this.getFormula(damage, true);

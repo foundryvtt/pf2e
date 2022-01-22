@@ -414,6 +414,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             );
 
             if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
+                modifier.enabled = false;
+                modifier.ignored = true;
                 modifier.predicate.not.push("battle-form");
             }
         }
