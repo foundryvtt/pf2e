@@ -1,6 +1,6 @@
 import { LocalizePF2e } from "@system/localize";
 import { ordinal } from "@util";
-import { DateTime } from "luxon";
+import { DateTime, Duration } from "luxon";
 import { animateDarkness } from "./animate-darkness";
 
 interface WorldClockData {
@@ -22,6 +22,8 @@ export class WorldClock extends Application {
 
     constructor() {
         super();
+
+        Duration
 
         /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
         const settingValue = game.settings.get("pf2e", "worldClock.worldCreatedOn");

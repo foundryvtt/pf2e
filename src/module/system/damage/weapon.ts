@@ -48,7 +48,7 @@ export interface DamageTemplate {
     name: string;
     notes: RollNotePF2e[];
     numericModifiers: ModifierPF2e[];
-    traits: string[];
+    traits: StrikeTrait[];
 }
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
@@ -203,7 +203,7 @@ export class WeaponDamagePF2e {
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
         options = traits
-            .filter((trait) => !trait.toggle)
+            .filter((trait) => !trait.toggleable)
             .map((t) => t.name)
             .concat(options); // always add all weapon traits to the options
 
@@ -261,20 +261,16 @@ export class WeaponDamagePF2e {
         }
 
         // Two-Hand trait
-        const twoHandTrait = traits.find(
-            // utilizing the css class here is a dirty (and hopefully temporary!) hack
-            (t) => t.name.toLowerCase().startsWith("two-hand-") && t.cssClass === "toggled-on"
-        );
-        if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
+        const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith("two-hand-") && t.toggleState === true);
+        if (twoHandTrait && selectors.some((o) => o === `${weapon._id}-damage`)) {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf("-") + 1) as DamageDieSize;
         }
 
         // Versatile trait
         const versatileTrait = traits.find(
-            // utilizing the css class here is a dirty (and hopefully temporary!) hack
-            (t) => t.name.toLowerCase().startsWith("versatile-") && t.cssClass === "toggled-on"
+            (t) => t.name.toLowerCase().startsWith("versatile-") && t.toggleState === true
         );
-        if (versatileTrait && options.some((o) => o === versatileTrait.rollOption)) {
+        if (versatileTrait && selectors.some((o) => o === `${weapon._id}-damage`)) {
             const dmg = {
                 b: "bludgeoning",
                 p: "piercing",
@@ -294,7 +290,7 @@ export class WeaponDamagePF2e {
                 new DiceModifierPF2e({
                     label: "PF2E.WeaponCustomDamageLabel",
                     diceNumber: normalDice,
-                    dieSize: weapon.data?.property1?.die as DamageDieSize,
+                    dieSize: weapon.data.property1?.die as DamageDieSize,
                     damageType: damageType,
                 })
             );
@@ -495,7 +491,7 @@ export class WeaponDamagePF2e {
             diceModifiers,
             numericModifiers,
             notes,
-            traits: (traits ?? []).map((t) => t.name),
+            traits,
             // These are calculated below
             formula: {
                 success: { data: {}, formula: "", partials: {} },
@@ -587,6 +583,8 @@ export class WeaponDamagePF2e {
         };
 
         // dice modifiers always stack
+        const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
+        const descriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
         diceModifiers
             .filter((dm) => dm.enabled)
             .filter((dm) => !dm.critical || critical)
@@ -661,9 +659,13 @@ export class WeaponDamagePF2e {
                     }
                     category.modifier = (category.modifier ?? 0) + nm.modifier;
                     (nm.traits ?? [])
-                        .filter((t) => !damage.traits.includes(t))
+                        .filter((t) => !damage.traits.some((trait) => trait.name === t))
                         .forEach((t) => {
-                            damage.traits.push(t);
+                            damage.traits.push({
+                                name: t,
+                                label: attackTraits[t] ?? t,
+                                description: descriptions[t],
+                            });
                         });
                 });
         }

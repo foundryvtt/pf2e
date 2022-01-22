@@ -22,7 +22,7 @@ import {
     StrikeData,
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
 import { StatisticModifier } from "@module/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
@@ -53,9 +53,12 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
 export type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
+        /** Tracks whether free crafting is enabled */
         freeCrafting: boolean;
-        disableABP?: boolean;
+        disableABP: boolean;
         sheetTabs: CharacterSheetTabVisibility;
+        /** Tracks the state of toggleable strike traits */
+        strikeTraits: Record<string, { [K in WeaponTrait]?: boolean } | undefined>;
     };
 };
 
@@ -171,7 +174,7 @@ export type CharacterStrike = StatisticModifier &
     StrikeData & {
         slug: string | null;
         adjustments?: DegreeOfSuccessAdjustment[];
-        meleeUsage: CharacterStrike | null;
+        range: number | null;
     };
 
 /** A Pathfinder Society Faction */

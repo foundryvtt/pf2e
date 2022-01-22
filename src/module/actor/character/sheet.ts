@@ -25,6 +25,7 @@ import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { LocalizePF2e } from "@system/localize";
 import { PCSheetTabManager } from "./tab-manager";
+import { UNARMED_ID } from "./data/values";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -693,6 +694,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const $strikesList = $actions.find(".strikes-list");
 
+        $strikesList.find('span.tag[data-action="toggle-trait"]').on("click", (event) => {
+            const $target = $(event.currentTarget);
+            const trait = $target.attr("data-trait");
+            if (objectHasKey(CONFIG.PF2E.weaponTraits, trait)) {
+                const weapon = this.getStrikeFromDOM(event.currentTarget)?.weapon;
+                if (!weapon) return;
+                const slug = weapon.slug ?? sluggify(weapon.name);
+                const flagKey = `${weapon.id}_${slug}`;
+                const currentValue = !!this.actor.data.flags.pf2e.strikeTraits[flagKey]?.[trait];
+
+                // Clean up defunct flags as well
+                const toDelete = Object.keys(this.actor.data._source.flags.pf2e?.strikeTraits ?? {})
+                    .map((key) => {
+                        const [id] = key.split("_");
+                        return id === UNARMED_ID || this.actor.items.has(id) ? [] : key;
+                    })
+                    .flat()
+                    .reduce(
+                        (keysNulls: Record<string, null>, key) => ({
+                            ...keysNulls,
+                            [`data.flags.pf2e.strikeTraits.-=${key}`]: null,
+                        }),
+                        {}
+                    );
+
+                this.actor.update({
+                    [`flags.pf2e.strikeTraits.${flagKey}.${trait}`]: !currentValue,
+                    ...toDelete,
+                });
+            }
+        });
+
         // Set damage-formula tooltips on damage buttons
         const damageButtonSelectors = [
             'button[data-action="strike-damage"]',
@@ -713,7 +746,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
+        $strikesList.find(".item-properties.tags .tag").each((_idx, span) => {
             if (span.dataset.description) {
                 $(span).tooltipster({
                     content: game.i18n.localize(span.dataset.description),

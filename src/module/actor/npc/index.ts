@@ -440,18 +440,19 @@ export class NPCPF2e extends CreaturePF2e {
                     name: "attack",
                     label: CONFIG.PF2E.featTraits.attack,
                     description: CONFIG.PF2E.traitsDescriptions.attack,
-                    toggle: false,
+                    toggleable: false,
                 };
-                action.traits = [attackTrait].concat(
-                    traits.map(
+                action.traits = [
+                    attackTrait,
+                    ...traits.map(
                         (trait): StrikeTrait => ({
                             name: trait,
                             label: CONFIG.PF2E.npcAttackTraits[trait] ?? trait,
                             description: CONFIG.PF2E.traitsDescriptions[trait],
-                            toggle: false,
+                            toggleable: false,
                         })
-                    )
-                );
+                    ),
+                ];
 
                 const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
                 action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
@@ -468,7 +469,7 @@ export class NPCPF2e extends CreaturePF2e {
                     action.traits.splice(1, 0, {
                         name: "range",
                         label: game.i18n.localize("PF2E.TraitRange"),
-                        toggle: false,
+                        toggleable: false,
                     });
                 }
                 // Add a damage roll breakdown

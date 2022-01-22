@@ -172,7 +172,7 @@ export function objectHasKey<O extends object>(obj: O, key: unknown): key is key
     return (typeof key === "string" || typeof key === "number") && key in obj;
 }
 
-/** Check if a value is present in the provided array. Especially useful for checking against literal tuples */
+/** Check if the `value` is present in the array. Specifically useful for checking against literal tuples */
 export function tupleHasValue<A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
     return array.includes(value);
 }
