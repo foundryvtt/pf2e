@@ -32,6 +32,19 @@
                 "key": "ToggleProperty",
                 "label": "In Everstand Stance",
                 "property": "flags.pf2e.rollOptions.all.stance:everstand"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.attributes.shield.hardness",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        "self:shield:equipped",
+                        "stance:everstand"
+                    ]
+                },
+                "value": 2
             }
         ],
         "source": {
