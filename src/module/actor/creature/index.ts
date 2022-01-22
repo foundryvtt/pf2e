@@ -47,6 +47,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
 
+    /** Save data for the creature, built during data prep */
+    override saves!: Record<SaveType, Statistic>;
+
     /** The creature's position on the alignment axes */
     get alignment(): Alignment {
         return this.data.data.details.alignment.value;
@@ -97,9 +100,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const stat = this.data.data.attributes.perception as StatisticModifier;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
     }
-
-    /** Save data for the creature, always built during data prep */
-    override saves!: Record<SaveType, Statistic>;
 
     get deception(): Statistic {
         const stat = this.data.data.skills.dec as StatisticModifier;
