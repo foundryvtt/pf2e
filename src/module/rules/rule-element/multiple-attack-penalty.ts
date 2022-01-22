@@ -1,20 +1,19 @@
 import { PredicatePF2e } from "@system/predication";
-import { RuleElementPF2e, RuleElementSynthetics } from "./";
+import { RuleElementPF2e } from "./";
 
 /**
  * @category RuleElement
  */
 export class MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData({ multipleAttackPenalties }: RuleElementSynthetics) {
+    override beforePrepareData(): void {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const label = this.resolveInjectedProperties(this.label);
         const value = Number(this.resolveValue(this.data.value)) || 0;
         if (selector && label && value) {
             const map: MultipleAttackPenaltyPF2e = { label, penalty: value };
-            if (this.data.predicate) {
-                map.predicate = this.data.predicate;
-            }
-            multipleAttackPenalties[selector] = (multipleAttackPenalties[selector] || []).concat(map);
+            if (this.data.predicate) map.predicate = this.data.predicate;
+            const penalties = (this.actor.synthetics.multipleAttackPenalties[selector] ??= []);
+            penalties.push(map);
         } else {
             console.warn(
                 "PF2E | Multiple attack penalty requires at least a selector field and a non-empty value field"

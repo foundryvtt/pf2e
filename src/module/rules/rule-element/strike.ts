@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementSynthetics } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
@@ -37,7 +37,7 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.weapon = this.constructWeapon();
     }
 
-    override onBeforePrepareData({ strikes }: RuleElementSynthetics): void {
+    override beforePrepareData(): void {
         const predicatePassed =
             !this.data.predicate ||
             ((): boolean => {
@@ -45,11 +45,11 @@ class StrikeRuleElement extends RuleElementPF2e {
                 return this.data.predicate.test(rollOptions);
             })();
 
-        if (predicatePassed) strikes.push(this.weapon);
+        if (predicatePassed) this.actor.synthetics.strikes.push(this.weapon);
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
-    override onAfterPrepareData(): void {
+    override afterPrepareData(): void {
         if (this.data.replaceBasicUnarmed && this.actor.data.type === "character") {
             const systemData = this.actor.data.data;
             systemData.actions = systemData.actions.filter((action) => action.weapon?.slug !== "unarmed");

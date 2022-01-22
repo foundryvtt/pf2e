@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSynthetics } from "./";
+import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString, ActorType } from "@actor/data";
 import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
@@ -15,7 +15,7 @@ const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: "ac" }>
 export class FixedProficiencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    override onBeforePrepareData({ statisticsModifiers }: RuleElementSynthetics) {
+    override beforePrepareData(): void {
         const selector = this.resolveInjectedProperties(this.data.selector);
         let value = Number(this.resolveValue(this.data.value)) || 0;
         if (selector === "ac") {
@@ -38,11 +38,12 @@ export class FixedProficiencyRuleElement extends RuleElementPF2e {
                 MODIFIER_TYPE.PROFICIENCY
             );
             modifier.label = this.label;
-            statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
+            const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+            modifiers.push(modifier);
         }
     }
 
-    override onAfterPrepareData() {
+    override afterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const { data } = this.actor.data;
         const skill: string = SKILL_EXPANDED[selector]?.shortform ?? selector;

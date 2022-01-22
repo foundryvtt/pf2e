@@ -9,7 +9,7 @@ import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleValue } from "
 class AELikeRuleElement extends RuleElementPF2e {
     static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
 
-    constructor(data: AELikeRuleElementSource, item: Embedded<ItemPF2e>) {
+    constructor(data: AELikeSource, item: Embedded<ItemPF2e>) {
         data = deepClone(data);
         data.priority ??=
             typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
@@ -60,12 +60,12 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     /** Apply the modifications near the beginning of the actor's derived-data preparation */
-    override onBeforePrepareData(): void {
+    override beforePrepareData(): void {
         if (!this.ignored && this.data.phase === "beforeDerived") this.applyAELike();
     }
 
     /** Apply the modifications at the conclusion of the actor's derived-data preparation */
-    override onAfterPrepareData(): void {
+    override afterPrepareData(): void {
         if (!this.ignored && this.data.phase === "afterDerived") this.applyAELike();
     }
 
@@ -180,12 +180,12 @@ export interface AutoChangeEntry {
 }
 
 interface AELikeRuleElement extends RuleElementPF2e {
-    data: AELikeRuleElementData;
+    data: AELikeData;
 }
 
 type AELikeChangeMode = "add" | "multiply" | "upgrade" | "downgrade" | "override";
 
-export interface AELikeRuleElementData extends RuleElementData {
+export interface AELikeData extends RuleElementData {
     path: string;
     value: RuleValue;
     mode: AELikeChangeMode;
@@ -193,7 +193,7 @@ export interface AELikeRuleElementData extends RuleElementData {
     phase: "applyAEs" | "beforeDerived" | "afterDerived";
 }
 
-export interface AELikeRuleElementSource extends RuleElementSource {
+export interface AELikeSource extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
     phase?: "applyAEs" | "beforeDerived" | "afterDerived";

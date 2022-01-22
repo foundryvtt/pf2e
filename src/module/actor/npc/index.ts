@@ -108,9 +108,8 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const { synthetics } = this;
         // Extract as separate variables for easier use in this method.
-        const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { damageDice, statisticsModifiers, strikes, rollNotes } = this.synthetics;
         const { details } = this.data.data;
         const itemTypes = this.itemTypes;
 
@@ -709,7 +708,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Call post-data-preparation RuleElement hooks
         for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData?.(synthetics);
+                rule.afterPrepareData?.();
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);

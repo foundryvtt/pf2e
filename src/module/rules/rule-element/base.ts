@@ -7,7 +7,6 @@ import {
     BracketedValue,
     RuleElementSource,
     RuleElementData,
-    RuleElementSynthetics,
     RuleValue,
     REPreCreateParameters,
     REPreDeleteParameters,
@@ -64,6 +63,10 @@ abstract class RuleElementPF2e {
 
     get label(): string {
         return this.data.label;
+    }
+
+    get predicate(): this["data"]["predicate"] {
+        return this.data.predicate;
     }
 
     /** The place in order of application (ascending), among an actor's list of rule elements */
@@ -240,20 +243,11 @@ interface RuleElementPF2e {
      * after actor changes. Those values should not be saved back to the actor unless we mess up.
      *
      * This callback is run for each rule in random order and is run very often, so watch out for performance.
-     *
-     * @param actorData actor data
-     * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
-     * damage modifiers or bonuses
      */
-    onBeforePrepareData?(synthetics: RuleElementSynthetics): void;
+    beforePrepareData?(): void;
 
-    /**
-     * Run after all actor preparation callbacks have been run so you should see all final values here.
-     *
-     * @param actorData see onBeforePrepareData
-     * @param synthetics see onBeforePrepareData
-     */
-    onAfterPrepareData?(synthetics: RuleElementSynthetics): void;
+    /** Run after all actor preparation callbacks have been run so you should see all final values here. */
+    afterPrepareData?(): void;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can

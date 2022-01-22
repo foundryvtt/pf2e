@@ -8,7 +8,7 @@ import { RuleElementPF2e, RuleElementData } from "./";
 export class TogglePropertyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         if (this.data.property) {
             this.actor.data.data.toggles.actions.push({
                 label: this.label,
