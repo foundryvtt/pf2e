@@ -6,7 +6,7 @@ import { renderCraftingInline } from "@module/crafting/helpers";
 import { ChatMessagePF2e } from "@module/chat-message";
 
 interface CraftActionOptions extends SkillActionOptions {
-    dc?: CheckDC;
+    difficultyClass?: CheckDC;
     item?: PhysicalItemPF2e;
     quantity?: number;
     uuid?: string;
@@ -105,7 +105,7 @@ export async function craft(options: CraftActionOptions) {
 
     // figure out DC from item
     const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-    const dc: CheckDC = options.dc ?? {
+    const dc: CheckDC = options.difficultyClass ?? {
         value: calculateDC(item.level, { proficiencyWithoutLevel }),
         visibility: "all",
     };
