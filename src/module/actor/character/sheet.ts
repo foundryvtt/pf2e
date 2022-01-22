@@ -857,14 +857,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return;
             }
 
-            const dc: CheckDC = {
+            const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visibility: "all",
                 adjustments: this.actor.data.data.skills["cra"].adjustments,
                 scope: "CheckOutcome",
             };
 
-            craft({ dc, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
+            craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
         });
 
         $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {

@@ -14,6 +14,7 @@ export function longJump(options: SkillActionOptions) {
         traits: ["move"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.LongJump", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.LongJump", "failure"),

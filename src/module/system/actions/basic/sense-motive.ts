@@ -14,6 +14,7 @@ export function senseMotive(options: SkillActionOptions) {
         traits: ["concentrate", "secret"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.deception,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.SenseMotive", "criticalSuccess"),
