@@ -1,0 +1,95 @@
+/* ----------------------------------------- */
+/* Global                                    */
+/* ----------------------------------------- */
+
+$primary-color: #5e0000 !default;
+$secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
+$tertiary-color: #E9D7A1 !default; /* compliments the primary color, usually used in combination */
+
+$alt-color: #786452 !default; /* for all other uses */
+$alt-dark: #443730 !default;
+$background-color: #F8F4F1 !default;
+$body-color: #1C1C1C !default;
+$sub-color: #605856 !default;
+
+
+/* Other Colors */
+$white-color: white;
+$black-color: black;
+$dim-gray-color: #666;
+
+/* Lighter / Darker */
+$light-color: lighten($primary-color, 10) !default;
+$dark-color: darken($primary-color, 10) !default;
+$tertiary-light-color: lighten($tertiary-color, 10) !default;
+
+
+/* ----------------------------------------- */
+/* Color schemes                             */
+/* ----------------------------------------- */
+
+/* Proficiency ranks */
+$rank-untrained: #424242 !default;
+$rank-trained: #171f69 !default;
+$rank-expert: #3c005e !default;
+$rank-master: #664400 !default;
+$rank-legendary: #5e0000 !default;
+
+/* Rarities */
+$rarity-common: #323232 !default;
+$rarity-uncommon: #98513d !default;
+$rarity-rare: #002664 !default;
+$rarity-unique: #54166e !default;
+
+/* Degrees of success */
+$degree-success-critical: green !default;
+$degree-success: blue !default;
+$degree-failure: orangered !default;
+$degree-failure-critical: red !default;
+
+/* Value adjustments (e.g. weak/elite) */
+$adjusted-higher: #009988 !default;
+$adjusted-lower: #cc3311 !default;
+
+
+/* ----------------------------------------- */
+/* Components                                */
+/* ----------------------------------------- */
+
+/* Headers w/ boxes */
+$header-color: $white-color; /* Font Color */
+$header-bg: $secondary-color;
+
+/* Sidebar */
+$sidebar-title-color: #f7d488;
+$sidebar-label: #ffefbd;
+
+
+/* ----------------------------------------- */
+/* CSS Custom Properties                     */
+/* ----------------------------------------- */
+
+:root {
+  --primary: #{$primary-color};
+  --secondary: #{$secondary-color};
+  --tertiary: #{$tertiary-color};
+
+  --alt: #{$alt-color};
+  --alt-dark: #{$alt-dark};
+  --bg: #{$background-color};
+  --body: #{$body-color};
+  --sub: #{$sub-color};
+
+  --dim-gray: #{$dim-gray-color};
+
+  --light: #{$light-color};
+  --dark: #{$dark-color};
+  --tertiary-light: #{$tertiary-light-color};
+  
+
+  --header-color: #{$header-color};
+  --header-bg: #{$header-bg};
+
+  --sidebar-label: #{$sidebar-label};
+  --sidebar-title: #{$sidebar-title-color};
+}
