@@ -96,6 +96,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
+    get isSpellcaster(): boolean {
+        const { itemTypes } = this;
+        return itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
+    }
+
     get perception(): Statistic {
         const stat = this.data.data.attributes.perception as StatisticModifier;
         return Statistic.from(this, stat, "perception", "PF2E.PerceptionCheck", "perception-check");
@@ -226,9 +231,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Other creature-specific self: roll options
-        const { itemTypes } = this;
-        const isSpellcaster = itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
-        if (isSpellcaster) rollOptions.all["self:caster"] = true;
+        if (this.isSpellcaster) {
+            rollOptions.all["self:caster"] = true;
+        }
+
         if (this.hitPoints.negativeHealing) rollOptions.all["self:negative-healing"];
 
         // Set whether this actor is wearing armor
