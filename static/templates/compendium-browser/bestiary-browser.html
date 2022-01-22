@@ -1,0 +1,19 @@
+<div class="spell-browser">
+    {{> systems/pf2e/templates/compendium-browser/filters.html filterData=filterData }}
+    <ul class="item-list result-list">
+        {{#each indexData as |actor id|}}
+            <li class="item flexrow" data-entry-compendium="{{actor.compendium}}" data-entry-id="{{actor._id}}" data-actor-category="bestiaryActors">
+                <div class="image">
+                    <img class="" src="{{actor.img}}" title="{{actor.name}}" width="32" height="32" loading="lazy"/>
+                </div>
+                <div class="name">
+                    <a class="actor-link">{{actor.name}}</a>
+                </div>
+                <div class="level">
+                    <span title="NPC level">{{actor.level}}</span>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+
+</div>
