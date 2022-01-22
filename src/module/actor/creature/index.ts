@@ -201,6 +201,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rule.onApplyActiveEffects?.();
         }
 
+        if ("shield" in this.attributes && this.attributes.shield.itemId) {
+            this.rollOptions.all["self:shield:equipped"] = true;
+        }
+
         for (const changeEntries of Object.values(this.data.data.autoChanges)) {
             changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
         }
