@@ -52,7 +52,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     synthetics!: RuleElementSynthetics;
 
-    saves?: Record<SaveType, Statistic>;
+    saves?: { [K in SaveType]?: Statistic };
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {

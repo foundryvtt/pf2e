@@ -86,20 +86,19 @@ export class HazardPF2e extends ActorPF2e {
         }
     }
 
-    protected prepareSaves(): Record<SaveType, Statistic> {
+    protected prepareSaves(): { [K in SaveType]?: Statistic } {
         const data = this.data.data;
         const { rollNotes, statisticsModifiers } = this.synthetics;
 
         // Saving Throws
-        const saves: Partial<Record<SaveType, Statistic>> = {};
-        for (const saveType of SAVE_TYPES) {
+        return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
             const save = data.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
 
             // Saving Throws with a value of 0 are not usable by the hazard
-            if (base === 0) continue;
+            if (base === 0) return saves;
 
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
@@ -117,11 +116,11 @@ export class HazardPF2e extends ActorPF2e {
                 dc: {},
             });
 
-            saves[saveType] = stat;
             mergeObject(this.data.data.saves[saveType], stat.getCompatData());
-        }
 
-        return saves as Record<SaveType, Statistic>;
+            saves[saveType] = stat;
+            return saves;
+        }, {});
     }
 }
 
