@@ -20,7 +20,7 @@ export class SenseRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData(): void {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const range = this.resolveValue(this.data.range, "");

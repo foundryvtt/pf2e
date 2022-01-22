@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementSynthetics } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
@@ -36,7 +36,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onBeforePrepareData({ statisticsModifiers }: RuleElementSynthetics) {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
@@ -56,7 +56,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 damageCategory: this.data.damageCategory || undefined,
                 hideIfDisabled: this.data.hideIfDisabled,
             });
-            statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
+            const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+            modifiers.push(modifier);
         } else if (value === 0) {
             // omit modifiers with a value of zero
         } else if (CONFIG.debug.ruleElement) {

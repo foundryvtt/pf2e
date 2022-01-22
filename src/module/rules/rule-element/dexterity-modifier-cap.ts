@@ -8,7 +8,7 @@ import { RuleElementPF2e } from "./";
 class DexterityModifierCapRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const value = this.resolveValue(this.data.value);

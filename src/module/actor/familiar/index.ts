@@ -289,7 +289,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         // Call post-data-preparation RuleElement hooks
         for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData?.(synthetics);
+                rule.afterPrepareData?.();
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);

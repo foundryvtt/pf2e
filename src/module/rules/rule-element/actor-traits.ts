@@ -15,7 +15,7 @@ export class ActorTraitsRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const traits: string[] = this.actor.data.data.traits.traits.value;

@@ -326,7 +326,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         for (const rule of rules) {
             try {
-                rule.onBeforePrepareData?.(synthetics);
+                rule.beforePrepareData?.();
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);

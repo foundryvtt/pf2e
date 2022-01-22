@@ -1,4 +1,4 @@
-import { RuleElementData, RuleElementPF2e, RuleElementSynthetics } from "./";
+import { RuleElementData, RuleElementPF2e } from "./";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
 import { RuleElementSource } from "..";
@@ -17,9 +17,10 @@ class WeaponPotencyRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData({ weaponPotency }: RuleElementSynthetics) {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
+        const { weaponPotency } = this.actor.synthetics;
         const selector = this.resolveInjectedProperties(this.data.selector);
         const { item } = this;
         const potencyValue = this.data.value ?? (item instanceof WeaponPF2e ? item.data.data.potencyRune.value : 0);

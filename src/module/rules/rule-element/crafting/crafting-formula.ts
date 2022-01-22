@@ -19,7 +19,7 @@ class CraftingFormulaRuleElement extends RuleElementPF2e {
         super(data, item);
     }
 
-    override onBeforePrepareData(): void {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         this.actor.data.data.crafting.formulas.push({ uuid: this.data.uuid });
