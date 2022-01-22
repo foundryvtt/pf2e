@@ -125,6 +125,16 @@ export function registerTemplates() {
         "systems/pf2e/templates/packs/hazard-browser.html",
         "systems/pf2e/templates/packs/spell-browser.html",
         "systems/pf2e/templates/packs/browser-settings.html",
+
+        // Compendium Browser V2 Partials
+        "systems/pf2e/templates/compendium-browser/action-browser.html",
+        "systems/pf2e/templates/compendium-browser/bestiary-browser.html",
+        "systems/pf2e/templates/compendium-browser/inventory-browser.html",
+        "systems/pf2e/templates/compendium-browser/feat-browser.html",
+        "systems/pf2e/templates/compendium-browser/hazard-browser.html",
+        "systems/pf2e/templates/compendium-browser/spell-browser.html",
+        "systems/pf2e/templates/compendium-browser/browser-settings.html",
+        "systems/pf2e/templates/compendium-browser/filters.html",
     ];
     return loadTemplates(templatePaths);
 }

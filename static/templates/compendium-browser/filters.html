@@ -1,0 +1,55 @@
+<div class="control-area">
+    <div class="sortcontainer" id="tagfilter">
+        <input class="" name="textFilter" type="text" value="{{filterData.search.text}}" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
+        <dl>
+            <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
+            <dd>
+                <select class="order">
+                    {{#select filterData.order.by}}
+                        {{#each filterData.order.options as |label type|}}
+                            <option value="{{type}}">{{localize label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <a class="direction" data-type="alpha" data-direction="{{filterData.order.direction}}">{{#if (eq filterData.order.direction "asc")}}<i class="fas fa-sort-alpha-up"></i>{{else}}<i class="fas fa-sort-alpha-down"></i>{{/if}}</a>
+            </dd>
+        </dl>
+        {{#each filterData.dropdowns as |dropdown type|}}
+            <dl class="{{type}}">
+                <dt>{{localize dropdown.label}}:</dt>
+                <dd><select name="{{type}}">
+                    {{#select dropdown.selected}}
+                        <option value="" selected>-</option>
+                        {{#each dropdown.options as |option key|}}
+                            <option value="{{key}}">{{option}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select></dd>
+            </dl>
+        {{/each}}
+    </div>
+    <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
+    {{#each filterData.checkboxes as |checkbox name|}}
+        <div class="filtercontainer" data-filter-type="checkboxes" data-filter-name="{{name}}">
+            <h3>{{localize checkbox.label}}</h3>
+            <dl {{#if (not checkbox.isExpanded)}}style="display: none;"{{/if}}>
+                {{#each checkbox.options as |option type|}}
+                    <label>
+                        <dt><input type="checkbox" name="{{type}}" {{checked option.selected}} /></dt>
+                        <dd>{{localize option.label}}</dd>
+                    </label>
+                {{/each}}
+            </dl>
+        </div>
+    {{/each}}
+    {{#each filterData.ranges as |range name|}}
+        <div class="filtercontainer rangecontainer" data-filter-type="ranges" data-filter-name="{{name}}">
+            <h3>{{localize range.label}}</h3>
+            <div {{#if (not range.isExpanded)}}style="display: none;"{{/if}}>
+                <input type="number" name="lowerBound-level" value="{{range.values.min}}" min="-1" max="25">
+                -
+                <input type="number" name="upperBound-level" value="{{range.values.max}}" min="-1" max="25">
+            </div>
+        </div>
+    {{/each}}
+</div>
