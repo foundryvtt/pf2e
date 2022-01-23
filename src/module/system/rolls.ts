@@ -111,10 +111,7 @@ export class CheckPF2e {
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
-            check.modifiers.forEach((modifier) => {
-                modifier.ignored = !PredicatePF2e.test(modifier.predicate, context.options);
-            });
-            check.applyStackingRules();
+            check.calculateTotal(context.options);
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.includes("secret")) {
