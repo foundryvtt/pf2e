@@ -61,7 +61,7 @@ export class FixedProficiencyRuleElement extends RuleElementPF2e {
                     modifier.ignored = true;
                 }
             }
-            target.applyStackingRules();
+            target.calculateTotal();
             target.value = target.totalModifier + (skill === "ac" ? 10 : 0);
         }
     }

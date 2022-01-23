@@ -385,21 +385,20 @@ export class StatisticModifier {
     /**
      * @param name The name of this collection of statistic modifiers.
      * @param modifiers All relevant modifiers for this statistic.
+     * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(name: string, modifiers?: ModifierPF2e[]) {
+    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions?: string[]) {
         this.name = name;
-        this._modifiers = modifiers ?? [];
-        {
-            // de-duplication
-            const seen: ModifierPF2e[] = [];
-            this._modifiers.filter((m) => {
-                const found = seen.find((o) => o.slug === m.slug) !== undefined;
-                if (!found || m.type === "ability") seen.push(m);
-                return found;
-            });
-            this._modifiers = seen;
+
+        // De-duplication
+        const seen: ModifierPF2e[] = [];
+        for (const modifier of modifiers) {
+            const found = seen.some((m) => m.slug === modifier.slug);
+            if (!found || modifier.type === "ability") seen.push(modifier);
         }
-        this.applyStackingRules();
+        this._modifiers = seen;
+
+        this.calculateTotal(rollOptions);
     }
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
@@ -412,7 +411,7 @@ export class StatisticModifier {
         // de-duplication
         if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.push(modifier);
-            this.applyStackingRules();
+            this.calculateTotal();
         }
         return this._modifiers.length;
     }
@@ -422,7 +421,7 @@ export class StatisticModifier {
         // de-duplication
         if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.unshift(modifier);
-            this.applyStackingRules();
+            this.calculateTotal();
         }
         return this._modifiers.length;
     }
@@ -437,13 +436,19 @@ export class StatisticModifier {
             toDelete && this._modifiers.includes(toDelete)
                 ? !!this._modifiers.findSplice((modifier) => modifier === toDelete)
                 : false;
-        if (wasDeleted) this.applyStackingRules();
+        if (wasDeleted) this.calculateTotal();
 
         return wasDeleted;
     }
 
-    /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
-    applyStackingRules() {
+    /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
+    calculateTotal(rollOptions?: string[]) {
+        if (rollOptions) {
+            for (const modifier of this._modifiers) {
+                modifier.test(rollOptions);
+            }
+        }
+
         this.totalModifier = applyStackingRules(this._modifiers);
     }
 }

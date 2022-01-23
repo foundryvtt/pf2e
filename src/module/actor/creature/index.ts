@@ -42,6 +42,7 @@ import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
 import { Rarity } from "@module/data";
+import { extractModifiers } from "@module/rules/util";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -455,16 +456,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
-        const rollOptions = this.getRollOptions(["all", "speed", `${movementType}-speed`]);
-        const modifiers: ModifierPF2e[] = [`${movementType}-speed`, "speed"]
-            .flatMap((key) => this.synthetics.statisticsModifiers[key] || [])
-            .map((modifier) => modifier.clone({ test: rollOptions }));
+        const domains = ["all", "speed", `${movementType}-speed`];
+        const rollOptions = this.getRollOptions(domains);
+        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, domains);
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
             const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers),
+                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers, rollOptions),
                 systemData.attributes.speed,
                 { overwrite: false }
             );
@@ -487,7 +487,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             speed.label = game.i18n.localize(game.i18n.localize(CONFIG.PF2E.speedTypes[speed.type]));
             const base = Number(speed.value ?? 0);
             const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: speed.label }), modifiers),
+                new StatisticModifier(
+                    game.i18n.format("PF2E.SpeedLabel", { type: speed.label }),
+                    modifiers,
+                    rollOptions
+                ),
                 speed,
                 { overwrite: false }
             );

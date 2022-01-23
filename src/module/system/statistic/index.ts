@@ -230,10 +230,9 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             withOptions: (options: RollOptionParameters = {}) => {
                 const check = new CheckModifier(label, stat);
 
-                // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
+                // Toggle modifiers based on the specified options and re-apply stacking rules, if necessary
                 const rollOptions = this.createRollOptions(domains, options);
-                check.modifiers.forEach((modifier) => modifier.test(rollOptions));
-                check.applyStackingRules();
+                check.calculateTotal(rollOptions);
 
                 return {
                     value: check.totalModifier,
