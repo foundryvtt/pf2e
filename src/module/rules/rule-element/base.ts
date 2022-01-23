@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import type { ActorType } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { BaseRawModifier } from "@module/modifiers";
+import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
 import {
     BracketedValue,
@@ -59,6 +60,16 @@ abstract class RuleElementPF2e {
 
     get actor(): ActorPF2e {
         return this.item.actor;
+    }
+
+    /** Retrieves the token from the actor, or from the active tokens. */
+    get token(): TokenDocumentPF2e | null {
+        const actor = this.actor;
+        if (actor.token) return actor.token;
+
+        const tokens = actor.getActiveTokens();
+        const controlled = tokens.find((token) => token.isControlled);
+        return controlled?.document ?? tokens.shift()?.document ?? null;
     }
 
     get label(): string {
