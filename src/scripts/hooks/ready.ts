@@ -20,8 +20,8 @@ export const Ready = {
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
             // Start up the Compendium Browser
-            game.pf2e.compendiumBrowser = new CompendiumBrowser();
-            game.pf2e.compendiumBrowserV2 = new CompendiumBrowserV2();
+            game.pf2e.compendiumBrowser =
+                BUILD_MODE === "production" ? new CompendiumBrowser() : new CompendiumBrowserV2();
 
             // Start up the License viewer
             game.pf2e.licenseViewer = new LicenseViewer();
