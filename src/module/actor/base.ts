@@ -311,6 +311,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
+    /** Collect all sources of modifiers for statistics */
+    protected prepareSynthetics(): void {
+        // Rule elements
+        for (const rule of this.rules.filter((r) => !r.ignored)) {
+            try {
+                rule.beforePrepareData?.();
+            } catch (error) {
+                // Ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+            }
+        }
+
+        // Conditions
+        const conditions = this.itemTypes.condition
+            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
+            .map((c) => c.data);
+
+        const statisticsModifiers = this.synthetics.statisticsModifiers;
+        for (const [selector, modifiers] of game.pf2e.ConditionManager.getModifiersFromConditions(
+            conditions.values()
+        )) {
+            const syntheticModifiers = (statisticsModifiers[selector] ??= []);
+            syntheticModifiers.push(...modifiers);
+        }
+    }
+
     override prepareDerivedData(): void {
         // Record stored traits as roll options
         for (const trait of this.traits) {

@@ -5,7 +5,6 @@ import { SaveType, SAVE_TYPES } from "@actor/data";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
-import { RuleElementPF2e } from "@module/rules";
 
 export class HazardPF2e extends ActorPF2e {
     static override get schema(): typeof HazardData {
@@ -31,8 +30,7 @@ export class HazardPF2e extends ActorPF2e {
 
         const { data } = this.data;
 
-        const rules = this.rules.filter((rule) => !rule.ignored);
-        this.prepareCustomModifiers(rules);
+        this.prepareSynthetics();
         const { statisticsModifiers } = this.synthetics;
 
         // Armor Class
@@ -60,30 +58,6 @@ export class HazardPF2e extends ActorPF2e {
         }
 
         this.saves = this.prepareSaves();
-    }
-
-    /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected prepareCustomModifiers(rules: RuleElementPF2e[]): void {
-        // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-        const statisticsModifiers = this.synthetics.statisticsModifiers;
-
-        for (const rule of rules) {
-            try {
-                rule.beforePrepareData?.();
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
-            }
-        }
-
-        // Get all of the active conditions (from the item array), and add their modifiers.
-        const conditions = this.itemTypes.condition
-            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
-            .map((c) => c.data);
-
-        for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions.values())) {
-            statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
-        }
     }
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
