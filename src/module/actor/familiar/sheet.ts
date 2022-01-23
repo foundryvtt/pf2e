@@ -1,5 +1,3 @@
-import { SkillAbbreviation } from "@actor/creature/data";
-import { SKILL_DICTIONARY } from "@actor/data/values";
 import { FamiliarPF2e } from "@actor/familiar";
 import type { ItemPF2e } from "@item/base";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -79,11 +77,8 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         });
 
         $html.find("[data-skill-check] *").on("click", (event) => {
-            const skill = $(event.currentTarget)
-                .closest("[data-skill-check]")
-                .attr("data-skill-check") as SkillAbbreviation;
-            const options = this.actor.getRollOptions(["all", "skill-check", SKILL_DICTIONARY[skill] ?? skill]);
-            this.actor.data.data.skills[skill].roll({ event, options });
+            const skill = $(event.currentTarget).closest("[data-skill-check]").attr("data-skill-check");
+            this.actor.skills[skill ?? ""]?.check.roll(eventToRollParams(event));
         });
 
         $html.find("[data-perception-check] *").on("click", (event) => {

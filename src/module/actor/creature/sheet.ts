@@ -4,8 +4,7 @@ import { CreaturePF2e } from "@actor";
 import { ErrorPF2e } from "@util";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
-import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
-import { Rollable } from "@actor/data/base";
+import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
@@ -143,14 +142,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         // Roll skill checks
         $html.find(".skill-name.rollable, .skill-score.rollable").on("click", (event) => {
-            const skills: Record<string, Rollable | undefined> = this.actor.data.data.skills;
             const key = event.currentTarget.parentElement?.getAttribute("data-skill") ?? "";
-            const skill = skills[key];
-            if (skill) {
-                const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
-                const options = this.actor.getRollOptions(["all", "skill-check", longForms[key] ?? key]);
-                skill.roll({ event, options });
-            }
+            this.actor.skills[key]?.check.roll(eventToRollParams(event));
         });
 
         // Roll recovery flat check when Dying
