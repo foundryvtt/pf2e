@@ -103,7 +103,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
     }
 
     /** Measure distance using Pathfinder 2e grid-counting rules */
-    static measureDistance(p0: Point, p1: Point): number {
+    static measureDistance(p0: Point, p1: Point, a0?: PIXI.Rectangle | null, a1?: PIXI.Rectangle | null): number {
         if (!canvas.dimensions) return NaN;
 
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
@@ -111,9 +111,25 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
         }
 
         const gridSize = canvas.dimensions.size;
-        const ray = new Ray(p0, p1);
-        const nx = Math.ceil(Math.abs(ray.dx / gridSize));
-        const ny = Math.ceil(Math.abs(ray.dy / gridSize));
+
+        let dx, dy;
+        if (a0 && a1) {
+            // Construct rectangles for the two positions. Reduce the size of the rectangle by one square to simulate
+            // measuring from the centre of the squares
+            const r0 = new PIXI.Rectangle(p0.x, p0.y, a0.width - gridSize, a0.height - gridSize);
+            const r1 = new PIXI.Rectangle(p1.x, p1.y, a1.width - gridSize, a1.height - gridSize);
+
+            // Find the minimum distance between the rectangles for each dimension
+            dx = Math.max(0, r0.left - r1.right, r1.left - r0.right);
+            dy = Math.max(0, r0.top - r1.bottom, r1.top - r0.bottom);
+        } else {
+            const ray = new Ray(p0, p1);
+            dx = ray.dx;
+            dy = ray.dy;
+        }
+
+        const nx = Math.ceil(Math.abs(dx / gridSize));
+        const ny = Math.ceil(Math.abs(dy / gridSize));
 
         // Get the number of straight and diagonal moves
         const nDiagonal = Math.min(nx, ny);
