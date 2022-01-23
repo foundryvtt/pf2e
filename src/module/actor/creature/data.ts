@@ -22,7 +22,7 @@ import { TokenPF2e } from "@module/canvas";
 import { CheckDC } from "@system/check-degree-of-success";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { CombatantPF2e } from "@module/encounter";
-import { StatisticCompatData } from "@system/statistic";
+import { Statistic, StatisticCompatData } from "@system/statistic";
 import { CreatureTraits } from "@item/ancestry/data";
 
 export type BaseCreatureSource<
@@ -40,6 +40,9 @@ export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "
     data: CreatureSystemData;
     readonly _source: BaseCreatureSource;
 }
+
+/** Skill and Lore statistics for rolling */
+export type CreatureSkills = Record<SkillAbbreviation, Statistic> & Partial<Record<string, Statistic>>;
 
 export interface CreatureSystemSource extends ActorSystemSource {
     details: Record<string, unknown>;
