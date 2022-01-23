@@ -10,7 +10,7 @@ import {
 } from "@module/modifiers";
 import { ItemPF2e, ArmorPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
-import { RuleElementPF2e, RuleElementSynthetics } from "@module/rules";
+import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { hasInvestedProperty } from "@item/data/helpers";
@@ -244,7 +244,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
-        this.prepareCustomModifiers(this.rules.filter((r) => !r.ignored));
+        this.prepareSynthetics();
     }
 
     protected prepareInitiative(
@@ -328,47 +328,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         systemData.attributes.initiative = stat;
     }
 
-    /** Compute custom stat modifiers provided by users or given by conditions. */
-    private prepareCustomModifiers(rules: RuleElementPF2e[]): void {
-        // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-        const actorData = this.data;
-        const { synthetics } = this;
+    protected override prepareSynthetics(): void {
+        super.prepareSynthetics();
+        const systemData = this.data.data;
 
-        for (const rule of rules) {
-            try {
-                rule.beforePrepareData?.();
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
-            }
-        }
-
-        // Get all of the active conditions (from the item array), and add their modifiers.
-        const conditions = this.itemTypes.condition
-            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
-            .map((c) => c.data);
-
-        const statisticsModifiers = synthetics.statisticsModifiers;
-        for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions.values())) {
-            statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
-        }
-
-        // Character-specific custom modifiers & custom damage dice.
-        if (["character", "familiar", "npc"].includes(actorData.type)) {
-            const { data } = actorData;
-
-            // Custom Modifiers (which affect d20 rolls and damage).
-            data.customModifiers = data.customModifiers ?? {};
-            for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-                statisticsModifiers[statistic] = (statisticsModifiers[statistic] ?? []).concat(modifiers);
-            }
-
-            // Damage Dice (which add dice to damage rolls).
-            data.damageDice = data.damageDice ?? {};
-            const damageDice = synthetics.damageDice;
-            for (const [attack, dice] of Object.entries(data.damageDice)) {
-                damageDice[attack] = (damageDice[attack] || []).concat(dice);
-            }
+        // Custom modifiers
+        systemData.customModifiers ??= {};
+        const { statisticsModifiers } = this.synthetics;
+        for (const [selector, modifiers] of Object.entries(systemData.customModifiers)) {
+            const syntheticModifiers = (statisticsModifiers[selector] ??= []);
+            syntheticModifiers.push(...modifiers);
         }
     }
 
