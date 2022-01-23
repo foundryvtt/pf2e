@@ -138,6 +138,9 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Render the template
         chatData.content = await renderTemplate(template, templateData);
 
+        // Call any of this item's rules that trigger on posting
+        this.rules.forEach(async (rule) => rule.onPost?.());
+
         // Create the chat message
         return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
     }

@@ -33,6 +33,10 @@ import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { GrantItemRuleElement } from "./rule-element/grant-item";
 import { HealingRuleElement } from "./rule-element/fast-healing";
+import { TriggerActionRuleElement } from "./rule-element/triggers/trigger-action";
+import { TriggerListenerEffectRuleElement } from "./rule-element/triggers/listener/trigger-listener-effect";
+import { TriggerListenerPostItemRuleElement } from "./rule-element/triggers/listener/trigger-listener-post";
+import { TriggerListenerTogglePropertyRuleElement } from "./rule-element/triggers/listener/trigger-listener-toggle";
 
 /**
  * @category RuleElement
@@ -67,6 +71,10 @@ class RuleElements {
         ToggleProperty: TogglePropertyRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
+        TriggerAction: TriggerActionRuleElement,
+        TriggerListenerEffect: TriggerListenerEffectRuleElement,
+        TriggerListenerPostItem: TriggerListenerPostItemRuleElement,
+        TriggerListenerToggleProperty: TriggerListenerTogglePropertyRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
