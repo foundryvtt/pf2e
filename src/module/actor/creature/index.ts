@@ -20,6 +20,7 @@ import {
     Alignment,
     AlignmentTrait,
     AttackRollContext,
+    CreatureSkills,
     CreatureSpeeds,
     InitiativeRollParams,
     InitiativeRollResult,
@@ -47,8 +48,22 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
 
-    /** Save data for the creature, built during data prep */
+    /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
+
+    /** Skill check rolls for the creature. */
+    get skills(): CreatureSkills {
+        return Object.entries(this.data.data.skills).reduce((current: Partial<CreatureSkills>, [key, value]) => {
+            if (!objectHasKey(this.data.data.skills, key)) return current;
+            const skill = this.data.data.skills[key];
+            const longForm = skill.name;
+            const skillName = game.i18n.localize(CONFIG.PF2E.skills[key]) || skill.name;
+            const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
+            const domains = ["all", "skill-check", longForm, `${skill.ability}-based`];
+            current[key] = Statistic.from(this, value, longForm, label, "skill-check", domains);
+            return current;
+        }, {}) as CreatureSkills;
+    }
 
     /** The creature's position on the alignment axes */
     get alignment(): Alignment {
