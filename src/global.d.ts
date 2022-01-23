@@ -49,8 +49,7 @@ declare global {
     interface Game {
         pf2e: {
             actions: Record<string, Function>;
-            compendiumBrowser: CompendiumBrowser;
-            compendiumBrowserV2: CompendiumBrowserV2;
+            compendiumBrowser: CompendiumBrowser | CompendiumBrowserV2;
             licenseViewer: LicenseViewer;
             worldClock: WorldClock;
             effectPanel: EffectsPanel;
