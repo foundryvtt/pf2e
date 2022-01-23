@@ -93,6 +93,7 @@
     <ul class="item-list result-list">
         {{#each feats as |feat id|}}
         <li class="item flexrow" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats"
+            data-rarity="{{feat.data.rarity}}"
             {{#each feat.data as |attrib id|}}
                 {{#if (and (lookup attrib "value") (ne id "description"))}}data-{{lower id}}="{{lower attrib.value}}"{{/if}}
             {{/each}}

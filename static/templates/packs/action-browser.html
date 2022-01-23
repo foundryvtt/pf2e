@@ -38,6 +38,7 @@
             <li class="item flexrow"
                 data-entry-compendium="{{item.compendium}}"
                 data-entry-id="{{item._id}}" data-item-category="actions"
+                data-rarity="{{item.data.rarity}}"
                 {{#each item.data as |attrib id|}}
                 {{#if (ne id description)}}data-{{lower id}}="{{lower attrib.value}}"{{/if}}
                 {{/each}}>

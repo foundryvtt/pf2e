@@ -111,6 +111,7 @@
     <ul class="item-list result-list">
         {{#each spells as |spell id|}}
             <li class="item flexrow" data-entry-compendium="{{spell.compendium}}" data-entry-id="{{spell._id}}" data-item-category="spells"
+                data-rarity="{{spell.data.rarity}}"
                 {{#each spell.data as |attrib id|}}
                 {{#if (and (lookup attrib "value") (ne id "description"))}}data-{{lower id}}="{{lower attrib.value}}"{{/if}}
                 {{/each}}>
