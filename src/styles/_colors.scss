@@ -21,6 +21,7 @@ $dim-gray-color: #666;
 /* Lighter / Darker */
 $light-color: lighten($primary-color, 10) !default;
 $dark-color: darken($primary-color, 10) !default;
+$tertiary-dark-color: darken($tertiary-color, 10) !default;
 $tertiary-light-color: lighten($tertiary-color, 10) !default;
 
 
@@ -53,23 +54,11 @@ $adjusted-lower: #cc3311 !default;
 
 
 /* ----------------------------------------- */
-/* Components                                */
-/* ----------------------------------------- */
-
-/* Headers w/ boxes */
-$header-color: $white-color; /* Font Color */
-$header-bg: $secondary-color;
-
-/* Sidebar */
-$sidebar-title-color: #f7d488;
-$sidebar-label: #ffefbd;
-
-
-/* ----------------------------------------- */
 /* CSS Custom Properties                     */
 /* ----------------------------------------- */
 
 :root {
+  /* Global */
   --primary: #{$primary-color};
   --secondary: #{$secondary-color};
   --tertiary: #{$tertiary-color};
@@ -80,16 +69,29 @@ $sidebar-label: #ffefbd;
   --body: #{$body-color};
   --sub: #{$sub-color};
 
+  /* Other Colors */
+  --white: #{$white-color};
+  --black: #{$black-color};
   --dim-gray: #{$dim-gray-color};
 
+  /* Lighter / Darker */
   --light: #{$light-color};
   --dark: #{$dark-color};
+  --tertiary-dark: #{$tertiary-dark-color};
   --tertiary-light: #{$tertiary-light-color};
   
+  /* ---------- */
+  /* Components */
 
-  --header-color: #{$header-color};
-  --header-bg: #{$header-bg};
+  /* Text */
+  --text-light: var(--white);
+  --text-dark: var(--black);
 
-  --sidebar-label: #{$sidebar-label};
-  --sidebar-title: #{$sidebar-title-color};
+  /* Headers w/ boxes */
+  --header-color: var(--text-light);
+  --header-bg: var(--secondary);
+
+  /* Sidebar */
+  --sidebar-label: var(--tertiary-dark);
+  --sidebar-title: var(--tertiary);
 }
