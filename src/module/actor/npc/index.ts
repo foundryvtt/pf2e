@@ -174,9 +174,7 @@ export class NPCPF2e extends CreaturePF2e {
                 });
 
             // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
-            const hpData = duplicate(data.attributes.hp);
-            delete (hpData as any).modifiers;
-
+            const hpData = deepClone(data.attributes.hp);
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
             stat.base = base;
@@ -204,16 +202,15 @@ export class NPCPF2e extends CreaturePF2e {
             this.addShieldBonus(statisticsModifiers);
             const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
-            const rollOptions = ["ac", "dex-based", "all"];
+            const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
             ];
 
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), data.attributes.ac, {
                 overwrite: false,
             });
             stat.base = base;
@@ -234,20 +231,23 @@ export class NPCPF2e extends CreaturePF2e {
         // Perception
         {
             const base = data.attributes.perception.value;
-            const rollOptions = ["perception", "wis-based", "all"];
+            const domains = ["perception", "wis-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
             ];
 
-            const stat = mergeObject(new StatisticModifier("perception", modifiers), data.attributes.perception, {
-                overwrite: false,
-            });
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(
+                new StatisticModifier("perception", modifiers, rollOptions),
+                data.attributes.perception,
+                {
+                    overwrite: false,
+                }
+            );
             stat.base = base;
-            stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -269,18 +269,17 @@ export class NPCPF2e extends CreaturePF2e {
         // default all skills to untrained
         data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
-            const rollOptions = [skill, `${ability}-based`, "skill-check", "all"];
+            const domains = [skill, `${ability}-based`, "skill-check", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
             ];
-            const notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            const notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
+            const rollOptions = this.getRollOptions(domains);
             const stat = mergeObject(
-                new StatisticModifier(name, modifiers),
+                new StatisticModifier(name, modifiers, rollOptions),
                 {
                     ability,
                     expanded: skill,
@@ -328,17 +327,18 @@ export class NPCPF2e extends CreaturePF2e {
                     new ModifierPF2e("PF2E.BaseModifier", base - mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], mod, MODIFIER_TYPE.ABILITY),
                 ];
-                const rollOptions = [skill, `${ability}-based`, "skill-check", "all"];
-                modifiers.push(
-                    ...rollOptions
-                        .flatMap((key) => statisticsModifiers[key] || [])
-                        .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
-                );
+                const domains = [skill, `${ability}-based`, "skill-check", "all"];
+                modifiers.push(...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()));
 
-                const stat = mergeObject(new StatisticModifier(itemData.name, modifiers), data.skills[shortform], {
-                    overwrite: false,
-                });
-                stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
+                const rollOptions = this.getRollOptions(domains);
+                const stat = mergeObject(
+                    new StatisticModifier(itemData.name, modifiers, rollOptions),
+                    data.skills[shortform],
+                    {
+                        overwrite: false,
+                    }
+                );
+                stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
                 stat.itemID = itemData._id;
                 stat.base = base;
                 stat.expanded = skill;
@@ -397,23 +397,19 @@ export class NPCPF2e extends CreaturePF2e {
 
                 // Conditions and Custom modifiers to attack rolls
                 {
-                    const stats: string[] = [];
-                    stats.push(`${itemData.name.replace(/\s+/g, "-").toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
-                    const rollOptions = stats.concat([
+                    const slug = item.slug ?? sluggify(item.name);
+                    const domains = [
                         "attack",
                         "mundane-attack",
+                        `${slug}-attack`,
                         `${ability}-attack`,
                         `${ability}-based`,
                         `${itemData._id}-attack`,
                         "attack-roll",
                         "all",
-                    ]);
-                    modifiers.push(
-                        ...rollOptions
-                            .flatMap((key) => statisticsModifiers[key] || [])
-                            .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
-                    );
-                    notes.push(...rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? [])));
+                    ];
+                    modifiers.push(...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()));
+                    notes.push(...domains.flatMap((key) => duplicate(rollNotes[key] ?? [])));
                 }
 
                 // action image
@@ -675,7 +671,7 @@ export class NPCPF2e extends CreaturePF2e {
 
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
-                slug: sluggify(entry.data.name),
+                slug: sluggify(entry.name),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 check: {

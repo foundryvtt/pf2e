@@ -388,7 +388,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 modifier.ignored = true;
             }
         }
-        statistic.applyStackingRules();
+        statistic.calculateTotal();
     }
 
     private suppressNotes(notes: RollNotePF2e[]): void {
