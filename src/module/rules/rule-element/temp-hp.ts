@@ -99,7 +99,8 @@ class TempHPRuleElement extends RuleElementPF2e {
         const [actor, item] = [this.actor.name, this.item.name];
         const content = game.i18n.format(singularOrPlural, { actor, newQuantity, wasAt, item });
         const recipients = game.users.filter((u) => this.actor.testUserPermission(u, "OWNER")).map((u) => u.id);
-        ChatMessagePF2e.create({ content, whisper: recipients });
+        const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
+        ChatMessagePF2e.create({ content, speaker, whisper: recipients });
     }
 }
 
