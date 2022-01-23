@@ -258,6 +258,8 @@ export class SpellPF2e extends ItemPF2e {
             chatData.flags.pf2e.casting = { id: entry.id, tradition: entry.tradition };
         }
 
+        chatData.flags.pf2e.isFromConsumable = this.isFromConsumable;
+
         return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : message;
     }
 
