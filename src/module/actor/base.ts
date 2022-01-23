@@ -26,6 +26,7 @@ import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
+import { ModifierAdjustment } from "@module/modifiers";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -271,6 +272,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         this.synthetics = {
             damageDice: {},
+            modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],
@@ -328,7 +330,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
             .map((c) => c.data);
 
-        const statisticsModifiers = this.synthetics.statisticsModifiers;
+        const { statisticsModifiers } = this.synthetics;
         for (const [selector, modifiers] of game.pf2e.ConditionManager.getModifiersFromConditions(
             conditions.values()
         )) {
@@ -391,20 +393,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return flavor;
     }
 
-    /**
-     * Get all tokens linked to this actor in all scenes
-     * @returns An array of TokenDocuments
-     */
-    getAllTokens(): TokenDocument[] {
-        const tokens: TokenDocument[] = [];
-        for (const scene of game.scenes) {
-            for (const token of scene.tokens) {
-                if (token.isLinked && token.actor?.id === this.id) {
-                    tokens.push(token);
-                }
-            }
-        }
-        return tokens;
+    getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
+        return Array.from(
+            new Set(
+                selectors
+                    .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
+                    .filter((a) => [a.slug, null].includes(slug))
+            )
+        );
     }
 
     /* -------------------------------------------- */

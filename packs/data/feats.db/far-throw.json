@@ -23,7 +23,22 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:thrown"
+                    ]
+                },
+                "selectors": [
+                    "ranged-attack-roll"
+                ],
+                "slug": "range-penalty",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
