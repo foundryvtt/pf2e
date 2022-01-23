@@ -33,6 +33,7 @@ import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { GrantItemRuleElement } from "./rule-element/grant-item";
 import { HealingRuleElement } from "./rule-element/fast-healing";
+import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
 
 /**
  * @category RuleElement
@@ -42,6 +43,7 @@ class RuleElements {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
+        AdjustModifier: AdjustModifierRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,

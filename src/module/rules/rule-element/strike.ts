@@ -98,7 +98,6 @@ interface StrikeRuleElement {
 }
 
 interface StrikeSource extends RuleElementSource {
-    slug?: string;
     img?: unknown;
     category?: unknown;
     group?: unknown;

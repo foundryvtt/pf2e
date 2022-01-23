@@ -55,6 +55,8 @@ export interface BaseRawModifier {
     type?: string;
     /** If the type is "ability", this should be set to a particular ability */
     ability?: AbilityString | null;
+    /** Numeric adjustments to apply */
+    adjustments?: ModifierAdjustment[];
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled?: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
@@ -79,6 +81,12 @@ export interface BaseRawModifier {
     hideIfDisabled?: boolean;
 }
 
+export interface ModifierAdjustment {
+    slug: string | null;
+    predicate: PredicatePF2e;
+    getNewValue(current: number): number;
+}
+
 export interface RawModifier extends BaseRawModifier {
     modifier: number;
 }
@@ -90,6 +98,7 @@ export class ModifierPF2e implements RawModifier {
     modifier: number;
     type: ModifierType;
     ability: AbilityString | null;
+    adjustments: ModifierAdjustment[];
     enabled: boolean;
     ignored: boolean;
     source: string | null;
@@ -137,6 +146,7 @@ export class ModifierPF2e implements RawModifier {
         this.modifier = params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
+        this.adjustments = deepClone(params.adjustments ?? []);
         this.damageType = params.damageType ?? null;
         this.damageCategory = params.damageCategory ?? null;
         this.enabled = params.enabled ?? true;
@@ -158,7 +168,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Sets the ignored property after testing the predicate */
-    test(options: string[]) {
+    test(options: string[]): void {
         this.ignored = !this.predicate.test(options);
     }
 
@@ -442,14 +452,28 @@ export class StatisticModifier {
     }
 
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
-    calculateTotal(rollOptions?: string[]) {
+    calculateTotal(rollOptions?: string[]): void {
         if (rollOptions) {
             for (const modifier of this._modifiers) {
                 modifier.test(rollOptions);
             }
         }
 
-        this.totalModifier = applyStackingRules(this._modifiers);
+        applyStackingRules(this._modifiers);
+        this.totalModifier = this.applyAdjustments(rollOptions);
+    }
+
+    applyAdjustments(rollOptions?: string[]): number {
+        const modifiers = this._modifiers.filter((m) => m.enabled);
+        for (const modifier of modifiers) {
+            modifier.modifier = modifier.adjustments.reduce(
+                (adjusted, adjustment): number =>
+                    rollOptions && adjustment.predicate.test(rollOptions) ? adjustment.getNewValue(adjusted) : adjusted,
+                modifier.modifier
+            );
+        }
+
+        return modifiers.reduce((total, m) => total + m.modifier, 0);
     }
 }
 
