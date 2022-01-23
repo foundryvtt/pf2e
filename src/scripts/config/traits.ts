@@ -473,7 +473,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 
 const otherWeaponTags = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch"
+    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
