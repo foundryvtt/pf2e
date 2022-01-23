@@ -40,6 +40,7 @@ export interface DamageDiceRuleElement {
 }
 
 interface DamageDiceRuleElementData extends RuleElementData {
+    slug?: string;
     name?: string;
     damageType?: string;
     diceNumber?: number;

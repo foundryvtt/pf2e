@@ -345,7 +345,16 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
 
                 const conLevelBonus = systemData.abilities.con.mod * this.level;
-                modifiers.push(new ModifierPF2e("PF2E.AbilityCon", conLevelBonus, MODIFIER_TYPE.ABILITY));
+                modifiers.push(
+                    new ModifierPF2e({
+                        slug: "hp-con",
+                        label: "PF2E.AbilityCon",
+                        ability: "con",
+                        type: MODIFIER_TYPE.ABILITY,
+                        modifier: conLevelBonus,
+                        adjustments: this.getModifierAdjustments(["con-based"], "hp-con"),
+                    })
+                );
             }
 
             const hpRollOptions = this.getRollOptions(["hp", "all"]);
@@ -477,7 +486,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
 
-            this.addShieldBonus(statisticsModifiers);
+            this.addShieldBonus();
 
             // proficiency
             modifiers.unshift(
@@ -552,11 +561,14 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
-                const armorCheckPenalty = new ModifierPF2e(
-                    "PF2E.ArmorCheckPenalty",
-                    wornArmor.checkPenalty,
-                    MODIFIER_TYPE.UNTYPED
-                );
+                const slug = "armor-check-penalty";
+                const armorCheckPenalty = new ModifierPF2e({
+                    slug,
+                    label: "PF2E.ArmorCheckPenalty",
+                    modifier: wornArmor.checkPenalty,
+                    type: MODIFIER_TYPE.UNTYPED,
+                    adjustments: this.getModifierAdjustments(["ac"], slug),
+                });
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
@@ -863,7 +875,16 @@ export class CharacterPF2e extends CreaturePF2e {
         const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
 
         const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
-        const armorPenalty = value ? new ModifierPF2e(modifierName, value, "untyped") : null;
+        const slug = "armor-speed-penalty";
+        const armorPenalty = value
+            ? new ModifierPF2e({
+                  slug,
+                  label: modifierName,
+                  modifier: value,
+                  type: MODIFIER_TYPE.UNTYPED,
+                  adjustments: this.getModifierAdjustments(["speed", `${movementType}-speed`], slug),
+              })
+            : null;
         if (armorPenalty) {
             const speedModifiers = (this.synthetics.statisticsModifiers.speed ??= []);
             armorPenalty.predicate.not = ["armor:ignore-speed-penalty"];
@@ -922,6 +943,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
+        weaponRollOptions.push(`weapon:proficiency:rank:${proficiencyRank}`);
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
@@ -1180,14 +1202,16 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const getRangePenalty = (increment: number | null): ModifierPF2e | null => {
             if (!increment || increment === 1) return null;
+            const slug = "range-penalty";
             const modifier = new ModifierPF2e({
                 label: "PF2E.RangePenalty",
-                slug: "range-penalty",
+                slug,
                 type: MODIFIER_TYPE.UNTYPED,
                 modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
                 predicate: { not: ["ignore-range-penalty", `ignore-range-penalty:${increment}`] },
+                adjustments: this.getModifierAdjustments(selectors, slug),
             });
-            modifier.ignored = !modifier.predicate.test(defaultOptions);
+            modifier.test(defaultOptions);
             return modifier;
         };
 

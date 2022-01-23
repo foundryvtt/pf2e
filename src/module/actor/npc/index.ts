@@ -199,7 +199,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            this.addShieldBonus(statisticsModifiers);
+            this.addShieldBonus();
             const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
             const domains = ["ac", "dex-based", "all"];

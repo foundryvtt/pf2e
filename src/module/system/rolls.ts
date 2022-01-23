@@ -104,9 +104,7 @@ export class CheckPF2e {
     ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
-        if (event) {
-            mergeObject(context, eventToRollParams(event));
-        }
+        if (event) mergeObject(context, eventToRollParams(event));
 
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;

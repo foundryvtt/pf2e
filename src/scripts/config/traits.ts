@@ -477,8 +477,7 @@ const otherWeaponTags = {
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
-    (descriptions, trait) =>
-        mergeObject(descriptions, { [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
+    (descriptions, trait) => ({ ...descriptions, [trait]: `PF2E.Trait${sluggify(trait, { camel: "bactrian" })}` }),
     {} as Record<typeof RANGE_TRAITS[number], string>
 );
 
