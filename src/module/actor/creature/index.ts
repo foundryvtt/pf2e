@@ -83,10 +83,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return this.getCondition("blinded")
             ? VisionLevels.BLINDED
             : senseTypes.includes("darkvision")
-                ? VisionLevels.DARKVISION
-                : senseTypes.includes("lowLightVision")
-                    ? VisionLevels.LOWLIGHT
-                    : VisionLevels.NORMAL;
+            ? VisionLevels.DARKVISION
+            : senseTypes.includes("lowLightVision")
+            ? VisionLevels.LOWLIGHT
+            : VisionLevels.NORMAL;
     }
 
     get hasDarkvision(): boolean {
@@ -142,29 +142,29 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return heldShields.length === 0
             ? null
             : heldShields.slice(0, -1).reduce((bestShield, shield) => {
-                if (bestShield === shield) return bestShield;
+                  if (bestShield === shield) return bestShield;
 
-                const withBetterAC =
-                    bestShield.acBonus > shield.acBonus
-                        ? bestShield
-                        : shield.acBonus > bestShield.acBonus
-                            ? shield
-                            : null;
-                const withMoreHP =
-                    bestShield.hitPoints.value > shield.hitPoints.value
-                        ? bestShield
-                        : shield.hitPoints.value > bestShield.hitPoints.value
-                            ? shield
-                            : null;
-                const withBetterHardness =
-                    bestShield.hardness > shield.hardness
-                        ? bestShield
-                        : shield.hardness > bestShield.hardness
-                            ? shield
-                            : null;
+                  const withBetterAC =
+                      bestShield.acBonus > shield.acBonus
+                          ? bestShield
+                          : shield.acBonus > bestShield.acBonus
+                          ? shield
+                          : null;
+                  const withMoreHP =
+                      bestShield.hitPoints.value > shield.hitPoints.value
+                          ? bestShield
+                          : shield.hitPoints.value > bestShield.hitPoints.value
+                          ? shield
+                          : null;
+                  const withBetterHardness =
+                      bestShield.hardness > shield.hardness
+                          ? bestShield
+                          : shield.hardness > bestShield.hardness
+                          ? shield
+                          : null;
 
-                return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
-            }, heldShields.slice(-1)[0]);
+                  return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
+              }, heldShields.slice(-1)[0]);
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -276,11 +276,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             checkType === "perception"
                 ? (["wis", systemData.attributes.perception, "perception", "PF2E.PerceptionLabel"] as const)
                 : ([
-                    systemData.skills[checkType]?.ability ?? "int",
-                    systemData.skills[checkType],
-                    SKILL_DICTIONARY[checkType],
-                    CONFIG.PF2E.skills[checkType],
-                ] as const);
+                      systemData.skills[checkType]?.ability ?? "int",
+                      systemData.skills[checkType],
+                      SKILL_DICTIONARY[checkType],
+                      CONFIG.PF2E.skills[checkType],
+                  ] as const);
 
         const rollOptions = [proficiency, ...this.getRollOptions([proficiency, `${ability}-based`, "all"])];
         const modifiers = statisticsModifiers.initiative?.map((m) => m.clone({ test: rollOptions })) ?? [];
@@ -658,10 +658,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const distance =
             selfToken && target && !!canvas.grid
                 ? ((): number => {
-                    const groundDistance = MeasuredTemplatePF2e.measureDistanceBetweenTokens(selfToken, target);
-                    const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);
-                    return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
-                })()
+                      const groundDistance = MeasuredTemplatePF2e.measureDistanceBetweenTokens(selfToken, target);
+                      const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);
+                      return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
+                  })()
                 : null;
         options.push(`target:distance:${distance} `);
 
@@ -677,7 +677,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * Find a single token on the current canvas representing this actor:
      * - If we have exactly one token selected for this actor, return that token
      * - If we have no token selected, but there is exactly one token on the canvas for this actor, use that one
-     * 
+     *
      * @returns A single token if there is only one token for this actor, or if only one is selected. Otherwise, undefined
      */
     private getSelfToken(): TokenPF2e | undefined {
