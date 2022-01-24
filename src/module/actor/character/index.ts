@@ -1233,7 +1233,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 slug,
                 type: MODIFIER_TYPE.UNTYPED,
                 modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
-                predicate: { not: ["ignore-range-penalty", `ignore-range-penalty:${increment}`] },
+                predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
                 adjustments: this.getModifierAdjustments(selectors, slug),
             });
             modifier.test(defaultOptions);
