@@ -136,7 +136,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
         // Name
         if (search.text) {
-            if (!entry.name.toLocaleLowerCase().includes(search.text)) return false;
+            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
+                return false;
         }
         // Level
         if (checkboxes.level.selected.length) {

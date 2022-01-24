@@ -72,7 +72,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         const { checkboxes, search } = this.filterData;
         // Name
         if (search.text) {
-            if (!entry.name.toLocaleLowerCase().includes(search.text)) return false;
+            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
+                return false;
         }
         // Traits
         if (checkboxes.traits.selected.length) {
