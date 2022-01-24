@@ -103,7 +103,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     splashDamage?: {
         value: string;
     };
-    range: WeaponRange | null;
+    range: WeaponRangeIncrement | null;
     reload: {
         value: string;
     };
@@ -145,7 +145,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     selectedAmmoId?: string;
 }
 
-export type WeaponRange = typeof WEAPON_RANGES[number];
+export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
 
 export interface WeaponSystemData extends WeaponSystemSource {
     traits: WeaponTraits;
