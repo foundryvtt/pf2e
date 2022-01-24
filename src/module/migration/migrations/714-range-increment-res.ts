@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
 import { MigrationBase } from "../base";
 
-/** Add new rule elements to feats that allow one to ignore or mitigate range penalties */
-export class Migration714IgnoreRangePenalty extends MigrationBase {
+/** Add rule elements to feats(ures) that increase range increments or allow one to ignore/mitigate range penalties */
+export class Migration714RangeIncrementREs extends MigrationBase {
     static override version = 0.714;
 
     private farLobber = {
@@ -12,6 +12,14 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
         mode: "override",
         property: "range-increment",
         value: 30,
+    };
+
+    private farShot = {
+        definition: { all: ["weapon:ranged"] },
+        key: "AdjustStrike",
+        mode: "multiply",
+        property: "range-increment",
+        value: 2,
     };
 
     private farThrow = {
@@ -34,6 +42,12 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
         },
     };
 
+    private legendaryShot = {
+        key: "RollOption",
+        domain: "ranged-attack-roll",
+        option: "ignore-range-penalty:5",
+    };
+
     private masterfulHunter = (() => {
         const gte: [string, number] = ["weapon:proficiency:rank", 3];
         return {
@@ -50,13 +64,13 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
         const gte: [string, number] = ["weapon:proficiency:rank", 3];
         return [
             { key: "ActiveEffectLike", mode: "upgrade", path: "data.attributes.classDC.rank", value: 3 },
-            ...[2, 3].map((i) => ({
+            {
                 key: "RollOption",
                 domain: "ranged-attack-roll",
-                option: `ignore-range-penalty:${i}`,
+                option: "ignore-range-penalty:3",
                 phase: "beforeRoll",
                 predicate: { all: [{ gte }] },
-            })),
+            },
         ];
     })();
 
@@ -105,6 +119,10 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
                     source.data.rules = [this.farLobber];
                     return;
                 }
+                case "far-shot": {
+                    source.data.rules = [this.farShot];
+                    return;
+                }
                 case "far-throw": {
                     source.data.rules = [this.farThrow];
                     return;
@@ -115,6 +133,10 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
                     );
                     if (needsRE) rules.push(this.huntPrey);
 
+                    return;
+                }
+                case "legendary-shot": {
+                    source.data.rules = [this.legendaryShot];
                     return;
                 }
                 case "masterful-hunter": {
