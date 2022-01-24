@@ -128,9 +128,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
             );
         };
 
-        const dist = MeasuredTemplatePF2e.measureDistanceRect(tokenRect(t0), tokenRect(t1));
-        ui.notifications.info(`Range is ${dist} ft.`);
-        return dist;
+        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(t0), tokenRect(t1));
     }
 
     /** Measure the minimum distance between two rectangles */
