@@ -92,6 +92,7 @@
     <ul class="item-list result-list">
         {{#each inventoryItems as |item id|}}
             <li class="item flexrow" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems"
+                data-rarity="{{item.data.rarity}}"
                 {{#each item.filters as |filterKey|}}{{#if (lookup item.data filterKey)}}{{#with (lookup item.data filterKey) as |property|}}
                 data-{{lower filterKey}}="{{lower (coalesce property.value property)}}"
                 {{/with}}{{/if}}{{/each}}>
