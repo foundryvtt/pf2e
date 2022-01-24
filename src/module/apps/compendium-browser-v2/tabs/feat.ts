@@ -1,8 +1,11 @@
 import { sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
+import { FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
+    override filterData!: FeatFilters;
+
     constructor(browser: CompendiumBrowserV2) {
         super(browser, "feat");
 
@@ -226,7 +229,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     selected: [],
                 },
             },
-            dropdowns: {},
             order: {
                 by: "name",
                 direction: "asc",
