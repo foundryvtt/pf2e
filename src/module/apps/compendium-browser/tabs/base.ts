@@ -1,11 +1,11 @@
-import { CompendiumBrowserV2 } from "..";
+import { CompendiumBrowser } from "..";
 import { BaseFilterData, CheckBoxOptions } from "./data";
 import { sluggify } from "@util";
 import { TabName } from "../data";
 
 export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
-    protected browser: CompendiumBrowserV2;
+    protected browser: CompendiumBrowser;
     /** An unmodified copy of this.filterData */
     protected defaultFilterData!: BaseFilterData;
     /** The full CompendiumIndex of this tab */
@@ -21,7 +21,7 @@ export abstract class CompendiumBrowserTab {
     /** The name of this tab */
     tabName: Exclude<TabName, "settings">;
 
-    constructor(browser: CompendiumBrowserV2, tabName: Exclude<TabName, "settings">) {
+    constructor(browser: CompendiumBrowser, tabName: Exclude<TabName, "settings">) {
         this.browser = browser;
         this.tabName = tabName;
     }

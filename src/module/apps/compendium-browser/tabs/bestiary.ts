@@ -1,5 +1,5 @@
 import { sluggify } from "@util";
-import { CompendiumBrowserV2 } from "..";
+import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
 import { BestiaryFilters } from "./data";
 
@@ -14,7 +14,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
 
     override filterData!: BestiaryFilters;
 
-    constructor(browser: CompendiumBrowserV2) {
+    constructor(browser: CompendiumBrowser) {
         super(browser, "bestiary");
 
         // Set the filterData object of this tab
