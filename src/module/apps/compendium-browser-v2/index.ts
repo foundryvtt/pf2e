@@ -1,7 +1,7 @@
 import { Progress } from "./progress";
 import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { ActorPF2e, FamiliarPF2e } from "@actor";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -13,6 +13,7 @@ import {
     CompendiumBrowserSpellTab,
 } from "./tabs/index";
 import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
+import { CheckBoxdata, RangesData } from "./tabs/data";
 
 class PackLoader {
     loadedPacks: {
@@ -248,11 +249,12 @@ export class CompendiumBrowserV2 extends Application {
 
         // Set filterData for this tab if intitial values were given
         if (this.initialFilter.length || this.initialMaxLevel) {
-            this.tabs[tab].resetFilters();
+            const currentTab = this.tabs[tab];
+            currentTab.resetFilters();
             for (const filter of this.initialFilter) {
                 const [filterType, value] = filter.split("-");
-                const checkbox = this.tabs[tab].filterData.checkboxes[filterType];
-                if (checkbox) {
+                if (objectHasKey(currentTab.filterData.checkboxes, filterType)) {
+                    const checkbox = currentTab.filterData.checkboxes[filterType];
                     const option = checkbox.options[value];
                     if (option) {
                         checkbox.isExpanded = true;
@@ -266,9 +268,11 @@ export class CompendiumBrowserV2 extends Application {
                 }
             }
             if (this.initialMaxLevel) {
-                const level = this.tabs[tab].filterData.ranges.level;
-                if (level) {
-                    level.values.max = this.initialMaxLevel;
+                if (currentTab.filterData.ranges) {
+                    const level = currentTab.filterData.ranges.level;
+                    if (level) {
+                        level.values.max = this.initialMaxLevel;
+                    }
                 }
             }
             this.initialFilter = [];
@@ -323,13 +327,16 @@ export class CompendiumBrowserV2 extends Application {
         // Toggle visibility of filter containers
         $controlArea.find(".filtercontainer h3").on("click", (event) => {
             const filterType = event.target.closest("div")?.dataset?.filterType;
-            const filterName = event.target.closest("div")?.dataset?.filterName;
-            if (!filterType || !filterName) return;
-            if (!tupleHasValue(["checkboxes", "ranges"] as const, filterType)) return;
-            const filter = currentTab.filterData[filterType][filterName];
-            if (!filter) return;
-            filter.isExpanded = !filter.isExpanded;
-            this.render(true);
+            const filterName = event.target.closest("div")?.dataset?.filterName ?? "";
+            if (filterType === "checkboxes" || filterType === "ranges") {
+                const filters = currentTab.filterData[filterType];
+                if (filters && objectHasKey(filters, filterName)) {
+                    // This needs a type assertion because it resolves to never for some reason
+                    const filter = filters[filterName] as CheckBoxdata | RangesData;
+                    filter.isExpanded = !filter.isExpanded;
+                    this.render(true);
+                }
+            }
         });
 
         // Sort item list
@@ -360,7 +367,7 @@ export class CompendiumBrowserV2 extends Application {
 
         // TODO: Support any generated select element
         $controlArea.find<HTMLSelectElement>(".timefilter select").on("change", (event) => {
-            if (!currentTab.filterData.dropdowns.timefilter) return;
+            if (!currentTab.filterData?.dropdowns?.timefilter) return;
             currentTab.filterData.dropdowns.timefilter.selected = event.target.value;
             this.clearScrollLimit();
             this.render(true);
@@ -371,14 +378,16 @@ export class CompendiumBrowserV2 extends Application {
             const checkboxName = event.target.closest("div")?.dataset?.filterName;
             const optionName = event.target.name;
             if (!checkboxName || !optionName) return;
-            const checkbox = currentTab.filterData.checkboxes[checkboxName];
-            const option = checkbox.options[optionName];
-            option.selected = !option.selected;
-            option.selected
-                ? checkbox.selected.push(optionName)
-                : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
-            this.clearScrollLimit();
-            this.render(true);
+            if (objectHasKey(currentTab.filterData.checkboxes, checkboxName)) {
+                const checkbox = currentTab.filterData.checkboxes[checkboxName];
+                const option = checkbox.options[optionName];
+                option.selected = !option.selected;
+                option.selected
+                    ? checkbox.selected.push(optionName)
+                    : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+                this.clearScrollLimit();
+                this.render(true);
+            }
         });
 
         // Filter for levels
@@ -386,8 +395,9 @@ export class CompendiumBrowserV2 extends Application {
             if (event.key !== "Enter") return;
             const $parent = $(event.target).closest("div");
             const name = ($parent.closest("div .filtercontainer").data("filterName") as string) ?? "";
-            const range = currentTab.filterData.ranges[name];
-            if (range) {
+            const ranges = currentTab.filterData.ranges;
+            if (ranges && objectHasKey(ranges, name)) {
+                const range = ranges[name];
                 const $lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]");
                 const $upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]");
                 range.values.min = Number($lowerBound.val()) || 0;

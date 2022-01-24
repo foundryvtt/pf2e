@@ -7,13 +7,13 @@ export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
     protected browser: CompendiumBrowserV2;
     /** An unmodified copy of this.filterData */
-    protected defaultFilterData!: Filters;
+    protected defaultFilterData!: Filters<"base">;
     /** The full CompendiumIndex of this tab */
     protected indexData: CompendiumIndexData[] = [];
     /** Is this tab initialized? */
     isInitialized = false;
     /** The filter schema for this tab; The tabs filters are rendered based on this.*/
-    filterData!: Filters;
+    filterData!: Filters<"base">;
     /** The total count of items in the currently filtered index */
     totalItemCount = 0;
     /** The initial display limit for this tab; Scrolling is currently hardcoded to +100 */

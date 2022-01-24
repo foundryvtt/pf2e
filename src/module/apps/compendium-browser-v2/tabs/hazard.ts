@@ -1,8 +1,11 @@
 import { sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
+import { Filters } from "./data";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
+    override filterData!: Filters<"hazard">;
+
     protected index = ["img", "data.details.level.value", "data.details.isComplex", "data.traits"];
 
     constructor(browser: CompendiumBrowserV2) {
@@ -132,7 +135,6 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     selected: [],
                 },
             },
-            dropdowns: {},
             order: {
                 by: "name",
                 direction: "asc",
