@@ -2,8 +2,11 @@ import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers"
 import { sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
+import { EquipmentFilters } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
+    override filterData!: EquipmentFilters;
+
     constructor(browser: CompendiumBrowserV2) {
         super(browser, "equipment");
 
@@ -243,7 +246,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     selected: [],
                 },
             },
-            dropdowns: {},
             order: {
                 by: "name",
                 direction: "asc",
