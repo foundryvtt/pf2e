@@ -18,6 +18,8 @@ import {
 } from "./data";
 import { ItemPF2e } from "@item";
 import { CheckDC } from "@system/check-degree-of-success";
+import { isObject } from "@util";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 export * from "./data";
 
@@ -180,6 +182,18 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 return { label, penalty };
             },
             roll: (args: StatisticRollParameters = {}) => {
+                // Allow use of events for modules and macros but don't allow it for internal system use
+                const { secret, skipDialog } = (() => {
+                    if (isObject<{ event: PointerEvent }>(args) && args["event"] instanceof PointerEvent) {
+                        return mergeObject(
+                            { secret: args.secret, skipDialog: args.skipDialog },
+                            eventToRollParams(args.event)
+                        );
+                    }
+
+                    return args;
+                })();
+
                 const actor = this.actor;
                 const item = args.item ?? null;
 
@@ -221,8 +235,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     notes: data.notes,
                     options,
                     type: check.type,
-                    secret: args.secret,
-                    skipDialog: args.skipDialog,
+                    secret,
+                    skipDialog,
                 };
 
                 CheckPF2e.roll(new CheckModifier(label, stat, extraModifiers), context, null, args.callback);
