@@ -682,8 +682,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
      */
     private getSelfToken(): TokenPF2e | undefined {
         const controlledTokens = canvas.tokens.controlled.filter((token) => token.actor === this);
-        if (controlledTokens.length) {
-            return controlledTokens.length === 1 ? controlledTokens[0] : undefined;
+        if (controlledTokens.length === 1) {
+            return controlledTokens[0];
         } else {
             const selfTokens = this.getActiveTokens();
             return selfTokens.length === 1 ? selfTokens[0] : undefined;
