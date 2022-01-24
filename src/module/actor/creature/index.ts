@@ -32,7 +32,6 @@ import {
 } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic } from "@system/statistic";
-import { MeasuredTemplatePF2e, TokenPF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -654,11 +653,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const options = Array.from(new Set([selfOptions, targetOptions].flat()));
 
         // Calculate distance and set as a roll option
-        const selfToken = this.getSelfToken();
+        const selfToken = canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift();
         const distance =
             selfToken && target && !!canvas.grid
                 ? ((): number => {
-                      const groundDistance = MeasuredTemplatePF2e.measureDistanceBetweenTokens(selfToken, target);
+                      const groundDistance = selfToken.distanceTo(target);
                       const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);
                       return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
                   })()
@@ -671,23 +670,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             target,
             distance,
         };
-    }
-
-    /**
-     * Find a single token on the current canvas representing this actor:
-     * - If we have exactly one token selected for this actor, return that token
-     * - If we have no token selected, but there is exactly one token on the canvas for this actor, use that one
-     *
-     * @returns A single token if there is only one token for this actor, or if only one is selected. Otherwise, undefined
-     */
-    private getSelfToken(): TokenPF2e | undefined {
-        const controlledTokens = canvas.tokens.controlled.filter((token) => token.actor === this);
-        if (controlledTokens.length === 1) {
-            return controlledTokens[0];
-        } else {
-            const selfTokens = this.getActiveTokens();
-            return selfTokens.length === 1 ? selfTokens[0] : undefined;
-        }
     }
 
     /** Work around bug in which creating embedded items via actor.update doesn't trigger _onCreateEmbeddedDocuments */

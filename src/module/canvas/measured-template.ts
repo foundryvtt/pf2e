@@ -1,6 +1,5 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
 import { Rectangle } from "pixi.js";
-import { TokenPF2e } from ".";
 import { TemplateLayerPF2e } from "./layer/template-layer";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
@@ -102,33 +101,6 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
                 }
             }
         }
-    }
-
-    /**
-     * Measure the distance between tokens, where we want to measure between the centres of squares.
-     * If either token covers more than one square, we want the minimum distance between any of the
-     * tokens' squares
-     */
-    static measureDistanceBetweenTokens(t0: TokenPF2e, t1: TokenPF2e): number {
-        if (!canvas.dimensions) return NaN;
-
-        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-            return canvas.grid.measureDistance(t0.position, t1.position);
-        }
-
-        const gridSize = canvas.dimensions.size;
-
-        const tokenRect = (token: TokenPF2e): Rectangle => {
-            const rect = token.hitArea ?? new Rectangle(0, 0, 100, 100);
-            return new Rectangle(
-                token.x + gridSize / 2,
-                token.y + gridSize / 2,
-                rect.width - gridSize,
-                rect.height - gridSize
-            );
-        };
-
-        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(t0), tokenRect(t1));
     }
 
     /** Measure the minimum distance between two rectangles */
