@@ -1,5 +1,7 @@
 import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { MeasuredTemplatePF2e } from ".";
 import { TokenLayerPF2e } from "./layer/token-layer";
+import { Rectangle } from "pixi.js";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -137,6 +139,32 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             stroke: 0x000000,
             strokeThickness: 4,
         });
+    }
+
+    /**
+     * Measure the distance between this token and another object, in grid distance. We measure between the
+     * centre of squares, and if either covers more than one square, we want the minimum distance between
+     * any two of the squares.
+     */
+    distanceTo(target: TokenPF2e): number {
+        if (!canvas.dimensions) return NaN;
+
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            return canvas.grid.measureDistance(this.position, target.position);
+        }
+
+        const gridSize = canvas.dimensions.size;
+
+        const tokenRect = (token: TokenPF2e): Rectangle => {
+            return new Rectangle(
+                token.x + gridSize / 2,
+                token.y + gridSize / 2,
+                token.width - gridSize,
+                token.height - gridSize
+            );
+        };
+
+        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target));
     }
 
     /* -------------------------------------------- */
