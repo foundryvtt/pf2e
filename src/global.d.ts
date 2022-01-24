@@ -35,7 +35,6 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
-import { CompendiumBrowserV2 } from "@module/apps/compendium-browser-v2";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { remigrate } from "@scripts/system/remigrate";
 import { FolderPF2e } from "@module/folder";
@@ -49,7 +48,7 @@ declare global {
     interface Game {
         pf2e: {
             actions: Record<string, Function>;
-            compendiumBrowser: CompendiumBrowser | CompendiumBrowserV2;
+            compendiumBrowser: CompendiumBrowser;
             licenseViewer: LicenseViewer;
             worldClock: WorldClock;
             effectPanel: EffectsPanel;

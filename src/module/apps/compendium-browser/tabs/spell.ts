@@ -1,12 +1,12 @@
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowserV2 } from "..";
+import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
 import { SpellFilters } from "./data";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     override filterData!: SpellFilters;
 
-    constructor(browser: CompendiumBrowserV2) {
+    constructor(browser: CompendiumBrowser) {
         super(browser, "spell");
 
         // Set the filterData object of this tab
