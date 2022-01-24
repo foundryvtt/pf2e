@@ -1,4 +1,5 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
+import { Rectangle } from "pixi.js";
 import { TemplateLayerPF2e } from "./layer/template-layer";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
@@ -102,6 +103,21 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
         }
     }
 
+    /** Measure the minimum distance between two rectangles */
+    static measureDistanceRect(r0: Rectangle, r1: Rectangle): number {
+        if (!canvas.dimensions) return NaN;
+
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            return canvas.grid.measureDistance(r0, r1);
+        }
+
+        // Find the minimum distance between the rectangles for each dimension
+        const dx = Math.max(0, r0.left - r1.right, r1.left - r0.right);
+        const dy = Math.max(0, r0.top - r1.bottom, r1.top - r0.bottom);
+
+        return MeasuredTemplatePF2e.measureDistanceOnGrid(dx, dy);
+    }
+
     /** Measure distance using Pathfinder 2e grid-counting rules */
     static measureDistance(p0: Point, p1: Point): number {
         if (!canvas.dimensions) return NaN;
@@ -110,10 +126,18 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
             return canvas.grid.measureDistance(p0, p1);
         }
 
-        const gridSize = canvas.dimensions.size;
         const ray = new Ray(p0, p1);
-        const nx = Math.ceil(Math.abs(ray.dx / gridSize));
-        const ny = Math.ceil(Math.abs(ray.dy / gridSize));
+        return MeasuredTemplatePF2e.measureDistanceOnGrid(ray.dx, ray.dy);
+    }
+
+    /** Given the distance in each dimension, measure the distance in grid units */
+    private static measureDistanceOnGrid(dx: number, dy: number): number {
+        if (!canvas.dimensions) return NaN;
+
+        const gridSize = canvas.dimensions.size;
+
+        const nx = Math.ceil(Math.abs(dx / gridSize));
+        const ny = Math.ceil(Math.abs(dy / gridSize));
 
         // Get the number of straight and diagonal moves
         const nDiagonal = Math.min(nx, ny);

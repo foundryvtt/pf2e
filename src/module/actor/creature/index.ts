@@ -32,7 +32,6 @@ import {
 } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic } from "@system/statistic";
-import { MeasuredTemplatePF2e } from "@module/canvas";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -654,11 +653,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const options = Array.from(new Set([selfOptions, targetOptions].flat()));
 
         // Calculate distance and set as a roll option
-        const selfToken = canvas.tokens.controlled.find((token) => token.actor === this);
+        const selfToken = canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift();
         const distance =
             selfToken && target && !!canvas.grid
                 ? ((): number => {
-                      const groundDistance = MeasuredTemplatePF2e.measureDistance(selfToken.position, target.position);
+                      const groundDistance = selfToken.distanceTo(target);
                       const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);
                       return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
                   })()
