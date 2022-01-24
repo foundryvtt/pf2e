@@ -7,7 +7,7 @@ import {
     WeaponCategory,
     WeaponDamage,
     WeaponGroup,
-    WeaponRange,
+    WeaponRangeIncrement,
     WeaponSource,
     WeaponTrait,
 } from "@item/weapon/data";
@@ -117,7 +117,7 @@ interface StrikeData extends RuleElementData {
     group: WeaponGroup;
     baseType: BaseWeaponType | null;
     damage?: { base?: WeaponDamage };
-    range: WeaponRange | null;
+    range: WeaponRangeIncrement | null;
     traits: WeaponTrait[];
     replaceAll: boolean;
     replaceBasicUnarmed: boolean;

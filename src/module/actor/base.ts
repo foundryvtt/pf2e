@@ -277,6 +277,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             rollNotes: {},
             senses: [],
             statisticsModifiers: {},
+            strikeAdjustments: [],
             strikes: [],
             striking: {},
             weaponPotency: {},

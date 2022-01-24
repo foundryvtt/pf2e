@@ -276,7 +276,9 @@ export class CheckPF2e {
             const otherTags = ((): string[] => {
                 if (item instanceof WeaponPF2e && item.isRanged) {
                     // Show the range increment for ranged weapons
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", { range: item.range ?? 10 });
+                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", {
+                        range: item.rangeIncrement ?? 10,
+                    });
                     return [`<span class="tag tag_secondary">${label}</span>`];
                 } else {
                     return [];

@@ -6,6 +6,14 @@ import { MigrationBase } from "../base";
 export class Migration714IgnoreRangePenalty extends MigrationBase {
     static override version = 0.714;
 
+    private farLobber = {
+        definition: { all: ["weapon:base:alchemical-bomb"] },
+        key: "AdjustStrike",
+        mode: "override",
+        property: "range-increment",
+        value: 30,
+    };
+
     private farThrow = {
         key: "AdjustModifier",
         mode: "add",
@@ -25,6 +33,18 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
             all: ["hunted-prey"],
         },
     };
+
+    private masterfulHunter = (() => {
+        const gte: [string, number] = ["weapon:proficiency:rank", 3];
+        return {
+            key: "RollOption",
+            domain: "ranged-attack-roll",
+            option: "ignore-range-penalty:3",
+            predicate: {
+                all: ["hunted-prey", { gte }],
+            },
+        };
+    })();
 
     private shootistsEdge = (() => {
         const gte: [string, number] = ["weapon:proficiency:rank", 3];
@@ -81,6 +101,10 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
         const { rules } = source.data;
         if (source.type === "feat") {
             switch (source.data.slug) {
+                case "far-lobber": {
+                    source.data.rules = [this.farLobber];
+                    return;
+                }
                 case "far-throw": {
                     source.data.rules = [this.farThrow];
                     return;
@@ -90,6 +114,15 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
                         (r: MaybeRollOptionRE) => r.key === "RollOption" && r.option === this.huntPrey.option
                     );
                     if (needsRE) rules.push(this.huntPrey);
+
+                    return;
+                }
+                case "masterful-hunter": {
+                    const needsRE = !rules.some(
+                        (r: MaybeRollOptionRE) => r.key === "RollOption" && r.option === this.masterfulHunter.option
+                    );
+                    if (needsRE) rules.push(this.masterfulHunter);
+
                     return;
                 }
                 case "shootists-edge": {

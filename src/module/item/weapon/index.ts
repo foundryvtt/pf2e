@@ -9,7 +9,7 @@ import {
     WeaponData,
     WeaponGroup,
     WeaponPropertyRuneType,
-    WeaponRange,
+    WeaponRangeIncrement,
     WeaponSource,
     WeaponTrait,
 } from "./data";
@@ -59,7 +59,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** The range of this weapon, or null if a melee weapon */
-    get range(): WeaponRange | null {
+    get rangeIncrement(): WeaponRangeIncrement | null {
         return this.data.data.range;
     }
 
@@ -72,11 +72,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get isMelee(): boolean {
-        return this.range === null;
+        return this.rangeIncrement === null;
     }
 
     get isRanged(): boolean {
-        return this.range !== null;
+        return this.rangeIncrement !== null;
     }
 
     get ammo(): Embedded<ConsumablePF2e> | null {
@@ -98,7 +98,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
                 [`material:${this.material?.type}`]: !!this.material?.type,
-                [`range-increment:${this.range}`]: !!this.range,
+                [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
                 oversized,
                 melee: this.isMelee,
@@ -258,7 +258,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             traits,
             properties: [
                 CONFIG.PF2E.weaponCategories[this.category],
-                this.range ? `PF2E.TraitRangeIncrement${this.range}` : null,
+                this.rangeIncrement ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null,
             ],
         });
     }
@@ -363,7 +363,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const damageRoll = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
-            const ability = this.range ? "dex" : "str";
+            const ability = this.rangeIncrement ? "dex" : "str";
             const modifier = this.actor.data.data.abilities[ability].mod;
             const actorLevel = this.actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>
