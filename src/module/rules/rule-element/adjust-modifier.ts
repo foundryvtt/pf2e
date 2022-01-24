@@ -23,12 +23,13 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
 
     protected override validateData(): void {
         const tests = {
-            selector:
+            selectors:
                 Array.isArray(this.selectors) &&
                 this.selectors.length > 0 &&
                 this.selectors.every((s) => typeof s === "string"),
             slug: typeof this.slug === "string" || this.slug === null,
-            mode: AdjustModifierRuleElement.CHANGE_MODES.includes(String(this.mode)),
+            predicate: this.predicate.isValid,
+            mode: AELikeRuleElement.CHANGE_MODES.includes(String(this.mode)),
             value: ["string", "number"].includes(typeof this.value),
         };
 

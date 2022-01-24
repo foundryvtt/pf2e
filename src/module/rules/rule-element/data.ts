@@ -77,6 +77,7 @@ export interface RuleElementSynthetics {
     rollNotes: Record<string, RollNotePF2e[]>;
     senses: SenseSynthetic[];
     statisticsModifiers: Record<string, ModifierPF2e[]>;
+    strikeAdjustments: { adjustStrike(weapon: Embedded<WeaponPF2e>): void }[];
     strikes: Embedded<WeaponPF2e>[];
     striking: Record<string, StrikingPF2e[]>;
     weaponPotency: Record<string, WeaponPotencyPF2e[]>;

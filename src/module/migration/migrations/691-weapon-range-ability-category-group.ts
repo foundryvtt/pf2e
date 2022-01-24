@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { WeaponCategory, WeaponGroup, WeaponRange, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponGroup, WeaponRangeIncrement, WeaponSystemSource } from "@item/weapon/data";
 import { RANGED_WEAPON_GROUPS } from "@item/weapon/data/values";
 import { RuleElementSource } from "@module/rules";
 import { tupleHasValue } from "@util";
@@ -17,7 +17,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
         );
     }
 
-    private isOldRangeData(range: WeaponRange | null | { value: string }): range is { value: string } {
+    private isOldRangeData(range: WeaponRangeIncrement | null | { value: string }): range is { value: string } {
         return range instanceof Object && "value" in range && typeof range["value"] === "string";
     }
 
@@ -40,7 +40,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
             // Range
             const hasOldRangeData = this.isOldRangeData(systemData.range);
             systemData.range = hasOldRangeData
-                ? ((Number((systemData.range as { value: string }).value) || null) as WeaponRange | null)
+                ? ((Number((systemData.range as { value: string }).value) || null) as WeaponRangeIncrement | null)
                 : systemData.range;
 
             if (hasOldRangeData && systemData.ability) {
@@ -91,7 +91,7 @@ type MaybeOldData = WeaponSystemSource & {
     weaponType?: { value: WeaponCategory };
     "-=weaponType"?: null;
     group: OldOrNewGroup;
-    range: WeaponRange | null | { value: string };
+    range: WeaponRangeIncrement | null | { value: string };
     ability?: { value: string };
     "-=ability"?: null;
 };

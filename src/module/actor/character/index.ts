@@ -922,12 +922,17 @@ export class CharacterPF2e extends CreaturePF2e {
     ): CharacterStrike {
         const itemData = weapon.data;
         const { synthetics } = this;
-        const { rollNotes, statisticsModifiers } = synthetics;
+        const { rollNotes, statisticsModifiers, strikeAdjustments } = synthetics;
         const modifiers: ModifierPF2e[] = [];
         const weaponTraits = weapon.traits;
         const systemData = this.data.data;
         const { categories } = options;
         const ammos = options.ammos ?? [];
+
+        // Apply strike adjustments
+        for (const adjustment of strikeAdjustments) {
+            adjustment.adjustStrike(weapon);
+        }
 
         // Determine the default ability and score for this attack.
         const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
@@ -1034,7 +1039,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Volley trait
         const volleyTrait = Array.from(weaponTraits).find((t) => /^volley-\d+$/.test(t));
-        if (volleyTrait && weapon.range) {
+        if (volleyTrait && weapon.rangeIncrement) {
             const penaltyRange = Number(/-(\d+)$/.exec(volleyTrait)![1]);
             const penalty = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits[volleyTrait],
@@ -1216,7 +1221,9 @@ export class CharacterPF2e extends CreaturePF2e {
         ];
 
         const getRangeIncrement = (distance: number | null): number | null =>
-            weapon.range && typeof distance === "number" ? Math.max(Math.ceil(distance / weapon.range), 1) : null;
+            weapon.rangeIncrement && typeof distance === "number"
+                ? Math.max(Math.ceil(distance / weapon.rangeIncrement), 1)
+                : null;
 
         const getRangePenalty = (increment: number | null): ModifierPF2e | null => {
             if (!increment || increment === 1) return null;
