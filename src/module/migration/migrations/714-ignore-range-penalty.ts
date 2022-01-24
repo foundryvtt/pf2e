@@ -26,6 +26,20 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
         },
     };
 
+    private shootistsEdge = (() => {
+        const gte: [string, number] = ["weapon:proficiency:rank", 3];
+        return [
+            { key: "ActiveEffectLike", mode: "upgrade", path: "data.attributes.classDC.rank", value: 3 },
+            ...[2, 3].map((i) => ({
+                key: "RollOption",
+                domain: "ranged-attack-roll",
+                option: `ignore-range-penalty:${i}`,
+                phase: "beforeRoll",
+                predicate: { all: [{ gte }] },
+            })),
+        ];
+    })();
+
     private triangulate = [
         {
             default: true,
@@ -53,6 +67,16 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
         },
     ];
 
+    private unerringShot = (() => {
+        const gte: [string, number] = ["weapon:proficiency:rank", 3];
+        return {
+            key: "RollOption",
+            option: "ignore-range-penalty",
+            phase: "beforeRoll",
+            predicate: { all: [{ gte }] },
+        };
+    })();
+
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const { rules } = source.data;
         if (source.type === "feat") {
@@ -68,8 +92,16 @@ export class Migration714IgnoreRangePenalty extends MigrationBase {
                     if (needsRE) rules.push(this.huntPrey);
                     return;
                 }
+                case "shootists-edge": {
+                    source.data.rules = this.shootistsEdge;
+                    return;
+                }
                 case "triangulate": {
                     source.data.rules = this.triangulate;
+                    return;
+                }
+                case "unerring-shot": {
+                    source.data.rules = [this.unerringShot];
                     return;
                 }
             }

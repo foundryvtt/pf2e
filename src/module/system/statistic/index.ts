@@ -201,6 +201,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 const extraModifiers = [...(args?.modifiers ?? [])];
                 const options = this.createRollOptions(domains, args);
 
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.actor.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, options);
+                }
+
                 // Include multiple attack penalty to extra modifiers if given
                 if (args.attackNumber && args.attackNumber > 1) {
                     if (!item) {

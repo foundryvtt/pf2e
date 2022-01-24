@@ -261,6 +261,13 @@ interface RuleElementPF2e {
     afterPrepareData?(): void;
 
     /**
+     * Run just prior to a check roll, passing along roll options already accumulated
+     * @param domains Applicable predication domains for pending check
+     * @param rollOptions Currently accumulated roll options for the pending check
+     */
+    beforeRoll?(domains: string[], rollOptions: string[]): void;
+
+    /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.

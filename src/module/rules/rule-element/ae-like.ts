@@ -69,11 +69,16 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (!this.ignored && this.data.phase === "afterDerived") this.applyAELike();
     }
 
-    protected applyAELike(): void {
+    /** Apply the modifications prior to a Check (roll) */
+    override beforeRoll(_domains: string[], rollOptions: string[]): void {
+        if (!this.ignored) this.applyAELike(rollOptions);
+    }
+
+    protected applyAELike(rollOptions = this.actor.getRollOptions(["all"])): void {
         // Test predicate if present. AE-Like predicates are severely limited: at their default phase, they can only be
         // tested against roll options set by `ItemPF2e#prepareActorData` and higher-priority AE-Likes.
         const { predicate } = this.data;
-        if (predicate && !predicate.test(this.actor.getRollOptions(["all"]))) {
+        if (predicate && !predicate.test(rollOptions)) {
             return;
         }
 
@@ -200,13 +205,13 @@ export interface AELikeData extends RuleElementData {
     value: RuleValue;
     mode: AELikeChangeMode;
     priority: number;
-    phase: "applyAEs" | "beforeDerived" | "afterDerived";
+    phase: "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
 }
 
 export interface AELikeSource extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
-    phase?: "applyAEs" | "beforeDerived" | "afterDerived";
+    phase?: unknown;
 }
 
 export { AELikeRuleElement };
