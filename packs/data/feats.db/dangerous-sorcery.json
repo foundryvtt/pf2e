@@ -19,10 +19,23 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "phase": "afterDerived",
+                "predicate": {
+                    "not": [
+                        "item:trait:cantrip"
+                    ]
+                },
+                "selector": "spell-damage",
+                "value": "@spell.level"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

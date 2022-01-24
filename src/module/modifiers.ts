@@ -91,11 +91,13 @@ export interface RawModifier extends BaseRawModifier {
     modifier: number;
 }
 
+export type DeferredValueParams = { resolvables?: Record<string, unknown> };
+export type DeferredValue<T> = (options?: DeferredValueParams) => T;
+
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 export class ModifierPF2e implements RawModifier {
     slug: string;
     label: string;
-    modifier: number;
     type: ModifierType;
     ability: AbilityString | null;
     adjustments: ModifierAdjustment[];
@@ -110,6 +112,8 @@ export class ModifierPF2e implements RawModifier {
     traits: string[];
     notes: string;
     hideIfDisabled: boolean;
+
+    private modifierRaw: number | DeferredValue<number>;
 
     /**
      * Create a new modifier.
@@ -143,7 +147,7 @@ export class ModifierPF2e implements RawModifier {
 
         this.label = game.i18n.localize(params.label ?? params.name);
         this.slug = sluggify(params.slug ?? this.label);
-        this.modifier = params.modifier;
+        this.modifierRaw = params instanceof ModifierPF2e ? params.modifierRaw : params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.adjustments = deepClone(params.adjustments ?? []);
@@ -158,6 +162,22 @@ export class ModifierPF2e implements RawModifier {
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
+    }
+
+    get modifier() {
+        return typeof this.modifierRaw === "function" ? 0 : this.modifierRaw;
+    }
+
+    set modifier(value: number) {
+        this.modifierRaw = value;
+    }
+
+    update(options?: DeferredValueParams) {
+        if (typeof this.modifierRaw === "function") {
+            this.modifierRaw = this.modifierRaw(options);
+        }
+
+        return this.modifierRaw;
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -181,9 +201,10 @@ export class ModifierPF2e implements RawModifier {
     }
 }
 
-interface ModifierObjectParams extends RawModifier {
+type ModifierObjectParams = Omit<RawModifier, "modifier"> & {
     name?: string;
-}
+    modifier: number | DeferredValue<number>;
+};
 
 type ModifierOrderedParams = [
     slug: string,
@@ -397,7 +418,12 @@ export class StatisticModifier {
      * @param modifiers All relevant modifiers for this statistic.
      * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions?: string[]) {
+    constructor(
+        name: string,
+        modifiers: ModifierPF2e[] = [],
+        rollOptions?: string[],
+        deferParams?: DeferredValueParams
+    ) {
         this.name = name;
 
         // De-duplication
@@ -405,6 +431,7 @@ export class StatisticModifier {
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
             if (!found || modifier.type === "ability") seen.push(modifier);
+            modifier.update(deferParams);
         }
         this._modifiers = seen;
 
