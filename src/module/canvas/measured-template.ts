@@ -105,8 +105,9 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
     }
 
     /**
-     * Measure the distance between tokens, where we want to measure between the centres of squares, but
-     * if either token covers more than one square, we want the minimum distance between the tokens
+     * Measure the distance between tokens, where we want to measure between the centres of squares.
+     * If either token covers more than one square, we want the minimum distance between any of the
+     * tokens' squares
      */
     static measureDistanceBetweenTokens(t0: TokenPF2e, t1: TokenPF2e): number {
         if (!canvas.dimensions) return NaN;
@@ -117,50 +118,53 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
 
         const gridSize = canvas.dimensions.size;
 
-        const centreSize = (hitArea: Rectangle | null): Rectangle => {
-            const rect = hitArea ?? new Rectangle(0, 0, 100, 100);
-            return new Rectangle(rect.x, rect.y, rect.width - gridSize, rect.height - gridSize);
+        const tokenRect = (token: TokenPF2e): Rectangle => {
+            const rect = token.hitArea ?? new Rectangle(0, 0, 100, 100);
+            return new Rectangle(
+                token.x + gridSize / 2,
+                token.y + gridSize / 2,
+                rect.width - gridSize,
+                rect.height - gridSize
+            );
         };
 
-        return MeasuredTemplatePF2e.measureDistance(
-            {
-                x: t0.x + gridSize / 2,
-                y: t0.y + gridSize / 2,
-            },
-            {
-                x: t1.x + gridSize / 2,
-                y: t1.y + gridSize / 2,
-            },
-            centreSize(t0.hitArea),
-            centreSize(t1.hitArea)
-        );
+        const dist = MeasuredTemplatePF2e.measureDistanceRect(tokenRect(t0), tokenRect(t1));
+        ui.notifications.info(`Range is ${dist} ft.`);
+        return dist;
+    }
+
+    /** Measure the minimum distance between two rectangles */
+    static measureDistanceRect(r0: Rectangle, r1: Rectangle): number {
+        if (!canvas.dimensions) return NaN;
+
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            return canvas.grid.measureDistance(r0, r1);
+        }
+
+        // Find the minimum distance between the rectangles for each dimension
+        const dx = Math.max(0, r0.left - r1.right, r1.left - r0.right);
+        const dy = Math.max(0, r0.top - r1.bottom, r1.top - r0.bottom);
+
+        return MeasuredTemplatePF2e.measureDistanceOnGrid(dx, dy);
     }
 
     /** Measure distance using Pathfinder 2e grid-counting rules */
-    static measureDistance(p0: Point, p1: Point, a0?: Rectangle | null, a1?: Rectangle | null): number {
+    static measureDistance(p0: Point, p1: Point): number {
         if (!canvas.dimensions) return NaN;
 
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
             return canvas.grid.measureDistance(p0, p1);
         }
 
+        const ray = new Ray(p0, p1);
+        return MeasuredTemplatePF2e.measureDistanceOnGrid(ray.dx, ray.dy);
+    }
+
+    /** Given the distance in each dimension, measure the distance in grid units */
+    private static measureDistanceOnGrid(dx: number, dy: number): number {
+        if (!canvas.dimensions) return NaN;
+
         const gridSize = canvas.dimensions.size;
-
-        let dx, dy;
-        if (a0 && a1) {
-            // Construct rectangles for the two positions. Reduce the size of the rectangle by one square to simulate
-            // measuring from the centre of the squares
-            const r0 = new PIXI.Rectangle(p0.x, p0.y, a0.width, a0.height);
-            const r1 = new PIXI.Rectangle(p1.x, p1.y, a1.width, a1.height);
-
-            // Find the minimum distance between the rectangles for each dimension
-            dx = Math.max(0, r0.left - r1.right, r1.left - r0.right);
-            dy = Math.max(0, r0.top - r1.bottom, r1.top - r0.bottom);
-        } else {
-            const ray = new Ray(p0, p1);
-            dx = ray.dx;
-            dy = ray.dy;
-        }
 
         const nx = Math.ceil(Math.abs(dx / gridSize));
         const ny = Math.ceil(Math.abs(dy / gridSize));
