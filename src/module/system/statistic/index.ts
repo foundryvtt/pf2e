@@ -184,11 +184,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             roll: (args: StatisticRollParameters = {}) => {
                 // Allow use of events for modules and macros but don't allow it for internal system use
                 const { secret, skipDialog } = (() => {
-                    if (isObject<{ event: PointerEvent }>(args) && args.event instanceof PointerEvent) {
-                        return mergeObject(
-                            { secret: args.secret, skipDialog: args.skipDialog },
-                            eventToRollParams(args.event)
-                        );
+                    if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
+                        const event = args.event?.originalEvent ?? args.event;
+                        if (event instanceof PointerEvent) {
+                            return mergeObject(
+                                { secret: args.secret, skipDialog: args.skipDialog },
+                                eventToRollParams(event)
+                            );
+                        }
                     }
 
                     return args;
