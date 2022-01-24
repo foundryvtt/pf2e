@@ -1,10 +1,10 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { Filters } from "./data";
+import { ActionFilters } from "./data";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
-    override filterData!: Filters<"action">;
+    override filterData!: ActionFilters;
 
     protected index = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
 

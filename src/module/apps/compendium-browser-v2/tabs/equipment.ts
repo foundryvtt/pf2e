@@ -2,10 +2,10 @@ import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers"
 import { sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { Filters } from "./data";
+import { EquipmentFilters } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
-    override filterData!: Filters<"equipment">;
+    override filterData!: EquipmentFilters;
 
     constructor(browser: CompendiumBrowserV2) {
         super(browser, "equipment");

@@ -1,4 +1,4 @@
-import { SortDirection, TabName } from "../data";
+import { SortDirection } from "../data";
 
 export type CheckBoxOptions = Record<string, { label: string; selected: boolean }>;
 export interface CheckBoxdata {
@@ -30,7 +30,7 @@ export interface RangesData {
     label: string;
 }
 
-interface BaseFilterData {
+export interface BaseFilterData {
     checkboxes?: Record<string, CheckBoxdata>;
     dropdowns?: Record<string, DropDownData>;
     order: OrderData;
@@ -40,16 +40,16 @@ interface BaseFilterData {
     };
 }
 
-interface ActionFilters extends BaseFilterData {
+export interface ActionFilters extends BaseFilterData {
     checkboxes: Record<"traits" | "source", CheckBoxdata>;
 }
 
-interface BestiaryFilters extends BaseFilterData {
+export interface BestiaryFilters extends BaseFilterData {
     checkboxes: Record<"alignments" | "rarity" | "sizes" | "source" | "traits", CheckBoxdata>;
     ranges: Record<"level", RangesData>;
 }
 
-interface EquipmentFilters extends BaseFilterData {
+export interface EquipmentFilters extends BaseFilterData {
     checkboxes: Record<
         "armorTypes" | "consumableType" | "weaponTypes" | "weaponTraits" | "itemtypes" | "rarity" | "source",
         CheckBoxdata
@@ -57,38 +57,20 @@ interface EquipmentFilters extends BaseFilterData {
     ranges: Record<"level", RangesData>;
 }
 
-interface FeatFilters extends BaseFilterData {
+export interface FeatFilters extends BaseFilterData {
     checkboxes: Record<"ancestry" | "classes" | "feattype" | "skills" | "rarity" | "source" | "traits", CheckBoxdata>;
     ranges: Record<"level", RangesData>;
 }
 
-interface HazardFilters extends BaseFilterData {
+export interface HazardFilters extends BaseFilterData {
     checkboxes: Record<"complexity" | "rarity" | "source" | "traits", CheckBoxdata>;
     ranges: Record<"level", RangesData>;
 }
 
-interface SpellFilters extends BaseFilterData {
+export interface SpellFilters extends BaseFilterData {
     checkboxes: Record<
         "category" | "classes" | "level" | "rarity" | "school" | "source" | "traditions" | "traits",
         CheckBoxdata
     >;
     dropdowns: Record<"timefilter", DropDownData>;
 }
-
-type CompendiumBrowserTab = Exclude<TabName, "settings">;
-
-export type Filters<TName extends CompendiumBrowserTab | "base"> = TName extends "action"
-    ? ActionFilters
-    : TName extends "base"
-    ? BaseFilterData
-    : TName extends "bestiary"
-    ? BestiaryFilters
-    : TName extends "equipment"
-    ? EquipmentFilters
-    : TName extends "feat"
-    ? FeatFilters
-    : TName extends "hazard"
-    ? HazardFilters
-    : TName extends "spell"
-    ? SpellFilters
-    : never;

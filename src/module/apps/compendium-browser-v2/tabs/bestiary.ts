@@ -1,7 +1,7 @@
 import { sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { Filters } from "./data";
+import { BestiaryFilters } from "./data";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     protected index = [
@@ -12,7 +12,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         "data.traits",
     ];
 
-    override filterData!: Filters<"bestiary">;
+    override filterData!: BestiaryFilters;
 
     constructor(browser: CompendiumBrowserV2) {
         super(browser, "bestiary");

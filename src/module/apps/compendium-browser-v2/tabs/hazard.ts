@@ -1,10 +1,10 @@
 import { sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { Filters } from "./data";
+import { HazardFilters } from "./data";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
-    override filterData!: Filters<"hazard">;
+    override filterData!: HazardFilters;
 
     protected index = ["img", "data.details.level.value", "data.details.isComplex", "data.traits"];
 
