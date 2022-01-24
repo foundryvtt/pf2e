@@ -1,38 +1,40 @@
-import type { ItemPF2e } from "@item";
-import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementSynthetics } from "./rule-element";
-import { FlatModifierRuleElement } from "./rule-element/flat-modifier";
-import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency";
-import { TempHPRuleElement } from "./rule-element/temp-hp";
-import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap";
-import { DamageDiceRuleElement } from "./rule-element/damage-dice";
-import { TogglePropertyRuleElement } from "./rule-element/toggle-property";
-import { TokenImageRuleElement } from "./rule-element/token-image";
-import { BaseSpeedRuleElement } from "./rule-element/base-speed";
-import { SenseRuleElement } from "./rule-element/sense";
-import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon";
-import { StrikeRuleElement } from "./rule-element/strike";
-import { RollNoteRuleElement } from "./rule-element/roll-note";
-import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
-import { StrikingRuleElement } from "./rule-element/striking";
-import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
+import { RuleElementData, RuleElementPF2e, RuleElementSource, RuleElementSynthetics } from "./rule-element";
 import { ActorTraitsRuleElement } from "@module/rules/rule-element/actor-traits";
 import { RecoveryCheckDCRuleElement } from "@module/rules/rule-element/recovery-check-dc";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
+import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
+import { AdjustStrikeRuleElement } from "./rule-element/adjust-strike";
 import { AELikeRuleElement } from "./rule-element/ae-like";
-import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
-import { CreatureSizeRuleElement } from "./rule-element/creature-size";
+import { BaseSpeedRuleElement } from "./rule-element/base-speed";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element";
-import { ImmunityRuleElement } from "./rule-element/iwr/immunity";
-import { WeaknessRuleElement } from "./rule-element/iwr/weakness";
-import { ResistanceRuleElement } from "./rule-element/iwr/resistance";
-import { RollOptionRuleElement } from "./rule-element/roll-option";
-import { EffectTargetRuleElement } from "./rule-element/effect-target/rule-element";
-import { CraftingFormulaRuleElement } from "./rule-element/crafting/crafting-formula";
-import { CraftingEntryRuleElement } from "./rule-element/crafting/crafting-entry";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
-import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
-import { GrantItemRuleElement } from "./rule-element/grant-item";
+import { CraftingEntryRuleElement } from "./rule-element/crafting/crafting-entry";
+import { CraftingFormulaRuleElement } from "./rule-element/crafting/crafting-formula";
+import { CreatureSizeRuleElement } from "./rule-element/creature-size";
+import { DamageDiceRuleElement } from "./rule-element/damage-dice";
+import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap";
+import { EffectTargetRuleElement } from "./rule-element/effect-target/rule-element";
 import { HealingRuleElement } from "./rule-element/fast-healing";
+import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency";
+import { FlatModifierRuleElement } from "./rule-element/flat-modifier";
+import { GrantItemRuleElement } from "./rule-element/grant-item";
+import { ImmunityRuleElement } from "./rule-element/iwr/immunity";
+import { ResistanceRuleElement } from "./rule-element/iwr/resistance";
+import { WeaknessRuleElement } from "./rule-element/iwr/weakness";
+import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
+import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
+import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
+import { RollNoteRuleElement } from "./rule-element/roll-note";
+import { RollOptionRuleElement } from "./rule-element/roll-option";
+import { SenseRuleElement } from "./rule-element/sense";
+import { StrikeRuleElement } from "./rule-element/strike";
+import { StrikingRuleElement } from "./rule-element/striking";
+import { TempHPRuleElement } from "./rule-element/temp-hp";
+import { TogglePropertyRuleElement } from "./rule-element/toggle-property";
+import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon";
+import { TokenImageRuleElement } from "./rule-element/token-image";
+import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
+import type { ItemPF2e } from "@item";
 
 /**
  * @category RuleElement
@@ -42,6 +44,8 @@ class RuleElements {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
+        AdjustModifier: AdjustModifierRuleElement,
+        AdjustStrike: AdjustStrikeRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,

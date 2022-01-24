@@ -358,15 +358,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */
-    protected addShieldBonus(statisticModifiers: Record<string, ModifierPF2e[]>): void {
+    protected addShieldBonus(): void {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
         const shieldData = this.data.data.attributes.shield;
         if (shieldData.raised && !shieldData.broken) {
-            const modifiers = (statisticModifiers["ac"] ??= []);
+            const modifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
+            const slug = "raised-shield";
             modifiers.push(
                 new ModifierPF2e({
                     label: shieldData.name,
-                    slug: "raised-shield",
+                    slug,
+                    adjustments: this.getModifierAdjustments(["ac"], slug),
                     type: MODIFIER_TYPE.CIRCUMSTANCE,
                     modifier: shieldData.ac,
                 })

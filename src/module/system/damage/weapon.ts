@@ -253,6 +253,11 @@ export class WeaponDamagePF2e {
                   )
                 : { selectors: WeaponDamagePF2e.getSelectors(weapon, null, proficiencyRank) };
 
+        // Get just-in-time roll options from rule elements
+        for (const rule of actor.rules.filter((r) => !r.ignored)) {
+            rule.beforeRoll?.(selectors, options);
+        }
+
         // Kickback trait
         if (traits.some((trait) => trait.name === "kickback")) {
             // For NPCs, subtract from the base damage and add back as an untype bonus

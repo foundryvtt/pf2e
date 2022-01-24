@@ -345,7 +345,16 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e("PF2E.ClassHP", classHP * this.level, MODIFIER_TYPE.UNTYPED));
 
                 const conLevelBonus = systemData.abilities.con.mod * this.level;
-                modifiers.push(new ModifierPF2e("PF2E.AbilityCon", conLevelBonus, MODIFIER_TYPE.ABILITY));
+                modifiers.push(
+                    new ModifierPF2e({
+                        slug: "hp-con",
+                        label: "PF2E.AbilityCon",
+                        ability: "con",
+                        type: MODIFIER_TYPE.ABILITY,
+                        modifier: conLevelBonus,
+                        adjustments: this.getModifierAdjustments(["con-based"], "hp-con"),
+                    })
+                );
             }
 
             const hpRollOptions = this.getRollOptions(["hp", "all"]);
@@ -412,6 +421,12 @@ export class CharacterPF2e extends CreaturePF2e {
                 if (args.dc && stat.adjustments) {
                     args.dc.adjustments = stat.adjustments;
                 }
+
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, options);
+                }
+
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options, dc: args.dc, notes: stat.notes },
@@ -477,7 +492,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
 
-            this.addShieldBonus(statisticsModifiers);
+            this.addShieldBonus();
 
             // proficiency
             modifiers.unshift(
@@ -552,11 +567,14 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
-                const armorCheckPenalty = new ModifierPF2e(
-                    "PF2E.ArmorCheckPenalty",
-                    wornArmor.checkPenalty,
-                    MODIFIER_TYPE.UNTYPED
-                );
+                const slug = "armor-check-penalty";
+                const armorCheckPenalty = new ModifierPF2e({
+                    slug,
+                    label: "PF2E.ArmorCheckPenalty",
+                    modifier: wornArmor.checkPenalty,
+                    type: MODIFIER_TYPE.UNTYPED,
+                    adjustments: this.getModifierAdjustments(["ac"], slug),
+                });
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.not = ["attack", "armor:ignore-check-penalty"];
@@ -601,6 +619,12 @@ export class CharacterPF2e extends CreaturePF2e {
                 if (args.dc && stat.adjustments) {
                     args.dc.adjustments = stat.adjustments;
                 }
+
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, options);
+                }
+
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
@@ -647,6 +671,12 @@ export class CharacterPF2e extends CreaturePF2e {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                     const options = args.options ?? [];
                     ensureProficiencyOption(options, rank);
+
+                    // Get just-in-time roll options from rule elements
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        rule.beforeRoll?.(domains, options);
+                    }
+
                     CheckPF2e.roll(
                         new CheckModifier(label, stat),
                         { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
@@ -863,7 +893,16 @@ export class CharacterPF2e extends CreaturePF2e {
         const value = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
 
         const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
-        const armorPenalty = value ? new ModifierPF2e(modifierName, value, "untyped") : null;
+        const slug = "armor-speed-penalty";
+        const armorPenalty = value
+            ? new ModifierPF2e({
+                  slug,
+                  label: modifierName,
+                  modifier: value,
+                  type: MODIFIER_TYPE.UNTYPED,
+                  adjustments: this.getModifierAdjustments(["speed", `${movementType}-speed`], slug),
+              })
+            : null;
         if (armorPenalty) {
             const speedModifiers = (this.synthetics.statisticsModifiers.speed ??= []);
             armorPenalty.predicate.not = ["armor:ignore-speed-penalty"];
@@ -883,12 +922,17 @@ export class CharacterPF2e extends CreaturePF2e {
     ): CharacterStrike {
         const itemData = weapon.data;
         const { synthetics } = this;
-        const { rollNotes, statisticsModifiers } = synthetics;
+        const { rollNotes, statisticsModifiers, strikeAdjustments } = synthetics;
         const modifiers: ModifierPF2e[] = [];
         const weaponTraits = weapon.traits;
         const systemData = this.data.data;
         const { categories } = options;
         const ammos = options.ammos ?? [];
+
+        // Apply strike adjustments
+        for (const adjustment of strikeAdjustments) {
+            adjustment.adjustStrike(weapon);
+        }
 
         // Determine the default ability and score for this attack.
         const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
@@ -922,6 +966,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
+        weaponRollOptions.push(`weapon:proficiency:rank:${proficiencyRank}`);
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
@@ -994,7 +1039,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Volley trait
         const volleyTrait = Array.from(weaponTraits).find((t) => /^volley-\d+$/.test(t));
-        if (volleyTrait && weapon.range) {
+        if (volleyTrait && weapon.rangeIncrement) {
             const penaltyRange = Number(/-(\d+)$/.exec(volleyTrait)![1]);
             const penalty = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits[volleyTrait],
@@ -1176,18 +1221,22 @@ export class CharacterPF2e extends CreaturePF2e {
         ];
 
         const getRangeIncrement = (distance: number | null): number | null =>
-            weapon.range && typeof distance === "number" ? Math.max(Math.ceil(distance / weapon.range), 1) : null;
+            weapon.rangeIncrement && typeof distance === "number"
+                ? Math.max(Math.ceil(distance / weapon.rangeIncrement), 1)
+                : null;
 
         const getRangePenalty = (increment: number | null): ModifierPF2e | null => {
             if (!increment || increment === 1) return null;
+            const slug = "range-penalty";
             const modifier = new ModifierPF2e({
                 label: "PF2E.RangePenalty",
-                slug: "range-penalty",
+                slug,
                 type: MODIFIER_TYPE.UNTYPED,
                 modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
-                predicate: { not: ["ignore-range-penalty", `ignore-range-penalty:${increment}`] },
+                predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
+                adjustments: this.getModifierAdjustments(selectors, slug),
             });
-            modifier.ignored = !modifier.predicate.test(defaultOptions);
+            modifier.test(defaultOptions);
             return modifier;
         };
 
@@ -1198,7 +1247,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ])
             .map(([label, constructModifier]) => ({
                 label,
-                roll: (args: RollParameters) => {
+                roll: async (args: RollParameters): Promise<void> => {
                     const traits = ["attack", ...weapon.traits];
                     const context = this.createAttackRollContext({ traits });
 
@@ -1207,28 +1256,46 @@ export class CharacterPF2e extends CreaturePF2e {
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [getRangePenalty(rangeIncrement) ?? []].flat();
 
+                    // Collect roll options from all sources
                     args.options ??= [];
-                    const options = Array.from(
-                        new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
-                    );
+                    const options = [
+                        args.options,
+                        context.options,
+                        action.options,
+                        defaultOptions,
+                        incrementOption,
+                    ].flat();
+
+                    // Get just-in-time roll options from rule elements
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        rule.beforeRoll?.(baseSelectors, options);
+                    }
+
                     const dc = args.dc ?? context.dc;
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
                     }
 
+                    // Consume ammunition
                     const ammo = weapon.ammo;
                     if (ammo && ammo.quantity < 1) {
                         ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
                         return;
                     }
-                    ammo?.consume();
+                    await ammo?.consume();
 
-                    CheckPF2e.roll(
-                        constructModifier(otherModifiers),
-                        { actor: this, item: weapon, type: "attack-roll", options, notes, dc, traits: action.traits },
-                        args.event,
-                        args.callback
-                    );
+                    const finalRollOptions = Array.from(new Set(options));
+                    const checkContext = {
+                        actor: this,
+                        item: weapon,
+                        type: "attack-roll",
+                        options: finalRollOptions,
+                        notes,
+                        dc,
+                        traits: action.traits,
+                    };
+
+                    await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
                 },
             }));
         action.attack = action.roll = action.variants[0].roll;

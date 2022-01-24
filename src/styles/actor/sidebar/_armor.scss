@@ -24,9 +24,7 @@
             h2,
             input[type='number'] {
                 font-size: 32px;
-                color: white;
                 line-height: 24px;
-                border-bottom: 1px solid transparent;
                 height: 26px;
                 width: 55px;
             }
@@ -36,12 +34,9 @@
         }
         &.ac {
             grid-area: ac;
-            color: $sidebar-label;
+            color: var(--sidebar-label);
             background: url('../assets/sheet/shield-blue.webp') no-repeat center
                 center;
-            h2 {
-                color: $sidebar-label;
-            }
         }
         &.hp {
             grid-area: shield-hp;
@@ -107,9 +102,6 @@
                     padding-left: 4px;
                     margin-left: -8px;
                     height: 20px;
-                    &:focus-within {
-                        border: 1px solid;
-                    }
                     input[type='number'] {
                         font-size: 14px;
                         font-weight: 400;
@@ -136,23 +128,12 @@
                 text-align: center;
                 margin-bottom: 4px;
             }
-            .data-value {
-                border-bottom: 1px solid transparent;
-                input {
-                    &:hover {
-                        @include input-glow;
-                    }
-                    &:focus {
-                        border-bottom: 1px solid var(--tertiary);
-                    }
-                }
-            }
         }
         .shield-status {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: white;
+            color: var(--tertiary-light);
             margin-top: 4px;
         }
     }

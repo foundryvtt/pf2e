@@ -27,7 +27,38 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "default": true,
+                "key": "ToggleProperty",
+                "label": "PF2E.SpecificRule.ToggleProperty.Triangulate",
+                "property": "flags.pf2e.rollOptions.all.triangulate"
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": {
+                    "all": [
+                        "triangulate"
+                    ]
+                }
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "triangulate"
+                    ]
+                },
+                "selectors": [
+                    "ranged-attack-roll"
+                ],
+                "slug": "range-penalty",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

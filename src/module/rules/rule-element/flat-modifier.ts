@@ -45,10 +45,12 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         if (selector && value) {
             // Strip out the title ("Effect:", etc.) of the effect name
             const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+            const slug = this.data.slug ?? sluggify(this.label);
             const modifier = new ModifierPF2e({
-                slug: this.data.slug ?? sluggify(this.label),
+                slug,
                 label,
                 modifier: value,
+                adjustments: this.actor.getModifierAdjustments([selector], slug),
                 type: this.data.type,
                 ability: this.data.type === "ability" ? this.data.ability : null,
                 predicate: this.data.predicate,

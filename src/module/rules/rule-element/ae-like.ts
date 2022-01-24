@@ -18,28 +18,28 @@ class AELikeRuleElement extends RuleElementPF2e {
         data.phase ??= "applyAEs";
 
         super(data, item);
+        this.validateData();
+    }
 
+    protected validateData(): void {
         if (Number.isNaN(this.priority)) {
-            this.ignored = true;
-            return;
+            return this.warn("priority");
         }
 
-        // Validate data properties
-        const actor = item.actor;
+        if (!AELikeRuleElement.CHANGE_MODES.includes(this.data.mode)) {
+            return this.warn("mode");
+        }
+
+        const actor = this.item.actor;
         const pathIsValid =
             typeof this.path === "string" &&
             [this.path, this.path.replace(/\.\w+$/, ""), this.path.replace(/\.?\w+\.\w+$/, "")].some(
                 (path) => typeof getProperty(actor.data, path) !== undefined
             );
-        if (!pathIsValid) this.warn("path");
+        if (!pathIsValid) return this.warn("path");
 
         const valueIsValid = ["number", "string", "boolean", "object"].includes(typeof this.value);
         if (!valueIsValid) this.warn("value");
-
-        if (!(pathIsValid && valueIsValid)) {
-            this.ignored = true;
-            return;
-        }
     }
 
     get path(): string {
@@ -69,11 +69,16 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (!this.ignored && this.data.phase === "afterDerived") this.applyAELike();
     }
 
-    private applyAELike(): void {
+    /** Apply the modifications prior to a Check (roll) */
+    override beforeRoll(_domains: string[], rollOptions: string[]): void {
+        if (!this.ignored) this.applyAELike(rollOptions);
+    }
+
+    protected applyAELike(rollOptions = this.actor.getRollOptions(["all"])): void {
         // Test predicate if present. AE-Like predicates are severely limited: at their default phase, they can only be
         // tested against roll options set by `ItemPF2e#prepareActorData` and higher-priority AE-Likes.
         const { predicate } = this.data;
-        if (predicate && !predicate.test(this.actor.getRollOptions(["all"]))) {
+        if (predicate && !predicate.test(rollOptions)) {
             return;
         }
 
@@ -81,18 +86,30 @@ class AELikeRuleElement extends RuleElementPF2e {
         // Do not proceed if injected-property resolution failed
         if (/\bundefined\b/.test(this.path)) return;
 
-        const change: unknown = this.resolveValue(this.data.value);
         const current: unknown = getProperty(this.actor.data, this.path);
+        const change: unknown = this.resolveValue(this.data.value);
+        const newValue = this.getNewValue(current, change);
+        if (this.ignored) return;
 
+        if (this.mode === "add" && Array.isArray(current)) {
+            current.push(newValue);
+        } else {
+            setProperty(this.actor.data, this.path, newValue);
+            this.logChange(change);
+        }
+    }
+
+    protected getNewValue(current: number | undefined, change: number): number;
+    protected getNewValue(current: string | number | undefined, change: string | number): string | number;
+    protected getNewValue(current: unknown, change: unknown): unknown;
+    protected getNewValue(current: unknown, change: unknown): unknown {
         switch (this.mode) {
             case "multiply": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
-                    return this.warn("path");
+                    this.warn("path");
+                    return null;
                 }
-                const newValue = (current ?? 0) * change;
-                setProperty(this.actor.data, this.path, newValue);
-                this.logChange(change);
-                break;
+                return (current ?? 0) * change;
             }
             case "add": {
                 // A numeric add is valid if the change value is a number and the current value is a number or nullish
@@ -104,33 +121,26 @@ class AELikeRuleElement extends RuleElementPF2e {
                 const isArrayAdd = Array.isArray(current) && current.every((e) => typeof e === typeof change);
 
                 if (isNumericAdd) {
-                    const newValue = (current ?? 0) + change;
-                    setProperty(this.actor.data, this.path, newValue);
-                    this.logChange(change);
+                    return (current ?? 0) + change;
                 } else if (isArrayAdd) {
-                    current.push(change);
-                } else {
-                    this.warn("path");
+                    return change;
                 }
-                break;
+
+                this.warn("path");
+                return null;
             }
             case "downgrade": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
-                    return this.warn("path");
+                    this.warn("path");
+                    return null;
                 }
-                const newValue = Math.min(current ?? 0, change);
-                setProperty(this.actor.data, this.path, newValue);
-                this.logChange(change);
-                break;
+                return Math.min(current ?? 0, change);
             }
             case "upgrade": {
                 if (!(typeof change === "number" && (typeof current === "number" || current === undefined))) {
                     return this.warn("path");
                 }
-                const newValue = Math.max(current ?? 0, change);
-                setProperty(this.actor.data, this.path, newValue);
-                this.logChange(change);
-                break;
+                return Math.max(current ?? 0, change);
             }
             case "override": {
                 const currentValue = getProperty(this.actor.data, this.path);
@@ -141,18 +151,25 @@ class AELikeRuleElement extends RuleElementPF2e {
                             if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
                         }
                     }
-                    setProperty(this.actor.data, this.path, change);
-                    if (typeof change === "string") this.logChange(change);
+                    return change;
                 }
+
+                this.warn("value");
+                return null;
             }
         }
     }
 
     /** Log the numeric change of an actor data property */
-    private logChange(value: string | number): void {
+    private logChange(value: unknown): void {
         const { item, mode } = this;
-        if (typeof value === "string" && mode !== "override") return;
+        const isLoggable =
+            !(typeof value === "number" || typeof value === "string") &&
+            typeof value === "string" &&
+            mode !== "override";
+        if (!isLoggable) return;
 
+        value;
         const level =
             item instanceof FeatPF2e
                 ? Number(/-(\d+)$/.exec(item.data.data.location ?? "")?.[1]) || item.level
@@ -164,11 +181,9 @@ class AELikeRuleElement extends RuleElementPF2e {
         entries.push({ mode, level, value, source: this.item.name });
     }
 
-    private warn(path: string): void {
+    protected warn(property: string): void {
         const item = this.item;
-        console.warn(
-            `PF2e System | "${path}" property on RuleElement from item ${item.name} (${item.uuid}) is invalid`
-        );
+        this.failValidation(`"${property}" property on RuleElement from item ${item.name} (${item.uuid}) is invalid`);
     }
 }
 
@@ -190,13 +205,13 @@ export interface AELikeData extends RuleElementData {
     value: RuleValue;
     mode: AELikeChangeMode;
     priority: number;
-    phase: "applyAEs" | "beforeDerived" | "afterDerived";
+    phase: "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
 }
 
 export interface AELikeSource extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
-    phase?: "applyAEs" | "beforeDerived" | "afterDerived";
+    phase?: unknown;
 }
 
 export { AELikeRuleElement };
