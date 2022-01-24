@@ -662,7 +662,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                       return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
                   })()
                 : null;
-        options.push(`target:distance:${distance} `);
+        options.push(`target:distance:${distance}`);
 
         return {
             options,
