@@ -62,14 +62,15 @@ export abstract class CompendiumBrowserTab {
     /** Sort result array by name, level or price */
     protected sortResult(result: CompendiumIndexData[]): CompendiumIndexData[] {
         const { order } = this.filterData;
+        const lang = game.i18n.lang;
         const sorted = result.sort((entryA, entryB) => {
             switch (order.by) {
                 case "name":
-                    return entryA.name.localeCompare(entryB.name);
+                    return entryA.name.localeCompare(entryB.name, lang);
                 case "level":
-                    return entryA.level - entryB.level || entryA.name.localeCompare(entryB.name);
+                    return entryA.level - entryB.level || entryA.name.localeCompare(entryB.name, lang);
                 case "price":
-                    return entryA.priceInCopper - entryB.priceInCopper || entryA.name.localeCompare(entryB.name);
+                    return entryA.priceInCopper - entryB.priceInCopper || entryA.name.localeCompare(entryB.name, lang);
                 default:
                     return 0;
             }
@@ -93,7 +94,7 @@ export abstract class CompendiumBrowserTab {
             {} as Record<string, string>
         );
         // Return localized and sorted CheckBoxOptions
-        return Object.entries(sort ? this.sortedObject<string>(localized) : localized).reduce(
+        return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
             (result, [key, label]) => ({
                 ...result,
                 [key]: {
@@ -120,8 +121,10 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
-    protected sortedObject<T = unknown>(obj: Record<string, T>) {
-        return Object.fromEntries([...Object.entries(obj)].sort());
+    protected sortedConfig(obj: Record<string, string>) {
+        return Object.fromEntries(
+            [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang))
+        );
     }
 
     /** Ensure all index fields are present in the index data */
