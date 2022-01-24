@@ -1,8 +1,11 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
+import { ActionFilters } from "./data";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
+    override filterData!: ActionFilters;
+
     protected index = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
 
     constructor(browser: CompendiumBrowserV2) {
@@ -98,7 +101,6 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     selected: [],
                 },
             },
-            dropdowns: {},
             order: {
                 by: "name",
                 direction: "asc",
@@ -106,7 +108,6 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     name: "PF2E.BrowserSortyByNameLabel",
                 },
             },
-            ranges: {},
             search: {
                 text: "",
             },

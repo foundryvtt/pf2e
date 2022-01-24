@@ -1,8 +1,11 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowserV2 } from "..";
 import { CompendiumBrowserTab } from "./base";
+import { SpellFilters } from "./data";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
+    override filterData!: SpellFilters;
+
     constructor(browser: CompendiumBrowserV2) {
         super(browser, "spell");
 
@@ -239,7 +242,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     level: "PF2E.BrowserSortyByLevelLabel",
                 },
             },
-            ranges: {},
             search: {
                 text: "",
             },
