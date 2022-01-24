@@ -575,7 +575,9 @@ export class CompendiumBrowser extends Application {
 
         // Bestiary Browser Buttons
         const bestiaryImportButton = $(
-            `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`
+            `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> ${game.i18n.localize(
+                "PF2E.CompendiumBrowser.BestiaryBrowser"
+            )}</button>`
         );
 
         if (game.user.isGM) {

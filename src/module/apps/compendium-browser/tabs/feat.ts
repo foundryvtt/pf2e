@@ -150,7 +150,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         if (!(entry.level >= ranges.level.values.min && entry.level <= ranges.level.values.max)) return false;
         // Name
         if (search.text) {
-            if (!entry.name.toLocaleLowerCase().includes(search.text)) return false;
+            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
+                return false;
         }
         // Feat types
         if (checkboxes.feattype.selected.length) {
