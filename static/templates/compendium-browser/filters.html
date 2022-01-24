@@ -11,7 +11,21 @@
                         {{/each}}
                     {{/select}}
                 </select>
-                <a class="direction" data-type="alpha" data-direction="{{filterData.order.direction}}">{{#if (eq filterData.order.direction "asc")}}<i class="fas fa-sort-alpha-up"></i>{{else}}<i class="fas fa-sort-alpha-down"></i>{{/if}}</a>
+                <a class="direction" data-type="alpha" data-direction="{{filterData.order.direction}}">
+                    {{#if (eq filterData.order.direction "asc")}}
+                        {{#if (eq filterData.order.by "name")}}
+                            <i class="fas fa-sort-alpha-up"></i>
+                        {{else}}
+                            <i class="fas fa-sort-numeric-up"></i>
+                        {{/if}}
+                    {{else}}
+                        {{#if (eq filterData.order.by "name")}}
+                            <i class="fas fa-sort-alpha-down-alt"></i>
+                        {{else}}
+                            <i class="fas fa-sort-numeric-down-alt"></i>
+                        {{/if}}
+                    {{/if}}
+                </a>
             </dd>
         </dl>
         {{#each filterData.dropdowns as |dropdown type|}}

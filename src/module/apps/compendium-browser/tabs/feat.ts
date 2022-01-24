@@ -1,12 +1,12 @@
 import { sluggify } from "@util";
-import { CompendiumBrowserV2 } from "..";
+import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
 import { FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override filterData!: FeatFilters;
 
-    constructor(browser: CompendiumBrowserV2) {
+    constructor(browser: CompendiumBrowser) {
         super(browser, "feat");
 
         // Set the filterData object of this tab

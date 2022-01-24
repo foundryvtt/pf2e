@@ -7,7 +7,6 @@ import { ActionsPF2e } from "@system/actions/actions";
 import { setWorldSchemaVersion } from "@module/migration/set-world-schema-version";
 import { WorldClock } from "@module/apps/world-clock";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
-import { CompendiumBrowserV2 } from "@module/apps/compendium-browser-v2";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { MigrationSummary } from "@module/apps/migration-summary";
@@ -20,8 +19,7 @@ export const Ready = {
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
             // Start up the Compendium Browser
-            game.pf2e.compendiumBrowser =
-                BUILD_MODE === "production" ? new CompendiumBrowser() : new CompendiumBrowserV2();
+            game.pf2e.compendiumBrowser = new CompendiumBrowser();
 
             // Start up the License viewer
             game.pf2e.licenseViewer = new LicenseViewer();
