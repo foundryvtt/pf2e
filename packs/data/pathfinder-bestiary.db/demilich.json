@@ -30,7 +30,7 @@
                 "value": "+1 status to all saves vs. positive"
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 220,
                 "temp": 0,
                 "value": 220
@@ -42,6 +42,7 @@
                 "value": 19
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -93,32 +94,31 @@
                 "value": [
                     "disease",
                     "paralyzed",
-                    "polymorph",
                     "poison",
+                    "polymorph",
                     "unconscious"
                 ]
             },
             "dr": [
                 {
-                    "label": "Cold",
+                    "exceptions": "",
                     "type": "cold",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Electricity",
+                    "exceptions": "",
                     "type": "electricity",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Fire",
+                    "exceptions": "",
                     "type": "fire",
-                    "value": "5"
+                    "value": 5
                 },
                 {
                     "exceptions": "except bludgeoning",
-                    "label": "Physical",
                     "type": "physical",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
@@ -138,7 +138,7 @@
             },
             "rarity": "rare",
             "senses": {
-                "value": "darkvision, true seeing"
+                "value": "darkvision; true seeing"
             },
             "size": {
                 "value": "tiny"
@@ -156,16 +156,17 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v7guzrbe63Vafy6V",
+            "_id": "rNMUpQjQil41A67R",
             "data": {
                 "autoHeightenLevel": {
-                    "value": 8
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
                 "displayLevels": {},
                 "prepared": {
+                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
@@ -173,7 +174,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -269,7 +270,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "c9MqfKiwQSmueVyh",
+            "_id": "ioPnzskXdQNmr1OV",
             "data": {
                 "ability": {
                     "value": ""
@@ -316,11 +317,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 9
+                },
                 "level": {
                     "value": 9
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -350,7 +354,7 @@
                 },
                 "slug": "wail-of-the-banshee",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -392,7 +396,7 @@
             "type": "spell"
         },
         {
-            "_id": "RYoLtsgze1fAwWNi",
+            "_id": "OSbtb7hOIAcilbFJ",
             "data": {
                 "ability": {
                     "value": ""
@@ -431,11 +435,14 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightenedLevel": {
+                    "value": 7
+                },
                 "level": {
                     "value": 7
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -465,7 +472,7 @@
                 },
                 "slug": "spell-turning",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -502,7 +509,7 @@
             "type": "spell"
         },
         {
-            "_id": "nfiNV1U3nPgjzaF0",
+            "_id": "LDs80bqAdM5lXyY1",
             "data": {
                 "ability": {
                     "value": ""
@@ -541,11 +548,14 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightenedLevel": {
+                    "value": 6
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -575,7 +585,7 @@
                 },
                 "slug": "true-seeing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -617,7 +627,7 @@
             "type": "spell"
         },
         {
-            "_id": "YXBEVLKcNnOrlfpi",
+            "_id": "FcJ7lGjvmOJZvtmO",
             "data": {
                 "ability": {
                     "value": ""
@@ -648,7 +658,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 3.</p>"
+                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Blink]{Spell Effect: Blink}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 3.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -656,11 +666,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -690,7 +703,7 @@
                 },
                 "slug": "blink",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -730,7 +743,7 @@
             "type": "spell"
         },
         {
-            "_id": "7b01NTGXWZaGyMxu",
+            "_id": "OFkqgGXYjl87F0Nt",
             "data": {
                 "ability": {
                     "value": ""
@@ -769,11 +782,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 4
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -803,7 +819,7 @@
                 },
                 "slug": "dimension-door",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -843,7 +859,7 @@
             "type": "spell"
         },
         {
-            "_id": "1w97sRp2qL8O9QAG",
+            "_id": "ljGlIbY53EAJKiBi",
             "data": {
                 "ability": {
                     "value": ""
@@ -882,11 +898,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 4
                 },
+                "level": {
+                    "value": 2
+                },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -916,7 +935,7 @@
                 },
                 "slug": "telekinetic-maneuver",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -957,7 +976,7 @@
             "type": "spell"
         },
         {
-            "_id": "eWB2xUwpCmIFlL7W",
+            "_id": "oElw1dBtNCmhDJWf",
             "data": {
                 "ability": {
                     "value": ""
@@ -1000,7 +1019,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -1030,7 +1049,7 @@
                 },
                 "slug": "mage-hand",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1070,7 +1089,7 @@
             "type": "spell"
         },
         {
-            "_id": "IUt0Zf2MRWGlsNYn",
+            "_id": "9dEM4p7BdpIPeT9I",
             "data": {
                 "ability": {
                     "value": ""
@@ -1122,7 +1141,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "v7guzrbe63Vafy6V"
+                    "value": "rNMUpQjQil41A67R"
                 },
                 "materials": {
                     "value": ""
@@ -1158,7 +1177,7 @@
                 },
                 "slug": "telekinetic-projectile",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1199,7 +1218,7 @@
             "type": "spell"
         },
         {
-            "_id": "onMcLaRraEpqqiXX",
+            "_id": "9KJN3UH8g2nbSWG5",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1218,7 +1237,7 @@
                     "value": "<p>This glowing gem is harvested from a demilich and has an 8th-level spell magically bonded to it. This item has the traits of the spell it contains.</p>\n<p><strong>Activate</strong> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The gem casts the 8th-level spell it contains. This activation uses the same number of actions as Casting the Spell. Once the spell is cast, the gem's glow fades, but returns 24 hours later, when the spell can be used once again.</p>\n<hr />\n<p><strong>Craft Requirements</strong> <em>Demilich eye gems</em> can't be crafted.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1268,11 +1287,11 @@
                 },
                 "rules": [],
                 "size": {
-                    "value": "med"
+                    "value": "tiny"
                 },
                 "slug": "demilich-eye-gem",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "stackGroup": {
                     "value": ""
@@ -1309,6 +1328,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -1336,9 +1356,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "reach-0",
                         "finesse",
-                        "magical"
+                        "magical",
+                        "reach-0"
                     ]
                 },
                 "weaponType": {
@@ -1353,7 +1373,7 @@
             "type": "melee"
         },
         {
-            "_id": "0bsI3VjRhhUdWoQ8",
+            "_id": "KDy693oZjUA79500",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1441,7 +1461,7 @@
             "type": "action"
         },
         {
-            "_id": "PyV76Bd9ij8asav5",
+            "_id": "gRR4m0LvmYETY1sR",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1487,7 +1507,7 @@
             "type": "action"
         },
         {
-            "_id": "RBeSeiEMj2n4frBr",
+            "_id": "2in6dEOh1ygunO7S",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1499,7 +1519,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1533,7 +1553,7 @@
             "type": "action"
         },
         {
-            "_id": "eMmLTdJ0GIK8jCNn",
+            "_id": "YttgSizfr7L607th",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1563,7 +1583,7 @@
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -1580,9 +1600,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Positive",
+            "name": "+1 Status to All Saves vs Positive",
             "sort": 1600000,
             "type": "action"
         },
@@ -1599,7 +1623,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A demilich has one permanent 8th-level <em>@Compendium[pf2e.spells-srd.Contingency]{Contingency}</em> spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically <em>@Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}</em>.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich.</p>\n<p><strong>Effect</strong> The demilich ends torpor, rolls initiative, and gains the effect of its contingency's companion spell. The contingency resets after 24 hours.</p>"
+                    "value": "<p>A demilich has one permanent 8th-level <em>@Compendium[pf2e.spells-srd.Contingency]{Contingency}</em> spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell-typically <em>@Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}</em>.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich.</p>\n<p><strong>Effect</strong> The demilich ends torpor, rolls initiative, and gains the effect of its contingency's companion spell. The contingency resets after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1641,7 +1665,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The demilich's turn begins.</p>\n<p><strong>Effect</strong> The demilich casts <em>@Compendium[pf2e.spells-srd.Blink]{Blink}</em>, <em>@Compendium[pf2e.spells-srd.Fly]{Fly}</em>, <em>@Compendium[pf2e.spells-srd.Spell Turning]{Spell Turning}</em>, or <em>@Compendium[pf2e.spells-srd.True Seeing]{True Seeing}</em> on itself. It usually chooses spell turning unless it already has that spell in effect.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The demilich's turn begins.</p>\n<p><strong>Effect</strong> The demilich casts <em>@Compendium[pf2e.spells-srd.Blink]{Blink}</em>, <em>@Compendium[pf2e.spells-srd.Fly]{Fly}</em>, <em>@Compendium[pf2e.spells-srd.Spell Turning]{Spell Turning}</em>, or <em>@Compendium[pf2e.spells-srd.True Seeing]{True Seeing}</em> on itself. It usually chooses <em>spell turning</em> unless it already has that spell in effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1683,7 +1707,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as concealed.</p>\n<p>Any creature other than the demilich that enters or begins its turn in the aura takes [[/r {2d12}[bludgeoning]]]{2d12 bludgeoning damage}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as @Compendium[pf2e.conditionitems.Concealed]{Concealed}. Any creature other than the demilich that enters or begins its turn in the aura takes [[/r {2d12}[bludgeoning]]]{2d12 bludgeoning damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1729,7 +1753,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-level spell that targets one creature (usually one eye has <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em> and the other <em>@Compendium[pf2e.spells-srd.Polar Ray]{Polar Ray}</em>). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components.</p>\n<p data-visibility=\"gm\">When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/br 1d4 #rounds]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@Compendium[pf2e.equipment-srd.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
+                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-level spell that targets one creature (usually one eye has <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em> and the other <em>@Compendium[pf2e.spells-srd.Polar Ray]{Polar Ray}</em>). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components. When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/br 1d4 #Recharge Demilich Eye Gem]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@Compendium[pf2e.equipment-srd.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1773,7 +1797,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of the demilich's blight quartz gems for 24 hours.</p>\n<p><strong>Effect</strong> The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> A soul has been trapped in one of the demilich's blight quartz gems for 24 hours.</p>\n<p><strong>Effect</strong> The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1861,7 +1885,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A demilich long ago absorbed the spells from a staff into gemstone nodules embedded in its skull, with larger nodules representing higher-level spells. It can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 8 charges. A typical demilich has the spells from a @Compendium[pf2e.equipment-srd.Staff of Necromancy (Greater)]{Staff of Necromancy}, but it could have spells from another staff of 8th level or lower instead.</p>"
+                    "value": "<p>A demilich long ago absorbed the spells from a staff into gemstone nodules embedded in its skull, with larger nodules representing higher-level spells. It can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 8 charges. A typical demilich has the spells from a <em>@Compendium[pf2e.equipment-srd.Staff of Necromancy (Greater)]{Greater Staff of Necromancy}</em>, but it could have spells from another staff of 8th level or lower instead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1903,7 +1927,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day per gem</p>\n<p><strong>Effect</strong> Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts <em>@Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul}</em>. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a @Check[type:fortitude|dc:38] save; if it succeeds, it doesn't die and its soul is not trapped but it's @Compendium[pf2e.conditionitems.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in bind soul, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per day per gem</p>\n<p><strong>Effect</strong> Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts <em>@Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul}</em>. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a @Check[type:fortitude|dc:38] save; if it succeeds, it doesn't die and its soul is not trapped but it's @Compendium[pf2e.conditionitems.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in <em>bind soul</em>, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1999,7 +2023,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 28
+                    "value": 26
                 },
                 "proficient": {
                     "value": 0
