@@ -414,6 +414,7 @@ const weaponTraits = {
     nonlethal: "PF2E.TraitNonlethal",
     olfactory: "PF2E.TraitOlfactory",
     parry: "PF2E.TraitParry",
+    plant: "PF2E.TraitPlant",
     poison: "PF2E.TraitPoison",
     propulsive: "PF2E.TraitPropulsive",
     "ranged-trip": "PF2E.TraitRangedTrip",
