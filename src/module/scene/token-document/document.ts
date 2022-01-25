@@ -58,17 +58,21 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-
         if (!(this.initialized && this.actor)) return;
+
+        // Dimensions and scale
         const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
+        if (this.linkToActorSize) this.data.scale = 1;
 
-        if (!this.scene?.rulesBasedVision || this.actor.type === "npc") return;
-        for (const property of ["brightSight", "dimSight"] as const) {
-            this.data[property] = this.data._source[property] = 0;
+        // Vision
+        if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+            for (const property of ["brightSight", "dimSight"] as const) {
+                this.data[property] = this.data._source[property] = 0;
+            }
+            this.data.sightAngle = this.data._source.sightAngle = 360;
         }
-        this.data.sightAngle = this.data._source.sightAngle = 360;
     }
 
     override prepareDerivedData(): void {
