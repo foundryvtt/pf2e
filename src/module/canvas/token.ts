@@ -1,3 +1,4 @@
+import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { MeasuredTemplatePF2e } from ".";
 import { TokenLayerPF2e } from "./layer/token-layer";
@@ -31,30 +32,27 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this.document.hasDarkvision;
     }
 
-    /** Determine whether this token is flanked by another */
-    isFlankedBy(token: TokenPF2e): boolean {
-        // Only creatures can be flanked
-        const isEligibleFlankee = !!this.actor && ["character", "familiar", "npc"].includes(this.actor.type);
-        const isEligibleFlanker = !!token.actor && ["character", "npc"].includes(token.actor.type);
-        if (!(isEligibleFlankee && isEligibleFlanker)) return false;
+    /** Determine whether this token can flank another—given that they have a flanking buddy on the opposite side */
+    canFlank(flankee: TokenPF2e): boolean {
+        if (this === flankee) return false;
 
-        // Flanks must fulfill a number of other requirements
-        const inFlankingReach = (t: TokenPF2e) => t.distanceTo(this) <= (t.actor?.getReach({ to: "attack" }) ?? 0);
-        const canFlank = (t: TokenPF2e) =>
-            !!t.actor?.canSee &&
-            t.actor.canAttack &&
-            ["character", "npc"].includes(t.actor?.type ?? "") &&
-            inFlankingReach(t);
+        // Only PCs and NPCs can flank
+        if (!(this.actor && ["character", "npc"].includes(this.actor.type))) return false;
+        // Only creatures can be flanked
+        if (!(flankee.actor instanceof CreaturePF2e)) return false;
 
         // Allies don't flank each other
-        const areAlliedTokens = (a: TokenPF2e, b: TokenPF2e) =>
-            [a, b].every((t) => t.actor?.hasPlayerOwner ?? false) ||
-            ![a, b].some((t) => t.actor?.hasPlayerOwner ?? false);
+        const areAlliedTokens =
+            [this, flankee].every((t) => t.actor!.hasPlayerOwner ?? false) ||
+            ![this, flankee].some((t) => t.actor!.hasPlayerOwner ?? false);
+        if (areAlliedTokens) return false;
 
-        const flankingIsPossible = (flanker: TokenPF2e, flankee: TokenPF2e): boolean =>
-            flanker !== flankee && !areAlliedTokens(flanker, flankee) && canFlank(flanker);
+        return this.actor.canAttack && this.actor.getReach({ to: "attack" }) >= this.distanceTo(flankee);
+    }
 
-        if (!flankingIsPossible(token, this)) return false;
+    /** Determine whether this token is in fact flanking another */
+    isFlanking(flankee: TokenPF2e): boolean {
+        if (!this.canFlank(flankee)) return false;
 
         // Return true if a flanking buddy is found
         const { lineCircleIntersection, lineSegmentIntersects } = foundry.utils;
@@ -64,34 +62,30 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         const areOnOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
             const [centerA, centerB] = [flankerA.center, flankerB.center];
-
             const { bounds } = flankee;
-            const [leftSide, rightSide]: [[Point, Point], [Point, Point]] = [
-                [
-                    { x: bounds.left, y: bounds.top },
-                    { x: bounds.left, y: bounds.bottom },
-                ],
-                [
-                    { x: bounds.right, y: bounds.top },
-                    { x: bounds.right, y: bounds.bottom },
-                ],
+
+            const leftSide = (): [Point, Point] => [
+                { x: bounds.left, y: bounds.top },
+                { x: bounds.left, y: bounds.bottom },
             ];
-            const [topSide, bottomSide]: [[Point, Point], [Point, Point]] = [
-                [
-                    { x: bounds.left, y: bounds.top },
-                    { x: bounds.right, y: bounds.top },
-                ],
-                [
-                    { x: bounds.left, y: bounds.bottom },
-                    { x: bounds.right, y: bounds.bottom },
-                ],
+            const rightSide = (): [Point, Point] => [
+                { x: bounds.right, y: bounds.top },
+                { x: bounds.right, y: bounds.bottom },
+            ];
+            const topSide = (): [Point, Point] => [
+                { x: bounds.left, y: bounds.top },
+                { x: bounds.right, y: bounds.top },
+            ];
+            const bottomSide = (): [Point, Point] => [
+                { x: bounds.left, y: bounds.bottom },
+                { x: bounds.right, y: bounds.bottom },
             ];
 
             return (
-                (lineSegmentIntersects(centerA, centerB, ...leftSide) &&
-                    lineSegmentIntersects(centerA, centerB, ...rightSide)) ||
-                (lineSegmentIntersects(centerA, centerB, ...topSide) &&
-                    lineSegmentIntersects(centerA, centerB, ...bottomSide))
+                (lineSegmentIntersects(centerA, centerB, ...leftSide()) &&
+                    lineSegmentIntersects(centerA, centerB, ...rightSide())) ||
+                (lineSegmentIntersects(centerA, centerB, ...topSide()) &&
+                    lineSegmentIntersects(centerA, centerB, ...bottomSide()))
             );
         };
 
@@ -99,7 +93,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             areOnOppositeCorners(flankerA, flankerB, flankee) || areOnOppositeSides(flankerA, flankerB, flankee);
 
         return canvas.tokens.placeables.some(
-            (t) => flankingIsPossible(t, this) && isAFlankingArrangement(token, t, this)
+            (t) => t !== this && t.canFlank(flankee) && isAFlankingArrangement(this, t, flankee)
         );
     }
 
