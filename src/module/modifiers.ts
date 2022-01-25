@@ -174,6 +174,10 @@ export class ModifierPF2e implements RawModifier {
         }
     }
 
+    get isDeferred(): boolean {
+        return !!this.modifierFn;
+    }
+
     update(options?: DeferredValueParams) {
         if (this.modifierFn) {
             this.modifier = this.modifierFn(options);
@@ -519,8 +523,13 @@ export class CheckModifier extends StatisticModifier {
      * @param statistic The statistic modifier to copy fields from.
      * @param modifiers Additional modifiers to add to this check.
      */
-    constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
-        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers));
+    constructor(
+        name: string,
+        statistic: StatisticModifier,
+        modifiers: ModifierPF2e[] = [],
+        options?: DeferredValueParams
+    ) {
+        super(name, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), options);
     }
 }
 

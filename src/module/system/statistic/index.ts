@@ -16,7 +16,7 @@ import {
     StatisticData,
     StatisticDataWithCheck,
 } from "./data";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { CheckDC } from "@system/check-degree-of-success";
 import { isObject } from "@util";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -151,6 +151,17 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         return [...new Set(rollOptions)];
     }
 
+    /** Creates additional roll data based on the type of item */
+    private getResolvables(item?: ItemPF2e | null): Record<string, unknown> {
+        if (item instanceof SpellPF2e) {
+            return { spell: item };
+        } else if (item instanceof WeaponPF2e) {
+            return { weapon: item };
+        }
+
+        return {};
+    }
+
     /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
     get check(): CheckValue<T> {
         const data = this.data;
@@ -162,7 +173,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         const domains = (data.domains ?? []).concat(check.domains ?? []);
         const modifiers = (data.modifiers ?? []).concat(check.modifiers ?? []);
         const label = game.i18n.localize(check.label);
-        const stat = new StatisticModifier(label, modifiers);
+        const stat = new StatisticModifier(
+            label,
+            modifiers.filter((m) => !m.isDeferred)
+        );
 
         const checkObject: StatisticCheck = {
             label,
@@ -215,8 +229,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     args.dc.adjustments.push(...check.adjustments);
                 }
 
-                const extraModifiers = [...(args?.modifiers ?? [])];
                 const options = this.createRollOptions(domains, args);
+                const extraModifiers = [
+                    ...modifiers.filter((m) => m.isDeferred).map((m) => m.clone()),
+                    ...(args?.modifiers ?? []),
+                ];
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.actor.rules.filter((r) => !r.ignored)) {
@@ -247,10 +264,14 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     skipDialog,
                 };
 
-                CheckPF2e.roll(new CheckModifier(label, stat, extraModifiers), context, null, args.callback);
+                const resolvables = this.getResolvables(item);
+                const modifierStack = new CheckModifier(label, stat, extraModifiers, { resolvables });
+                CheckPF2e.roll(modifierStack, context, null, args.callback);
             },
             withOptions: (options: RollOptionParameters = {}) => {
-                const check = new CheckModifier(label, stat);
+                const resolvables = this.getResolvables(options.item);
+                const extraModifiers = modifiers.filter((m) => m.isDeferred).map((m) => m.clone());
+                const check = new CheckModifier(label, stat, extraModifiers, { resolvables });
 
                 // Toggle modifiers based on the specified options and re-apply stacking rules, if necessary
                 const rollOptions = this.createRollOptions(domains, options);
@@ -292,8 +313,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             .concat(data.dc.modifiers ?? [])
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
+        const resolvables = this.getResolvables(options.item);
+
         return {
-            value: (data.dc.base ?? 10) + new StatisticModifier("", modifiers).totalModifier,
+            value: (data.dc.base ?? 10) + new StatisticModifier("", modifiers, { resolvables }).totalModifier,
             get breakdown() {
                 return [game.i18n.localize("PF2E.DCBase")]
                     .concat(
