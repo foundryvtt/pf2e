@@ -1,7 +1,6 @@
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { MeasuredTemplatePF2e } from ".";
 import { TokenLayerPF2e } from "./layer/token-layer";
-import { Rectangle } from "pixi.js";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -30,6 +29,78 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
         return this.document.hasDarkvision;
+    }
+
+    /** Determine whether this token is flanked by another */
+    isFlankedBy(token: TokenPF2e): boolean {
+        // Only creatures can be flanked
+        const isEligibleFlankee = !!this.actor && ["character", "familiar", "npc"].includes(this.actor.type);
+        const isEligibleFlanker = !!token.actor && ["character", "npc"].includes(token.actor.type);
+        if (!(isEligibleFlankee && isEligibleFlanker)) return false;
+
+        // Flanks must fulfill a number of other requirements
+        const inFlankingReach = (t: TokenPF2e) => t.distanceTo(this) <= (t.actor?.getReach({ to: "attack" }) ?? 0);
+        const canFlank = (t: TokenPF2e) =>
+            !!t.actor?.canSee &&
+            t.actor.canAttack &&
+            ["character", "npc"].includes(t.actor?.type ?? "") &&
+            inFlankingReach(t);
+
+        // Allies don't flank each other
+        const areAlliedTokens = (a: TokenPF2e, b: TokenPF2e) =>
+            [a, b].every((t) => t.actor?.hasPlayerOwner ?? false) ||
+            ![a, b].some((t) => t.actor?.hasPlayerOwner ?? false);
+
+        const flankingIsPossible = (flanker: TokenPF2e, flankee: TokenPF2e): boolean =>
+            flanker !== flankee && !areAlliedTokens(flanker, flankee) && canFlank(flanker);
+
+        if (!flankingIsPossible(token, this)) return false;
+
+        // Return true if a flanking buddy is found
+        const { lineCircleIntersection, lineSegmentIntersects } = foundry.utils;
+
+        const areOnOppositeCorners = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean =>
+            lineCircleIntersection(flankerA.center, flankerB.center, flankee.center, 1).intersections.length > 0;
+
+        const areOnOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
+            const [centerA, centerB] = [flankerA.center, flankerB.center];
+
+            const { bounds } = flankee;
+            const [leftSide, rightSide]: [[Point, Point], [Point, Point]] = [
+                [
+                    { x: bounds.left, y: bounds.top },
+                    { x: bounds.left, y: bounds.bottom },
+                ],
+                [
+                    { x: bounds.right, y: bounds.top },
+                    { x: bounds.right, y: bounds.bottom },
+                ],
+            ];
+            const [topSide, bottomSide]: [[Point, Point], [Point, Point]] = [
+                [
+                    { x: bounds.left, y: bounds.top },
+                    { x: bounds.right, y: bounds.top },
+                ],
+                [
+                    { x: bounds.left, y: bounds.bottom },
+                    { x: bounds.right, y: bounds.bottom },
+                ],
+            ];
+
+            return (
+                (lineSegmentIntersects(centerA, centerB, ...leftSide) &&
+                    lineSegmentIntersects(centerA, centerB, ...rightSide)) ||
+                (lineSegmentIntersects(centerA, centerB, ...topSide) &&
+                    lineSegmentIntersects(centerA, centerB, ...bottomSide))
+            );
+        };
+
+        const isAFlankingArrangement = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean =>
+            areOnOppositeCorners(flankerA, flankerB, flankee) || areOnOppositeSides(flankerA, flankerB, flankee);
+
+        return canvas.tokens.placeables.some(
+            (t) => flankingIsPossible(t, this) && isAFlankingArrangement(token, t, this)
+        );
     }
 
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
@@ -155,8 +226,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         const gridSize = canvas.dimensions.size;
 
-        const tokenRect = (token: TokenPF2e): Rectangle => {
-            return new Rectangle(
+        const tokenRect = (token: TokenPF2e): PIXI.Rectangle => {
+            return new PIXI.Rectangle(
                 token.x + gridSize / 2,
                 token.y + gridSize / 2,
                 token.width - gridSize,
