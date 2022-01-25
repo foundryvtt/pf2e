@@ -33,6 +33,11 @@ export class LootPF2e extends ActorPF2e {
         return false;
     }
 
+    /** Come on, it's a box. */
+    override get canAct(): false {
+        return false;
+    }
+
     /** Anyone with Limited permission can update a loot actor */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === "update") {

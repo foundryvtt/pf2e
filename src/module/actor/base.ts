@@ -115,8 +115,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return true;
     }
 
+    /** Whether this actor can execute actions: meaningful implementations are found in `CreaturePF2e`. */
+    get canAct(): boolean {
+        return true;
+    }
+
+    /** Whether this actor can attack: meaningful implementations are found in `CreaturePF2e` and `HazardPF2e`. */
+    get canAttack(): boolean {
+        return false;
+    }
+
+    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
+    getReach(_options: { to?: "interact" | "attack" }): number {
+        return 0;
+    }
+
     get modeOfBeing(): ModeOfBeing {
-        const traits = this.traits;
+        const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
     }
 

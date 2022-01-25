@@ -74,6 +74,28 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return this.data.data.traits.rarity;
     }
 
+    /**
+     * A currently naive measurement of this creature's reach
+     * @param [to] The context of the reach measurement. Interaction does not consider weapons.
+     */
+    override getReach({ to = "interact" }: { to?: "interact" | "attack" } = {}): number {
+        const baseReach = {
+            tiny: 0,
+            sm: 5,
+            med: 5,
+            lg: 10,
+            huge: 15,
+            grg: 20,
+        }[this.size];
+
+        if (to === "interact" || this.type === "familiar") {
+            return baseReach;
+        } else {
+            const reachWeapons = this.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has("reach"));
+            return reachWeapons.length > 0 ? baseReach + 5 : baseReach;
+        }
+    }
+
     override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
         const senseTypes = senses
@@ -102,6 +124,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const lightLevel = canvas.scene.lightLevel;
         return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
+    }
+
+    override get canAct(): boolean {
+        const conditions = this.itemTypes.condition;
+        return this.hitPoints.value > 0 && !conditions.some((c) => ["paralyzed", "unconscious"].includes(c.slug));
+    }
+
+    override get canAttack(): boolean {
+        return this.type !== "familiar" && this.canAct;
     }
 
     get isDead(): boolean {

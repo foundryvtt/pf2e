@@ -19,6 +19,11 @@ export class HazardPF2e extends ActorPF2e {
         return this.data.data.details.isComplex;
     }
 
+    /** Minimal check since the disabled status of a hazard isn't logged */
+    override get canAttack(): boolean {
+        return this.itemTypes.melee.length > 0;
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
