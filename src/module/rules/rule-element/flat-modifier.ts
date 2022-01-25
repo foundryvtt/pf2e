@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
-import { ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
+import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
@@ -14,6 +14,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
 
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>) {
         super(data, item);
+
+        this.data.phase = data.phase ?? "beforeDerived";
 
         const modifierTypes: readonly unknown[] = MODIFIER_TYPES;
         this.data.type ??= MODIFIER_TYPE.UNTYPED;
@@ -40,8 +42,15 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const resolvedValue = Number(this.resolveValue(this.data.value)) || 0;
-        const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
+
+        const defer = !!selector && this.data.phase !== "beforeDerived";
+        const computeValue = (options?: DeferredValueParams) => {
+            const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
+            return Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
+        };
+
+        const value = defer ? computeValue : computeValue();
+
         if (selector && value) {
             // Strip out the title ("Effect:", etc.) of the effect name
             const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
@@ -73,6 +82,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     }
 }
 
+type ModifierPhase = "beforeDerived" | "afterDerived" | "beforeRoll";
+
 interface FlatModifierRuleElement {
     data: FlatModifierData;
 }
@@ -85,6 +96,7 @@ interface FlatModifierSource extends RuleElementSource {
     damageType?: unknown;
     damageCategory?: unknown;
     hideIfDisabled?: unknown;
+    phase?: ModifierPhase;
 }
 
 type FlatModifierData = FlatAbilityModifierData | FlatOtherModifierData;
@@ -97,6 +109,7 @@ interface BaseFlatModifierData extends RuleElementData {
     damageType?: string;
     damageCategory?: string;
     hideIfDisabled: boolean;
+    phase: ModifierPhase;
 }
 
 interface FlatAbilityModifierData extends BaseFlatModifierData {

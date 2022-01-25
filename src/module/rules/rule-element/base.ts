@@ -170,7 +170,7 @@ abstract class RuleElementPF2e {
     protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true } = {}
+        { evaluate = true, resolvables = {} } = {}
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
         if (typeof value === "string") value = this.resolveInjectedProperties(value);
@@ -232,7 +232,7 @@ abstract class RuleElementPF2e {
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item }))
+            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...(resolvables ?? {}) }))
             : value;
     }
 

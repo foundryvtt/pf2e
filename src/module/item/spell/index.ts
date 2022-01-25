@@ -20,6 +20,7 @@ import {
 } from "@module/modifiers";
 import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
+import { extractModifiers } from "@module/rules/util";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -142,8 +143,7 @@ export class SpellPF2e extends ItemPF2e {
         const experimentalDamageFormat = game.settings.get("pf2e", "automation.experimentalDamageFormatting");
 
         castLevel = this.computeCastLevel(castLevel);
-        const hasDangerousSorcery = this.actor?.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
-        const formulas = [];
+        const formulas: string[] = [];
         for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
             // Persistent / Splash are currently not supported for regular modes
             const isPersistentOrSplash = damage.type.subtype === "persistent" || damage.type.subtype === "splash";
@@ -155,14 +155,8 @@ export class SpellPF2e extends ItemPF2e {
             if (damage.value && damage.value !== "0") parts.push(damage.value);
             if (damage.applyMod && this.actor) parts.push("@mod");
 
-            // Add certain parts (like dangerous sorcerer/elite/weak) if its the first damage entry only
+            // Add elite/weak if its the first damage entry only
             if (formulas.length === 0) {
-                if (this.data.data.duration.value === "" && this.actor) {
-                    if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
-                        parts.push(String(castLevel));
-                    }
-                }
-
                 const traits = this.actor?.data.data.traits.traits.value ?? [];
                 if (traits.some((trait) => trait === "elite")) {
                     parts.push(this.unlimited ? 2 : 4);
@@ -204,6 +198,18 @@ export class SpellPF2e extends ItemPF2e {
             } else {
                 formulas.push(formula);
             }
+        }
+
+        // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this
+        const actor = this.actor;
+        if (actor) {
+            const statisticsModifiers = this.actor?.synthetics.statisticsModifiers ?? {};
+            const domains = ["spell-damage"];
+            const modifiers = extractModifiers(statisticsModifiers, domains);
+            const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
+            const resolvables = { spell: this.clone({ "data.level.value": castLevel }) };
+            const damageModifier = new StatisticModifier("", modifiers, rollOptions, { resolvables });
+            if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
         }
 
         return formulas.join(" + ");
