@@ -98,6 +98,7 @@ export type DeferredValue<T> = (options?: DeferredValueParams) => T;
 export class ModifierPF2e implements RawModifier {
     slug: string;
     label: string;
+    modifier: number;
     type: ModifierType;
     ability: AbilityString | null;
     adjustments: ModifierAdjustment[];
@@ -113,7 +114,8 @@ export class ModifierPF2e implements RawModifier {
     notes: string;
     hideIfDisabled: boolean;
 
-    private modifierRaw: number | DeferredValue<number>;
+    /** A function that builds the modifier for cases where its deferred */
+    private modifierFn?: DeferredValue<number>;
 
     /**
      * Create a new modifier.
@@ -147,7 +149,7 @@ export class ModifierPF2e implements RawModifier {
 
         this.label = game.i18n.localize(params.label ?? params.name);
         this.slug = sluggify(params.slug ?? this.label);
-        this.modifierRaw = params instanceof ModifierPF2e ? params.modifierRaw : params.modifier;
+        this.modifier = typeof params.modifier === "function" ? 0 : params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.adjustments = deepClone(params.adjustments ?? []);
@@ -162,22 +164,21 @@ export class ModifierPF2e implements RawModifier {
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
-    }
 
-    get modifier() {
-        return typeof this.modifierRaw === "function" ? 0 : this.modifierRaw;
-    }
-
-    set modifier(value: number) {
-        this.modifierRaw = value;
+        if (params instanceof ModifierPF2e && params.modifierFn) {
+            this.modifierFn = params.modifierFn;
+        } else if (typeof params.modifier === "function") {
+            this.modifierFn = params.modifier;
+        }
     }
 
     update(options?: DeferredValueParams) {
-        if (typeof this.modifierRaw === "function") {
-            this.modifierRaw = this.modifierRaw(options);
+        if (typeof this.modifierFn === "function") {
+            this.modifier = this.modifierFn(options);
+            delete this.modifierFn;
         }
 
-        return this.modifierRaw;
+        return this.modifier;
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -193,7 +194,9 @@ export class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate(this);
+        const copy = duplicate(this);
+        delete copy.modifierFn;
+        return copy;
     }
 
     toString() {
