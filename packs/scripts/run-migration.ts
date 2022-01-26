@@ -30,6 +30,7 @@ import { Migration711HeritageItems } from "@module/migration/migrations/711-heri
 import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
 import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fist-to-strike-re";
 import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-range-increment-res";
+import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
 
 const migrations: MigrationBase[] = [
     new Migration689EncumberanceActiveEffects(),
@@ -56,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration712ActorShieldStructure(),
     new Migration713FistToStrikeRE(),
     new Migration714RangeIncrementREs(),
+    new Migration715DangerousSorcery(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
