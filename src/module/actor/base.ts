@@ -248,7 +248,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
-    override _initialize(): void {
+    protected override _initialize(): void {
         super._initialize();
         this.initialized = true;
     }

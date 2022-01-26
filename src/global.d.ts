@@ -43,9 +43,11 @@ import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import { ActorsPF2e } from "@module/collection/actors";
 
 declare global {
     interface Game {
+        actors: ActorsPF2e;
         pf2e: {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
