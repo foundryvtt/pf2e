@@ -96,7 +96,6 @@ interface AdjustStrikeData extends Exclude<AELikeData, "path"> {
 }
 
 interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
-    selectors?: unknown;
     property?: unknown;
     definition?: unknown;
 }
