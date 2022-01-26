@@ -328,6 +328,7 @@ const traitsDescriptions = {
     champion: "PF2E.TraitDescriptionChampion",
     changeling: "PF2E.TraitDescriptionChangeling",
     chaotic: "PF2E.TraitDescriptionChaotic",
+    charm: "PF2E.TraitDescriptionCharm",
     class: "PF2E.TraitDescriptionClass",
     cleric: "PF2E.TraitDescriptionCleric",
     climbing: "PF2E.TraitDescriptionClimbing",
