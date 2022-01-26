@@ -30,7 +30,7 @@
                 "value": "+1 status to all saves vs. positive"
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 350,
                 "temp": 0,
                 "value": 350
@@ -42,6 +42,7 @@
                 "value": 27
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "30"
             }
@@ -91,7 +92,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(Can't Speak Any Language)",
                 "selected": [],
                 "value": [
                     "common"
@@ -123,6 +124,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "energy-drain"
                     ]
@@ -169,6 +171,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -177,11 +180,11 @@
                 "damageRolls": {
                     "f4qpy7b7las0v6vqvc2c": {
                         "damage": "",
-                        "damageType": "fouroftheweapon'sdamagedice+9oftheweapon'sdamagetype"
+                        "damageType": "chaotic"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Four of the weapon's damage dice +9 of the weapon's damage type.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -217,6 +220,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "plummet"
                     ]
@@ -258,25 +262,25 @@
             "type": "melee"
         },
         {
-            "_id": "o0lDNImymUns2dK0",
+            "_id": "6pFoOIHjIKB8RSDO",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -293,14 +297,175 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "CKgiO84jacFLnIGI",
+            "_id": "vhMuwHfxhvT3a6e2",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "positive"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Positive",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "TKC7njhX3a3mq4eY",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "vcD6GpR7alODPFzn",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "I98w77MsvsKISF0z",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -347,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 500000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -363,7 +528,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The warsworn moves into a dying creature's space.</p>\n<p><strong>Effect</strong> The warsworn absorbs the dying creature into itself, instantly killing the creature and healing the warsworn for a number of Hit Points equal to the creature's level. As long as the warsworn still exists, absorbed creatures can't be resurrected except by wish or a similarly powerful effect.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The warsworn moves into a @Compendium[pf2e.conditionitems.Dying]{Dying} creature's space.</p>\n<p><strong>Effect</strong> The warsworn absorbs the dying creature into itself, instantly killing the creature and healing the warsworn for a number of Hit Points equal to the creature's level. As long as the warsworn still exists, absorbed creatures can't be resurrected except by <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> or a similarly powerful effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -393,7 +558,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Absorb",
-            "sort": 600000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -438,7 +603,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Animated Weapons",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -454,7 +619,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a warsworn hits with a corpse wave Strike or damages a creature with Trample, the target must succeed at a @Check[type:fortitude|dc:35] save or become drained 2 and doomed 1. On a critical success, the target becomes temporarily immune to the warsworn's energy drain for 24 hours.</p>"
+                    "value": "<p>When a warsworn hits with a corpse wave Strike or damages a creature with Trample, the target must succeed at a @Check[type:fortitude|dc:35] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}. On a critical success, the target becomes temporarily immune to the warsworn's energy drain for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -483,7 +648,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Energy Drain",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -499,7 +664,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by a warsworn's scrap ball Strike must attempt a @Check[type:reflex|dc:37] save. On a failure, the target falls prone; if the target was airborne, it falls up to 120 feet, taking damage from the fall and landing prone if the descent brings it to the ground. On a critical failure, the target is also held under a pile of scrap (DC 37 to Escape).</p>"
+                    "value": "<p>A creature hit by a warsworn's scrap ball Strike must attempt a @Check[type:reflex|dc:37] save. On a failure, the target falls @Compendium[pf2e.conditionitems.Prone]{Prone}; if the target was airborne, it falls up to 120 feet, taking damage from the fall and landing prone if the descent brings it to the ground. On a critical failure, the target is also held under a pile of scrap (DC 37 to @Compendium[pf2e.actionspf2e.Escape]{Escape}).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -525,11 +690,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Plummet",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "c7MtBNgFJhWxC09k",
+            "_id": "S2UbYSN0YRKJbMS0",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -541,7 +706,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Huge or smaller, corpse wave, @Check[type:reflex|dc:37|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Huge or smaller, corpse wave, @Check[type:reflex|dc:37|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -571,7 +736,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -601,7 +766,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
