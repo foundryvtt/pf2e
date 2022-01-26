@@ -33,6 +33,7 @@ import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { ActorsPF2e } from "@module/collection/actors";
 
 export const Init = {
     listen: (): void => {
@@ -46,6 +47,7 @@ export const Init = {
             CONFIG.Item.documentClass = ItemPF2e;
             CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
             CONFIG.Actor.documentClass = ActorPF2e;
+            CONFIG.Actor.collection = ActorsPF2e;
             CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
             CONFIG.Combat.documentClass = EncounterPF2e;
             CONFIG.Combatant.documentClass = CombatantPF2e;
