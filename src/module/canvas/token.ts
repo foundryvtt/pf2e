@@ -32,6 +32,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this.document.hasDarkvision;
     }
 
+    /** Is this token's dimensions linked to its actor's size category? */
+    get linkToActorSize(): boolean {
+        return this.data.flags.pf2e.linkToActorSize;
+    }
+
     /** Determine whether this token can flank another—given that they have a flanking buddy on the opposite side */
     canFlank(flankee: TokenPF2e): boolean {
         if (this === flankee) return false;
@@ -118,9 +123,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!this.icon) return; // Exit early if icon isn't present
 
         const iconIsReady = () => !!(this.icon?.transform?.scale && this.texture);
-        const sizeChanged = !!this.hitArea && this.w !== this.hitArea.width;
+        const sizeChanged = !!this.hitArea && this.linkToActorSize && this.w !== this.hitArea.width;
         const scaleChanged = ((): boolean => {
-            if (!iconIsReady()) return false;
+            if (!iconIsReady() || !this.linkToActorSize) return false;
             const expectedScale = Math.round((this.texture.orig.width / this.texture.orig.height) * 10) / 10;
             return Math.round((this.icon.width / this.w) * 10) / 10 !== expectedScale;
         })();
