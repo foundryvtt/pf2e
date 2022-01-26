@@ -42,6 +42,7 @@
                 "value": 14
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -61,7 +62,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "<p>Shadows that spend long amounts of time on the Shadow Plane and absorb its magic become greater shadows.</p>",
+            "publicNotes": "<p>Shadows that spend long amounts of time on the Shadow Plane and absorb its magic become greater shadows.</p>\n<hr />\n<p>The mysterious undead known as shadows lurk in dark places and feed on those who stray too far from the light. Those who parley with shadows, typically by keeping them at bay with a glowing weapon, may learn great secrets, for they are ideal spies.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -101,18 +102,12 @@
             },
             "dr": [
                 {
-                    "exceptions": "force or ghost touch or positive; double resistance vs. non-magical",
-                    "label": "All",
+                    "exceptions": "except force, ghost touch or positive; double resistance vs. non-magical",
                     "type": "all",
-                    "value": "10"
+                    "value": 10
                 }
             ],
-            "dv": [
-                {
-                    "label": "Light Vulnerability",
-                    "type": "light vulnerability"
-                }
-            ],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -141,7 +136,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HifUQElKiehsXPwC",
+            "_id": "UluC5rRvQl0yriAj",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -159,10 +154,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -236,7 +231,7 @@
                 "spelldc": {
                     "dc": 25,
                     "mod": 0,
-                    "value": 15
+                    "value": 17
                 },
                 "tradition": {
                     "value": "divine"
@@ -255,14 +250,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "QHABH31pS73Yu9sp",
+            "_id": "Xj2woyiQHPYlP7Uc",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -283,7 +281,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -291,16 +289,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 2
+                },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "HifUQElKiehsXPwC"
+                    "value": "UluC5rRvQl0yriAj"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -314,9 +318,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -347,9 +357,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.webp",
-            "name": "Darkness",
+            "name": "Darkness (At Will)",
             "sort": 200000,
             "type": "spell"
         },
@@ -360,6 +374,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -399,6 +414,98 @@
             "type": "melee"
         },
         {
+            "_id": "LRVsZzLZZ4VCKy1h",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "wWrvIQM5fOYBSMRQ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "kppTcx5TylWkpfF1",
             "data": {
                 "actionCategory": {
@@ -411,7 +518,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An object shedding magical light (such as from the light spell) is treated as magical when used to attack the shadow.</p>"
+                    "value": "<p>An object shedding magical light (such as from the <em>@Compendium[pf2e.spells-srd.Light]{Light}</em> spell) is treated as magical when used to attack the shadow.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -437,7 +544,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Vulnerability",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -453,7 +560,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature's shadow is pulled free by Steal Shadow, it becomes a shadow spawn under the command of the greater shadow that created it. This shadow spawn doesn't have Steal Shadow. If the creature the shadow spawn was pulled from dies, the shadow spawn becomes a full-fledged, autonomous shadow. If the creature recovers from its enfeeblement, its shadow returns to it and the shadow spawn is extinguished.</p>"
+                    "value": "<p>When a creature's shadow is pulled free by Steal Shadow, it becomes a @Compendium[pf2e.pathfinder-bestiary.Shadow]{Shadow Spawn} under the command of the shadow that created it. This shadow spawn doesn't have Steal Shadow. If the creature the shadow spawn was pulled from dies, the shadow spawn becomes a full-fledged, autonomous shadow. If the creature recovers from its @Compendium[pf2e.conditionitems.Enfeebled]{Enfeeblement}, its shadow returns to it and the shadow spawn is extinguished.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -479,7 +586,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shadow Spawn",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -495,7 +602,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The greater shadow can Hide or end its Sneak in a creature's or object's shadow.</p>"
+                    "value": "<p>The shadow can @Compendium[pf2e.actionspf2e.Hide]{Hide} or end its @Compendium[pf2e.actionspf2e.Sneak]{Sneak} in a creature's or object's shadow.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -521,7 +628,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slink in Shadows",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -537,7 +644,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The greater shadow hit a living creature with a shadow hand Strike on its previous action.</p>\n<p><strong>Effect</strong> The greater shadow pulls at the target's shadow, making the creature @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} or enfeebled 3 on a critical hit. This is cumulative with other @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} conditions from shadows, to a maximum of @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 4}. If this increases a creature's @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} value to 3 or more, the target's shadow is separated from its body (see shadow spawn). @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} from Steal Shadow decreases by 1 every hour.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The shadow hit a living creature with a shadow hand Strike on its previous action.</p>\n<p><strong>Effect</strong> The shadow pulls at the target's shadow, making the creature @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (or @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} on a critical hit). This is cumulative with other enfeebled conditions from shadows, to a maximum of enfeebled 4. If this increases a creature's enfeebled value to 3 or more, the target's shadow is separated from its body (see Shadow Spawn). Enfeebled from Steal Shadow decreases by 1 every hour.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -566,7 +673,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Steal Shadow",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -596,7 +703,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -626,7 +733,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
