@@ -319,7 +319,7 @@ export class CheckPF2e {
             }
         )) as ChatMessagePF2e | ChatMessageSourcePF2e;
 
-        Hooks.call("pf2e.checkRoll", {check, context, item});
+        Hooks.call("pf2e.checkRoll", { check, context, item });
         if (callback) {
             // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData instance in v9
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
