@@ -229,6 +229,22 @@ export class SpellPF2e extends ItemPF2e {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
+    override getItemRollOptions(prefix?: string) {
+        const options = super.getItemRollOptions(prefix);
+        const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
+        if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
+            options.push(`${prefix}:spell-slot`);
+        }
+        if (!this.data.data.duration.value) {
+            options.push(`${prefix}:duration:0`);
+        }
+        if (this.data.data.spellType.value !== "heal") {
+            options.push("damaging-effect");
+        }
+
+        return options;
+    }
+
     override async toMessage(
         event?: JQuery.TriggeredEvent,
         { create = true, data = {} } = {}
