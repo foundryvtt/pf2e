@@ -70,9 +70,8 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
         }
 
         // Remove setting of ability on Strike rule elements
-        const strikeRules = itemSource.data.rules.filter((rule): rule is StrikeRuleSource =>
-            rule.key.endsWith("Strike")
-        );
+        const { rules } = itemSource.data;
+        const strikeRules = rules.filter((rule): rule is StrikeRuleSource => /\bStrike$/.test(rule.key));
         for (const rule of strikeRules) {
             rule.key = "Strike";
             rule.range = Number(rule.range) || null;
