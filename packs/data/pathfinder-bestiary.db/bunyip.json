@@ -524,6 +524,9 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "predicate": {
                             "not": [
                                 "self:effect:crocodile-form",
@@ -532,6 +535,20 @@
                         },
                         "selector": "jaws-attack",
                         "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.regular]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "not": [
+                                "self:effect:crocodile-form",
+                                "self:effect:snake-form"
+                            ]
+                        },
+                        "selector": "jaws-attack",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.critical]</p>"
                     }
                 ],
                 "slug": null,
