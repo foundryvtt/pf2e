@@ -357,6 +357,7 @@ const weaponTraits = {
     "capacity-3": "PF2E.TraitCapacity3",
     "capacity-4": "PF2E.TraitCapacity4",
     "capacity-5": "PF2E.TraitCapacity5",
+    charm: "PF2E.TraitCharm",
     climbing: "PF2E.TraitClimbing",
     clockwork: "PF2E.TraitClockwork",
     cobbled: "PF2E.TraitCobbled",
