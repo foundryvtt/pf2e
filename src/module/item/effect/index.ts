@@ -83,6 +83,18 @@ export class EffectPF2e extends ItemPF2e {
         this.actor.rollOptions.all[`self:effect:${reducedSlug}`] = true;
     }
 
+    /** Include a trimmed version of the "slug" roll option (e.g., effect:rage instead of effect:effect-rage) */
+    override getItemRollOptions(prefix = this.type): string[] {
+        const slug = this.slug ?? sluggify(this.name);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const trimmedSlug = slug.replace(/^(?:spell-)?(?:effect|stance)-/, "");
+
+        const options = super.getItemRollOptions(prefix);
+        options.findSplice((o) => o === `${delimitedPrefix}${slug}`, `${delimitedPrefix}${trimmedSlug}`);
+
+        return options;
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
