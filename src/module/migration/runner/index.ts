@@ -253,7 +253,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         if (migrations.length === 0) return;
 
         // Migrate World Actors
-        await this.migrateWorldDocuments(game.actors, migrations);
+        await this.migrateWorldDocuments(game.actors as WorldCollection<ActorPF2e>, migrations);
 
         // Migrate World Items
         await this.migrateWorldDocuments(game.items, migrations);
