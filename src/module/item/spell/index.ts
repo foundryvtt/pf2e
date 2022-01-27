@@ -204,7 +204,7 @@ export class SpellPF2e extends ItemPF2e {
         const actor = this.actor;
         if (actor) {
             const statisticsModifiers = this.actor?.synthetics.statisticsModifiers ?? {};
-            const domains = ["spell-damage"];
+            const domains = ["damage", "spell-damage"];
             const modifiers = extractModifiers(statisticsModifiers, domains);
             const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
             const resolvables = { spell: this.clone({ "data.level.value": castLevel }) };
