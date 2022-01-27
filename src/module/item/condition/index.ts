@@ -2,6 +2,7 @@ import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { ConditionData, ConditionType } from "./data";
+import {RuleElementPF2e} from "@module/rules";
 
 export class ConditionPF2e extends ItemPF2e {
     static override get schema(): typeof ConditionData {
@@ -23,7 +24,7 @@ export class ConditionPF2e extends ItemPF2e {
 
     /** Is the condition currently active? */
     get isActive(): boolean {
-        return this.data.data.active;
+        return this.data.data.active && !this.actor?.immunities.includes(this.slug);
     }
 
     /** Is the condition from the pf2e system or a module? */
@@ -46,10 +47,15 @@ export class ConditionPF2e extends ItemPF2e {
     /** Set a self roll option for this condition */
     override prepareActorData(this: Embedded<ConditionPF2e>): void {
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`self:condition:${slug}`] = true;
+
+        this.actor.rollOptions.all[`self:condition:${slug}`] = this.isActive;
         if (this.slug === "flat-footed") {
-            this.actor.rollOptions.all["self:flatFooted"] = true;
+            this.actor.rollOptions.all["self:flatFooted"] = this.isActive;
         }
+    }
+
+    override prepareRuleElements(): RuleElementPF2e[] {
+        return this.isActive ? super.prepareRuleElements.call(this as Embedded<ItemPF2e>) : [];
     }
 
     /* -------------------------------------------- */

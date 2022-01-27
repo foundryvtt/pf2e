@@ -382,9 +382,7 @@ export class StatusEffects {
         // Iterate the list to create the chat and bubble chat dialog.
 
         const conditions =
-            token.actor?.itemTypes.condition.filter(
-                (condition) => condition.fromSystem && condition.data.data.active
-            ) ?? [];
+            token.actor?.itemTypes.condition.filter((condition) => condition.fromSystem && condition.isActive) ?? [];
         for (const condition of conditions) {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = "summary" in conditionInfo ? conditionInfo.summary : "";

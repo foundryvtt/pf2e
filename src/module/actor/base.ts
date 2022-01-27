@@ -11,7 +11,7 @@ import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
+import { BaseActorDataPF2e, BaseTraitsData, ImmunityType, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -97,6 +97,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get traits(): Set<string> {
         return new Set(this.data.data.traits.traits.value);
+    }
+
+    get immunities(): ImmunityType[] {
+        return this.data.data.traits.di.value;
     }
 
     get level(): number {
@@ -343,7 +347,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         // Conditions
         const conditions = this.itemTypes.condition
-            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
+            .filter((c) => c.data.flags.pf2e?.condition && c.isActive)
             .map((c) => c.data);
 
         const { statisticsModifiers } = this.synthetics;
