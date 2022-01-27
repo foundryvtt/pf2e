@@ -55,6 +55,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "pincer",
         "pseudopod",
         "rock",
+        "spikes",
         "stinger",
         "tail",
         "talon",
