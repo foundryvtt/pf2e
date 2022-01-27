@@ -8,45 +8,30 @@
 
     .shield {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         height: 74px;
         text-align: center;
-        padding: 0 5px;
-        h4,
-        label {
-            font-family: var(--serif);
-            font-weight: 500;
-            white-space: normal;
-        }
+        padding: 14px 10px 0 10px;
         .data-value {
             h2,
             input[type='number'] {
                 font-size: 32px;
-                line-height: 24px;
-                height: 26px;
                 width: 55px;
             }
         }
         label {
-            font-size: 10px;
+            white-space: normal;
         }
         &.ac {
             grid-area: ac;
-            color: var(--sidebar-label);
             background: url('../assets/sheet/shield-blue.webp') no-repeat center
                 center;
         }
         &.hp {
             grid-area: shield-hp;
-            background: url('../assets/sheet/shield-red.webp') no-repeat top
-                center;
-            .data-value:hover {
-                input[type='number'] {
-                    @include input-glow;
-                }
-            }
+            background: url('../assets/sheet/shield-red.webp') no-repeat top center;
         }
     }
     .shield-stats {
@@ -70,6 +55,12 @@
                         border: none;
                         width: auto;
                         height: 20px;
+                        path {
+                            fill: var(--tertiary-light);
+                        }
+                        text {
+                            fill: var(--dark);
+                        }
                     }
                     &:after {
                         display: inline-block;
@@ -122,7 +113,6 @@
         .shield-max {
             display: flex;
             flex-direction: column;
-            @include flex-center;
             label {
                 white-space: normal;
                 text-align: center;
@@ -131,8 +121,9 @@
         }
         .shield-status {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            align-items: end;
+            justify-content: center;
+            gap: 5px;
             color: var(--tertiary-light);
             margin-top: 4px;
         }

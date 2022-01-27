@@ -15,12 +15,27 @@
         @include frame-silver;
     }
 
-    h4.plaque {
-        margin-left: 0;
+    .plaque {
         color: var(--sidebar-title);
         font-size: 1rem;
         font-weight: 500;
         margin-bottom: 0.25rem;
+        display: flex;
+
+        &::before,
+        &::after {
+            display: block;
+            content: url("../assets/icons/pathfinder-orn.svg");
+            height: 100%;
+            width: 25px;
+        }
+        &::after {
+            transform: scaleX(-1);
+            margin-left: 4px;
+        }
+        &::before {
+            margin-right: 4px;
+        }
     }
 
     ul.stats {
