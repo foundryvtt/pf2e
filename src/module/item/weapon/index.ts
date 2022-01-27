@@ -103,7 +103,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
-                magical: this.isMagical,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
