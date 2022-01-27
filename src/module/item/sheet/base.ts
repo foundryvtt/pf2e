@@ -326,6 +326,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
 
+        $html.find("[data-clipboard]").on("click", (event) => {
+            const clipText = $(event.target).closest("[data-clipboard]").attr("data-clipboard");
+            if (clipText) {
+                navigator.clipboard.writeText(clipText);
+                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+            }
+        });
+
         const $prerequisites = $html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
         if ($prerequisites[0]) {
             new Tagify($prerequisites[0], {
