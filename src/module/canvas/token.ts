@@ -52,7 +52,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             ![this, flankee].some((t) => t.actor!.hasPlayerOwner ?? false);
         if (areAlliedTokens) return false;
 
-        return this.actor.canAttack && this.actor.getReach({ to: "attack" }) >= this.distanceTo(flankee);
+        const reach = this.actor.getReach({ to: "attack" });
+
+        return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
     /** Determine whether this token is in fact flanking another */
@@ -216,7 +218,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
      * centre of squares, and if either covers more than one square, we want the minimum distance between
      * any two of the squares.
      */
-    distanceTo(target: TokenPF2e): number {
+    distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
         if (!canvas.dimensions) return NaN;
 
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
@@ -234,7 +236,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             );
         };
 
-        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target));
+        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach });
     }
 
     /* -------------------------------------------- */
