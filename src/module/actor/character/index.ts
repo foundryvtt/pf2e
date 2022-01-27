@@ -773,6 +773,9 @@ export class CharacterPF2e extends CreaturePF2e {
             entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
+        // Initiative
+        this.prepareInitiative(statisticsModifiers, rollNotes);
+
         // Resources
         const { resources } = this.data.data;
         resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
@@ -781,8 +784,10 @@ export class CharacterPF2e extends CreaturePF2e {
             resources.focus.max = 1;
         }
 
-        // Initiative
-        this.prepareInitiative(statisticsModifiers, rollNotes);
+        // Set a roll option for whether this character has a familiar
+        if (systemData.attributes.familiarAbilities.value > 0) {
+            this.rollOptions.all["self:has-familiar"] = true;
+        }
 
         // Call post-data-preparation RuleElement hooks
         for (const rule of this.rules) {
