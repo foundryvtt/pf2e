@@ -1086,6 +1086,11 @@ export class CharacterPF2e extends CreaturePF2e {
         // Everything from relevant synthetics
         modifiers.push(...extractModifiers(statisticsModifiers, selectors));
 
+        // Apply adjustments
+        for (const modifier of modifiers) {
+            modifier.adjustments = this.getModifierAdjustments(selectors, modifier.slug);
+        }
+
         // Multiple attack penalty
         const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
         {
