@@ -97,6 +97,15 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
+            // Insert templates into DOM tree so Applications can render into
+            if (document.querySelector("#ui-top") !== null) {
+                // Template element for effects-panel
+                const uiTop = document.querySelector("#ui-top");
+                const template = document.createElement("template");
+                template.setAttribute("id", "pf2e-effects-panel");
+                uiTop?.insertAdjacentElement("afterend", template);
+            }
+
             // configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
             CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat("systems/pf2e/styles/main.css");
