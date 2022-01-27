@@ -924,7 +924,6 @@ export class CharacterPF2e extends CreaturePF2e {
         const { synthetics } = this;
         const { rollNotes, statisticsModifiers, strikeAdjustments } = synthetics;
         const modifiers: ModifierPF2e[] = [];
-        const weaponTraits = weapon.traits;
         const systemData = this.data.data;
         const { categories } = options;
         const ammos = options.ammos ?? [];
@@ -933,6 +932,8 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustStrike(weapon);
         }
+
+        const weaponTraits = weapon.traits;
 
         // Determine the default ability and score for this attack.
         const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
