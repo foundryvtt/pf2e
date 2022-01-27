@@ -9,7 +9,7 @@ export class Migration714RangeIncrementREs extends MigrationBase {
     private farLobber = {
         definition: { all: ["weapon:base:alchemical-bomb"] },
         key: "AdjustStrike",
-        mode: "override",
+        mode: "upgrade",
         property: "range-increment",
         value: 30,
     };
@@ -101,6 +101,14 @@ export class Migration714RangeIncrementREs extends MigrationBase {
         },
     ];
 
+    private uncannyBombs = {
+        definition: { all: ["weapon:base:alchemical-bomb"] },
+        key: "AdjustStrike",
+        mode: "upgrade",
+        property: "range-increment",
+        value: 60,
+    };
+
     private unerringShot = (() => {
         const gte: [string, number] = ["weapon:proficiency:rank", 3];
         return {
@@ -153,6 +161,10 @@ export class Migration714RangeIncrementREs extends MigrationBase {
                 }
                 case "triangulate": {
                     source.data.rules = this.triangulate;
+                    return;
+                }
+                case "uncanny-bombs": {
+                    source.data.rules = [this.uncannyBombs];
                     return;
                 }
                 case "unerring-shot": {
