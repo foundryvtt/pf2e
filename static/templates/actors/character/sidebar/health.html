@@ -2,26 +2,26 @@
   <h2>
       {{localize 'PF2E.HitPointsHeader'}}
   </h2>
-  <h2 class="hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
+  <button class="modifiers_button hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
       <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
-  </h2>
+  </button>
 </div>
 <div class="hitpoints">
   <div class="hp-big">
     <div class="container temp-hp">
-      <label>{{localize "PF2E.TempHitPointsShortLabel"}}</label>
+      <label for="{{options.id}}-pc-hp-temp" class="sidebar_label">{{localize "PF2E.TempHitPointsShortLabel"}}</label>
       <div class="data-value" title="{{localize "PF2E.TempHPTitle"}}">
-        <input name="data.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" data-dtype="Number" placeholder="0" />
+        <input name="data.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number" value="{{data.attributes.hp.temp}}" data-dtype="Number" placeholder="0" />
       </div>
     </div>
     <div class="container current-hp">
-      <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
+      <label for="{{options.id}}-pc-hp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
       <div class="data-value" title="{{localize "PF2E.CurrentHPTitle"}}">
-        <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="10" />
+        <input name="data.attributes.hp.value" id="{{options.id}}-pc-hp" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="10" />
       </div>
     </div>
     <div class="container max-hp">
-      <label>{{localize "PF2E.MaxHitPointsShortLabel"}}</label>
+      <span class="sidebar_label">{{localize "PF2E.MaxHitPointsShortLabel"}}</span>
       <div class="data-value">
           <h2>{{data.attributes.hp.max}}</h2>
       </div>
@@ -34,15 +34,15 @@
         </a>
       </div>
       <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
-          <label>{{localize "PF2E.condition.dying.name"}}</label>
+          <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
           <span>{{{data.attributes.dying.icon}}}</span>
       </a>
       <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
-          <label>{{localize "PF2E.condition.wounded.name"}}</label>
+          <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
           <span>{{{data.attributes.wounded.icon}}}</span>
       </a>
       <a class="dots doomed" title="{{localize "PF2E.condition.doomed.summary"}}">
-          <label>{{localize "PF2E.condition.doomed.name"}}</label>
+          <span class="sidebar_label">{{localize "PF2E.condition.doomed.name"}}</span>
           <span>{{{data.attributes.doomed.icon}}}</span>
       </a>
   </div>
