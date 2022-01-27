@@ -474,6 +474,7 @@ export class WeaponDamagePF2e {
         for (const modifier of numericModifiers) {
             modifier.damageType ??= baseDamageType;
             modifier.damageCategory ??= DamageCategory.fromDamageType(modifier.damageType);
+            modifier.adjustments = actor.getModifierAdjustments(selectors, modifier.slug);
         }
 
         const notes = selectors.flatMap(
@@ -820,7 +821,7 @@ export class WeaponDamagePF2e {
     }
 
     private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
-        const selectors = [`${weapon._id}-damage`, "mundane-damage", "damage"];
+        const selectors = [`${weapon._id}-damage`, "strike-damage", "mundane-damage", "damage"];
         if (weapon.data.group) {
             selectors.push(`${weapon.data.group}-weapon-group-damage`);
         }
