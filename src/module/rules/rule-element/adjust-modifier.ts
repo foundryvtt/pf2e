@@ -1,15 +1,19 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
+import { DamageType, DAMAGE_TYPES } from "@module/damage-calculation";
+import { ModifierAdjustment } from "@module/modifiers";
 import { PredicatePF2e } from "@system/predication";
+import { setHasElement } from "@util";
 import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
 
 class AdjustModifierRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>) {
-        super({ ...data, phase: "beforeDerived", priority: 90 }, item);
+        super({ ...data, phase: "beforeDerived", priority: data.priority ?? 90 }, item);
         this.data.slug ??= null;
         this.data.predicate = new PredicatePF2e(this.data.predicate);
+
         this.validateData();
     }
 
@@ -22,6 +26,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
     }
 
     protected override validateData(): void {
+        if (this.ignored) return;
         const tests = {
             selectors:
                 Array.isArray(this.selectors) &&
@@ -45,11 +50,19 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
         const change = this.resolveValue();
         if (typeof change !== "number") return this.failValidation("value does not resolve to a number");
 
-        const adjustment = {
+        const adjustment: ModifierAdjustment = {
             slug: this.slug,
             predicate: this.predicate,
             getNewValue: (current: number) => this.getNewValue(current, change),
         };
+        if (this.data.damageType) {
+            const damageType = this.resolveInjectedProperties(this.data.damageType);
+            if (!setHasElement(DAMAGE_TYPES, damageType)) {
+                return this.failValidation("damageType");
+            }
+
+            adjustment.damageType = damageType;
+        }
 
         for (const selector of this.selectors) {
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);
@@ -63,6 +76,7 @@ interface AdjustModifierRuleElement extends AELikeRuleElement {
 }
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
+    damageType?: unknown;
     selectors?: unknown;
 }
 
@@ -70,6 +84,7 @@ interface AdjustModifierData extends Exclude<AELikeData, "path"> {
     predicate: PredicatePF2e;
     selectors: string[];
     slug: string | null;
+    damageType?: DamageType;
 }
 
 export { AdjustModifierRuleElement };

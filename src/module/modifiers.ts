@@ -2,6 +2,7 @@ import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, sluggify } from "../util";
+import { DamageType } from "./damage-calculation";
 import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = [
@@ -84,6 +85,7 @@ export interface BaseRawModifier {
 export interface ModifierAdjustment {
     slug: string | null;
     predicate: PredicatePF2e;
+    damageType?: DamageType;
     getNewValue(current: number): number;
 }
 
@@ -490,20 +492,21 @@ export class StatisticModifier {
         }
 
         applyStackingRules(this._modifiers);
-        this.totalModifier = this.applyAdjustments(rollOptions);
+        if (rollOptions) this.applyAdjustments(rollOptions);
+
+        this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
     }
 
-    applyAdjustments(rollOptions?: string[]): number {
+    private applyAdjustments(rollOptions: string[]): void {
         const modifiers = this._modifiers.filter((m) => m.enabled);
         for (const modifier of modifiers) {
-            modifier.modifier = modifier.adjustments.reduce(
-                (adjusted, adjustment): number =>
-                    rollOptions && adjustment.predicate.test(rollOptions) ? adjustment.getNewValue(adjusted) : adjusted,
-                modifier.modifier
-            );
-        }
+            const adjustments = modifier.adjustments.filter((a) => a.predicate.test(rollOptions));
+            modifier.modifier = adjustments.reduce((adjusted, a): number => a.getNewValue(adjusted), modifier.modifier);
 
-        return modifiers.reduce((total, m) => total + m.modifier, 0);
+            // If applicable, change the damage type of this modifier, using only the final adjustment found
+            const damageTypeAdjustment = adjustments.filter((a) => !!a.damageType).pop();
+            modifier.damageType = damageTypeAdjustment?.damageType ?? modifier.damageType;
+        }
     }
 }
 
