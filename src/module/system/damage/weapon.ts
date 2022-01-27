@@ -16,6 +16,7 @@ import { DamageCategory, DamageDieSize, nextDamageDieSize } from "./damage";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
+import { extractModifiers } from "@module/rules/util";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -457,18 +458,10 @@ export class WeaponDamagePF2e {
             );
         }
 
-        // Synthetic modifiers and notes
-        for (const selector of selectors) {
-            const modifiers = (statisticsModifiers[selector] ?? []).map((m) => m.clone?.() ?? duplicate(m));
-            for (const modifier of modifiers) {
-                const predicate =
-                    modifier.predicate instanceof PredicatePF2e
-                        ? modifier.predicate
-                        : new PredicatePF2e(modifier.predicate ?? {});
-                modifier.ignored = !predicate.test(options);
-                numericModifiers.push(modifier);
-            }
-        }
+        // Synthetic modifiers
+        numericModifiers.push(
+            ...new StatisticModifier("", extractModifiers(statisticsModifiers, selectors), options).modifiers
+        );
 
         // Set base damage type and category to all non-specific numeric modifiers
         for (const modifier of numericModifiers) {
@@ -643,9 +636,8 @@ export class WeaponDamagePF2e {
                     // Apply stacking rules for numeric modifiers of each damage type separately
                     return new StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
                 })
-                .flatMap((nm) => nm)
-                .filter((nm) => nm.enabled)
-                .filter((nm) => !nm.critical || critical)
+                .flat()
+                .filter((nm) => nm.enabled && (!nm.critical || critical))
                 .forEach((nm) => {
                     const damageType = nm.damageType ?? base.damageType;
                     let pool = dicePool[damageType];
@@ -820,7 +812,7 @@ export class WeaponDamagePF2e {
     }
 
     private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
-        const selectors = [`${weapon._id}-damage`, "mundane-damage", "damage"];
+        const selectors = [`${weapon._id}-damage`, "strike-damage", "mundane-damage", "damage"];
         if (weapon.data.group) {
             selectors.push(`${weapon.data.group}-weapon-group-damage`);
         }

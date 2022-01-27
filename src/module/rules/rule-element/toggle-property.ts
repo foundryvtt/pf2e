@@ -21,7 +21,14 @@ export class TogglePropertyRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
+        const { predicate } = this;
+        if (predicate && !predicate.test(this.actor.getRollOptions(["all"]))) {
+            setProperty(this.actor.data, this.data.property, false);
+            return;
+        }
+
         if (this.data.property) {
+            setProperty(this.actor.data, this.data.property, this.checked);
             this.actor.data.data.toggles.actions.push({
                 label: this.label,
                 inputName: this.data.property,
