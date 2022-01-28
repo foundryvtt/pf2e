@@ -321,10 +321,26 @@ export class CompendiumBrowser extends Application {
             this.render(true);
         });
 
+        $controlArea.find('button[data-action="clear-filter"]').on("click", (event) => {
+            event.stopImmediatePropagation();
+            const filterType = event.currentTarget.parentElement?.parentElement?.dataset.filterType;
+            const filterName = event.currentTarget.parentElement?.parentElement?.dataset.filterName ?? "";
+            if (filterType === "checkboxes") {
+                const checkboxes = currentTab.filterData.checkboxes;
+                if (objectHasKey(checkboxes, filterName)) {
+                    for (const option of Object.values(checkboxes[filterName].options)) {
+                        option.selected = false;
+                    }
+                    checkboxes[filterName].selected = [];
+                    this.render(true);
+                }
+            }
+        });
+
         // Toggle visibility of filter containers
-        $controlArea.find(".filtercontainer h3").on("click", (event) => {
-            const filterType = event.target.closest("div")?.dataset?.filterType;
-            const filterName = event.target.closest("div")?.dataset?.filterName ?? "";
+        $controlArea.find(".filtercontainer div.title").on("click", (event) => {
+            const filterType = event.currentTarget.parentElement?.dataset.filterType;
+            const filterName = event.currentTarget.parentElement?.dataset.filterName ?? "";
             if (filterType === "checkboxes" || filterType === "ranges") {
                 const filters = currentTab.filterData[filterType];
                 if (filters && objectHasKey(filters, filterName)) {
