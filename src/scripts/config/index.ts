@@ -1843,6 +1843,10 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Name",
                 hint: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Hint",
             },
+            purgeExpiredEffectsEachTurn: {
+                name: "PF2E.SETTINGS.Automation.PurgeExpiredEffectsEachTurn.Name",
+                hint: "PF2E.SETTINGS.Automation.PurgeExpiredEffectsEachTurn.Hint",
+            },
         },
         homebrew: {
             creatureTraits: {

@@ -10,6 +10,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "effectExpiration",
         "lootableNPCs",
         "experimentalDamageFormatting",
+        "purgeExpiredEffectsEachTurn",
     ] as const;
 
     protected static override get settings(): Record<ConfigPF2eListName, PartialSettingsData> {
@@ -45,6 +46,12 @@ export class AutomationSettings extends SettingsMenuPF2e {
             experimentalDamageFormatting: {
                 name: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.hint,
+                default: false,
+                type: Boolean,
+            },
+            purgeExpiredEffectsEachTurn: {
+                name: CONFIG.PF2E.SETTINGS.automation.purgeExpiredEffectsEachTurn.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.purgeExpiredEffectsEachTurn.hint,
                 default: false,
                 type: Boolean,
             },
