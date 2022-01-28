@@ -88,6 +88,14 @@ export class StatusEffects {
                 if (!combat?.started && lastTokenId !== "") lastTokenId = "";
             });
         }
+
+        if (game.settings.get("pf2e", "automation.purgeExpiredEffectsEachTurn")) {
+            Hooks.on("updateCombat", (combat: Combat) => {
+                if (game.user?.isGM && combat.combatant?.actor) {
+                    game.pf2e.effectTracker.removeExpired(<ActorPF2e>combat.combatant.actor);
+                }
+            });
+        }
     }
 
     static setPF2eStatusEffectControls(html: JQuery, token: TokenPF2e) {
