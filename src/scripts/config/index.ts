@@ -1827,6 +1827,10 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",
                 hint: "PF2E.SETTINGS.Automation.EffectExpiration.Hint",
             },
+            removeExpiredEffects: {
+                name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
+                hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",
+            },
             actorsDeadAtZero: {
                 name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
                 hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
