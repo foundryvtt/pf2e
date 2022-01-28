@@ -6,22 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration689EncumberanceActiveEffects } from "@module/migration/migrations/689-encumberance-aes";
-import { Migration690InitiativeTiebreakItems } from "@module/migration/migrations/690-tiebreak-items";
-import { Migration691WeaponRangeAbilityCategoryGroup } from "@module/migration/migrations/691-weapon-range-ability-category-group";
-import { Migration693ArmorCategoryGroup } from "@module/migration/migrations/693-armor-category-group";
-import { Migration695SummonToSummoned } from "@module/migration/migrations/695-summon-to-summoned";
-import { Migration696FlatAbilityModifiers } from "@module/migration/migrations/696-flat-ability-modifiers";
-import { Migration697WeaponReachTrait } from "@module/migration/migrations/697-weapon-reach-trait";
-import { Migration698RemoveDerivedActorTraits } from "@module/migration/migrations/698-remove-derived-actor-traits";
-import { Migration699ItemDescriptionEmptyString } from "@module/migration/migrations/699-item-description-empty-string";
-import { Migration700SingleClassFeatures } from "@module/migration/migrations/700-single-class-features";
-import { Migration701ModifierNameToSlug } from "@module/migration/migrations/701-modifier-name-to-slug";
-import { Migration702REFormulasAtInstanceLevel } from "@module/migration/migrations/702-re-formulas-at-instance-level";
-import { Migration703SpellDamageStructure } from "@module/migration/migrations/703-spell-damage-structure";
-import { Migration704MartialProficiencyRE } from "@module/migration/migrations/704-martial-proficiency-re";
-import { Migration705GunslingerCatchUp } from "@module/migration/migrations/705-gunslinger-catch-up";
-import { Migration706FormulasAtInstanceLevelEverythingElse } from "@module/migration/migrations/706-formulas-at-instance-level-everything-else";
 import { Migration707BracketedFormulasAtInstanceLevel } from "@module/migration/migrations/707-bracketed-formulas-at-instance-level";
 import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-specific-rule-label";
 import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
@@ -31,24 +15,9 @@ import { Migration712ActorShieldStructure } from "@module/migration/migrations/7
 import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fist-to-strike-re";
 import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-range-increment-res";
 import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
+import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
 
 const migrations: MigrationBase[] = [
-    new Migration689EncumberanceActiveEffects(),
-    new Migration690InitiativeTiebreakItems(),
-    new Migration691WeaponRangeAbilityCategoryGroup(),
-    new Migration693ArmorCategoryGroup(),
-    new Migration695SummonToSummoned(),
-    new Migration696FlatAbilityModifiers(),
-    new Migration697WeaponReachTrait(),
-    new Migration698RemoveDerivedActorTraits(),
-    new Migration699ItemDescriptionEmptyString(),
-    new Migration700SingleClassFeatures(),
-    new Migration701ModifierNameToSlug(),
-    new Migration702REFormulasAtInstanceLevel(),
-    new Migration703SpellDamageStructure(),
-    new Migration704MartialProficiencyRE(),
-    new Migration705GunslingerCatchUp(),
-    new Migration706FormulasAtInstanceLevelEverythingElse(),
     new Migration707BracketedFormulasAtInstanceLevel(),
     new Migration708SpecificRuleLabel(),
     new Migration709REFormulasAtInstanceLevelRedux(),
@@ -58,6 +27,7 @@ const migrations: MigrationBase[] = [
     new Migration713FistToStrikeRE(),
     new Migration714RangeIncrementREs(),
     new Migration715DangerousSorcery(),
+    new Migration716StrikeDamageSelector(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

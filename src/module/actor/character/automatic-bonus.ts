@@ -89,7 +89,7 @@ export class AutomaticBonusProgression {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                     bonus: damage,
                 };
-                synthetics.striking["mundane-damage"] = (synthetics.striking["mundane-damage"] || []).concat(s);
+                (synthetics.striking["strike-damage"] ??= []).push(s);
             }
             if (attack > 0) {
                 const potency: WeaponPotencyPF2e = {
