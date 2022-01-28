@@ -812,7 +812,7 @@ export class WeaponDamagePF2e {
     }
 
     private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
-        const selectors = [`${weapon._id}-damage`, "strike-damage", "mundane-damage", "damage"];
+        const selectors = [`${weapon._id}-damage`, "strike-damage", "damage"];
         if (weapon.data.group) {
             selectors.push(`${weapon.data.group}-weapon-group-damage`);
         }
