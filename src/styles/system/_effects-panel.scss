@@ -1,11 +1,7 @@
-#ui-middle {
-    position: relative; // The panel is positioned relative to this element
-}
-
 .effect-panel {
-    position: absolute;
+    position: fixed;
     top: 5px;
-    right: 0;
+    right: 310px;
 
     .effect-item {
         display: flex;
@@ -108,4 +104,8 @@
         margin-right: 0;
         width: 36px;
     }
+}
+
+#sidebar.app.collapsed ~ .effect-panel {
+    right: 40px;
 }

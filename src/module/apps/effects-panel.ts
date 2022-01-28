@@ -23,7 +23,6 @@ export class EffectsPanel extends Application {
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: "pf2e-effects-panel",
             popOut: false,
             template: "systems/pf2e/templates/system/effects-panel.html",
         });
