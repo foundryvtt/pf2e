@@ -1,32 +1,26 @@
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
 import { AELikeSource, AELikeRuleElement, AELikeData } from "./ae-like";
+import { RuleElementOptions } from "./base";
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
 class RollOptionRuleElement extends AELikeRuleElement {
-    constructor(data: RollOptionSource, item: Embedded<ItemPF2e>) {
+    constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data = deepClone(data);
         data.mode = "override";
-        data.value = Boolean(data.value ?? true);
         data.path = `flags.pf2e.rollOptions.${data.domain}.${data.option}`;
-        super(data, item);
+        data.value = Boolean(data.value ?? true);
+        super(data, item, options);
 
-        this.validate(data, "domain");
-        this.validate(data, "option");
-    }
-
-    private validate(data: RollOptionSource, key: "domain" | "option") {
-        const paramValue = this.resolveInjectedProperties(String(data[key]));
-        if (!(typeof paramValue === "string" && /^[-:a-z0-9]+$/.test(paramValue) && /[a-z]/.test(paramValue))) {
+        if (!(typeof data.domain === "string" && /^[-:a-z0-9]+$/.test(data.domain) && /[a-z]/.test(data.domain))) {
             const item = this.item;
-            console.warn(
-                `PF2e System | "${key}" property on RuleElement from item ${item.name} (${item.uuid}) must be a `,
+            this.failValidation(
+                `"domain" property on RuleElement from item ${item.name} (${item.uuid}) must be a`,
                 `string consisting of only lowercase letters, numbers, and hyphens`
             );
-            this.ignored = true;
         }
     }
 

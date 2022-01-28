@@ -12,6 +12,7 @@ import {
     WeaponTrait,
 } from "@item/weapon/data";
 import { DamageType } from "@module/damage-calculation";
+import { RuleElementOptions } from "./base";
 
 /**
  * Create an ephemeral strike on an actor
@@ -22,9 +23,9 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     weapon: Embedded<WeaponPF2e>;
 
-    constructor(data: StrikeSource, item: Embedded<ItemPF2e>) {
+    constructor(data: StrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.range = Number(data.range) || null;
-        super(data, item);
+        super(data, item, options);
 
         this.data.category ??= "unarmed";
         this.data.group ??= "brawling";

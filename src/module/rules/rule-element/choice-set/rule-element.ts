@@ -1,4 +1,4 @@
-import { RuleElementPF2e, REPreCreateParameters } from "../";
+import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { PromptChoice } from "@module/rules/apps/prompt";
 import { PredicatePF2e } from "@system/predication";
@@ -12,8 +12,8 @@ import { ChoiceSetPrompt } from "./prompt";
  * @category RuleElement
  */
 class ChoiceSetRuleElement extends RuleElementPF2e {
-    constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
         this.setDefaultFlag(this.data);
         this.data.adjustName = Boolean(this.data.adjustName ?? true);
         this.data.recordSlug = Boolean(this.data.recordSlug ?? false);
@@ -144,11 +144,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
     /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
     private async queryFeats(choices: ChoiceSetFeatQuery): Promise<PromptChoice<ItemUUID>[]> {
-        if (this.actor.type !== "character") {
-            this.failValidation("Only characters can use a ChoiceSet feat query");
-            return [];
-        }
-
         const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
         if (choices.postFilter) choices.postFilter = new PredicatePF2e(choices.postFilter);
 
@@ -189,7 +184,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 .filter((f) => !existing.has(f.sourceId!))
                 .map((f) => ({ value: f.uuid, label: f.name, img: f.img }));
         } catch (error) {
-            this.failValidation(`Error thrown (${error}) while attempting NeDB query`);
+            // Send warning even if suppressWarnings option is true
+            console.warn(`Error thrown (${error}) while attempting NeDB query`);
             return [];
         }
     }

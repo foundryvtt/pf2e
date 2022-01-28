@@ -1,4 +1,10 @@
-import { RuleElementData, RuleElementPF2e, RuleElementSource, RuleElementSynthetics } from "./rule-element";
+import {
+    RuleElementData,
+    RuleElementOptions,
+    RuleElementPF2e,
+    RuleElementSource,
+    RuleElementSynthetics,
+} from "./rule-element";
 import { ActorTraitsRuleElement } from "@module/rules/rule-element/actor-traits";
 import { RecoveryCheckDCRuleElement } from "@module/rules/rule-element/recovery-check-dc";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
@@ -80,7 +86,7 @@ class RuleElements {
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 
-    static fromOwnedItem(item: Embedded<ItemPF2e>): RuleElementPF2e[] {
+    static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
         for (const data of item.data.data.rules) {
             const key = data.key.replace(/^PF2E\.RuleElement\./, "");
@@ -88,7 +94,7 @@ class RuleElements {
             if (REConstructor) {
                 const rule = ((): RuleElementPF2e | null => {
                     try {
-                        return new REConstructor(data, item);
+                        return new REConstructor(data, item, options);
                     } catch (error) {
                         console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
                         console.warn(error);
@@ -104,6 +110,10 @@ class RuleElements {
     }
 }
 
-type RuleElementConstructor = new (data: RuleElementSource, item: Embedded<ItemPF2e>) => RuleElementPF2e;
+type RuleElementConstructor = new (
+    data: RuleElementSource,
+    item: Embedded<ItemPF2e>,
+    options?: RuleElementOptions
+) => RuleElementPF2e;
 
-export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementSynthetics };
+export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleElementSynthetics };

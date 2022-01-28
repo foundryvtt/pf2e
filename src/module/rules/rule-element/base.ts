@@ -22,6 +22,8 @@ import {
 abstract class RuleElementPF2e {
     data: RuleElementData;
 
+    protected suppressWarnings: boolean;
+
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
 
@@ -29,9 +31,11 @@ abstract class RuleElementPF2e {
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
+    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
         data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
         data = deepClone(data);
+
+        this.suppressWarnings = options.suppressWarnings ?? false;
 
         const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
             item.actor.data.type
@@ -39,8 +43,7 @@ abstract class RuleElementPF2e {
         if (invalidActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${data.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
-            ui.notifications?.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
-            data.ignored = true;
+            this.failValidation(`A ${ruleName} rules element may not be applied to a ${actorType}`);
         }
         if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
 
@@ -49,7 +52,7 @@ abstract class RuleElementPF2e {
             ...data,
             predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
             label: game.i18n.localize(this.resolveInjectedProperties(data.label ?? item.name)),
-            ignored: data.ignored ?? false,
+            ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
     }
@@ -101,9 +104,12 @@ abstract class RuleElementPF2e {
         this.data.ignored = value;
     }
 
-    failValidation(message: string) {
+    failValidation(...message: string[]): void {
+        const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
-        console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${message}`);
+        if (!this.suppressWarnings) {
+            console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`);
+        }
         this.ignored = true;
     }
 
@@ -141,7 +147,7 @@ abstract class RuleElementPF2e {
             const value = getProperty(objects[key]?.data ?? this.item.data, prop);
             if (value === undefined) {
                 const { item } = this;
-                console.warn(
+                this.failValidation(
                     `Failed to resolve injected property on rule element from item "${item.name}" (${item.uuid})`
                 );
             }
@@ -241,6 +247,11 @@ abstract class RuleElementPF2e {
     }
 }
 
+interface RuleElementOptions {
+    /** If data validation fails for any reason, do not emit console warnings */
+    suppressWarnings?: boolean;
+}
+
 interface RuleElementPF2e {
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
@@ -317,4 +328,4 @@ interface RuleElementPF2e {
     applyDamageExclusion?(modifiers: BaseRawModifier[]): void;
 }
 
-export { RuleElementPF2e };
+export { RuleElementPF2e, RuleElementOptions };

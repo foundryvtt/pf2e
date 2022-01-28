@@ -1,16 +1,18 @@
-import { RuleElementPF2e, REPreCreateParameters } from "../";
+import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../";
 import { EffectPF2e, ItemPF2e } from "@item";
 import { EffectTargetData, EffectTargetSource } from "./data";
 import { EffectTargetPrompt } from "./prompt";
+import { PredicatePF2e } from "@system/predication";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
  * @category RuleElement
  */
 class EffectTargetRuleElement extends RuleElementPF2e {
-    constructor(data: EffectTargetSource, item: Embedded<ItemPF2e>) {
-        data.predicate ??= { all: ["weapon:equipped"] };
-        super(data, item);
+    constructor(data: EffectTargetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
+        this.data.predicate ??= new PredicatePF2e({ all: ["weapon:equipped"] });
 
         // Pass the targetId to the parent effect item so that it may be referenced by other rule elements on the
         // same item.

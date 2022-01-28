@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData } from "../";
+import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../";
 import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
@@ -26,8 +26,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
         this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides) as this["data"]["overrides"];
         this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
@@ -78,9 +78,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         const { value } = data;
         const dataIsValid = data.overrides instanceof Object && (value instanceof Object || value === undefined);
         if (!dataIsValid) {
-            console.warn("PF2e System | Battle Form rule element failed to validate");
-            this.ignored = true;
-            return;
+            return this.failValidation("Battle Form rule element failed to validate");
         }
 
         data.canCast ??= false;
