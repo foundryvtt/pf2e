@@ -1,6 +1,6 @@
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject } from "@util";
-import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleValue } from "./";
+import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -9,7 +9,7 @@ import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleValue } from "
 class AELikeRuleElement extends RuleElementPF2e {
     static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
 
-    constructor(data: AELikeSource, item: Embedded<ItemPF2e>) {
+    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data = deepClone(data);
         data.priority ??=
             typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
@@ -17,7 +17,7 @@ class AELikeRuleElement extends RuleElementPF2e {
                 : NaN;
         data.phase ??= "applyAEs";
 
-        super(data, item);
+        super(data, item, options);
         this.validateData();
     }
 

@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { LocalizePF2e } from "@system/localize";
 import { tupleHasValue, objectHasKey, localizeList } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from ".";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
 
 /**
  * Rule element to implement fast healing and regeneration.
@@ -13,15 +13,15 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource } from ".";
 class FastHealingRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: FastHealingSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: FastHealingSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
 
         this.data.deactivatedBy = data.deactivatedBy ?? [];
 
         const type = this.resolveInjectedProperties(data.type) || "fast-healing";
         if (!tupleHasValue(["fast-healing", "regeneration"] as const, type)) {
             this.ignored = true;
-            console.warn("PF2e System | FastHealing only supports fast-healing or regeneration types");
+            this.failValidation("FastHealing only supports fast-healing or regeneration types");
             return;
         }
 
@@ -53,8 +53,7 @@ class FastHealingRuleElement extends RuleElementPF2e {
 
         const value = this.resolveValue(this.data.value);
         if (typeof value !== "number") {
-            console.warn("PF2e System | Healing requires a non-zero value field or a formula field");
-            return;
+            return this.failValidation("Healing requires a non-zero value field or a formula field");
         }
 
         const roll = await new Roll(`${value}`).evaluate({ async: true });

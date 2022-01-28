@@ -2,7 +2,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { ErrorPF2e, sluggify } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
-import { RuleElements, RuleElementPF2e, RuleElementSource } from "../rules";
+import { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementOptions } from "../rules";
 import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
@@ -162,8 +162,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         this.data.flags.pf2e.itemGrants ??= [];
     }
 
-    prepareRuleElements(this: Embedded<ItemPF2e>): RuleElementPF2e[] {
-        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this) : []);
+    prepareRuleElements(this: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
+        return (this.rules = this.actor.canHostRuleElements ? RuleElements.fromOwnedItem(this, options) : []);
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
@@ -367,7 +367,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         // do nothing if no parts are provided in the damage roll
         if (parts.length === 0) {
-            console.log("PF2e System | No damage parts provided in damage roll");
+            console.warn("PF2e System | No damage parts provided in damage roll");
             parts = ["0"];
         }
 
@@ -525,7 +525,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 // Pre-load this item's self: roll options for predication by preCreate rule elements
                 item.prepareActorData?.();
 
-                const rules = item.prepareRuleElements();
+                const rules = item.prepareRuleElements({ suppressWarnings: true });
                 for await (const rule of rules) {
                     const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
                     await rule.preCreate?.({ itemSource, ruleSource, pendingItems: data, context });
