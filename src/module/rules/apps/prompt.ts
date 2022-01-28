@@ -69,7 +69,7 @@ abstract class RulesElementPrompt<T> extends Application {
         // If we have a preselected choice, then see if it's in our choices.
         // If it is, return in, otherwise, return null silently. Either way, do not render the dialog
         if (this.preselectedOptionId) {
-            const selection = this.getSelectedChoice(this.preselectedOptionId)
+            const selection = this.getSelectedChoice(this.preselectedOptionId);
             if (!selection) {
                 await this.close({ force: true });
             }
@@ -105,15 +105,12 @@ abstract class RulesElementPrompt<T> extends Application {
         if (!this.selection) {
             if (this.preselectedOptionId) {
                 ui.notifications.warn(
-                    game.i18n.format(
-                        "PF2E.UI.RuleElements.Prompt.InvalidPreselectedOption",
-                        {
-                            actor: this.actor.name,
-                            item: this.item.name,
-                            preselectedOption: this.preselectedOptionId,
-                        },
-                    )
-                )
+                    game.i18n.format("PF2E.UI.RuleElements.Prompt.InvalidPreselectedOption", {
+                        actor: this.actor.name,
+                        item: this.item.name,
+                        preselectedOption: this.preselectedOptionId,
+                    })
+                );
             } else if (force) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
