@@ -32,7 +32,6 @@ import {
 } from "./data";
 import { LightLevels } from "@module/scene/data";
 import { Statistic } from "@system/statistic";
-import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
@@ -45,9 +44,6 @@ import { extractModifiers } from "@module/rules/util";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
-    /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
-    redrawingTokenEffects = false;
-
     /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
@@ -618,16 +614,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
     }
 
-    /** Redraw token effect icons after adding/removing partial ActiveEffects to Actor#temporaryEffects */
-    redrawTokenEffects() {
-        if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
-        this.redrawingTokenEffects = true;
-        const promises = Promise.allSettled(this.getActiveTokens().map((token) => token.drawEffects()));
-        promises.then(() => {
-            this.redrawingTokenEffects = false;
-        });
-    }
-
     /**
      * Calculates attack roll target data including the target's DC.
      * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
@@ -706,20 +692,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    /** Work around bug in which creating embedded items via actor.update doesn't trigger _onCreateEmbeddedDocuments */
-    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this> {
-        await super.update(data, options);
-
-        const hasItemInserts =
-            Array.isArray(data.items) &&
-            data.items.some((item) => item instanceof Object && !this.items.get(item.id ?? ""));
-        if (hasItemInserts && this.parent instanceof TokenDocumentPF2e) {
-            this.redrawTokenEffects();
-        }
-
-        return this;
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -732,9 +704,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     ): void {
         super._onUpdate(changed, options, userId);
         prepareMinions(this);
-        if (changed.items && this.isToken && userId !== game.user.id) {
-            this.redrawTokenEffects();
-        }
     }
 
     protected override async _preUpdate(

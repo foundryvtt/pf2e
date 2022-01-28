@@ -90,11 +90,13 @@ export class EffectTracker {
                 }
                 return actors;
             }, []);
-        for await (const actor of updatedActors) {
+        for (const actor of updatedActors) {
             actor.prepareData();
             actor.sheet.render(false);
             if (actor instanceof CreaturePF2e) {
-                actor.redrawTokenEffects();
+                for (const token of actor.getActiveTokens()) {
+                    await token.drawEffects();
+                }
             }
         }
     }
@@ -116,7 +118,7 @@ export class EffectTracker {
         const owners = actor
             ? [actor]
             : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
-        for await (const owner of owners) {
+        for (const owner of owners) {
             await owner.deleteEmbeddedDocuments(
                 "Item",
                 expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
@@ -126,7 +128,7 @@ export class EffectTracker {
 
     async onEncounterEnd(encounter: EncounterPF2e): Promise<void> {
         const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
-        for await (const actor of actors) {
+        for (const actor of actors) {
             const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
             if (expiresNow.length > 0) {
                 actor.updateEmbeddedDocuments(
