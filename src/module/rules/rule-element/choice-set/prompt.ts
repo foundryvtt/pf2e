@@ -47,7 +47,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number> {
         return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
     }
 
-    protected isSelectedChoice(choice: PromptChoice<string | number>, selection: any): boolean {
+    protected isSelectedChoice(choice: PromptChoice<string | number>, selection: string | number): boolean {
         return choice.value === selection || choice.value === Number(selection);
     }
 

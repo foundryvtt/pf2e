@@ -48,13 +48,13 @@ abstract class RulesElementPrompt<T> extends Application {
         return this.getSelectedChoice(event.currentTarget.value);
     }
 
-    private getSelectedChoice(selection: any): PromptChoice<T> | null {
+    private getSelectedChoice(selection: string | number): PromptChoice<T> | null {
         return this.choices.find((choice) => this.isSelectedChoice(choice, selection)) || null;
     }
 
     abstract override get template(): string;
 
-    protected abstract isSelectedChoice(choice: PromptChoice<T>, selection: any): boolean;
+    protected abstract isSelectedChoice(choice: PromptChoice<T>, selection: string | number): boolean;
 
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
     async resolveSelection(): Promise<PromptChoice<T> | null> {

@@ -44,7 +44,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
         })().filter((choice) => this.predicate.test(choice.domain));
     }
 
-    protected isSelectedChoice(choice: PromptChoice<Embedded<ItemPF2e>>, selection: any): boolean {
+    protected isSelectedChoice(choice: PromptChoice<Embedded<ItemPF2e>>, selection: string | number): boolean {
         return choice.value.id === selection;
     }
 }
