@@ -30,6 +30,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                         .map((armor) => ({
                             value: armor,
                             label: armor.name,
+                            img: armor.img,
                             domain: armor.getItemRollOptions(),
                         }));
                 }
@@ -37,18 +38,12 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                     return this.actor.itemTypes.weapon.map((weapon) => ({
                         value: weapon,
                         label: weapon.name,
+                        img: weapon.img,
                         domain: weapon.getItemRollOptions(),
                     }));
                 }
             }
         })().filter((choice) => this.predicate.test(choice.domain));
-    }
-
-    protected getSelection(
-        event: JQuery.ClickEvent<HTMLButtonElement, HTMLButtonElement, HTMLButtonElement>
-    ): PromptChoice<Embedded<ItemPF2e>> | null {
-        const itemId = event.currentTarget.value;
-        return this.choices.find((choice) => choice.value.id === itemId) ?? null;
     }
 }
 

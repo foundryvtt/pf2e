@@ -14,14 +14,16 @@ import { ChoiceSetPrompt } from "./prompt";
 class ChoiceSetRuleElement extends RuleElementPF2e {
     constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
+
         this.setDefaultFlag(this.data);
         this.data.adjustName = Boolean(this.data.adjustName ?? true);
         this.data.recordSlug = Boolean(this.data.recordSlug ?? false);
         this.data.allowedDrops = new PredicatePF2e(this.data.allowedDrops);
 
+        const { selection } = this.data;
         const selectionMade =
             typeof this.data.flag === "string" &&
-            (!this.data.selection || ["string", "number"].includes(typeof this.data.selection));
+            (!selection || ["string", "number", "object"].includes(typeof selection));
         if (!selectionMade) {
             this.ignored = true;
             return;
@@ -29,8 +31,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item.
-        if (typeof this.data.selection === "string" || typeof this.data.selection === "number") {
-            item.data.flags.pf2e.rulesSelections[this.data.flag] = this.data.selection;
+        if (typeof selection === "string" || typeof selection === "number" || isObject(selection)) {
+            item.data.flags.pf2e.rulesSelections[this.data.flag] = selection;
         } else {
             // If no selection has been made, disable this and all other rule elements on the item.
             for (const ruleData of this.item.data.data.rules) {
@@ -62,6 +64,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             }).resolveSelection());
 
         if (selection) {
+            // Record the slug instead of the UUID
             ruleSource.selection = await (async () => {
                 if (isItemUUID(selection.value) && this.data.recordSlug) {
                     const item = await fromUuid(selection.value);
@@ -70,6 +73,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 return selection.value;
             })();
 
+            // Change the name of the parent item
             if (this.data.adjustName) {
                 const effectName = this.item.data._source.name;
                 const label = game.i18n.localize(selection.label);
@@ -98,7 +102,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
-    private async inflateChoices(): Promise<PromptChoice<string | number>[]> {
+    private async inflateChoices(): Promise<PromptChoice<string | number | object>[]> {
         const choices: PromptChoice<string | number>[] = Array.isArray(this.data.choices)
             ? this.data.choices
             : typeof this.data.choices === "object"
@@ -174,8 +178,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
 
             // Apply the followup predication filter if there is one
+            const actorRollOptions = this.actor.getRollOptions(["all"]);
             const filtered = choices.postFilter
-                ? feats.filter((f) => choices.postFilter!.test(f.getItemRollOptions("item")))
+                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getItemRollOptions("item")]))
                 : feats;
 
             // Exclude any feat the character already has and return final list
@@ -191,7 +196,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     }
 
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
-    private getPreselection(): PromptChoice<string | number> | null {
+    private getPreselection(): PromptChoice<string | number | object> | null {
         const { selection } = this.data;
         const choice = Array.isArray(this.data.choices) ? this.data.choices.find((c) => c.value === selection) : null;
         return choice ?? null;
