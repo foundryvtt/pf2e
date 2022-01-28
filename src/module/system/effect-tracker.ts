@@ -81,7 +81,7 @@ export class EffectTracker {
             }
         }
 
-        // only update each actor once, and only the ones with effect expiry changes
+        // Only update each actor once, and only the ones with effect expiry changes
         const updatedActors = expired
             .map((effect) => effect.actor)
             .reduce((actors: ActorPF2e[], actor) => {
@@ -90,6 +90,7 @@ export class EffectTracker {
                 }
                 return actors;
             }, []);
+
         for (const actor of updatedActors) {
             actor.prepareData();
             actor.sheet.render(false);
@@ -99,12 +100,18 @@ export class EffectTracker {
                 }
             }
         }
+
+        const firstGM = game.users.find((u) => u.active && u.isGM);
+        if (game.user === firstGM && game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+            for (const actor of updatedActors) {
+                await this.removeExpired(actor);
+            }
+        }
     }
 
     async removeExpired(actor?: ActorPF2e): Promise<void> {
         const expired: Embedded<EffectPF2e>[] = [];
-        for (let index = 0; index < this.trackedEffects.length; index++) {
-            const effect = this.trackedEffects[index];
+        for (const effect of this.trackedEffects) {
             if (actor && effect.actor !== actor) continue;
 
             const duration = effect.remainingDuration;
