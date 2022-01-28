@@ -44,11 +44,8 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
         })().filter((choice) => this.predicate.test(choice.domain));
     }
 
-    protected getSelection(
-        event: JQuery.ClickEvent<HTMLButtonElement, HTMLButtonElement, HTMLButtonElement>
-    ): PromptChoice<Embedded<ItemPF2e>> | null {
-        const itemId = event.currentTarget.value;
-        return this.choices.find((choice) => choice.value.id === itemId) ?? null;
+    protected isSelectedChoice(choice: PromptChoice<Embedded<ItemPF2e>>, selection: string | number): boolean {
+        return choice.value.id === selection;
     }
 }
 

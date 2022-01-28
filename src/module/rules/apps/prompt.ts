@@ -15,11 +15,14 @@ abstract class RulesElementPrompt<T> extends Application {
 
     protected predicate: PredicatePF2e;
 
+    private preselectedOptionId?: string;
+
     constructor(data: RulesElementPromptData<T>) {
         super();
         this.item = data.item;
         this.predicate = data.predicate ?? new PredicatePF2e();
         this.options.title = data.title ?? this.item.name;
+        this.preselectedOptionId = data.preselectedOptionId;
     }
 
     get actor(): ActorPF2e {
@@ -41,9 +44,17 @@ abstract class RulesElementPrompt<T> extends Application {
         return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
     }
 
-    protected abstract getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null;
+    protected getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null {
+        return this.getSelectedChoice(event.currentTarget.value);
+    }
+
+    private getSelectedChoice(selection: string | number): PromptChoice<T> | null {
+        return this.choices.find((choice) => this.isSelectedChoice(choice, selection)) || null;
+    }
 
     abstract override get template(): string;
+
+    protected abstract isSelectedChoice(choice: PromptChoice<T>, selection: string | number): boolean;
 
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
     async resolveSelection(): Promise<PromptChoice<T> | null> {
@@ -53,6 +64,16 @@ abstract class RulesElementPrompt<T> extends Application {
         if (this.choices.length === 0) {
             await this.close({ force: true });
             return null;
+        }
+
+        // If we have a preselected choice, then see if it's in our choices.
+        // If it is, return in, otherwise, return null silently. Either way, do not render the dialog
+        if (this.preselectedOptionId) {
+            const selection = this.getSelectedChoice(this.preselectedOptionId);
+            if (!selection) {
+                await this.close({ force: true });
+            }
+            return selection;
         }
 
         this.render(true);
@@ -82,7 +103,15 @@ abstract class RulesElementPrompt<T> extends Application {
     override async close({ force = false } = {}): Promise<void> {
         this.element.find("button, select").css({ pointerEvents: "none" });
         if (!this.selection) {
-            if (force) {
+            if (this.preselectedOptionId) {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.UI.RuleElements.Prompt.InvalidPreselectedOption", {
+                        actor: this.actor.name,
+                        item: this.item.name,
+                        preselectedOption: this.preselectedOptionId,
+                    })
+                );
+            } else if (force) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
                         actor: this.actor.name,
@@ -106,6 +135,7 @@ interface RulesElementPromptData<T> {
     choices?: PromptChoice<T>[];
     item: Embedded<ItemPF2e>;
     predicate?: PredicatePF2e;
+    preselectedOptionId?: string;
 }
 
 interface PromptChoice<T> {

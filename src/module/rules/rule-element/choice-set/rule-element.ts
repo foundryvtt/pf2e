@@ -59,6 +59,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 containsUUIDs: this.data.containsUUIDs,
                 // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
                 allowedDrops: this.data.allowedDrops,
+                preselectedOptionId: this.data.selection ? String(this.data.selection) : undefined,
             }).resolveSelection());
 
         if (selection) {

@@ -47,9 +47,8 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number> {
         return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
     }
 
-    protected getSelection(event: JQuery.ClickEvent): PromptChoice<string | number> | null {
-        const selection = event.currentTarget.value;
-        return this.choices.find((choice) => choice.value === selection || choice.value === Number(selection)) ?? null;
+    protected isSelectedChoice(choice: PromptChoice<string | number>, selection: string | number): boolean {
+        return choice.value === selection || choice.value === Number(selection);
     }
 
     override activateListeners($html: JQuery): void {
