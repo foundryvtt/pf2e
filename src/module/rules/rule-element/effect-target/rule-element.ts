@@ -29,6 +29,7 @@ class EffectTargetRuleElement extends RuleElementPF2e {
             predicate: this.data.predicate,
             scope: this.data.scope ?? "weapon",
             item: this.item,
+            preselectedOptionId: this.data.targetId || undefined,
         }).resolveSelection();
         if (selection) {
             ruleSource.targetId = selection.value.id;
