@@ -3,6 +3,7 @@ import { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "@actor/creature/sense";
+import { RuleElementOptions } from "./base";
 
 /**
  * @category RuleElement
@@ -10,14 +11,14 @@ import { CreatureSensePF2e, SenseAcuity, SenseType } from "@actor/creature/sense
 export class SenseRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar"];
 
-    constructor(data: SenseRuleElementSource, item: Embedded<ItemPF2e>) {
+    constructor(data: SenseRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.force ??= false;
         data.range ??= "";
         data.acuity ??= "precise";
         const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
         data.label ??= defaultLabels[data.selector ?? ""];
 
-        super(data, item);
+        super(data, item, options);
     }
 
     override beforePrepareData(): void {
@@ -37,7 +38,7 @@ export class SenseRuleElement extends RuleElementPF2e {
                 force: this.data.force,
             });
         } else {
-            console.warn("PF2E | Sense requires at least a selector field and a label field or item name");
+            this.failValidation("Sense requires at least a selector field and a label field or item name");
         }
     }
 }

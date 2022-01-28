@@ -3,6 +3,7 @@ import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { RuleElementSource } from "..";
 import { RuleElementPF2e, RuleElementData } from "./";
+import { RuleElementOptions } from "./base";
 
 /**
  * @category RuleElement
@@ -12,8 +13,8 @@ export class TogglePropertyRuleElement extends RuleElementPF2e {
 
     checked: boolean;
 
-    constructor(data: TogglePropertySource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: TogglePropertySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
 
         this.data.default = typeof data.default === "boolean" ? data.default : false;
         this.checked = Boolean(getProperty(this.actor.data, this.data.property) ?? this.data.default);
@@ -35,9 +36,7 @@ export class TogglePropertyRuleElement extends RuleElementPF2e {
                 checked: this.checked,
             });
         } else {
-            console.warn(
-                "PF2E | Toggle flag requires at least a label field or item name, and a property field with the name of the property"
-            );
+            this.failValidation("Toggle flag requires a property field with an object path");
         }
     }
 }

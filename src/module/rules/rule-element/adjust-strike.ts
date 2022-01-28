@@ -4,12 +4,13 @@ import { WeaponRangeIncrement } from "@item/weapon/data";
 import { PredicatePF2e } from "@system/predication";
 import { objectHasKey } from "@util";
 import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
+import { RuleElementOptions } from "./base";
 
 class AdjustStrikeRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>) {
-        super({ ...data, predicate: data.predicate ?? {}, phase: "beforeDerived", priority: 110 }, item);
+    constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super({ ...data, predicate: data.predicate ?? {}, phase: "beforeDerived", priority: 110 }, item, options);
     }
 
     get definition(): PredicatePF2e {

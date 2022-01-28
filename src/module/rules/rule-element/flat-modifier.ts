@@ -4,6 +4,7 @@ import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
+import { RuleElementOptions } from "./base";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -12,8 +13,8 @@ import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 class FlatModifierRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
 
         this.data.phase = data.phase ?? "beforeDerived";
 
@@ -72,12 +73,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         } else if (value === 0) {
             // omit modifiers with a value of zero
         } else if (CONFIG.debug.ruleElement) {
-            console.warn(
-                "PF2E | Flat modifier requires selector and value properties",
-                this.data,
-                this.item,
-                this.actor.data
-            );
+            this.failValidation("Flat modifier requires selector and value properties");
         }
     }
 }

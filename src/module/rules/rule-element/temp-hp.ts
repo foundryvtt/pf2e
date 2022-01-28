@@ -2,6 +2,7 @@ import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
+import { RuleElementOptions } from "./base";
 
 /**
  * @category RuleElement
@@ -9,8 +10,8 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 class TempHPRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: TempHPSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: TempHPSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
 
         this.data.onCreate = Boolean(this.data.onCreate ?? true);
         this.data.onTurnStart = Boolean(this.data.onTurnStart);
@@ -35,8 +36,7 @@ class TempHPRuleElement extends RuleElementPF2e {
         }
 
         if (typeof value !== "number") {
-            console.warn("PF2e System | Temporary HP requires a non-zero value field or a formula field");
-            return;
+            return this.failValidation("Temporary HP requires a non-zero value field or a formula field");
         }
 
         const currentTempHP = Number(getProperty(updatedActorData, "data.attributes.hp.temp")) || 0;
@@ -67,7 +67,7 @@ class TempHPRuleElement extends RuleElementPF2e {
 
         const value = this.resolveValue(this.data.value);
         if (typeof value !== "number") {
-            console.warn("PF2e System | Temporary HP requires a non-zero value field or a formula field");
+            this.failValidation("Temporary HP requires a non-zero value field or a formula field");
             return;
         }
 
