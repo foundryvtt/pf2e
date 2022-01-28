@@ -1018,7 +1018,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "action:hide",
+                                "terrain:natural"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p> {item|data.description.value}</div>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1288,7 +1300,7 @@
                             ]
                         },
                         "selector": "tail-attack",
-                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> If the attack hits, the dragon disrupts the creature's action.</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.AttackEffects.InterruptAction]</p>"
                     }
                 ],
                 "slug": null,
@@ -1810,19 +1822,7 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:hide",
-                                "terrain:natural"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "text": "<p class='compact-text' data-visibility='gm'><strong>Camouflage</strong> The dragon can Hide in natural environments even if it doesn't have cover.</p>"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
