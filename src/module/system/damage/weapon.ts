@@ -826,7 +826,7 @@ export class WeaponDamagePF2e {
 
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseType = equivalentWeapons[weapon.data.baseItem ?? ""] ?? weapon.data.baseItem;
-        selectors.push(`${weapon.data.slug ? weapon.data.slug : sluggify(weapon.name)}-damage`);
+        selectors.push(`${weapon.data.slug ?? sluggify(weapon.name)}-damage`);
         if (baseType && !selectors.includes(`${baseType}-damage`)) {
             selectors.push(`${baseType}-damage`);
         }
