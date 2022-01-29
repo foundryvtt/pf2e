@@ -35,10 +35,25 @@
                 "value": 1
             },
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "value": "data.skills.ste.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "value": "data.skills.thi.rank"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Select a skill to become trained in"
+            },
+            {
                 "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.rogueDedication",
-                "value": true
+                "mode": "upgrade",
+                "path": "{item|flags.pf2e.rulesSelections.rogueDedication}",
+                "value": 1
             }
         ],
         "source": {

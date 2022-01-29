@@ -14,6 +14,7 @@ export function coerce(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Coerce", "criticalSuccess"),

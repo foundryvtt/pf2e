@@ -42,6 +42,7 @@
                 "value": 14
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "burrow",
@@ -93,7 +94,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(Can't Speak Any Language)",
                 "selected": [],
                 "value": [
                     "jotun"
@@ -125,6 +126,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -214,6 +216,98 @@
             "type": "melee"
         },
         {
+            "_id": "7PTn0lPspj6Mo8E7",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "pzRCNxN7IHDbV6Wv",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "jZ8U8eTiEuKU6toZ",
             "data": {
                 "actionCategory": {
@@ -226,7 +320,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>5 feet. A creature that starts its turn in the aura takes [[/r {1d6}[fire]]]{1d6 fire damage}. Whenever the remorhaz takes damage from an enemy, this damage increases to 2d6 until the start of its next turn. Any creature that hits a remorhaz with an unarmed Strike takes [[/r {2d6}[fire]]]{2d6 fire damage}, and a weapon that hits a remorhaz takes [[/r {2d6}[fire]]]{2d6 fire damage}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that starts its turn in the aura takes [[/r {1d6}[fire]]]{1d6 fire damage}. Whenever the remorhaz takes damage from an enemy, this damage increases to [[/r {2d6}[fire]]]{2d6 fire damage} until the start of its next turn. Any creature that hits a remorhaz with an unarmed Strike takes [[/r {2d6}[fire]]]{2d6 fire damage}, and a weapon that hits a remorhaz takes [[/r {2d6}[fire]]]{2d6 fire damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -257,7 +351,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Heat",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -273,7 +367,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The remorhaz unleashes a gout of flame that deals [[/r {8d6}[fire]]]{8d6 fire damage} in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true] save). It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The remorhaz unleashes a gout of flame that deals [[/r {8d6}[fire]]]{8d6 fire damage} in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p data-visibility=\"gm\">It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -303,7 +397,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -345,11 +439,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ice Tunneler",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "608bLF5aymDpJp7s",
+            "_id": "ex0dTLedYlwxNB3T",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -361,13 +455,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[{2d8+5}[bludgeoning]]]{2d8+5 bludgeoning damage} plus [[/r {2d6}[fire]]]{2d6 fire damage}, Rupture 12</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Large, [[/r {2d8+5}[bludgeoning]+{2d6}[fire]]]{2d8+5 bludgeoning damage plus 2d6 fire damage}, Rupture 12</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -386,10 +480,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -431,7 +529,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Thrash",
-            "sort": 700000,
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "9OiXFTpXGJPjEwUL",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -461,7 +605,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -491,7 +635,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

@@ -12,10 +12,11 @@ import {
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DamageCategory, DamageDieSize } from "./damage";
+import { DamageCategory, DamageDieSize, nextDamageDieSize } from "./damage";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
+import { extractModifiers } from "@module/rules/util";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -253,6 +254,11 @@ export class WeaponDamagePF2e {
                   )
                 : { selectors: WeaponDamagePF2e.getSelectors(weapon, null, proficiencyRank) };
 
+        // Get just-in-time roll options from rule elements
+        for (const rule of actor.rules.filter((r) => !r.ignored)) {
+            rule.beforeRoll?.(selectors, options);
+        }
+
         // Kickback trait
         if (traits.some((trait) => trait.name === "kickback")) {
             // For NPCs, subtract from the base damage and add back as an untype bonus
@@ -452,18 +458,10 @@ export class WeaponDamagePF2e {
             );
         }
 
-        // Synthetic modifiers and notes
-        for (const selector of selectors) {
-            const modifiers = (statisticsModifiers[selector] ?? []).map((m) => m.clone?.() ?? duplicate(m));
-            for (const modifier of modifiers) {
-                const predicate =
-                    modifier.predicate instanceof PredicatePF2e
-                        ? modifier.predicate
-                        : new PredicatePF2e(modifier.predicate ?? {});
-                modifier.ignored = !predicate.test(options);
-                numericModifiers.push(modifier);
-            }
-        }
+        // Synthetic modifiers
+        numericModifiers.push(
+            ...new StatisticModifier("", extractModifiers(statisticsModifiers, selectors), options).modifiers
+        );
 
         // Set base damage type and category to all non-specific numeric modifiers
         for (const modifier of numericModifiers) {
@@ -535,13 +533,7 @@ export class WeaponDamagePF2e {
             d.ignored = !d.enabled;
         });
 
-        this.excludeDamage(actor, numericModifiers, options);
-        this.excludeDamage(actor, diceModifiers, options);
-        for (const [key, modifiers] of Object.entries(statisticsModifiers)) {
-            if (key.endsWith("damage")) {
-                this.excludeDamage(actor, modifiers, options);
-            }
-        }
+        this.excludeDamage(actor, [...numericModifiers, ...diceModifiers], options);
 
         damage.formula.success = this.getFormula(damage, false);
         damage.formula.criticalSuccess = this.getFormula(damage, true);
@@ -554,7 +546,13 @@ export class WeaponDamagePF2e {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
-        // override first, to ensure the dice stacking works properly
+        // First, increase the damage die. This can only be done once, so we
+        // only need to find the presence of a rule that does this
+        if (diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
+            base.dieSize = nextDamageDieSize(base.dieSize);
+        }
+
+        // override next, to ensure the dice stacking works properly
         diceModifiers
             .filter((dm) => dm.enabled)
             .filter((dm) => dm.override)
@@ -638,9 +636,8 @@ export class WeaponDamagePF2e {
                     // Apply stacking rules for numeric modifiers of each damage type separately
                     return new StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
                 })
-                .flatMap((nm) => nm)
-                .filter((nm) => nm.enabled)
-                .filter((nm) => !nm.critical || critical)
+                .flat()
+                .filter((nm) => nm.enabled && (!nm.critical || critical))
                 .forEach((nm) => {
                     const damageType = nm.damageType ?? base.damageType;
                     let pool = dicePool[damageType];
@@ -815,7 +812,7 @@ export class WeaponDamagePF2e {
     }
 
     private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
-        const selectors = [`${weapon._id}-damage`, "mundane-damage", "damage"];
+        const selectors = [`${weapon._id}-damage`, "strike-damage", "damage"];
         if (weapon.data.group) {
             selectors.push(`${weapon.data.group}-weapon-group-damage`);
         }

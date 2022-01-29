@@ -1,4 +1,7 @@
+import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { MeasuredTemplatePF2e } from ".";
+import { TokenLayerPF2e } from "./layer/token-layer";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -29,6 +32,78 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this.document.hasDarkvision;
     }
 
+    /** Is this token's dimensions linked to its actor's size category? */
+    get linkToActorSize(): boolean {
+        return this.data.flags.pf2e.linkToActorSize;
+    }
+
+    /** Determine whether this token can flank another—given that they have a flanking buddy on the opposite side */
+    canFlank(flankee: TokenPF2e): boolean {
+        if (this === flankee) return false;
+
+        // Only PCs and NPCs can flank
+        if (!(this.actor && ["character", "npc"].includes(this.actor.type))) return false;
+        // Only creatures can be flanked
+        if (!(flankee.actor instanceof CreaturePF2e)) return false;
+
+        // Allies don't flank each other
+        const areAlliedTokens =
+            [this, flankee].every((t) => t.actor!.hasPlayerOwner ?? false) ||
+            ![this, flankee].some((t) => t.actor!.hasPlayerOwner ?? false);
+        if (areAlliedTokens) return false;
+
+        const reach = this.actor.getReach({ to: "attack" });
+
+        return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
+    }
+
+    /** Determine whether this token is in fact flanking another */
+    isFlanking(flankee: TokenPF2e): boolean {
+        if (!this.canFlank(flankee)) return false;
+
+        // Return true if a flanking buddy is found
+        const { lineCircleIntersection, lineSegmentIntersects } = foundry.utils;
+
+        const areOnOppositeCorners = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean =>
+            lineCircleIntersection(flankerA.center, flankerB.center, flankee.center, 1).intersections.length > 0;
+
+        const areOnOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
+            const [centerA, centerB] = [flankerA.center, flankerB.center];
+            const { bounds } = flankee;
+
+            const leftSide = (): [Point, Point] => [
+                { x: bounds.left, y: bounds.top },
+                { x: bounds.left, y: bounds.bottom },
+            ];
+            const rightSide = (): [Point, Point] => [
+                { x: bounds.right, y: bounds.top },
+                { x: bounds.right, y: bounds.bottom },
+            ];
+            const topSide = (): [Point, Point] => [
+                { x: bounds.left, y: bounds.top },
+                { x: bounds.right, y: bounds.top },
+            ];
+            const bottomSide = (): [Point, Point] => [
+                { x: bounds.left, y: bounds.bottom },
+                { x: bounds.right, y: bounds.bottom },
+            ];
+
+            return (
+                (lineSegmentIntersects(centerA, centerB, ...leftSide()) &&
+                    lineSegmentIntersects(centerA, centerB, ...rightSide())) ||
+                (lineSegmentIntersects(centerA, centerB, ...topSide()) &&
+                    lineSegmentIntersects(centerA, centerB, ...bottomSide()))
+            );
+        };
+
+        const isAFlankingArrangement = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean =>
+            areOnOppositeCorners(flankerA, flankerB, flankee) || areOnOppositeSides(flankerA, flankerB, flankee);
+
+        return canvas.tokens.placeables.some(
+            (t) => t !== this && t.canFlank(flankee) && isAFlankingArrangement(this, t, flankee)
+        );
+    }
+
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
     override updateSource({ defer = false, deleted = false, skipUpdateFog = false } = {}): void {
         if (this.actor?.type === "npc" || !(canvas.sight.hasLowLightVision || canvas.sight.hasDarkvision)) {
@@ -47,11 +122,16 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Refresh this token's image and size (usually after an actor update or override) */
     redraw(): void {
-        if (!this.icon?.transform?.scale) return; // Exit early if icon isn't drawn
+        if (!this.icon) return; // Exit early if icon isn't present
 
-        const sizeChanged = !!this.hitArea && this.w !== this.hitArea.width;
-        const scaleChanged = !!this.icon && Math.round((this.icon.width / this.w) * 10) / 10 !== this.data.scale;
-        const imageChanged = !!this.icon && this.icon.src !== this.data.img;
+        const iconIsReady = () => !!(this.icon?.transform?.scale && this.texture);
+        const sizeChanged = !!this.hitArea && this.linkToActorSize && this.w !== this.hitArea.width;
+        const scaleChanged = ((): boolean => {
+            if (!iconIsReady() || !this.linkToActorSize) return false;
+            const expectedScale = Math.round((this.texture.orig.width / this.texture.orig.height) * 10) / 10;
+            return Math.round((this.icon.width / this.w) * 10) / 10 !== expectedScale;
+        })();
+        const imageChanged = this.icon.src !== this.data.img;
 
         if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
@@ -59,10 +139,13 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             const redrawRest = () => {
                 this._drawHUD();
                 this.hitArea = new PIXI.Rectangle(0, 0, this.w, this.h);
-                this.refresh();
+                if (iconIsReady()) {
+                    this.refresh();
+                    this.drawEffects();
+                }
             };
 
-            if (imageChanged && this.icon) {
+            if (imageChanged && iconIsReady()) {
                 this.removeChild(this.icon);
                 this.icon.destroy();
                 loadTexture(this.data.img, { fallback: CONST.DEFAULT_TOKEN }).then((texture) => {
@@ -130,6 +213,32 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         });
     }
 
+    /**
+     * Measure the distance between this token and another object, in grid distance. We measure between the
+     * centre of squares, and if either covers more than one square, we want the minimum distance between
+     * any two of the squares.
+     */
+    distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
+        if (!canvas.dimensions) return NaN;
+
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            return canvas.grid.measureDistance(this.position, target.position);
+        }
+
+        const gridSize = canvas.dimensions.size;
+
+        const tokenRect = (token: TokenPF2e): PIXI.Rectangle => {
+            return new PIXI.Rectangle(
+                token.x + gridSize / 2,
+                token.y + gridSize / 2,
+                token.width - gridSize,
+                token.height - gridSize
+            );
+        };
+
+        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach });
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -155,5 +264,7 @@ interface TokenImage extends PIXI.Sprite {
 }
 
 export interface TokenPF2e extends Token<TokenDocumentPF2e> {
+    get layer(): TokenLayerPF2e<this>;
+
     icon?: TokenImage;
 }

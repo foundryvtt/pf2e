@@ -224,10 +224,10 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     protected _onHoverOut(event: PIXI.InteractionEvent): boolean;
 
     /** Callback actions which occur on a single left-click event to assume control of the object */
-    protected _onClickLeft(event: PIXI.InteractionEvent): boolean;
+    protected _onClickLeft(event: PIXI.InteractionEvent): boolean | void;
 
     /** Callback actions which occur on a double left-click event to activate */
-    protected _onClickLeft2(event: PIXI.InteractionEvent): boolean;
+    protected _onClickLeft2(event: PIXI.InteractionEvent): boolean | void;
 
     /** Callback actions which occur on a single right-click event to configure properties of the object */
     protected _onClickRight(event: PIXI.InteractionEvent): void;

@@ -30,7 +30,7 @@
                 "value": "+1 status to all saves vs. magic"
             },
             "hp": {
-                "details": ")",
+                "details": "regeneration 10 (deactivated by cold iron)",
                 "max": 270,
                 "temp": 0,
                 "value": 270
@@ -42,6 +42,7 @@
                 "value": 26
             },
             "speed": {
+                "details": "freedom of movement",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -65,7 +66,7 @@
                 "value": 14
             },
             "privateNotes": "",
-            "publicNotes": "<p>Despite being among the weakest linnorms, the crag linnorm is a devastating predator, capable of quickly cooking its foes with its magma breath.</p>",
+            "publicNotes": "<p>Despite being among the weakest linnorms, the crag linnorm is a devastating predator, capable of quickly cooking its foes with its magma breath.</p>\n<hr />\n<p>Immense, primeval dragons of the northern reaches of the world, linnorms hate those they deem to be lesser creatures and seek to inflict as much suffering as possible upon their unfortunate victims. While these serpentine monstrosities might not be the powerful winged dragons most imagine, they nonetheless possess incredible strength and deadly powers that often rival authentic dragon brutality.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -104,9 +105,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -120,7 +120,7 @@
             },
             "rarity": "uncommon",
             "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet, true seeing"
+                "value": "darkvision, scent (imprecise) 60 feet; true seeing"
             },
             "size": {
                 "value": "grg"
@@ -139,7 +139,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "hVpq7dqF41Kq8M42",
+            "_id": "dVGwhqUf0F3FAVqi",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -157,10 +157,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -234,7 +234,7 @@
                 "spelldc": {
                     "dc": 33,
                     "mod": 0,
-                    "value": 23
+                    "value": 25
                 },
                 "tradition": {
                     "value": "primal"
@@ -253,110 +253,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "X3bL2hy0Dlgnotu5",
+            "_id": "ZbrVT8ZXTW8YYHBJ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
                     "value": ""
                 },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "hVpq7dqF41Kq8M42"
-                },
-                "materials": {
+                "areasize": {
                     "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "abjuration"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature touched"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
-            "name": "Freedom of Movement",
-            "sort": 200000,
-            "type": "spell"
-        },
-        {
-            "_id": "R2PjwiXZTeWNzRqO",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -383,18 +290,24 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 5
                 },
                 "level": {
                     "value": 5
                 },
                 "location": {
-                    "value": "hVpq7dqF41Kq8M42"
+                    "value": "dVGwhqUf0F3FAVqi"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -408,9 +321,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -441,9 +360,128 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing",
+            "name": "True Seeing (Constant)",
+            "sort": 200000,
+            "type": "spell"
+        },
+        {
+            "_id": "Sp4QTnqBVliDDjlZ",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 6
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "dVGwhqUf0F3FAVqi"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature touched"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
+            "name": "Freedom of Movement (Constant)",
             "sort": 300000,
             "type": "spell"
         },
@@ -454,6 +492,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "crag-linnorm-venom"
                     ]
@@ -479,8 +518,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "reach-20",
-                        "magical"
+                        "magical",
+                        "reach-20"
                     ]
                 },
                 "weaponType": {
@@ -501,6 +540,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -524,8 +564,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "reach-20",
-                        "magical"
+                        "magical",
+                        "reach-20"
                     ]
                 },
                 "weaponType": {
@@ -546,6 +586,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "improved-grab"
                     ]
@@ -571,8 +612,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "reach-20",
-                        "magical"
+                        "magical",
+                        "reach-20"
                     ]
                 },
                 "weaponType": {
@@ -587,25 +628,25 @@
             "type": "melee"
         },
         {
-            "_id": "mjji2cMA94qIY06L",
+            "_id": "80wSAXH5wAj5t4fT",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Tail only.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -622,10 +663,260 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "Ytry4aEXlZIFroqA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "XozXyBaOh9vAKQlv",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "V0DnCsH65jBlStiD",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "ErNsSmjjx1k38FuX",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (Deactivated by Cold Iron)",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "Q2tEMGeuUtWJQfpV",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Tail only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 700000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -641,7 +932,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature slays a crag linnorm, it must succeed at a @Check[type:will|dc:35] save or permanently gain weakness to fire 15.</p>"
+                    "value": "<p>When a creature slays a crag linnorm, it must succeed at a @Check[type:will|dc:35] save or permanently gain weakness to fire 15.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Curse of Fire]{Effect: Curse of Fire}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -671,7 +962,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of Fire",
-            "sort": 800000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -687,7 +978,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The crag linnorm breathes out a stream of magma in a @Template[type:line|distance:120] that deals [[/r {12d6}[fire]]]{12d6 fire damage} to creatures within the area (@Check[type:reflex|dc:34|basic:true] save). Any creature that fails its save also takes [[/r {4d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. The crag linnorm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}. The magma remains until the start of the linnorm's next turn. If the linnorm was on the ground, the magma remains as a burning line on the ground directly under the line of the Breath Weapon, and if the linnorm was airborne, the magma rains downward in a sheet 60 feet high. Any creature that moves across or through the magma takes [[/r {6d6}[fire]]]{6d6 fire damage} (@Check[type:reflex|dc:34|basic:true] save). At the start of the linnorm's next turn, the magma cools to a thin layer of brittle stone on the ground, or the magma rain finishes falling and turns to harmless pebbles. The cooled magma quickly degrades to powder and sand over the course of several hours.</p>"
+                    "value": "<p>The crag linnorm breathes out a stream of magma in a @Template[type:line|distance:120] that deals [[/r {12d6}[fire]]]{12d6 fire damage} to creatures within the area (@Check[type:reflex|dc:34|basic:true] save). Any creature that fails its save also takes [[/r {4d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<p data-visibility=\"gm\">The crag linnorm can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<p>The magma remains until the start of the linnorm's next turn. If the linnorm was on the ground, the magma remains as a burning line on the ground directly under the line of the Breath Weapon, and if the linnorm was airborne, the magma rains downward in a sheet 60 feet high. Any creature that moves across or through the magma takes [[/r {6d6}[fire]]]{6d6 fire damage} (@Check[type:reflex|dc:34|basic:true] save). At the start of the linnorm's next turn, the magma cools to a thin layer of brittle stone on the ground, or the magma rain finishes falling and turns to harmless pebbles. The cooled magma quickly degrades to powder and sand over the course of several hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -717,11 +1008,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 900000,
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "wXlQM4CkdGvASVsM",
+            "_id": "O1iPSxTdSnBAxGt1",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -733,7 +1024,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>2d6+14 bludgeoning, @Check[type:fortitude|dc:34|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {2d6+14}[bludgeoning]]]{2d6+14 bludgeoning damage}, @Check[type:fortitude|dc:34|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -763,7 +1054,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 1000000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -779,7 +1070,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[fire]]]{4d6 fire damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 1}</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[fire]]]{6d6 fire damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 2}.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[fire]]]{4d6 fire damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 1}</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[fire]]]{6d6 fire damage} and @Compendium[pf2e.conditionitems.Drained]{Drained 2}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -809,11 +1100,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Crag Linnorm Venom",
-            "sort": 1100000,
+            "sort": 1600000,
             "type": "action"
         },
         {
-            "_id": "new8AuSSTtHL5Kq4",
+            "_id": "OFEj9wltNrZpJ77C",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -825,13 +1116,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster's Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
@@ -848,10 +1139,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 1200000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -881,7 +1176,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -911,7 +1206,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],

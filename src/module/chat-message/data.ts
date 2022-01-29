@@ -25,6 +25,7 @@ type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";
         [key: string]: unknown;
+        isFromConsumable?: boolean;
     };
     core: {
         canPopout?: boolean;

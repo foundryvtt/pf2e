@@ -453,9 +453,9 @@ declare global {
 
         protected override _onHoverOut(event: PIXI.InteractionEvent): boolean;
 
-        protected override _onClickLeft(event: PIXI.InteractionEvent): boolean;
+        protected override _onClickLeft(event: PIXI.InteractionEvent): void;
 
-        protected override _onClickLeft2(event: PIXI.InteractionEvent): boolean;
+        protected override _onClickLeft2(event: PIXI.InteractionEvent): void;
 
         protected override _onClickRight2(event: PIXI.InteractionEvent): void;
 

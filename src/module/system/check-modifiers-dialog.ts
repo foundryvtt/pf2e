@@ -64,7 +64,7 @@ export class CheckModifiersDialog extends Application {
         $html.find(".modifier-container").on("click", "input[type=checkbox]", (event) => {
             const index = Number(event.currentTarget.getAttribute("data-modifier-index"));
             this.check.modifiers[index].ignored = event.currentTarget.checked;
-            this.check.applyStackingRules();
+            this.check.calculateTotal();
             this.render();
         });
 

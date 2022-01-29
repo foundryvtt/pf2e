@@ -65,6 +65,7 @@ export const RANGE_TRAITS = [
     "range-180",
     "range-200",
     "range-240",
+    "range-300",
     "range-500",
     "range-increment-5",
     "range-increment-10",

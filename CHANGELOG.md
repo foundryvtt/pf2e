@@ -1,5 +1,99 @@
 # Changelog
 
+
+## Version 3.3.0
+
+### New Features
+* (In3luki) Rewrite most of compendium browser, greatly improving load speed and fixing several lingering bugs
+* (swtlam) Implement range-penalty calculations as well as the means to mitigate/ignore such penalties
+* (stwlam) Add setting to automatically remove expired effects
+* (Supe) Add support for spell-damage bonuses, featuring most prominently in Dangerous Sorcery. In rule elements, use @spell to access the spell's data.
+
+### Bugfixes
+* (Cerapter) Propagate homebrew feat traits to actions
+* (Chup) Fixed css of damage card when popped out
+* (Chup) Fix position of effects panel on collapsed sidebar
+* (Chup) Fix hazard sheet html tags in stealth description
+* (Chup) Fix sluggified actions not working in inline buttons, add possibility to use...
+* (JDCalvert) Consume Ammunition from Chat Card Strike
+* (JDCalvert) Fix token-to-token distance calculation
+* (stwlam) Fix drop handling when dropping document through transparent compendium browser to actor sheet
+* (stwlam) Detect token scale change despite very unequal token icon dimensions
+* (stwlam) Display token name in place of actor name for limited-permission NPCs
+* (stwlam) Fix damage dice not getting excluded by battle forms
+* (stwlam) Work around Foundry bug in which token default configuration is ignored for compendium imports
+* (Supe) Add speaker to fast healing and temp hp messages
+
+### Core System Improvements
+* (Apikoros) Gray out npc spells tab when npc does not have any spells
+* (Apikoros) Pass isFromConsumable as a flag on chat messages created by spells, to properly exclude dangerous sorcery bonus for consumables
+* (Chup) Adjust player/vehicle sheet sidebar colors to follow a consistent color scheme
+* (Chup) Resize player/vehicle sheet sidebar headers, further refactor sidebar CSS
+* (JDCalvert) Add range-increment and reload roll options
+* (JDCalvert) Implement shorthand for upgrading die size in Damage Dice rule elements
+* (stwlam) Support array "adds" with AE-like rule elements
+* (stwlam) Remove flatbonushp, levelbonushp, flatbonussp, and levelbonussp from PC data and sheet
+* (stwlam) Add optional ChoiceSet parameter to record item selection's slug instead of its UUID
+* (stwlam) Migrate all "mundane-damage" and almost all "damage" RE selectors to "strike-damage"
+* (stwlam) Add Adjust Modifier and Adjust Strike rule elements to facilitate implementing range-increment rules
+* (Tikael) Run DamageDice's diceNumber through resolveValue
+* (Supe) Create actor.skills, a record of skill statistics for checks and dcs. Modules should use this going forward instead of actor.data.data.skills.
+* (Supe) Display an item's UUID on item sheets for easy copying
+* (Supe) Allow event as a parameter to statistic again for modules and macros
+
+### Data Updates
+* (Abaddon) Brush up final 1/3 of Bestiary 1 (over 100 creature stat blocks)
+* (Abaddon) Improve rule element localization for bestiary 1 - part 1
+* (Abaddon) Add creatures and hazards for PFS 3-09
+* (Abaddon) Fix faerie dragon spellcasting entry order
+* (Drental) add PFS Scenario 3-08 Creatures
+* (InfamousSky) Add leveled damage to Explode action
+* (InfamousSky) Add leveled damage to Megavolt feat
+* (InfamousSky) Fix Invisibility rune typo
+* (InfamousSky) Fix Repeating Heavy Crossbow price
+* (InfamousSky) Fix Seek action spelling mistake
+* (InfamousSky) Give Bon Mot effect icon a shadow
+* (InfamousSky) Add Attack of Opportunity action
+* (InfamousSky) Add effects for Goblin Song feat
+* (InfamousSky) Add leveled healing to Searing Restoration feat
+* (JDCalvert) Add automation to Crossbow Terror
+* (rectulo) Fix typos in Ember's Eyes feat and Oracle class
+* (ricothebold) Add several dozen Feat Effect Icons
+* (Roxim) Brushup EC book 1 remaining NPCs
+* (SoldierC4) Add GrantItem to Munitions Crafter
+* (SpartanCPA) Add Game Hunter Archetype JE
+* (SpartanCPA) Adds Quest for the Frozen Flame Book 1
+* (SpartanCPA) Add "Morlock" as a creature trait
+* (SpartanCPA) Add Chimera variants
+* (SpartanCPA) Add a description for the Magus trait
+* (SpartanCPA) Ensure spell links are italicized
+* (SpartanCPA) Fix name of Harvest Heartsliver action
+* (SpartanCPA) Rename "Others" compendium to "Non-Iconic Pregens"
+* (SpartanCPA) Update Glossary entry for Buck
+* (stwlam) Add shield-hardness increase to Everstand Stance
+* (stwlam) Exclude Draconic Arrogance from Natural Ambition unless the character has Dragon Instinct
+* (stwlam) Add unique icon for Effect: Heroic Recovery
+* (stwlam) Add the Arcane trait to melee strikes while in Arcane Cascade stance
+* (stwlam) Add localization and icon for Brass Dragon form's Spikes attack
+* (stwlam) Add Effect: Favorable Winds along with icon
+* (stwlam) Add Stance: Paragon's Guard
+* (stwlam) Fix AdjustDegreeOfSuccess RE on Aasimar Redeemer
+* (Tikael) (Data Entry World) Add in changes from the data entry world Jan 21st
+* (Tikael) Add ChoiceSet and GrantItem to dedication feats
+* (Tikael) Add area to Pummeling Rubble
+* (Tikael) Add missing paragraph to Explode action
+* (Tikael) Automate Dwarven Thrower
+* (Tikael) Fix description of Medium Armor Expertise for Inventors
+* (Tikael) Fix level of Boastful Hunter
+* (Tikael) (Data Entry World) Add changes from data entry world Jan 27
+* (Tikael) Add ChoiceGrant to basic multiclass feats
+* (Tikael) Fix resistance on Fire Shield spell effect
+* (Tikael) Fix rule elements on Familiar Master Dedication
+* (Tikael) Improve automation of Spirit Strikes feat
+* (Tikael) Make Everstand Stance an actual stance effect
+* (Tikael) Update critical specializations to use localized text
+
+
 ## Version 3.2.2
 
 ### Bugfixes
@@ -86,6 +180,31 @@
 * (Supe) Fix Trick Magic Item and supporting rule elements
 * (Supe) Fix display bug with some ignored modifiers on actor sheets
 
+### Core System Improvements
+* (Cerapter) Pre-filter compendium browser when looking up feats/features from PC sheets
+* (Chup) Adjust actor sheet sidebar banner styling
+* (fryguy) Remove separator from effects and conditions on NPC sidebar
+* (In3luki) Allows inline checks to be affected by elite /weak templates and conditions.
+* (In3luki) Extend enrichContent support to Hazards and Journals
+* (SkepticRobot) Add support for increasing condition values in Effects Panel
+* (SkepticRobot) Move display of conditions and other effects on NPC sheet to dedicated tab
+* (SoldierC4) Remove legacy NPC sheet
+* (SoldierC4) Add token floaty text for conditions and effects
+* (SoldierC4) Give text editor toolbar on PC sheet a contrasting fill color
+* (stwlam) Accommodate alternative ability modifiers for AC
+* (stwlam) Consume consumable weapons on attack roll
+* (stwlam) Remove hard-coded fist attack and replace with a Strike rule element
+* (stwlam) Add ability to preset the selection of a ChoiceSet RE from a GrantItem RE
+* (stwlam) Add support for predication of IWR rule elements
+* (stwlam) Add support for numeric comparisons in predication
+* (stwlam) Reimplement applyDamage as an instance method
+* (Supe) Indicate on NPC sheets whether attacks are melee or ranged
+* (Tikael) Add means of replacing the PC's default unarmed attack from Strike rule elements
+* (Tikael) Allow macros to set the roll mode in the roll dialogue menu
+* (Tikael) Add min/max size for CreatureSize rule element
+* (Vasher) Add support for blindrolls from item chat cards
+* (Vasher) Automatically set compendium browser filters when coming from feat slot
+
 ### Data Updates
 * (Abaddon) Brushup many Bestiary 1 actors
 * (Abaddon) Fix formatting of perception details
@@ -143,31 +262,6 @@
 * (TMun) Brushup many PFS actors
 * (TMun) Correct errors in Rowan Rifle
 * (TMun) Add missing items from Grand Bazaar
-
-### Core System Improvements
-* (Cerapter) Pre-filter compendium browser when looking up feats/features from PC sheets
-* (Chup) Adjust actor sheet sidebar banner styling
-* (fryguy) Remove separator from effects and conditions on NPC sidebar
-* (In3luki) Allows inline checks to be affected by elite /weak templates and conditions.
-* (In3luki) Extend enrichContent support to Hazards and Journals
-* (SkepticRobot) Add support for increasing condition values in Effects Panel
-* (SkepticRobot) Move display of conditions and other effects on NPC sheet to dedicated tab
-* (SoldierC4) Remove legacy NPC sheet
-* (SoldierC4) Add token floaty text for conditions and effects
-* (SoldierC4) Give text editor toolbar on PC sheet a contrasting fill color
-* (stwlam) Accommodate alternative ability modifiers for AC
-* (stwlam) Consume consumable weapons on attack roll
-* (stwlam) Remove hard-coded fist attack and replace with a Strike rule element
-* (stwlam) Add ability to preset the selection of a ChoiceSet RE from a GrantItem RE
-* (stwlam) Add support for predication of IWR rule elements
-* (stwlam) Add support for numeric comparisons in predication
-* (stwlam) Reimplement applyDamage as an instance method
-* (Supe) Indicate on NPC sheets whether attacks are melee or ranged
-* (Tikael) Add means of replacing the PC's default unarmed attack from Strike rule elements
-* (Tikael) Allow macros to set the roll mode in the roll dialogue menu
-* (Tikael) Add min/max size for CreatureSize rule element
-* (Vasher) Add support for blindrolls from item chat cards
-* (Vasher) Automatically set compendium browser filters when coming from feat slot
 
 
 ## Version 3.1.3

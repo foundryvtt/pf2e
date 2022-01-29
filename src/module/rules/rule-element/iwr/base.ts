@@ -1,13 +1,12 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "../";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "../";
 import { ItemPF2e } from "@item";
 
 /** @category RuleElement */
 abstract class IWRRuleElement extends RuleElementPF2e {
-    constructor(data: IWRRuleElementSource, item: Embedded<ItemPF2e>) {
-        if (typeof data.type !== "string") {
-            data.ignored = true;
-        }
-        super(data, item);
+    constructor(data: IWRRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
+        if (typeof data.type !== "string") this.ignored = true;
     }
 
     abstract dictionary: Record<string, string | undefined>;
@@ -25,7 +24,7 @@ abstract class IWRRuleElement extends RuleElementPF2e {
 
     abstract getIWR(value?: unknown): string | object | null;
 
-    override onBeforePrepareData(): void {
+    override beforePrepareData(): void {
         if (this.ignored) return;
         if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions(["all"]))) {
             this.ignored = true;

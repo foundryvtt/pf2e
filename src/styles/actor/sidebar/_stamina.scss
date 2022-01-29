@@ -1,25 +1,20 @@
 .stamina {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    flex-direction: row;
 
     li {
         flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        font-size: 24px;
 
-        label {
-            white-space: normal;
-        }
         input {
-            color: white;
             padding: 0;
+            font-size: 24px;
         }
         input.left {
+            color: var(--text-light);
             text-align: right;
             margin-right: 4px;
         }
         input.right {
+            color: var(--tertiary-light);
             text-align: left;
             margin-left: 4px;
         }

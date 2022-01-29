@@ -1,5 +1,5 @@
 import { AmbientLightDocumentPF2e } from "@module/scene";
-import { LightingLayerPF2e } from "./lighting-layer";
+import { LightingLayerPF2e } from "./layer/lighting-layer";
 
 export class AmbientLightPF2e extends AmbientLight<AmbientLightDocumentPF2e> {
     /** Is this light actually a source of darkness? */

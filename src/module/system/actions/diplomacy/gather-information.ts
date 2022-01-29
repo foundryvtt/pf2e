@@ -14,6 +14,7 @@ export function gatherInformation(options: SkillActionOptions) {
         traits: ["exploration", "secret"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.GatherInformation", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.GatherInformation", "criticalFailure"),

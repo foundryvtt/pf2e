@@ -55,12 +55,12 @@ declare global {
          * @param [options]    Optional arguments passed to the Document.create method
          * @return The imported Document instance
          */
-        importFromCompendium(
-            pack: CompendiumCollection,
+        importFromCompendium<T extends CompendiumDocument & TDocument>(
+            pack: CompendiumCollection<T>,
             id: string,
             updateData?: DocumentUpdateData<TDocument>,
-            options?: DocumentModificationContext
-        ): Promise<TDocument>;
+            options?: DocumentModificationContext<TDocument>
+        ): Promise<TDocument | null>;
 
         /**
          * Apply data transformations when importing a Document from a Compendium pack

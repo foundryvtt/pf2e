@@ -1973,7 +1973,21 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "phase": "afterDerived",
+                        "predicate": {
+                            "all": [
+                                "item:spell-slot",
+                                "item:duration:0",
+                                "damaging-effect"
+                            ]
+                        },
+                        "selector": "spell-damage",
+                        "value": "@spell.level"
+                    }
+                ],
                 "slug": "dangerous-sorcery",
                 "source": {
                     "value": "Pathfinder Core Rulebook"

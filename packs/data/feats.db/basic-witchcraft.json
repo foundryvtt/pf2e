@@ -34,6 +34,25 @@
                 "path": "data.attributes.familiarAbilities.value",
                 "priority": 9,
                 "value": 2
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:type:feat",
+                        "item:trait:witch"
+                    ],
+                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"witch\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.basicWitchcraft}"
             }
         ],
         "source": {

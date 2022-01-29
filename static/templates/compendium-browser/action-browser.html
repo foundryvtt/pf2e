@@ -1,0 +1,16 @@
+<div class="spell-browser">
+    {{> systems/pf2e/templates/compendium-browser/filters.html filterData=filterData }}
+    <ul class="item-list result-list">
+        {{#each indexData as |item idx|}}
+            <li class="item flexrow" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="actions">
+                <div class="image">
+                    <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32" loading="lazy"/>
+                </div>
+                <div class="name">
+                    <a class="item-link">{{item.name}}</a>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+
+</div>

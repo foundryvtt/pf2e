@@ -26,6 +26,7 @@ import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
+import { ModifierAdjustment } from "@module/modifiers";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -52,7 +53,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     synthetics!: RuleElementSynthetics;
 
-    saves?: Record<SaveType, Statistic>;
+    saves?: { [K in SaveType]?: Statistic };
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
@@ -114,8 +115,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return true;
     }
 
+    /** Whether this actor can execute actions: meaningful implementations are found in `CreaturePF2e`. */
+    get canAct(): boolean {
+        return true;
+    }
+
+    /** Whether this actor can attack: meaningful implementations are found in `CreaturePF2e` and `HazardPF2e`. */
+    get canAttack(): boolean {
+        return false;
+    }
+
+    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
+    getReach(_options: { to?: "interact" | "attack" }): number {
+        return 0;
+    }
+
     get modeOfBeing(): ModeOfBeing {
-        const traits = this.traits;
+        const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
     }
 
@@ -232,7 +248,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
-    override _initialize(): void {
+    protected override _initialize(): void {
         super._initialize();
         this.initialized = true;
     }
@@ -271,10 +287,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         this.synthetics = {
             damageDice: {},
+            modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],
             statisticsModifiers: {},
+            strikeAdjustments: [],
             strikes: [],
             striking: {},
             weaponPotency: {},
@@ -309,6 +327,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
+    }
+
+    /** Collect all sources of modifiers for statistics */
+    protected prepareSynthetics(): void {
+        // Rule elements
+        for (const rule of this.rules.filter((r) => !r.ignored)) {
+            try {
+                rule.beforePrepareData?.();
+            } catch (error) {
+                // Ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+            }
+        }
+
+        // Conditions
+        const conditions = this.itemTypes.condition
+            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
+            .map((c) => c.data);
+
+        const { statisticsModifiers } = this.synthetics;
+        for (const [selector, modifiers] of game.pf2e.ConditionManager.getModifiersFromConditions(
+            conditions.values()
+        )) {
+            const syntheticModifiers = (statisticsModifiers[selector] ??= []);
+            syntheticModifiers.push(...modifiers);
+        }
     }
 
     override prepareDerivedData(): void {
@@ -365,20 +409,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return flavor;
     }
 
-    /**
-     * Get all tokens linked to this actor in all scenes
-     * @returns An array of TokenDocuments
-     */
-    getAllTokens(): TokenDocument[] {
-        const tokens: TokenDocument[] = [];
-        for (const scene of game.scenes) {
-            for (const token of scene.tokens) {
-                if (token.isLinked && token.actor?.id === this.id) {
-                    tokens.push(token);
-                }
-            }
-        }
-        return tokens;
+    getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
+        return Array.from(
+            new Set(
+                selectors
+                    .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
+                    .filter((a) => [a.slug, null].includes(slug))
+            )
+        );
     }
 
     /* -------------------------------------------- */

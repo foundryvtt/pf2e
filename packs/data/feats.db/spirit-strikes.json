@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your connection to the Boneyard empowers you to bring death to all forms of life and unlife, exploiting their weaknesses.</p>\n<p>All your weapon and unarmed Strikes are magical and deal [[/r {1}[negative]]]{1 additional negative damage} to living creatures and [[/r {1}[positive]]]{1 additional positive damage} to undead.</p>"
+            "value": "<p>Your connection to the Boneyard empowers you to bring death to all forms of life and unlife, exploiting their weaknesses.</p>\n<p>All your weapon and unarmed Strikes are magical and deal 1 additional negative damage to living creatures and 1 additional positive damage to undead.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,74 +19,40 @@
         "level": {
             "value": 9
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "key": "ToggleProperty",
-                "label": "Target Undead Creature",
-                "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-positive"
-            },
-            {
-                "key": "ToggleProperty",
-                "label": "Target Living Creature",
-                "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-negative"
-            },
-            {
                 "damageType": "positive",
                 "key": "FlatModifier",
-                "label": "Spirit Strike against Undead",
                 "predicate": {
                     "all": [
-                        "spirit-strikes-positive"
+                        "target:trait:undead"
                     ]
                 },
-                "selector": "damage",
+                "selector": "strike-damage",
+                "slug": "spirit-strikes-undead",
                 "value": 1
             },
             {
                 "damageType": "negative",
                 "key": "FlatModifier",
-                "label": "Spirit Strike against Living",
                 "predicate": {
                     "all": [
-                        "spirit-strikes-negative"
+                        "target:mode:living"
                     ]
                 },
-                "selector": "damage",
+                "selector": "strike-damage",
+                "slug": "spirit-strikes-living",
                 "value": 1
             },
             {
-                "key": "DamageDice",
-                "selector": "damage",
-                "traits": [
-                    "magical"
-                ]
-            },
-            {
-                "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "spirit-strikes-negative"
-                    ]
-                },
-                "selector": "damage",
-                "traits": [
-                    "negative"
-                ]
-            },
-            {
-                "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "spirit-strikes-positive"
-                    ]
-                },
-                "selector": "damage",
-                "traits": [
-                    "positive"
-                ]
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magic"
             }
         ],
         "source": {

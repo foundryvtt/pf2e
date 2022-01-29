@@ -1,5 +1,6 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
-import { TemplateLayerPF2e } from "./template-layer";
+import { Rectangle } from "pixi.js";
+import { TemplateLayerPF2e } from "./layer/template-layer";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
     get type(): MeasuredTemplateType {
@@ -102,7 +103,31 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
         }
     }
 
-    /** Measure distance using Pathfinder 2e grid-counting rules */
+    /**
+     * Measure the minimum distance between two rectangles
+     * @param r0      The origin rectangle
+     * @param r1      The destination rectangle
+     * @param [reach] If this is a reach measurement, the origin actor's reach
+     */
+    static measureDistanceRect(r0: Rectangle, r1: Rectangle, { reach = null }: { reach?: number | null } = {}): number {
+        if (!canvas.dimensions) return NaN;
+
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
+            return canvas.grid.measureDistance(r0, r1);
+        }
+
+        // Find the minimum distance between the rectangles for each dimension
+        const dx = Math.max(0, r0.left - r1.right, r1.left - r0.right);
+        const dy = Math.max(0, r0.top - r1.bottom, r1.top - r0.bottom);
+
+        return MeasuredTemplatePF2e.measureDistanceOnGrid({ dx, dy }, { reach });
+    }
+
+    /**
+     * Measure distance using Pathfinder 2e grid-counting rules
+     * @param p0 The origin point
+     * @param p1 The destination point
+     */
     static measureDistance(p0: Point, p1: Point): number {
         if (!canvas.dimensions) return NaN;
 
@@ -110,17 +135,33 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
             return canvas.grid.measureDistance(p0, p1);
         }
 
+        return MeasuredTemplatePF2e.measureDistanceOnGrid(new Ray(p0, p1));
+    }
+
+    /**
+     * Given the distance in each dimension, measure the distance in grid units
+     * @param segment A pair of x/y distances constituting the line segment between two points
+     * @param [reach] If this is a reach measurement, the origin actor's reach
+     */
+    private static measureDistanceOnGrid(
+        segment: { dx: number; dy: number },
+        { reach = null }: { reach?: number | null } = {}
+    ): number {
+        if (!canvas.dimensions) return NaN;
+
         const gridSize = canvas.dimensions.size;
-        const ray = new Ray(p0, p1);
-        const nx = Math.ceil(Math.abs(ray.dx / gridSize));
-        const ny = Math.ceil(Math.abs(ray.dy / gridSize));
+
+        const nx = Math.ceil(Math.abs(segment.dx / gridSize));
+        const ny = Math.ceil(Math.abs(segment.dy / gridSize));
 
         // Get the number of straight and diagonal moves
-        const nDiagonal = Math.min(nx, ny);
-        const nStraight = Math.abs(ny - nx);
+        const squares = { diagonal: Math.min(nx, ny), straight: Math.abs(ny - nx) };
+
+        // "Unlike with measuring most distances, 10-foot reach can reach 2 squares diagonally." (CRB pg 455)
+        const reduction = squares.diagonal > 1 && reach === 10 ? 1 : 0;
 
         // Diagonals in PF pretty much count as 1.5 times a straight
-        const distance = Math.floor(nDiagonal * 1.5 + nStraight);
+        const distance = Math.floor(squares.diagonal * 1.5 + squares.straight) - reduction;
         const distanceOnGrid = distance * canvas.dimensions.distance;
 
         return distanceOnGrid;

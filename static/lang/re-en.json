@@ -1,21 +1,43 @@
 {
     "PF2E": {
-        "NPCAbility": {
-            "FormationArea": "Formation (vs. Area Effects)",
-            "HuntedFear": {
-                "Demoralize": "Target is in maze or similarly difficult-to-navigate structure",
-                "Survival": "To Avoid Getting Lost"
-            },
+        "AttackEffects": {
             "IgnoreConcealed": "The attack ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition.",
             "IgnoreCover": "The target doesn't benefit from lesser cover, and it reduces the AC bonus from standard cover by 2 against the the attack.",
             "IncreasedCriticalChance": "If the attack hits and the creature rolls a 19 on the d20 roll, the attack is a critical hit. This has no effect if the 19 would be a failure.",
             "IncreasedReach5": "Reach increased by 5 feet",
-            "NightmareGuardianRage": "Nightmare Guardian Rage"
+            "InterruptAction": "On a hit, the target's action is interrupted.",
+            "KnockProne": "On a hit, the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}."
+        },
+        "NPCAbility": {
+            "BarghestFeed": "How many times has the Barghest fed?",
+            "DemonInfuseWeapons": "Deal chaotic instead of evil damage",
+            "HobgoblinFormationArea": "Formation vs. Area Effects",
+            "MarilithDefensiveAssault": "Weapons used for defense?",
+            "MarilithFocusedAssault": "How many longswords does the Marilith wield?",
+            "MinotaurHuntedFear": {
+                "Demoralize": "Target is in maze or similarly difficult-to-navigate structure",
+                "Survival": "To Avoid Getting Lost"
+            },
+            "YetiNightmareGuardianRage": "Nightmare Guardian Rage",
+            "PoltergeistTelekineticStorm": {
+                "MultiAttackLabel": "Telekinetic Storm - Multiple Targets",
+                "SingleAttackLabel": "Telekinetic Storm - Single Target",
+                "SingleAttackEffect": "The attack deals [[/r {1d12}]]{1d12 damage} on a failure."
+            },
+            "TreerazerPlantAttack": "Attack a Plant"
+        },
+        "PersistentDamage": {
+            "Bleed1d6": {
+                "regular": "[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
+                "critical": "[[/r {2*1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
+            }
         },
         "RuleElement": {
             "ActiveEffectLike": "ActiveEffect-Like",
             "ActorTraits": "Actor Traits",
             "AdjustDegreeOfSuccess": "Adjust Degree of Success",
+            "AdjustModifier": "Adjust Modifier",
+            "AdjustStrike": "Adjust Strike",
             "BaseSpeed": "Base Speed",
             "BattleForm": "Battle Form",
             "ChoiceSet": "Choice Set",
@@ -56,8 +78,10 @@
             "Blacksmithing": "For Blacksmithing",
             "Climb": "To Climb",
             "ClimbOrSwim": "To Climb or Swim",
+            "CraftTrap": "To Craft Traps",
             "CraftTrapSnare": "To Craft Traps and Snares",
             "Darkness": "In Darkness",
+            "Demoralize": "To Demoralize",
             "Deserts": "In Deserts",
             "Disarm": "To Disarm",
             "DisarmMetal": "To Disarm a Metal Item",
@@ -100,7 +124,8 @@
             "VsProne": "vs. Prone effects",
             "VsShoveOrTrip": "vs. Shove or Trip",
             "Water": "In Water",
-            "Weave": "To Weave"
+            "Weave": "To Weave",
+            "Woodworking": "Woodworking"
         },
         "SpecificRule": {
             "AdvancedGeneralTraining": {
@@ -230,12 +255,17 @@
                 "Prompt": "Select a multiclass dedication feat."
             },
             "Prompt": {
+                "AdvancedMulticlassFeat": "Select a class feat up to half your character level.",
                 "CreatureSize": "Select a creature size.",
                 "Lesson": "Select a lesson.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
+                "LevelOneOrTwoClassFeat": "Select a 1st or 2nd-level class feat.",
                 "PathToPerfection": "Select a path to perfection.",
                 "Skill": "Select a skill.",
                 "WeaponGroup": "Select a weapon group."
+            },
+            "ToggleProperty": {
+                "Triangulate": "Spotter can see target"
             },
             "TwoHanded": {
                 "BastardSword": "Use Bastard Sword Two-Handed",

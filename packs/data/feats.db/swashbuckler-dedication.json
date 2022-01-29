@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Choose a swashbuckler style. You gain the @Compendium[pf2e.classfeatures.Panache]{Panache} class feature, and you can gain panache in all the ways a swashbuckler of your style can.</p>\n<p>You become trained in Acrobatics or the skill associated with your style. If you were already trained in both skills, you instead become trained in a skill of your choice. You also become trained in swashbuckler class DC. You don't gain any other effects of your chosen style.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the swashbuckler archetype.</p>"
+            "value": "<p>Choose a @Compendium[pf2e.classfeatures.Swashbuckler's Style]{Swashbuckler Style}. You gain the @Compendium[pf2e.classfeatures.Panache]{Panache} class feature, and you can gain panache in all the ways a swashbuckler of your style can.</p>\n<p>You become trained in Acrobatics or the skill associated with your style. If you were already trained in both skills, you instead become trained in a skill of your choice. You also become trained in swashbuckler class DC. You don't gain any other effects of your chosen style.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the swashbuckler archetype.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -31,6 +31,64 @@
             ]
         },
         "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Swashbuckler's Style"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "predicate": {
+                            "all": [
+                                "self:feature:braggart"
+                            ]
+                        },
+                        "value": "itm"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "predicate": {
+                            "all": [
+                                "self:feature:fencer"
+                            ]
+                        },
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "predicate": {
+                            "all": [
+                                "self:feature:gymnast"
+                            ]
+                        },
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": {
+                            "all": [
+                                "self:feature:wit"
+                            ]
+                        },
+                        "value": "dip"
+                    }
+                ],
+                "flag": "skillChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.{item|flags.pf2e.rulesSelections.skillChoice}.rank",
+                "value": 1
+            },
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.classfeatures.Panache"

@@ -49,7 +49,7 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
         value: OneToTen;
     };
     spellType: {
-        value: string;
+        value: keyof ConfigPF2e["PF2E"]["spellTypes"];
     };
     category: {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];

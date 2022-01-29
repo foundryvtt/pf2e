@@ -106,6 +106,7 @@
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
@@ -115,7 +116,7 @@
                         "self:feature:laughing-shadow:damage"
                     ]
                 },
-                "selector": "damage",
+                "selector": "strike-damage",
                 "value": {
                     "brackets": [
                         {
@@ -136,6 +137,7 @@
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "label": "Laughing Shadow",
                 "predicate": {
@@ -144,7 +146,7 @@
                         "self:feature:laughing-shadow:damage"
                     ]
                 },
-                "selector": "damage",
+                "selector": "strike-damage",
                 "value": {
                     "brackets": [
                         {
@@ -162,6 +164,17 @@
                         }
                     ]
                 }
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:melee"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "arcane"
             }
         ],
         "source": {

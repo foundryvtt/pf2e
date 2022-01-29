@@ -2,12 +2,12 @@ import { ActorPF2e } from "@actor";
 import type { ActorType } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { BaseRawModifier } from "@module/modifiers";
+import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
 import {
     BracketedValue,
     RuleElementSource,
     RuleElementData,
-    RuleElementSynthetics,
     RuleValue,
     REPreCreateParameters,
     REPreDeleteParameters,
@@ -22,6 +22,8 @@ import {
 abstract class RuleElementPF2e {
     data: RuleElementData;
 
+    protected suppressWarnings: boolean;
+
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
 
@@ -29,9 +31,11 @@ abstract class RuleElementPF2e {
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
+    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
         data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
         data = deepClone(data);
+
+        this.suppressWarnings = options.suppressWarnings ?? false;
 
         const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
             item.actor.data.type
@@ -39,8 +43,7 @@ abstract class RuleElementPF2e {
         if (invalidActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${data.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
-            ui.notifications?.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
-            data.ignored = true;
+            this.failValidation(`A ${ruleName} rules element may not be applied to a ${actorType}`);
         }
         if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
 
@@ -49,7 +52,7 @@ abstract class RuleElementPF2e {
             ...data,
             predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
             label: game.i18n.localize(this.resolveInjectedProperties(data.label ?? item.name)),
-            ignored: data.ignored ?? false,
+            ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
     }
@@ -62,8 +65,22 @@ abstract class RuleElementPF2e {
         return this.item.actor;
     }
 
+    /** Retrieves the token from the actor, or from the active tokens. */
+    get token(): TokenDocumentPF2e | null {
+        const actor = this.actor;
+        if (actor.token) return actor.token;
+
+        const tokens = actor.getActiveTokens();
+        const controlled = tokens.find((token) => token.isControlled);
+        return controlled?.document ?? tokens.shift()?.document ?? null;
+    }
+
     get label(): string {
         return this.data.label;
+    }
+
+    get predicate(): this["data"]["predicate"] {
+        return this.data.predicate;
     }
 
     /** The place in order of application (ascending), among an actor's list of rule elements */
@@ -87,9 +104,12 @@ abstract class RuleElementPF2e {
         this.data.ignored = value;
     }
 
-    failValidation(message: string) {
+    failValidation(...message: string[]): void {
+        const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
-        console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${message}`);
+        if (!this.suppressWarnings) {
+            console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`);
+        }
         this.ignored = true;
     }
 
@@ -127,7 +147,7 @@ abstract class RuleElementPF2e {
             const value = getProperty(objects[key]?.data ?? this.item.data, prop);
             if (value === undefined) {
                 const { item } = this;
-                console.warn(
+                this.failValidation(
                     `Failed to resolve injected property on rule element from item "${item.name}" (${item.uuid})`
                 );
             }
@@ -156,7 +176,7 @@ abstract class RuleElementPF2e {
     protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true } = {}
+        { evaluate = true, resolvables = {} } = {}
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
         if (typeof value === "string") value = this.resolveInjectedProperties(value);
@@ -218,13 +238,18 @@ abstract class RuleElementPF2e {
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item }))
+            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...(resolvables ?? {}) }))
             : value;
     }
 
     private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {
         return value instanceof Object && "brackets" in value && Array.isArray(value.brackets);
     }
+}
+
+interface RuleElementOptions {
+    /** If data validation fails for any reason, do not emit console warnings */
+    suppressWarnings?: boolean;
 }
 
 interface RuleElementPF2e {
@@ -240,20 +265,18 @@ interface RuleElementPF2e {
      * after actor changes. Those values should not be saved back to the actor unless we mess up.
      *
      * This callback is run for each rule in random order and is run very often, so watch out for performance.
-     *
-     * @param actorData actor data
-     * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
-     * damage modifiers or bonuses
      */
-    onBeforePrepareData?(synthetics: RuleElementSynthetics): void;
+    beforePrepareData?(): void;
+
+    /** Run after all actor preparation callbacks have been run so you should see all final values here. */
+    afterPrepareData?(): void;
 
     /**
-     * Run after all actor preparation callbacks have been run so you should see all final values here.
-     *
-     * @param actorData see onBeforePrepareData
-     * @param synthetics see onBeforePrepareData
+     * Run just prior to a check roll, passing along roll options already accumulated
+     * @param domains Applicable predication domains for pending check
+     * @param rollOptions Currently accumulated roll options for the pending check
      */
-    onAfterPrepareData?(synthetics: RuleElementSynthetics): void;
+    beforeRoll?(domains: string[], rollOptions: string[]): void;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
@@ -305,4 +328,4 @@ interface RuleElementPF2e {
     applyDamageExclusion?(modifiers: BaseRawModifier[]): void;
 }
 
-export { RuleElementPF2e };
+export { RuleElementPF2e, RuleElementOptions };

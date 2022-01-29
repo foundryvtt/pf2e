@@ -134,6 +134,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damage: { type: "piercing", die: "d4" },
             traits: [],
         };
+        const abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
         return {
             ...sheetData,
@@ -147,6 +148,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }),
             adjustedLevelHint,
             adjustedPriceHint,
+            abpEnabled,
             baseLevel: baseData.data.level.value,
             baseRarity: baseData.data.traits.rarity,
             basePrice: baseData.data.price.value,

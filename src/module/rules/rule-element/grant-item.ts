@@ -4,10 +4,11 @@ import { RuleElementPF2e, REPreCreateParameters, REPreDeleteParameters, RuleElem
 import { sluggify } from "@util";
 import { ChoiceSetRuleElement } from "./choice-set/rule-element";
 import { ChoiceSetSource } from "./choice-set/data";
+import { RuleElementOptions } from "./base";
 
 class GrantItemRuleElement extends RuleElementPF2e {
-    constructor(data: GrantItemSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
 
         if (this.actor.isToken) {
             console.warn("The GrantItem rules element is not supported on synthetic actors");
@@ -43,7 +44,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedSource._id = randomID();
 
         const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
-        tempGranted.prepareRuleElements();
+        tempGranted.prepareRuleElements({ suppressWarnings: true });
         this.applyChoiceSelections(tempGranted);
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items

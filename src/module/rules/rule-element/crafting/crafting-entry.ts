@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "../";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "../";
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
@@ -11,18 +11,16 @@ import { CraftingEntryData } from "@module/crafting/crafting-entry";
 class CraftingEntryRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>) {
+    constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
         if (!data.selector) {
-            console.warn("PF2E | Crafting entry rule element requires a a non-empty selector field");
-            data.ignored = true;
+            this.failValidation("Crafting entry rule element requires a a non-empty selector field");
         }
 
         if (!data.name) {
-            console.warn("PF2E | Crafting entry rule element requires a a non-empty name field");
-            data.ignored = true;
+            this.failValidation("Crafting entry rule element requires a a non-empty name field");
         }
-
-        super(data, item);
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
