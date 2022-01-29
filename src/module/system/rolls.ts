@@ -104,17 +104,12 @@ export class CheckPF2e {
     ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
-        if (event) {
-            mergeObject(context, eventToRollParams(event));
-        }
+        if (event) mergeObject(context, eventToRollParams(event));
 
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
-            check.modifiers.forEach((modifier) => {
-                modifier.ignored = !PredicatePF2e.test(modifier.predicate, context.options);
-            });
-            check.applyStackingRules();
+            check.calculateTotal(context.options);
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.includes("secret")) {
@@ -281,7 +276,9 @@ export class CheckPF2e {
             const otherTags = ((): string[] => {
                 if (item instanceof WeaponPF2e && item.isRanged) {
                     // Show the range increment for ranged weapons
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", { range: item.range ?? 10 });
+                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", {
+                        range: item.rangeIncrement ?? 10,
+                    });
                     return [`<span class="tag tag_secondary">${label}</span>`];
                 } else {
                     return [];

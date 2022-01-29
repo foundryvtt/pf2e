@@ -81,7 +81,7 @@ export class EffectTracker {
             }
         }
 
-        // only update each actor once, and only the ones with effect expiry changes
+        // Only update each actor once, and only the ones with effect expiry changes
         const updatedActors = expired
             .map((effect) => effect.actor)
             .reduce((actors: ActorPF2e[], actor) => {
@@ -90,19 +90,28 @@ export class EffectTracker {
                 }
                 return actors;
             }, []);
-        for await (const actor of updatedActors) {
+
+        for (const actor of updatedActors) {
             actor.prepareData();
             actor.sheet.render(false);
             if (actor instanceof CreaturePF2e) {
-                actor.redrawTokenEffects();
+                for (const token of actor.getActiveTokens()) {
+                    await token.drawEffects();
+                }
+            }
+        }
+
+        const firstGM = game.users.find((u) => u.active && u.isGM);
+        if (game.user === firstGM && game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+            for (const actor of updatedActors) {
+                await this.removeExpired(actor);
             }
         }
     }
 
     async removeExpired(actor?: ActorPF2e): Promise<void> {
         const expired: Embedded<EffectPF2e>[] = [];
-        for (let index = 0; index < this.trackedEffects.length; index++) {
-            const effect = this.trackedEffects[index];
+        for (const effect of this.trackedEffects) {
             if (actor && effect.actor !== actor) continue;
 
             const duration = effect.remainingDuration;
@@ -116,7 +125,7 @@ export class EffectTracker {
         const owners = actor
             ? [actor]
             : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
-        for await (const owner of owners) {
+        for (const owner of owners) {
             await owner.deleteEmbeddedDocuments(
                 "Item",
                 expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
@@ -126,7 +135,7 @@ export class EffectTracker {
 
     async onEncounterEnd(encounter: EncounterPF2e): Promise<void> {
         const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
-        for await (const actor of actors) {
+        for (const actor of actors) {
             const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
             if (expiresNow.length > 0) {
                 actor.updateEmbeddedDocuments(

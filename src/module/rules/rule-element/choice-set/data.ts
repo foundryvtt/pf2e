@@ -22,6 +22,8 @@ export interface ChoiceSetData extends RuleElementData {
     adjustName: boolean;
     /** Does this choice set contain UUIDs? Set by the rules element itself */
     containsUUIDs: boolean;
+    /** If the choice set contains UUIDs, the item slug can be recorded instead of the selected UUID */
+    recordSlug: boolean;
     /** A predicate to validation dropped item selections */
     allowedDrops: PredicatePF2e;
 }
@@ -31,6 +33,7 @@ export interface ChoiceSetSource extends RuleElementSource {
     flag?: unknown;
     selection?: unknown;
     adjustName?: unknown;
+    recordSlug?: unknown;
     allowedDrops?: unknown;
 }
 

@@ -43,9 +43,11 @@ import { FogExplorationPF2e } from "@module/fog-exploration";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
+import { ActorsPF2e } from "@module/collection/actors";
 
 declare global {
     interface Game {
+        actors: ActorsPF2e;
         pf2e: {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
@@ -103,6 +105,7 @@ declare global {
         get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
+        get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
         get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;

@@ -14,6 +14,7 @@ export function forceOpen(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.ForceOpen", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.ForceOpen", "success"),

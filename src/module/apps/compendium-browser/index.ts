@@ -1,48 +1,19 @@
 import { Progress } from "./progress";
 import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
-import { MagicSchool } from "@item/spell/data";
-import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { ActorPF2e, FamiliarPF2e } from "@actor";
 import { LocalizePF2e } from "@system/localize";
-
-/** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
-function sortedObject(obj: Record<string, unknown>) {
-    return Object.fromEntries([...Object.entries(obj)].sort());
-}
-
-function sortedIndexByName(index: Record<string, CompendiumIndexData>): Record<string, CompendiumIndexData> {
-    const sorted: Record<string, CompendiumIndexData> = {};
-    Object.values(index)
-        .sort((entryA, entryB) => (entryA.name > entryB.name ? 1 : entryA.name < entryB.name ? -1 : 0))
-        .forEach((entry) => {
-            sorted[entry._id] = entry;
-        });
-    return sorted;
-}
-
-/** Ensure all index fields are present in the index data */
-function hasAllIndexFields(data: CompendiumIndexData, indexFields: string[]): boolean {
-    for (const field of indexFields) {
-        if (getProperty(data, field) === undefined) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function normaliseString(str: string): string {
-    // Normalise to NFD to separate diacritics, then remove unwanted characters and convert to lowercase
-    // For now, keep only alnums; if we want smarter, we can change it later
-    return str
-        .normalize("NFD")
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
-}
-
-type SortByOption = "name" | "level" | "price";
-type SortDirection = "asc" | "desc";
+import {
+    CompendiumBrowserActionTab,
+    CompendiumBrowserBestiaryTab,
+    CompendiumBrowserEquipmentTab,
+    CompendiumBrowserFeatTab,
+    CompendiumBrowserHazardTab,
+    CompendiumBrowserSpellTab,
+} from "./tabs/index";
+import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
+import { CheckBoxdata, RangesData } from "./tabs/data";
 
 class PackLoader {
     loadedPacks: {
@@ -88,52 +59,33 @@ class PackLoader {
     }
 }
 
-const packLoader = new PackLoader();
-
-interface PackInfo {
-    load: boolean;
-    name: string;
-}
-type TabName = "action" | "bestiary" | "equipment" | "feat" | "hazard" | "spell" | "settings";
-type TabData<T> = Record<TabName, T | null>;
-
 export class CompendiumBrowser extends Application {
-    sorters: { text: string; castingtime: string } = { text: "", castingtime: "" };
-    filters!: Record<string, Record<string, boolean>>;
-    ranges: Record<string, { lowerBound: number; upperBound: number }> = {};
     settings!: Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+    dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
+    tabs: Record<Exclude<TabName, "settings">, TabType>;
+    packLoader = new PackLoader();
+    activeTab!: TabName;
     navigationTab!: Tabs;
-    data!: TabData<Record<string, unknown> | null>;
-
-    /** Is the user currently dragging a document from the browser? */
-    private userIsDragging = false;
 
     /** An initial filter to be applied upon loading a tab */
     private initialFilter: string[] = [];
     private initialMaxLevel = 0;
 
-    npcIndex = [
-        "img",
-        "data.details.level.value",
-        "data.details.alignment.value",
-        "data.details.source.value",
-        "data.traits",
-    ];
-
-    hazardIndex = ["img", "data.details.level.value", "data.details.isComplex", "data.traits"];
-
-    /** The combined index for hazards and NPCs */
-    hazardNPCIndex: string[];
-
     constructor(options = {}) {
         super(options);
 
+        this.tabs = {
+            action: new CompendiumBrowserActionTab(this),
+            bestiary: new CompendiumBrowserBestiaryTab(this),
+            equipment: new CompendiumBrowserEquipmentTab(this),
+            feat: new CompendiumBrowserFeatTab(this),
+            hazard: new CompendiumBrowserHazardTab(this),
+            spell: new CompendiumBrowserSpellTab(this),
+        };
         this.loadSettings();
         this.initCompendiumList();
         this.injectActorDirectory();
         this.hookTab();
-
-        this.hazardNPCIndex = [...new Set([...this.npcIndex, ...this.hazardIndex])];
     }
 
     override get title() {
@@ -144,7 +96,7 @@ export class CompendiumBrowser extends Application {
         return mergeObject(super.defaultOptions, {
             id: "compendium-browser",
             classes: [],
-            template: "systems/pf2e/templates/packs/compendium-browser.html",
+            template: "systems/pf2e/templates/compendium-browser/compendium-browser.html",
             width: 800,
             height: 700,
             resizable: true,
@@ -156,6 +108,7 @@ export class CompendiumBrowser extends Application {
                     initial: "landing-page",
                 },
             ],
+            scrollY: [".control-area", ".item-list"],
         });
     }
 
@@ -241,7 +194,7 @@ export class CompendiumBrowser extends Application {
             }
         }
 
-        for (const tab of ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const) {
+        for (const tab of this.dataTabsList) {
             settings[tab] = Object.fromEntries(
                 Object.entries(settings[tab]!).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
                     return (dataA?.name ?? "") > (dataB?.name ?? "") ? 1 : -1;
@@ -254,15 +207,6 @@ export class CompendiumBrowser extends Application {
 
     loadSettings() {
         this.settings = JSON.parse(game.settings.get("pf2e", "compendiumBrowserPacks"));
-        this.data = {
-            action: null,
-            bestiary: null,
-            equipment: null,
-            feat: null,
-            hazard: null,
-            spell: null,
-            settings: null,
-        };
     }
 
     hookTab() {
@@ -284,566 +228,128 @@ export class CompendiumBrowser extends Application {
     }
 
     async loadTab(tab: TabName): Promise<void> {
-        if (this.data[tab]) {
-            this.activateResultListeners();
+        this.activeTab = tab;
+        // Settings tab
+        if (tab === "settings") {
+            await this.render(true);
             return;
         }
-        const data = await (async (): Promise<Record<string, unknown> | null> => {
-            switch (tab) {
-                case "settings":
-                    return null;
-                case "action":
-                    return await this.loadActions();
-                case "equipment":
-                    return await this.loadEquipment();
-                case "feat":
-                    return await this.loadFeats();
-                case "spell":
-                    return await this.loadSpells();
-                case "bestiary":
-                    return await this.loadBestiary();
-                case "hazard":
-                    return await this.loadHazards();
-                default:
-                    throw ErrorPF2e(`Unknown tab "${tab}"`);
-            }
-        })();
 
-        if (data) this.data[tab] = data;
-        if (this.rendered) this.render(true);
+        if (!this.dataTabsList.includes(tab)) {
+            throw ErrorPF2e(`Unknown tab "${tab}"`);
+        }
+
+        // Initialize Tab if it is not already initialzed
+        if (!this.tabs[tab]?.isInitialized) {
+            await this.tabs[tab].init();
+        }
+
+        // Set filterData for this tab if intitial values were given
+        if (this.initialFilter.length || this.initialMaxLevel) {
+            const currentTab = this.tabs[tab];
+            currentTab.resetFilters();
+            for (const filter of this.initialFilter) {
+                const [filterType, value] = filter.split("-");
+                if (objectHasKey(currentTab.filterData.checkboxes, filterType)) {
+                    const checkbox = currentTab.filterData.checkboxes[filterType];
+                    const option = checkbox.options[value];
+                    if (option) {
+                        checkbox.isExpanded = true;
+                        checkbox.selected.push(value);
+                        option.selected = true;
+                    } else {
+                        console.warn(`Tab '${tab}' filter '${filterType}' has no option: '${value}'`);
+                    }
+                } else {
+                    console.warn(`Tab '${tab}' has no filter '${filterType}'`);
+                }
+            }
+            if (this.initialMaxLevel) {
+                if (currentTab.filterData.ranges) {
+                    const level = currentTab.filterData.ranges.level;
+                    if (level) {
+                        level.values.max = this.initialMaxLevel;
+                    }
+                }
+            }
+            this.initialFilter = [];
+            this.initialMaxLevel = 0;
+        }
+
+        this.render(true);
     }
 
-    private loadedPacks(tab: TabName): string[] {
+    loadedPacks(tab: TabName): string[] {
         if (tab === "settings") return [];
         return Object.entries(this.settings[tab] ?? []).flatMap(([collection, info]) => {
             return info?.load ? [collection] : [];
         });
     }
 
-    async loadActions() {
-        console.debug("PF2e System | Compendium Browser | Started loading actions");
-
-        const actions: Record<string, CompendiumIndexData> = {};
-        const indexFields = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
-        const sources: Set<string> = new Set();
-
-        for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("action"), indexFields)) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
-            for (const actionData of index) {
-                if (actionData.type === "action") {
-                    if (!hasAllIndexFields(actionData, indexFields)) {
-                        console.warn(
-                            `Action '${actionData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-                    // update icons for any passive actions
-                    if (actionData.data.actionType.value === "passive") actionData.img = this._getActionImg("passive");
-                    // record the pack the feat was read from
-                    actionData.compendium = pack.collection;
-                    actionData.filters = {
-                        traits: actionData.data.traits.value,
-                        source: actionData.data.source.value,
-                    };
-                    actions[actionData._id] = actionData;
-
-                    CompendiumBrowser.extractSources(actionData, sources, actionData.data.source);
-                }
-            }
-        }
-
-        console.debug("PF2e System | Compendium Browser | Finished loading actions");
-
-        return {
-            actions: sortedIndexByName(actions),
-            actionTraits: sortedObject(CONFIG.PF2E.featTraits),
-            skills: CONFIG.PF2E.skillList,
-            proficiencies: CONFIG.PF2E.proficiencyLevels,
-            source: [...sources].sort(),
-        };
-    }
-
-    async loadBestiary() {
-        console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
-
-        const bestiaryActors: Record<string, CompendiumIndexData> = {};
-        const sources: Set<string> = new Set();
-        const indexFields = this.hazardNPCIndex;
-
-        for await (const { pack, index } of packLoader.loadPacks("Actor", this.loadedPacks("bestiary"), indexFields)) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
-            for (const actorData of index) {
-                if (actorData.type === "npc") {
-                    if (!hasAllIndexFields(actorData, this.npcIndex)) {
-                        console.warn(
-                            `Actor '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-                    // record the pack the bestiary actor was read from
-                    actorData.compendium = pack.collection;
-                    actorData.filters = {};
-
-                    actorData.filters.level = actorData.data.details.level.value;
-                    actorData.filters.traits = actorData.data.traits.traits.value;
-                    actorData.filters.alignment = actorData.data.details.alignment.value;
-                    actorData.filters.actorSize = actorData.data.traits.size.value;
-
-                    // add actor to bestiaryActors object
-                    bestiaryActors[actorData._id] = actorData;
-
-                    // Add rarity for filtering
-                    actorData.filters.rarity = actorData.data.traits.rarity;
-
-                    CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
-                }
-            }
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
-        }
-
-        console.debug("PF2e System | Compendium Browser | Finished loading Bestiary actors");
-        return {
-            bestiaryActors: sortedIndexByName(bestiaryActors),
-            actorSize: CONFIG.PF2E.actorSizes,
-            alignments: CONFIG.PF2E.alignments,
-            traits: sortedObject(CONFIG.PF2E.monsterTraits),
-            languages: sortedObject(CONFIG.PF2E.languages),
-            source: [...sources].sort(),
-            rarities: CONFIG.PF2E.rarityTraits,
-        };
-    }
-
-    async loadHazards() {
-        console.debug("PF2e System | Compendium Browser | Started loading Hazard actors");
-
-        const hazardActors: Record<string, CompendiumIndexData> = {};
-        const sources: Set<string> = new Set();
-        const indexFields = this.hazardNPCIndex;
-
-        for await (const { pack, index } of packLoader.loadPacks("Actor", this.loadedPacks("hazard"), indexFields)) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
-            for (const actorData of index) {
-                if (actorData.type === "hazard") {
-                    if (!hasAllIndexFields(actorData, this.hazardIndex)) {
-                        console.warn(
-                            `Hazard '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-                    // record the pack the hazard was read from
-                    actorData.compendium = pack.collection;
-                    actorData.filters = {};
-
-                    actorData.filters.level = actorData.data.details.level.value;
-                    actorData.filters.traits = actorData.data.traits.traits.value;
-
-                    // get the source of the hazard entry ignoring page number and add it as an additional attribute on the hazard entry
-
-                    actorData.filters.complex = actorData.data.details.isComplex ? "complex" : "simple";
-
-                    // add actor to bestiaryActors object
-                    hazardActors[actorData._id] = actorData;
-
-                    // Add rarity for filtering
-                    actorData.filters.rarity = String(actorData.data.traits.rarity) || "common";
-
-                    CompendiumBrowser.extractSources(actorData, sources, actorData.data.details.source);
-                }
-            }
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
-        }
-
-        console.debug("PF2e System | Compendium Browser | Finished loading Hazard actors");
-        return {
-            hazardActors: sortedIndexByName(hazardActors),
-            traits: sortedObject(CONFIG.PF2E.hazardTraits),
-            source: [...sources].sort(),
-            rarities: CONFIG.PF2E.rarityTraits,
-        };
-    }
-
-    async loadEquipment() {
-        console.debug("PF2e System | Compendium Browser | Started loading inventory items");
-
-        const inventoryItems: Record<string, CompendiumIndexData> = {};
-        const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
-        // Define index fields for different types of equipment
-        const kitFields = ["img", "data.price.value", "data.traits"];
-        const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value", "data.source.value"];
-        const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
-        const consumableFields = [...baseFields, "data.consumableType.value"];
-        const indexFields = [...new Set([...armorAndWeaponFields, ...consumableFields])];
-        const sources: Set<string> = new Set();
-
-        for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("equipment"), indexFields)) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
-            for (const itemData of index) {
-                if (itemData.type === "treasure" && itemData.data.stackGroup.value === "coins") continue;
-                if (itemTypes.includes(itemData.type)) {
-                    let skip = false;
-                    if (itemData.type === "weapon" || itemData.type === "armor") {
-                        if (!hasAllIndexFields(itemData, armorAndWeaponFields)) skip = true;
-                    } else if (itemData.type === "kit") {
-                        if (!hasAllIndexFields(itemData, kitFields)) skip = true;
-                    } else if (itemData.type === "consumable") {
-                        if (!hasAllIndexFields(itemData, consumableFields)) skip = true;
-                    } else {
-                        if (!hasAllIndexFields(itemData, baseFields)) skip = true;
-                    }
-                    if (skip) {
-                        console.warn(
-                            `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-
-                    // record the pack the inventory item was read from
-                    itemData.compendium = pack.collection;
-
-                    // add item.type into the correct format for filtering
-                    itemData.data.itemTypes = { value: itemData.type };
-                    itemData.data.rarity = itemData.data.traits.rarity;
-                    itemData.filters = [
-                        "itemTypes",
-                        "rarity",
-                        "level",
-                        "traits",
-                        "price",
-                        "source",
-                        "category",
-                        "consumableType",
-                        "group",
-                    ];
-
-                    // add spell to spells array
-                    inventoryItems[itemData._id] = itemData;
-
-                    CompendiumBrowser.extractSources(itemData, sources, itemData.data.source);
-                }
-            }
-        }
-
-        console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
-        return {
-            inventoryItems: sortedIndexByName(inventoryItems),
-            armorTypes: CONFIG.PF2E.armorTypes,
-            armorGroups: CONFIG.PF2E.armorGroups,
-            weaponTraits: sortedObject(CONFIG.PF2E.weaponTraits),
-            itemTypes: {
-                weapon: game.i18n.localize("ITEM.TypeWeapon"),
-                armor: game.i18n.localize("ITEM.TypeArmor"),
-                equipment: game.i18n.localize("ITEM.TypeEquipment"),
-                consumable: game.i18n.localize("ITEM.TypeConsumable"),
-                treasure: game.i18n.localize("ITEM.TypeTreasure"),
-                backpack: game.i18n.localize("ITEM.TypeBackpack"),
-                kit: game.i18n.localize("ITEM.TypeKit"),
-            },
-            rarities: CONFIG.PF2E.rarityTraits,
-            consumableTypes: CONFIG.PF2E.consumableTypes,
-            weaponCategories: CONFIG.PF2E.weaponCategories,
-            weaponGroups: CONFIG.PF2E.weaponGroups,
-            source: [...sources].sort(),
-        };
-    }
-
-    async loadFeats() {
-        console.debug("PF2e System | Compendium Browser | Started loading feats");
-
-        const feats: Record<string, CompendiumIndexData> = {};
-        const classes: Set<string> = new Set();
-        const skills: Set<string> = new Set();
-        const ancestries: Set<string> = new Set();
-        const times: Set<string> = new Set();
-        const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
-        const sources: Set<string> = new Set();
-        const indexFields = [
-            "img",
-            "data.prerequisites.value",
-            "data.actionType.value",
-            "data.actions.value",
-            "data.featType.value",
-            "data.level.value",
-            "data.traits",
-            "data.source.value",
-        ];
-
-        for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("feat"), indexFields)) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
-            for (const featData of index) {
-                if (featData.type === "feat") {
-                    featData.filters = {};
-                    if (!hasAllIndexFields(featData, indexFields)) {
-                        console.warn(
-                            `Feat '${featData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-                    // record the pack the feat was read from
-                    featData.compendium = pack.collection;
-
-                    // determining attributes from traits
-                    if (featData.data.traits.value) {
-                        // determine class feats
-                        const classList = Object.keys(CONFIG.PF2E.classTraits);
-                        const classIntersection = classList.filter((x) => featData.data.traits.value.includes(x));
-
-                        if (classIntersection.length !== 0) {
-                            classes.add(classIntersection.join(","));
-                            featData.data.classes = { value: classIntersection };
-                        }
-
-                        if (featData.data.featType.value === "ancestry") {
-                            const ancestryIntersection = ancestryList.filter((x) =>
-                                featData.data.traits.value.includes(x)
-                            );
-
-                            if (ancestryIntersection.length !== 0) {
-                                ancestries.add(ancestryIntersection.join(","));
-                                featData.data.ancestry = { value: ancestryIntersection };
-                            }
-                        }
-                    }
-
-                    // determine skill prerequisites
-                    // Note: This code includes some feats, where the prerequisite has the name of a skill.
-                    // I decided to include them. The code would not be worth it, to exclude a single feat
-                    // (Basic Arcana)
-                    {
-                        const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        const prereqs = featData.data.prerequisites.value;
-                        let prerequisitesArr: string[] = [];
-                        prerequisitesArr = prereqs.map((prerequisite: { value: string }) =>
-                            prerequisite?.value ? prerequisite.value.toLowerCase() : ""
-                        );
-
-                        const skillIntersection = skillList.filter((x) =>
-                            prerequisitesArr.some((entry) => entry.includes(x))
-                        );
-
-                        if (skillIntersection.length !== 0) {
-                            skills.add(skillIntersection.join(","));
-                            featData.data.skills = { value: skillIntersection };
-                        }
-                    }
-
-                    let time = "";
-                    if (featData.data.actionType.value === "reaction") {
-                        featData.data.actionType.img = this._getActionImg("reaction");
-                        time = "reaction";
-                    } else if (featData.data.actionType.value === "free") {
-                        featData.data.actionType.img = this._getActionImg("free");
-                        time = "free";
-                    } else if (featData.data.actionType.value === "passive") {
-                        featData.data.actionType.img = this._getActionImg("passive");
-                        time = "passive";
-                    } else if (featData.data.actions.value) {
-                        // _getActionImg handles action counts as strings because they're specified as strings in spells (which can take "1 to 3" actions, e.g. Heal)
-                        featData.data.actionType.img = this._getActionImg(featData.data.actions.value.toString());
-                        time = featData.data.actions.value.toString();
-                    }
-
-                    if (time !== "") {
-                        times.add(time);
-                    }
-
-                    // add feat to feats array
-                    feats[featData._id] = featData;
-
-                    // Add rarity for filtering
-                    featData.data.rarity = deepClone(featData.data.traits.rarity);
-
-                    CompendiumBrowser.extractSources(featData, sources, featData.data.source);
-                }
-            }
-        }
-
-        //  sorting and assigning better class names
-        const classesObj: Record<string, string | undefined> = {};
-        for (const classStr of [...classes].sort()) {
-            const classTraits: Record<string, string | undefined> = CONFIG.PF2E.classTraits;
-            classesObj[classStr] = classTraits[classStr];
-        }
-
-        //  sorting and assigning better ancestry names
-        const ancestryObj: Record<string, string | undefined> = {};
-        for (const ancestryStr of [...ancestries].sort()) {
-            const ancestryTraits: Record<string, string | undefined> = CONFIG.PF2E.ancestryTraits;
-            ancestryObj[ancestryStr] = ancestryTraits[ancestryStr];
-        }
-
-        // Exclude ancestry and class traits since they're separately searchable
-        const excludedTraits = new Set([...ancestries, ...classes]);
-        const featTraits = Object.fromEntries(
-            Object.entries(CONFIG.PF2E.featTraits)
-                .filter(([key]) => !excludedTraits.has(key))
-                .map(([key, name]): [string, string] => [key, game.i18n.localize(name)])
-                .sort((traitA, traitB) => traitA[1].localeCompare(traitB[1]))
-        );
-
-        console.debug("PF2e System | Compendium Browser | Finished loading feats");
-        return {
-            feats: sortedIndexByName(feats),
-            featClasses: CONFIG.PF2E.classTraits,
-            featSkills: CONFIG.PF2E.skillList,
-            featTraits,
-            featAncestry: ancestryObj,
-            featTimes: [...times].sort(),
-            rarities: CONFIG.PF2E.rarityTraits,
-            source: [...sources].sort(),
-        };
-    }
-
-    async loadSpells() {
-        console.debug("PF2e System | Compendium Browser | Started loading spells");
-
-        const spells: Record<string, CompendiumIndexData> = {};
-        const classes: Set<string> = new Set();
-        const schools: Set<MagicSchool> = new Set();
-        const times: Set<string> = new Set();
-        const classList = Object.keys(CONFIG.PF2E.classTraits);
-        const sources: Set<string> = new Set();
-        const indexFields = [
-            "img",
-            "data.level.value",
-            "data.category.value",
-            "data.traditions.value",
-            "data.time",
-            "data.school.value",
-            "data.traits",
-            "data.source.value",
-        ];
-
-        for await (const { pack, index } of packLoader.loadPacks("Item", this.loadedPacks("spell"), indexFields)) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
-            for (const spellData of index) {
-                spellData.filters = {};
-
-                if (spellData.type === "spell") {
-                    if (!hasAllIndexFields(spellData, indexFields)) {
-                        console.warn(
-                            `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
-                        );
-                        continue;
-                    }
-                    // Set category of cantrips to "cantrip" until migration can be done
-                    if (spellData.data.traits.value.includes("cantrip")) {
-                        spellData.data.category.value = "cantrip";
-                    }
-
-                    // record the pack the spell was read from
-                    spellData.compendium = pack.collection;
-
-                    // format spell level for display
-                    if (spellData.data.level.value === 0) spellData.data.level.formated = "C";
-                    else if (spellData.data.level.value === 11) spellData.data.level.formated = "F";
-                    else spellData.data.level.formated = spellData.data.level.value;
-
-                    // determining classes that can use the spell
-                    const classIntersection = classList.filter((trait) => spellData.data.traits.value.includes(trait));
-
-                    if (classIntersection.length !== 0) {
-                        classes.add(classIntersection.join(","));
-                        spellData.data.classes = { value: classIntersection };
-                    }
-
-                    // recording casting times
-                    if (spellData.data.time.value !== undefined) {
-                        let time = spellData.data.time.value;
-                        if (time.indexOf("reaction") !== -1) time = "reaction";
-                        times.add(time);
-                    }
-
-                    // format spell level for display
-                    if (spellData.data.time.value === "reaction") {
-                        spellData.data.time.img = this._getActionImg("reaction");
-                    } else if (spellData.data.time.value === "free") {
-                        spellData.data.time.img = this._getActionImg("free");
-                    } else {
-                        spellData.data.time.img = this._getActionImg(spellData.data.time.value);
-                    }
-
-                    // add spell to spells array
-                    spells[spellData._id] = spellData;
-
-                    // recording schools
-                    if (spellData.data.school.value !== undefined) {
-                        schools.add(spellData.data.school.value);
-                    }
-
-                    // Add rarity for filtering
-                    spellData.data.rarity = deepClone(spellData.data.traits.rarity);
-
-                    CompendiumBrowser.extractSources(spellData, sources, spellData.data.source);
-                }
-            }
-        }
-
-        //  sorting and assigning better class names
-        const classesObj: Record<string, string | undefined> = {};
-        for (const classStr of [...classes].sort()) {
-            const classTraits: Record<string, string | undefined> = CONFIG.PF2E.classTraits;
-            classesObj[classStr] = classTraits[classStr];
-        }
-
-        // sorting and assigning proper school names
-        const schoolsObj: Record<string, string | undefined> = {};
-        for (const school of [...schools].sort()) {
-            schoolsObj[school] = CONFIG.PF2E.magicSchools[school];
-        }
-
-        console.debug("PF2e System | Compendium Browser | Finished loading spells");
-        return {
-            spells: sortedIndexByName(spells),
-            classes: classesObj,
-            times: [...times].sort(),
-            schools: schoolsObj,
-            categories: CONFIG.PF2E.spellCategories,
-            traditions: CONFIG.PF2E.magicTraditions,
-            rarities: CONFIG.PF2E.rarityTraits,
-            spellTraits: sortedObject({ ...CONFIG.PF2E.spellOtherTraits, ...CONFIG.PF2E.damageTraits }),
-            source: [...sources].sort(),
-        };
-    }
-
-    /** Set the ascending/descending order of the search results */
-    setSortDirection($direction: JQuery<HTMLElement>, sortBy: SortByOption, { change = false } = {}): SortDirection {
-        const direction = $direction.attr("data-direction");
-        if (!(direction === "asc" || direction === "desc")) {
-            throw ErrorPF2e("No sort direction set");
-        }
-        const newDirection = change ? (direction === "asc" ? "desc" : "asc") : direction;
-
-        const $icon = $direction.children("i");
-        const iconClass = (() => {
-            const alphaNum = sortBy === "name" ? "alpha" : "numeric";
-            const upDown = newDirection === "asc" ? "up" : "down-alt";
-            return `fas fa-sort-${alphaNum}-${upDown}`;
-        })();
-        $icon.attr("class", iconClass);
-        $direction.attr("data-direction", newDirection);
-
-        return newDirection;
-    }
-
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        this.resetFilters();
+        const activeTabName = this.activeTab;
 
+        // Settings Tab
+        if (activeTabName === "settings") {
+            $html.find<HTMLButtonElement>("button.save-settings").on("click", async () => {
+                const formData = new FormData($html.find<HTMLFormElement>(".compendium-browser-settings form")[0]);
+                for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
+                    for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
+                        pack.load = formData.has(`${t}-${key}`);
+                    }
+                }
+                await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
+                this.loadSettings();
+                this.initCompendiumList();
+                for await (const tab of Object.values(this.tabs)) {
+                    if (tab.isInitialized) {
+                        await tab.init();
+                        this.render(true);
+                    }
+                }
+            });
+            return;
+        }
+        // Other tabs
+        const currentTab = this.tabs[activeTabName];
         const $controlArea = $html.find(".control-area");
 
         $controlArea.find("button.clear-filters").on("click", () => {
             this.resetFilters();
-            this.filterItems($html.find(".tab.active li"));
+            this.clearScrollLimit();
+            this.render(true);
+        });
+
+        $controlArea.find('button[data-action="clear-filter"]').on("click", (event) => {
+            event.stopImmediatePropagation();
+            const filterType = event.currentTarget.parentElement?.parentElement?.dataset.filterType;
+            const filterName = event.currentTarget.parentElement?.parentElement?.dataset.filterName ?? "";
+            if (filterType === "checkboxes") {
+                const checkboxes = currentTab.filterData.checkboxes;
+                if (objectHasKey(checkboxes, filterName)) {
+                    for (const option of Object.values(checkboxes[filterName].options)) {
+                        option.selected = false;
+                    }
+                    checkboxes[filterName].selected = [];
+                    this.render(true);
+                }
+            }
         });
 
         // Toggle visibility of filter containers
-        $controlArea.find(".filtercontainer h3").on("click", (event) => {
-            $(event.delegateTarget).next().toggle(100);
-        });
-
-        // Toggle hints
-        $controlArea.find("input[name=textFilter]").on("contextmenu", () => {
-            $html.find(".hint").toggle(100);
+        $controlArea.find(".filtercontainer div.title").on("click", (event) => {
+            const filterType = event.currentTarget.parentElement?.dataset.filterType;
+            const filterName = event.currentTarget.parentElement?.dataset.filterName ?? "";
+            if (filterType === "checkboxes" || filterType === "ranges") {
+                const filters = currentTab.filterData[filterType];
+                if (filters && objectHasKey(filters, filterName)) {
+                    // This needs a type assertion because it resolves to never for some reason
+                    const filter = filters[filterName] as CheckBoxdata | RangesData;
+                    filter.isExpanded = !filter.isExpanded;
+                    this.render(true);
+                }
+            }
         });
 
         // Sort item list
@@ -852,89 +358,67 @@ export class CompendiumBrowser extends Application {
         const $directionButtons = $sortContainer.find("a.direction");
         $orderSelects.on("change", (event) => {
             const $order = $(event.target);
-            const $direction = $order.next("a.direction");
-            const sortBy = $order.val();
-            if (!tupleHasValue(["name", "level", "price"] as const, sortBy)) return;
-
-            const direction = this.setSortDirection($direction, sortBy);
-
-            const $list = $html.find(".tab.active ul.item-list");
-            this.sortResults($list, { sortBy, direction });
-        });
-        $directionButtons.on("click", (event) => {
-            const $direction = $(event.delegateTarget);
-            const $order = $direction.prev("select.order");
-            const sortBy = $order.val();
-            if (!tupleHasValue(["name", "level", "price"] as const, sortBy)) return;
-
-            const direction = this.setSortDirection($direction, sortBy, { change: true });
-            const $list = $html.find(".tab.active ul.item-list");
-            this.sortResults($list, { sortBy, direction });
-        });
-
-        // Activate or deactivate filters
-        $controlArea.find<HTMLInputElement>("input[name=textFilter]").on("change paste", (event) => {
-            this.sorters.text = event.target.value;
-            this.filterItems($html.find(".tab.active li"));
-        });
-        $controlArea.find<HTMLSelectElement>(".timefilter select").on("change", (event) => {
-            this.sorters.castingtime = event.target.value;
-            this.filterItems($html.find(".tab.active li"));
-        });
-
-        // Filters
-        $controlArea.find<HTMLInputElement>("input[type=checkbox]").on("click", (event) => {
-            const filterType = event.target.name.split(/-(.+)/)[0];
-            const filterTarget = event.target.name.split(/-(.+)/)[1];
-            const filterValue = event.target.checked;
-            if (Object.keys(this.filters).includes(filterType)) {
-                this.filters[filterType][filterTarget] = filterValue;
-                this.filters[filterType] = this.clearObject(this.filters[filterType]);
-            }
-            this.filterItems($html.find(".tab.active li"));
-        });
-
-        // Filter for levels
-        $controlArea.find<HTMLInputElement>("input[name*=Bound]").on("input change paste", (event) => {
-            const type = event.target.name.split("-")[1] ?? "";
-
-            const $parent = $(event.target).closest("div");
-            const $lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]");
-            const $upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]");
-
-            this.ranges[type].lowerBound = Number($lowerBound.val());
-            this.ranges[type].upperBound = Number($upperBound.val());
-
-            this.filterItems($html.find(".tab.active li"));
-        });
-
-        $html.find<HTMLButtonElement>("button.save-settings").on("click", () => {
-            const formData = new FormData($html.find<HTMLFormElement>(".compendium-browser-settings form")[0]);
-            for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
-                for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                    pack.load = formData.has(`${t}-${key}`);
-                }
-            }
-            game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
-            this.loadSettings();
-            this.initCompendiumList();
+            const orderBy = $order.val()?.toString() ?? "name";
+            currentTab.filterData.order.by = orderBy;
+            this.clearScrollLimit();
             this.render(true);
         });
 
-        const $activeControlArea = $html.find(".tab.active .control-area");
+        $directionButtons.on("click", (event) => {
+            const direction = ($(event.currentTarget).data("direction") as SortDirection) ?? "asc";
+            currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
+            this.clearScrollLimit();
+            this.render(true);
+        });
 
-        // Pre-filter list if requested, filters can be separated with commas
-        for (let initialFilter of this.initialFilter) {
-            if (initialFilter.includes("dualclass")) initialFilter = "feattype-class";
-            const $filter = $activeControlArea.find(`input[type="checkbox"][name="${initialFilter}"]`);
-            if ($filter.length !== 0) $filter.trigger("click");
-        }
+        // Search field
+        $controlArea.find<HTMLInputElement>("input[name=textFilter]").on("change paste", (event) => {
+            currentTab.filterData.search.text = event.target.value;
+            this.clearScrollLimit();
+            this.render(true);
+        });
 
-        if (this.initialMaxLevel !== 0) {
-            const $filter = $activeControlArea.find(`input[type="number"][name="upperBound-level"]`);
-            if ($filter.length !== 0) $filter.val(this.initialMaxLevel).trigger("change");
-            if ($orderSelects.length !== 0) $orderSelects.val("level").trigger("change");
-        }
+        // TODO: Support any generated select element
+        $controlArea.find<HTMLSelectElement>(".timefilter select").on("change", (event) => {
+            if (!currentTab.filterData?.dropdowns?.timefilter) return;
+            currentTab.filterData.dropdowns.timefilter.selected = event.target.value;
+            this.clearScrollLimit();
+            this.render(true);
+        });
+
+        // Activate or deactivate filters
+        $controlArea.find<HTMLInputElement>("input[type=checkbox]").on("click", (event) => {
+            const checkboxName = event.target.closest("div")?.dataset?.filterName;
+            const optionName = event.target.name;
+            if (!checkboxName || !optionName) return;
+            if (objectHasKey(currentTab.filterData.checkboxes, checkboxName)) {
+                const checkbox = currentTab.filterData.checkboxes[checkboxName];
+                const option = checkbox.options[optionName];
+                option.selected = !option.selected;
+                option.selected
+                    ? checkbox.selected.push(optionName)
+                    : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+                this.clearScrollLimit();
+                this.render(true);
+            }
+        });
+
+        // Filter for levels
+        $controlArea.find<HTMLInputElement>("input[name*=Bound]").on("keyup", (event) => {
+            if (event.key !== "Enter") return;
+            const $parent = $(event.target).closest("div");
+            const name = ($parent.closest("div .filtercontainer").data("filterName") as string) ?? "";
+            const ranges = currentTab.filterData.ranges;
+            if (ranges && objectHasKey(ranges, name)) {
+                const range = ranges[name];
+                const $lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]");
+                const $upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]");
+                range.values.min = Number($lowerBound.val()) || 0;
+                range.values.max = Number($upperBound.val()) || 0;
+                this.clearScrollLimit();
+                this.render(true);
+            }
+        });
     }
 
     /** Activate click listeners on loaded actors and items */
@@ -965,6 +449,23 @@ export class CompendiumBrowser extends Application {
             const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
             this.takePhysicalItem(itemId);
         });
+
+        // Lazy load list when scrollbar reaches bottom
+        $list.on("scroll", (event) => {
+            const target = event.currentTarget;
+            if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+                const tab = this.activeTab;
+                if (tab === "settings") return;
+                const currentValue = this.tabs[tab].scrollLimit;
+                const maxValue = this.tabs[tab].totalItemCount ?? 0;
+                if (currentValue < maxValue) {
+                    const newValue = Math.clamped(currentValue + 100, 100, maxValue);
+                    this.tabs[tab].scrollLimit = newValue;
+                    this.render(true);
+                }
+            }
+        });
+
         $list.data("listeners-active", true);
     }
 
@@ -1016,7 +517,6 @@ export class CompendiumBrowser extends Application {
 
     /** Set drag data and lower opacity of the application window to reveal any tokens */
     protected override _onDragStart(event: ElementDragEvent): void {
-        this.userIsDragging = true;
         this.element.animate({ opacity: 0.125 }, 250);
 
         const $item = $(event.currentTarget);
@@ -1033,52 +533,17 @@ export class CompendiumBrowser extends Application {
         );
 
         $item.one("dragend", () => {
-            this.userIsDragging = false;
-            this.element.animate({ opacity: 1 }, 500);
+            window.setTimeout(() => {
+                this.element.animate({ opacity: 1 }, 250, () => {
+                    this.element.css({ pointerEvents: "" });
+                });
+            }, 500);
         });
     }
 
-    /** Simulate a drop event on the DOM element directly beneath the compendium browser */
-    protected override _onDrop(event: ElementDragEvent): void {
-        if (!this.userIsDragging) return;
-
-        // Get all elements beneath the compendium browser
-        const browserZIndex = Number(this.element.css("zIndex"));
-        const dropCandidates = Array.from(document.body.querySelectorAll("*")).filter(
-            (element): element is HTMLElement => {
-                if (!(element instanceof HTMLElement) || ["compendium-browser", "hud"].includes(element.id))
-                    return false;
-                const appBounds = element.getBoundingClientRect();
-                const zIndex = Number(element.style.zIndex);
-                if (!appBounds || zIndex > browserZIndex) return false;
-
-                return (
-                    event.clientX >= appBounds.left &&
-                    event.clientX <= appBounds.right &&
-                    event.clientY >= appBounds.top &&
-                    event.clientY <= appBounds.bottom
-                );
-            }
-        );
-
-        const highestElement = dropCandidates.reduce((highest: HTMLElement | null, candidate) => {
-            if (!highest) return candidate;
-            return Number(candidate.style.zIndex) > Number(highest.style.zIndex) ? candidate : highest;
-        }, null);
-
-        if (highestElement) {
-            const isSheet = /^actor-\w+$/.test(highestElement.id);
-            const sheetForm = isSheet && highestElement.querySelector("form.editable");
-            const dropTarget = isSheet && sheetForm instanceof HTMLElement ? sheetForm : highestElement;
-            const newEvent = new DragEvent(event.type, {
-                ...event,
-                clientX: event.clientX,
-                clientY: event.clientY,
-                dataTransfer: new DataTransfer(),
-            });
-            newEvent.dataTransfer?.setData("text/plain", event.dataTransfer.getData("text/plain"));
-            dropTarget.dispatchEvent(newEvent);
-        }
+    protected override _onDragOver(event: ElementDragEvent): void {
+        super._onDragOver(event);
+        this.element.css({ pointerEvents: "none" });
     }
 
     injectActorDirectory() {
@@ -1087,7 +552,9 @@ export class CompendiumBrowser extends Application {
 
         // Bestiary Browser Buttons
         const bestiaryImportButton = $(
-            `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`
+            `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> ${game.i18n.localize(
+                "PF2E.CompendiumBrowser.BestiaryBrowser"
+            )}</button>`
         );
 
         if (game.user.isGM) {
@@ -1101,234 +568,46 @@ export class CompendiumBrowser extends Application {
         });
     }
 
-    clearObject(obj: object) {
-        return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
-    }
-
-    _getActionImg(action: string): string {
-        const img: Record<string, string> = {
-            1: "systems/pf2e/icons/actions/OneAction.webp",
-            2: "systems/pf2e/icons/actions/TwoActions.webp",
-            3: "systems/pf2e/icons/actions/ThreeActions.webp",
-            "1 or 2": "systems/pf2e/icons/actions/OneTwoActions.webp",
-            "1 to 3": "systems/pf2e/icons/actions/OneThreeActions.webp",
-            "2 or 3": "systems/pf2e/icons/actions/TwoThreeActions.webp",
-            free: "systems/pf2e/icons/actions/FreeAction.webp",
-            reaction: "systems/pf2e/icons/actions/Reaction.webp",
-            passive: "systems/pf2e/icons/actions/Passive.webp",
-        };
-        return img[action] ?? "systems/pf2e/icons/actions/OneAction.webp";
-    }
-
     override getData() {
+        const activeTab = this.activeTab;
+        // Settings
+        if (activeTab === "settings") {
+            return {
+                user: game.user,
+                settings: this.settings,
+            };
+        }
+        // Active tab
+        const tab = this.tabs[activeTab];
+        if (tab) {
+            return {
+                user: game.user,
+                [activeTab]: {
+                    filterData: tab.filterData,
+                    indexData: tab.getIndexData(),
+                },
+                scrollLimit: tab.scrollLimit,
+            };
+        }
+        // No active tab
         return {
             user: game.user,
-            ...this.data,
-            settings: this.settings,
         };
-    }
-
-    async filterItems($lis: JQuery): Promise<void> {
-        let counter = 0;
-        $lis.hide();
-        for (const li of $lis) {
-            if (this.getFilterResult(li)) {
-                $(li).show();
-                counter += 1;
-                if (counter % 20 === 0) {
-                    // Yield to the browser to render what it has
-                    /* eslint-disable-next-line no-await-in-loop */
-                    await new Promise((r) => setTimeout(r, 0));
-                }
-            }
-        }
-    }
-
-    getFilterResult(element: HTMLElement): boolean {
-        if (this.sorters.text) {
-            const searches = this.sorters.text.split(",");
-            for (const search of searches) {
-                if (search.indexOf(":") === -1) {
-                    if (!normaliseString($(element).find(".name a")[0].innerHTML).includes(normaliseString(search))) {
-                        return false;
-                    }
-                } else {
-                    const targetValue = search.split(":")[1].trim();
-                    const targetStat = search.split(":")[0];
-                    if (!normaliseString(element.dataset[targetStat] ?? "").includes(normaliseString(targetValue))) {
-                        return false;
-                    }
-                }
-            }
-        }
-        if (this.sorters.castingtime !== "") {
-            const castingtime = element.dataset.time;
-            if (castingtime !== this.sorters.castingtime) {
-                return false;
-            }
-        }
-
-        for (const filter of Object.keys(this.filters)) {
-            if (Object.keys(this.filters[filter]).length > 0) {
-                const filteredElements = element.dataset[filter];
-                let hide = true;
-                if (filteredElements) {
-                    for (const e of filteredElements.split(",")) {
-                        if (this.filters[filter][e.trim()] === true) {
-                            hide = false;
-                            break;
-                        }
-                    }
-                }
-                if (hide) return false;
-            }
-        }
-
-        return this.isWithinFilteredBounds(element);
-    }
-
-    isWithinFilteredBounds(element: HTMLElement): boolean {
-        const rangeIdentifiers = Object.keys(this.ranges);
-
-        for (const range of rangeIdentifiers) {
-            const lowerBound = this.ranges[range].lowerBound;
-            const upperBound = this.ranges[range].upperBound;
-            const filter = Number(element.dataset[range] ?? 0);
-
-            if (filter < lowerBound || upperBound < filter) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private resetFilters(): void {
-        this.sorters = {
-            text: "",
-            castingtime: "",
-        };
-
-        this.filters = {
-            level: {},
-            complex: {},
-            classes: {},
-            skills: {},
-            ancestry: {},
-            school: {},
-            category: {},
-            traditions: {},
-            armortype: {},
-            group: {},
-            traits: {},
-            itemtypes: {},
-            rarity: {},
-            consumabletype: {},
-            proficiencies: {},
-            actorsize: {},
-            alignment: {},
-            source: {},
-            feattype: {},
-        };
-
-        this.ranges = {
-            level: { lowerBound: -1, upperBound: 30 },
-        };
-
-        const $controlAreas = this.element.find(".tab .control-area");
-        $controlAreas.find("input[name=textFilter]").val("");
-        $controlAreas.find("input[name=timefilter]").val("");
-        $controlAreas.find("input[type=checkbox]:checked").prop("checked", false);
+        const activeTab = this.activeTab;
+        if (activeTab !== "settings") {
+            this.tabs[activeTab].resetFilters();
+        }
     }
 
-    sortResults(
-        $list: JQuery,
-        { sortBy = "name", direction = "asc" }: { sortBy: SortByOption; direction: SortDirection }
-    ): void {
-        interface LIMapping {
-            value: string | number;
-            element: HTMLElement;
-            index: number;
-        }
-        const $items = $list.children("li");
-        const mappedList: LIMapping[] = (() => {
-            switch (sortBy) {
-                case "name": {
-                    return $items
-                        .map((index, element) => ({
-                            value: $(element).find(".name a")[0].innerHTML,
-                            element,
-                            index,
-                        }))
-                        .toArray();
-                }
-                case "level": {
-                    return $items
-                        .map((index, element) => {
-                            const levelString = element.dataset.level?.trim() || "0";
-                            return { value: Number(levelString), element, index };
-                        })
-                        .toArray();
-                }
-                case "price": {
-                    return $items
-                        .map((index, element) => {
-                            if (element.dataset.itemtypes === "kit") {
-                                const coinValues = (element.dataset.price ?? "0 gp").split(/,\s*/);
-                                const total = coinValues
-                                    .map((coinValue) =>
-                                        coinValueInCopper(
-                                            extractPriceFromItem({
-                                                data: { price: { value: coinValue }, quantity: { value: 1 } },
-                                            })
-                                        )
-                                    )
-                                    .reduce((total, part) => total + part, 0);
-                                return { value: total, element, index };
-                            }
-                            const price = coinValueInCopper(
-                                extractPriceFromItem({
-                                    data: { price: { value: element.dataset.price ?? "0 gp" }, quantity: { value: 1 } },
-                                })
-                            );
-                            return { value: price, element, index };
-                        })
-                        .toArray();
-                }
-            }
-        })();
+    private clearScrollLimit() {
+        const tab = this.activeTab;
+        if (tab === "settings") return;
 
-        mappedList.sort((entryA, entryB) => {
-            if (entryA.value < entryB.value) return direction === "asc" ? -1 : 1;
-            if (entryA.value > entryB.value) return direction === "asc" ? 1 : -1;
-            return 0;
-        });
-        const rows = mappedList.map((mapping) => mapping.element);
-        $list.html("");
-        for (const row of rows) {
-            $list[0].append(row);
-        }
-        this.activateResultListeners();
-    }
-
-    private static extractSources(
-        indexData: CompendiumIndexData,
-        sources: Set<string>,
-        sourcePath: { value: string }
-    ): void {
-        if (sourcePath && sourcePath.value) {
-            if (sourcePath.value.includes("pg.")) {
-                indexData.filters.source = sourcePath.value.split("pg.")[0].trim();
-            } else if (sourcePath.value.includes("page.")) {
-                indexData.filters.source = sourcePath.value.split("page.")[0].trim();
-            } else {
-                indexData.filters.source = sourcePath.value;
-            }
-        }
-
-        // add the source to the filter list.
-        if (indexData.filters.source) {
-            sources.add(indexData.filters.source);
-        }
+        const $list = this.element.find(".tab.active ul.item-list");
+        $list.scrollTop(0);
+        this.tabs[tab].scrollLimit = 100;
     }
 }

@@ -14,6 +14,7 @@ export function shove(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Shove", "criticalSuccess"),

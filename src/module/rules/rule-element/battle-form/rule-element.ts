@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData } from "../";
+import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../";
 import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
@@ -26,8 +26,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>) {
-        super(data, item);
+    constructor(data: BattleFormSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
         this.initialize(this.data);
         this.overrides = this.resolveValue(this.data.value ?? {}, this.data.overrides) as this["data"]["overrides"];
         this.modifierLabel = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
@@ -55,6 +55,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "pincer",
         "pseudopod",
         "rock",
+        "spikes",
         "stinger",
         "tail",
         "talon",
@@ -77,9 +78,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         const { value } = data;
         const dataIsValid = data.overrides instanceof Object && (value instanceof Object || value === undefined);
         if (!dataIsValid) {
-            console.warn("PF2e System | Battle Form rule element failed to validate");
-            this.ignored = true;
-            return;
+            return this.failValidation("Battle Form rule element failed to validate");
         }
 
         data.canCast ??= false;
@@ -130,7 +129,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onBeforePrepareData(): void {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const { rollOptions } = this.actor;
@@ -153,7 +152,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onAfterPrepareData(): void {
+    override afterPrepareData(): void {
         if (this.ignored) return;
 
         this.prepareAC();
@@ -214,7 +213,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!newSense) continue;
             newSense.acuity ??= "precise";
             const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
-            new SenseRuleElement(ruleData, this.item).onBeforePrepareData();
+            new SenseRuleElement(ruleData, this.item).beforePrepareData();
         }
     }
 
@@ -222,7 +221,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     private prepareSize(): void {
         if (!this.overrides.size) return;
         const ruleData = { key: "CreatureSize", label: this.label, value: this.overrides.size };
-        new CreatureSizeRuleElement(ruleData, this.item).onBeforePrepareData();
+        new CreatureSizeRuleElement(ruleData, this.item).beforePrepareData();
     }
 
     /** Add, replace and/or adjust non-land speeds */
@@ -331,7 +330,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         for (const datum of ruleData) {
             if (!datum.traits.includes("magical")) datum.traits.push("magical");
-            new StrikeRuleElement(datum, this.item).onBeforePrepareData(synthetics);
+            new StrikeRuleElement(datum, this.item).beforePrepareData();
         }
         this.actor.data.data.actions = this.data.ownUnarmed
             ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))
@@ -363,16 +362,16 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Immunity, weakness, and resistance */
     private prepareIWR(): void {
         for (const immunity of this.overrides.immunities) {
-            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).onBeforePrepareData();
+            new ImmunityRuleElement({ key: "Immunity", ...immunity }, this.item).beforePrepareData();
         }
         for (const weakness of this.overrides.weaknesses) {
-            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).onBeforePrepareData();
+            new WeaknessRuleElement({ key: "Weakness", ...weakness, override: true }, this.item).beforePrepareData();
         }
         for (const resistance of this.overrides.resistances) {
             new ResistanceRuleElement(
                 { key: "Resistance", ...resistance, override: true },
                 this.item
-            ).onBeforePrepareData();
+            ).beforePrepareData();
         }
     }
 
@@ -388,7 +387,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 modifier.ignored = true;
             }
         }
-        statistic.applyStackingRules();
+        statistic.calculateTotal();
     }
 
     private suppressNotes(notes: RollNotePF2e[]): void {
@@ -414,6 +413,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             );
 
             if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
+                modifier.enabled = false;
+                modifier.ignored = true;
                 modifier.predicate.not.push("battle-form");
             }
         }

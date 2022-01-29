@@ -29,6 +29,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         // Update save labels
         for (const key of SAVE_TYPES) {
+            if (!sheetData.data.saves[key]) continue;
             sheetData.data.saves[key].label = CONFIG.PF2E.saves[key];
         }
         sheetData.actor.flags.editHazard ??= { value: false };
@@ -58,7 +59,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             hasRoutineDetails: systemData.details.routine || false,
             hasResetDetails: systemData.details.reset || false,
             hasHPDetails: systemData.attributes.hp.details || false,
-            hasWillSave: systemData.saves.will.value !== 0 || false,
+            hasWillSave: !!systemData.saves.will,
             brokenThreshold: Math.floor(systemData.attributes.hp.max / 2),
         };
     }

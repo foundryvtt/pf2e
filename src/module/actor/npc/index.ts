@@ -108,9 +108,8 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const { synthetics } = this;
         // Extract as separate variables for easier use in this method.
-        const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { damageDice, statisticsModifiers, strikes, rollNotes } = this.synthetics;
         const { details } = this.data.data;
         const itemTypes = this.itemTypes;
 
@@ -159,25 +158,18 @@ export class NPCPF2e extends CreaturePF2e {
         // Hit Points
         {
             const base = data.attributes.hp.max;
-            const modifiers: ModifierPF2e[] = [];
-            (statisticsModifiers.hp || [])
-                .map((m) => m.clone())
-                .forEach((m) => {
-                    m.ignored = !m.predicate.test(["hp"]);
-                    modifiers.push(m);
-                });
-            (statisticsModifiers["hp-per-level"] || [])
-                .map((m) => m.clone())
-                .forEach((m) => {
-                    m.modifier *= data.details.level.value;
-                    m.ignored = !m.predicate.test(["hp-per-level"]);
-                    modifiers.push(m);
-                });
+            const modifiers: ModifierPF2e[] = [
+                extractModifiers(statisticsModifiers, ["hp"], { test: this.getRollOptions(["hp"]) }),
+                extractModifiers(statisticsModifiers, ["hp-per-level"], {
+                    test: this.getRollOptions(["hp-per-level"]),
+                }).map((modifier) => {
+                    modifier.modifier *= this.level;
+                    return modifier;
+                }),
+            ].flat();
 
             // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
-            const hpData = duplicate(data.attributes.hp);
-            delete (hpData as any).modifiers;
-
+            const hpData = deepClone(data.attributes.hp);
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
             stat.base = base;
@@ -202,19 +194,18 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            this.addShieldBonus(statisticsModifiers);
+            this.addShieldBonus();
             const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
-            const rollOptions = ["ac", "dex-based", "all"];
+            const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
             ];
 
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), data.attributes.ac, {
                 overwrite: false,
             });
             stat.base = base;
@@ -235,20 +226,23 @@ export class NPCPF2e extends CreaturePF2e {
         // Perception
         {
             const base = data.attributes.perception.value;
-            const rollOptions = ["perception", "wis-based", "all"];
+            const domains = ["perception", "wis-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
             ];
 
-            const stat = mergeObject(new StatisticModifier("perception", modifiers), data.attributes.perception, {
-                overwrite: false,
-            });
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(
+                new StatisticModifier("perception", modifiers, rollOptions),
+                data.attributes.perception,
+                {
+                    overwrite: false,
+                }
+            );
             stat.base = base;
-            stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -270,18 +264,17 @@ export class NPCPF2e extends CreaturePF2e {
         // default all skills to untrained
         data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
-            const rollOptions = [skill, `${ability}-based`, "skill-check", "all"];
+            const domains = [skill, `${ability}-based`, "skill-check", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
             ];
-            const notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            const notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
+            const rollOptions = this.getRollOptions(domains);
             const stat = mergeObject(
-                new StatisticModifier(name, modifiers),
+                new StatisticModifier(name, modifiers, rollOptions),
                 {
                     ability,
                     expanded: skill,
@@ -319,27 +312,26 @@ export class NPCPF2e extends CreaturePF2e {
             const itemData = item.data;
             if (itemData.type === "lore") {
                 // override untrained skills if defined in the NPC data
-                const skill = itemData.name.slugify(); // normalize skill name to lower-case and dash-separated words
+                const skill = sluggify(itemData.name); // normalize skill name to lower-case and dash-separated words
                 // assume lore, if skill cannot be looked up
                 const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: "int", shortform: skill };
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
+                const domains = [skill, `${ability}-based`, "skill-check", "all"];
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], mod, MODIFIER_TYPE.ABILITY),
-                ];
-                const rollOptions = [skill, `${ability}-based`, "skill-check", "all"];
-                modifiers.push(
-                    ...rollOptions
-                        .flatMap((key) => statisticsModifiers[key] || [])
-                        .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
-                );
+                    extractModifiers(statisticsModifiers, domains),
+                ].flat();
 
-                const stat = mergeObject(new StatisticModifier(itemData.name, modifiers), data.skills[shortform], {
-                    overwrite: false,
-                });
-                stat.notes = rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? []));
+                const rollOptions = this.getRollOptions(domains);
+                const stat = mergeObject(
+                    new StatisticModifier(itemData.name, modifiers, rollOptions),
+                    data.skills[shortform],
+                    { overwrite: false }
+                );
+                stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
                 stat.itemID = itemData._id;
                 stat.base = base;
                 stat.expanded = skill;
@@ -397,45 +389,33 @@ export class NPCPF2e extends CreaturePF2e {
                 }
 
                 // Conditions and Custom modifiers to attack rolls
-                {
-                    const stats: string[] = [];
-                    stats.push(`${itemData.name.replace(/\s+/g, "-").toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
-                    const rollOptions = stats.concat([
-                        "attack",
-                        "mundane-attack",
-                        `${ability}-attack`,
-                        `${ability}-based`,
-                        `${itemData._id}-attack`,
-                        "attack-roll",
-                        "all",
-                    ]);
-                    modifiers.push(
-                        ...rollOptions
-                            .flatMap((key) => statisticsModifiers[key] || [])
-                            .map((m) => m.clone({ test: this.getRollOptions(rollOptions) }))
-                    );
-                    notes.push(...rollOptions.flatMap((key) => duplicate(rollNotes[key] ?? [])));
-                }
+                const slug = item.slug ?? sluggify(item.name);
+                const domains = [
+                    "attack",
+                    "mundane-attack",
+                    `${slug}-attack`,
+                    `${ability}-attack`,
+                    `${ability}-based`,
+                    `${itemData._id}-attack`,
+                    "attack-roll",
+                    "all",
+                ];
+                modifiers.push(...extractModifiers(statisticsModifiers, domains));
+                notes.push(...domains.flatMap((key) => duplicate(rollNotes[key] ?? [])));
 
                 // action image
                 const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
-                const action = mergeObject(new StatisticModifier(itemData.name, modifiers), {
-                    type: "strike" as const,
-                    glyph: actionGlyph,
-                }) as NPCStrike;
-                Object.defineProperty(action, "origin", {
-                    get: () => this.items.get(item.id),
+
+                const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
+                const additionalEffects = itemData.data.attackEffects.value.map((tag) => {
+                    const label =
+                        attackEffects[tag] ??
+                        this.items.find((item) => (item.slug ?? sluggify(item.name)) === tag)?.name ??
+                        tag;
+                    return { tag, label };
                 });
 
-                action.imageUrl = imageUrl;
-                action.sourceId = itemData._id;
-                action.description = itemData.data.description.value || "";
-                action.attackRollType =
-                    itemData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee";
-                action.breakdown = action.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    .join(", ");
+                const statistic = new StatisticModifier(itemData.name, modifiers, this.getRollOptions(domains));
 
                 const attackTrait: StrikeTrait = {
                     name: "attack",
@@ -443,25 +423,43 @@ export class NPCPF2e extends CreaturePF2e {
                     description: CONFIG.PF2E.traitsDescriptions.attack,
                     toggle: false,
                 };
-                action.traits = [attackTrait].concat(
-                    traits.map(
+                const strikeTraits = [
+                    attackTrait,
+                    ...traits.map(
                         (trait): StrikeTrait => ({
                             name: trait,
                             label: CONFIG.PF2E.npcAttackTraits[trait] ?? trait,
                             description: CONFIG.PF2E.traitsDescriptions[trait],
                             toggle: false,
                         })
-                    )
-                );
+                    ),
+                ];
 
-                const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
-                action.additionalEffects = itemData.data.attackEffects.value.map((tag) => {
-                    const label =
-                        attackEffects[tag] ??
-                        this.items.find((item) => (item.slug ?? sluggify(item.name)) === tag)?.name ??
-                        tag;
-                    return { tag, label };
+                const action: NPCStrike = mergeObject(statistic, {
+                    type: "strike" as const,
+                    glyph: actionGlyph,
+                    description: item.description,
+                    imageUrl,
+                    sourceId: item.id,
+                    attackRollType:
+                        itemData.data.weaponType?.value === "ranged" ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
+                    additionalEffects,
+                    traits: strikeTraits,
+                    options: [],
+                    variants: [],
+                    success: "",
+                    criticalSuccess: "",
                 });
+
+                Object.defineProperty(action, "origin", {
+                    get: () => this.items.get(item.id),
+                });
+
+                action.breakdown = action.modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                    .join(", ");
+
                 if (
                     action.attackRollType === "PF2E.NPCAttackRanged" &&
                     !action.traits.some((trait) => trait.name === "range")
@@ -513,18 +511,27 @@ export class NPCPF2e extends CreaturePF2e {
                 };
                 action.roll = action.attack;
 
-                const map = ItemPF2e.calculateMap(itemData);
+                const maps = ItemPF2e.calculateMap(itemData);
+                const sign = action.totalModifier < 0 ? "" : "+";
+
                 action.variants = [
-                    {
-                        label: `${strikeLabel} ${action.totalModifier < 0 ? "" : "+"}${action.totalModifier}`,
-                        roll: async (args: RollParameters) => {
+                    null,
+                    new ModifierPF2e("PF2E.MultipleAttackPenalty", maps.map2, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.MultipleAttackPenalty", maps.map3, MODIFIER_TYPE.UNTYPED),
+                ].map((map) => {
+                    const label = map
+                        ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
+                        : `${strikeLabel} ${sign}${action.totalModifier}`;
+                    return {
+                        label,
+                        roll: async (args: RollParameters): Promise<void> => {
                             const attackEffects = await this.getAttackEffects(itemData);
                             const rollNotes = notes.concat(attackEffects);
                             const ctx = this.createAttackRollContext({ traits });
                             // always add all weapon traits as options
                             const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
-                            CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action),
+                            await CheckPF2e.roll(
+                                new CheckModifier(`Strike: ${action.name}`, action, map ? [map] : []),
                                 {
                                     actor: this,
                                     item: meleeItem,
@@ -537,58 +544,9 @@ export class NPCPF2e extends CreaturePF2e {
                                 args.event
                             );
                         },
-                    },
-                    {
-                        label: `MAP ${map.map2}`,
-                        roll: async (args: RollParameters) => {
-                            const attackEffects = await this.getAttackEffects(itemData);
-                            const rollNotes = notes.concat(attackEffects);
-                            const ctx = this.createAttackRollContext({ traits });
-                            // always add all weapon traits as options
-                            const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
-                            CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action, [
-                                    new ModifierPF2e("PF2E.MultipleAttackPenalty", map.map2, MODIFIER_TYPE.UNTYPED),
-                                ]),
-                                {
-                                    actor: this,
-                                    item: meleeItem,
-                                    type: "attack-roll",
-                                    options,
-                                    notes: rollNotes,
-                                    dc: args.dc ?? ctx.dc,
-                                    traits: action.traits,
-                                },
-                                args.event
-                            );
-                        },
-                    },
-                    {
-                        label: `MAP ${map.map3}`,
-                        roll: async (args: RollParameters) => {
-                            const attackEffects = await this.getAttackEffects(itemData);
-                            const rollNotes = notes.concat(attackEffects);
-                            const ctx = this.createAttackRollContext({ traits });
-                            // always add all weapon traits as options
-                            const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
-                            CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action, [
-                                    new ModifierPF2e("PF2E.MultipleAttackPenalty", map.map3, MODIFIER_TYPE.UNTYPED),
-                                ]),
-                                {
-                                    actor: this,
-                                    item: meleeItem,
-                                    type: "attack-roll",
-                                    options,
-                                    notes: rollNotes,
-                                    dc: args.dc ?? ctx.dc,
-                                    traits: action.traits,
-                                },
-                                args.event
-                            );
-                        },
-                    },
-                ];
+                    };
+                });
+
                 action.damage = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
                     // always add all weapon traits as options
@@ -610,6 +568,7 @@ export class NPCPF2e extends CreaturePF2e {
                         args.callback
                     );
                 };
+
                 action.critical = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
                     // always add all weapon traits as options
@@ -676,7 +635,7 @@ export class NPCPF2e extends CreaturePF2e {
 
             // Assign statistic data to the spellcasting entry
             entry.statistic = new Statistic(this, {
-                slug: sluggify(entry.data.name),
+                slug: sluggify(entry.name),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
                 check: {
@@ -709,7 +668,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Call post-data-preparation RuleElement hooks
         for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData?.(synthetics);
+                rule.afterPrepareData?.();
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);

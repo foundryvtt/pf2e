@@ -113,3 +113,6 @@ export { Migration710RarityToString } from "./710-rarity-to-string";
 export { Migration711HeritageItems } from "./711-heritage-items";
 export { Migration712ActorShieldStructure } from "./712-actor-shield-structure";
 export { Migration713FistToStrikeRE } from "./713-fist-to-strike-re";
+export { Migration714RangeIncrementREs } from "./714-range-increment-res";
+export { Migration715DangerousSorcery } from "./715-dangerous-sorcery";
+export { Migration716StrikeDamageSelector } from "./716-strike-damage-selector";

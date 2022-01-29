@@ -1,6 +1,6 @@
 aside {
     grid-area: sidebar;
-    color: $sidebar-label;
+    color: var(--sidebar-label);
     font-family: var(--serif);
     font-size: 10px;
     font-weight: 600;
@@ -12,6 +12,61 @@ aside {
     display: flex;
     flex-direction: column;
 
+    input[type="number"] {
+        -moz-appearance: textfield;
+        color: var(--text-light);
+
+        // color: var(--tertiary-light);
+        text-align: center;
+        font-size: 26px;
+        line-height: 1;
+        font-weight: initial;
+        font-family: var(--serif);
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        &:read-only {
+            pointer-events: none;
+            color: var(--tertiary-light);
+        }
+        &::placeholder {
+            color: inherit;
+        }
+        &:hover {
+            @include input-glow;
+        }
+    }
+
+    .modifiers_button {
+        line-height: 1;
+        padding: 2px 3px;
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: inset 0 0 0 1px rgba(white, 0.4);
+        color: var(--primary);
+        border-radius: 2px 2px 0 0;
+        border: none;
+        flex: 0;
+        white-space: nowrap;
+        font-family: var(--sans-serif);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-rendering: optimizeLegibility;
+        font-weight: 600;
+        margin: 0;
+        &:hover {
+            background: white;
+            box-shadow: inset 0 0 0 1px white;
+        }
+    }
+    
     .logo {
         margin: 5px -6px 0 -6px;
         border: none;
@@ -27,19 +82,14 @@ aside {
             box-shadow: none;
         }
 
-        h1,
         h2,
         h3,
-        h4,
-        h5,
-        h6 {
-            color: white;
+        h4 {
             margin: 0;
-            padding: 0;
             line-height: 1;
         }
-        h4,
-        label {
+
+        &_label {
             color: var(--sidebar-label);
             @include micro;
             white-space: nowrap;
@@ -50,47 +100,25 @@ aside {
             flex-wrap: nowrap;
             justify-content: space-between;
             align-items: flex-end;
-            margin: 1em 0 0.5em;
+            margin: 0.8em 0 0.5em;
 
             &:first-of-type {
+                margin-top: 0.5em;
                 margin-bottom: -1px;
             }
-            h2,
-            h4,
-            a {
-                @include micro;
-                border: none;
-                margin: 0;
-                line-height: 1.5;
-            }
             h2 {
-                color: $sidebar-title-color;
-                border-bottom: 1px solid $sidebar-title-color;
+                font-family: var(--sans-serif);
+                font-size: 13px;
+                font-variant: small-caps;
+                letter-spacing: .05em;
+                line-height: 1;
+                color: var(--sidebar-title);
                 flex: 1;
+            }
+            .modifiers_button, h2 {
+                border-bottom: 1px solid var(--sidebar-title);
+            }
 
-                &.hover {
-                    line-height: 1;
-                    padding: 2px 3px;
-                    background: rgba(white, 0.75);
-                    color: var(--primary);
-                    border-radius: 2px 2px 0 0;
-                    border: none;
-                    cursor: pointer;
-                    flex: 0;
-                    white-space: nowrap;
-                    &:hover {
-                        background: white;
-                        box-shadow: inset 0 0 0 1px white;
-                    }
-                }
-            }
-            h4 {
-                margin-right: auto;
-            }
-            a {
-                color: white;
-                text-decoration: none;
-            }
         }
         a.dots {
             display: flex;
@@ -109,32 +137,14 @@ aside {
             & > * {
                 flex-basis: 1;
             }
-            input[type="number"],
             h2 {
-                color: $sidebar-label;
+                color: var(--tertiary-light);
                 text-align: center;
                 font-size: 26px;
                 line-height: 1;
-                font-weight: 500;
+                font-weight: initial;
                 font-family: var(--serif);
                 border: none;
-                @include text-gold;
-            }
-            input[type="number"] {
-                background: none;
-                -moz-appearance: textfield;
-                color: white;
-                &:focus {
-                    box-shadow: none;
-                }
-                &::-webkit-outer-spin-button,
-                &::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
-                &:read-only {
-                    pointer-events: none;
-                }
             }
         }
         a.roll-icon {
@@ -144,7 +154,7 @@ aside {
 
             i {
                 font-size: 19px;
-                color: white;
+                color: var(--text-light);
                 margin-left: 5px;
                 animation-play-state: paused;
                 &:hover {
@@ -155,6 +165,10 @@ aside {
 
             svg {
                 animation-play-state: paused;
+
+                path {
+                    fill: var(--text-light);
+                }
             }
             &:hover svg {
                 animation-play-state: running;
@@ -172,16 +186,11 @@ aside {
             }
         }
         select {
-            font-family: var(--serif);
-            font-size: 16px;
-            color: white;
+            font-size: 15px;
             background-color: var(--primary);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 0;
-            padding: 4px 8px;
+            padding: 2px 6px;
             width: 100%;
             max-width: 100%;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.075);
             @include input-border;
         }
         ol {
@@ -195,42 +204,6 @@ aside {
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
-            }
-        }
-
-        .plaque {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            text-transform: capitalize;
-            font-family: var(--serif);
-            font-size: 14px;
-            font-weight: 400;
-            padding: 3px 0;
-            border-radius: 0;
-            position: relative;
-            margin-left: auto;
-
-            span {
-                margin-bottom: 2px;
-                cursor: pointer;
-            }
-
-            &::before,
-            &::after {
-                display: block;
-                content: url("../assets/icons/pathfinder-orn.svg");
-                height: 100%;
-                width: 25px;
-            }
-            &::after {
-                transform: scaleX(-1);
-                margin-left: 4px;
-            }
-            &::before {
-                margin-right: 4px;
             }
         }
 

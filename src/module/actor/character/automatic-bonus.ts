@@ -89,7 +89,7 @@ export class AutomaticBonusProgression {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                     bonus: damage,
                 };
-                synthetics.striking["mundane-damage"] = (synthetics.striking["mundane-damage"] || []).concat(s);
+                (synthetics.striking["strike-damage"] ??= []).push(s);
             }
             if (attack > 0) {
                 const potency: WeaponPotencyPF2e = {
@@ -100,6 +100,31 @@ export class AutomaticBonusProgression {
                 synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
                     potency
                 );
+            }
+        }
+    }
+
+    /** Remove stored runes from specific magic weapons or otherwise set prior to enabling ABP */
+    static cleanupRunes(weapon: WeaponPF2e): void {
+        const setting = game.settings.get("pf2e", "automaticBonusVariant");
+        const systemData = weapon.data.data;
+
+        switch (setting) {
+            case "noABP":
+                return;
+            case "ABPRulesAsWritten": {
+                systemData.potencyRune.value = null;
+                systemData.strikingRune.value = null;
+                const propertyRunes = ([1, 2, 3, 4] as const).map((n) => systemData[`propertyRune${n}` as const]);
+                for (const rune of propertyRunes) {
+                    rune.value = null;
+                }
+                return;
+            }
+            case "ABPFundamentalPotency": {
+                systemData.potencyRune.value = null;
+                systemData.strikingRune.value = null;
+                return;
             }
         }
     }

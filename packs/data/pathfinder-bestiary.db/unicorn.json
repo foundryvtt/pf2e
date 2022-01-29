@@ -27,7 +27,7 @@
                 "value": 20
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 to will saves vs. mental"
             },
             "hp": {
                 "details": "",
@@ -42,6 +42,7 @@
                 "value": 13
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [],
                 "value": "45"
             }
@@ -120,7 +121,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1FMSJAQmsJLhDxCK",
+            "_id": "bQaD3ryddLU1MPFx",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -138,10 +139,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -215,7 +216,7 @@
                 "spelldc": {
                     "dc": 21,
                     "mod": 0,
-                    "value": 11
+                    "value": 13
                 },
                 "tradition": {
                     "value": "primal"
@@ -234,7 +235,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "UF5YnTcvZZxyqO7d",
+            "_id": "G2gUJHzvtggMcp8H",
             "data": {
                 "ability": {
                     "value": ""
@@ -242,6 +243,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -262,7 +266,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You step into a living tree with a trunk big enough for you to fit inside it and instantly teleport to any tree of the same species within 5 miles that also has a sufficiently large trunk. Once you enter the first tree, you instantly know the rough locations of other sufficiently large trees of the same species within range and can exit from the original tree, if you prefer. You can't carry extradimensional spaces with you; if you attempt to do so, the spell fails.</p>\n<hr />\n<p><strong>Heightened</strong> The tree you exit can be up to 50 miles away.</p>\n<p><strong>Heightened</strong> The tree you exit can be up to 500 miles away.</p>\n<p><strong>Heightened</strong> The tree you exit can be anywhere on the same planet.</p>"
+                    "value": "<p>You step into a living tree with a trunk big enough for you to fit inside it and instantly teleport to any tree of the same species within 5 miles that also has a sufficiently large trunk. Once you enter the first tree, you instantly know the rough locations of other sufficiently large trees of the same species within range and can exit from the original tree, if you prefer. You can't carry extradimensional spaces with you; if you attempt to do so, the spell fails.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The tree you exit can be up to 50 miles away.</p>\n<p><strong>Heightened (8th)</strong> The tree you exit can be up to 500 miles away.</p>\n<p><strong>Heightened (9th)</strong> The tree you exit can be anywhere on the same planet.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -270,16 +274,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 5
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
-                    "value": "1FMSJAQmsJLhDxCK"
+                    "value": "bQaD3ryddLU1MPFx"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -293,9 +303,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tree-stride",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=343"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -316,7 +332,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
+                    "rarity": "uncommon",
                     "value": [
                         "plant",
                         "teleportation"
@@ -324,14 +340,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.F1qxaqsEItmBura2"
+                }
+            },
             "img": "systems/pf2e/icons/spells/tree-stride.webp",
             "name": "Tree Stride",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "WW2obPWDRz5ULB3X",
+            "_id": "Su3RDaUEBCT4fy7J",
             "data": {
                 "ability": {
                     "value": ""
@@ -340,219 +360,8 @@
                     "areaType": "",
                     "value": null
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
+                "areasize": {
                     "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "positive"
-                            },
-                            "value": "1d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "1FMSJAQmsJLhDxCK"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "positive"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/heal.webp",
-            "name": "Heal",
-            "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "l82iaC1HzMiu7UwJ",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "positive"
-                            },
-                            "value": "1d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "1FMSJAQmsJLhDxCK"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "positive"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/heal.webp",
-            "name": "Heal",
-            "sort": 400000,
-            "type": "spell"
-        },
-        {
-            "_id": "dfjeu4UnzGTE6SlY",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -579,18 +388,24 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
+                },
+                "heightenedLevel": {
+                    "value": 3
                 },
                 "level": {
                     "value": 3
                 },
                 "location": {
-                    "value": "1FMSJAQmsJLhDxCK"
+                    "value": "bQaD3ryddLU1MPFx"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -604,9 +419,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "neutralize-poison",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=207"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -635,21 +456,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SUKaxVZW2TlM8lu0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/neutralize-poison.webp",
             "name": "Neutralize Poison",
-            "sort": 500000,
+            "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "m2ROJjdTag4Ettpb",
+            "_id": "XHYldAxPYwosrcOh",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -670,7 +498,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened</strong> You learn each aura's location and strength.</p>"
+                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -678,16 +506,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "1FMSJAQmsJLhDxCK"
+                    "value": "bQaD3ryddLU1MPFx"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -701,9 +535,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-alignment",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=65"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -725,28 +565,303 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
+                    "rarity": "uncommon",
                     "value": [
                         "detection"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment",
-            "sort": 600000,
+            "name": "Detect Alignment (At Will) (Good Only)",
+            "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "MarORrV7hVLZPZp5",
+            "_id": "Djva170z7MbhOEdN",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "autoHeightenLevel": {
                     "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "positive"
+                            },
+                            "value": "1d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 3
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "bQaD3ryddLU1MPFx"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "positive"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/heal.webp",
+            "name": "Heal",
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "P6lzJorxojwL7UWc",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "positive"
+                            },
+                            "value": "1d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 3
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "bQaD3ryddLU1MPFx"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "positive"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/heal.webp",
+            "name": "Heal",
+            "sort": 600000,
+            "type": "spell"
+        },
+        {
+            "_id": "tmtbAzkurYA51P6E",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -767,7 +882,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -779,12 +894,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "1FMSJAQmsJLhDxCK"
+                    "value": "bQaD3ryddLU1MPFx"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -798,9 +916,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "light",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -812,7 +936,7 @@
                     "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -833,7 +957,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
             "sort": 700000,
@@ -846,9 +974,8 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "ghost-touch"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
                     "value": 12
@@ -897,9 +1024,8 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "ghost-touch"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
                     "value": 12
@@ -938,6 +1064,98 @@
             "type": "melee"
         },
         {
+            "_id": "WAp1bEkhC2Ag8cwo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "dDIdPBqIyM1WM4kD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
             "_id": "QL3594a7048GPCem",
             "data": {
                 "actionCategory": {
@@ -950,7 +1168,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The unicorn has a connection to the creatures of the natural world that allows it to communicate with them. The unicorn can use Diplomacy to Make an Impression on animals and to make very simple Requests of them.</p>"
+                    "value": "<p>The unicorn has a connection to the creatures of the natural world that allows it to communicate with them. The unicorn can use Diplomacy to @Compendium[pf2e.actionspf2e.Make an Impression]{Make an Impression} on animals and to make very simple @Compendium[pf2e.actionspf2e.Request]{Requests} of them.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -976,7 +1194,64 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wild Empathy",
-            "sort": 1000000,
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "Av5F60Xe1vXr81pb",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mental"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 to Will Saves vs Mental",
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -992,12 +1267,18 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A unicorn's Strikes have the effects of a ghost touch property rune.</p>"
+                    "value": "<p>A unicorn's Strikes have the effects of a <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "attack",
+                        "text": "<p data-visibility='gm' class='compact-text'>@Localize[PF2E.WeaponPropertyRune.ghostTouch.Note]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1018,7 +1299,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghost Touch",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1039,7 +1320,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.powerfulCharge"
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "powerfulCharge"
+                            ]
+                        },
+                        "selector": "horn-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1060,7 +1357,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Powerful Charge",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1090,7 +1387,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1120,7 +1417,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1150,7 +1447,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1180,7 +1477,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],

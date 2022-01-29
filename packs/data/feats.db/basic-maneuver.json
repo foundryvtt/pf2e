@@ -33,6 +33,25 @@
                 "mode": "add",
                 "path": "data.custom.modifiers.fighter-dedication-count",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:type:feat",
+                        "item:trait:fighter"
+                    ],
+                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"fighter\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.basicManeuver}"
             }
         ],
         "source": {

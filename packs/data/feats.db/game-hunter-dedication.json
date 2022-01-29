@@ -1,0 +1,127 @@
+{
+    "_id": "CowQy8gXP9POjuxq",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You are skilled at tracking big game animals and similar creatures. You gain the @Compendium[pf2e.actionspf2e.Hunt Prey]{Hunt Prey} action, but you can designate only animals, beasts, and dragons as prey. In addition to the other benefits of Hunt Prey, you gain a +2 circumstance bonus to Stealth checks against your hunted prey.</p>\n<p>When you succeed at a Strike against your hunted prey while it's @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed}, it must attempt a Fortitude save against your class DC. On a failure, the prey's Speeds are each reduced by 10 feet for 1 round; on a critical failure, the duration of this effect is 1 minute. The prey is then temporarily immune to this effect for 10 minutes.</p>\n<p>If you already have Hunt Prey, you become an expert in Survival. You apply the Stealth bonus and the Speed reduction only when your prey is an animal, beast, or dragon.</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the game hunter archetype.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 2
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Survival"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "not": [
+                        "self:feature:hunt-prey"
+                    ]
+                },
+                "uuid": "Compendium.pf2e.actionspf2e.Hunt Prey"
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "Target is your Hunted Prey (Animal Beast, or Dragon Only)",
+                "property": "flags.pf2e.rollOptions.all.huntedPreyGameHunter"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Seek hunted prey",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "huntedPreyGameHunter"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "To Track hunted prey",
+                "predicate": {
+                    "all": [
+                        "action:track",
+                        "huntedPreyGameHunter"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": {
+                    "all": [
+                        "huntedPreyGameHunter",
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "attack",
+                "text": "<p class='compact-text'>When you succeed at a Strike against your hunted prey while it's flat-footed, it must attempt a Fortitude save against your class DC. On a failure, the prey's Speeds are each reduced by 10 feet for 1 round; on a critical failure, the duration of this effect is 1 minute. The prey is then temporarily immune to this effect for 10 minutes.</p>"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.sur.rank",
+                "predicate": {
+                    "all": [
+                        "self:feature:hunt-prey"
+                    ]
+                },
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Using Stealth against Hunted Prey",
+                "predicate": {
+                    "all": [
+                        "huntedPreyGameHunter"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #175: Broken Tusk Moon"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Game Hunter Dedication",
+    "type": "feat"
+}

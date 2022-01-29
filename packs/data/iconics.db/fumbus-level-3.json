@@ -1223,7 +1223,7 @@
                                 "splash"
                             ]
                         },
-                        "selector": "damage",
+                        "selector": "strike-damage",
                         "text": "<p class='compact-text'><strong>{item|name}</strong> You can deal splash damage to only your primary target instead of the usual splash area.</p>"
                     }
                 ],
@@ -2924,7 +2924,19 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:base:alchemical-bomb"
+                            ]
+                        },
+                        "key": "AdjustStrike",
+                        "mode": "upgrade",
+                        "property": "range-increment",
+                        "value": 30
+                    }
+                ],
                 "slug": "far-lobber",
                 "source": {
                     "value": ""

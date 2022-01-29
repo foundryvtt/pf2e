@@ -57,7 +57,11 @@
                         </li>
                         <li class="spell-ability">
                             <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
-                            <span class="pf-value pf-rank adjust-item-stat" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
+                            <div class="spellcasting-prof button-group skill-container">
+                                <select class="skill-proficiency pf-value pf-rank adjust-item-stat-select" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">
+                                    {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=entry.data.proficiency.value}}
+                                </select>
+                            </div>
                         </li>
                     </ol>
                 {{/unless}}

@@ -1,0 +1,25 @@
+<div class="spell-browser">
+    {{> systems/pf2e/templates/compendium-browser/filters.html filterData=filterData }}
+    <ul class="item-list result-list">
+        {{#each indexData as |spell idx|}}
+            <li class="item flexrow" data-entry-compendium="{{spell.compendium}}" data-entry-id="{{spell._id}}" data-level={{spell.data.level.value}} data-item-category="spells">
+                <div class="image">
+                    <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32" loading="lazy"/>
+                </div>
+                {{#if spell.time.img}}
+                    <div class="image" style="margin-left: 5px;">
+                        <img class="" src="{{spell.time.img}}" title="{{spell.data.time.value}}" width="32" height="32" loading="lazy"/>
+                    </div>
+                {{else}}
+                    <div class="image" style="margin-left: 5px;"></div>
+                {{/if}}
+                <div class="name">
+                    <a class="item-link">{{spell.name}}</a>
+                </div>
+                <div class="level">
+                    <span title="Spell level">{{spell.level}}</span>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+</div>

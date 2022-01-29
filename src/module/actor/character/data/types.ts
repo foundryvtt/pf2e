@@ -313,14 +313,6 @@ export interface CharacterAttributes extends CreatureAttributes {
     /** Dexterity modifier cap to AC. Undefined means no limit. */
     dexCap: DexterityModifierCapData[];
 
-    /** The amount of bonus HP gained per level (due a feat or similar). */
-    levelbonushp: number;
-    /** A flat bonus (i.e., not scaling with level) to hit points. */
-    flatbonushp: number;
-    /** A flat-bonus (i.e., not scaling with level) to stamina points. */
-    flatbonussp: number;
-    /** Used in variant stamina rules; how much bonus SP is gained per level. */
-    levelbonussp?: number;
     /** The amount of HP provided per level by the character's class. */
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */

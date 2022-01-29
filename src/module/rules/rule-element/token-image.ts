@@ -4,7 +4,7 @@ import { RuleElementPF2e } from "./";
  * @category RuleElement
  */
 export class TokenImageRuleElement extends RuleElementPF2e {
-    override onAfterPrepareData() {
+    override afterPrepareData() {
         const value = this.data.value;
 
         if (!value) {

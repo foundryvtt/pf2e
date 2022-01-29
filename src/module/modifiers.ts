@@ -2,6 +2,7 @@ import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, sluggify } from "../util";
+import { DamageType } from "./damage-calculation";
 import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = [
@@ -55,6 +56,8 @@ export interface BaseRawModifier {
     type?: string;
     /** If the type is "ability", this should be set to a particular ability */
     ability?: AbilityString | null;
+    /** Numeric adjustments to apply */
+    adjustments?: ModifierAdjustment[];
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled?: boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
@@ -79,9 +82,19 @@ export interface BaseRawModifier {
     hideIfDisabled?: boolean;
 }
 
+export interface ModifierAdjustment {
+    slug: string | null;
+    predicate: PredicatePF2e;
+    damageType?: DamageType;
+    getNewValue(current: number): number;
+}
+
 export interface RawModifier extends BaseRawModifier {
     modifier: number;
 }
+
+export type DeferredValueParams = { resolvables?: Record<string, unknown> };
+export type DeferredValue<T> = (options?: DeferredValueParams) => T;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
 export class ModifierPF2e implements RawModifier {
@@ -90,6 +103,7 @@ export class ModifierPF2e implements RawModifier {
     modifier: number;
     type: ModifierType;
     ability: AbilityString | null;
+    adjustments: ModifierAdjustment[];
     enabled: boolean;
     ignored: boolean;
     source: string | null;
@@ -101,6 +115,9 @@ export class ModifierPF2e implements RawModifier {
     traits: string[];
     notes: string;
     hideIfDisabled: boolean;
+
+    /** A function that builds the modifier for cases where its deferred */
+    private modifierFn?: DeferredValue<number>;
 
     /**
      * Create a new modifier.
@@ -134,9 +151,10 @@ export class ModifierPF2e implements RawModifier {
 
         this.label = game.i18n.localize(params.label ?? params.name);
         this.slug = sluggify(params.slug ?? this.label);
-        this.modifier = params.modifier;
+        this.modifier = typeof params.modifier === "function" ? 0 : params.modifier;
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
+        this.adjustments = deepClone(params.adjustments ?? []);
         this.damageType = params.damageType ?? null;
         this.damageCategory = params.damageCategory ?? null;
         this.enabled = params.enabled ?? true;
@@ -148,6 +166,21 @@ export class ModifierPF2e implements RawModifier {
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
+
+        if (params instanceof ModifierPF2e && params.modifierFn) {
+            this.modifierFn = params.modifierFn;
+        } else if (typeof params.modifier === "function") {
+            this.modifierFn = params.modifier;
+        }
+    }
+
+    update(options?: DeferredValueParams) {
+        if (typeof this.modifierFn === "function") {
+            this.modifier = this.modifierFn(options);
+            delete this.modifierFn;
+        }
+
+        return this.modifier;
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -158,12 +191,14 @@ export class ModifierPF2e implements RawModifier {
     }
 
     /** Sets the ignored property after testing the predicate */
-    test(options: string[]) {
+    test(options: string[]): void {
         this.ignored = !this.predicate.test(options);
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate(this);
+        const copy = duplicate(this);
+        delete copy.modifierFn;
+        return copy;
     }
 
     toString() {
@@ -171,9 +206,10 @@ export class ModifierPF2e implements RawModifier {
     }
 }
 
-interface ModifierObjectParams extends RawModifier {
+type ModifierObjectParams = Omit<RawModifier, "modifier"> & {
     name?: string;
-}
+    modifier: number | DeferredValue<number>;
+};
 
 type ModifierOrderedParams = [
     slug: string,
@@ -385,21 +421,26 @@ export class StatisticModifier {
     /**
      * @param name The name of this collection of statistic modifiers.
      * @param modifiers All relevant modifiers for this statistic.
+     * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(name: string, modifiers?: ModifierPF2e[]) {
+    constructor(
+        name: string,
+        modifiers: ModifierPF2e[] = [],
+        rollOptions?: string[],
+        deferParams?: DeferredValueParams
+    ) {
         this.name = name;
-        this._modifiers = modifiers ?? [];
-        {
-            // de-duplication
-            const seen: ModifierPF2e[] = [];
-            this._modifiers.filter((m) => {
-                const found = seen.find((o) => o.slug === m.slug) !== undefined;
-                if (!found || m.type === "ability") seen.push(m);
-                return found;
-            });
-            this._modifiers = seen;
+
+        // De-duplication
+        const seen: ModifierPF2e[] = [];
+        for (const modifier of modifiers) {
+            const found = seen.some((m) => m.slug === modifier.slug);
+            if (!found || modifier.type === "ability") seen.push(modifier);
+            modifier.update(deferParams);
         }
-        this.applyStackingRules();
+        this._modifiers = seen;
+
+        this.calculateTotal(rollOptions);
     }
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
@@ -412,7 +453,7 @@ export class StatisticModifier {
         // de-duplication
         if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.push(modifier);
-            this.applyStackingRules();
+            this.calculateTotal();
         }
         return this._modifiers.length;
     }
@@ -422,7 +463,7 @@ export class StatisticModifier {
         // de-duplication
         if (this._modifiers.find((o) => o.slug === modifier.slug) === undefined) {
             this._modifiers.unshift(modifier);
-            this.applyStackingRules();
+            this.calculateTotal();
         }
         return this._modifiers.length;
     }
@@ -437,14 +478,35 @@ export class StatisticModifier {
             toDelete && this._modifiers.includes(toDelete)
                 ? !!this._modifiers.findSplice((modifier) => modifier === toDelete)
                 : false;
-        if (wasDeleted) this.applyStackingRules();
+        if (wasDeleted) this.calculateTotal();
 
         return wasDeleted;
     }
 
-    /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
-    applyStackingRules() {
-        this.totalModifier = applyStackingRules(this._modifiers);
+    /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
+    calculateTotal(rollOptions?: string[]): void {
+        if (rollOptions) {
+            for (const modifier of this._modifiers) {
+                modifier.test(rollOptions);
+            }
+        }
+
+        applyStackingRules(this._modifiers);
+        if (rollOptions) this.applyAdjustments(rollOptions);
+
+        this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
+    }
+
+    private applyAdjustments(rollOptions: string[]): void {
+        const modifiers = this._modifiers.filter((m) => m.enabled);
+        for (const modifier of modifiers) {
+            const adjustments = modifier.adjustments.filter((a) => a.predicate.test(rollOptions));
+            modifier.modifier = adjustments.reduce((adjusted, a): number => a.getNewValue(adjusted), modifier.modifier);
+
+            // If applicable, change the damage type of this modifier, using only the final adjustment found
+            const damageTypeAdjustment = adjustments.filter((a) => !!a.damageType).pop();
+            modifier.damageType = damageTypeAdjustment?.damageType ?? modifier.damageType;
+        }
     }
 }
 
@@ -464,7 +526,19 @@ export class CheckModifier extends StatisticModifier {
 }
 
 interface DamageDiceOverride {
+    /**
+     * Upgrade the damage dice to the next size
+     */
+    upgrade?: boolean;
+
+    /**
+     * Override with a set dice size
+     */
     dieSize?: DamageDieSize;
+
+    /**
+     * Override the damage type
+     */
     damageType?: string;
 }
 

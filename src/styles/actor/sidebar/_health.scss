@@ -1,12 +1,4 @@
 .hitpoints {
-    h4,
-    label {
-        font-family: var(--serif);
-        font-weight: 500;
-        margin: 0;
-        line-height: 1;
-        font-size: 10px;
-    }
     .hp-big {
         display: grid;
         justify-content: space-evenly;
@@ -16,31 +8,14 @@
             &.temp-hp {
                 text-align: center;
                 margin-right: 8px;
-                input[type='number'] {
-                    text-align: center;
-                    border-bottom: 1px solid transparent;
-                    &:focus {
-                        border-bottom: 1px solid var(--tertiary);
-                    }
-                }
             }
             &.max-hp {
                 text-align: center;
                 margin-left: 8px;
-                h2 {
-                    @include text-gold;
-                    text-align: center;
-                }
             }
             &.max-hp,
             &.temp-hp {
                 margin-top: 12px;
-            }
-            &.temp-hp,
-            &.current-hp {
-                input:hover {
-                    @include input-glow;
-                }
             }
             &.current-hp {
                 display: flex;
@@ -57,7 +32,7 @@
                     lighten($primary-color, 8) 50%,
                     darken($primary-color, 5) 100%
                 );
-                border: 1px solid var(--tertiary);
+                border: 1px solid var(--sidebar-title);
 
                 .data-value {
                     margin-top: 3px;
@@ -81,7 +56,7 @@
         }
         .far,
         .fas {
-            color: white;
+            color: var(--text-light);
         }
         .dying {
             margin-right: 6px;

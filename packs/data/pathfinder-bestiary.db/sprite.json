@@ -42,6 +42,7 @@
                 "value": 4
             },
             "speed": {
+                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -61,7 +62,7 @@
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Common sprites are primeval guardians that latch onto a person, place, or object and defend it for their own inscrutable reasons. Their dispositions vary from kind to spiteful, but all sprites have a capricious streak. Being only about 9 inches tall, they are wary of animals that might hunt them, particularly house cats, and prefer flight to a fight. On the other hand, sprites are incredibly curious about all forms of magic and heedlessly gather around ley line nexuses or other places of power.</p>",
+            "publicNotes": "<p>Common sprites are primeval guardians that latch onto a person, place, or object and defend it for their own inscrutable reasons. Their dispositions vary from kind to spiteful, but all sprites have a capricious streak. Being only about 9 inches tall, they are wary of animals that might hunt them, particularly house cats, and prefer flight to a fight. On the other hand, sprites are incredibly curious about all forms of magic and heedlessly gather around ley line nexuses or other places of power.</p>\n<hr />\n<p>Elusive, flighty, and ebullient, sprites are what many villagers first imagine when they hear the terms \"fey\" or \"fairy.\" While their dispositions vary from the benevolent grig to the trickster pixie, all sprites share a connection to magic and diminutive size. This family of fey shares its name with its slightest and most populous member, the common sprite.</p>",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
@@ -95,9 +96,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "3"
+                    "value": 3
                 }
             ],
             "languages": {
@@ -129,7 +129,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "RCrKiuTI45nixl0P",
+            "_id": "ja5ZUKm30pmuCb0m",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -147,10 +147,10 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -224,7 +224,7 @@
                 "spelldc": {
                     "dc": 16,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": "primal"
@@ -243,7 +243,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "UyPgnrMW2bijFh2Z",
+            "_id": "pWWT7EQrdd3EUJ8a",
             "data": {
                 "ability": {
                     "value": ""
@@ -251,6 +251,9 @@
                 "area": {
                     "areaType": "cone",
                     "value": 15
+                },
+                "areasize": {
+                    "value": "15-foot cone"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -271,24 +274,30 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Swirling colors affect viewers based on their Will saves.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round, and @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round and @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>"
+                    "value": "<p>Swirling colors affect viewers based on their Will saves.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round, and Dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is Stunned for 1 round and Blinded for 1 minute.</p>"
                 },
                 "duration": {
-                    "value": "1 or more rounds "
+                    "value": "1 or more rounds (see below)"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "RCrKiuTI45nixl0P"
+                    "value": "ja5ZUKm30pmuCb0m"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -302,9 +311,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "color-spray",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=44"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -334,14 +349,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.UKsIOWmMx4hSpafl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/color-spray.webp",
             "name": "Color Spray",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "mKMBScOmT0IjotE4",
+            "_id": "t24SBEdlKZXLUaMq",
             "data": {
                 "ability": {
                     "value": ""
@@ -349,6 +368,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -381,12 +403,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RCrKiuTI45nixl0P"
+                    "value": "ja5ZUKm30pmuCb0m"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -400,9 +425,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dancing-lights",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -434,14 +465,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "tQnrEp0OF9ylmdQG",
+            "_id": "Xdj1eqBHMWay8gyT",
             "data": {
                 "ability": {
                     "value": ""
@@ -449,6 +484,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -466,10 +504,19 @@
                     "value": ""
                 },
                 "damage": {
-                    "value": {}
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "value": "mental"
+                            },
+                            "value": "0"
+                        }
+                    }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -481,7 +528,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RCrKiuTI45nixl0P"
+                    "value": "ja5ZUKm30pmuCb0m"
                 },
                 "materials": {
                     "value": ""
@@ -489,12 +536,15 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "will"
                 },
                 "scaling": {
@@ -506,9 +556,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -540,21 +596,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "LosyBDW5Z1i2DPjO",
+            "_id": "uzpjBUvQhQD08nx4",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -575,7 +638,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -587,12 +650,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "RCrKiuTI45nixl0P"
+                    "value": "ja5ZUKm30pmuCb0m"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -606,9 +672,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -617,7 +689,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "30-foot emination"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -641,35 +713,59 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "adpTapsBG7kQThiR",
+            "_id": "K8dof3teKgTz51Ae",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "rapier",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "description": {
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
                     "value": ""
                 },
+                "description": {
+                    "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
+                },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "sword",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -703,47 +799,97 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
-                "source": {
+                "range": null,
+                "reload": {
                     "value": ""
                 },
+                "rules": [],
+                "size": {
+                    "value": "tiny"
+                },
+                "slug": "rapier",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "rapier",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
+            "name": "Rapier",
             "sort": 600000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "yC4YZ8E2MfUoLnzI",
@@ -752,6 +898,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -804,6 +951,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -829,7 +977,7 @@
                     "value": [
                         "fire",
                         "light",
-                        "range-increment-20"
+                        "range-20"
                     ]
                 },
                 "weaponType": {
@@ -842,6 +990,52 @@
             "name": "Luminous Spark",
             "sort": 800000,
             "type": "melee"
+        },
+        {
+            "_id": "jYjpln4mc6udm6oF",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 900000,
+            "type": "action"
         },
         {
             "_id": "h7p7zhkW6OBX6N85",
@@ -886,7 +1080,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Luminous Fire",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -916,7 +1110,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -946,7 +1140,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

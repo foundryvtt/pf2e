@@ -8,7 +8,7 @@ import { RuleElementPF2e } from "./";
 class RecoveryCheckDCRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         const slug = this.data.slug || this.item.slug;
         if (slug) {
             const actorData = this.actor.data;

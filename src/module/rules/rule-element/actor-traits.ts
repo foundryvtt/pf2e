@@ -1,21 +1,20 @@
 import { ItemPF2e } from "@item";
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
 
 /**
  * @category RuleElement
  */
 export class ActorTraitsRuleElement extends RuleElementPF2e {
-    constructor(data: ActorTraitsSource, item: Embedded<ItemPF2e>) {
+    constructor(data: ActorTraitsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.add ??= [];
         data.remove ??= [];
+        super(data, item, options);
         if (!data.add?.length && !data.remove?.length) {
-            console.warn("PF2E | Actor traits rule element requires at least a non-empty add or remove field");
-            data.ignored = true;
+            this.failValidation("Actor traits rule element requires at least a non-empty add or remove field");
         }
-        super(data, item);
     }
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const traits: string[] = this.actor.data.data.traits.traits.value;
