@@ -119,7 +119,30 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Striking",
+                "predicate": {
+                    "all": [
+                        "self:ancestry:dwarf"
+                    ]
+                },
+                "selector": "{item|_id}-damage",
+                "value": 2
+            },
+            {
+                "diceNumber": 1,
+                "diceSize": "d8",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "target:trait:giant",
+                        "self:ancestry:dwarf"
+                    ]
+                },
+                "selector": "{item|_id}-damage"
+            }
+        ],
         "size": {
             "value": "med"
         },
