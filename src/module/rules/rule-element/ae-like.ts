@@ -71,7 +71,7 @@ class AELikeRuleElement extends RuleElementPF2e {
 
     /** Apply the modifications prior to a Check (roll) */
     override beforeRoll(_domains: string[], rollOptions: string[]): void {
-        if (!this.ignored) this.applyAELike(rollOptions);
+        if (!this.ignored && this.data.phase === "beforeRoll") this.applyAELike(rollOptions);
     }
 
     protected applyAELike(rollOptions = this.actor.getRollOptions(["all"])): void {
