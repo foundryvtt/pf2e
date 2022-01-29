@@ -194,15 +194,15 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            this.addShieldBonus();
             const base = data.attributes.ac.value;
             const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
             const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
-                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
-            ];
+                this.getShieldBonus() ?? [],
+                domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
+            ].flat();
 
             const rollOptions = this.getRollOptions(domains);
             const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), data.attributes.ac, {

@@ -165,6 +165,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
                 destroyed: this.isDestroyed,
                 icon: this.img,
             };
+            actor.rollOptions.all["self:shield:equipped"] = true;
         }
     }
 

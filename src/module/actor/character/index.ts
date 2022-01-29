@@ -195,7 +195,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
-        attributes.ac = { modifiers: [] };
+        attributes.ac = {};
         attributes.classDC = { rank: 0 };
         attributes.dexCap = [{ value: Infinity, source: "" }];
 
@@ -475,7 +475,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Armor Class
         const { wornArmor, heldShield } = this;
         {
-            const modifiers = [...systemData.attributes.ac.modifiers];
+            const modifiers = [this.getShieldBonus() ?? []].flat();
             const dexCapSources = systemData.attributes.dexCap;
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
@@ -489,12 +489,10 @@ export class CharacterPF2e extends CreaturePF2e {
                     }
                 }
 
-                modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
+                modifiers.unshift(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
 
-            this.addShieldBonus();
-
-            // proficiency
+            // Proficiency bonus
             modifiers.unshift(
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.martial[proficiency]?.rank ?? 0)
             );
