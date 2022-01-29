@@ -16,6 +16,7 @@ import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fis
 import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-range-increment-res";
 import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
 import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
+import { Migration717SpeedDetails } from "@module/migration/migrations/717-speed-details";
 
 const migrations: MigrationBase[] = [
     new Migration707BracketedFormulasAtInstanceLevel(),
@@ -28,6 +29,7 @@ const migrations: MigrationBase[] = [
     new Migration714RangeIncrementREs(),
     new Migration715DangerousSorcery(),
     new Migration716StrikeDamageSelector(),
+    new Migration717SpeedDetails(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
