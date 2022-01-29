@@ -2089,33 +2089,17 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.skewer"
+                        "property": "flags.pf2e.rollOptions.attack-roll.skewer"
                     },
                     {
                         "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
                         "predicate": {
                             "all": [
                                 "skewer"
                             ]
                         },
-                        "selector": "trident-damage",
-                        "text": "<p data-visibility='gm'><strong>{item|name}</strong> [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "skewer"
-                            ]
-                        },
-                        "selector": "trident-damage",
-                        "text": "<p data-visibility='gm'><strong>{item|name}</strong> [[/r {4d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                        "selector": "trident-attack",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
                     }
                 ],
                 "slug": null,
