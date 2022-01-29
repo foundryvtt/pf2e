@@ -41,7 +41,9 @@ abstract class RulesElementPrompt<T> extends Application {
         return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
     }
 
-    protected abstract getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null;
+    protected getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null {
+        return this.choices[Number(event.currentTarget.value)] ?? null;
+    }
 
     abstract override get template(): string;
 
@@ -61,13 +63,13 @@ abstract class RulesElementPrompt<T> extends Application {
         });
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PromptChoice<T>[] }> {
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PromptChoice[] }> {
         options.id = `choice-set-${this.item.slug ?? sluggify(this.item.name)}`;
         return {
             // Sort by the `sort` property, if set, and otherwise `label`
-            choices: deepClone(this.choices).sort((a, b) =>
-                a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label)
-            ),
+            choices: this.choices
+                .map((c, index) => ({ ...c, value: index }))
+                .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label))),
         };
     }
 
@@ -108,7 +110,7 @@ interface RulesElementPromptData<T> {
     predicate?: PredicatePF2e;
 }
 
-interface PromptChoice<T> {
+interface PromptChoice<T = string | number | object> {
     value: T;
     label: string;
     img?: string;
