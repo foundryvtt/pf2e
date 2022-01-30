@@ -1,9 +1,11 @@
 import { CreaturePF2e } from "@actor";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
-import { MeasuredTemplatePF2e } from ".";
-import { TokenLayerPF2e } from "./layer/token-layer";
+import { TokenDocumentPF2e } from "@module/scene";
+import { MeasuredTemplatePF2e, TokenLayerPF2e } from ".";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
+    /** The promise returned by the last call to `Token#draw()` */
+    drawLock?: Promise<this>;
+
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
@@ -120,13 +122,23 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.data.light.dim = original.dim;
     }
 
+    /** Make the drawing promise accessible to `#redraw` */
+    override async draw(): Promise<this> {
+        this.drawLock = super.draw();
+        return this.drawLock;
+    }
+
     /** Refresh this token's image and size (usually after an actor update or override) */
     async redraw(): Promise<void> {
-        if (!this.icon) return; // Exit early if icon isn't present
+        await this.drawLock;
+
+        // Exit early if icon isn't fully loaded
+        if (!(this.icon?.transform?.scale && this.icon.texture?.orig)) {
+            return;
+        }
 
         const sizeChanged = !!this.hitArea && this.linkToActorSize && this.w !== this.hitArea.width;
         const scaleChanged = ((): boolean => {
-            if (!(this.icon?.transform?.scale && this.texture && this.linkToActorSize)) return false;
             const expectedScale =
                 (Math.round((this.texture.orig.width / this.texture.orig.height) * 10) / 10) * this.data.scale;
             return Math.round((this.icon.width / this.w) * 10) / 10 !== expectedScale;
@@ -135,7 +147,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
+            const { visible } = this;
             await this.draw();
+            this.visible = visible;
         }
     }
 
