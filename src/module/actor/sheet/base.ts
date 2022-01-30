@@ -522,13 +522,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
     }
 
-    async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
-        const li = $(event.currentTarget).closest(".item");
-        const itemId = li.attr("data-item-id") ?? "";
+    async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
+        const $li = $(event.currentTarget).closest("li[data-item-id]");
+        const itemId = $li.attr("data-item-id") ?? "";
         const item = this.actor.items.get(itemId);
 
         if (item instanceof ConditionPF2e && item.fromSystem) {
-            const references = li.find(".condition-references");
+            const references = $li.find(".condition-references");
 
             const deleteCondition = async (): Promise<void> => {
                 this.actor.decreaseCondition(item, { forceRemove: true });
@@ -574,7 +574,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         [`data.customModifiers.-=${itemId}-damage`]: null,
                     });
                 }
-                li.slideUp(200, () => this.render(false));
+                $li.slideUp(200, () => this.render(false));
             };
             if (event.ctrlKey) {
                 deleteItem();
