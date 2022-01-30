@@ -46,7 +46,10 @@
 * (Abaddon) Improve rule element localization for bestiary 1 - part 1
 * (Abaddon) Add creatures and hazards for PFS 3-09
 * (Abaddon) Fix faerie dragon spellcasting entry order
+* (Avery) Fix rule elements on Quicksilver Mutagen effects
 * (Drental) add PFS Scenario 3-08 Creatures
+* (Friz) Add inline save and correct damage of Javelin of Lightning
+* (Friz) Add Usage to description of talismans
 * (InfamousSky) Add leveled damage to Explode action
 * (InfamousSky) Add leveled damage to Megavolt feat
 * (InfamousSky) Fix Invisibility rune typo
@@ -56,7 +59,13 @@
 * (InfamousSky) Add Attack of Opportunity action
 * (InfamousSky) Add effects for Goblin Song feat
 * (InfamousSky) Add leveled healing to Searing Restoration feat
+* (iWantNoColor) Fix rule element for Reflexive Shield
 * (JDCalvert) Add automation to Crossbow Terror
+* (Kris) Fix price of Succubus Kiss drug
+* (Lebombjames) Fix description of Darkvision Elixirs and Redpitch Bombs
+* (Maeceus) Add flat checks for unstable to action and feat descriptions
+* (Mindbane) Fix actions for One Shot, One Kill action
+* (NullWolf) Replace Improved Grab on several NPCs
 * (rectulo) Fix typos in Ember's Eyes feat and Oracle class
 * (ricothebold) Add several dozen Feat Effect Icons
 * (Roxim) Brushup EC book 1 remaining NPCs
@@ -78,20 +87,19 @@
 * (stwlam) Add Effect: Favorable Winds along with icon
 * (stwlam) Add Stance: Paragon's Guard
 * (stwlam) Fix AdjustDegreeOfSuccess RE on Aasimar Redeemer
-* (Tikael) (Data Entry World) Add in changes from the data entry world Jan 21st
 * (Tikael) Add ChoiceSet and GrantItem to dedication feats
 * (Tikael) Add area to Pummeling Rubble
 * (Tikael) Add missing paragraph to Explode action
 * (Tikael) Automate Dwarven Thrower
 * (Tikael) Fix description of Medium Armor Expertise for Inventors
 * (Tikael) Fix level of Boastful Hunter
-* (Tikael) (Data Entry World) Add changes from data entry world Jan 27
 * (Tikael) Add ChoiceGrant to basic multiclass feats
 * (Tikael) Fix resistance on Fire Shield spell effect
 * (Tikael) Fix rule elements on Familiar Master Dedication
 * (Tikael) Improve automation of Spirit Strikes feat
 * (Tikael) Make Everstand Stance an actual stance effect
 * (Tikael) Update critical specializations to use localized text
+* (Trist) Add GrantItem to Hellspawn feat
 
 
 ## Version 3.2.2
