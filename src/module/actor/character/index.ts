@@ -1229,21 +1229,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 ? Math.max(Math.ceil(distance / weapon.rangeIncrement), 1)
                 : null;
 
-        const getRangePenalty = (increment: number | null): ModifierPF2e | null => {
-            if (!increment || increment === 1) return null;
-            const slug = "range-penalty";
-            const modifier = new ModifierPF2e({
-                label: "PF2E.RangePenalty",
-                slug,
-                type: MODIFIER_TYPE.UNTYPED,
-                modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
-                predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
-                adjustments: this.getModifierAdjustments(selectors, slug),
-            });
-            modifier.test(defaultOptions);
-            return modifier;
-        };
-
         action.variants = [0, 1, 2]
             .map((index): [string, (otherModifiers: ModifierPF2e[]) => CheckModifier] => [
                 labels[index],
@@ -1258,7 +1243,9 @@ export class CharacterPF2e extends CreaturePF2e {
                     // Set range-increment roll option
                     const rangeIncrement = getRangeIncrement(context.distance);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
-                    const otherModifiers = [getRangePenalty(rangeIncrement) ?? []].flat();
+                    const otherModifiers = [
+                        this.getRangePenalty(rangeIncrement, selectors, defaultOptions) ?? [],
+                    ].flat();
 
                     // Collect roll options from all sources
                     args.options ??= [];
