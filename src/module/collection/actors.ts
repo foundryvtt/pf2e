@@ -8,12 +8,10 @@ export class ActorsPF2e<TActor extends ActorPF2e = ActorPF2e> extends Actors<TAc
         delete defaultToken.disposition;
 
         if (actor instanceof ActorPF2e) {
-            actor.data.update({ token: defaultToken });
+            return super.fromCompendium(actor.clone({ token: defaultToken }, { keepId: true }), options);
         } else {
-            mergeObject(actor, { token: defaultToken });
+            return super.fromCompendium(mergeObject(actor, { token: defaultToken }, { inplace: false }), options);
         }
-
-        return super.fromCompendium(actor, options);
     }
 
     /** Ditto */
@@ -29,8 +27,6 @@ export class ActorsPF2e<TActor extends ActorPF2e = ActorPF2e> extends Actors<TAc
         const defaultToken = game.settings.get("core", "defaultToken");
         delete defaultToken.disposition;
 
-        actor.data.update({ token: defaultToken });
-
-        return actor;
+        return actor.clone({ token: defaultToken }, { keepId: true });
     }
 }
