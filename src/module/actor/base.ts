@@ -977,7 +977,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
+            const currentVersion = this.schemaVersion || undefined;
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(currentVersion));
         }
     }
 
