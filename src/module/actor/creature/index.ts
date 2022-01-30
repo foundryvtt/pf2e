@@ -248,16 +248,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rule.onApplyActiveEffects?.();
         }
 
-        const { rollOptions } = this;
-        if ("shield" in this.attributes && this.attributes.shield.itemId) {
-            rollOptions.all["self:shield:equipped"] = true;
-        }
-
         for (const changeEntries of Object.values(this.data.data.autoChanges)) {
             changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
         }
 
-        rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
+        this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
     }
 
     override prepareDerivedData(): void {
@@ -387,23 +382,22 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */
-    protected addShieldBonus(): void {
-        if (!(this.data.type === "character" || this.data.type === "npc")) return;
+    protected getShieldBonus(): ModifierPF2e | null {
+        if (!(this.data.type === "character" || this.data.type === "npc")) return null;
         const shieldData = this.data.data.attributes.shield;
         if (shieldData.raised && !shieldData.broken) {
-            const modifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
             const slug = "raised-shield";
-            modifiers.push(
-                new ModifierPF2e({
-                    label: shieldData.name,
-                    slug,
-                    adjustments: this.getModifierAdjustments(["ac"], slug),
-                    type: MODIFIER_TYPE.CIRCUMSTANCE,
-                    modifier: shieldData.ac,
-                })
-            );
             this.rollOptions.all["self:shield:raised"] = true;
+            return new ModifierPF2e({
+                label: shieldData.name,
+                slug,
+                adjustments: this.getModifierAdjustments(["ac"], slug),
+                type: MODIFIER_TYPE.CIRCUMSTANCE,
+                modifier: shieldData.ac,
+            });
         }
+
+        return null;
     }
 
     /**
