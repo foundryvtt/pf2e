@@ -213,7 +213,7 @@ export class ActionsPF2e {
                 if (options.weaponTrait){
                     // modifier from roller's equipped weapons
                     this.getApplicableEquippedWeapons(actor, options.weaponTrait)
-                        .map((item:WeaponPF2e) => check.push(this.getWeaponPotencyModifier(item, actor));
+                        .map((item:WeaponPF2e) => check.push(this.getWeaponPotencyModifier(item, actor)));
                 }
                 if (options.weaponTraitWithPenalty){
                     // modifier from roller's equipped weapons with -2 ranged penalty
