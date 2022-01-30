@@ -300,7 +300,7 @@ export class ActionsPF2e {
     }
 
     private static getApplicableEquippedWeapons(
-        actor: ActorPF2e
+        actor: ActorPF2e,
         trait: WeaponTrait
     ): WeaponPF2e[] {
         return actor.itemTypes.weapon
