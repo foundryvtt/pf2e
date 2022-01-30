@@ -304,7 +304,7 @@ export class ActionsPF2e {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
             return new ModifierPF2e(
                 item.data.name,
-                actor.synthetics?.weaponPotency?.["mundane-attack"]?.[0].bonus || 0,
+                actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
                 MODIFIER_TYPE.ITEM
             );
         } else {
