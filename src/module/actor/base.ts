@@ -189,7 +189,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } });
+        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
     /**
