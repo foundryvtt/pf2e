@@ -293,9 +293,9 @@ export class ActionsPF2e {
         actor: ActorPF2e
     ): ModifierPF2e {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
-            return new ModifierPF2e(item.data.name, actor.synthetics.weaponPotency["mundane-attack"][0].bonus, MODIFIER_TYPE.ITEM));
+            return new ModifierPF2e(item.data.name, actor.synthetics.weaponPotency["mundane-attack"][0].bonus, MODIFIER_TYPE.ITEM);
         } else {
-            return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM));
+            return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM);
         }
     }
 
@@ -305,6 +305,6 @@ export class ActionsPF2e {
     ): WeaponPF2e[] {
         return actor.itemTypes.weapon
             .filter((weapon) => weapon.isEquipped)
-            .filter((weapon)=> weapon.traits.has(trait);
+            .filter((weapon)=> weapon.traits.has(trait));
     }
 }
