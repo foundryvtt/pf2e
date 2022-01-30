@@ -305,7 +305,7 @@ export class ActionsPF2e {
             return new ModifierPF2e(
                 item.data.name,
                 actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
-                MODIFIER_TYPE.ITEM
+                MODIFIER_TYPE.POTENCY
             );
         } else {
             return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM);
