@@ -73,7 +73,7 @@ export class NPCPF2e extends CreaturePF2e {
     /** Grant players limited permission on dead NPCs */
     override testUserPermission(
         user: User,
-        permission: DocumentPermission | UserAction,
+        permission: DocumentPermission | DocumentPermissionNumber,
         options?: { exact?: boolean }
     ) {
         // Temporary measure until a lootable view of the legacy sheet is ready
