@@ -7,7 +7,7 @@ import {
     StatisticModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
-     } from "@module/modifiers";
+} from "@module/modifiers";
 import { CheckPF2e } from "../rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
@@ -216,25 +216,24 @@ export class ActionsPF2e {
                     const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
                     finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
                 }
-                if (options.weaponTrait) {
-                    // modifier from roller's equipped weapons
-                    this.getApplicableEquippedWeapons(actor, options.weaponTrait)
-                        .map((item: WeaponPF2e) =>
-                            check.push(this.getWeaponPotencyModifier(item, actor))
-                        );
+                // modifier from roller's equipped weapons
+                if (options.weaponTrait) { this.getApplicableEquippedWeapons(actor, options.weaponTrait)
+                    .map((item: WeaponPF2e) =>
+                        check.push(this.getWeaponPotencyModifier(item, actor))
+                    );
                 }
-                if (options.weaponTraitWithPenalty) {
-                    // modifier from roller's equipped weapons with -2 ranged penalty
-                    this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
-                         .map((item: WeaponPF2e) => {
-                             check.push(this.getWeaponPotencyModifier(item, actor));
-                             check.push(
-                                 new ModifierPF2e(
-                                     item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
-                                     Number("-2"), MODIFIER_TYPE.CIRCUMSTANCE
-                                     )
-                                 );
-                         });
+                // modifier from roller's equipped weapons with -2 ranged penalty
+                if (options.weaponTraitWithPenalty) { this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
+                     .map((item: WeaponPF2e) => {
+                         check.push(this.getWeaponPotencyModifier(item, actor));
+                         check.push(
+                             new ModifierPF2e(
+                                 item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
+                                 Number("-2"),
+                                 MODIFIER_TYPE.CIRCUMSTANCE
+                                 )
+                             );
+                     });
                 }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 const dc = (() => {
@@ -306,10 +305,7 @@ export class ActionsPF2e {
             return new ModifierPF2e(
                 item.data.name, actor.synthetics.weaponPotency["mundane-attack"][0].bonus, MODIFIER_TYPE.ITEM);
         } else {
-            return new ModifierPF2e(item.data.name,
-                Number(item.data.data.potencyRune.value),
-                MODIFIER_TYPE.ITEM
-            );
+            return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM);
         }
     }
 
