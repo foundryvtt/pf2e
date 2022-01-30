@@ -121,43 +121,21 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Refresh this token's image and size (usually after an actor update or override) */
-    redraw(): void {
+    async redraw(): Promise<void> {
         if (!this.icon) return; // Exit early if icon isn't present
 
-        const iconIsReady = () => !!(this.icon?.transform?.scale && this.texture);
         const sizeChanged = !!this.hitArea && this.linkToActorSize && this.w !== this.hitArea.width;
         const scaleChanged = ((): boolean => {
-            if (!iconIsReady() || !this.linkToActorSize) return false;
-            const expectedScale = Math.round((this.texture.orig.width / this.texture.orig.height) * 10) / 10;
+            if (!(this.icon?.transform?.scale && this.texture && this.linkToActorSize)) return false;
+            const expectedScale =
+                (Math.round((this.texture.orig.width / this.texture.orig.height) * 10) / 10) * this.data.scale;
             return Math.round((this.icon.width / this.w) * 10) / 10 !== expectedScale;
         })();
         const imageChanged = this.icon.src !== this.data.img;
 
         if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
-
-            const redrawRest = () => {
-                this._drawHUD();
-                this.hitArea = new PIXI.Rectangle(0, 0, this.w, this.h);
-                if (iconIsReady()) {
-                    this.refresh();
-                    this.drawEffects();
-                }
-            };
-
-            if (imageChanged && iconIsReady()) {
-                this.removeChild(this.icon);
-                this.icon.destroy();
-                loadTexture(this.data.img, { fallback: CONST.DEFAULT_TOKEN }).then((texture) => {
-                    this.texture = texture;
-                    this._drawIcon().then((icon) => {
-                        this.icon = this.addChild(icon);
-                        redrawRest();
-                    });
-                });
-            } else {
-                redrawRest();
-            }
+            await this.draw();
         }
     }
 
