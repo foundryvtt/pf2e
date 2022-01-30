@@ -81,8 +81,8 @@ declare class TokenLayer<TToken extends Token> extends PlaceablesLayer<TToken> {
      * @return The Combatants added or removed
      */
     toggleCombat(
-        state?: boolean,
-        combat: TToken["combatant"]["parent"],
+        state: boolean | undefined,
+        combat: Combat,
         { token }?: { token?: TToken | null }
     ): Promise<NonNullable<TToken["combatant"]>>[];
 

@@ -473,6 +473,7 @@ declare global {
     type VideoFileExtension = typeof CONST.VIDEO_FILE_EXTENSIONS[number];
     type AudioFileExtension = typeof CONST.AUDIO_FILE_EXTENSIONS[number];
     type DocumentPermission = keyof typeof CONST.DOCUMENT_PERMISSION_LEVELS;
+    type DocumentPermissionNumber = typeof CONST.DOCUMENT_PERMISSION_LEVELS[DocumentPermission];
     type GridType = typeof CONST.GRID_TYPES[keyof typeof CONST.GRID_TYPES];
     type PermissionLevel = typeof CONST.DOCUMENT_PERMISSION_LEVELS[DocumentPermission];
     type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
