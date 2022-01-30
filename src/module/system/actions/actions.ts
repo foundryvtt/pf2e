@@ -218,8 +218,7 @@ export class ActionsPF2e {
                 }
                 // modifier from roller's equipped weapons
                 if (options.weaponTrait) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTrait)
-                    .map((item: WeaponPF2e) =>
+                    this.getApplicableEquippedWeapons(actor, options.weaponTrait).map((item: WeaponPF2e) =>
                         check.push(this.getWeaponPotencyModifier(item, actor))
                     );
                 }
