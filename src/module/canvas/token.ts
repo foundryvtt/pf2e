@@ -231,8 +231,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             return new PIXI.Rectangle(
                 token.x + gridSize / 2,
                 token.y + gridSize / 2,
-                token.width - gridSize,
-                token.height - gridSize
+                token.w - gridSize,
+                token.h - gridSize
             );
         };
 
