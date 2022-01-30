@@ -217,16 +217,14 @@ export class ActionsPF2e {
                     finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
                 }
                 // modifier from roller's equipped weapons
-                if (options.weaponTrait) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTrait)
+                if (options.weaponTrait) { this.getApplicableEquippedWeapons(actor, options.weaponTrait)
                     .map((item: WeaponPF2e) =>
                         check.push(this.getWeaponPotencyModifier(item, actor))
                     );
                 }
                 // modifier from roller's equipped weapons with -2 ranged penalty
                 if (options.weaponTraitWithPenalty) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
-                    .map((item: WeaponPF2e) => {
+                    this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty).map((item: WeaponPF2e) => {
                         check.push(this.getWeaponPotencyModifier(item, actor));
                         check.push(
                             new ModifierPF2e(
