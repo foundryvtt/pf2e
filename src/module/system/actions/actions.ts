@@ -217,23 +217,25 @@ export class ActionsPF2e {
                     finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
                 }
                 // modifier from roller's equipped weapons
-                if (options.weaponTrait) { this.getApplicableEquippedWeapons(actor, options.weaponTrait)
+                if (options.weaponTrait) {
+                    this.getApplicableEquippedWeapons(actor, options.weaponTrait)
                     .map((item: WeaponPF2e) =>
                         check.push(this.getWeaponPotencyModifier(item, actor))
                     );
                 }
                 // modifier from roller's equipped weapons with -2 ranged penalty
-                if (options.weaponTraitWithPenalty) { this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
-                     .map((item: WeaponPF2e) => {
-                         check.push(this.getWeaponPotencyModifier(item, actor));
-                         check.push(
-                             new ModifierPF2e(
-                                 item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
-                                 Number("-2"),
-                                 MODIFIER_TYPE.CIRCUMSTANCE
-                                 )
-                             );
-                     });
+                if (options.weaponTraitWithPenalty) {
+                    this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
+                    .map((item: WeaponPF2e) => {
+                        check.push(this.getWeaponPotencyModifier(item, actor));
+                        check.push(
+                            new ModifierPF2e(
+                                item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
+                                Number("-2"),
+                                MODIFIER_TYPE.CIRCUMSTANCE
+                            )
+                        );
+                    });
                 }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 const dc = (() => {
@@ -303,7 +305,10 @@ export class ActionsPF2e {
     private static getWeaponPotencyModifier(item: WeaponPF2e, actor: ActorPF2e): ModifierPF2e {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
             return new ModifierPF2e(
-                item.data.name, actor.synthetics.weaponPotency["mundane-attack"][0].bonus, MODIFIER_TYPE.ITEM);
+                item.data.name,
+                actor.synthetics.weaponPotency["mundane-attack"][0].bonus,
+                MODIFIER_TYPE.ITEM
+            );
         } else {
             return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM);
         }
@@ -312,6 +317,6 @@ export class ActionsPF2e {
     private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e[] {
         return actor.itemTypes.weapon
             .filter((weapon) => weapon.isEquipped)
-            .filter((weapon)=> weapon.traits.has(trait));
+            .filter((weapon) => weapon.traits.has(trait));
     }
 }
