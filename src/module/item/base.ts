@@ -521,6 +521,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (context.parent) {
             for await (const itemSource of [...data]) {
                 if (!itemSource.data?.rules) continue;
+                if (!(context.keepId || context.keepEmbeddedIds)) {
+                    delete itemSource._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
+                }
+
                 const item = new ItemPF2e(itemSource, { parent: context.parent }) as Embedded<ItemPF2e>;
                 // Pre-load this item's self: roll options for predication by preCreate rule elements
                 item.prepareActorData?.();
