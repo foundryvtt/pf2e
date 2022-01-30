@@ -1,5 +1,30 @@
 # Changelog
 
+## Version 3.3.1
+
+### Bugfixes
+* (stwlam) Fix handling of third-party compendium imports
+* (stwlam) Fix scale-change detection for small tokens
+* (stwlam) Fix issue preventing adding more than one of the same feat that grants other feats
+* (stwlam) Fix underyling issue causing Paragon's Guard effect to not work
+
+### Core System Improvements
+* (stwlam) Apply range penalties to NPC strikes when applicable
+
+### Data Updates
+* (Chup) Fix display issue on PC sheet when max HP is a single digit
+* (rectulo) Fix a typo in swashbuckler class
+* (rectulo) Fix typos in the first table of the swashbuckler class
+* (SpartanCPA) Add template buttons for higher action uses of Ki Blast
+* (stwlam) Grant Alchemical Crafting with Herbalist and Poisoner dedication feats
+* (Tikael) Add Resistance rule element to Stormsoul feat
+* (Tikael) Add slugs to Heaven's Thunder effect
+* (Tikael) Correct 3.3 changelog credits
+* (Tikael) Grant the Attack of Opportunity reaction with the class feature
+* (Tikael) Grant the Rage action with Barbarian Dedication
+* (Tikael) Prevent multiclass barbarians from getting a feat from Fury Instinct
+* (Tikael) Remove unnecessary rule elements on vision ancestry features
+
 
 ## Version 3.3.0
 
