@@ -219,7 +219,7 @@ export class ActionsPF2e {
                     // modifier from roller's equipped weapons with -2 ranged penalty
                     this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
                          .map((item:WeaponPF2e) => {
-                            check.push(this.getWeaponPotencyModifier(item, actor);
+                            check.push(this.getWeaponPotencyModifier(item, actor));
                             check.push(new ModifierPF2e(item.data.name+ ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`, Number("-2"), MODIFIER_TYPE.CIRCUMSTANCE));
                          });
                 }
