@@ -217,7 +217,8 @@ export class ActionsPF2e {
                     finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
                 }
                 // modifier from roller's equipped weapons
-                if (options.weaponTrait) { this.getApplicableEquippedWeapons(actor, options.weaponTrait)
+                if (options.weaponTrait) {
+                    this.getApplicableEquippedWeapons(actor, options.weaponTrait)
                     .map((item: WeaponPF2e) =>
                         check.push(this.getWeaponPotencyModifier(item, actor))
                     );
