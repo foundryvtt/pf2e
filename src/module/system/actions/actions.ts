@@ -1,7 +1,13 @@
 import type { ActorPF2e } from "@actor/base";
 import { CreaturePF2e } from "@actor";
 import { SKILL_EXPANDED } from "@actor/data/values";
-import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e, MODIFIER_TYPE } from "@module/modifiers";
+import {
+    ensureProficiencyOption,
+    CheckModifier,
+    StatisticModifier,
+    ModifierPF2e,
+    MODIFIER_TYPE,
+     } from "@module/modifiers";
 import { CheckPF2e } from "../rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
@@ -37,8 +43,8 @@ import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
 import { PredicatePF2e } from "@system/predication";
-import {WeaponPF2e} from "@item/weapon";
-import {WeaponTrait} from "@item/weapon/data";
+import { WeaponPF2e } from "@item/weapon";
+import { WeaponTrait } from "@item/weapon/data";
 
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 
@@ -81,7 +87,7 @@ interface SimpleRollActionCheckOptions {
     callback?: (result: CheckResultCallback) => void;
     createMessage?: boolean;
     weaponTrait?: WeaponTrait;
-    weaponTraitWithPenalty?: WeaponTrait
+    weaponTraitWithPenalty?: WeaponTrait;
 }
 
 export class ActionsPF2e {
@@ -210,17 +216,24 @@ export class ActionsPF2e {
                     const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
                     finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
                 }
-                if (options.weaponTrait){
+                if (options.weaponTrait) {
                     // modifier from roller's equipped weapons
                     this.getApplicableEquippedWeapons(actor, options.weaponTrait)
-                        .map((item:WeaponPF2e) => check.push(this.getWeaponPotencyModifier(item, actor)));
+                        .map((item: WeaponPF2e) =>
+                            check.push(this.getWeaponPotencyModifier(item, actor))
+                        );
                 }
-                if (options.weaponTraitWithPenalty){
+                if (options.weaponTraitWithPenalty) {
                     // modifier from roller's equipped weapons with -2 ranged penalty
                     this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
-                         .map((item:WeaponPF2e) => {
-                            check.push(this.getWeaponPotencyModifier(item, actor));
-                            check.push(new ModifierPF2e(item.data.name+ ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`, Number("-2"), MODIFIER_TYPE.CIRCUMSTANCE));
+                         .map((item: WeaponPF2e) => {
+                             check.push(this.getWeaponPotencyModifier(item, actor));
+                             check.push(
+                                 new ModifierPF2e(
+                                     item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
+                                     Number("-2"), MODIFIER_TYPE.CIRCUMSTANCE
+                                     )
+                                 );
                          });
                 }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
@@ -288,21 +301,19 @@ export class ActionsPF2e {
         }
     }
 
-    private static getWeaponPotencyModifier(
-        item: WeaponPF2e,
-        actor: ActorPF2e
-    ): ModifierPF2e {
+    private static getWeaponPotencyModifier(item: WeaponPF2e, actor: ActorPF2e): ModifierPF2e {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
-            return new ModifierPF2e(item.data.name, actor.synthetics.weaponPotency["mundane-attack"][0].bonus, MODIFIER_TYPE.ITEM);
+            return new ModifierPF2e(
+                item.data.name, actor.synthetics.weaponPotency["mundane-attack"][0].bonus, MODIFIER_TYPE.ITEM);
         } else {
-            return new ModifierPF2e(item.data.name, Number(item.data.data.potencyRune.value), MODIFIER_TYPE.ITEM);
+            return new ModifierPF2e(item.data.name,
+                Number(item.data.data.potencyRune.value),
+                MODIFIER_TYPE.ITEM
+            );
         }
     }
 
-    private static getApplicableEquippedWeapons(
-        actor: ActorPF2e,
-        trait: WeaponTrait
-    ): WeaponPF2e[] {
+    private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e[] {
         return actor.itemTypes.weapon
             .filter((weapon) => weapon.isEquipped)
             .filter((weapon)=> weapon.traits.has(trait));
