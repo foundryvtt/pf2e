@@ -22,6 +22,7 @@
 * (stwlam) Display token name in place of actor name for limited-permission NPCs
 * (stwlam) Fix damage dice not getting excluded by battle forms
 * (stwlam) Work around Foundry bug in which token default configuration is ignored for compendium imports
+* (stwlam) Fix issue causing sickened and frightened conditions to penalize movement speed
 * (Supe) Add speaker to fast healing and temp hp messages
 
 ### Core System Improvements
