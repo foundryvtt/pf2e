@@ -160,6 +160,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     if (docSource.type === "npc") {
                         const { source } = docSource.data.details;
                         source.author = source.author?.trim() || undefined;
+
+                        const { speed } = docSource.data.attributes;
+                        speed.details = speed.details?.trim() || undefined;
                     }
                 }
 

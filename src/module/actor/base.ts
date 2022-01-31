@@ -189,7 +189,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } });
+        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
     /**
@@ -977,7 +977,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
+            const currentVersion = this.schemaVersion || undefined;
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(currentVersion));
         }
     }
 
@@ -1026,36 +1027,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
         super._onEmbeddedDocumentChange(embeddedName);
         this.token?.object?.drawEffects();
-    }
-
-    /**
-     * Display floaty text on this Actor's tokens, for status effects
-     * @param isAdded True if the status effect is being added to actor, else removed
-     * @param name Name of status to display
-     * @param value Optional value of status, for example "Frightened 3"
-     */
-    showFloatyStatus(isAdded: boolean, name: string, value: number | null): void {
-        const hideFromUser =
-            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretCondition");
-        if (hideFromUser) return;
-
-        const content = (() => {
-            const sign = isAdded ? "+ " : "- ";
-            const appendedNumber = value ? ` ${value}` : "";
-            return `${sign}${name}${appendedNumber}`;
-        })();
-
-        this.getActiveTokens().forEach((token) => {
-            token.hud?.createScrollingText(content, {
-                anchor: isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
-                direction: isAdded ? 2 : 1,
-                jitter: 0.25,
-                fill: "white",
-                fontSize: 32,
-                stroke: 0x000000,
-                strokeThickness: 4,
-            });
-        });
     }
 }
 

@@ -193,6 +193,26 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Construct a range penalty for this creature when making a ranged attack */
+    protected getRangePenalty(
+        increment: number | null,
+        selectors: string[],
+        rollOptions: string[]
+    ): ModifierPF2e | null {
+        if (!increment || increment === 1) return null;
+        const slug = "range-penalty";
+        const modifier = new ModifierPF2e({
+            label: "PF2E.RangePenalty",
+            slug,
+            type: MODIFIER_TYPE.UNTYPED,
+            modifier: Math.max((increment - 1) * -2, -12), // Max range penalty before automatic failure
+            predicate: { not: ["ignore-range-penalty", { gte: ["ignore-range-penalty", increment] }] },
+            adjustments: this.getModifierAdjustments(selectors, slug),
+        });
+        modifier.test(rollOptions);
+        return modifier;
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -248,16 +268,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rule.onApplyActiveEffects?.();
         }
 
-        const { rollOptions } = this;
-        if ("shield" in this.attributes && this.attributes.shield.itemId) {
-            rollOptions.all["self:shield:equipped"] = true;
-        }
-
         for (const changeEntries of Object.values(this.data.data.autoChanges)) {
             changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
         }
 
-        rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
+        this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
     }
 
     override prepareDerivedData(): void {
@@ -387,23 +402,22 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */
-    protected addShieldBonus(): void {
-        if (!(this.data.type === "character" || this.data.type === "npc")) return;
+    protected getShieldBonus(): ModifierPF2e | null {
+        if (!(this.data.type === "character" || this.data.type === "npc")) return null;
         const shieldData = this.data.data.attributes.shield;
         if (shieldData.raised && !shieldData.broken) {
-            const modifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
             const slug = "raised-shield";
-            modifiers.push(
-                new ModifierPF2e({
-                    label: shieldData.name,
-                    slug,
-                    adjustments: this.getModifierAdjustments(["ac"], slug),
-                    type: MODIFIER_TYPE.CIRCUMSTANCE,
-                    modifier: shieldData.ac,
-                })
-            );
             this.rollOptions.all["self:shield:raised"] = true;
+            return new ModifierPF2e({
+                label: shieldData.name,
+                slug,
+                adjustments: this.getModifierAdjustments(["ac"], slug),
+                type: MODIFIER_TYPE.CIRCUMSTANCE,
+                modifier: shieldData.ac,
+            });
         }
+
+        return null;
     }
 
     /**
@@ -487,9 +501,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
-        const domains = ["all", "speed", `${movementType}-speed`];
+        const selectors = ["speed", `${movementType}-speed`];
+        const domains = ["all", ...selectors];
         const rollOptions = this.getRollOptions(domains);
-        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, domains);
+        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, selectors);
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
