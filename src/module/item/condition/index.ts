@@ -72,9 +72,13 @@ export class ConditionPF2e extends ItemPF2e {
     ): void {
         super._onCreate(data, options, userId);
 
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+            return;
+        }
+
         /* Suppress floaty text on "linked" conditions */
         if (this.data.data.references.parent?.type !== "condition") {
-            this.actor?.showFloatyStatus(true, this.name, this.value);
+            this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
         }
     }
 
@@ -85,21 +89,31 @@ export class ConditionPF2e extends ItemPF2e {
     ): void {
         super._onUpdate(changed, options, userId);
 
-        /* Suppress floaty text on "linked" conditions */
-        if (this.data.data.references.parent?.type !== "condition") {
-            const valueChange = (this.value ?? 0) - (options.conditionValue ?? 0);
-            if (valueChange) {
-                this.actor?.showFloatyStatus(valueChange >= 0, this.name, this.value);
-            }
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+            return;
+        }
+
+        const [priorValue, newValue] = [options.conditionValue, this.value];
+        const valueChanged = !!priorValue && !!newValue && priorValue !== newValue;
+        // Suppress floaty text on "linked" conditions
+        if (valueChanged && this.data.data.references.parent?.type !== "condition") {
+            const change = newValue > priorValue ? { create: this } : { delete: this };
+            this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
     }
 
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
 
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+            return;
+        }
+
         /* Suppress floaty text on "linked" conditions */
         if (this.data.data.references.parent?.type !== "condition") {
-            this.actor?.showFloatyStatus(false, this.name, null);
+            const baseName = this.data.data.base;
+            const change = { delete: { name: baseName } };
+            this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
     }
 }

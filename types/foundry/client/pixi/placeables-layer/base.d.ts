@@ -25,7 +25,7 @@ declare global {
         /** PlaceableObject layer options */
         options: PlaceablesLayerOptions;
 
-        static abstract documentName: string;
+        static documentName: string;
 
         /** Customize behaviors of this PlaceablesLayer by modifying some behaviors at a class level */
         static override get layerOptions(): PlaceablesLayerOptions;

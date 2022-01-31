@@ -133,6 +133,7 @@ export class EffectPF2e extends ItemPF2e {
         return super._preUpdate(changed, options, user);
     }
 
+    /** Show floaty text when this effect is created on an actor */
     protected override _onCreate(
         data: this["data"]["_source"],
         options: DocumentModificationContext<this>,
@@ -140,16 +141,17 @@ export class EffectPF2e extends ItemPF2e {
     ): void {
         super._onCreate(data, options, userId);
 
-        this.actor?.showFloatyStatus(true, this.name, null);
+        this.actor?.getActiveTokens().shift()?.showFloatyText({ create: this });
     }
 
+    /** Show floaty text when this effect is deleted from an actor */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
         }
         super._onDelete(options, userId);
 
-        this.actor?.showFloatyStatus(false, this.name, null);
+        this.actor?.getActiveTokens().shift()?.showFloatyText({ delete: this });
     }
 }
 

@@ -1,5 +1,30 @@
 # Changelog
 
+## Version 3.3.1
+
+### Bugfixes
+* (stwlam) Fix handling of third-party compendium imports
+* (stwlam) Fix scale-change detection for small tokens
+* (stwlam) Fix issue preventing adding more than one of the same feat that grants other feats
+* (stwlam) Fix underyling issue causing Paragon's Guard effect to not work
+
+### Core System Improvements
+* (stwlam) Apply range penalties to NPC strikes when applicable
+
+### Data Updates
+* (Chup) Fix display issue on PC sheet when max HP is a single digit
+* (rectulo) Fix a typo in swashbuckler class
+* (rectulo) Fix typos in the first table of the swashbuckler class
+* (SpartanCPA) Add template buttons for higher action uses of Ki Blast
+* (stwlam) Grant Alchemical Crafting with Herbalist and Poisoner dedication feats
+* (Tikael) Add Resistance rule element to Stormsoul feat
+* (Tikael) Add slugs to Heaven's Thunder effect
+* (Tikael) Correct 3.3 changelog credits
+* (Tikael) Grant the Attack of Opportunity reaction with the class feature
+* (Tikael) Grant the Rage action with Barbarian Dedication
+* (Tikael) Prevent multiclass barbarians from getting a feat from Fury Instinct
+* (Tikael) Remove unnecessary rule elements on vision ancestry features
+
 
 ## Version 3.3.0
 
@@ -22,6 +47,7 @@
 * (stwlam) Display token name in place of actor name for limited-permission NPCs
 * (stwlam) Fix damage dice not getting excluded by battle forms
 * (stwlam) Work around Foundry bug in which token default configuration is ignored for compendium imports
+* (stwlam) Fix issue causing sickened and frightened conditions to penalize movement speed
 * (Supe) Add speaker to fast healing and temp hp messages
 
 ### Core System Improvements
@@ -46,7 +72,10 @@
 * (Abaddon) Improve rule element localization for bestiary 1 - part 1
 * (Abaddon) Add creatures and hazards for PFS 3-09
 * (Abaddon) Fix faerie dragon spellcasting entry order
+* (Avery) Fix rule elements on Quicksilver Mutagen effects
 * (Drental) add PFS Scenario 3-08 Creatures
+* (Friz) Add inline save and correct damage of Javelin of Lightning
+* (Friz) Add Usage to description of talismans
 * (InfamousSky) Add leveled damage to Explode action
 * (InfamousSky) Add leveled damage to Megavolt feat
 * (InfamousSky) Fix Invisibility rune typo
@@ -56,7 +85,13 @@
 * (InfamousSky) Add Attack of Opportunity action
 * (InfamousSky) Add effects for Goblin Song feat
 * (InfamousSky) Add leveled healing to Searing Restoration feat
+* (iWantNoColor) Fix rule element for Reflexive Shield
 * (JDCalvert) Add automation to Crossbow Terror
+* (Kris) Fix price of Succubus Kiss drug
+* (Lebombjames) Fix description of Darkvision Elixirs and Redpitch Bombs
+* (Maeceus) Add flat checks for unstable to action and feat descriptions
+* (Mindbane) Fix actions for One Shot, One Kill action
+* (NullWolf) Replace Improved Grab on several NPCs
 * (rectulo) Fix typos in Ember's Eyes feat and Oracle class
 * (ricothebold) Add several dozen Feat Effect Icons
 * (Roxim) Brushup EC book 1 remaining NPCs
@@ -78,20 +113,19 @@
 * (stwlam) Add Effect: Favorable Winds along with icon
 * (stwlam) Add Stance: Paragon's Guard
 * (stwlam) Fix AdjustDegreeOfSuccess RE on Aasimar Redeemer
-* (Tikael) (Data Entry World) Add in changes from the data entry world Jan 21st
 * (Tikael) Add ChoiceSet and GrantItem to dedication feats
 * (Tikael) Add area to Pummeling Rubble
 * (Tikael) Add missing paragraph to Explode action
 * (Tikael) Automate Dwarven Thrower
 * (Tikael) Fix description of Medium Armor Expertise for Inventors
 * (Tikael) Fix level of Boastful Hunter
-* (Tikael) (Data Entry World) Add changes from data entry world Jan 27
 * (Tikael) Add ChoiceGrant to basic multiclass feats
 * (Tikael) Fix resistance on Fire Shield spell effect
 * (Tikael) Fix rule elements on Familiar Master Dedication
 * (Tikael) Improve automation of Spirit Strikes feat
 * (Tikael) Make Everstand Stance an actual stance effect
 * (Tikael) Update critical specializations to use localized text
+* (Trist) Add GrantItem to Hellspawn feat
 
 
 ## Version 3.2.2
