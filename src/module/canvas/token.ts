@@ -4,7 +4,7 @@ import { MeasuredTemplatePF2e, TokenLayerPF2e } from ".";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The promise returned by the last call to `Token#draw()` */
-    drawLock?: Promise<this>;
+    #drawLock?: Promise<this>;
 
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
@@ -124,13 +124,14 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Make the drawing promise accessible to `#redraw` */
     override async draw(): Promise<this> {
-        this.drawLock = super.draw();
-        return this.drawLock;
+        this.#drawLock = super.draw();
+        await this.#drawLock;
+        return this;
     }
 
     /** Refresh this token's image and size (usually after an actor update or override) */
     async redraw(): Promise<void> {
-        await this.drawLock;
+        await this.#drawLock;
 
         // Exit early if icon isn't fully loaded
         if (!(this.icon?.transform?.scale && this.icon.texture?.orig)) {
