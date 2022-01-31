@@ -159,9 +159,7 @@ export class WeaponDamagePF2e {
                 weapon.data.damage.dice = dice || 0;
                 weapon.data.damage.die = die || "";
                 const strengthMod = actor.data.data.abilities.str.mod;
-                const isMelee = weapon.data.range === null;
-                const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
-                if (strengthModToDamage) {
+                if (WeaponDamagePF2e.strengthModToDamage(weapon)) {
                     modifier -= strengthMod;
                 } else if (traits.some((trait) => trait.name === "propulsive")) {
                     modifier -= strengthMod < 0 ? -strengthMod : Math.round(strengthMod / 2);
@@ -214,12 +212,11 @@ export class WeaponDamagePF2e {
         const actorData = actor.data;
 
         // Determine ability modifier
-        const isMelee = weapon.data.range === null;
-        const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
         {
+            const isMelee = weapon.data.range === null;
             options.push(isMelee ? "melee" : "ranged");
             const strengthModValue = actorData.data.abilities.str.mod;
-            const modifierValue = strengthModToDamage
+            const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
                 ? strengthModValue
                 : traits.some((t) => t.name === "propulsive")
                 ? strengthModValue < 0
@@ -832,5 +829,12 @@ export class WeaponDamagePF2e {
         }
 
         return selectors;
+    }
+
+    /** Determine whether a strike's damage includes the actor's strength modifier */
+    static strengthModToDamage(weaponData: WeaponData): boolean {
+        const isMelee = weaponData.data.range === null;
+        const traits = weaponData.data.traits.value;
+        return isMelee || (!traits.includes("splash") && traits.some((t) => /^thrown(?:-\d{1,2})?/.test(t)));
     }
 }
