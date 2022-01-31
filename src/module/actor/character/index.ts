@@ -1267,14 +1267,6 @@ export class CharacterPF2e extends CreaturePF2e {
                         dc.adjustments = action.adjustments;
                     }
 
-                    // Consume ammunition
-                    const ammo = weapon.ammo;
-                    if (ammo && ammo.quantity < 1) {
-                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                        return;
-                    }
-                    await ammo?.consume();
-
                     const finalRollOptions = Array.from(new Set(options));
                     const checkContext = {
                         actor: this,
@@ -1284,6 +1276,18 @@ export class CharacterPF2e extends CreaturePF2e {
                         notes,
                         dc,
                         traits: action.traits,
+                    };
+
+                    const ammo = weapon.ammo;
+                    if (ammo && ammo.quantity < 1) {
+                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+                        return;
+                    }
+
+                    const existingCallback = args.callback;
+                    args.callback = async (roll: Rolled<Roll>) => {
+                        existingCallback?.(roll);
+                        await ammo?.consume();
                     };
 
                     await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
