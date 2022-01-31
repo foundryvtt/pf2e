@@ -46,7 +46,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
