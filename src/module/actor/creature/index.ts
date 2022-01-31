@@ -501,9 +501,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier);
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) {
         const systemData = this.data.data;
-        const domains = ["all", "speed", `${movementType}-speed`];
+        const selectors = ["speed", `${movementType}-speed`];
+        const domains = ["all", ...selectors];
         const rollOptions = this.getRollOptions(domains);
-        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, domains);
+        const modifiers = extractModifiers(this.synthetics.statisticsModifiers, selectors);
 
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
