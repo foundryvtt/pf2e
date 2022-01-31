@@ -3,11 +3,11 @@ import { TokenDocumentPF2e } from "@module/scene";
 import { MeasuredTemplatePF2e, TokenLayerPF2e } from ".";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
-    /** The promise returned by the last call to `Token#draw()` */
-    #drawLock?: Promise<this>;
-
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
+
+    /** The promise returned by the last call to `Token#draw()` */
+    private drawLock?: Promise<this>;
 
     /** Is the user currently controlling this token? */
     get isControlled(): boolean {
@@ -124,14 +124,14 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Make the drawing promise accessible to `#redraw` */
     override async draw(): Promise<this> {
-        this.#drawLock = super.draw();
-        await this.#drawLock;
+        this.drawLock = super.draw();
+        await this.drawLock;
         return this;
     }
 
     /** Refresh this token's image and size (usually after an actor update or override) */
     async redraw(): Promise<void> {
-        await this.#drawLock;
+        await this.drawLock;
 
         // Exit early if icon isn't fully loaded
         if (!(this.icon?.transform?.scale && this.icon.texture?.orig)) {
@@ -149,7 +149,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
             console.debug("PF2e System | Redrawing due to token size or image change");
             const { visible } = this;
-            await this.draw();
+            this.drawLock = this.draw();
+            await this.drawLock;
             this.visible = visible;
         }
     }
@@ -188,22 +189,55 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return clone;
     }
 
-    showFloatyText(quantity: number): void {
-        const maxHP = this.actor?.hitPoints?.max;
-        if (!(quantity && typeof maxHP === "number")) return;
-        const percent = Math.clamped(Math.abs(quantity) / maxHP, 0, 1);
-        const textColors = {
-            damage: 16711680, // reddish
-            healing: 65280, // greenish
-        };
-        this.hud?.createScrollingText(quantity.signedString(), {
-            anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
-            jitter: 0.25,
-            fill: textColors[quantity < 0 ? "damage" : "healing"],
-            fontSize: 16 + 32 * percent, // Range between [16, 48]
-            stroke: 0x000000,
-            strokeThickness: 4,
-        });
+    /** Emit floaty text from this tokens */
+    async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
+        const scrollingTextArgs = ((): Parameters<ObjectHUD<TokenPF2e>["createScrollingText"]> | null => {
+            if (typeof params === "number") {
+                const quantity = params;
+                const maxHP = this.actor?.hitPoints?.max;
+                if (!(quantity && typeof maxHP === "number")) return null;
+
+                const percent = Math.clamped(Math.abs(quantity) / maxHP, 0, 1);
+                const textColors = {
+                    damage: 16711680, // reddish
+                    healing: 65280, // greenish
+                };
+                return [
+                    params.signedString(),
+                    {
+                        anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
+                        jitter: 0.25,
+                        fill: textColors[quantity < 0 ? "damage" : "healing"],
+                        fontSize: 16 + 32 * percent, // Range between [16, 48]
+                        stroke: 0x000000,
+                        strokeThickness: 4,
+                    },
+                ];
+            } else {
+                const [change, details] = Object.entries(params)[0];
+                const isAdded = change === "create";
+                const sign = isAdded ? "+ " : "- ";
+                const appendedNumber = details.value ? ` ${details.value}` : "";
+                const content = `${sign}${details.name}${appendedNumber}`;
+
+                return [
+                    content,
+                    {
+                        anchor: change === "create" ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
+                        direction: isAdded ? 2 : 1,
+                        jitter: 0.25,
+                        fill: "white",
+                        fontSize: 32,
+                        stroke: 0x000000,
+                        strokeThickness: 4,
+                    },
+                ];
+            }
+        })();
+        if (!scrollingTextArgs) return;
+
+        await this.drawLock;
+        await this.hud?.createScrollingText(...scrollingTextArgs);
     }
 
     /**
@@ -236,14 +270,14 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Refresh vision and the `EffectPanel` */
+    /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
         canvas.lighting.setPerceivedLightLevel(this);
     }
 
-    /** Refresh vision and the `EffectPanel` */
+    /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
 
@@ -261,3 +295,10 @@ export interface TokenPF2e extends Token<TokenDocumentPF2e> {
 
     icon?: TokenImage;
 }
+
+type NumericFloatyEffect = { name: string; value?: number | null };
+type ShowFloatyEffectParams =
+    | number
+    | { create: NumericFloatyEffect }
+    | { update: NumericFloatyEffect }
+    | { delete: NumericFloatyEffect };

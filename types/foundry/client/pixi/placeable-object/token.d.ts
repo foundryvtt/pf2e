@@ -465,8 +465,6 @@ declare global {
     }
 
     interface Token {
-        hitArea: PIXI.Rectangle | null;
-
         get layer(): TokenLayer<this>;
     }
 
