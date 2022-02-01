@@ -23,7 +23,7 @@ import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
