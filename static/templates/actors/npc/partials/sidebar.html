@@ -194,26 +194,3 @@
         </div>
     </div>
 </div>
-<div class="side-bar-section effects">
-    <div class="side-bar-section-header">
-        <div class="side-bar-label">
-            <i class="fas fa-adjust"></i>
-            <h4>{{localize "PF2E.EffectsLabel"}}</h4>
-        </div>
-    </div>
-    <div class="side-bar-section-content">
-        <div class="effects-list inventory-list">
-            {{#each conditions as |condition index|}}
-                <div class="item item-name effect expandable" title="{{condition.name}}" data-item-id="{{condition._id}}" data-action-index="{{index}}">
-                    <div class="item-image" style="background-image: url({{condition.img}})"></div>
-                </div>
-            {{/each}}
-            {{#each effectItems as |effect|}}
-                {{#if @first}}{{#if ../conditions}}<div class="separator"></div>{{/if}}{{/if}}
-                <div class="item effect expandable" title="{{effect.name}}" data-item-id="{{effect._id}}">
-                    <div class="item-image" style="background-image: url({{effect.img}})"></div>
-                </div>
-            {{/each}}
-        </div>
-    </div>
-</div>
