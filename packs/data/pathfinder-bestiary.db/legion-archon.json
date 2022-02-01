@@ -1654,7 +1654,7 @@
                     {
                         "key": "ToggleProperty",
                         "label": "Flame of Justice - Critical Hit",
-                        "property": "flags.pf2e.rollOptions.damage-roll.flame-of-justice"
+                        "property": "flags.pf2e.rollOptions.damage-roll.flameOfJustice"
                     },
                     {
                         "damageType": "fire",
@@ -1663,7 +1663,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "not": [
-                                "flame-of-justice"
+                                "flameOfJustice"
                             ]
                         },
                         "selector": "strike-damage"
@@ -1673,7 +1673,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "flame-of-justice"
+                                "flameOfJustice"
                             ]
                         },
                         "selector": "strike-damage",
@@ -1685,7 +1685,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "flame-of-justice-attack",
-                        "text": "<p class='compact-text'><div data-visibility='gm'><strong>{item|name}</strong> The fire damage from the flame of justice deals maximum damage ([[/r {6}[fire]]]{6} on the d6) before being doubled for the critical hit, and the target takes [[/r {1d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</div></p>"
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.PersistentDamage.Fire1d10.critical]</p>"
                     }
                 ],
                 "slug": null,
