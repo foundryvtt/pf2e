@@ -1802,16 +1802,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-attack",
-                        "text": "<div class='compact-text',data-visibility='gm'><p><strong>{item|name}</strong></p>\n<p><strong>Activate</strong> <span class='pf2-icon'>R</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> You critically succeed at an attack roll against an evil creature with the weapon</p>\n<p><strong>Effect</strong> You regain HP equal to double the evil creature's level. This is a good, positive, healing effect.</p></div>"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1899,7 +1890,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "target:trait:evil"
+                            ]
+                        },
+                        "selector": "holy-striking-spear-attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.WeaponPropertyRune.holy.Note.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
