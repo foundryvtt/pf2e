@@ -1,10 +1,10 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
-import { RuleElementOptions } from "./base";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -37,6 +37,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.data.label = data.label ?? CONFIG.PF2E.abilities[this.data.ability];
             this.data.value ??= `@actor.abilities.${this.data.ability}.mod`;
         }
+
+        this.data.ignored = AutomaticBonusProgression.assessRuleElement(this);
     }
 
     override beforePrepareData(): void {
