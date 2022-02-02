@@ -145,7 +145,9 @@ export const EnrichContent = {
 
         // Build the inline link
         const html = document.createElement("span");
-        html.setAttribute("data-pf2-dc", checkDC);
+        if (checkDC !== "0") {
+            html.setAttribute("data-pf2-dc", checkDC);
+        }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
         html.setAttribute(
             "data-pf2-label",
@@ -157,11 +159,9 @@ export const EnrichContent = {
         switch (params.type) {
             case "flat":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.FlatCheck");
-                html.setAttribute("data-pf2-check", "flat");
                 break;
             case "perception":
                 html.innerHTML = inlineLabel ?? game.i18n.localize("PF2E.PerceptionCheck");
-                html.setAttribute("data-pf2-check", "perception");
                 break;
             case "fortitude":
             case "reflex":
@@ -172,7 +172,6 @@ export const EnrichContent = {
                         ? game.i18n.format("PF2E.InlineCheck.BasicWithSave", { save: saveName })
                         : saveName;
                 html.innerHTML = inlineLabel ?? saveLabel;
-                html.setAttribute("data-pf2-check", params.type);
                 break;
             }
             default: {
@@ -187,9 +186,12 @@ export const EnrichContent = {
                 })();
                 const skillLabel = shortForm ? game.i18n.localize(CONFIG.PF2E.skills[shortForm]) : params.type;
                 html.innerHTML = inlineLabel ?? skillLabel;
-                html.setAttribute("data-pf2-check", params.type);
             }
         }
+        params.traits?.startsWith("action:")
+            ? html.setAttribute("data-pf2-action", params.traits.substring(7)) // Skill action
+            : html.setAttribute("data-pf2-check", params.type);
+
         return html.outerHTML;
     },
 };
