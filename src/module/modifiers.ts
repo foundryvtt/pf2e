@@ -175,7 +175,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     update(options?: DeferredValueParams) {
-        if (typeof this.modifierFn === "function") {
+        if (this.modifierFn) {
             this.modifier = this.modifierFn(options);
             delete this.modifierFn;
         }
@@ -426,8 +426,7 @@ export class StatisticModifier {
     constructor(
         name: string,
         modifiers: ModifierPF2e[] = [],
-        rollOptions?: string[],
-        deferParams?: DeferredValueParams
+        options?: { rollOptions?: string[] } & DeferredValueParams
     ) {
         this.name = name;
 
@@ -436,11 +435,11 @@ export class StatisticModifier {
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
             if (!found || modifier.type === "ability") seen.push(modifier);
-            modifier.update(deferParams);
+            modifier.update(options);
         }
         this._modifiers = seen;
 
-        this.calculateTotal(rollOptions);
+        this.calculateTotal(options?.rollOptions);
     }
 
     /** Get the list of all modifiers in this collection (as a read-only list). */

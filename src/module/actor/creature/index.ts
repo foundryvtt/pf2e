@@ -509,8 +509,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
+            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: label });
             const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers, rollOptions),
+                new StatisticModifier(statLabel, modifiers, { rollOptions }),
                 systemData.attributes.speed,
                 { overwrite: false }
             );
@@ -532,15 +533,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
             speed.label = game.i18n.localize(game.i18n.localize(CONFIG.PF2E.speedTypes[speed.type]));
             const base = Number(speed.value ?? 0);
-            const stat = mergeObject(
-                new StatisticModifier(
-                    game.i18n.format("PF2E.SpeedLabel", { type: speed.label }),
-                    modifiers,
-                    rollOptions
-                ),
-                speed,
-                { overwrite: false }
-            );
+            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: speed.label });
+            const stat = mergeObject(new StatisticModifier(statLabel, modifiers, { rollOptions }), speed, {
+                overwrite: false,
+            });
             stat.total = base + stat.totalModifier;
             stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
                 .concat(
