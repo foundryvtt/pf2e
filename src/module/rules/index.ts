@@ -39,6 +39,7 @@ import { TempHPRuleElement } from "./rule-element/temp-hp";
 import { TogglePropertyRuleElement } from "./rule-element/toggle-property";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon";
 import { TokenImageRuleElement } from "./rule-element/token-image";
+import { TokenLightRuleElement } from "./rule-element/token-light";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
 import type { ItemPF2e } from "@item";
 
@@ -77,6 +78,7 @@ class RuleElements {
         ToggleProperty: TogglePropertyRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
+        TokenLight: TokenLightRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
