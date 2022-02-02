@@ -258,16 +258,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super.prepareData();
 
         this.preparePrototypeToken();
-        if (this.initialized) {
-            const tokenDocs = this.getActiveTokens(false, true);
-            for (const tokenDoc of tokenDocs) {
-                tokenDoc.prepareData({ fromActor: true });
-            }
-            if (canvas.ready) {
-                const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
-                if (game.user.character === this || thisTokenIsControlled) {
-                    game.pf2e.effectPanel.refresh();
-                }
+        if (this.initialized && canvas.ready) {
+            const thisTokenIsControlled = this.getActiveTokens(false).some((t) => !!t.isControlled);
+            if (game.user.character === this || thisTokenIsControlled) {
+                game.pf2e.effectPanel.refresh();
             }
         }
     }
@@ -1023,10 +1017,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super._onDelete(options, userId);
     }
 
-    /** As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors */
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
         super._onEmbeddedDocumentChange(embeddedName);
-        this.token?.object?.drawEffects();
+        (async () => {
+            // As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors
+            await this.token?.object?.drawEffects();
+            // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
+            for (const tokenDoc of this.getActiveTokens(true, true)) {
+                tokenDoc.onActorItemChange();
+            }
+        })();
     }
 }
 

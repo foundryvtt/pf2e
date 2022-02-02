@@ -19,12 +19,13 @@ export const CanvasReady = {
             }
 
             // Redraw tokens
-            if (canvas.scene) {
-                const tokens = canvas.scene.tokens.map((tokenDoc) => tokenDoc.object);
-                for (const token of tokens) {
-                    token.redraw();
+            (async () => {
+                for (const token of canvas.tokens.placeables) {
+                    const { visible } = token;
+                    await token.draw();
+                    token.visible = visible;
                 }
-            }
+            })();
         });
     },
 };

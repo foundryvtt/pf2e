@@ -35,14 +35,14 @@ declare global {
         protected static override _onCreateDocuments<T extends Item>(
             this: ConstructorOf<T>,
             items: T[],
-            context: DocumentModificationContext
-        ): Promise<void>;
+            context: DocumentModificationContext<T>
+        ): void;
 
         protected static override _onDeleteDocuments<T extends Item>(
             this: ConstructorOf<T>,
             items: T[],
-            context: DocumentModificationContext
-        ): Promise<void>;
+            context: DocumentModificationContext<T>
+        ): void;
     }
 
     interface Item<TParent extends Actor = Actor> {
