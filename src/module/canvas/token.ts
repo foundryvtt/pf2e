@@ -129,45 +129,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this;
     }
 
-    /** Refresh this token's image and size (usually after an actor update or override) */
-    async redraw(): Promise<void> {
-        await this.drawLock;
-
-        // Exit early if icon isn't fully loaded
-        if (!(this.icon?.transform?.scale && this.icon.texture?.orig)) {
-            return;
-        }
-
-        const sizeChanged = !!this.hitArea && this.linkToActorSize && this.w !== this.hitArea.width;
-        const scaleChanged = ((): boolean => {
-            const expectedScale =
-                (Math.round((this.texture.orig.width / this.texture.orig.height) * 10) / 10) * this.data.scale;
-            return Math.round((this.icon.width / this.w) * 10) / 10 !== expectedScale;
-        })();
-        const imageChanged = this.icon.src !== this.data.img;
-
-        if ((sizeChanged || scaleChanged || imageChanged) && this.actor?.type !== "vehicle") {
-            console.debug("PF2e System | Redrawing due to token size or image change");
-            const { visible } = this;
-            this.drawLock = this.draw();
-            await this.drawLock;
-            this.visible = visible;
-        }
-    }
-
     emitHoverIn() {
         this.emit("mouseover", { data: { object: this } });
     }
 
     emitHoverOut() {
         this.emit("mouseout", { data: { object: this } });
-    }
-
-    /** Set the icon src when drawing for later tracking */
-    protected override async _drawIcon(): Promise<TokenImage> {
-        const icon: TokenImage = await super._drawIcon();
-        icon.src = this.data.img;
-        return icon;
     }
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
