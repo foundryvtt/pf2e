@@ -404,7 +404,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const stat = mergeObject(
-                new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
+                new StatisticModifier("perception", modifiers, { rollOptions: this.getRollOptions(domains) }),
                 systemData.attributes.perception,
                 { overwrite: false }
             );
@@ -454,7 +454,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ];
 
             const stat = mergeObject(
-                new StatisticModifier("class", modifiers, this.getRollOptions(domains)),
+                new StatisticModifier("class", modifiers, { rollOptions: this.getRollOptions(domains) }),
                 systemData.attributes.classDC,
                 { overwrite: false }
             );
@@ -515,7 +515,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
-            const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {
+            const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, { rollOptions }), {
                 value: 10,
                 breakdown: "",
                 check: armorCheckPenalty,
@@ -595,7 +595,8 @@ export class CharacterPF2e extends CreaturePF2e {
             const domains = [longForm, `${skill.ability}-based`, "skill-check", "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
-            const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers, { rollOptions }), skill, {
                 overwrite: false,
             });
             stat.breakdown = stat.modifiers
@@ -651,7 +652,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 const loreSkill = systemData.skills[shortForm];
                 const rollOptions = this.getRollOptions(domains);
-                const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
+                const stat = mergeObject(new StatisticModifier(skill.name, modifiers, { rollOptions }), loreSkill, {
                     overwrite: false,
                 });
                 stat.itemID = skill._id;
@@ -1109,7 +1110,8 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         const flavor = this.getStrikeDescription(weapon);
-        const strikeStat = new StatisticModifier(weapon.name, modifiers, this.getRollOptions(defaultOptions));
+        const rollOptions = this.getRollOptions(defaultOptions);
+        const strikeStat = new StatisticModifier(weapon.name, modifiers, { rollOptions });
         const meleeUsage = weapon.toMeleeUsage();
 
         const action: CharacterStrike = mergeObject(strikeStat, {

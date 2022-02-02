@@ -208,7 +208,7 @@ export class SpellPF2e extends ItemPF2e {
             const modifiers = extractModifiers(statisticsModifiers, domains);
             const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
             const resolvables = { spell: this.clone({ "data.level.value": castLevel }) };
-            const damageModifier = new StatisticModifier("", modifiers, rollOptions, { resolvables });
+            const damageModifier = new StatisticModifier("", modifiers, { rollOptions, resolvables });
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
         }
 

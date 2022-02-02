@@ -205,7 +205,7 @@ export class NPCPF2e extends CreaturePF2e {
             ].flat();
 
             const rollOptions = this.getRollOptions(domains);
-            const stat = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), data.attributes.ac, {
+            const stat = mergeObject(new StatisticModifier("ac", modifiers, { rollOptions }), data.attributes.ac, {
                 overwrite: false,
             });
             stat.base = base;
@@ -235,7 +235,7 @@ export class NPCPF2e extends CreaturePF2e {
 
             const rollOptions = this.getRollOptions(domains);
             const stat = mergeObject(
-                new StatisticModifier("perception", modifiers, rollOptions),
+                new StatisticModifier("perception", modifiers, { rollOptions }),
                 data.attributes.perception,
                 {
                     overwrite: false,
@@ -274,7 +274,7 @@ export class NPCPF2e extends CreaturePF2e {
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
             const rollOptions = this.getRollOptions(domains);
             const stat = mergeObject(
-                new StatisticModifier(name, modifiers, rollOptions),
+                new StatisticModifier(name, modifiers, { rollOptions }),
                 {
                     ability,
                     expanded: skill,
@@ -327,7 +327,7 @@ export class NPCPF2e extends CreaturePF2e {
 
                 const rollOptions = this.getRollOptions(domains);
                 const stat = mergeObject(
-                    new StatisticModifier(itemData.name, modifiers, rollOptions),
+                    new StatisticModifier(itemData.name, modifiers, { rollOptions }),
                     data.skills[shortform],
                     { overwrite: false }
                 );
@@ -420,8 +420,8 @@ export class NPCPF2e extends CreaturePF2e {
                     return { tag, label };
                 });
 
-                const defaultOptions = this.getRollOptions(domains);
-                const statistic = new StatisticModifier(itemData.name, modifiers, defaultOptions);
+                const rollOptions = this.getRollOptions(domains);
+                const statistic = new StatisticModifier(itemData.name, modifiers, { rollOptions });
 
                 const attackTrait: StrikeTrait = {
                     name: "attack",
@@ -527,7 +527,7 @@ export class NPCPF2e extends CreaturePF2e {
                             const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
 
                             const rangeIncrement = getRangeIncrement(ctx.distance);
-                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, defaultOptions);
+                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
 
                             await CheckPF2e.roll(

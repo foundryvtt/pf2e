@@ -456,9 +456,8 @@ export class WeaponDamagePF2e {
         }
 
         // Synthetic modifiers
-        numericModifiers.push(
-            ...new StatisticModifier("", extractModifiers(statisticsModifiers, selectors), options).modifiers
-        );
+        const synthetics = extractModifiers(statisticsModifiers, selectors);
+        numericModifiers.push(...new StatisticModifier("", synthetics, { rollOptions: options }).modifiers);
 
         // Set base damage type and category to all non-specific numeric modifiers
         for (const modifier of numericModifiers) {
