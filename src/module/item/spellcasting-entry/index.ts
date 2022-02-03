@@ -265,7 +265,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
     getSpellData(): SpellcastingEntryListData {
-        if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) {
+        const { actor } = this;
+        if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
@@ -338,9 +339,9 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             if (leveled.length) {
                 results.push({
                     label: "PF2E.Focus.label",
-                    level: Math.max(1, Math.ceil(this.actor.level / 2)) as OneToTen,
+                    level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
                     isCantrip: false,
-                    uses: this.actor.data.data.resources.focus ?? { value: 0, max: 0 },
+                    uses: actor.data.data.resources.focus ?? { value: 0, max: 0 },
                     active: leveled.map((spell) => ({ spell, chatData: spell.getChatData() })),
                 });
             }
@@ -402,6 +403,15 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 .reduce((first, second) => first + second, 0);
             return { value: signatureSpells.size, max: totalSlots };
         })();
+
+        // Flush warnings from synthetics extraction, debounced in case multiple warnings would be emitted for the same
+        // synthetic during multiple synchronous calls to `getSpellData`
+        foundry.utils.debounce(() => {
+            for (const warning of actor.synthetics.preparationWarnings) {
+                console.warn(warning);
+            }
+            actor.synthetics.preparationWarnings.clear();
+        }, 0);
 
         return {
             id: this.id,

@@ -16,8 +16,6 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        this.data.phase = data.phase ?? "beforeDerived";
-
         const modifierTypes: readonly unknown[] = MODIFIER_TYPES;
         this.data.type ??= MODIFIER_TYPE.UNTYPED;
         if (!modifierTypes.includes(this.data.type)) {
@@ -45,36 +43,39 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
+        const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        const slug = this.data.slug ?? sluggify(this.label);
 
-        const defer = !!selector && this.data.phase !== "beforeDerived";
-        const computeValue = (options?: DeferredValueParams) => {
-            const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
-            return Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
-        };
-
-        const value = defer ? computeValue : computeValue();
-
-        if (selector && value) {
+        if (selector && this.data.value) {
             // Strip out the title ("Effect:", etc.) of the effect name
-            const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
-            const slug = this.data.slug ?? sluggify(this.label);
-            const modifier = new ModifierPF2e({
-                slug,
-                label,
-                modifier: value,
-                adjustments: this.actor.getModifierAdjustments([selector], slug),
-                type: this.data.type,
-                ability: this.data.type === "ability" ? this.data.ability : null,
-                predicate: this.data.predicate,
-                damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
-                damageCategory: this.data.damageCategory || undefined,
-                hideIfDisabled: this.data.hideIfDisabled,
-            });
+            const construct = (options: DeferredValueParams = {}): ModifierPF2e | null => {
+                const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
+                if (this.ignored) return null;
+
+                const finalValue = Math.clamped(
+                    resolvedValue,
+                    this.data.min ?? resolvedValue,
+                    this.data.max ?? resolvedValue
+                );
+                const modifier = new ModifierPF2e({
+                    slug,
+                    label,
+                    modifier: finalValue,
+                    adjustments: this.actor.getModifierAdjustments([selector], slug),
+                    type: this.data.type,
+                    ability: this.data.type === "ability" ? this.data.ability : null,
+                    predicate: this.data.predicate,
+                    damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
+                    damageCategory: this.data.damageCategory || undefined,
+                    hideIfDisabled: this.data.hideIfDisabled,
+                });
+                if (options.test) modifier.test(options.test);
+
+                return modifier;
+            };
             const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
-            modifiers.push(modifier);
-        } else if (value === 0) {
-            // omit modifiers with a value of zero
-        } else if (CONFIG.debug.ruleElement) {
+            modifiers.push(construct);
+        } else {
             this.failValidation("Flat modifier requires selector and value properties");
         }
     }
@@ -94,7 +95,6 @@ interface FlatModifierSource extends RuleElementSource {
     damageType?: unknown;
     damageCategory?: unknown;
     hideIfDisabled?: unknown;
-    phase?: ModifierPhase;
 }
 
 type FlatModifierData = FlatAbilityModifierData | FlatOtherModifierData;

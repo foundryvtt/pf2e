@@ -41,12 +41,10 @@ export class HazardPF2e extends ActorPF2e {
         // Armor Class
         {
             const base = data.attributes.ac.value;
-            const rollOptions = ["ac", "dex-based", "all"];
+            const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
-                ...rollOptions
-                    .flatMap((key) => statisticsModifiers[key] || [])
-                    .map((m) => m.clone({ test: this.getRollOptions(rollOptions) })),
+                ...extractModifiers(statisticsModifiers, domains, { test: this.getRollOptions(domains) }),
             ];
 
             const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
