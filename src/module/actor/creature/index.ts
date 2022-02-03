@@ -39,7 +39,7 @@ import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
-import { Rarity } from "@module/data";
+import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
 
@@ -306,6 +306,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
         this.prepareSynthetics();
+
+        const sizeIndex = SIZES.indexOf(this.size);
+        const sizeSlug = SIZE_SLUGS[sizeIndex];
+        rollOptions.all[`self:size:${sizeIndex}`] = true;
+        rollOptions.all[`self:size:${sizeSlug}`] = true;
     }
 
     protected prepareInitiative(
