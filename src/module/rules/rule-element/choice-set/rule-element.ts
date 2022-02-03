@@ -178,7 +178,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
 
             // Apply the followup predication filter if there is one
-            const actorRollOptions = this.actor.getRollOptions(["all"]);
+            const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
                 ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getItemRollOptions("item")]))
                 : feats;

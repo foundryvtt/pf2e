@@ -25,7 +25,7 @@ class TempHPRuleElement extends RuleElementPF2e {
 
         const rollOptions = Array.from(
             new Set([
-                ...this.actor.getRollOptions(["all"]),
+                ...this.actor.getRollOptions(),
                 ...this.actor.itemTypes.weapon.flatMap((w) =>
                     w.isEquipped ? w.getItemRollOptions("self:weapon") : []
                 ),

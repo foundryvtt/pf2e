@@ -811,19 +811,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
-     * Roll option in this case is a predication property used for filtering.
+     * Retrieve all roll option from the requested domains. Micro-optimized in an excessively verbose for-loop.
+     * @param domains The domains of discourse from which to pull options. Always includes the "all" domain.
      */
-    getRollOptions(domains: string[]): string[] {
-        const rollOptions = this.data.flags.pf2e.rollOptions;
-        const results = new Set<string>();
-        for (const domain of domains) {
-            for (const [key, value] of Object.entries(rollOptions[domain] ?? {})) {
-                if (value) results.add(key);
+    getRollOptions(domains: string[] = []): string[] {
+        const withAll = Array.from(new Set(["all", ...domains]));
+        const { rollOptions } = this;
+        const toReturn: Set<string> = new Set();
+
+        for (const domain of withAll) {
+            for (const [option, value] of Object.entries(rollOptions[domain] ?? {})) {
+                if (value) toReturn.add(option);
             }
         }
 
-        return [...results];
+        return Array.from(toReturn);
     }
 
     /* -------------------------------------------- */
