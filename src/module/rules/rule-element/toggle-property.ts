@@ -23,7 +23,7 @@ export class TogglePropertyRuleElement extends RuleElementPF2e {
 
     override beforePrepareData(): void {
         const { predicate } = this;
-        if (predicate && !predicate.test(this.actor.getRollOptions(["all"]))) {
+        if (predicate && !predicate.test(this.actor.getRollOptions())) {
             setProperty(this.actor.data, this.data.property, false);
             return;
         }

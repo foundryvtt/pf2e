@@ -42,7 +42,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
     override applyAELike(): void {
         if (this.ignored) return;
 
-        if (!this.data.predicate.test(this.actor.getRollOptions(["all"]))) return;
+        if (!this.data.predicate.test(this.actor.getRollOptions())) return;
 
         const change = this.resolveValue();
 
