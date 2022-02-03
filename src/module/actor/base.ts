@@ -264,6 +264,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 game.pf2e.effectPanel.refresh();
             }
         }
+
+        // Flush warnings thrown during synthetics preparation
+        for (const warning of this.synthetics.preparationWarnings) {
+            console.warn(warning);
+        }
+        this.synthetics.preparationWarnings.clear();
     }
 
     /** Prepare baseline ephemeral data applicable to all actor types */
@@ -290,6 +296,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             strikes: [],
             striking: {},
             weaponPotency: {},
+            preparationWarnings: new Set(),
         };
     }
 
@@ -345,7 +352,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             conditions.values()
         )) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers);
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 

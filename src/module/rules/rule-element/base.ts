@@ -108,7 +108,9 @@ abstract class RuleElementPF2e {
         const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
         if (!this.suppressWarnings) {
-            console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`);
+            this.actor.synthetics.preparationWarnings.add(
+                `PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`
+            );
         }
         this.ignored = true;
     }
@@ -228,9 +230,7 @@ abstract class RuleElementPF2e {
                 return Roll.safeEval(formula);
             } catch {
                 const { item } = this;
-                console.warn(
-                    `PF2e System | Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`
-                );
+                this.failValidation(`Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`);
                 return 0;
             }
         };

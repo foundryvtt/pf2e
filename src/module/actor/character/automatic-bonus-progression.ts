@@ -17,37 +17,41 @@ export class AutomaticBonusProgression {
         const save = values.save;
 
         if (save > 0) {
-            synthetics.statisticsModifiers["saving-throw"] = (
-                synthetics.statisticsModifiers["saving-throw"] || []
-            ).concat(
-                new ModifierPF2e({
-                    slug: "save-potency",
-                    label: "PF2E.AutomaticBonusProgression.savePotency",
-                    modifier: save,
-                    type: MODIFIER_TYPE.POTENCY,
-                })
+            const modifiers = (synthetics.statisticsModifiers["saving-throw"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "save-potency",
+                        label: "PF2E.AutomaticBonusProgression.savePotency",
+                        modifier: save,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
             );
         }
 
         if (ac > 0) {
-            synthetics.statisticsModifiers["ac"] = (synthetics.statisticsModifiers["ac"] || []).concat(
-                new ModifierPF2e({
-                    slug: "defense-potency",
-                    label: "PF2E.AutomaticBonusProgression.defensePotency",
-                    modifier: ac,
-                    type: MODIFIER_TYPE.POTENCY,
-                })
+            const modifiers = (synthetics.statisticsModifiers["ac"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "defense-potency",
+                        label: "PF2E.AutomaticBonusProgression.defensePotency",
+                        modifier: ac,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
             );
         }
 
         if (perception > 0) {
-            synthetics.statisticsModifiers["perception"] = (synthetics.statisticsModifiers["perception"] || []).concat(
-                new ModifierPF2e({
-                    slug: "perception-potency",
-                    label: "PF2E.AutomaticBonusProgression.perceptionPotency",
-                    modifier: perception,
-                    type: MODIFIER_TYPE.POTENCY,
-                })
+            const modifiers = (synthetics.statisticsModifiers["perception"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "perception-potency",
+                        label: "PF2E.AutomaticBonusProgression.perceptionPotency",
+                        modifier: perception,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
             );
         }
 
@@ -56,15 +60,15 @@ export class AutomaticBonusProgression {
             const attack = values.attack;
             const damage = values.damage;
             if (attack > 0) {
-                synthetics.statisticsModifiers["mundane-attack"] = (
-                    synthetics.statisticsModifiers["mundane-attack"] || []
-                ).concat(
-                    new ModifierPF2e({
-                        slug: "attack-potency",
-                        label: "PF2E.AutomaticBonusProgression.attackPotency",
-                        modifier: attack,
-                        type: MODIFIER_TYPE.POTENCY,
-                    })
+                const modifiers = (synthetics.statisticsModifiers["mundane-attack"] ??= []);
+                modifiers.push(
+                    () =>
+                        new ModifierPF2e({
+                            slug: "attack-potency",
+                            label: "PF2E.AutomaticBonusProgression.attackPotency",
+                            modifier: attack,
+                            type: MODIFIER_TYPE.POTENCY,
+                        })
                 );
             }
 
