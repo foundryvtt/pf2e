@@ -827,6 +827,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
         });
 
+        const $craftingQuickAdd = $html.find(".crafting-quick-add");
+        $craftingQuickAdd.on("click", async (event) => {
+            // find the formula based on the id of the clicked item
+            const { itemUuid } = event.currentTarget.dataset;
+            const craftingFormulas = await this.actor.getCraftingFormulas();
+            const formula = craftingFormulas.find((f) => f.uuid === itemUuid);
+            // find all the crafting entries, if there is only one then add the formula
+            // otherwise prompt the user for which crafting entry to add the formula
+            const actorCraftingEntries = await this.actor.getCraftingEntries();
+            actorCraftingEntries.forEach((entry) => {
+                if (formula && entry.selector) entry.prepareFormula(formula);
+            });
+        });
+
         const $formulas = $html.find(".craftingEntry-list");
 
         $formulas.find(".craft-item").on("click", async (event) => {
