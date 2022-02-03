@@ -97,16 +97,18 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         // Hit Points
         {
-            const perLevelModifiers = statisticsModifiers["hp-per-level"]?.filter(filterModifier).map((modifier) => {
-                const clone = modifier.clone();
-                clone.modifier *= this.level;
-                return clone;
-            });
+            const perLevelModifiers = extractModifiers(statisticsModifiers, ["hp-per-level"])
+                .filter(filterModifier)
+                .map((modifier) => {
+                    const clone = modifier.clone();
+                    clone.modifier *= this.level;
+                    return clone;
+                });
 
             const modifiers = [
                 new ModifierPF2e("PF2E.MasterLevelHP", this.level * 5, MODIFIER_TYPE.UNTYPED),
-                statisticsModifiers.hp?.filter(filterModifier).map((m) => m.clone()) ?? [],
-                perLevelModifiers ?? [],
+                extractModifiers(statisticsModifiers, ["hp"]).filter(filterModifier),
+                perLevelModifiers,
             ].flat();
 
             const stat = mergeObject(new StatisticModifier("hp", modifiers), attributes.hp, {
@@ -127,13 +129,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 (modifier) => !["status", "circumstance"].includes(modifier.type)
             );
             const base = 10 + new StatisticModifier("base", source).totalModifier;
-            const modifiers: ModifierPF2e[] = [];
-            ["ac", "dex-based", "all"].forEach((key) =>
-                (statisticsModifiers[key] || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => modifiers.push(m))
-            );
+            const modifiers = extractModifiers(statisticsModifiers, ["ac", "dex-based", "all"]).filter(filterModifier);
             const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
                 overwrite: false,
             });
@@ -181,13 +177,10 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         // Attack
         {
-            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", data.details.level.value, MODIFIER_TYPE.UNTYPED)];
-            ["attack", "mundane-attack", "attack-roll", "all"].forEach((key) =>
-                (statisticsModifiers[key] || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => modifiers.push(m))
-            );
+            const modifiers = [
+                new ModifierPF2e("PF2E.MasterLevel", data.details.level.value, MODIFIER_TYPE.UNTYPED),
+                ...extractModifiers(statisticsModifiers, ["attack", "attack-roll", "all"]),
+            ];
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
                 roll: ({ event, options = [], callback }: RollParameters) => {
                     CheckPF2e.roll(
@@ -215,13 +208,8 @@ export class FamiliarPF2e extends CreaturePF2e {
                     spellcastingAbilityModifier,
                     MODIFIER_TYPE.UNTYPED
                 ),
+                ...extractModifiers(statisticsModifiers, ["perception", "wis-based", "all"]).filter(filterModifier),
             ];
-            ["perception", "wis-based", "all"].forEach((key) =>
-                (statisticsModifiers[key] || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => modifiers.push(m))
-            );
             const stat = mergeObject(new StatisticModifier("perception", modifiers), data.attributes.perception, {
                 overwrite: false,
             });
@@ -256,12 +244,12 @@ export class FamiliarPF2e extends CreaturePF2e {
                 );
             }
             const ability = SKILL_EXPANDED[longForm].ability;
-            [longForm, `${ability}-based`, "skill-check", "all"].forEach((key) =>
-                (statisticsModifiers[key] || [])
-                    .filter(filterModifier)
-                    .map((m) => m.clone())
-                    .forEach((m) => modifiers.push(m))
+            modifiers.push(
+                ...extractModifiers(statisticsModifiers, [longForm, `${ability}-based`, "skill-check", "all"]).filter(
+                    filterModifier
+                )
             );
+
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
             const stat = mergeObject(new StatisticModifier(label, modifiers), {
                 ability,
@@ -289,7 +277,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         // Call post-data-preparation RuleElement hooks
         for (const rule of this.rules) {
             try {
-                rule.onAfterPrepareData?.(synthetics);
+                rule.afterPrepareData?.();
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);

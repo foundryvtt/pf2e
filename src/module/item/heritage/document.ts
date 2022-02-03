@@ -21,11 +21,17 @@ class HeritagePF2e extends ItemPF2e {
 
     /** Prepare a character's data derived from their heritage */
     override prepareActorData(this: Embedded<HeritagePF2e>): void {
+        const systemData = this.actor.data.data;
         // Add and remove traits as specified
-        this.actor.data.data.traits.traits.value.push(...this.traits);
+        systemData.traits.traits.value.push(...this.traits);
+
+        const slug = this.slug ?? sluggify(this.name);
+        systemData.details.heritage = {
+            name: this.name,
+            trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
+        };
 
         // Add a self: roll option for this heritage
-        const slug = this.slug ?? sluggify(this.name);
         this.actor.rollOptions.all[`self:heritage:${slug}`] = true;
     }
 

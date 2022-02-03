@@ -1,13 +1,5 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import {
-    ItemPF2e,
-    ConditionPF2e,
-    ContainerPF2e,
-    KitPF2e,
-    PhysicalItemPF2e,
-    SpellPF2e,
-    SpellcastingEntryPF2e,
-} from "@item";
+import { ItemPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
@@ -522,13 +514,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
     }
 
-    async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
-        const li = $(event.currentTarget).closest(".item");
-        const itemId = li.attr("data-item-id") ?? "";
+    async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
+        const $li = $(event.currentTarget).closest("li[data-item-id]");
+        const itemId = $li.attr("data-item-id") ?? "";
         const item = this.actor.items.get(itemId);
 
         if (item instanceof ConditionPF2e && item.fromSystem) {
-            const references = li.find(".condition-references");
+            const references = $li.find(".condition-references");
 
             const deleteCondition = async (): Promise<void> => {
                 this.actor.decreaseCondition(item, { forceRemove: true });
@@ -574,7 +566,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         [`data.customModifiers.-=${itemId}-damage`]: null,
                     });
                 }
-                li.slideUp(200, () => this.render(false));
+                $li.slideUp(200, () => this.render(false));
             };
             if (event.ctrlKey) {
                 deleteItem();
@@ -938,9 +930,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (itemData.type === "spellcastingEntry") {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
             return [];
-        } else if (item instanceof KitPF2e) {
-            item.dumpContents(this.actor);
-            return [item];
         } else if (itemData.type === "condition") {
             const value = data.value;
             if (typeof value === "number" && itemData.data.value.isValued) {

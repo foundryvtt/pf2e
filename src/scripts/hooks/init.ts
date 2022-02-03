@@ -10,6 +10,7 @@ import {
     SightLayerPF2e,
     TokenPF2e,
     TemplateLayerPF2e,
+    TokenLayerPF2e,
 } from "@module/canvas";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -32,6 +33,7 @@ import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { ActorsPF2e } from "@module/collection/actors";
 
 export const Init = {
     listen: (): void => {
@@ -45,6 +47,7 @@ export const Init = {
             CONFIG.Item.documentClass = ItemPF2e;
             CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
             CONFIG.Actor.documentClass = ActorPF2e;
+            CONFIG.Actor.collection = ActorsPF2e;
             CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
             CONFIG.Combat.documentClass = EncounterPF2e;
             CONFIG.Combatant.documentClass = CombatantPF2e;
@@ -64,17 +67,20 @@ export const Init = {
 
             CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
             CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
+            CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
 
             CONFIG.Tile.documentClass = TileDocumentPF2e;
 
             CONFIG.Token.documentClass = TokenDocumentPF2e;
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
+            CONFIG.Token.layerClass = TokenLayerPF2e;
             DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+            CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
 
             // Make darkness visibility a little more appropriate for basic map use
             CONFIG.Canvas.lightLevels.dim = 0.25;
@@ -90,6 +96,15 @@ export const Init = {
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
+
+            // Insert templates into DOM tree so Applications can render into
+            if (document.querySelector("#ui-top") !== null) {
+                // Template element for effects-panel
+                const uiTop = document.querySelector("#ui-top");
+                const template = document.createElement("template");
+                template.setAttribute("id", "pf2e-effects-panel");
+                uiTop?.insertAdjacentElement("afterend", template);
+            }
 
             // configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";

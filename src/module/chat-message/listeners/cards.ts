@@ -10,8 +10,9 @@ import {
 import { LocalizePF2e } from "@system/localize";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { craftSpellConsumable } from "@module/crafting/helpers";
-import { SaveType } from "@actor/data";
+import { SAVE_TYPES } from "@actor/data";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { ErrorPF2e, tupleHasValue } from "@util";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -206,7 +207,11 @@ export const ChatCards = {
      */
     rollActorSaves: async (ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr("data-save") as SaveType;
+            const save = $(ev.currentTarget).attr("data-save");
+            if (!tupleHasValue(SAVE_TYPES, save)) {
+                throw ErrorPF2e(`"${save}" is not a recognized save type`);
+            }
+
             const dc = Number($(ev.currentTarget).attr("data-dc"));
             const itemTraits = item.data.data.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
@@ -226,7 +231,7 @@ export const ChatCards = {
                         rollOptions.push(...itemTraits.map((trait) => `trait:${trait}`));
                     }
 
-                    actor.saves[save].check.roll({
+                    actor.saves[save]?.check.roll({
                         ...eventToRollParams(ev),
                         dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
                         item,

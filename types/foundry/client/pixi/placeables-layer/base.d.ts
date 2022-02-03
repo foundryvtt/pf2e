@@ -25,6 +25,8 @@ declare global {
         /** PlaceableObject layer options */
         options: PlaceablesLayerOptions;
 
+        static documentName: string;
+
         /** Customize behaviors of this PlaceablesLayer by modifying some behaviors at a class level */
         static override get layerOptions(): PlaceablesLayerOptions;
 
@@ -213,13 +215,13 @@ declare global {
         /**
          * Select all PlaceableObject instances which fall within a coordinate rectangle.
          *
-         * @param x                 The top-left x-coordinate of the selection rectangle
-         * @param y                 The top-left y-coordinate of the selection rectangle
-         * @param width             The width of the selection rectangle
-         * @param height            The height of the selection rectangle
-         * @param releaseOptions    Optional arguments provided to any called release() method
-         * @param controlOptions    Optional arguments provided to any called control() method
-         * @return                  The number of PlaceableObject instances which were controlled.
+         * @param x              The top-left x-coordinate of the selection rectangle
+         * @param y              The top-left y-coordinate of the selection rectangle
+         * @param width          The width of the selection rectangle
+         * @param height         The height of the selection rectangle
+         * @param releaseOptions Optional arguments provided to any called release() method
+         * @param controlOptions Optional arguments provided to any called control() method
+         * @return The number of PlaceableObject instances which were controlled.
          */
         selectObjects({
             x,
@@ -233,8 +235,8 @@ declare global {
             y: number;
             width: number;
             height: number;
-            releaseOptions?: any;
-            controlOptions?: any;
+            releaseOptions?: object;
+            controlOptions?: object;
         }): number;
 
         /**

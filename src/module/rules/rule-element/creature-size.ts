@@ -4,7 +4,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { ItemPF2e, TreasurePF2e } from "@item";
 import { Size, SIZES } from "@module/data";
 import { tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
 
 /**
  * @category RuleElement
@@ -13,9 +13,9 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 export class CreatureSizeRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: CreatureSizeConstructionData, item: Embedded<ItemPF2e>) {
-        data.resizeEquipment ??= false;
-        super(data, item);
+    constructor(data: CreatureSizeConstructionData, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+        this.data.resizeEquipment ??= false;
     }
 
     private static wordToAbbreviation: Record<string, Size | undefined> = {
@@ -41,13 +41,13 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         return this.decrementSize(CreatureSizeRuleElement.decrementMap[size], amount - 1);
     }
 
-    override onBeforePrepareData() {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         const value = this.resolveValue();
         if (!(typeof value === "string" || typeof value === "number")) {
-            console.warn(
-                `PF2E System | CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name})`,
+            this.failValidation(
+                `CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name})`,
                 "has a non-string, non-numeric value"
             );
             return;
@@ -75,8 +75,8 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
             const validValues = Array.from(
                 new Set(Object.entries(CreatureSizeRuleElement.wordToAbbreviation).flat())
             ).join('", "');
-            console.warn(
-                `PF2E System | CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name})`,
+            this.failValidation(
+                `CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name})`,
                 `has an invalid value: must be one of "${validValues}", +1, or -1`
             );
             return;

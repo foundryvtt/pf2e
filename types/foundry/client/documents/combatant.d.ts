@@ -72,7 +72,7 @@ declare global {
 
         override testUserPermission(
             user: foundry.documents.BaseUser,
-            permission: DocumentPermission | UserAction,
+            permission: DocumentPermission | DocumentPermissionNumber,
             { exact }?: { exact?: boolean }
         ): boolean;
 

@@ -857,14 +857,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return;
             }
 
-            const dc: CheckDC = {
+            const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visibility: "all",
                 adjustments: this.actor.data.data.skills["cra"].adjustments,
                 scope: "CheckOutcome",
             };
 
-            craft({ dc, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
+            craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
         });
 
         $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {
@@ -955,7 +955,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         await this.actor.update({ [propertyKey]: newValue });
         if (newValue !== getProperty(this.actor.data, propertyKey)) {
-            ui.notifications.info(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
         }
     }
 
@@ -1001,6 +1001,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
+        }
+        if (newValue !== getProperty(item.data, propertyKey)) {
+            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
         }
     }
 

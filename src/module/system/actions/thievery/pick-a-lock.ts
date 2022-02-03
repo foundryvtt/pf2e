@@ -14,6 +14,7 @@ export function pickALock(options: SkillActionOptions) {
         traits: ["manipulate"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.PickALock", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.PickALock", "success"),

@@ -160,6 +160,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     if (docSource.type === "npc") {
                         const { source } = docSource.data.details;
                         source.author = source.author?.trim() || undefined;
+
+                        const { speed } = docSource.data.attributes;
+                        speed.details = speed.details?.trim() || undefined;
                     }
                 }
 
@@ -346,11 +349,6 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
     }
 
     const compendiumLinks = Array.from(docJSON.matchAll(linkPatterns.compendium)).map((match) => match[0]);
-    const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith("{"));
-    if (linksLackingLabels.length > 0) {
-        const linkString = linksLackingLabels.map((match) => match[0]).join(", ");
-        throw PackError(`${docSource.name} (${packName}) has links with no labels: ${linkString}`);
-    }
 
     // Convert links by ID to links by name
     const notFound: string[] = [];

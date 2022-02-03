@@ -1,12 +1,13 @@
 {
     "private": true,
     "name": "foundry-pf2e",
-    "version": "3.2.1",
+    "version": "3.3.1",
     "description": "",
     "scripts": {
         "build": "npm run build:packs && webpack --mode production",
         "build:dev": "npm run build:packs && webpack",
         "build:packs": "ts-node -r tsconfig-paths/register ./packs/scripts/build.ts",
+        "start": "npm run build:packs && webpack serve --hot",
         "extractPacks": "ts-node -r tsconfig-paths/register ./packs/scripts/extract.ts",
         "pretest": "eslint ./ --ext .ts",
         "test": "jest",

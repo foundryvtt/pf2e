@@ -105,7 +105,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const sourceString = $domMessage.find("div.pf2e.item-card").attr("data-embedded-item") ?? "null";
         try {
             const itemSource = JSON.parse(sourceString);
-            const item = itemSource ? new ItemPF2e(itemSource, { parent: this.actor }) : null;
+            const item = itemSource
+                ? new ItemPF2e(itemSource, {
+                      parent: this.actor,
+                      fromConsumable: this.data.flags?.pf2e?.isFromConsumable,
+                  })
+                : null;
             return item as Embedded<ItemPF2e> | null;
         } catch (_error) {
             return null;

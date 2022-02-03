@@ -2,10 +2,10 @@ header.char-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--text-light);
 
     .char-details {
         @include micro;
-        color: white;
         margin-top: 4px;
         margin-left: 8px;
 
@@ -28,13 +28,13 @@ header.char-header {
                 font-family: var(--serif);
                 font-weight: 500;
                 font-size: 24px;
-                color: white;
+                color: var(--text-light);
                 line-height: calc(1em + 1px);
                 border-bottom: 1px solid transparent;
                 height: 26px;
                 &:focus {
                     box-shadow: none;
-                    border-bottom: 1px solid white;
+                    border-bottom: 1px solid var(--text-light);
                 }
             }
         }
@@ -50,7 +50,7 @@ header.char-header {
             display: flex;
             font-size: 10px;
             h4 {
-                color: $sidebar-label;
+                color: var(--sidebar-label);
                 margin-right: 8px;
                 font-weight: 700;
             }
@@ -75,7 +75,7 @@ header.char-header {
             font-size: 0;
             padding-top: 2px;
             label {
-                color: $sidebar-label;
+                color: var(--sidebar-label);
                 @include micro;
                 line-height: 1.5;
             }
@@ -83,7 +83,7 @@ header.char-header {
                 font-family: var(--serif);
                 font-size: 22px;
                 font-weight: 400;
-                color: white;
+                color: var(--text-light);
                 line-height: calc(1em + 1px);
                 height: 24px;
             }
@@ -104,12 +104,12 @@ header.char-header {
                 height: 18px;
             }
             input {
-                color: white;
+                color: var(--text-light);
                 text-align: right;
                 width: 36px;
             }
             .max {
-                color: $sidebar-label;
+                color: var(--sidebar-label);
                 padding-right: 2px;
             }
             input,
@@ -133,8 +133,8 @@ header.char-header {
                 .bar {
                     display: inline-flex;
                     height: 3px;
-                    background-color: $sidebar-title-color;
-                    box-shadow: 0 0 2px $sidebar-label;
+                    background-color: var(--sidebar-title);
+                    box-shadow: 0 0 2px var(--sidebar-label);
                 }
             }
 
@@ -145,7 +145,7 @@ header.char-header {
                     font-family: var(--sans-serif);
                     font-size: 9px;
                     font-weight: 500;
-                    color: $sidebar-label;
+                    color: var(--sidebar-label);
                     text-transform: uppercase;
                     & + a {
                         margin-left: 8px;

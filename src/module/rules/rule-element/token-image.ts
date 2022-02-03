@@ -1,10 +1,11 @@
 import { RuleElementPF2e } from "./";
 
 /**
+ * Change the image representing an actor's token
  * @category RuleElement
  */
 export class TokenImageRuleElement extends RuleElementPF2e {
-    override onAfterPrepareData() {
+    override afterPrepareData() {
         const value = this.data.value;
 
         if (!value) {

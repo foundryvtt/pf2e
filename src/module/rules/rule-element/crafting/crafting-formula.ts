@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "../";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "../";
 import { ActorType } from "@actor/data";
 import { CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
@@ -9,17 +9,15 @@ import { ItemPF2e } from "@item";
 class CraftingFormulaRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: CraftingFormulaSource, item: Embedded<ItemPF2e>) {
+    constructor(data: CraftingFormulaSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
         if (!(typeof data.uuid === "string" && /^(?:Compendium|Item)\..*[a-z0-9]{16}$/i.test(data.uuid))) {
-            console.warn(
-                `PF2e System | Crafting formula rule element on ${item.name} (${item.uuid}) has a malformed UUID`
-            );
-            data.ignored = true;
+            this.failValidation(`Crafting formula rule element on ${item.name} (${item.uuid}) has a malformed UUID`);
         }
-        super(data, item);
     }
 
-    override onBeforePrepareData(): void {
+    override beforePrepareData(): void {
         if (this.ignored) return;
 
         this.actor.data.data.crafting.formulas.push({ uuid: this.data.uuid });

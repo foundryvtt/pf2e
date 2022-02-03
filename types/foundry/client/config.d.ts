@@ -45,7 +45,7 @@ declare global {
             documentClass: {
                 new (data: PreCreate<TActor["data"]["_source"]>, context?: DocumentConstructionContext<TActor>): TActor;
             };
-            collection: Actors<TActor>;
+            collection: ConstructorOf<Actors<TActor>>;
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
             typeLabels: Record<string, string | undefined>;
         };

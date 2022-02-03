@@ -1857,10 +1857,6 @@
                     "2i8to42gbgxqyfd1qn1t": {
                         "damage": "4d8+18",
                         "damageType": "slashing"
-                    },
-                    "yivgtdp98vr39x78rdaj": {
-                        "damage": "1d6",
-                        "damageType": "evil"
                     }
                 },
                 "description": {
@@ -1911,10 +1907,6 @@
                     "5x5oqhshrlmp1j5b1fvr": {
                         "damage": "3d12+18",
                         "damageType": "bludgeoning"
-                    },
-                    "cjv5nlomhojig18pwrun": {
-                        "damage": "1d6",
-                        "damageType": "evil"
                     }
                 },
                 "description": {
@@ -2384,7 +2376,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The marilith makes two Strikes, each with a different weapon, and they use the remaining weapons for protection. The demon gains a circumstance bonus to AC for 1 round equal to the number of weapons not used for attacks.</p>\n<p>If the marilith later uses any of those weapons to attack (including for an Attack of Opportunity), the bonus to AC decreases by 1 for each weapon used.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Defensive Assault (1 Weapon)]{Effect: Defensive Assault (1 Weapon)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Defensive Assault (2 Weapons)]{Effect: Defensive Assault (2 Weapons)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Defensive Assault (3 Weapons)]{Effect: Defensive Assault (3 Weapons)}</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Defensive Assault (4 Weapons)]{Effect: Defensive Assault (4 Weapons)}</p>"
+                    "value": "<p>The marilith makes two Strikes, each with a different weapon, and they use the remaining weapons for protection. The demon gains a circumstance bonus to AC for 1 round equal to the number of weapons not used for attacks.</p>\n<p>If the marilith later uses any of those weapons to attack (including for an Attack of Opportunity), the bonus to AC decreases by 1 for each weapon used.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Defensive Assault]{Effect: Defensive Assault}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2426,12 +2418,17 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The marilith attacks a single target with all the weapons they wield in their arms, overwhelming the target with multiple attacks and leaving almost nowhere to dodge.</p>\n<p>The demon makes a longsword Strike. On a successful attack, the marilith deals longsword damage to the target, plus an additional [[/r {1d8}[slashing]]]{1d8 slashing damage} for every longsword they wield beyond the first (typically [[/r {5d8}[slashing]]]{5d8 extra slashing damage}).</p>\n<p>Even on a failed attack, the marilith deals the damage from one longsword to the target, though they still miss completely on a critical failure.</p>\n<p>This counts toward the marilith's multiple attack penalty as a number of attacks equal to the number of longswords the pride demon wields.</p>"
+                    "value": "<p>The marilith attacks a single target with all the weapons they wield in their arms, overwhelming the target with multiple attacks and leaving almost nowhere to dodge. The demon makes a longsword Strike. On a successful attack, the marilith deals longsword damage to the target, plus an additional [[/r {1d8}[slashing]]]{1d8 slashing damage} for every longsword they wield beyond the first (typically [[/r {5d8}[slashing]]]{5d8 extra slashing damage}). Even on a failed attack, the marilith deals the damage from one longsword to the target, though they still miss completely on a critical failure. This counts toward the marilith's multiple attack penalty as a number of attacks equal to the number of longswords the pride demon wields.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Focused Assault]{Effect: Focused Assault}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.focusedAssault"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2521,9 +2518,33 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "selector": "damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> The marilith can change its evil damage to chaotic whenever it attacks.</p>"
+                        "key": "ToggleProperty",
+                        "label": "PF2E.NPCAbility.DemonInfuseWeapons",
+                        "property": "flags.pf2e.rollOptions.damage-roll.infuseWeaponsChaotic"
+                    },
+                    {
+                        "damageType": "evil",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "not": [
+                                "infuseWeaponsChaotic"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "chaotic",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "infuseWeaponsChaotic"
+                            ]
+                        },
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,

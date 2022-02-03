@@ -50,7 +50,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            this.object.redraw();
             canvas.lighting.setPerceivedLightLevel(this);
         }
     }
@@ -58,17 +57,21 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-
         if (!(this.initialized && this.actor)) return;
+
+        // Dimensions and scale
         const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
+        if (this.linkToActorSize) this.data.scale = 1;
 
-        if (!this.scene?.rulesBasedVision || this.actor.type === "npc") return;
-        for (const property of ["brightSight", "dimSight"] as const) {
-            this.data[property] = this.data._source[property] = 0;
+        // Vision
+        if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+            for (const property of ["brightSight", "dimSight"] as const) {
+                this.data[property] = this.data._source[property] = 0;
+            }
+            this.data.sightAngle = this.data._source.sightAngle = 360;
         }
-        this.data.sightAngle = this.data._source.sightAngle = 360;
     }
 
     override prepareDerivedData(): void {
@@ -86,7 +89,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
             const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
             const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
-            this.data.brightSight = this.data._source.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
+            this.data.brightSight = this.data.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
         }
     }
 
@@ -106,16 +109,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         if (actor instanceof VehiclePF2e) {
             // Vehicles can have unequal dimensions
             const { width, height } = actor.getTokenDimensions();
-            data.width = data._source.width = width;
-            data.height = data._source.height = height;
+            data.width = width;
+            data.height = height;
         } else {
-            data.width = data._source.width = size;
-            data.height = data._source.height = size;
-            data.scale = data._source.scale = game.settings.get("pf2e", "tokens.autoscale")
-                ? actor.size === "sm"
-                    ? 0.8
-                    : 1
-                : data.scale;
+            data.width = size;
+            data.height = size;
+            data.scale = game.settings.get("pf2e", "tokens.autoscale") ? (actor.size === "sm" ? 0.8 : 1) : data.scale;
         }
     }
 
@@ -180,6 +179,21 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
+
+    /** Rerun token data preparation and possibly redraw token when the actor's embedded items change */
+    onActorItemChange(): void {
+        if (!this.isLinked) return; // Handled by upstream
+
+        const currentData = this.toObject(false);
+        this.prepareData({ fromActor: true });
+        const newData = this.toObject(false);
+        const changed = diffObject<DeepPartial<foundry.data.TokenSource>>(currentData, newData);
+
+        if (Object.keys(changed).length > 0) {
+            // TokenDocument#_onUpdate doesn't actually do anything with the user ID
+            this._onUpdate(changed, {}, game.user.id);
+        }
+    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(

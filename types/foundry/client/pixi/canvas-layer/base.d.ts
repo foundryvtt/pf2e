@@ -49,7 +49,7 @@ declare abstract class CanvasLayer extends PIXI.Container {
      * Deactivate the CanvasLayer, removing interactivity from its children.
      * @return The layer instance, now inactive
      */
-    deactivate(): this;
+    deactivate(): this | void;
 
     /** Get the zIndex that should be used for ordering this layer vertically relative to others in the same Container. */
     getZIndex(): number;

@@ -1,4 +1,4 @@
-export { RuleElementPF2e } from "./base";
+export { RuleElementPF2e, RuleElementOptions } from "./base";
 export {
     RuleElementSource,
     RuleElementData,

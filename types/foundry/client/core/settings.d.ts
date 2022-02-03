@@ -126,7 +126,8 @@ declare global {
          * @param key       The setting key to retrieve
          */
         get(module: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
-        get(module: "core", key: "rollMode"): typeof CONST.DICE_ROLL_MODES[keyof typeof CONST.DICE_ROLL_MODES];
+        get(module: "core", key: "defaultToken"): Partial<foundry.data.PrototypeTokenSource>;
+        get(module: "core", key: "rollMode"): RollMode;
         get(module: string, key: string): any;
 
         /**
@@ -143,10 +144,6 @@ declare global {
          * @param value
          */
         update(key: string, value: any): Promise<any>;
-    }
-
-    interface ClientSettings {
-        get(module: "core", setting: "defaultToken"): foundry.data.PrototypeTokenSource;
     }
 
     interface ClientSettingsMap extends Map<string, ClientSettingsData> {

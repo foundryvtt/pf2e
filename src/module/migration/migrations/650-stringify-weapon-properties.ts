@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { WeaponCategory, WeaponRange, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponRangeIncrement, WeaponSystemSource } from "@item/weapon/data";
 import { MigrationBase } from "../base";
 
 /** Ensure weapon categories and ranges have valid properties */
@@ -22,5 +22,5 @@ export class Migration650StringifyWeaponProperties extends MigrationBase {
 
 type MaybeOldData = Omit<WeaponSystemSource, "range"> & {
     weaponType?: { value: WeaponCategory };
-    range: WeaponRange | null | { value: unknown };
+    range: WeaponRangeIncrement | null | { value: unknown };
 };

@@ -14,7 +14,7 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
             rule.key = "MartialProficiency";
             rule.definition = rule.predicate;
             delete rule.predicate;
-            if (rule.slug && itemSource.data.slug?.endsWith("-weapon-familiarity") && !rule.label) {
+            if (typeof rule.slug === "string" && itemSource.data.slug?.endsWith("-weapon-familiarity") && !rule.label) {
                 const key = sluggify(rule.slug, { camel: "bactrian" });
                 rule.label = `PF2E.SpecificRule.MartialProficiency.${key}`;
             }

@@ -83,6 +83,11 @@ export const Setup = {
 
             // Forced panning is intrinsicly annoying, so set default to false
             game.settings.settings.get("core.chatBubblesPan").default = false;
+
+            // Set Hover by Owner as defaults for Default Token Configuration
+            const defaultTokenSettingsDefaults = game.settings.settings.get("core.defaultToken").default;
+            defaultTokenSettingsDefaults.displayName = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+            defaultTokenSettingsDefaults.displayBars = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
         });
     },
 };

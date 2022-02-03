@@ -42,7 +42,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             spellData.data.heightenedLevel = { value: heightenedLevel };
         }
 
-        return new SpellPF2e(spellData, { parent: this.actor, fromConsumable: true }) as Embedded<SpellPF2e>;
+        return new SpellPF2e(spellData, {
+            parent: this.actor,
+            fromConsumable: true,
+        }) as Embedded<SpellPF2e>;
     }
 
     override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {

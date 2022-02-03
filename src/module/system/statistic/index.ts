@@ -18,6 +18,8 @@ import {
 } from "./data";
 import { ItemPF2e } from "@item";
 import { CheckDC } from "@system/check-degree-of-success";
+import { isObject } from "@util";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 export * from "./data";
 
@@ -180,6 +182,21 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 return { label, penalty };
             },
             roll: (args: StatisticRollParameters = {}) => {
+                // Allow use of events for modules and macros but don't allow it for internal system use
+                const { secret, skipDialog } = (() => {
+                    if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
+                        const event = args.event?.originalEvent ?? args.event;
+                        if (event instanceof PointerEvent) {
+                            return mergeObject(
+                                { secret: args.secret, skipDialog: args.skipDialog },
+                                eventToRollParams(event)
+                            );
+                        }
+                    }
+
+                    return args;
+                })();
+
                 const actor = this.actor;
                 const item = args.item ?? null;
 
@@ -201,6 +218,11 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 const extraModifiers = [...(args?.modifiers ?? [])];
                 const options = this.createRollOptions(domains, args);
 
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.actor.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, options);
+                }
+
                 // Include multiple attack penalty to extra modifiers if given
                 if (args.attackNumber && args.attackNumber > 1) {
                     if (!item) {
@@ -221,8 +243,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     notes: data.notes,
                     options,
                     type: check.type,
-                    secret: args.secret,
-                    skipDialog: args.skipDialog,
+                    secret,
+                    skipDialog,
                 };
 
                 CheckPF2e.roll(new CheckModifier(label, stat, extraModifiers), context, null, args.callback);
@@ -230,10 +252,9 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             withOptions: (options: RollOptionParameters = {}) => {
                 const check = new CheckModifier(label, stat);
 
-                // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
+                // Toggle modifiers based on the specified options and re-apply stacking rules, if necessary
                 const rollOptions = this.createRollOptions(domains, options);
-                check.modifiers.forEach((modifier) => modifier.test(rollOptions));
-                check.applyStackingRules();
+                check.calculateTotal(rollOptions);
 
                 return {
                     value: check.totalModifier,

@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSynthetics } from "./";
+import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { DamageDicePF2e } from "@module/modifiers";
 
@@ -6,7 +6,8 @@ import { DamageDicePF2e } from "@module/modifiers";
  * @category RuleElement
  */
 export class DamageDiceRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData({ damageDice }: RuleElementSynthetics) {
+    override beforePrepareData(): void {
+        this.data.diceNumber = Number(this.resolveValue(this.data.diceNumber));
         const value: Omit<DamageDiceRuleElementData, "key"> & { key?: string } = deepClone(this.data);
         delete value.key;
         if (this.data.value) {
@@ -24,6 +25,7 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         if (selector) {
             value.damageType &&= this.resolveInjectedProperties(value.damageType);
             const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
+            const { damageDice } = this.actor.synthetics;
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
             console.warn("PF2E | Damage Dice requires a selector");
@@ -38,6 +40,8 @@ export interface DamageDiceRuleElement {
 }
 
 interface DamageDiceRuleElementData extends RuleElementData {
+    slug?: string;
     name?: string;
     damageType?: string;
+    diceNumber?: number;
 }

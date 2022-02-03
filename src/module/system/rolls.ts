@@ -104,17 +104,12 @@ export class CheckPF2e {
     ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
-        if (event) {
-            mergeObject(context, eventToRollParams(event));
-        }
+        if (event) mergeObject(context, eventToRollParams(event));
 
         if (context.options?.length && !context.isReroll) {
             context.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
-            check.modifiers.forEach((modifier) => {
-                modifier.ignored = !PredicatePF2e.test(modifier.predicate, context.options);
-            });
-            check.applyStackingRules();
+            check.calculateTotal(context.options);
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.includes("secret")) {
@@ -281,7 +276,9 @@ export class CheckPF2e {
             const otherTags = ((): string[] => {
                 if (item instanceof WeaponPF2e && item.isRanged) {
                     // Show the range increment for ranged weapons
-                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", { range: item.range ?? 10 });
+                    const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN", {
+                        range: item.rangeIncrement ?? 10,
+                    });
                     return [`<span class="tag tag_secondary">${label}</span>`];
                 } else {
                     return [];
@@ -365,7 +362,7 @@ export class CheckPF2e {
             }
         }
 
-        const flags = duplicate(message.data.flags.pf2e);
+        const flags = deepClone(message.data.flags.pf2e);
         const modifiers = (flags.modifiers ?? []).map((modifier) => new ModifierPF2e(modifier));
         const check = new StatisticModifier(flags.modifierName ?? "", modifiers);
         const context = flags.context;
@@ -403,12 +400,21 @@ export class CheckPF2e {
 
                 await message.delete({ render: false });
                 const newFlavor = newMessage.data.flavor ?? "";
+
+                // If this was an initiative roll, apply the result to the current encounter
+                const { initiativeRoll } = message.data.flags.core;
+                if (initiativeRoll) {
+                    const combatant = message.token?.combatant;
+                    await combatant?.parent.setInitiative(combatant.id, newRoll.total);
+                }
+
                 await keepRoll.toMessage(
                     {
                         content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
                         flavor: `${rerollIcon.outerHTML}${newFlavor}`,
                         speaker: message.data.speaker,
                         flags: {
+                            core: { initiativeRoll },
                             pf2e: flags,
                         },
                     },

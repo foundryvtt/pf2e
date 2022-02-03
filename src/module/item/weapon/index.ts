@@ -9,7 +9,7 @@ import {
     WeaponData,
     WeaponGroup,
     WeaponPropertyRuneType,
-    WeaponRange,
+    WeaponRangeIncrement,
     WeaponSource,
     WeaponTrait,
 } from "./data";
@@ -23,6 +23,7 @@ import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -58,8 +59,12 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** The range of this weapon, or null if a melee weapon */
-    get range(): WeaponRange | null {
+    get rangeIncrement(): WeaponRangeIncrement | null {
         return this.data.data.range;
+    }
+
+    get reload(): string | null {
+        return this.data.data.reload.value || null;
     }
 
     get isSpecific(): boolean {
@@ -67,14 +72,14 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get isMelee(): boolean {
-        return this.range === null;
+        return this.rangeIncrement === null;
     }
 
     get isRanged(): boolean {
-        return this.range !== null;
+        return this.rangeIncrement !== null;
     }
 
-    get ammo(): ConsumablePF2e | null {
+    get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e ? ammo : null;
     }
@@ -93,10 +98,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands:${this.hands}`]: this.hands !== "0",
                 [`material:${this.material?.type}`]: !!this.material?.type,
+                [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
+                [`reload:${this.reload}`]: !!this.reload,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
-                magical: this.isMagical,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
@@ -120,14 +126,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.traits.otherTags ??= [];
+        AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
-        const traitSet = this.traits;
+        const traitArray = this.data.data.traits.value;
+        if (traitArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+            this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
+        }
+
         const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const traitSet = this.traits;
         const mandatoryRanged = rangedWeaponGroups.includes(this.group ?? "") || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
-            if (traitSet.has("thrown")) this.data.data.reload.value = "-";
+
             if (traitSet.has("combination")) this.data.data.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
@@ -137,8 +149,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
-        // Force a weapon to be melee if it has a thrown-N trait
-        const mandatoryMelee = this.data.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
+        // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
+        const mandatoryMelee = !mandatoryRanged && traitArray.some((trait) => /^thrown-\d+$/.test(trait));
         if (mandatoryMelee) this.data.data.range = null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
@@ -169,7 +181,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         // Collect all traits from the runes and apply them to the weapon
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
-        const magicTraits: "magical"[] = this.data.data.potencyRune.value ? ["magical"] : [];
+        const hasRunes = (() => {
+            const hasFundamentalRunes = !!this.data.data.potencyRune.value || !!this.data.data.strikingRune.value;
+            const hasPropertyRunes = ([1, 2, 3, 4] as const)
+                .map((n) => this.data.data[`propertyRune${n}` as const])
+                .some((r) => !!r.value);
+            const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
+            return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
+        })();
+        const magicTraits: "magical"[] = hasRunes ? ["magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
@@ -242,7 +262,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             traits,
             properties: [
                 CONFIG.PF2E.weaponCategories[this.category],
-                this.range ? `PF2E.TraitRangeIncrement${this.range}` : null,
+                this.rangeIncrement ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null,
             ],
         });
     }
@@ -293,7 +313,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             const key = ([potency, striking, properties, material]
                 .filter((keyPart): keyPart is string => !!keyPart)
                 .join("") || null) as keyof typeof formatStrings | null;
-            key;
             return key && formatStrings[key];
         })();
 
@@ -348,7 +367,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const damageRoll = ((): MeleeDamageRoll => {
             const weaponDamage = this.data.data.damage;
-            const ability = this.range ? "dex" : "str";
+            const ability = this.rangeIncrement ? "dex" : "str";
             const modifier = this.actor.data.data.abilities[ability].mod;
             const actorLevel = this.actor.level;
             const dice = [1, 2, 3, 4].reduce((closest, dice) =>

@@ -6,17 +6,18 @@ import { ProficiencyRank } from "@item/data";
 import { WeaponCategory } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { AELikeRuleElement, AELikeRuleElementData, AELikeRuleElementSource } from "./ae-like";
+import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
+import { RuleElementOptions } from "./base";
 
 class MartialProficiencyRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>) {
+    constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.mode = "override";
         data.priority = 9;
         data.path = `data.martial.${data.slug}`;
         data.value = Number(data.value) || 1;
-        super(data, item);
+        super(data, item, options);
         if (!this.dataIsValid(this.data)) {
             this.failValidation("A martial proficiency must have a slug and definition");
         }
@@ -69,7 +70,7 @@ interface MartialProficiencyRuleElement extends AELikeRuleElement {
     get actor(): CharacterPF2e;
 }
 
-interface MartialProficiencyData extends AELikeRuleElementData {
+interface MartialProficiencyData extends AELikeData {
     key: "MartialProficiency";
     /** The key to be used for this proficiency in `CharacterPF2e#data#data#martial` */
     slug: string;
@@ -85,7 +86,7 @@ interface MartialProficiencyData extends AELikeRuleElementData {
     value: number | MartialProficiency;
 }
 
-export interface MartialProficiencySource extends AELikeRuleElementSource {
+export interface MartialProficiencySource extends AELikeSource {
     definition?: unknown;
     sameAs?: unknown;
     immutable?: unknown;

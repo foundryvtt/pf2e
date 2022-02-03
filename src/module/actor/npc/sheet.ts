@@ -1,6 +1,6 @@
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { DicePF2e } from "@scripts/dice";
-import { ABILITY_ABBREVIATIONS, ALIGNMENT_TRAITS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/data/values";
+import { ABILITY_ABBREVIATIONS, ALIGNMENT_TRAITS, SAVE_TYPES } from "@actor/data/values";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
@@ -119,6 +119,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     hasShield?: boolean;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
+    isSpellcaster?: boolean;
 }
 
 type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
@@ -174,7 +175,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /** Use the token name as the title if showing a lootable NPC sheet */
     override get title() {
-        if (this.isLootSheet) {
+        if (this.isLootSheet || this.actor.limited) {
             const actorName = this.token?.name ?? this.actor.name;
             if (this.actor.isDead) {
                 return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`; // `;
@@ -231,6 +232,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     override async getData(): Promise<NPCSheetData> {
         const sheetData: NPCSheetData = await super.getData();
+
+        // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
+        if (this.actor.limited || this.isLootSheet) {
+            sheetData.actor.name = this.actor.token?.name ?? sheetData.actor.name;
+        }
 
         // Filter out alignment traits for sheet presentation purposes
         const alignmentTraits: readonly string[] = ALIGNMENT_TRAITS;
@@ -575,6 +581,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 sheetData.spellcastingEntries.push(mergeObject(item, entry.getSpellData()));
             }
         }
+
+        sheetData.isSpellcaster = this.actor.isSpellcaster;
     }
 
     /**
@@ -664,25 +672,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         });
     }
 
-    rollSkill(event: JQuery.ClickEvent, skillKey: SkillAbbreviation) {
-        const skill = this.actor.data.data.skills[skillKey];
-        if (!skill?.roll) return;
-
-        const longForms: Record<string, string | undefined> = SKILL_DICTIONARY;
-        const opts = this.actor.getRollOptions(["all", "skill-check", longForms[skillKey] ?? skillKey]);
-        const extraOptions = $(event.currentTarget).attr("data-options");
-
-        if (extraOptions) {
-            const split = extraOptions
-                .split(",")
-                .map((o) => o.trim())
-                .filter((o) => !!o);
-            opts.push(...split);
-        }
-
-        skill.roll({ event, options: opts });
-    }
-
     private onClickRollable(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $label = $(event.currentTarget).closest(".rollable");
@@ -702,7 +691,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     this.rollAbility(event, ability);
             }
         } else if (skill) {
-            this.rollSkill(event, skill);
+            const extraRollOptions = $(event.currentTarget)
+                .attr("data-options")
+                ?.split(",")
+                .map((o) => o.trim())
+                .filter((o) => !!o);
+            this.actor.skills[skill]?.check.roll({ ...rollParams, extraRollOptions });
         } else if (objectHasKey(this.actor.saves, save)) {
             this.actor.saves[save].check.roll(rollParams);
         }

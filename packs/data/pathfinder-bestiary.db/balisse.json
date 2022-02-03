@@ -42,7 +42,6 @@
                 "value": 18
             },
             "speed": {
-                "details": "",
                 "otherSpeeds": [
                     {
                         "type": "fly",
@@ -1962,16 +1961,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "flaming-scimitar-damage",
-                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> The weapon deals an additional [[/r {1d10}[persistent,fire]]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} on a critical hit.</p>"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2310,7 +2300,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "flaming-scimitar-attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

@@ -110,14 +110,14 @@ declare global {
                 /**
                  * Test whether a certain User has a requested permission level (or greater) over the Document
                  * @param user The User being tested
-                 * @param permission The permission level from ENTITY_PERMISSIONS to test
+                 * @param permission The permission level from DOCUMENT_PERMISSION_LEVELS to test
                  * @param options Additional options involved in the permission test
                  * @param [options.exact=false] Require the exact permission level requested?
                  * @return Does the user have this permission level over the Document?
                  */
                 testUserPermission(
                     user: documents.BaseUser,
-                    permission: DocumentPermission | UserAction,
+                    permission: DocumentPermission | DocumentPermissionNumber,
                     { exact }?: { exact?: boolean }
                 ): boolean;
 
@@ -497,10 +497,7 @@ declare global {
                  * @param documents The Document instances which were created
                  * @param context   The context for the modification operation
                  */
-                protected static _onCreateDocuments(
-                    documents: Document[],
-                    context: DocumentModificationContext
-                ): Promise<void>;
+                protected static _onCreateDocuments(documents: Document[], context: DocumentModificationContext): void;
 
                 /**
                  * Perform follow-up operations when a set of Documents of this type are updated.
@@ -509,10 +506,7 @@ declare global {
                  * @param documents The Document instances which were updated
                  * @param context   The context for the modification operation
                  */
-                protected static _onUpdateDocuments(
-                    documents: Document[],
-                    context: DocumentModificationContext
-                ): Promise<void>;
+                protected static _onUpdateDocuments(documents: Document[], context: DocumentModificationContext): void;
 
                 /**
                  * Perform follow-up operations when a set of Documents of this type are deleted.
@@ -521,10 +515,7 @@ declare global {
                  * @param documents The Document instances which were deleted
                  * @param context   The context for the modification operation
                  */
-                protected static _onDeleteDocuments(
-                    documents: Document[],
-                    context: DocumentModificationContext
-                ): Promise<void>;
+                protected static _onDeleteDocuments(documents: Document[], context: DocumentModificationContext): void;
 
                 /* ---------------------------------------- */
                 /*  Serialization and Storage               */

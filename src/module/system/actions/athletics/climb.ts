@@ -14,6 +14,7 @@ export function climb(options: SkillActionOptions) {
         traits: ["move"],
         checkType,
         event: options.event,
+        difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionsPF2e.note(selector, "PF2E.Actions.Climb", "criticalSuccess"),
             ActionsPF2e.note(selector, "PF2E.Actions.Climb", "success"),

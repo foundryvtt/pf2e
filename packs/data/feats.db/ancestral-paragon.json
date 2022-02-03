@@ -34,7 +34,7 @@
                     "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops"
                 },
                 "choices": {
-                    "query": "{\"data.featType.value\":\"ancestry\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.ancestry.trait}\"}}"
+                    "query": "{\"data.featType.value\":\"ancestry\",\"data.level.value\":1,\"$or\":[{\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.ancestry.trait}\"}},{\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.heritage.trait}\"}}],\"$not\":{\"data.traits.value\":{\"$elemMatch\":\"lineage\"}}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"

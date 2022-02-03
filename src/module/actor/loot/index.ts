@@ -33,6 +33,11 @@ export class LootPF2e extends ActorPF2e {
         return false;
     }
 
+    /** Come on, it's a box. */
+    override get canAct(): false {
+        return false;
+    }
+
     /** Anyone with Limited permission can update a loot actor */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === "update") {
@@ -112,7 +117,7 @@ export class LootPF2e extends ActorPF2e {
         embeddedName: "ActiveEffect" | "Item",
         documents: ActiveEffectPF2e[] | ItemPF2e[],
         result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<ActiveEffectPF2e | ItemPF2e>,
         userId: string
     ): void {
         this.toggleTokenHiding();
@@ -123,7 +128,7 @@ export class LootPF2e extends ActorPF2e {
         embeddedName: "ActiveEffect" | "Item",
         documents: ActiveEffectPF2e[] | ItemPF2e[],
         result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
+        options: DocumentModificationContext<ActiveEffectPF2e | ItemPF2e>,
         userId: string
     ): void {
         this.toggleTokenHiding();

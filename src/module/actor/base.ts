@@ -26,6 +26,7 @@ import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
+import { ModifierAdjustment } from "@module/modifiers";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -52,7 +53,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     synthetics!: RuleElementSynthetics;
 
-    saves?: Record<SaveType, Statistic>;
+    saves?: { [K in SaveType]?: Statistic };
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
@@ -114,8 +115,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return true;
     }
 
+    /** Whether this actor can execute actions: meaningful implementations are found in `CreaturePF2e`. */
+    get canAct(): boolean {
+        return true;
+    }
+
+    /** Whether this actor can attack: meaningful implementations are found in `CreaturePF2e` and `HazardPF2e`. */
+    get canAttack(): boolean {
+        return false;
+    }
+
+    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
+    getReach(_options: { to?: "interact" | "attack" }): number {
+        return 0;
+    }
+
     get modeOfBeing(): ModeOfBeing {
-        const traits = this.traits;
+        const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
     }
 
@@ -173,7 +189,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             (options: Record<string, boolean>, option) => ({ ...options, [option]: true }),
             {}
         );
-        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } });
+        return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
     /**
@@ -232,7 +248,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
-    override _initialize(): void {
+    protected override _initialize(): void {
         super._initialize();
         this.initialized = true;
     }
@@ -242,16 +258,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super.prepareData();
 
         this.preparePrototypeToken();
-        if (this.initialized) {
-            const tokenDocs = this.getActiveTokens(false, true);
-            for (const tokenDoc of tokenDocs) {
-                tokenDoc.prepareData({ fromActor: true });
-            }
-            if (canvas.ready) {
-                const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
-                if (game.user.character === this || thisTokenIsControlled) {
-                    game.pf2e.effectPanel.refresh();
-                }
+        if (this.initialized && canvas.ready) {
+            const thisTokenIsControlled = this.getActiveTokens(false).some((t) => !!t.isControlled);
+            if (game.user.character === this || thisTokenIsControlled) {
+                game.pf2e.effectPanel.refresh();
             }
         }
     }
@@ -269,15 +279,28 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
 
+        const preparationWarnings = new Set<string>();
+
         this.synthetics = {
             damageDice: {},
+            modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
             senses: [],
             statisticsModifiers: {},
+            strikeAdjustments: [],
             strikes: [],
             striking: {},
             weaponPotency: {},
+            preparationWarnings: {
+                add: (warning: string) => preparationWarnings.add(warning),
+                flush: foundry.utils.debounce(() => {
+                    for (const warning of preparationWarnings) {
+                        console.warn(warning);
+                    }
+                    preparationWarnings.clear();
+                }, 10), // 10ms also handles separate module executions
+            },
         };
     }
 
@@ -311,10 +334,37 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
     }
 
+    /** Collect all sources of modifiers for statistics */
+    protected prepareSynthetics(): void {
+        // Rule elements
+        for (const rule of this.rules.filter((r) => !r.ignored)) {
+            try {
+                rule.beforePrepareData?.();
+            } catch (error) {
+                // Ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+            }
+        }
+
+        // Conditions
+        const conditions = this.itemTypes.condition
+            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
+            .map((c) => c.data);
+
+        const { statisticsModifiers } = this.synthetics;
+        for (const [selector, modifiers] of game.pf2e.ConditionManager.getModifiersFromConditions(
+            conditions.values()
+        )) {
+            const syntheticModifiers = (statisticsModifiers[selector] ??= []);
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
+        }
+    }
+
+    /** Set traits as roll options */
     override prepareDerivedData(): void {
-        // Record stored traits as roll options
+        const { rollOptions } = this;
         for (const trait of this.traits) {
-            this.rollOptions.all[`self:trait:${trait}`] = true;
+            rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
 
@@ -329,7 +379,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Disable manually-configured vision settings on the prototype token
-        if (canvas.sight?.rulesBasedVision) {
+        if (canvas.sight?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data.token[property] = this.data.token._source[property] = 0;
             }
@@ -365,20 +415,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return flavor;
     }
 
-    /**
-     * Get all tokens linked to this actor in all scenes
-     * @returns An array of TokenDocuments
-     */
-    getAllTokens(): TokenDocument[] {
-        const tokens: TokenDocument[] = [];
-        for (const scene of game.scenes) {
-            for (const token of scene.tokens) {
-                if (token.isLinked && token.actor?.id === this.id) {
-                    tokens.push(token);
-                }
-            }
-        }
-        return tokens;
+    getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
+        return Array.from(
+            new Set(
+                selectors
+                    .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
+                    .filter((a) => [a.slug, null].includes(slug))
+            )
+        );
     }
 
     /* -------------------------------------------- */
@@ -767,19 +811,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
-     * Roll option in this case is a predication property used for filtering.
+     * Retrieve all roll option from the requested domains. Micro-optimized in an excessively verbose for-loop.
+     * @param domains The domains of discourse from which to pull options. Always includes the "all" domain.
      */
-    getRollOptions(domains: string[]): string[] {
-        const rollOptions = this.data.flags.pf2e.rollOptions;
-        const results = new Set<string>();
-        for (const domain of domains) {
-            for (const [key, value] of Object.entries(rollOptions[domain] ?? {})) {
-                if (value) results.add(key);
+    getRollOptions(domains: string[] = []): string[] {
+        const withAll = Array.from(new Set(["all", ...domains]));
+        const { rollOptions } = this;
+        const toReturn: Set<string> = new Set();
+
+        for (const domain of withAll) {
+            for (const [option, value] of Object.entries(rollOptions[domain] ?? {})) {
+                if (value) toReturn.add(option);
             }
         }
 
-        return [...results];
+        return Array.from(toReturn);
     }
 
     /* -------------------------------------------- */
@@ -939,7 +985,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
+            const currentVersion = this.schemaVersion || undefined;
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(currentVersion));
         }
     }
 
@@ -984,40 +1031,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super._onDelete(options, userId);
     }
 
-    /** As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors */
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
         super._onEmbeddedDocumentChange(embeddedName);
-        this.token?.object?.drawEffects();
-    }
-
-    /**
-     * Display floaty text on this Actor's tokens, for status effects
-     * @param isAdded True if the status effect is being added to actor, else removed
-     * @param name Name of status to display
-     * @param value Optional value of status, for example "Frightened 3"
-     */
-    showFloatyStatus(isAdded: boolean, name: string, value: number | null): void {
-        const hideFromUser =
-            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretCondition");
-        if (hideFromUser) return;
-
-        const content = (() => {
-            const sign = isAdded ? "+ " : "- ";
-            const appendedNumber = value ? ` ${value}` : "";
-            return `${sign}${name}${appendedNumber}`;
+        (async () => {
+            // As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors
+            await this.token?.object?.drawEffects();
+            // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
+            for (const tokenDoc of this.getActiveTokens(true, true)) {
+                tokenDoc.onActorItemChange();
+            }
         })();
-
-        this.getActiveTokens().forEach((token) => {
-            token.hud?.createScrollingText(content, {
-                anchor: isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
-                direction: isAdded ? 2 : 1,
-                jitter: 0.25,
-                fill: "white",
-                fontSize: 32,
-                stroke: 0x000000,
-                strokeThickness: 4,
-            });
-        });
     }
 }
 

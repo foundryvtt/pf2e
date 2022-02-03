@@ -1,4 +1,4 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementSynthetics } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
@@ -7,11 +7,12 @@ import {
     WeaponCategory,
     WeaponDamage,
     WeaponGroup,
-    WeaponRange,
+    WeaponRangeIncrement,
     WeaponSource,
     WeaponTrait,
 } from "@item/weapon/data";
 import { DamageType } from "@module/damage-calculation";
+import { RuleElementOptions } from "./base";
 
 /**
  * Create an ephemeral strike on an actor
@@ -22,9 +23,9 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     weapon: Embedded<WeaponPF2e>;
 
-    constructor(data: StrikeSource, item: Embedded<ItemPF2e>) {
+    constructor(data: StrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.range = Number(data.range) || null;
-        super(data, item);
+        super(data, item, options);
 
         this.data.category ??= "unarmed";
         this.data.group ??= "brawling";
@@ -37,7 +38,7 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.weapon = this.constructWeapon();
     }
 
-    override onBeforePrepareData({ strikes }: RuleElementSynthetics): void {
+    override beforePrepareData(): void {
         const predicatePassed =
             !this.data.predicate ||
             ((): boolean => {
@@ -45,11 +46,11 @@ class StrikeRuleElement extends RuleElementPF2e {
                 return this.data.predicate.test(rollOptions);
             })();
 
-        if (predicatePassed) strikes.push(this.weapon);
+        if (predicatePassed) this.actor.synthetics.strikes.push(this.weapon);
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
-    override onAfterPrepareData(): void {
+    override afterPrepareData(): void {
         if (this.data.replaceBasicUnarmed && this.actor.data.type === "character") {
             const systemData = this.actor.data.data;
             systemData.actions = systemData.actions.filter((action) => action.weapon?.slug !== "unarmed");
@@ -98,7 +99,6 @@ interface StrikeRuleElement {
 }
 
 interface StrikeSource extends RuleElementSource {
-    slug?: string;
     img?: unknown;
     category?: unknown;
     group?: unknown;
@@ -118,7 +118,7 @@ interface StrikeData extends RuleElementData {
     group: WeaponGroup;
     baseType: BaseWeaponType | null;
     damage?: { base?: WeaponDamage };
-    range: WeaponRange | null;
+    range: WeaponRangeIncrement | null;
     traits: WeaponTrait[];
     replaceAll: boolean;
     replaceBasicUnarmed: boolean;

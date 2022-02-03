@@ -8,6 +8,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
     static override readonly SETTINGS = [
         "rulesBasedVision",
         "effectExpiration",
+        "removeExpiredEffects",
         "lootableNPCs",
         "experimentalDamageFormatting",
     ] as const;
@@ -35,6 +36,12 @@ export class AutomationSettings extends SettingsMenuPF2e {
                         actor.getActiveTokens().forEach((token) => token.drawEffects());
                     });
                 },
+            },
+            removeExpiredEffects: {
+                name: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.hint,
+                default: false,
+                type: Boolean,
             },
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,

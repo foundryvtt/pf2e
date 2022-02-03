@@ -265,42 +265,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
-    /** Pull the latest system data from the source compendium and replace the item's with it */
-    private async refreshItemFromCompendium(): Promise<void> {
-        if (!this.item.isOwned) return ui.notifications.error("This utility may only be used on owned items");
-
-        const currentSource = this.item.toObject();
-        const latestSource = (await fromUuid<this["item"]>(this.item.sourceId ?? ""))?.toObject();
-        if (latestSource?.type === this.item.data.type) {
-            const updatedImage = currentSource.img.endsWith(".svg") ? latestSource.img : currentSource.img;
-            const updates: DocumentUpdateData<this["item"]> = { img: updatedImage, data: latestSource.data };
-
-            // Preserve precious material and runes
-            if (currentSource.type === "weapon" || currentSource.type === "armor") {
-                const materialAndRunes: Record<string, unknown> = {
-                    "data.preciousMaterial": currentSource.data.preciousMaterial,
-                    "data.preciousMaterialGrade": currentSource.data.preciousMaterialGrade,
-                    "data.potencyRune": currentSource.data.potencyRune,
-                    "data.propertyRune1": currentSource.data.propertyRune1,
-                    "data.propertyRune2": currentSource.data.propertyRune2,
-                    "data.propertyRune3": currentSource.data.propertyRune3,
-                    "data.propertyRune4": currentSource.data.propertyRune4,
-                };
-                if (currentSource.type === "weapon") {
-                    materialAndRunes["data.strikingRune"] = currentSource.data.strikingRune;
-                } else {
-                    materialAndRunes["data.resiliencyRune"] = currentSource.data.resiliencyRune;
-                }
-                mergeObject(updates, expandObject(materialAndRunes));
-            }
-
-            await this.item.update(updates, { diff: false, recursive: false });
-            ui.notifications.info("The item has been refreshed.");
-        } else {
-            ui.notifications.error("The compendium item is of a different type than what is present on this actor");
-        }
-    }
-
     protected override _canDragDrop(_selector: string): boolean {
         return this.item.isOwner;
     }
@@ -362,6 +326,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
 
+        $html.find("[data-clipboard]").on("click", (event) => {
+            const clipText = $(event.target).closest("[data-clipboard]").attr("data-clipboard");
+            if (clipText) {
+                navigator.clipboard.writeText(clipText);
+                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+            }
+        });
+
         const $prerequisites = $html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
         if ($prerequisites[0]) {
             new Tagify($prerequisites[0], {
@@ -370,10 +342,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollsLinks.listen($html);
-
-        // Work around core bug present as of v9.241 in which contenteditable is ignored by `KeyboardManager` unless
-        // it has the value "true"
-        $html.find('span[contenteditable=""]').attr({ contenteditable: "true" });
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
@@ -400,7 +368,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 label: "Refresh",
                 class: "refresh-from-compendium",
                 icon: "fas fa-sync-alt",
-                onclick: () => this.refreshItemFromCompendium(),
+                onclick: () => this.item.refreshFromCompendium(),
             });
         }
         return buttons;

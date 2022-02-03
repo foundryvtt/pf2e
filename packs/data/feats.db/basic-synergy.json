@@ -27,7 +27,27 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:type:feat",
+                        "item:trait:summoner"
+                    ],
+                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"summoner\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.basicSynergy}"
+            }
+        ],
         "source": {
             "value": ""
         },
