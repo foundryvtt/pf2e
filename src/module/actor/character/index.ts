@@ -67,6 +67,7 @@ import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
+import { DamageFormula } from "@system/damage/damage-formula";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -1322,7 +1323,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
                 if (args.getFormula) {
-                    return damage.formula[outcome].formula;
+                    return new DamageFormula(damage.damagePool[outcome].terms).toString();
                 } else {
                     DamageRollPF2e.roll(
                         damage,

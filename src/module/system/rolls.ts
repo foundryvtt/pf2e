@@ -75,7 +75,7 @@ export interface CheckModifiersContext {
     isReroll?: boolean;
 }
 
-interface ExtendedCheckModifersContext extends Omit<CheckModifiersContext, "actor" | "token" | "user"> {
+export interface ExtendedCheckModifersContext extends Omit<CheckModifiersContext, "actor" | "token" | "user"> {
     actor?: ActorPF2e | string;
     token?: TokenDocumentPF2e | string;
     user?: UserPF2e | string;

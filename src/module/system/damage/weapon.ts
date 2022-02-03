@@ -18,18 +18,9 @@ import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
-
-export interface DamagePartials {
-    [damageType: string]: {
-        [damageCategory: string]: string;
-    };
-}
-
-export interface DamageFormula {
-    data: object;
-    formula: string;
-    partials: DamagePartials;
-}
+import { DamageTerm } from "@system/damage/damage-term";
+import { DamagePool } from "@system/damage/damage-pool";
+import { DegreeOfSuccessString } from "@system/check-degree-of-success";
 
 export interface DamageTemplate {
     base: {
@@ -41,34 +32,17 @@ export interface DamageTemplate {
     };
     diceModifiers: DiceModifierPF2e[];
     effectDice: number;
-    formula: {
-        criticalFailure?: DamageFormula;
-        failure?: DamageFormula;
-        success: DamageFormula;
-        criticalSuccess: DamageFormula;
+    damagePool: {
+        criticalFailure: DamagePool;
+        failure: DamagePool;
+        success: DamagePool;
+        criticalSuccess: DamagePool;
     };
     name: string;
     notes: RollNotePF2e[];
     numericModifiers: ModifierPF2e[];
     traits: string[];
 }
-
-/** A pool of damage dice & modifiers, grouped by damage type. */
-export type DamagePool = Record<
-    string,
-    {
-        /** If true, this is the 'base' damage of the weapon or attack; some abilities scale off of base damage dice. */
-        base?: boolean;
-        categories: {
-            [category: string]: {
-                /** The static amount of damage of the current damage type and category. */
-                modifier?: number;
-                /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
-                dice?: Record<string, number>;
-            };
-        };
-    }
->;
 
 /**
  * @category PF2
@@ -493,9 +467,11 @@ export class WeaponDamagePF2e {
             notes,
             traits: (traits ?? []).map((t) => t.name),
             // These are calculated below
-            formula: {
-                success: { data: {}, formula: "", partials: {} },
-                criticalSuccess: { data: {}, formula: "", partials: {} },
+            damagePool: {
+                criticalFailure: new DamagePool(),
+                failure: new DamagePool(),
+                success: new DamagePool(),
+                criticalSuccess: new DamagePool(),
             },
         };
 
@@ -533,95 +509,78 @@ export class WeaponDamagePF2e {
 
         this.excludeDamage(actor, [...numericModifiers, ...diceModifiers], options);
 
-        damage.formula.success = this.getFormula(damage, false);
-        damage.formula.criticalSuccess = this.getFormula(damage, true);
+        this.fillDamagePool(damage, "success");
+        this.fillDamagePool(damage, "criticalSuccess");
 
         return damage;
     }
 
+    static getMultiplier(
+        modifier: Pick<BaseRawModifier, "critical" | "damageCategory">,
+        type: DegreeOfSuccessString
+    ): number {
+        if (type !== "criticalSuccess") {
+            return 1;
+        } else if (modifier.critical || modifier.damageCategory === "splash") {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    static filterEnabledModifiers<T extends BaseRawModifier>(modifiers: T[], type: DegreeOfSuccessString): T[] {
+        return modifiers.filter((mod) => mod.enabled && (!mod.critical || type === "criticalSuccess"));
+    }
+
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage: DamageTemplate, critical: boolean): DamageFormula {
+    static fillDamagePool(damage: DamageTemplate, type: DegreeOfSuccessString): DamagePool {
         const base = duplicate(damage.base);
-        const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
+        const diceModifiers = this.filterEnabledModifiers(damage.diceModifiers, type);
 
         // First, increase the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
-        if (diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical))) {
+        if (diceModifiers.some((dm) => dm.override?.upgrade)) {
             base.dieSize = nextDamageDieSize(base.dieSize);
         }
 
         // override next, to ensure the dice stacking works properly
         diceModifiers
-            .filter((dm) => dm.enabled)
             .filter((dm) => dm.override)
             .forEach((dm) => {
-                if (critical && dm.critical) {
-                    base.dieSize = dm.override?.dieSize ?? base.dieSize;
-                    base.damageType = dm.override?.damageType ?? base.damageType;
-                } else if (!dm.critical) {
-                    base.dieSize = dm.override?.dieSize ?? base.dieSize;
-                    base.damageType = dm.override?.damageType ?? base.damageType;
-                }
+                base.dieSize = dm.override?.dieSize ?? base.dieSize;
+                base.damageType = dm.override?.damageType ?? base.damageType;
             });
 
-        const dicePool: DamagePool = {};
-        const critPool: DamagePool = {};
-        dicePool[base.damageType] = {
-            base: true,
-            categories: {
-                [base.category ?? DamageCategory.fromDamageType(base.damageType)]: {
-                    dice: { [base.dieSize]: base.diceNumber },
-                    modifier: base.modifier ?? 0,
-                },
-            },
-        };
+        const damagePool = damage.damagePool[type];
+
+        damagePool.terms.push(
+            new DamageTerm({
+                base: true,
+                damageType: base.damageType,
+                damageCategory: base.category,
+                multiplier: this.getMultiplier({ critical: false, damageCategory: base.category }, type),
+                modifier: base.modifier,
+                diceNumber: base.diceNumber,
+                dieSize: base.dieSize,
+            })
+        );
 
         // dice modifiers always stack
-        diceModifiers
-            .filter((dm) => dm.enabled)
-            .filter((dm) => !dm.critical || critical)
-            .forEach((dm) => {
-                if (critical && dm.critical) {
-                    // critical-only stuff
-                    if (dm.diceNumber) {
-                        this.addDice(
-                            critPool,
-                            dm.damageType ?? base.damageType,
-                            dm.category,
-                            dm.dieSize ?? base.dieSize,
-                            dm.diceNumber
-                        );
-                    }
-                } else if (!dm.critical && dm.diceNumber) {
-                    this.addDice(
-                        dicePool,
-                        dm.damageType ?? base.damageType,
-                        dm.category,
-                        dm.dieSize ?? base.dieSize,
-                        dm.diceNumber
-                    );
-                }
-            });
+        diceModifiers.forEach((dm) => {
+            damagePool.terms.push(
+                new DamageTerm({
+                    damageType: dm.damageType ?? base.damageType,
+                    damageCategory: dm.category,
+                    multiplier: this.getMultiplier(dm, type),
+                    diceNumber: dm.diceNumber,
+                    dieSize: dm.dieSize ?? base.dieSize,
+                })
+            );
+        });
 
         // Apply stacking rules here and distribute on dice pools
         {
-            const modifiers = damage.numericModifiers
-                .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
-                .flatMap((nm: ModifierPF2e) => {
-                    nm.damageType ??= damage.base.damageType;
-                    if (critical && nm.damageCategory === "splash") {
-                        return [];
-                    } else if (critical && nm.critical) {
-                        // Critical-only damage
-                        return nm;
-                    } else if (!nm.critical) {
-                        // Regular pool
-                        return nm;
-                    }
-                    // Skip
-                    return [];
-                });
-
+            const modifiers = this.filterEnabledModifiers(damage.numericModifiers, type);
             Object.entries(
                 modifiers.reduce((accumulator: Record<string, ModifierPF2e[]>, current) => {
                     // Split numeric modifiers into separate lists for each damage type
@@ -635,20 +594,17 @@ export class WeaponDamagePF2e {
                     return new StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
                 })
                 .flat()
-                .filter((nm) => nm.enabled && (!nm.critical || critical))
+                .filter((nm) => nm.enabled)
                 .forEach((nm) => {
-                    const damageType = nm.damageType ?? base.damageType;
-                    let pool = dicePool[damageType];
-                    if (!pool) {
-                        pool = { categories: {} };
-                        dicePool[damageType] = pool;
-                    }
-                    let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
-                    if (!category) {
-                        category = {};
-                        pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
-                    }
-                    category.modifier = (category.modifier ?? 0) + nm.modifier;
+                    damagePool.terms.push(
+                        new DamageTerm({
+                            damageType: nm.damageType || base.damageType,
+                            damageCategory: nm.damageCategory || undefined,
+                            multiplier: this.getMultiplier(nm, type),
+                            modifier: nm.modifier,
+                        })
+                    );
+
                     (nm.traits ?? [])
                         .filter((t) => !damage.traits.includes(t))
                         .forEach((t) => {
@@ -657,131 +613,9 @@ export class WeaponDamagePF2e {
                 });
         }
 
-        // build formula
-        const partials: DamagePartials = {};
-        let formula = this.buildFormula(dicePool, partials);
-        if (critical) {
-            formula = this.doubleFormula(formula);
-            const splashDamage = damage.numericModifiers.find(
-                (modifier) => modifier.enabled && modifier.damageCategory === "splash"
-            );
-            if (splashDamage) formula += ` + ${splashDamage.modifier}`;
-            for (const [damageType, categories] of Object.entries(partials)) {
-                for (const [damageCategory, f] of Object.entries(categories)) {
-                    partials[damageType][damageCategory] = this.doubleFormula(f);
-                    if (splashDamage?.damageType === damageType) {
-                        partials[damageType][damageCategory] += ` + ${splashDamage.modifier}`;
-                    }
-                }
-            }
-            const critFormula = this.buildFormula(critPool, partials);
-            if (critFormula) {
-                formula += ` + ${critFormula}`;
-            }
-        }
+        damagePool.data = { effectiveDamageDice: damage.effectDice };
 
-        return {
-            formula,
-            partials,
-            data: {
-                effectiveDamageDice: damage.effectDice,
-            },
-        };
-    }
-
-    /** Add dice to the given damage pool. */
-    public static addDice(
-        pool: DamagePool,
-        damageType: string,
-        category: string | undefined,
-        dieSize: string,
-        count: number
-    ): DamagePool {
-        // Ensure that the damage pool for this given damage type exists...
-        pool[damageType] = pool[damageType] || { categories: {} };
-        const damagePool = pool[damageType];
-
-        // Ensure that the damage category sub-pool for this given damage category exists...
-        damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] =
-            damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] || {};
-        const damageCategory = damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)];
-
-        // And then add the given number of dice of the given size.
-        damageCategory.dice = damageCategory.dice || {};
-        damageCategory.dice[dieSize] = (damageCategory.dice[dieSize] ?? 0) + count;
-        return pool;
-    }
-
-    /** Converts a damage pool to a final string formula. */
-    public static buildFormula(
-        pool: DamagePool,
-        partials: { [damageType: string]: { [damageCategory: string]: string } } = {}
-    ): string {
-        // First collect all of the individual components of the pool into one flattened list...
-        const parts: string[] = [];
-        let minValue = 0;
-        for (const [type, cats] of Object.entries(pool)) {
-            for (const [category, info] of Object.entries(cats.categories)) {
-                const p: string[] = [];
-                // Add all of the dice components; each individual dice adds one to the minimum value.
-                for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
-                    minValue += count;
-                    parts.push(`${count}${dieSize}`);
-                    p.push(`${count}${dieSize}`);
-                }
-
-                // Add the modifier if present.
-                if (info.modifier) {
-                    minValue += info.modifier;
-                    parts.push(info.modifier.toString());
-                    p.push(info.modifier.toString());
-                }
-
-                partials[type] = partials[type] ?? {};
-                let formula = partials[type][category];
-                let offset = 0;
-                if (!formula) {
-                    formula = p[0];
-                    offset = 1;
-                }
-                partials[type][category] = [formula]
-                    .concat(
-                        p.slice(offset).flatMap((part) => {
-                            if (part.startsWith("-")) {
-                                return ["-", part.substring(1)];
-                            } else {
-                                return ["+", part];
-                            }
-                        })
-                    )
-                    .join(" ");
-            }
-        }
-
-        // To avoid out-of-bounds exceptions, short-circuit with the empty string if there are no damage components whatsoever.
-        if (parts.length === 0) {
-            return "";
-        }
-
-        // Then correct signs (adding '+' or '-' as appropriate) and join; don't modify the first component.
-        const formula = [parts[0]]
-            .concat(
-                parts.slice(1).flatMap((part) => {
-                    if (part.startsWith("-")) {
-                        return ["-", part.substring(1)];
-                    } else {
-                        return ["+", part];
-                    }
-                })
-            )
-            .join(" ");
-
-        // Finally, if the minimum formula value can be 0 or lower, lower bound it.
-        if (minValue <= 0) {
-            return `{${formula}, 1}kh`;
-        } else {
-            return formula;
-        }
+        return damagePool;
     }
 
     /**
@@ -795,17 +629,6 @@ export class WeaponDamagePF2e {
         }
         for (const modifier of notIgnored) {
             modifier.ignored = !new PredicatePF2e(modifier.predicate ?? {}).test(options);
-        }
-    }
-
-    /** Double a textual formula based on the current crit rules. */
-    static doubleFormula(formula: string): string {
-        const rule = game.settings.get("pf2e", "critRule");
-        if (rule === "doubledamage") {
-            return `2 * (${formula})`;
-        } else {
-            const critRoll = new Roll(formula).alter(2, 0, { multiplyNumeric: true });
-            return critRoll.formula;
         }
     }
 
