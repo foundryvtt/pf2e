@@ -378,7 +378,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Disable manually-configured vision settings on the prototype token
-        if (canvas.sight?.rulesBasedVision) {
+        if (canvas.sight?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data.token[property] = this.data.token._source[property] = 0;
             }
