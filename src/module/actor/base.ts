@@ -264,12 +264,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 game.pf2e.effectPanel.refresh();
             }
         }
-
-        // Flush warnings thrown during synthetics preparation
-        for (const warning of this.synthetics.preparationWarnings) {
-            console.warn(warning);
-        }
-        this.synthetics.preparationWarnings.clear();
     }
 
     /** Prepare baseline ephemeral data applicable to all actor types */
@@ -285,6 +279,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
 
+        const preparationWarnings = new Set<string>();
+
         this.synthetics = {
             damageDice: {},
             modifierAdjustments: {},
@@ -296,7 +292,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             strikes: [],
             striking: {},
             weaponPotency: {},
-            preparationWarnings: new Set(),
+            preparationWarnings: {
+                add: (warning: string) => preparationWarnings.add(warning),
+                flush: foundry.utils.debounce(() => {
+                    for (const warning of preparationWarnings) {
+                        console.warn(warning);
+                    }
+                    preparationWarnings.clear();
+                }, 10), // 10ms also handles separate module executions
+            },
         };
     }
 

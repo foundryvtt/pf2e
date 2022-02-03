@@ -404,15 +404,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             return { value: signatureSpells.size, max: totalSlots };
         })();
 
-        // Flush warnings from synthetics extraction, debounced in case multiple warnings would be emitted for the same
-        // synthetic during multiple synchronous calls to `getSpellData`
-        foundry.utils.debounce(() => {
-            for (const warning of actor.synthetics.preparationWarnings) {
-                console.warn(warning);
-            }
-            actor.synthetics.preparationWarnings.clear();
-        }, 0);
-
         return {
             id: this.id,
             name: this.name,
