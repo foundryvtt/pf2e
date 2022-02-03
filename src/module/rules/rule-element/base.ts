@@ -111,6 +111,7 @@ abstract class RuleElementPF2e {
             this.actor.synthetics.preparationWarnings.add(
                 `PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`
             );
+            this.actor.synthetics.preparationWarnings.flush();
         }
         this.ignored = true;
     }

@@ -83,7 +83,12 @@ export interface RuleElementSynthetics {
     strikes: Embedded<WeaponPF2e>[];
     striking: Record<string, StrikingPF2e[]>;
     weaponPotency: Record<string, WeaponPotencyPF2e[]>;
-    preparationWarnings: Set<string>;
+    preparationWarnings: {
+        /** Adds a new preparation warning to be printed when flushed */
+        add: (warning: string) => void;
+        /** Prints all preparation warnings, but this printout is debounced to handle prep and off-prep cycles */
+        flush: () => void;
+    };
 }
 
 interface SenseSynthetic {
