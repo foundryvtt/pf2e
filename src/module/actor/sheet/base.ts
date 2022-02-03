@@ -1,13 +1,5 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import {
-    ItemPF2e,
-    ConditionPF2e,
-    ContainerPF2e,
-    KitPF2e,
-    PhysicalItemPF2e,
-    SpellPF2e,
-    SpellcastingEntryPF2e,
-} from "@item";
+import { ItemPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
@@ -938,9 +930,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (itemData.type === "spellcastingEntry") {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
             return [];
-        } else if (item instanceof KitPF2e) {
-            item.dumpContents(this.actor);
-            return [item];
         } else if (itemData.type === "condition") {
             const value = data.value;
             if (typeof value === "number" && itemData.data.value.isValued) {

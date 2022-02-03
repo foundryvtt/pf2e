@@ -3,7 +3,7 @@ import { ErrorPF2e, sluggify } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e, NPCPF2e } from "@actor";
 import { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementOptions } from "../rules";
-import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
+import { ItemSummaryData, ItemDataPF2e, ItemSourcePF2e, TraitChatData, ItemType } from "./data";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { ItemSheetPF2e } from "./sheet/base";
@@ -57,6 +57,11 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     get description(): string {
         return this.data.data.description.value;
+    }
+
+    /** A means of checking this item's type without risk of circular import references */
+    isOfType<T extends ItemType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
+        return this.type === type;
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
@@ -519,7 +524,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         context: DocumentModificationContext<InstanceType<T>> = {}
     ): Promise<InstanceType<T>[]> {
         if (context.parent) {
-            for await (const itemSource of [...data]) {
+            const kits = data.filter((d) => d.type === "kit");
+            const nonKits = data.filter((d) => !kits.includes(d));
+
+            for await (const itemSource of nonKits) {
                 if (!itemSource.data?.rules) continue;
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     delete itemSource._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
@@ -535,6 +543,13 @@ class ItemPF2e extends Item<ActorPF2e> {
                     await rule.preCreate?.({ itemSource, ruleSource, pendingItems: data, context });
                 }
             }
+
+            for (const kitSource of kits) {
+                const item = new ItemPF2e(kitSource);
+                if (item.isOfType("kit")) await item.dumpContents({ actor: context.parent });
+            }
+
+            return super.createDocuments(nonKits, context) as Promise<InstanceType<T>[]>;
         }
 
         return super.createDocuments(data, context) as Promise<InstanceType<T>[]>;
