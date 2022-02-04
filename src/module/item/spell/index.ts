@@ -201,14 +201,13 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this
-        const actor = this.actor;
+        const { actor } = this;
         if (actor) {
-            const statisticsModifiers = this.actor?.synthetics.statisticsModifiers ?? {};
+            const statisticsModifiers = actor.synthetics.statisticsModifiers;
             const domains = ["damage", "spell-damage"];
-            const modifiers = extractModifiers(statisticsModifiers, domains);
+            const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: this } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
-            const resolvables = { spell: this.clone({ "data.level.value": castLevel }) };
-            const damageModifier = new StatisticModifier("", modifiers, { rollOptions, resolvables });
+            const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
         }
 

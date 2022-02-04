@@ -93,7 +93,14 @@ export interface RawModifier extends BaseRawModifier {
     modifier: number;
 }
 
-export type DeferredValueParams = { resolvables?: Record<string, unknown> };
+export interface DeferredValueParams {
+    /** An object to merge into roll data for `Roll.replaceFormulaData` */
+    resolvables?: Record<string, unknown>;
+    /** An object to merge into standard options for `RuleElementPF2e#resolveInjectedProperties` */
+    injectables?: Record<string, unknown>;
+    /** Roll Options to get against a predicate (if available) */
+    test?: string[];
+}
 export type DeferredValue<T> = (options?: DeferredValueParams) => T;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
@@ -115,9 +122,6 @@ export class ModifierPF2e implements RawModifier {
     traits: string[];
     notes: string;
     hideIfDisabled: boolean;
-
-    /** A function that builds the modifier for cases where its deferred */
-    private modifierFn?: DeferredValue<number>;
 
     /**
      * Create a new modifier.
@@ -166,21 +170,7 @@ export class ModifierPF2e implements RawModifier {
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
-
-        if (params instanceof ModifierPF2e && params.modifierFn) {
-            this.modifierFn = params.modifierFn;
-        } else if (typeof params.modifier === "function") {
-            this.modifierFn = params.modifier;
-        }
-    }
-
-    update(options?: DeferredValueParams) {
-        if (this.modifierFn) {
-            this.modifier = this.modifierFn(options);
-            delete this.modifierFn;
-        }
-
-        return this.modifier;
+        this.modifier = params.modifier;
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -196,9 +186,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        const copy = duplicate(this);
-        delete copy.modifierFn;
-        return copy;
+        return duplicate(this);
     }
 
     toString() {
@@ -206,9 +194,8 @@ export class ModifierPF2e implements RawModifier {
     }
 }
 
-type ModifierObjectParams = Omit<RawModifier, "modifier"> & {
+type ModifierObjectParams = RawModifier & {
     name?: string;
-    modifier: number | DeferredValue<number>;
 };
 
 type ModifierOrderedParams = [
@@ -423,11 +410,7 @@ export class StatisticModifier {
      * @param modifiers All relevant modifiers for this statistic.
      * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(
-        name: string,
-        modifiers: ModifierPF2e[] = [],
-        options?: { rollOptions?: string[] } & DeferredValueParams
-    ) {
+    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions?: string[]) {
         this.name = name;
 
         // De-duplication
@@ -435,11 +418,10 @@ export class StatisticModifier {
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
             if (!found || modifier.type === "ability") seen.push(modifier);
-            modifier.update(options);
         }
         this._modifiers = seen;
 
-        this.calculateTotal(options?.rollOptions);
+        this.calculateTotal(rollOptions);
     }
 
     /** Get the list of all modifiers in this collection (as a read-only list). */

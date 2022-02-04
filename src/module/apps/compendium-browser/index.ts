@@ -26,7 +26,7 @@ class PackLoader {
         const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
 
         const progress = new Progress({ steps: packs.length });
-        for await (const packId of packs) {
+        for (const packId of packs) {
             let data = this.loadedPacks[documentType][packId];
             if (!data) {
                 const pack = game.packs.get(packId);
@@ -302,7 +302,7 @@ export class CompendiumBrowser extends Application {
                 await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
                 this.loadSettings();
                 this.initCompendiumList();
-                for await (const tab of Object.values(this.tabs)) {
+                for (const tab of Object.values(this.tabs)) {
                     if (tab.isInitialized) {
                         await tab.init();
                         this.render(true);
@@ -480,10 +480,8 @@ export class CompendiumBrowser extends Application {
         }
 
         const item = await this.getPhysicalItem(itemId);
-        if (item instanceof KitPF2e) {
-            for await (const actor of actors) await item.dumpContents(actor);
-        } else {
-            for await (const actor of actors) await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+        for (const actor of actors) {
+            await actor.createEmbeddedDocuments("Item", [item.toObject()]);
         }
 
         if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {

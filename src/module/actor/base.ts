@@ -279,6 +279,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
 
+        const preparationWarnings = new Set<string>();
+
         this.synthetics = {
             damageDice: {},
             modifierAdjustments: {},
@@ -290,6 +292,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             strikes: [],
             striking: {},
             weaponPotency: {},
+            preparationWarnings: {
+                add: (warning: string) => preparationWarnings.add(warning),
+                flush: foundry.utils.debounce(() => {
+                    for (const warning of preparationWarnings) {
+                        console.warn(warning);
+                    }
+                    preparationWarnings.clear();
+                }, 10), // 10ms also handles separate module executions
+            },
         };
     }
 
@@ -345,14 +356,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             conditions.values()
         )) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers);
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 
+    /** Set traits as roll options */
     override prepareDerivedData(): void {
-        // Record stored traits as roll options
+        const { rollOptions } = this;
         for (const trait of this.traits) {
-            this.rollOptions.all[`self:trait:${trait}`] = true;
+            rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
 
@@ -367,7 +379,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Disable manually-configured vision settings on the prototype token
-        if (canvas.sight?.rulesBasedVision) {
+        if (canvas.sight?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data.token[property] = this.data.token._source[property] = 0;
             }
@@ -799,19 +811,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
-     * Roll option in this case is a predication property used for filtering.
+     * Retrieve all roll option from the requested domains. Micro-optimized in an excessively verbose for-loop.
+     * @param domains The domains of discourse from which to pull options. Always includes the "all" domain.
      */
-    getRollOptions(domains: string[]): string[] {
-        const rollOptions = this.data.flags.pf2e.rollOptions;
-        const results = new Set<string>();
-        for (const domain of domains) {
-            for (const [key, value] of Object.entries(rollOptions[domain] ?? {})) {
-                if (value) results.add(key);
+    getRollOptions(domains: string[] = []): string[] {
+        const withAll = Array.from(new Set(["all", ...domains]));
+        const { rollOptions } = this;
+        const toReturn: Set<string> = new Set();
+
+        for (const domain of withAll) {
+            for (const [option, value] of Object.entries(rollOptions[domain] ?? {})) {
+                if (value) toReturn.add(option);
             }
         }
 
-        return [...results];
+        return Array.from(toReturn);
     }
 
     /* -------------------------------------------- */
