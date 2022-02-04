@@ -29,6 +29,30 @@
                 "mode": "upgrade",
                 "path": "data.skills.nat.rank",
                 "value": 1
+            },
+            {
+                "damageType": "electricity",
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "item:spell-slot",
+                        "damaging-effect",
+                        "physicalDamageSpell",
+                        {
+                            "or": [
+                                "air",
+                                "water"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "spell-damage",
+                "value": "@spell.level"
+            },
+            {
+                "key": "ToggleProperty",
+                "label": "PF2E.OracleCurses.Tempest.PhysicalSpellDamage",
+                "property": "flags.pf2e.rollOptions.all.physicalDamageSpell"
             }
         ],
         "source": {
