@@ -25,6 +25,58 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": "weaponGroups",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:martial",
+                        "weapon:group:{item|flags.pf2e.rulesSelections.battle}"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGroup.{item|flags.pf2e.rulesSelections.battle}",
+                "predicate": {
+                    "all": [
+                        "self:class:oracle"
+                    ]
+                },
+                "slug": "battle-group-martial",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": 1
+                        },
+                        {
+                            "start": 11,
+                            "value": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:advanced",
+                        "weapon:group:{item|flags.pf2e.rulesSelections.battle}"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.{item|flags.pf2e.rulesSelections.battle}",
+                "predicate": {
+                    "all": [
+                        "self:class:oracle",
+                        "self:feature:weapon-expertise"
+                    ]
+                },
+                "slug": "battle-group-advanced",
+                "value": 1
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.skills.ath.rank",
