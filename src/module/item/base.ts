@@ -540,7 +540,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 const rules = item.prepareRuleElements({ suppressWarnings: true });
                 for await (const rule of rules) {
                     const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
-                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: data, context });
+                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: nonKits, context });
                 }
             }
 
