@@ -1331,7 +1331,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
     private handleStrikeAmmunition(weapon: WeaponPF2e, args: RollParameters): boolean {
         const ammo = weapon.ammo;
-        if (!ammo || weapon.isMelee) {
+        if (!ammo) {
             return true;
         } else if (ammo.quantity < 1) {
             ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
