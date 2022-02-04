@@ -1,3 +1,4 @@
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
 import { CharacterPF2e } from "@actor";
 import { MartialProficiency } from "@actor/character/data";
 import { ActorType } from "@actor/data";
@@ -6,35 +7,44 @@ import { ProficiencyRank } from "@item/data";
 import { WeaponCategory } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
-import { RuleElementOptions } from "./base";
 
-class MartialProficiencyRuleElement extends AELikeRuleElement {
+class MartialProficiencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
     constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.mode = "override";
         data.priority = 9;
-        data.path = `data.martial.${data.slug}`;
-        data.value = Number(data.value) || 1;
-        super(data, item, options);
-        if (!this.dataIsValid(this.data)) {
-            this.failValidation("A martial proficiency must have a slug and definition");
-        }
+        data.immutable = Boolean(data.immutable ?? true);
+        data.value ??= 1;
 
-        this.data.immutable = Boolean(data.immutable ?? true);
-        this.data.value = this.createValue();
+        super(data, item, options);
     }
 
-    private dataIsValid(data: MartialProficiencySource): boolean {
+    private validateData(): void {
         const validRanks: string[] = PROFICIENCY_RANKS.filter((rank) => rank !== "untrained");
-        return (
-            typeof data.slug === "string" &&
-            data.definition instanceof Object &&
-            new PredicatePF2e(data.definition).isValid &&
-            ((typeof data.sameAs === "string" && data.sameAs in CONFIG.PF2E.weaponCategories) || !("sameAs" in data)) &&
-            ((typeof data.maxRank === "string" && validRanks.includes(data.maxRank)) || !("maxRank" in data))
-        );
+        const { data } = this;
+        if (
+            !(
+                typeof data.slug === "string" &&
+                data.definition instanceof Object &&
+                new PredicatePF2e(data.definition).isValid &&
+                ((typeof data.sameAs === "string" && data.sameAs in CONFIG.PF2E.weaponCategories) ||
+                    !("sameAs" in data)) &&
+                ((typeof data.maxRank === "string" && validRanks.includes(data.maxRank)) || !("maxRank" in data))
+            )
+        ) {
+            this.failValidation("A martial proficiency must have a slug and definition");
+        }
+    }
+
+    override onApplyActiveEffects(): void {
+        this.validateData();
+        if (this.ignored) return;
+
+        if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions())) {
+            return;
+        }
+
+        this.actor.data.data.martial[this.data.slug] = this.createValue();
     }
 
     /** Set this martial proficiency as an AELike value  */
@@ -49,11 +59,12 @@ class MartialProficiencyRuleElement extends AELikeRuleElement {
             }
         }
 
+        const rank = Math.clamped(Number(this.resolveValue()), 1, 4) as ZeroToFour;
         const proficiency: MartialProficiency = {
             definition: new PredicatePF2e(this.data.definition),
             immutable: this.data.immutable ?? true,
             label: this.label,
-            rank: (Number(this.data.value) || 1) as ZeroToFour,
+            rank,
             value: 0,
             breakdown: "",
         };
@@ -64,13 +75,13 @@ class MartialProficiencyRuleElement extends AELikeRuleElement {
     }
 }
 
-interface MartialProficiencyRuleElement extends AELikeRuleElement {
+interface MartialProficiencyRuleElement extends RuleElementPF2e {
     data: MartialProficiencyData;
 
     get actor(): CharacterPF2e;
 }
 
-interface MartialProficiencyData extends AELikeData {
+interface MartialProficiencyData extends RuleElementData {
     key: "MartialProficiency";
     /** The key to be used for this proficiency in `CharacterPF2e#data#data#martial` */
     slug: string;
@@ -86,7 +97,7 @@ interface MartialProficiencyData extends AELikeData {
     value: number | MartialProficiency;
 }
 
-export interface MartialProficiencySource extends AELikeSource {
+export interface MartialProficiencySource extends RuleElementSource {
     definition?: unknown;
     sameAs?: unknown;
     immutable?: unknown;
