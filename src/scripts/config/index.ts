@@ -186,6 +186,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     healing: "PF2E.TraitHealing",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
+    magic: "PF2E.TraitMagic",
     magical: "PF2E.TraitMagical",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",

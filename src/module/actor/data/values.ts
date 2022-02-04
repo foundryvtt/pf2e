@@ -74,6 +74,7 @@ export const IMMUNITY_TYPES = new Set([
     "fear-effects",
     "healing",
     "inhaled",
+    "magic",
     "nonlethal-attacks",
     "nonmagical-attacks",
     "object-immunities",
