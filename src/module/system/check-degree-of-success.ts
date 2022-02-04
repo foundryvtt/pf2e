@@ -25,6 +25,7 @@ export interface DegreeOfSuccessAdjustment {
 }
 
 export interface CheckDC {
+    target?: string;
     label?: string;
     modifiers?: CheckDCModifiers;
     scope?: "AttackOutcome" | "CheckOutcome";

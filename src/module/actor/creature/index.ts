@@ -651,8 +651,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const { attributes } = contextActor;
             if (attributes.ac) {
                 dc = {
+                    target: context.target.name,
                     label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
-                        creature: context.target.name,
                         dc: "{dc}",
                     }),
                     scope: "AttackOutcome",
