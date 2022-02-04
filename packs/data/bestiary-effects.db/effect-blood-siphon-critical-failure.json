@@ -1,25 +1,31 @@
 {
-    "_id": "TEzLEXBZzNCp6flg",
+    "_id": "ceOkHxhJNTcvZkCy",
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>The creature gains a +1 circumstance bonus to attack rolls.</p>"
+            "value": "<p>The creature gains a +2 status bonus to AC and saves.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
-            "value": 2
+            "value": 3
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
-                "type": "circumstance",
-                "value": 1
+                "selector": "ac",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
             }
         ],
         "source": {
@@ -41,7 +47,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/weapon-surge.webp",
-    "name": "Effect: Instinctual Tinker (Critical Success)",
+    "img": "systems/pf2e/icons/spells/boil-blood.webp",
+    "name": "Effect: Blood Siphon (Critical Failure)",
     "type": "effect"
 }
