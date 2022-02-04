@@ -141,7 +141,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",
-                    ["data.details.level.value"]: "PF2E.BrowserSortyByLevelLabel",
+                    level: "PF2E.BrowserSortyByLevelLabel",
                 },
             },
             ranges: {
