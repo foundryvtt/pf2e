@@ -39,15 +39,16 @@ abstract class RuleElementPF2e {
 
         this.suppressWarnings = options.suppressWarnings ?? false;
 
-        const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
+        const validActorType = (this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
             item.actor.data.type
         );
-        if (invalidActorType) {
+
+        if (!validActorType) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
-            this.failValidation(`A ${ruleName} rules element may not be applied to a ${actorType}`);
+            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
+            data.ignored = true;
         }
-        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
 
         this.data = {
             priority: 100,
