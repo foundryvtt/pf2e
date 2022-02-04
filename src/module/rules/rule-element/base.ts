@@ -149,10 +149,7 @@ abstract class RuleElementPF2e {
         return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
             const value = getProperty(objects[key]?.data ?? this.item.data, prop);
             if (value === undefined) {
-                const { item } = this;
-                this.failValidation(
-                    `Failed to resolve injected property on rule element from item "${item.name}" (${item.uuid})`
-                );
+                this.failValidation("Failed to resolve injected property");
             }
             return value;
         });
