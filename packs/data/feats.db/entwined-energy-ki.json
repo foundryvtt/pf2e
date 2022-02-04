@@ -23,7 +23,40 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "entwinedEnergyKi",
+                "key": "ChoiceSet",
+                "prompt": "Choose your energy damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "entwined-energy-ki:{item|flags.pf2e.rulesSelections.entwinedEnergyKi}"
+            }
+        ],
         "source": {
             "value": "Pathfinder #166: Despair on Danger Island"
         },
