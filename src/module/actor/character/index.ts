@@ -1278,16 +1278,9 @@ export class CharacterPF2e extends CreaturePF2e {
                         traits: action.traits,
                     };
 
-                    const { canFire, consumer } = this.handleStrikeAmmunition(weapon);
-                    if (!canFire) {
+                    if (!this.handleStrikeAmmunition(weapon, args)) {
                         return;
                     }
-
-                    const existingCallback = args.callback;
-                    args.callback = async (roll: Rolled<Roll>) => {
-                        existingCallback?.(roll);
-                        await consumer?.();
-                    };
 
                     await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
                 },
@@ -1336,15 +1329,20 @@ export class CharacterPF2e extends CreaturePF2e {
         return action;
     }
 
-    private handleStrikeAmmunition(weapon: WeaponPF2e): { canFire: boolean; consumer?: () => Promise<void> } {
+    private handleStrikeAmmunition(weapon: WeaponPF2e, args: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
-            return { canFire: true };
+            return true;
         } else if (ammo.quantity < 1) {
             ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-            return { canFire: false };
+            return false;
         } else {
-            return { canFire: true, consumer: () => ammo.consume() };
+            const existingCallback = args.callback;
+            args.callback = async (roll: Rolled<Roll>) => {
+                existingCallback?.(roll);
+                await ammo.consume();
+            };
+            return true;
         }
     }
 
