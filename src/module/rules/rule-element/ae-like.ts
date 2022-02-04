@@ -182,8 +182,7 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     protected warn(property: string): void {
-        const item = this.item;
-        this.failValidation(`"${property}" property on RuleElement from item ${item.name} (${item.uuid}) is invalid`);
+        this.failValidation(`"${property}" property is invalid`);
     }
 }
 
