@@ -46,8 +46,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * ignored if no selection was made.
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
-        const selfDomain = Array.from(this.actor.getSelfRollOptions());
-        if (this.data.predicate && !this.data.predicate.test(selfDomain)) return;
+        const rollOptions = this.actor.getRollOptions();
+        if (this.data.predicate && !this.data.predicate.test(rollOptions)) return;
 
         this.setDefaultFlag(ruleSource);
 
@@ -57,7 +57,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 prompt: this.data.prompt,
                 item: this.item,
                 title: this.label,
-                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(selfDomain)),
+                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(rollOptions)),
                 containsUUIDs: this.data.containsUUIDs,
                 // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
                 allowedDrops: this.data.allowedDrops,
@@ -178,7 +178,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
 
             // Apply the followup predication filter if there is one
-            const actorRollOptions = this.actor.getRollOptions(["all"]);
+            const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
                 ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getItemRollOptions("item")]))
                 : feats;

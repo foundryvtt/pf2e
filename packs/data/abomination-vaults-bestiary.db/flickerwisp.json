@@ -61,7 +61,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>The dancing, twisting flickerwisp is a less powerful but no less malevolent type of will-o'-wisp. Like their more dangerous kin, flickerwisps prefer to haunt lonely swamps or stretches of lonely rivers or creeks, particularly near the shorelines where they can pass themselves off as nothing more than a small gathering of fireflies. A flickerwisp's body is a 3-foot-long length of hair-like fibers that flashes and pulses with ribbons and points of eerie yellow light as the creature flits through the air.</p>\n<p>While a flickerwisp can taste fear, and finds the flavor delectable, it does not feed on this emotion. Instead, flickerwisps subsist on confusion and doubt. The sense of unease a traveler exudes when they become lost in the woods is flickerwisps' favorite repast. They can sip from this sense of disorientation without betraying their presence or harming their prey. Eventually, the flickerwisps grow too hungry and are compelled to flit closer, confuse their prey, and glut on the raw emotions. Flickerwisps do their best to swoop away before death occurs, and the most skilled of these tormentors can keep a chosen meal alive for days, sipping from confusion in small doses.</p>",
             "source": {
                 "value": "Pathfinder #163: Ruins of Gauntlight"
             }
@@ -222,12 +222,25 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A flickerwisp is itself naturally invisible, but glows with pale yellow light, casting bright light in the aura and making it visible.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A flickerwisp is itself naturally invisible, but glows with pale yellow light, casting bright light in the aura and making it visible.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 5,
+                            "color": "#fff9a3"
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -351,7 +364,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> A creature within 15 feet of the flickerwisp is @Compendium[pf2e.conditionitems.Confused]{Confused}</p>\n<p><strong>Effect</strong> The flickerwisp feeds on the creature's confusion, even as its flashing body and disjointed gyrations cause existing confusion effects to persist.</p>\n<p>It regains [[/r {1d4}[healing]]]{1d4 Hit Points}, and if the creature's confused condition has a limited duration, it lasts 1 additional round.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> A creature within 15 feet of the flickerwisp is @Compendium[pf2e.conditionitems.Confused]{Confused}</p>\n</div>\n<p><strong>Effect</strong> The flickerwisp feeds on the creature's confusion, even as its flashing body and disjointed gyrations cause existing confusion effects to persist.</p>\n<p>It regains [[/r {1d4}[healing]]]{1d4 Hit Points}, and if the creature's confused condition has a limited duration, it lasts 1 additional round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,7 +408,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The flickerwisp churns and flits in the air around an adjacent creature's head, and its length flashes and sparkles in a bewildering array of distracting pulsations.</p>\n<p>The creature must succeed at a @Check[type:will|dc:18] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round (2 rounds on a critical failure). On a critical success, the creature is temporarily immune to for 24 hours</span>.</p>"
+                    "value": "<p>The flickerwisp churns and flits in the air around an adjacent creature's head, and its length flashes and sparkles in a bewildering array of distracting pulsations.</p>\n<p>The creature must succeed at a @Check[type:will|dc:18] save or become @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round (2 rounds on a critical failure). On a critical success, the creature is temporarily immune to for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""

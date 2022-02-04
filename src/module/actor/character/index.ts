@@ -356,10 +356,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             }
 
-            const hpRollOptions = this.getRollOptions(["hp", "all"]);
+            const hpRollOptions = this.getRollOptions(["hp"]);
             modifiers.push(...extractModifiers(statisticsModifiers, ["hp"], { test: hpRollOptions }));
 
-            const perLevelRollOptions = this.getRollOptions(["hp-per-level", "all"]);
+            const perLevelRollOptions = this.getRollOptions(["hp-per-level"]);
             modifiers.push(
                 ...extractModifiers(statisticsModifiers, ["hp-per-level"], { test: perLevelRollOptions }).map(
                     (clone) => {

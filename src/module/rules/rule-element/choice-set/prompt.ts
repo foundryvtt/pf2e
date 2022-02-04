@@ -43,7 +43,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
     }
 
     protected override getChoices(): PromptChoice[] {
-        const rollOptions = this.actor.getRollOptions(["all"]);
+        const rollOptions = this.actor.getRollOptions();
         return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
     }
 

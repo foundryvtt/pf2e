@@ -527,7 +527,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             const kits = data.filter((d) => d.type === "kit");
             const nonKits = data.filter((d) => !kits.includes(d));
 
-            for await (const itemSource of nonKits) {
+            for (const itemSource of [...nonKits]) {
                 if (!itemSource.data?.rules) continue;
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     delete itemSource._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
@@ -538,9 +538,9 @@ class ItemPF2e extends Item<ActorPF2e> {
                 item.prepareActorData?.();
 
                 const rules = item.prepareRuleElements({ suppressWarnings: true });
-                for await (const rule of rules) {
+                for (const rule of rules) {
                     const ruleSource = itemSource.data.rules[rules.indexOf(rule)] as RuleElementSource;
-                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: data, context });
+                    await rule.preCreate?.({ itemSource, ruleSource, pendingItems: nonKits, context });
                 }
             }
 
@@ -565,7 +565,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (actor) {
             const items = ids.flatMap((id) => actor.items.get(id) ?? []);
             for (const item of items) {
-                for await (const rule of item.rules) {
+                for (const rule of item.rules) {
                     await rule.preDelete?.({ pendingItems: items, context });
                 }
             }
