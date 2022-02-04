@@ -42,6 +42,7 @@ import { HitPointsSummary } from "@actor/base";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
+import { DamageType } from "@module/damage-calculation";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -436,7 +437,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         value: number,
         type: string,
         predicate?: RawPredicate,
-        damageType?: string,
+        damageType?: DamageType,
         damageCategory?: string
     ) {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
