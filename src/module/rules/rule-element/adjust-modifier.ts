@@ -10,20 +10,20 @@ import { RuleElementOptions } from "./";
 class AdjustModifierRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    slug: string | null;
+
+    selectors: string[];
+
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super({ ...data, phase: "beforeDerived", priority: data.priority ?? 90 }, item, options);
-        this.data.slug ??= null;
+        this.slug = this.data.slug ?? null;
         this.data.predicate = new PredicatePF2e(this.data.predicate);
-
-        this.validateData();
-    }
-
-    get selectors(): string[] {
-        return this.data.selectors;
-    }
-
-    get slug(): string | null {
-        return this.data.slug;
+        this.selectors =
+            typeof this.data.selector === "string"
+                ? [this.data.selector]
+                : Array.isArray(this.data.selectors)
+                ? this.data.selectors
+                : [];
     }
 
     protected override validateData(): void {
@@ -46,24 +46,33 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
 
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
     override applyAELike(): void {
+        this.validateData();
         if (this.ignored) return;
-
-        const change = this.resolveValue();
-        if (typeof change !== "number") return this.failValidation("value does not resolve to a number");
 
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
             predicate: this.predicate,
-            getNewValue: (current: number) => this.getNewValue(current, change),
-        };
-        if (this.data.damageType) {
-            const damageType = this.resolveInjectedProperties(this.data.damageType);
-            if (!setHasElement(DAMAGE_TYPES, damageType)) {
-                return this.failValidation("damageType");
-            }
+            getNewValue: (current: number): number => {
+                const change = this.resolveValue();
+                if (typeof change !== "number") {
+                    this.failValidation("value does not resolve to a number");
+                    return current;
+                }
 
-            adjustment.damageType = damageType;
-        }
+                return this.getNewValue(current, change);
+            },
+            getDamageType: (current: DamageType | null): DamageType | null => {
+                if (!this.data.damageType) return current;
+
+                const damageType = this.resolveInjectedProperties(this.data.damageType);
+                if (!setHasElement(DAMAGE_TYPES, damageType)) {
+                    this.failValidation(`${damageType} is an unrecognized damage type.`);
+                    return current;
+                }
+
+                return damageType;
+            },
+        };
 
         for (const selector of this.selectors) {
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);
