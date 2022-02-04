@@ -1,8 +1,8 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e, sluggify } from "../util";
-import { DamageType } from "./damage-calculation";
+import { ErrorPF2e, setHasElement, sluggify } from "../util";
+import { DamageType, DAMAGE_TYPES } from "./damage-calculation";
 import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = [
@@ -87,6 +87,7 @@ export interface ModifierAdjustment {
     predicate: PredicatePF2e;
     damageType?: DamageType;
     getNewValue(current: number): number;
+    getDamageType(current: DamageType | null): DamageType | null;
 }
 
 export interface RawModifier extends BaseRawModifier {
@@ -115,7 +116,7 @@ export class ModifierPF2e implements RawModifier {
     ignored: boolean;
     source: string | null;
     custom: boolean;
-    damageType: string | null;
+    damageType: DamageType | null;
     damageCategory: string | null;
     predicate: PredicatePF2e;
     critical: boolean | null;
@@ -159,7 +160,7 @@ export class ModifierPF2e implements RawModifier {
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.adjustments = deepClone(params.adjustments ?? []);
-        this.damageType = params.damageType ?? null;
+        this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
         this.damageCategory = params.damageCategory ?? null;
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
@@ -485,8 +486,10 @@ export class StatisticModifier {
             modifier.modifier = adjustments.reduce((adjusted, a): number => a.getNewValue(adjusted), modifier.modifier);
 
             // If applicable, change the damage type of this modifier, using only the final adjustment found
-            const damageTypeAdjustment = adjustments.filter((a) => !!a.damageType).pop();
-            modifier.damageType = damageTypeAdjustment?.damageType ?? modifier.damageType;
+            modifier.damageType = adjustments.reduce(
+                (damageType: DamageType | null, adjustment) => adjustment.getDamageType(damageType),
+                modifier.damageType
+            );
         }
     }
 }
@@ -507,20 +510,14 @@ export class CheckModifier extends StatisticModifier {
 }
 
 interface DamageDiceOverride {
-    /**
-     * Upgrade the damage dice to the next size
-     */
+    /** Upgrade the damage dice to the next size */
     upgrade?: boolean;
 
-    /**
-     * Override with a set dice size
-     */
+    /** Override with a set dice size */
     dieSize?: DamageDieSize;
 
-    /**
-     * Override the damage type
-     */
-    damageType?: string;
+    /** Override the damage type */
+    damageType?: DamageType;
 }
 
 /**

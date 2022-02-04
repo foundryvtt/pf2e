@@ -18,6 +18,7 @@ import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
+import { DamageType } from "@module/damage-calculation";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -33,7 +34,7 @@ export interface DamageFormula {
 
 export interface DamageTemplate {
     base: {
-        damageType: string;
+        damageType: DamageType;
         diceNumber: number;
         dieSize: DamageDieSize;
         category: string;
