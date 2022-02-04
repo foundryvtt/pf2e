@@ -126,6 +126,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.traits.otherTags ??= [];
+        systemData.selectedAmmoId ||= null;
         AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
@@ -346,6 +347,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 group: meleeUsage.group,
                 range: null,
                 traits: { value: meleeUsage.traits.concat("combination") },
+                selectedAmmoId: null,
             },
             flags: {
                 pf2e: {
