@@ -205,10 +205,9 @@ export class CheckPF2e {
 
             const dcLabel = game.i18n.format(ctx.dc.label ?? "PF2E.DCLabel", { dc: ctx.dc.value });
             const showDC = ctx.dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
-            const showTarget = ctx.dc.visibility ?? game.settings.get("pf2e", "metagame.showTarget");
             const targetName = ctx.dc.target;
             flavor += `<div>`;
-            if (targetName) flavor += `<span data-visibility="${showTarget}"><strong>${targetName}</strong></span>`;
+            if (targetName) flavor += `<strong>${targetName}</strong>`;
             flavor += `<span data-visibility="${showDC}"><strong>${dcLabel}</strong></span></div>`;
 
             const adjustment = (() => {

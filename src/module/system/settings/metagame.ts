@@ -7,7 +7,6 @@ export class MetagameSettings extends SettingsMenuPF2e {
 
     static override readonly SETTINGS = [
         "showDC",
-        "showTarget",
         "showResults",
         "tokenSetsNameVisibility",
         "secretDamage",
@@ -27,18 +26,6 @@ export class MetagameSettings extends SettingsMenuPF2e {
                     gm: "PF2E.SETTINGS.Metagame.ShowDC.Gm",
                     owner: "PF2E.SETTINGS.Metagame.ShowDC.Owner",
                     all: "PF2E.SETTINGS.Metagame.ShowDC.All",
-                },
-            },
-            showTarget: {
-                name: "PF2E.SETTINGS.Metagame.ShowTarget.Name",
-                hint: "PF2E.SETTINGS.Metagame.ShowTarget.Hint",
-                default: "gm",
-                type: String,
-                choices: {
-                    none: "PF2E.SETTINGS.Metagame.ShowTarget.None",
-                    gm: "PF2E.SETTINGS.Metagame.ShowTarget.Gm",
-                    owner: "PF2E.SETTINGS.Metagame.ShowTarget.Owner",
-                    all: "PF2E.SETTINGS.Metagame.ShowTarget.All",
                 },
             },
             showResults: {
