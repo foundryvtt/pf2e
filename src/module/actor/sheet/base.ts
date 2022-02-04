@@ -773,7 +773,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         if (item.isCantrip !== test.isCantrip) return false;
                         if (item.isCantrip && test.isCantrip) return true;
                         if (item.isFocusSpell && test.isFocusSpell) return true;
-                        if (item.heightenedLevel === test.heightenedLevel) return true;
+                        if (item.level === test.level) return true;
                         return false;
                     };
 
@@ -783,7 +783,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         await item.sortRelative({ target, siblings, sortBefore });
                         return [target];
                     } else {
-                        return entry.addSpell(item, target.heightenedLevel);
+                        return entry.addSpell(item, target.level);
                     }
                 }
             } else if (dropSlotType === "spellSlot") {
@@ -908,7 +908,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     return [];
                 }
 
-                const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.level);
+                const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
                 this.actor._setShowUnpreparedSpells(entry.id, itemData.data.level?.value);
                 return entry.addSpell(item, level);
             } else if (dropContainerType === "actorInventory" && itemData.data.level.value > 0) {

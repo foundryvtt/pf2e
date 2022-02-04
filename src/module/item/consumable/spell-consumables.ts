@@ -53,7 +53,7 @@ export async function createConsumableFromSpell(
     spell: SpellPF2e,
     heightenedLevel?: number
 ): Promise<ConsumableSource> {
-    heightenedLevel = heightenedLevel ?? spell.level;
+    heightenedLevel = heightenedLevel ?? spell.baseLevel;
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getDocument(itemId ?? "");
