@@ -1278,16 +1278,15 @@ export class CharacterPF2e extends CreaturePF2e {
                         traits: action.traits,
                     };
 
-                    const ammo = weapon.ammo;
-                    if (ammo && ammo.quantity < 1) {
-                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+                    const { canFire, consumer } = this.handleStrikeAmmunition(weapon);
+                    if (!canFire) {
                         return;
                     }
 
                     const existingCallback = args.callback;
                     args.callback = async (roll: Rolled<Roll>) => {
                         existingCallback?.(roll);
-                        await ammo?.consume();
+                        await consumer?.();
                     };
 
                     await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
@@ -1335,6 +1334,18 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         return action;
+    }
+
+    private handleStrikeAmmunition(weapon: WeaponPF2e): { canFire: boolean; consumer?: () => Promise<void> } {
+        const ammo = weapon.ammo;
+        if (!ammo) {
+            return { canFire: true };
+        } else if (ammo.quantity < 1) {
+            ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+            return { canFire: false };
+        } else {
+            return { canFire: true, consumer: () => ammo.consume() };
+        }
     }
 
     /** Prepare stored and synthetic martial proficiencies */
