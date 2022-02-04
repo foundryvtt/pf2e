@@ -657,8 +657,19 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {4}[splash,acid]]]{4 acid splash damage} and [[/r {4d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Major.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Major.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -768,7 +779,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {4}[splash,electricity]]]{4 electricity splash damage} and the target becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn."
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.BottledLightning.Major.success]</p>"
                     }
                 ],
                 "slug": null,
@@ -823,7 +834,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {4}[splash,cold]]]{4 cold splash damage} and the target takes a -15-foot penalty to its Speeds until the end of its next turn."
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.FrostVial.Major.success]</p>"
                     }
                 ],
                 "slug": null,
