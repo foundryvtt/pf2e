@@ -12,19 +12,19 @@ import { RuleElementOptions } from "./base";
 export class TogglePropertyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    /** Whether the checkbox is toggled on and the property set to `true` */
-    checked: boolean;
+    /** The current value of the toggle */
+    value: boolean;
 
-    /** Whether the checkbox is interactable in an actor sheet */
+    /** Whether the toggle is interactable by the user. The value may still be true even if the toggle is disabled */
     enabled: PredicatePF2e;
 
     constructor(data: TogglePropertySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.data.default = typeof data.default === "boolean" ? data.default : false;
-        this.checked = Boolean(getProperty(this.actor.data, this.data.property) ?? this.data.default);
+        this.value = Boolean(getProperty(this.actor.data, this.data.property) ?? this.data.default);
         this.enabled = new PredicatePF2e(this.data.enabled);
-        setProperty(this.actor.data, this.data.property, this.checked);
+        setProperty(this.actor.data, this.data.property, this.value);
     }
 
     override beforePrepareData(): void {
@@ -36,11 +36,11 @@ export class TogglePropertyRuleElement extends RuleElementPF2e {
         }
 
         if (this.data.property) {
-            setProperty(this.actor.data, this.data.property, this.checked);
+            setProperty(this.actor.data, this.data.property, this.value);
             this.actor.data.data.toggles.actions.push({
                 label: this.label,
                 inputName: this.data.property,
-                checked: this.checked,
+                checked: this.value,
                 enabled: this.enabled.test(rollOptions),
             });
         } else {
