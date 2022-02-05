@@ -1278,7 +1278,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         traits: action.traits,
                     };
 
-                    if (!this.handleStrikeAmmunition(weapon, args)) {
+                    if (!this.consumeAmmo(weapon, args)) {
                         return;
                     }
 
@@ -1329,7 +1329,7 @@ export class CharacterPF2e extends CreaturePF2e {
         return action;
     }
 
-    private handleStrikeAmmunition(weapon: WeaponPF2e, args: RollParameters): boolean {
+    consumeAmmo(weapon: WeaponPF2e, args: RollParameters): boolean {
         const ammo = weapon.ammo;
         if (!ammo) {
             return true;
