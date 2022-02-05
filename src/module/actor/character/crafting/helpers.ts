@@ -15,6 +15,7 @@ import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { AELikeRuleElement } from "@module/rules/rule-element/ae-like";
 
 interface Costs {
     reductionPerDay: Coins;
@@ -110,6 +111,21 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
     }
 }
 
+function modifyInfusedItemDC(itemDescription: string, newDC: Number): string {
+    // Second capture group is the items DC
+    const dcRegex = /(@Check\[type:[fortitude|reflex|will]|dc:)(\d+)/i;
+    const regexMatchResult = itemDescription.match(dcRegex);
+    // If a check is found in item description, regexMatchResult stores second capture group in 3rd position
+    if (regexMatchResult && regexMatchResult.length === 3 && +regexMatchResult[2] < newDC) {
+        itemDescription = itemDescription.replace(dcRegex, "$1" + newDC);
+    }
+    // In all cases, add a note to the item description
+    itemDescription = itemDescription.concat(
+        game.i18n.format("PF2E.Actions.Craft.Information.ModifiedInfusedItem", { newDC: newDC.toString() })
+    );
+    return itemDescription;
+}
+
 export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e, infused?: boolean) {
     const itemSource = item.toObject();
     itemSource.data.quantity = itemQuantity;
@@ -118,6 +134,15 @@ export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, ac
         const sourceTraits: string[] = itemSource.data.traits.value;
         sourceTraits.push("infused");
         itemSource.data.temporary = true;
+        // Modifies infused object's DC based on RuleElements
+        const infusedRE = actor.rules.find(
+            (r) => !r.ignored && (r as AELikeRuleElement)?.data?.path === "data.crafting.infusedAlchemicalItemDC"
+        );
+        if (infusedRE) {
+            // The rule element contains the path in the actor object to the dc value to use
+            const newDC = eval(infusedRE.data.value as string);
+            itemSource.data.description.value = modifyInfusedItemDC(itemSource.data.description.value, newDC);
+        }
     }
     const result = await actor.addToInventory(itemSource);
     if (!result) {
