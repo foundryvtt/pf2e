@@ -246,7 +246,7 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
             case "reflex":
             case "will": {
                 const ability = CONFIG.PF2E.savingThrowDefaultAbilities[type];
-                const selectors = [`${type}-dc`, `${ability}-based`, "all", "dc"];
+                const selectors = [`${ability}-based`, "all", "dc"];
                 return getStatisticValue(selectors);
             }
             default: {
