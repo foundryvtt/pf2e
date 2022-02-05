@@ -26,6 +26,10 @@ export interface ChoiceSetData extends RuleElementData {
     recordSlug: boolean;
     /** A predicate to validation dropped item selections */
     allowedDrops: PredicatePF2e;
+    /** Allow no selection to be made */
+    allowNoSelection?: unknown;
+    /** An optional roll option to be set from the selection */
+    rollOption: string | null;
 }
 
 export interface ChoiceSetSource extends RuleElementSource {
@@ -35,6 +39,8 @@ export interface ChoiceSetSource extends RuleElementSource {
     adjustName?: unknown;
     recordSlug?: unknown;
     allowedDrops?: unknown;
+    allowNoSelection?: unknown;
+    rollOption?: unknown;
 }
 
 export interface ChoiceSetFeatQuery {

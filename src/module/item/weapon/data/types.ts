@@ -142,7 +142,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
         critDamage: string;
         critDamageType: string;
     };
-    selectedAmmoId?: string;
+    selectedAmmoId: string | null;
 }
 
 export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
