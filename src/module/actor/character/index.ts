@@ -1176,10 +1176,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 };
 
                 // look for toggleable traits
-                if (trait.startsWith("two-hand-")) {
-                    traitObject.rollName = "damage-roll";
-                    traitObject.rollOption = "two-handed";
-                } else if (trait.startsWith("versatile-")) {
+                if (trait.startsWith("versatile-")) {
                     traitObject.rollName = "damage-roll";
                     traitObject.rollOption = trait;
                 }
