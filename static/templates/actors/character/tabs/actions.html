@@ -14,8 +14,8 @@
                         {{#each data.toggles.actions as |toggle idx|}}
                             <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
                                 <label>
-                                    <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
-                                    <span>{{localize toggle.label}}</span>
+                                    <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}} {{disabled (not toggle.enabled)}} />
+                                    <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
                                 </label>
                             </div>
                         {{/each}}
