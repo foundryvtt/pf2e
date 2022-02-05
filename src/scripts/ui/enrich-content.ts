@@ -241,17 +241,17 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
             case "flat":
                 return params.immutable === "false" ? getStatisticValue(["dc", "flat-dc"]) : base.toString();
             case "perception":
-                return getStatisticValue(["perception", "wis-based", "all", "dc"]);
+                return getStatisticValue(["all", "dc"]);
             case "fortitude":
             case "reflex":
             case "will": {
                 const ability = CONFIG.PF2E.savingThrowDefaultAbilities[type];
-                const selectors = [`${ability}-based`, "all", "dc"];
+                const selectors = [`"all", "dc"];
                 return getStatisticValue(selectors);
             }
             default: {
                 // Skill or Lore
-                const selectors = ["skill-check", "all", "dc"];
+                const selectors = ["all", "dc"];
                 if (SKILL_EXPANDED[type]) {
                     // Long form
                     selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);
