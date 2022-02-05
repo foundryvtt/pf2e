@@ -22,6 +22,8 @@ import {
 abstract class RuleElementPF2e {
     data: RuleElementData;
 
+    key: string;
+
     protected suppressWarnings: boolean;
 
     /** A list of actor types on which this rule element can operate (all unless overridden) */
@@ -32,20 +34,21 @@ abstract class RuleElementPF2e {
      * @param item where the rule is persisted on
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>, options: RuleElementOptions = {}) {
-        data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
+        this.key = data.key = data.key.replace(/^PF2E\.RuleElement\./, "");
         data = deepClone(data);
 
         this.suppressWarnings = options.suppressWarnings ?? false;
 
-        const invalidActorType = !(this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
+        const validActorType = (this.constructor as typeof RuleElementPF2e).validActorTypes.includes(
             item.actor.data.type
         );
-        if (invalidActorType) {
-            const ruleName = game.i18n.localize(`PF2E.RuleElement.${data.key}`);
+
+        if (!validActorType) {
+            const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
             const actorType = game.i18n.localize(`ACTOR.Type${item.actor.type.titleCase()}`);
-            this.failValidation(`A ${ruleName} rules element may not be applied to a ${actorType}`);
+            console.warn(`PF2e System | A ${ruleName} rules element may not be applied to a ${actorType}`);
+            data.ignored = true;
         }
-        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
 
         this.data = {
             priority: 100,
@@ -55,10 +58,6 @@ abstract class RuleElementPF2e {
             ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
-    }
-
-    get key(): string {
-        return this.data.key;
     }
 
     get actor(): ActorPF2e {
@@ -108,7 +107,11 @@ abstract class RuleElementPF2e {
         const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
         if (!this.suppressWarnings) {
-            console.warn(`PF2e System | Rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`);
+            const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
+            this.actor.synthetics.preparationWarnings.add(
+                `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`
+            );
+            this.actor.synthetics.preparationWarnings.flush();
         }
         this.ignored = true;
     }
@@ -146,10 +149,7 @@ abstract class RuleElementPF2e {
         return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
             const value = getProperty(objects[key]?.data ?? this.item.data, prop);
             if (value === undefined) {
-                const { item } = this;
-                this.failValidation(
-                    `Failed to resolve injected property on rule element from item "${item.name}" (${item.uuid})`
-                );
+                this.failValidation("Failed to resolve injected property");
             }
             return value;
         });
@@ -228,9 +228,7 @@ abstract class RuleElementPF2e {
                 return Roll.safeEval(formula);
             } catch {
                 const { item } = this;
-                console.warn(
-                    `PF2e System | Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`
-                );
+                this.failValidation(`Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`);
                 return 0;
             }
         };

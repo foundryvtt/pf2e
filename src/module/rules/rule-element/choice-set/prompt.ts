@@ -39,11 +39,12 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
             ...(await super.getData(options)),
             prompt: this.prompt,
             containsUUIDs: this.containsUUIDs,
+            allowNoSelection: this.allowNoSelection,
         };
     }
 
     protected override getChoices(): PromptChoice[] {
-        const rollOptions = this.actor.getRollOptions(["all"]);
+        const rollOptions = this.actor.getRollOptions();
         return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
     }
 
@@ -54,6 +55,10 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
             const $select = $(event.target);
             const $submit = $html.find<HTMLButtonElement>("button");
             $submit.val(String($select.val()));
+        });
+
+        $html.find('button[data-action="close"]').on("click", () => {
+            this.close();
         });
 
         $html.find("i.fas").tooltipster({ theme: "crb-hover" });
@@ -117,4 +122,5 @@ interface ChoiceSetTemplateData {
     prompt: string;
     choices: PromptChoice[];
     containsUUIDs: boolean;
+    allowNoSelection: boolean;
 }

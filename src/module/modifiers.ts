@@ -1,8 +1,8 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e, sluggify } from "../util";
-import { DamageType } from "./damage-calculation";
+import { ErrorPF2e, setHasElement, sluggify } from "../util";
+import { DamageType, DAMAGE_TYPES } from "./damage-calculation";
 import { RollNotePF2e } from "./notes";
 
 export const PROFICIENCY_RANK_OPTION = [
@@ -87,13 +87,21 @@ export interface ModifierAdjustment {
     predicate: PredicatePF2e;
     damageType?: DamageType;
     getNewValue(current: number): number;
+    getDamageType(current: DamageType | null): DamageType | null;
 }
 
 export interface RawModifier extends BaseRawModifier {
     modifier: number;
 }
 
-export type DeferredValueParams = { resolvables?: Record<string, unknown> };
+export interface DeferredValueParams {
+    /** An object to merge into roll data for `Roll.replaceFormulaData` */
+    resolvables?: Record<string, unknown>;
+    /** An object to merge into standard options for `RuleElementPF2e#resolveInjectedProperties` */
+    injectables?: Record<string, unknown>;
+    /** Roll Options to get against a predicate (if available) */
+    test?: string[];
+}
 export type DeferredValue<T> = (options?: DeferredValueParams) => T;
 
 /** Represents a discrete modifier, bonus, or penalty, to a statistic or check. */
@@ -108,16 +116,13 @@ export class ModifierPF2e implements RawModifier {
     ignored: boolean;
     source: string | null;
     custom: boolean;
-    damageType: string | null;
+    damageType: DamageType | null;
     damageCategory: string | null;
     predicate: PredicatePF2e;
     critical: boolean | null;
     traits: string[];
     notes: string;
     hideIfDisabled: boolean;
-
-    /** A function that builds the modifier for cases where its deferred */
-    private modifierFn?: DeferredValue<number>;
 
     /**
      * Create a new modifier.
@@ -155,7 +160,7 @@ export class ModifierPF2e implements RawModifier {
         this.type = isValidModifierType(params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.adjustments = deepClone(params.adjustments ?? []);
-        this.damageType = params.damageType ?? null;
+        this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
         this.damageCategory = params.damageCategory ?? null;
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
@@ -166,21 +171,7 @@ export class ModifierPF2e implements RawModifier {
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
-
-        if (params instanceof ModifierPF2e && params.modifierFn) {
-            this.modifierFn = params.modifierFn;
-        } else if (typeof params.modifier === "function") {
-            this.modifierFn = params.modifier;
-        }
-    }
-
-    update(options?: DeferredValueParams) {
-        if (typeof this.modifierFn === "function") {
-            this.modifier = this.modifierFn(options);
-            delete this.modifierFn;
-        }
-
-        return this.modifier;
+        this.modifier = params.modifier;
     }
 
     /** Return a copy of this ModifierPF2e instance */
@@ -196,9 +187,7 @@ export class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        const copy = duplicate(this);
-        delete copy.modifierFn;
-        return copy;
+        return duplicate(this);
     }
 
     toString() {
@@ -206,9 +195,8 @@ export class ModifierPF2e implements RawModifier {
     }
 }
 
-type ModifierObjectParams = Omit<RawModifier, "modifier"> & {
+type ModifierObjectParams = RawModifier & {
     name?: string;
-    modifier: number | DeferredValue<number>;
 };
 
 type ModifierOrderedParams = [
@@ -423,12 +411,7 @@ export class StatisticModifier {
      * @param modifiers All relevant modifiers for this statistic.
      * @param rollOptions Roll options used for initial total calculation
      */
-    constructor(
-        name: string,
-        modifiers: ModifierPF2e[] = [],
-        rollOptions?: string[],
-        deferParams?: DeferredValueParams
-    ) {
+    constructor(name: string, modifiers: ModifierPF2e[] = [], rollOptions?: string[]) {
         this.name = name;
 
         // De-duplication
@@ -436,7 +419,6 @@ export class StatisticModifier {
         for (const modifier of modifiers) {
             const found = seen.some((m) => m.slug === modifier.slug);
             if (!found || modifier.type === "ability") seen.push(modifier);
-            modifier.update(deferParams);
         }
         this._modifiers = seen;
 
@@ -504,8 +486,10 @@ export class StatisticModifier {
             modifier.modifier = adjustments.reduce((adjusted, a): number => a.getNewValue(adjusted), modifier.modifier);
 
             // If applicable, change the damage type of this modifier, using only the final adjustment found
-            const damageTypeAdjustment = adjustments.filter((a) => !!a.damageType).pop();
-            modifier.damageType = damageTypeAdjustment?.damageType ?? modifier.damageType;
+            modifier.damageType = adjustments.reduce(
+                (damageType: DamageType | null, adjustment) => adjustment.getDamageType(damageType),
+                modifier.damageType
+            );
         }
     }
 }
@@ -526,20 +510,14 @@ export class CheckModifier extends StatisticModifier {
 }
 
 interface DamageDiceOverride {
-    /**
-     * Upgrade the damage dice to the next size
-     */
+    /** Upgrade the damage dice to the next size */
     upgrade?: boolean;
 
-    /**
-     * Override with a set dice size
-     */
+    /** Override with a set dice size */
     dieSize?: DamageDieSize;
 
-    /**
-     * Override the damage type
-     */
-    damageType?: string;
+    /** Override the damage type */
+    damageType?: DamageType;
 }
 
 /**

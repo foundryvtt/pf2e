@@ -1,8 +1,9 @@
 {
-    "_id": "tNryw0Rl4L8LF8Yq",
+    "_id": "tNjimcyUwn8afeH6",
     "data": {
+        "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Gravity Weapon]{Gravity Weapon}</em> if your weapon deals 4 dice of damage.</p>"
+            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Gravity Weapon]{Gravity Weapon}</em> .</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,6 +21,29 @@
                 "property": "flags.pf2e.rollOptions.damage-roll.gravity-weapon"
             },
             {
+                "choices": [
+                    {
+                        "label": "1 die",
+                        "value": 2
+                    },
+                    {
+                        "label": "2 dice",
+                        "value": 4
+                    },
+                    {
+                        "label": "3 dice",
+                        "value": 6
+                    },
+                    {
+                        "label": "4 dice",
+                        "value": 8
+                    }
+                ],
+                "flag": "gravityWeapon",
+                "key": "ChoiceSet",
+                "prompt": "Number of damage dice"
+            },
+            {
                 "key": "FlatModifier",
                 "label": "Gravity Weapon",
                 "predicate": {
@@ -32,7 +56,7 @@
                 },
                 "selector": "strike-damage",
                 "type": "status",
-                "value": 8
+                "value": "{item|flags.pf2e.rulesSelections.gravityWeapon}"
             }
         ],
         "source": {
@@ -55,6 +79,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/spells/gravity-weapon.webp",
-    "name": "Spell Effect: Gravity Weapon (4 Dice)",
+    "name": "Spell Effect: Gravity Weapon",
     "type": "effect"
 }

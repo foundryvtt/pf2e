@@ -1,4 +1,4 @@
-import { DamageDicePF2e, ModifierAdjustment, ModifierPF2e } from "@module/modifiers";
+import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@module/modifiers";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
@@ -36,7 +36,7 @@ export interface RuleElementData extends RuleElementSource {
     priority: number;
     ignored: boolean;
     requiresInvestment?: boolean;
-    removeUponCreate: boolean;
+    removeUponCreate?: boolean;
 }
 
 export type RuleValue = string | number | boolean | object | null;
@@ -70,17 +70,25 @@ export interface REPreDeleteParameters {
     context: DocumentModificationContext<ItemPF2e>;
 }
 
+export type DeferredModifier = DeferredValue<ModifierPF2e | null>;
+
 export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
     senses: SenseSynthetic[];
-    statisticsModifiers: Record<string, ModifierPF2e[]>;
+    statisticsModifiers: Record<string, DeferredModifier[]>;
     strikeAdjustments: { adjustStrike(weapon: Embedded<WeaponPF2e>): void }[];
     strikes: Embedded<WeaponPF2e>[];
     striking: Record<string, StrikingPF2e[]>;
     weaponPotency: Record<string, WeaponPotencyPF2e[]>;
+    preparationWarnings: {
+        /** Adds a new preparation warning to be printed when flushed */
+        add: (warning: string) => void;
+        /** Prints all preparation warnings, but this printout is debounced to handle prep and off-prep cycles */
+        flush: () => void;
+    };
 }
 
 interface SenseSynthetic {

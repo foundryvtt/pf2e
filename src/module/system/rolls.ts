@@ -362,7 +362,7 @@ export class CheckPF2e {
             }
         }
 
-        const flags = duplicate(message.data.flags.pf2e);
+        const flags = deepClone(message.data.flags.pf2e);
         const modifiers = (flags.modifiers ?? []).map((modifier) => new ModifierPF2e(modifier));
         const check = new StatisticModifier(flags.modifierName ?? "", modifiers);
         const context = flags.context;
@@ -400,12 +400,21 @@ export class CheckPF2e {
 
                 await message.delete({ render: false });
                 const newFlavor = newMessage.data.flavor ?? "";
+
+                // If this was an initiative roll, apply the result to the current encounter
+                const { initiativeRoll } = message.data.flags.core;
+                if (initiativeRoll) {
+                    const combatant = message.token?.combatant;
+                    await combatant?.parent.setInitiative(combatant.id, newRoll.total);
+                }
+
                 await keepRoll.toMessage(
                     {
                         content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
                         flavor: `${rerollIcon.outerHTML}${newFlavor}`,
                         speaker: message.data.speaker,
                         flags: {
+                            core: { initiativeRoll },
                             pf2e: flags,
                         },
                     },

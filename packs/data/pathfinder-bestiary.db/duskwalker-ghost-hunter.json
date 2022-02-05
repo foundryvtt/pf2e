@@ -1018,7 +1018,7 @@
                             ]
                         },
                         "selector": "attack",
-                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> The duskwalker's weapons have the benefits of the <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune on attacks against incorporeal undead.</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.WeaponPropertyRune.ghostTouch.Note]</p>"
                     }
                 ],
                 "slug": null,
@@ -1065,19 +1065,19 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Designated Prey attacks the Duskwalker",
-                        "property": "flags.pf2e.rollOptions.all.hunt-prey-attack"
+                        "label": "PF2E.NPCAbility.DuskwalkerHuntPrey.AC",
+                        "property": "flags.pf2e.rollOptions.ac.huntPreyAC"
                     },
                     {
                         "key": "ToggleProperty",
-                        "label": "Duskwalker rolls checks against his Designated Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunt-prey-checks"
+                        "label": "PF2E.NPCAbility.DuskwalkerHuntPrey.Checks",
+                        "property": "flags.pf2e.rollOptions.all.huntPreyChecks"
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks",
+                                "huntPreyChecks",
                                 "action:seek"
                             ]
                         },
@@ -1089,7 +1089,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks",
+                                "huntPreyChecks",
                                 "action:track"
                             ]
                         },
@@ -1101,7 +1101,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks"
+                                "huntPreyChecks"
                             ]
                         },
                         "selector": "deception",
@@ -1112,7 +1112,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks"
+                                "huntPreyChecks"
                             ]
                         },
                         "selector": "intimidation",
@@ -1123,7 +1123,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks"
+                                "huntPreyChecks"
                             ]
                         },
                         "selector": "stealth",
@@ -1134,7 +1134,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-attack"
+                                "huntPreyAC"
                             ]
                         },
                         "selector": "ac",

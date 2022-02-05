@@ -3,6 +3,7 @@
 ## Version 3.3.1
 
 ### Bugfixes
+* (Chup) Fix display issue on PC sheet when max HP is a single digit
 * (stwlam) Fix handling of third-party compendium imports
 * (stwlam) Fix scale-change detection for small tokens
 * (stwlam) Fix issue preventing adding more than one of the same feat that grants other feats
@@ -12,7 +13,6 @@
 * (stwlam) Apply range penalties to NPC strikes when applicable
 
 ### Data Updates
-* (Chup) Fix display issue on PC sheet when max HP is a single digit
 * (rectulo) Fix a typo in swashbuckler class
 * (rectulo) Fix typos in the first table of the swashbuckler class
 * (SpartanCPA) Add template buttons for higher action uses of Ki Blast

@@ -17,6 +17,11 @@
                     <span>{{choice.label}}</span>
                 </button>
             {{/each}}
+            {{#if @root.allowNoSelection}}
+                <button type="button" data-action="close">
+                    <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.Decline"}}</span>
+                </button>
+            {{/if}}
             {{#> dropZone}}{{/dropZone}}
         {{/if}}
     </div>

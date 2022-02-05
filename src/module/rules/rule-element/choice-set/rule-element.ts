@@ -12,6 +12,9 @@ import { ChoiceSetPrompt } from "./prompt";
  * @category RuleElement
  */
 class ChoiceSetRuleElement extends RuleElementPF2e {
+    /** Allow the user to make no selection without suppressing all other rule elements on the parent item */
+    allowNoSelection: boolean;
+
     constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
@@ -19,21 +22,24 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.data.adjustName = Boolean(this.data.adjustName ?? true);
         this.data.recordSlug = Boolean(this.data.recordSlug ?? false);
         this.data.allowedDrops = new PredicatePF2e(this.data.allowedDrops);
+        this.allowNoSelection = Boolean(this.data.allowNoSelection);
+        const rollOption = (this.data.rollOption = this.data.rollOption ?? null);
 
         const { selection } = this.data;
         const selectionMade =
             typeof this.data.flag === "string" &&
-            (!selection || ["string", "number", "object"].includes(typeof selection));
+            (typeof selection === "string" || typeof selection === "number" || isObject(selection));
         if (!selectionMade) {
             this.ignored = true;
             return;
         }
 
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
-        // the same item.
-        if (typeof selection === "string" || typeof selection === "number" || isObject(selection)) {
+        // the same item. If a roll option is specified, assign that as well.
+        if (selectionMade) {
             item.data.flags.pf2e.rulesSelections[this.data.flag] = selection;
-        } else {
+            if (rollOption) this.actor.rollOptions.all[`${rollOption}:${selection}`] = true;
+        } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
             for (const ruleData of this.item.data.data.rules) {
                 ruleData.ignored = true;
@@ -46,8 +52,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * ignored if no selection was made.
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
-        const selfDomain = Array.from(this.actor.getSelfRollOptions());
-        if (this.data.predicate && !this.data.predicate.test(selfDomain)) return;
+        const rollOptions = this.actor.getRollOptions();
+        if (this.data.predicate && !this.data.predicate.test(rollOptions)) return;
 
         this.setDefaultFlag(ruleSource);
 
@@ -57,10 +63,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 prompt: this.data.prompt,
                 item: this.item,
                 title: this.label,
-                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(selfDomain)),
+                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(rollOptions)),
                 containsUUIDs: this.data.containsUUIDs,
                 // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
                 allowedDrops: this.data.allowedDrops,
+                allowNoSelection: this.allowNoSelection,
             }).resolveSelection());
 
         if (selection) {
@@ -178,7 +185,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
 
             // Apply the followup predication filter if there is one
-            const actorRollOptions = this.actor.getRollOptions(["all"]);
+            const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
                 ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getItemRollOptions("item")]))
                 : feats;

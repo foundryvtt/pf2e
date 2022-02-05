@@ -1,5 +1,7 @@
 /** The size property of creatures and equipment */
 export const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
+export const SIZE_SLUGS = ["tiny", "small", "medium", "large", "huge", "gargantuan"] as const;
+
 export type Size = typeof SIZES[number];
 
 /** The rarity trait of creatures, equipment, spells, etc. */

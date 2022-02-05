@@ -46,7 +46,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
@@ -323,9 +323,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // PFS Level Bump - check and DC modifiers
         if (systemData.pfs?.levelBump) {
-            statisticsModifiers.all = (statisticsModifiers.all || []).concat(
-                new ModifierPF2e("PF2E.PFS.LevelBump", 1, MODIFIER_TYPE.UNTYPED)
-            );
+            const modifiersAll = (statisticsModifiers.all ??= []);
+            modifiersAll.push(() => new ModifierPF2e("PF2E.PFS.LevelBump", 1, MODIFIER_TYPE.UNTYPED));
         }
 
         // Calculate HP and SP
@@ -357,10 +356,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             }
 
-            const hpRollOptions = this.getRollOptions(["hp", "all"]);
+            const hpRollOptions = this.getRollOptions(["hp"]);
             modifiers.push(...extractModifiers(statisticsModifiers, ["hp"], { test: hpRollOptions }));
 
-            const perLevelRollOptions = this.getRollOptions(["hp-per-level", "all"]);
+            const perLevelRollOptions = this.getRollOptions(["hp-per-level"]);
             modifiers.push(
                 ...extractModifiers(statisticsModifiers, ["hp-per-level"], { test: perLevelRollOptions }).map(
                     (clone) => {
@@ -450,7 +449,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     systemData.abilities[systemData.details.keyability.value].value
                 ),
                 ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
-                ...domains.flatMap((d) => statisticsModifiers[d] ?? []).map((m) => m.clone()),
+                ...extractModifiers(statisticsModifiers, domains),
             ];
 
             const stat = mergeObject(
@@ -538,7 +537,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const speedPenalty = new ModifierPF2e(heldShield.name, heldShield.speedPenalty, MODIFIER_TYPE.UNTYPED);
             speedPenalty.predicate.not = ["self:shield:ignore-speed-penalty"];
             statisticsModifiers.speed ??= [];
-            statisticsModifiers.speed.push(speedPenalty);
+            statisticsModifiers.speed.push(() => speedPenalty);
         }
 
         // Skill modifiers
@@ -595,7 +594,8 @@ export class CharacterPF2e extends CreaturePF2e {
             const domains = [longForm, `${skill.ability}-based`, "skill-check", "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
-            const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers, rollOptions), skill, {
                 overwrite: false,
             });
             stat.breakdown = stat.modifiers
@@ -646,7 +646,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const modifiers = [
                     AbilityModifier.fromScore("int", systemData.abilities.int.value),
                     ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                    ...domains.flatMap((key) => statisticsModifiers[key] ?? []).map((m) => m.clone()),
+                    ...extractModifiers(statisticsModifiers, domains),
                 ];
 
                 const loreSkill = systemData.skills[shortForm];
@@ -907,7 +907,7 @@ export class CharacterPF2e extends CreaturePF2e {
               })
             : null;
         if (armorPenalty) {
-            const speedModifiers = (this.synthetics.statisticsModifiers.speed ??= []);
+            const speedModifiers = extractModifiers(this.synthetics.statisticsModifiers, ["speed"]);
             armorPenalty.predicate.not = ["armor:ignore-speed-penalty"];
             armorPenalty.test(this.getRollOptions(["all", "speed", `${movementType}-speed`]));
             speedModifiers.push(armorPenalty);
@@ -993,10 +993,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
-            const abilityModifier = [
-                ...modifiers,
-                ...baseSelectors.flatMap((selector) => statisticsModifiers[selector] ?? []),
-            ]
+            const abilityModifier = [...modifiers, ...extractModifiers(statisticsModifiers, baseSelectors)]
                 .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
                 .flatMap((modifier) => (modifier.predicate.test(defaultOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
@@ -1082,7 +1079,9 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Everything from relevant synthetics
-        modifiers.push(...extractModifiers(statisticsModifiers, selectors));
+        modifiers.push(
+            ...extractModifiers(statisticsModifiers, selectors, { injectables: { weapon }, resolvables: { weapon } })
+        );
 
         // Multiple attack penalty
         const multipleAttackPenalty = ItemPF2e.calculateMap(itemData);
@@ -1109,7 +1108,8 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         const flavor = this.getStrikeDescription(weapon);
-        const strikeStat = new StatisticModifier(weapon.name, modifiers, this.getRollOptions(defaultOptions));
+        const rollOptions = this.getRollOptions(defaultOptions);
+        const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
         const meleeUsage = weapon.toMeleeUsage();
 
         const action: CharacterStrike = mergeObject(strikeStat, {
@@ -1312,7 +1312,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     itemData,
                     this,
                     action.traits,
-                    this.cloneSyntheticsRecord(statisticsModifiers),
+                    statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
                     options,

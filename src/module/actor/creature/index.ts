@@ -39,8 +39,10 @@ import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
-import { Rarity } from "@module/data";
+import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
+import { DeferredModifier } from "@module/rules/rule-element/data";
+import { DamageType } from "@module/damage-calculation";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -305,10 +307,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
         this.prepareSynthetics();
+
+        const sizeIndex = SIZES.indexOf(this.size);
+        const sizeSlug = SIZE_SLUGS[sizeIndex];
+        rollOptions.all[`self:size:${sizeIndex}`] = true;
+        rollOptions.all[`self:size:${sizeSlug}`] = true;
     }
 
     protected prepareInitiative(
-        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        statisticsModifiers: Record<string, DeferredModifier[]>,
         rollNotes: Record<string, RollNotePF2e[] | undefined>
     ): void {
         if (!(this.data.type === "character" || this.data.type === "npc")) return;
@@ -327,7 +334,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                   ] as const);
 
         const rollOptions = [proficiency, ...this.getRollOptions([proficiency, `${ability}-based`, "all"])];
-        const modifiers = statisticsModifiers.initiative?.map((m) => m.clone({ test: rollOptions })) ?? [];
+        const modifiers = extractModifiers(statisticsModifiers, ["initiative"], { test: rollOptions });
 
         const notes = rollNotes.initiative?.map((n) => duplicate(n)) ?? [];
         const label = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: game.i18n.localize(proficiencyLabel) });
@@ -397,7 +404,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const { statisticsModifiers } = this.synthetics;
         for (const [selector, modifiers] of Object.entries(systemData.customModifiers)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers);
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 
@@ -430,7 +437,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         value: number,
         type: string,
         predicate?: RawPredicate,
-        damageType?: string,
+        damageType?: DamageType,
         damageCategory?: string
     ) {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
@@ -509,8 +516,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (movementType === "land") {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
             const base = Number(systemData.attributes.speed.value ?? 0);
+            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: label });
             const stat = mergeObject(
-                new StatisticModifier(game.i18n.format("PF2E.SpeedLabel", { type: label }), modifiers, rollOptions),
+                new StatisticModifier(statLabel, modifiers, rollOptions),
                 systemData.attributes.speed,
                 { overwrite: false }
             );
@@ -532,15 +540,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
             speed.label = game.i18n.localize(game.i18n.localize(CONFIG.PF2E.speedTypes[speed.type]));
             const base = Number(speed.value ?? 0);
-            const stat = mergeObject(
-                new StatisticModifier(
-                    game.i18n.format("PF2E.SpeedLabel", { type: speed.label }),
-                    modifiers,
-                    rollOptions
-                ),
-                speed,
-                { overwrite: false }
-            );
+            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: speed.label });
+            const stat = mergeObject(new StatisticModifier(statLabel, modifiers, rollOptions), speed, {
+                overwrite: false,
+            });
             stat.total = base + stat.totalModifier;
             stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${base}`]
                 .concat(

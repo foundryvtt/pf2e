@@ -17,6 +17,8 @@ import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 import { extractModifiers } from "@module/rules/util";
+import { DeferredModifier } from "@module/rules/rule-element/data";
+import { DamageType } from "@module/damage-calculation";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -32,7 +34,7 @@ export interface DamageFormula {
 
 export interface DamageTemplate {
     base: {
-        damageType: string;
+        damageType: DamageType;
         diceNumber: number;
         dieSize: DamageDieSize;
         category: string;
@@ -77,7 +79,7 @@ export class WeaponDamagePF2e {
         weapon: any,
         actor: NPCPF2e,
         traits: StrikeTrait[] = [],
-        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        statisticsModifiers: Record<string, DeferredModifier[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = 0,
         options: string[] = [],
@@ -133,6 +135,7 @@ export class WeaponDamagePF2e {
             }
 
             if (parsedBaseDamage) {
+                const { damageType } = dmg;
                 // amend damage dice with any extra dice
                 if (dice && die) {
                     const dd = (damageDice.damage ??= []);
@@ -147,21 +150,16 @@ export class WeaponDamagePF2e {
                         })
                     );
                 }
-                // amend numeric modifiers with any flat modifier
+                // Amend numeric modifiers with any flat modifier
                 if (modifier) {
-                    const modifiers = statisticsModifiers.damage ?? [];
-                    const dm = new ModifierPF2e({ label: "Base", modifier });
-                    dm.damageType = dmg.damageType;
-                    modifiers.push(dm);
-                    statisticsModifiers.damage = modifiers;
+                    const modifiers = (statisticsModifiers.damage ??= []);
+                    modifiers.push(() => new ModifierPF2e({ label: "PF2E.WeaponBaseLabel", modifier, damageType }));
                 }
             } else {
                 weapon.data.damage.dice = dice || 0;
                 weapon.data.damage.die = die || "";
                 const strengthMod = actor.data.data.abilities.str.mod;
-                const isMelee = weapon.data.range === null;
-                const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
-                if (strengthModToDamage) {
+                if (WeaponDamagePF2e.strengthModToDamage(weapon)) {
                     modifier -= strengthMod;
                 } else if (traits.some((trait) => trait.name === "propulsive")) {
                     modifier -= strengthMod < 0 ? -strengthMod : Math.round(strengthMod / 2);
@@ -190,7 +188,7 @@ export class WeaponDamagePF2e {
         weapon: WeaponData,
         actor: CharacterPF2e | NPCPF2e,
         traits: StrikeTrait[] = [],
-        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        statisticsModifiers: Record<string, DeferredModifier[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
         options: string[] = [],
@@ -214,12 +212,11 @@ export class WeaponDamagePF2e {
         const actorData = actor.data;
 
         // Determine ability modifier
-        const isMelee = weapon.data.range === null;
-        const strengthModToDamage = isMelee || traits.some((trait) => /^thrown(?:-\d{1,2})?/.test(trait.name));
         {
+            const isMelee = weapon.data.range === null;
             options.push(isMelee ? "melee" : "ranged");
             const strengthModValue = actorData.data.abilities.str.mod;
-            const modifierValue = strengthModToDamage
+            const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
                 ? strengthModValue
                 : traits.some((t) => t.name === "propulsive")
                 ? strengthModValue < 0
@@ -239,8 +236,11 @@ export class WeaponDamagePF2e {
         }
 
         // Find the best active ability modifier in order to get the correct synthetics selectors
+        const resolvables = { weapon: weapon.document };
+        const injectables = resolvables;
+        const fromDamageSelector = extractModifiers(statisticsModifiers, ["damage"], { resolvables, injectables });
         const modifiersAndSelectors = numericModifiers
-            .concat(statisticsModifiers["damage"] ?? [])
+            .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
             .flatMap((modifier) => {
                 const selectors = WeaponDamagePF2e.getSelectors(weapon, modifier.ability, proficiencyRank);
@@ -459,9 +459,8 @@ export class WeaponDamagePF2e {
         }
 
         // Synthetic modifiers
-        numericModifiers.push(
-            ...new StatisticModifier("", extractModifiers(statisticsModifiers, selectors), options).modifiers
-        );
+        const synthetics = extractModifiers(statisticsModifiers, selectors, { resolvables, injectables });
+        numericModifiers.push(...new StatisticModifier("", synthetics, options).modifiers);
 
         // Set base damage type and category to all non-specific numeric modifiers
         for (const modifier of numericModifiers) {
@@ -832,5 +831,12 @@ export class WeaponDamagePF2e {
         }
 
         return selectors;
+    }
+
+    /** Determine whether a strike's damage includes the actor's strength modifier */
+    static strengthModToDamage(weaponData: WeaponData): boolean {
+        const isMelee = weaponData.data.range === null;
+        const traits = weaponData.data.traits.value;
+        return isMelee || (!traits.includes("splash") && traits.some((t) => /^thrown(?:-\d{1,2})?/.test(t)));
     }
 }

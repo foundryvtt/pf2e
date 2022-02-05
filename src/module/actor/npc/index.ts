@@ -115,34 +115,40 @@ export class NPCPF2e extends CreaturePF2e {
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
-            statisticsModifiers.all.push(new ModifierPF2e("PF2E.NPC.Adjustment.EliteLabel", 2, MODIFIER_TYPE.UNTYPED));
+            statisticsModifiers.all.push(
+                () => new ModifierPF2e("PF2E.NPC.Adjustment.EliteLabel", 2, MODIFIER_TYPE.UNTYPED)
+            );
             statisticsModifiers.damage = statisticsModifiers.damage ?? [];
             statisticsModifiers.damage.push(
-                new ModifierPF2e("PF2E.NPC.Adjustment.EliteLabel", 2, MODIFIER_TYPE.UNTYPED)
+                () => new ModifierPF2e("PF2E.NPC.Adjustment.EliteLabel", 2, MODIFIER_TYPE.UNTYPED)
             );
             statisticsModifiers.hp = statisticsModifiers.hp ?? [];
             statisticsModifiers.hp.push(
-                new ModifierPF2e(
-                    "PF2E.NPC.Adjustment.EliteLabel",
-                    this.getHpAdjustment(details.level.value, "elite"),
-                    MODIFIER_TYPE.UNTYPED
-                )
+                () =>
+                    new ModifierPF2e(
+                        "PF2E.NPC.Adjustment.EliteLabel",
+                        this.getHpAdjustment(details.level.value, "elite"),
+                        MODIFIER_TYPE.UNTYPED
+                    )
             );
             details.level = { base: details.level.value, value: details.level.value + 1 };
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
-            statisticsModifiers.all.push(new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED));
+            statisticsModifiers.all.push(
+                () => new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED)
+            );
             statisticsModifiers.damage = statisticsModifiers.damage ?? [];
             statisticsModifiers.damage.push(
-                new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED)
+                () => new ModifierPF2e("PF2E.NPC.Adjustment.WeakLabel", -2, MODIFIER_TYPE.UNTYPED)
             );
             statisticsModifiers.hp = statisticsModifiers.hp ?? [];
             statisticsModifiers.hp.push(
-                new ModifierPF2e(
-                    "PF2E.NPC.Adjustment.WeakLabel",
-                    this.getHpAdjustment(details.level.value, "weak") * -1,
-                    MODIFIER_TYPE.UNTYPED
-                )
+                () =>
+                    new ModifierPF2e(
+                        "PF2E.NPC.Adjustment.WeakLabel",
+                        this.getHpAdjustment(details.level.value, "weak") * -1,
+                        MODIFIER_TYPE.UNTYPED
+                    )
             );
             details.level = { base: details.level.value, value: details.level.value - 1 };
         } else {
@@ -201,7 +207,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
                 this.getShieldBonus() ?? [],
-                domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
+                extractModifiers(statisticsModifiers, domains),
             ].flat();
 
             const rollOptions = this.getRollOptions(domains);
@@ -230,7 +236,7 @@ export class NPCPF2e extends CreaturePF2e {
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
-                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
+                ...extractModifiers(statisticsModifiers, domains),
             ];
 
             const rollOptions = this.getRollOptions(domains);
@@ -268,7 +274,7 @@ export class NPCPF2e extends CreaturePF2e {
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
-                ...domains.flatMap((key) => statisticsModifiers[key] || []).map((m) => m.clone()),
+                ...extractModifiers(statisticsModifiers, domains),
             ];
             const notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
@@ -420,8 +426,8 @@ export class NPCPF2e extends CreaturePF2e {
                     return { tag, label };
                 });
 
-                const defaultOptions = this.getRollOptions(domains);
-                const statistic = new StatisticModifier(itemData.name, modifiers, defaultOptions);
+                const rollOptions = this.getRollOptions(domains);
+                const statistic = new StatisticModifier(itemData.name, modifiers, rollOptions);
 
                 const attackTrait: StrikeTrait = {
                     name: "attack",
@@ -527,7 +533,7 @@ export class NPCPF2e extends CreaturePF2e {
                             const options = (args.options ?? []).concat(ctx.options).concat(itemData.data.traits.value);
 
                             const rangeIncrement = getRangeIncrement(ctx.distance);
-                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, defaultOptions);
+                            const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
 
                             await CheckPF2e.roll(
@@ -556,7 +562,7 @@ export class NPCPF2e extends CreaturePF2e {
                         itemData,
                         this,
                         action.traits,
-                        this.cloneSyntheticsRecord(statisticsModifiers),
+                        statisticsModifiers,
                         this.cloneSyntheticsRecord(damageDice),
                         1,
                         options,
@@ -578,7 +584,7 @@ export class NPCPF2e extends CreaturePF2e {
                         itemData,
                         this,
                         action.traits,
-                        this.cloneSyntheticsRecord(statisticsModifiers),
+                        statisticsModifiers,
                         this.cloneSyntheticsRecord(damageDice),
                         1,
                         options,

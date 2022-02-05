@@ -23,7 +23,7 @@ import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -126,15 +126,21 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.traits.otherTags ??= [];
+        systemData.selectedAmmoId ||= null;
         AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
-        const traitSet = this.traits;
+        const traitArray = this.data.data.traits.value;
+        if (traitArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+            this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
+        }
+
         const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const traitSet = this.traits;
         const mandatoryRanged = rangedWeaponGroups.includes(this.group ?? "") || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
-            if (traitSet.has("thrown")) this.data.data.reload.value = "-";
+
             if (traitSet.has("combination")) this.data.data.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
@@ -144,8 +150,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
-        // Force a weapon to be melee if it has a thrown-N trait
-        const mandatoryMelee = this.data.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
+        // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
+        const mandatoryMelee = !mandatoryRanged && traitArray.some((trait) => /^thrown-\d+$/.test(trait));
         if (mandatoryMelee) this.data.data.range = null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
@@ -346,6 +352,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 group: meleeUsage.group,
                 range: null,
                 traits: { value: meleeUsage.traits.concat("combination") },
+                selectedAmmoId: null,
             },
             flags: {
                 pf2e: {

@@ -93,7 +93,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 
     get highestLevel(): number {
-        const highestSpell = Math.max(...this.spells.map((s) => s.heightenedLevel));
+        const highestSpell = Math.max(...this.spells.map((s) => s.level));
         const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
@@ -116,7 +116,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     ) {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
-        const level = options.level ?? spell.heightenedLevel;
+        const level = options.level ?? spell.level;
         const valid = !consume || spell.isCantrip || (await this.consume(spell.name, level, options.slot));
         if (message && valid) {
             await spell.toMessage(undefined, { data: { spellLvl: level } });
@@ -185,7 +185,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         }
 
         const spellcastingEntryId = spell.data.data.location.value;
-        if (spellcastingEntryId === this.id && spell.heightenedLevel === targetLevel) {
+        if (spellcastingEntryId === this.id && spell.level === targetLevel) {
             return [];
         }
 
@@ -194,7 +194,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
 
         if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
             if (this.isSpontaneous || this.isInnate) {
-                spellData.data.heightenedLevel = { value: Math.max(spell.level, targetLevel) };
+                spellData.data.heightenedLevel = { value: Math.max(spell.baseLevel, targetLevel) };
             }
         }
 
@@ -209,8 +209,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
     prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number) {
-        if (spell.level > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
-            console.warn(`Attempted to add level ${spell.level} spell to level ${spellLevel} spell slot.`);
+        if (spell.baseLevel > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
+            console.warn(`Attempted to add level ${spell.baseLevel} spell to level ${spellLevel} spell slot.`);
             return;
         }
 
@@ -265,7 +265,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
     getSpellData(): SpellcastingEntryListData {
-        if (!(this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e)) {
+        const { actor } = this;
+        if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
@@ -276,7 +277,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
 
         if (this.isPrepared) {
             // Prepared Spells. Start by fetch the prep list. Active spells are what's been prepped.
-            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
+            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.baseLevel));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
 
@@ -338,16 +339,16 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             if (leveled.length) {
                 results.push({
                     label: "PF2E.Focus.label",
-                    level: Math.max(1, Math.ceil(this.actor.level / 2)) as OneToTen,
+                    level: Math.max(1, Math.ceil(actor.level / 2)) as OneToTen,
                     isCantrip: false,
-                    uses: this.actor.data.data.resources.focus ?? { value: 0, max: 0 },
+                    uses: actor.data.data.resources.focus ?? { value: 0, max: 0 },
                     active: leveled.map((spell) => ({ spell, chatData: spell.getChatData() })),
                 });
             }
         } else {
             // Everything else (Innate/Spontaneous/Ritual)
             const alwaysShowHeader = !this.isRitual;
-            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.heightenedLevel));
+            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
@@ -379,7 +380,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 if (!spell) continue;
 
                 for (const result of results) {
-                    if (spell.level > result.level) continue;
+                    if (spell.baseLevel > result.level) continue;
                     if (!this.data.data.showSlotlessLevels.value && result.uses?.max === 0) continue;
 
                     const existing = result.active.find((a) => a?.spell.id === spellId);
