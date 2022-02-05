@@ -36,7 +36,7 @@ export interface RuleElementData extends RuleElementSource {
     priority: number;
     ignored: boolean;
     requiresInvestment?: boolean;
-    removeUponCreate: boolean;
+    removeUponCreate?: boolean;
 }
 
 export type RuleValue = string | number | boolean | object | null;

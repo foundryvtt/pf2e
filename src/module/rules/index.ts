@@ -98,8 +98,10 @@ class RuleElements {
                     try {
                         return new REConstructor(data, item, options);
                     } catch (error) {
-                        console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
-                        console.warn(error);
+                        if (!options?.suppressWarnings) {
+                            console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
+                            console.warn(error);
+                        }
                         return null;
                     }
                 })();

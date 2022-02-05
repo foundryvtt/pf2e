@@ -15,11 +15,14 @@ abstract class RulesElementPrompt<T> extends Application {
 
     protected predicate: PredicatePF2e;
 
+    protected allowNoSelection: boolean;
+
     constructor(data: RulesElementPromptData<T>) {
         super();
         this.item = data.item;
         this.predicate = data.predicate ?? new PredicatePF2e();
         this.options.title = data.title ?? this.item.name;
+        this.allowNoSelection = data.allowNoSelection ?? false;
     }
 
     get actor(): ActorPF2e {
@@ -42,7 +45,7 @@ abstract class RulesElementPrompt<T> extends Application {
     }
 
     protected getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null {
-        return this.choices[Number(event.currentTarget.value)] ?? null;
+        return event.currentTarget.value === "" ? null : this.choices[Number(event.currentTarget.value)] ?? null;
     }
 
     abstract override get template(): string;
@@ -91,7 +94,7 @@ abstract class RulesElementPrompt<T> extends Application {
                         item: this.item.name,
                     })
                 );
-            } else {
+            } else if (!this.allowNoSelection) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name })
                 );
@@ -108,6 +111,7 @@ interface RulesElementPromptData<T> {
     choices?: PromptChoice<T>[];
     item: Embedded<ItemPF2e>;
     predicate?: PredicatePF2e;
+    allowNoSelection?: boolean;
 }
 
 interface PromptChoice<T = string | number | object> {
