@@ -42,6 +42,7 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
 import { DamageType } from "@module/damage-calculation";
+import { StrikeData } from "@actor/data/base";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -85,11 +86,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
             grg: 20,
         }[this.size];
 
-        if (to === "interact" || this.type === "familiar") {
+        if (to === "interact" || this.data.type === "familiar") {
             return baseReach;
         } else {
-            const reachWeapons = this.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has("reach"));
-            return reachWeapons.length > 0 ? baseReach + 5 : baseReach;
+            const attacks: StrikeData[] = this.data.data.actions;
+            const readyAttacks = attacks.filter((a: StrikeData) => a.ready);
+            const reachAttacks = readyAttacks.filter((a) => a.traits.some((t) => t.name.startsWith("reach")));
+            if (reachAttacks.length === 0) return baseReach;
+
+            const reaches = reachAttacks.map((attack): number => {
+                const hasWeaponReach = !!attack.weapon?.hasReach;
+                const reach = hasWeaponReach
+                    ? 5
+                    : Number(attack.traits.find((t) => /^reach-\d+$/.test(t.name))?.name.replace("reach-", "")) || 5;
+                // If the attack's weapon has the (unqualified) reach trait, add 5 to its base reach
+                return hasWeaponReach ? baseReach + 5 : reach;
+            });
+
+            return Math.max(...reaches);
         }
     }
 

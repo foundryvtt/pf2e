@@ -127,11 +127,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return false;
     }
 
-    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
-    getReach(_options: { to?: "interact" | "attack" }): number {
-        return 0;
-    }
-
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
@@ -143,6 +138,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get rollOptions(): RollOptionFlags {
         return this.data.flags.pf2e.rollOptions;
+    }
+
+    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
+    get heldShield(): Embedded<ArmorPF2e> | null {
+        return null;
+    }
+
+    /** Most actor types can host rule elements */
+    get canHostRuleElements(): boolean {
+        return true;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -167,22 +172,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .concat(effectTokenEffects);
     }
 
-    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
-    get heldShield(): Embedded<ArmorPF2e> | null {
-        return null;
-    }
-
-    /** Most actor types can host rule elements */
-    get canHostRuleElements(): boolean {
-        return true;
-    }
-
     /** Get roll options from this actor's effects, traits, and other properties */
     getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
         const rollOptions = Object.keys(this.rollOptions.all).flatMap((o) =>
             o.startsWith("self:") ? o.replace(/^self/, prefix) : []
         );
         return new Set(rollOptions);
+    }
+
+    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
+    getReach(_options: { to?: "interact" | "attack" }): number {
+        return 0;
     }
 
     /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
