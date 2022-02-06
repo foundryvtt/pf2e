@@ -5,9 +5,10 @@ import { Rarity, Size } from "@module/data";
 import { LootPF2e } from "@actor";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
-import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from "./data";
+import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait } from "./data";
 import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
 import { UserPF2e } from "@module/user";
+import { getUsageDetails, isEquipped } from "./usage";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -35,6 +36,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get isEquipped(): boolean {
         return this.data.isEquipped;
+    }
+
+    get carryType(): ItemCarryType {
+        return this.data.data.equipped.carryType ?? (this.data.data.containerId.value ? "worn" : "stowed");
+    }
+
+    get handsHeld(): number {
+        return this.data.data.equipped.carryType === "held" ? this.data.data.equipped.handsHeld ?? 1 : 0;
     }
 
     get price(): string {
@@ -143,7 +152,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // Normalize price string
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
 
-        this.data.isEquipped = systemData.equipped.value;
         this.data.isIdentified = systemData.identification.status === "identified";
 
         const traits = this.traits;
@@ -156,6 +164,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         this.data.isInvested = this.isInvested;
         this.data.isTemporary = this.isTemporary;
 
+        this.data.usage = getUsageDetails(systemData.usage.value);
+        this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
+
+        if (!systemData.equipped.carryType) {
+            systemData.equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
+        }
+
         if (this.isTemporary) {
             systemData.price.value = "0 gp";
         }
@@ -167,7 +182,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Unequip items on loot actors so that rule elements are not initialized
         if (this.actor instanceof LootPF2e) {
-            this.data.data.equipped.value = false;
+            this.data.data.equipped.carryType = "worn";
+            this.data.data.equipped.inSlot = false;
         }
     }
 
@@ -200,7 +216,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const thisData = this.toObject().data;
         const otherData = item.toObject().data;
         thisData.quantity.value = otherData.quantity.value;
-        thisData.equipped.value = otherData.equipped.value;
+        thisData.equipped = otherData.equipped;
         thisData.containerId.value = otherData.containerId.value;
         thisData.schema = otherData.schema;
         thisData.identification = otherData.identification;
@@ -304,7 +320,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (this.isEmbedded) this.data.update({ "data.equipped.value": false });
+        if (this.isEmbedded) {
+            this.data.update({
+                "data.equipped.carryType": "worn",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
+            });
+        }
     }
 
     /** Clamp hit points to between zero and max */

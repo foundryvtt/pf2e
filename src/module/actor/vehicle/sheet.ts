@@ -121,12 +121,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
                     itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
-                    if (physicalData.type === "weapon") {
-                        itemData.isTwoHanded = physicalData.data.traits.value.some((trait: string) =>
-                            trait.startsWith("two-hand")
-                        );
-                        itemData.wieldedTwoHanded = physicalData.data.hands.value;
-                    }
                     if (physicalData.type === "book") {
                         inventory.equipment.items.push(itemData);
                     } else {
