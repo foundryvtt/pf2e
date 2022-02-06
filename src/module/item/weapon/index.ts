@@ -351,6 +351,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
+                reload: { value: "" },
                 traits: { value: meleeUsage.traits.concat("combination") },
                 selectedAmmoId: null,
             },
