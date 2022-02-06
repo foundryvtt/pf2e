@@ -460,6 +460,7 @@ export class NPCPF2e extends CreaturePF2e {
                     options: [],
                     variants: [],
                     success: "",
+                    ready: true,
                     criticalSuccess: "",
                 });
 
