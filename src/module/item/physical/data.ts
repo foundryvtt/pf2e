@@ -7,13 +7,16 @@ import {
     ItemTraits,
 } from "../data/base";
 import type { PhysicalItemPF2e } from "@item/physical";
-import type { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "../data/values";
+import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "../data/values";
 import { EquipmentTrait } from "@item/equipment/data";
 import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
 import { ConsumableTrait } from "@item/consumable/data";
 import { Size, ValuesList } from "@module/data";
 import { ActionTrait } from "@item/action/data";
+import { UsageDetails } from "./usage";
+
+export type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
 export type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
@@ -33,6 +36,7 @@ export class BasePhysicalItemData<
     isInvested!: boolean | null;
     isCursed!: boolean;
     isTemporary!: boolean;
+    usage!: UsageDetails;
 }
 
 export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
@@ -103,6 +107,12 @@ export interface IdentificationData {
     misidentified: {};
 }
 
+export interface EquippedData {
+    carryType: ItemCarryType;
+    inSlot?: boolean;
+    handsHeld?: number;
+}
+
 export type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
 export type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
 
@@ -157,9 +167,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     price: {
         value: string;
     };
-    equipped: {
-        value: boolean;
-    };
+    equipped: EquippedData;
     identification: IdentificationData;
     stackGroup: {
         value: string;

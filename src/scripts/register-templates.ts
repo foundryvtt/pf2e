@@ -40,6 +40,7 @@ export function registerTemplates() {
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
+        "systems/pf2e/templates/actors/partials/carry-type.html",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",

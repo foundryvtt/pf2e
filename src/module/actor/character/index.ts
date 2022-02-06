@@ -716,7 +716,11 @@ export class CharacterPF2e extends CreaturePF2e {
                     strikingRune: { value: null },
                     traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     equipped: {
-                        value: true, // consider checking for free hands
+                        carryType: "held",
+                        handsHeld: 1,
+                    },
+                    usage: {
+                        value: "held-in-one-hand",
                     },
                 },
             };
@@ -1172,10 +1176,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 };
 
                 // look for toggleable traits
-                if (trait.startsWith("two-hand-")) {
-                    traitObject.rollName = "damage-roll";
-                    traitObject.rollOption = "two-handed";
-                } else if (trait.startsWith("versatile-")) {
+                if (trait.startsWith("versatile-")) {
                     traitObject.rollName = "damage-roll";
                     traitObject.rollOption = trait;
                 }
@@ -1278,17 +1279,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         traits: action.traits,
                     };
 
-                    const ammo = weapon.ammo;
-                    if (ammo && ammo.quantity < 1) {
-                        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
-                        return;
-                    }
-
-                    const existingCallback = args.callback;
-                    args.callback = async (roll: Rolled<Roll>) => {
-                        existingCallback?.(roll);
-                        await ammo?.consume();
-                    };
+                    if (!this.consumeAmmo(weapon, args)) return;
 
                     await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
                 },
@@ -1335,6 +1326,23 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         return action;
+    }
+
+    consumeAmmo(weapon: WeaponPF2e, args: RollParameters): boolean {
+        const ammo = weapon.ammo;
+        if (!ammo) {
+            return true;
+        } else if (ammo.quantity < 1) {
+            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+            return false;
+        } else {
+            const existingCallback = args.callback;
+            args.callback = async (roll: Rolled<Roll>) => {
+                existingCallback?.(roll);
+                await ammo.consume();
+            };
+            return true;
+        }
     }
 
     /** Prepare stored and synthetic martial proficiencies */

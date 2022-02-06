@@ -178,7 +178,7 @@ export class CompendiumPack {
             docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
 
             if (isPhysicalData(docSource)) {
-                docSource.data.equipped.value = false;
+                docSource.data.equipped = { carryType: "worn" };
             }
 
             // Convert uuids with names in GrantItem REs to well-formedness
