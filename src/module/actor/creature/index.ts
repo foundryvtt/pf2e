@@ -257,6 +257,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     label: "PF2E.TargetFlatFootedLabel",
                     inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
                     checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                    enabled: true,
                 },
             ],
         };

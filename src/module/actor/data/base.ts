@@ -243,6 +243,7 @@ export interface RollToggle {
     label: string;
     inputName: string;
     checked: boolean;
+    enabled: boolean;
 }
 
 /** Any skill or similar which provides a roll option for rolling this save. */
