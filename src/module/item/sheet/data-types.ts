@@ -86,6 +86,9 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     prerequisites: string;
     rarities: SheetOptions;
     traits: SheetOptions;
+    isFeat: boolean;
+    mandatoryTakeOnce: boolean;
+    hasLineageTrait: boolean;
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {

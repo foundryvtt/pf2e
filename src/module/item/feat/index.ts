@@ -1,5 +1,5 @@
-import { ItemPF2e } from "../index";
-import { FeatData, FeatTrait, FeatType } from "./data";
+import { ItemPF2e } from "..";
+import { FeatData, FeatSource, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
@@ -33,6 +33,37 @@ export class FeatPF2e extends ItemPF2e {
 
     get isFeature(): boolean {
         return ["classfeature", "ancestryfeature"].includes(this.featType);
+    }
+
+    get isFeat(): boolean {
+        return !this.isFeature;
+    }
+
+    /** Whether this feat must be taken at character level 1 */
+    get onlyLevel1(): boolean {
+        return this.data.data.onlyLevel1;
+    }
+
+    /** The maximum number of times this feat can be taken */
+    get maxTakeable(): number {
+        return this.data.data.maxTakable;
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // Feats with the Lineage trait can only ever be taken at level 1
+        if (this.data.data.traits.value.includes("lineage")) {
+            this.data.data.onlyLevel1 = true;
+        }
+
+        // `Infinity` stored as `null` in JSON, so change back
+        this.data.data.maxTakable ??= Infinity;
+
+        // Feats takable only at level 1 can never be taken multiple times
+        if (this.data.data.onlyLevel1) {
+            this.data.data.maxTakable = 1;
+        }
     }
 
     /** Set a self roll option for this feat(ure) */
@@ -71,7 +102,50 @@ export class FeatPF2e extends ItemPF2e {
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
         }
+
+        // Ensure takeAtLevel1 and takeMultiple are consistent
+        const traits = changed.data?.traits?.value;
+
+        if (this.isFeature && changed.data) {
+            changed.data.onlyLevel1 = false;
+            changed.data.maxTakable = 1;
+
+            if (this.featType !== "ancestry" && Array.isArray(traits)) {
+                traits.findSplice((t) => t === "lineage");
+            }
+        } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.data?.onlyLevel1) {
+            mergeObject(changed, { data: { maxTaken: 1 } });
+        }
+
         await super._preUpdate(changed, options, user);
+    }
+
+    /** Warn the owning user(s) if this feat was taken despite some restriction */
+    protected override _onCreate(data: FeatSource, options: DocumentModificationContext<this>, userId: string): void {
+        super._onCreate(data, options, userId);
+
+        if (!(this.isOwner && this.actor?.isOfType("character") && this.isFeat)) return;
+
+        const actorItemNames = { actor: this.actor.name, item: this.name };
+
+        if (this.onlyLevel1 && this.actor.level > 1) {
+            const formatParams = { ...actorItemNames, actorLevel: this.actor.level };
+            const warning = game.i18n.format("PF2E.Item.Feat.Warning.TakenAfterLevel1", formatParams);
+            ui.notifications.warn(warning);
+        }
+
+        // Skip subsequent warnings if this feat is from a grant
+        if (this.data.flags.pf2e.grantedBy) return;
+
+        const slug = this.slug ?? sluggify(this.name);
+        const timesTaken = this.actor.itemTypes.feat.filter((f) => f.slug === slug).length;
+        const { maxTakeable } = this;
+        if (maxTakeable === 1 && timesTaken > 1) {
+            ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanOnce", actorItemNames));
+        } else if (timesTaken > maxTakeable) {
+            const formatParams = { ...actorItemNames, maxTakeable, timesTaken };
+            ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
+        }
     }
 }
 
