@@ -1278,9 +1278,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         traits: action.traits,
                     };
 
-                    if (!this.consumeAmmo(weapon, args)) {
-                        return;
-                    }
+                    if (!this.consumeAmmo(weapon, args)) return;
 
                     await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
                 },
