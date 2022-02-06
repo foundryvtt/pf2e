@@ -35,7 +35,7 @@ import {
     LinkedProficiency,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, sluggify, sortedStringify } from "@util";
+import { ErrorPF2e, getActionGlyph, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -67,6 +67,8 @@ import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
+import { ChatMessagePF2e } from "../../chat-message";
+import { ItemCarryType } from "../../item/physical/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -737,6 +739,11 @@ export class CharacterPF2e extends CreaturePF2e {
             this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
 
+        systemData.actions.sort((l, r) => {
+            if (l.ready !== r.ready) return (l.ready ? 0 : 1) - (r.ready ? 0 : 1);
+            return (l.weapon?.data.sort ?? 0) - (r.weapon?.data.sort ?? 0);
+        });
+
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
             const tradition = entry.tradition;
@@ -917,6 +924,61 @@ export class CharacterPF2e extends CreaturePF2e {
             speedModifiers.push(armorPenalty);
         }
         return super.prepareSpeed(movementType);
+    }
+
+    prepareInteract(
+        weapon: Embedded<WeaponPF2e>,
+        action: string,
+        kind: string,
+        actions: string,
+        carryType: ItemCarryType,
+        handsHeld: number
+    ) {
+        const actionGlyph = getActionGlyph(actions);
+        return {
+            label: game.i18n.localize(`PF2E.Actions.${action}.${kind}.Title`),
+            img: actionGlyph,
+            roll: () => {
+                this.adjustCarryType(weapon, carryType, handsHeld);
+
+                const traits = ["manipulate"];
+                let flavor = "";
+                flavor += `<p><h2>${game.i18n.localize(`PF2E.Actions.${action}.Title`)}</b> `;
+                flavor += `<span class="pf2-icon">${actionGlyph}</span></h2>`;
+
+                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.featTraits;
+
+                const traitsDisplay: string = traits
+                    .map((trait) => ({
+                        name: trait,
+                        label: actionTraits[trait] ?? trait,
+                    }))
+                    .map((trait) => {
+                        trait.label = game.i18n.localize(trait.label);
+                        return trait;
+                    })
+                    .sort((a: StrikeTrait, b: StrikeTrait) => a.label.localeCompare(b.label))
+                    .map((trait: StrikeTrait) => {
+                        const $trait = $("<span>").addClass("tag").attr({ "data-trait": trait.name }).text(trait.label);
+                        if (trait.description) $trait.attr({ "data-description": trait.description });
+                        return $trait.prop("outerHTML");
+                    })
+                    .join("");
+
+                flavor += `<div class="tags">${traitsDisplay}</div>`;
+
+                flavor += `<p>${game.i18n.format(`PF2E.Actions.${action}.${kind}.Description`, {
+                    weapon: weapon.name,
+                })}</p>`;
+
+                flavor += `<p>${game.i18n.format(`PF2E.Actions.${action}.Notes`)}</p>`;
+
+                ChatMessagePF2e.create({
+                    speaker: ChatMessagePF2e.getSpeaker({ actor: this }),
+                    content: flavor,
+                });
+            },
+        };
     }
 
     /** Prepare a strike action from a weapon */
@@ -1111,6 +1173,34 @@ export class CharacterPF2e extends CreaturePF2e {
             multipleAttackPenalty.map3 = penalty * 2;
         }
 
+        const isRealItem = weapon.actor.items.get(weapon.id) !== undefined;
+        const auxiliaryActions = [];
+        if (isRealItem) {
+            switch (weapon.carryType) {
+                case "held":
+                    if (weapon.handsHeld !== 1) {
+                        auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Regrip1H", "free", "held", 1));
+                    }
+                    if (weapon.handsHeld !== 2) {
+                        auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Regrip2H", "1", "held", 2));
+                    }
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Sheathe", "1", "worn", 0));
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Drop", "free", "dropped", 0));
+                    break;
+                case "worn":
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw1H", "1", "held", 1));
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw2H", "1", "held", 2));
+                    break;
+                case "stowed":
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retreive", "2", "held", 1));
+                    break;
+                case "dropped":
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp1H", "1", "held", 1));
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp2H", "1", "held", 2));
+                    break;
+            }
+        }
+
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = this.getRollOptions(defaultOptions);
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
@@ -1132,6 +1222,7 @@ export class CharacterPF2e extends CreaturePF2e {
             variants: [],
             selectedAmmoId: itemData.data.selectedAmmoId,
             meleeUsage: meleeUsage ? this.prepareStrike(meleeUsage, { categories }) : null,
+            auxiliaryActions,
         });
 
         // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely

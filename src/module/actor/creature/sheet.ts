@@ -207,6 +207,22 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             strike.variants[Number(variantIndex)]?.roll({ event });
         });
 
+        const auxiliaryActionSelector = 'button[data-action="auxiliary-action"]';
+        $strikesList.find(auxiliaryActionSelector).on("click", (event) => {
+            if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
+            const strike = this.getStrikeFromDOM(event.currentTarget);
+            if (!strike) return;
+
+            const auxiliaryActionIndex = $(event.currentTarget)
+                .closest("[data-auxiliary-action-index]")
+                .attr("data-auxiliary-action-index");
+
+            const auxAction = strike.auxiliaryActions?.[Number(auxiliaryActionIndex)];
+            if (!auxAction) return;
+
+            auxAction.roll({ event });
+        });
+
         // We can't use form submission for these updates since duplicates force array updates.
         // We'll have to move focus points to the top of the sheet to remove this
         $html
