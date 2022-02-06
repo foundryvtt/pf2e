@@ -239,18 +239,18 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
 
         switch (type) {
             case "flat":
-                return params.immutable === "false" ? getStatisticValue(["dc", "flat-dc"]) : base.toString();
+                return params.immutable === "false" ? getStatisticValue(["inline-dc"]) : base.toString();
             case "perception":
-                return getStatisticValue(["all", "dc"]);
+                return getStatisticValue(["all", "inline-dc"]);
             case "fortitude":
             case "reflex":
             case "will": {
-                const selectors = ["all", "dc"];
+                const selectors = ["all", "inline-dc"];
                 return getStatisticValue(selectors);
             }
             default: {
                 // Skill or Lore
-                const selectors = ["all", "dc"];
+                const selectors = ["all", "inline-dc"];
                 if (SKILL_EXPANDED[type]) {
                     // Long form
                     selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);
