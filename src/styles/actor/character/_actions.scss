@@ -59,7 +59,6 @@
                 width: 100%;
                 .actions-panel {
                     display: none;
-                    /* animation: fadein 0.8s; */
 
                     &.active {
                         display: flex;
@@ -68,16 +67,17 @@
                 }
 
                 .actions-options {
+                    @include frame-elegant;
                     display: flex;
                     flex-wrap: wrap;
                     margin: 0 1rem 1rem;
                     padding: 0.5rem 1rem;
-                    @include frame-elegant;
 
                     .actions-option {
-                        display: flex;
                         align-items: center;
+                        display: flex;
                         width: 100%;
+                        margin: 1px 0;
 
                         label {
                             * {
@@ -86,6 +86,10 @@
 
                             input {
                                 @include p-reset;
+                            }
+
+                            .unchecked-disabled {
+                                color: var(--color-text-dark-inactive);
                             }
                         }
                     }
