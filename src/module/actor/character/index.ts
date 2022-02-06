@@ -1332,7 +1332,7 @@ export class CharacterPF2e extends CreaturePF2e {
         if (!ammo) {
             return true;
         } else if (ammo.quantity < 1) {
-            ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
             return false;
         } else {
             const existingCallback = args.callback;
