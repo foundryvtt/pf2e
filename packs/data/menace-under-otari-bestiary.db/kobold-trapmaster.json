@@ -147,6 +147,9 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": false
                 },
                 "equippedBulk": {
@@ -311,6 +314,9 @@
                     "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": false
                 },
                 "equippedBulk": {
@@ -467,6 +473,9 @@
                     "value": 4
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -621,6 +630,9 @@
                     "value": ""
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": false
                 },
                 "equippedBulk": {
@@ -694,14 +706,27 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "systems/pf2e/icons/equipment/consumables/talismans/swift-block-cabochon.webp",
             "name": "Eggshell Necklace",
             "sort": 400000,
             "type": "equipment"
         },
         {
-            "_id": "luHiKgz7OLW39ieQ",
+            "_id": "fx6MEhp40JvDajQh",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
@@ -709,17 +734,36 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "charges": {
+                    "_deprecated": true,
+                    "max": "1",
+                    "value": "1"
+                },
                 "collapsed": {
                     "value": false
+                },
+                "consumableType": {
+                    "value": "snare"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": "2d8"
                 },
                 "containerId": {
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>This basic snare consists of hidden spikes that rely on a creature's momentum to lacerate or potentially impale it as it enters the snare's square, dealing 2d8 piercing damage. The creature must attempt a @Check[type:reflex|dc:17|basic:true] saving throw.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -743,11 +787,8 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "maxHp": {
                     "value": 0
@@ -762,40 +803,70 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "3 gp"
                 },
                 "quantity": {
-                    "value": 3
+                    "value": 1
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "spike-snare",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "snare",
+                        "trap"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
                 },
                 "weight": {
                     "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "Spike Trap",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.3V2U720YhW2nyGVx"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/snares/spike-snare.webp",
+            "name": "Spike Snare",
             "sort": 500000,
-            "type": "equipment"
+            "type": "consumable"
         },
         {
             "_id": "OmVVuah2jgqtqVVo",
@@ -811,7 +882,7 @@
                 },
                 "damageRolls": {
                     "7br8uidsjheq4riwq31q2": {
-                        "damage": "1d6",
+                        "damage": "1d6+2",
                         "damageType": "piercing"
                     }
                 },
@@ -857,7 +928,7 @@
                 },
                 "damageRolls": {
                     "ugi928g3nw90dk33gi12tl5": {
-                        "damage": "1d6",
+                        "damage": "1d6+2",
                         "damageType": "piercing"
                     }
                 },
@@ -905,7 +976,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.hurriedRetreat"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hurriedRetreat"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -972,7 +1059,7 @@
             "type": "action"
         },
         {
-            "_id": "SkUr1ih7aasqa9A1",
+            "_id": "yDzPXpPBRfYG5UfY",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -984,7 +1071,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The kobold trapmaster deals an extra [[/r {1d6}]]{1d6 damage} to creatures that have the flat-footed condition.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>The kobold trapmaster deals an extra [[/r 1d6]] damage to creatures that have the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
