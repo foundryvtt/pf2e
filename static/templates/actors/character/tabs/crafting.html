@@ -63,9 +63,7 @@
 
                             {{#if @root.owner}}
                                 <div class="item-controls">
-                                    {{#if @root.crafting.entries.alchemical.entries}}
-                                        <a class="item-control crafting-quick-add" title="{{localize "PF2E.CraftingTab.QuickAddTitle"}}" data-item-uuid="{{craftedItem.uuid}}"><i class="fas fa-plus"></i></a>
-                                    {{else if @root.crafting.entries.other}}
+                                    {{#if (or @root.crafting.entries.alchemical.entries.length @root.crafting.entries.other.length)}}
                                         <a class="item-control crafting-quick-add" title="{{localize "PF2E.CraftingTab.QuickAddTitle"}}" data-item-uuid="{{craftedItem.uuid}}"><i class="fas fa-plus"></i></a>
                                     {{/if}}
                                     <a class="item-control craft-item" title="{{localize "PF2E.CraftItemTitle"}}" data-item-uuid="{{craftedItem.uuid}}"><i class="fas fa-hammer"></i></a>
