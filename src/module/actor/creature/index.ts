@@ -13,7 +13,6 @@ import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { hasInvestedProperty } from "@item/data/helpers";
 import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
@@ -564,34 +563,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
         );
     }
 
+    // this is needed for type safety
     override async updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
         options: DocumentModificationContext = {}
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        const equippingUpdates = data.filter(
-            (update) => "data.equipped.value" in update && typeof update["data.equipped.value"] === "boolean"
-        );
-        const wornArmor = this.wornArmor;
-
-        for (const update of equippingUpdates) {
-            if (!("data.equipped.value" in update)) continue;
-
-            const item = this.physicalItems.get(update._id)!;
-            // Allow no more than one article of armor to be equipped at a time
-            if (wornArmor && item instanceof ArmorPF2e && item.isArmor && item.id !== wornArmor.id) {
-                data.push({ _id: wornArmor.id, "data.equipped.value": false, "data.invested.value": false });
-            }
-
-            // Uninvested items as they're unequipped
-            if (update["data.equipped.value"] === false && hasInvestedProperty(item.data)) {
-                update["data.invested.value"] = false;
-            }
-        }
-
         return super.updateEmbeddedDocuments(embeddedName, data, options);
     }
-
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */

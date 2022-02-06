@@ -90,9 +90,6 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     category: WeaponCategory;
     group: WeaponGroup | null;
     baseItem: BaseWeaponType | null;
-    hands: {
-        value: boolean;
-    };
     bonus: {
         value: number;
     };
