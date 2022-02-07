@@ -21,6 +21,7 @@ import {
 import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
+import { DamageCategory } from "@system/damage/damage";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -237,20 +238,29 @@ export class SpellPF2e extends ItemPF2e {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
-    override getItemRollOptions(prefix?: string) {
-        const options = super.getItemRollOptions(prefix);
+    override getItemRollOptions(prefix = this.type): string[] {
+        const options = new Set<string>();
+
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
-            options.push(`${prefix}:spell-slot`);
-        }
-        if (!this.data.data.duration.value) {
-            options.push(`${prefix}:duration:0`);
-        }
-        if (this.data.data.spellType.value !== "heal") {
-            options.push("damaging-effect");
+            options.add(`${prefix}:spell-slot`);
         }
 
-        return options;
+        if (!this.data.data.duration.value) {
+            options.add(`${prefix}:duration:0`);
+        }
+
+        for (const damage of Object.values(this.data.data.damage.value)) {
+            const category = DamageCategory.fromDamageType(damage.type.value);
+            if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
+            if (category) options.add(`${prefix}:damage:${category}`);
+        }
+
+        if (this.data.data.spellType.value !== "heal") {
+            options.add("damaging-effect");
+        }
+
+        return super.getItemRollOptions(prefix).concat([...options]);
     }
 
     override async toMessage(
