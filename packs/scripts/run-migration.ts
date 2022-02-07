@@ -16,8 +16,7 @@ import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fis
 import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-range-increment-res";
 import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
 import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
-import { Migration717CarryType } from "@module/migration/migrations/717-carry-type";
-import { Migration718TakeFeatLimits } from "@module/migration/migrations/718-take-feat-limits";
+import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
 
 const migrations: MigrationBase[] = [
     new Migration707BracketedFormulasAtInstanceLevel(),
@@ -30,8 +29,7 @@ const migrations: MigrationBase[] = [
     new Migration714RangeIncrementREs(),
     new Migration715DangerousSorcery(),
     new Migration716StrikeDamageSelector(),
-    new Migration717CarryType(),
-    new Migration718TakeFeatLimits(),
+    new Migration717TakeFeatLimits(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

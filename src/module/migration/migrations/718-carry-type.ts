@@ -6,8 +6,8 @@ import { MigrationBase } from "../base";
 import { ActorSourcePF2e } from "@actor/data";
 import { EquippedData } from "../../item/physical/data";
 
-export class Migration717CarryType extends MigrationBase {
-    static override version = 0.717;
+export class Migration718CarryType extends MigrationBase {
+    static override version = 0.718;
 
     override async updateItem(itemData: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (actor === undefined || actor.type !== "character") return;
