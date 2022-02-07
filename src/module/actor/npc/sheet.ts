@@ -377,6 +377,22 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 await actor.increaseCondition(effect);
             }
         });
+
+        $html.find(".spanedit").on("click", async (event) => {
+            event.target.contentEditable = "true";
+            event.target.focus();
+        });
+
+        $html.find(".spellcasting-name, .spanedit").on("blur", async (event) => {
+            event.target.contentEditable = "false";
+
+            this.actor.updateEmbeddedDocuments("Item", [
+                {
+                    _id: event.target.id,
+                    name: event.target.innerText,
+                },
+            ]);
+        });
     }
 
     // TRAITS MANAGEMENT
