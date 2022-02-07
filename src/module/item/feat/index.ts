@@ -103,7 +103,7 @@ export class FeatPF2e extends ItemPF2e {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
         }
 
-        // Ensure takeAtLevel1 and takeMultiple are consistent
+        // Ensure onlyLevel1 and takeMultiple are consistent
         const traits = changed.data?.traits?.value;
 
         if (this.isFeature && changed.data) {
