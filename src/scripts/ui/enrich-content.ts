@@ -140,12 +140,13 @@ export const EnrichContent = {
         // Deduplicate traits
         const allTraits = Array.from(new Set(traits));
 
-        // Let the inline roll function handle level base DCs
-        const checkDC = params.dc === "@self.level" ? params.dc : getCheckDc(params, item);
-
         // Build the inline link
         const html = document.createElement("span");
-        html.setAttribute("data-pf2-dc", checkDC);
+        if (params.dc) {
+            // Let the inline roll function handle level base DCs
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDc(params, item);
+            html.setAttribute("data-pf2-dc", checkDC);
+        }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
         html.setAttribute(
             "data-pf2-label",
