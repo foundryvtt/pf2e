@@ -50,7 +50,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get hands(): "0" | "1" | "1+" | "2" {
         const usageToHands = {
-            "worn-gloves": "0",
+            worngloves: "0",
             "held-in-one-hand": "1",
             "held-in-one-plus-hands": "1+",
             "held-in-two-hands": "2",
