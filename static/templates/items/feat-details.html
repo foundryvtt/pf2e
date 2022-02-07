@@ -30,12 +30,32 @@
         {{/select}}
     </select>
 </div>
-
+{{#if isFeat}}
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
+        <div class="details-container-flex-row">
+            <select name="data.maxTakable" data-dtype="Number" {{disabled mandatoryTakeOnce}}>
+                {{#select data.maxTakable}}
+                    <option value="1">{{localize "No"}}</option>
+                    <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
+                    <option value="3">{{localize "PF2E.Item.Feat.TakeMultiple.Three"}}</option>
+                    <option value="4">{{localize "PF2E.Item.Feat.TakeMultiple.Four"}}</option>
+                    <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
+                {{/select}}
+            </select>
+            {{#if mandatoryTakeOnce}}<input type="hidden" name="data.maxTakable" value="1" data-dtype="Number" />{{/if}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
+        <input type="checkbox" name="data.onlyLevel1" {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}} />
+        {{#if hasLineageTrait}}<input type="hidden" name="data.onlyLevel1" value="true" data-dtype="Boolean" />{{/if}}
+    </div>
+{{/if}}
 <div class="form-group-stacked tags">
     <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
     <input type="text" name="data.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
 </div>
-
 <div class="form-group-stacked">
     <label>
         {{localize "PF2E.TraitsLabel"}}

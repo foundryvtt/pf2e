@@ -12,7 +12,7 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty, isPhysicalData } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
-import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
+import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { ConditionType } from "@item/condition/data";
@@ -170,6 +170,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .concat(this.data.data.tokenEffects)
             .concat(conditionTokenEffects)
             .concat(effectTokenEffects);
+    }
+
+    /** A means of checking this actor's type without risk of circular import references */
+    isOfType<T extends ActorType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
+        return this.type === type;
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */

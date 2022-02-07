@@ -117,3 +117,4 @@ export { Migration714RangeIncrementREs } from "./714-range-increment-res";
 export { Migration715DangerousSorcery } from "./715-dangerous-sorcery";
 export { Migration716StrikeDamageSelector } from "./716-strike-damage-selector";
 export { Migration717CarryType } from "./717-carry-type";
+export { Migration718TakeFeatLimits } from "./718-take-feat-limits";
