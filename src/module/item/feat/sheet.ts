@@ -3,8 +3,10 @@ import { FeatSheetData, ItemSheetDataPF2e } from "../sheet/data-types";
 import { ItemSheetPF2e } from "../sheet/base";
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
-    override async getData(): Promise<FeatSheetData> {
-        const data: ItemSheetDataPF2e<FeatPF2e> = await super.getData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<FeatSheetData> {
+        const data: ItemSheetDataPF2e<FeatPF2e> = await super.getData(options);
+
+        const hasLineageTrait = this.item.traits.has("lineage");
 
         return {
             ...data,
@@ -17,6 +19,9 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             prerequisites: JSON.stringify(this.item.data.data.prerequisites?.value ?? []),
             rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity] }),
             traits: this.prepareOptions(CONFIG.PF2E.featTraits, data.data.traits),
+            isFeat: this.item.isFeat,
+            mandatoryTakeOnce: hasLineageTrait || data.data.onlyLevel1,
+            hasLineageTrait,
         };
     }
 }

@@ -109,9 +109,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 ranged: this.isRanged,
             })
                 .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    return `${delimitedPrefix}${key}`;
-                }),
+                .map(([key]) => `${delimitedPrefix}${key}`),
             this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
         ].flat();
     }
