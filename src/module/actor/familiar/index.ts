@@ -11,6 +11,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
 import { extractModifiers } from "@module/rules/util";
+// import { CreatureSensePF2e } from "@actor/creature/sense";
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -25,6 +26,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
     /** Set base emphemeral data for later updating by derived-data preparation */
     override prepareBaseData() {
+        console.log(this.name, "prepareBase1", this.data.data.traits);
         super.prepareBaseData();
 
         type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
@@ -36,27 +38,40 @@ export class FamiliarPF2e extends CreaturePF2e {
         const systemData: PartialSystemData = this.data.data;
         systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
-        systemData.traits = {
-            senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
-            size: new ActorSizePF2e({ value: "tiny" }),
-            traits: { value: ["minion"], custom: "" },
+        // if (systemData.traits.senses === null) {
+        //     systemData.traits.senses = [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision" }];
+        // }
+        // systemData.traits ??= {
+        //     // senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", acuity: "precise", value: "" }],
+        //     senses: [new CreatureSensePF2e({ type: "lowLightVision" })],
+        //     size: new ActorSizePF2e({ value: "tiny" }),
+        //     traits: ({ value: ["minion"], custom: "" }),
+        // };
+        systemData.traits ??= {
+            senses: [{}],
+            size: {},
+            traits: {},
         };
+        // systemData.traits.senses ??= [new CreatureSensePF2e({ type: "lowLightVision" })];
+        // systemData.traits.size ??= new ActorSizePF2e({ value: "tiny" });
+        // systemData.traits.traits = ({ value: ["minion"], custom: "" });
 
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
-        systemData.attributes.speed = {
-            value: "25",
-            label: game.i18n.localize("PF2E.SpeedTypesLand"),
+        systemData.attributes.speed ??= {
+            value: "",
+            label: {},
             otherSpeeds: [],
         };
 
-        systemData.skills = {};
+        systemData.skills ??= {};
 
         systemData.saves = {
             fortitude: {},
             reflex: {},
             will: {},
         };
+        console.log(this.name, "prepareBase2", this.data.data.traits);
     }
 
     /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
@@ -65,6 +80,7 @@ export class FamiliarPF2e extends CreaturePF2e {
     }
 
     override prepareDerivedData(): void {
+        console.log(this.name, "prepareDerived1", this.data.data.traits);
         super.prepareDerivedData();
 
         const master = this.master;
@@ -288,6 +304,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
+        console.log(this.name, "prepareDerived2", this.data.data.traits);
     }
 
     override async createEmbeddedDocuments(

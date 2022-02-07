@@ -1,12 +1,12 @@
+import { ActorDataPF2e } from "@actor/data";
 import { FamiliarPF2e } from "@actor/familiar";
-import type { ItemPF2e } from "@item/base";
+import { ActorSheetPF2e } from "@actor/sheet/base";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { objectHasKey } from "@util";
 
 /**
  * @category Actor
  */
-export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
+export class FamiliarSheetPF2e extends ActorSheetPF2e<FamiliarPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -23,6 +23,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
     }
 
     override async getData() {
+        console.log(this.actor.name, "getData1", this.actor.data.data.traits);
         const familiar = this.actor;
         // Get all potential masters of the familiar
         const masters = game.actors.filter((a) => a.type === "character" && a.testUserPermission(game.user, "OWNER"));
@@ -47,12 +48,15 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
             }))
             .sort();
 
+        const senses = this.actor.data.data.traits.senses;
+
         // TEMPORARY solution for change in 0.8 where actor in super.getData() is an object instead of the data.
         // The correct solution is to subclass ActorSheetPF2e, but that is a more involved fix.
         const actorData = this.actor.toObject(false);
         const baseData = await super.getData();
         baseData.actor = actorData;
         baseData.data = actorData.data;
+        baseData.data.traits.senses = senses;
 
         // Update save labels
         if (baseData.data.saves) {
@@ -73,23 +77,20 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         };
     }
 
+    // required but not needed
+    protected prepareItems(_sheetData: { actor: ActorDataPF2e }): void {
+        return;
+    }
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-
-        // rollable stats
-        $html.find('[data-saving-throw]:not([data-saving-throw=""])').on("click", "*", (event) => {
-            const save = $(event.currentTarget).closest("[data-saving-throw]").attr("data-saving-throw");
-            if (objectHasKey(this.actor.saves, save)) {
-                this.actor.saves[save].check.roll(eventToRollParams(event));
-            }
-        });
 
         $html.find("[data-skill-check] *").on("click", (event) => {
             const skill = $(event.currentTarget).closest("[data-skill-check]").attr("data-skill-check");
             this.actor.skills[skill ?? ""]?.check.roll(eventToRollParams(event));
         });
 
-        $html.find("[data-perception-check] *").on("click", (event) => {
+        $html.find(".perception").on("click", (event) => {
             const options = this.actor.getRollOptions(["all", "perception"]);
             this.actor.attributes.perception.roll({ event, options });
         });
@@ -98,6 +99,8 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
             const options = this.actor.getRollOptions(["all", "attack"]);
             this.actor.data.data.attack.roll({ event, options });
         });
+
+        $html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
 
         // expand and condense item description
         $html.find(".item-list").on("click", ".expandable", (event) => {
@@ -117,32 +120,6 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
             if (item) {
                 item.sheet.render(true);
             }
-        });
-
-        $html.find(".item-list").on("click", '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {
-            const itemID = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemID);
-            if (!item) return;
-
-            new Dialog({
-                title: `Remove ${item.type}?`,
-                content: `<p>Are you sure you want to remove ${item.name}?</p>`,
-                buttons: {
-                    delete: {
-                        icon: '<i class="fas fa-trash"></i>',
-                        label: "Remove",
-                        callback: () => {
-                            item.delete();
-                        },
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                    },
-                },
-                default: "cancel",
-            }).render(true);
-            return false;
         });
     }
 }
