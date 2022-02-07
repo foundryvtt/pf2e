@@ -71,19 +71,23 @@ class PredicatePF2e implements RawPredicate {
             return domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
         } else {
             const operator = Object.keys(statement)[0];
+
             const [left, right] = Object.values(statement)[0];
-            const numericValues = Array.from(domain).flatMap((s) =>
-                s.startsWith(left) ? Number(/:(\d+)$/.exec(s)?.[1]) : []
+            const domainArray = Array.from(domain);
+            const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(\d+)$/.exec(d)?.[1]) : []));
+            const rightValues = domainArray.flatMap((d) =>
+                typeof right === "number" ? right : d.startsWith(right) ? Number(/:(\d+)$/.exec(d)?.[1]) : []
             );
+
             switch (operator) {
                 case "gt":
-                    return numericValues.some((n) => n > right);
+                    return leftValues.some((l) => rightValues.every((r) => l > r));
                 case "gte":
-                    return numericValues.some((n) => n >= right);
+                    return leftValues.some((l) => rightValues.every((r) => l >= r));
                 case "lt":
-                    return numericValues.some((n) => n < right);
+                    return leftValues.some((l) => rightValues.every((r) => l < r));
                 case "lte":
-                    return numericValues.some((n) => n <= right);
+                    return leftValues.some((l) => rightValues.every((r) => l <= r));
                 default:
                     console.warn("PF2e System | Malformed binary operation encounter");
                     return false;
@@ -183,10 +187,10 @@ class StatementValidator {
 }
 
 type EqualTo = { eq: [string, string | number] };
-type GreaterThan = { gt: [string, number] };
-type GreaterThanEqualTo = { gte: [string, number] };
-type LessThan = { lt: [string, number] };
-type LessThanEqualTo = { lte: [string, number] };
+type GreaterThan = { gt: [string, string | number] };
+type GreaterThanEqualTo = { gte: [string, string | number] };
+type LessThan = { lt: [string, string | number] };
+type LessThanEqualTo = { lte: [string, string | number] };
 type BinaryOperation = EqualTo | GreaterThan | GreaterThanEqualTo | LessThan | LessThanEqualTo;
 type Atom = string | BinaryOperation;
 
