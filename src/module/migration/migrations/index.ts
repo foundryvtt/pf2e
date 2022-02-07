@@ -116,5 +116,4 @@ export { Migration713FistToStrikeRE } from "./713-fist-to-strike-re";
 export { Migration714RangeIncrementREs } from "./714-range-increment-res";
 export { Migration715DangerousSorcery } from "./715-dangerous-sorcery";
 export { Migration716StrikeDamageSelector } from "./716-strike-damage-selector";
-export { Migration717CarryType } from "./717-carry-type";
-export { Migration718TakeFeatLimits } from "./718-take-feat-limits";
+export { Migration717TakeFeatLimits } from "./717-take-feat-limits";

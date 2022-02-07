@@ -3,8 +3,8 @@ import { objectHasKey } from "@util";
 import { MigrationBase } from "../base";
 
 /** Indicate whether a feat must be taken at level 1 or may only be taken a limited number of times */
-export class Migration718TakeFeatLimits extends MigrationBase {
-    static override version = 0.718;
+export class Migration717TakeFeatLimits extends MigrationBase {
+    static override version = 0.717;
 
     private levelOneOnly = new Set([
         "celestial-eyes",
