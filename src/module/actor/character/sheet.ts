@@ -823,6 +823,23 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
         });
 
+        const $craftingQuickAdd = $html.find(".crafting-pane .crafting-quick-add");
+        $craftingQuickAdd.on("click", async (event) => {
+            // find the formula based on the id of the clicked item
+            const { itemUuid } = event.currentTarget.dataset;
+            if (!itemUuid) return;
+            const craftingFormulas = await this.actor.getCraftingFormulas();
+            const formula = craftingFormulas.find((f) => f.uuid === itemUuid);
+            if (!formula) return;
+            // find all the crafting entries, if there is only one then add the formula
+            // otherwise prompt the user for which crafting entry to add the formula
+            const actorCraftingEntries = await this.actor.getCraftingEntries();
+            for (const actorCraftingEntry of actorCraftingEntries) {
+                // if actor ends up with a blank selector (happened in testing) then don't prepareFormula in this case
+                if (actorCraftingEntry.selector) await actorCraftingEntry.prepareFormula(formula);
+            }
+        });
+
         const $formulas = $html.find(".craftingEntry-list");
 
         $formulas.find(".craft-item").on("click", async (event) => {
