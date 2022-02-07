@@ -1,5 +1,4 @@
 import { ItemSourcePF2e } from "@item/data";
-import { objectHasKey } from "@util";
 import { MigrationBase } from "../base";
 
 /** Indicate whether a feat must be taken at level 1 or may only be taken a limited number of times */
@@ -17,7 +16,7 @@ export class Migration717TakeFeatLimits extends MigrationBase {
         "willing-death",
     ]);
 
-    private maxTakeable = {
+    private maxTakeable: Record<string, number> = {
         "additional-lore": Infinity,
         "advanced-domain": Infinity,
         "advanced-general-training": Infinity,
@@ -57,7 +56,7 @@ export class Migration717TakeFeatLimits extends MigrationBase {
             source.data.onlyLevel1 = false;
         }
 
-        if (!source.data.onlyLevel1 && objectHasKey(this.maxTakeable, slug)) {
+        if (!source.data.onlyLevel1 && slug in this.maxTakeable) {
             source.data.maxTakable = this.maxTakeable[slug];
         } else if ("game" in globalThis) {
             source.data.maxTakable = 1;
