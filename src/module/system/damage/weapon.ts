@@ -270,7 +270,7 @@ export class WeaponDamagePF2e {
         const twoHandTrait = traits.find(
             (t) => t.name.toLowerCase().startsWith("two-hand-") && (weapon.data?.equipped?.handsHeld ?? 0) >= 2
         );
-        if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
+        if (twoHandTrait) {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf("-") + 1) as DamageDieSize;
         }
 
