@@ -16,8 +16,10 @@
                 {{> "systems/pf2e/templates/actors/character/sidebar/stamina.html"}}
             {{/if}}
 
-            <!-- ARMOR CLASS -->
-            {{> "systems/pf2e/templates/actors/character/sidebar/armor-class.html"}}
+            <!-- SHIELD -->
+            {{#if data.attributes.shield.itemId}}
+                {{> "systems/pf2e/templates/actors/character/sidebar/armor-class.html"}}
+            {{/if}}
 
             <!-- Perception -->
             {{> "systems/pf2e/templates/actors/character/sidebar/perception.html"}}

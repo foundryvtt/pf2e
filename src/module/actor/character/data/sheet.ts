@@ -71,6 +71,7 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: Embedded<DeityPF2e> | null;
+    dyingLabel: string;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;

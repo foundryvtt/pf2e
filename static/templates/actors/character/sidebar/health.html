@@ -1,47 +1,72 @@
-<div class="sidebar_title">
-    <h2>{{localize "PF2E.HitPointsHeader"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
-        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
-    </button>
-</div>
-<div class="hitpoints">
-    <div class="hp-big">
-        <div class="container temp-hp">
-            <label for="{{options.id}}-pc-hp-temp" class="sidebar_label">{{localize "PF2E.TempHitPointsShortLabel"}}</label>
-            <div class="data-value" title="{{localize "PF2E.TempHPTitle"}}">
-                <input name="data.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />
-            </div>
+<div class="container hitpoints-ac">
+    <div class="container armor-class">
+        <div class="ac">
         </div>
-        <div class="container current-hp">
-            <label for="{{options.id}}-pc-hp" class="sidebar_label">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
-            <div class="data-value" title="{{localize "PF2E.CurrentHPTitle"}}">
-                <input name="data.attributes.hp.value" id="{{options.id}}-pc-hp" type="number" value="{{data.attributes.hp.value}}" placeholder="10" />
-            </div>
-        </div>
-        <div class="container max-hp">
-            <span class="sidebar_label">{{localize "PF2E.MaxHitPointsShortLabel"}}</span>
-            <div class="data-value">
-                <h2>{{data.attributes.hp.max}}</h2>
-            </div>
+        <h2 class="ac-value sidebar_label">
+            {{data.attributes.ac.value}}
+        </h2>
+        <div class="ac-label hover" data-tooltip-content="#{{options.id}}-ac-modifiers">
+            <span class="sidebar_label">
+                {{localize "PF2E.ArmorClassShortLabel"}}
+                <i class="fas fa-eye"></i>
+            </span>
         </div>
     </div>
-    <div class="hp-small">
-        <a class="rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
-            {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+
+    <div class="container hitpoints">
+        <div class="hp"></div>
+
+        <input class="curr-hp" name="data.attributes.hp.value" id="{{options.id}}-pc-hp" type="number"
+            value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="10" />
+        <h2 class="hp-divider sidebar_label">/</h2>
+        <h2 class="max-hp sidebar_label">{{data.attributes.hp.max}}</h2>
+
+        <div class="temp-hp">
+            <input name="data.attributes.hp.temp" id="{{options.id}}-pc-hp-temp" type="number"
+                value="{{data.attributes.hp.temp}}" data-dtype="Number" placeholder="0" />
+        </div>
+        <label class="temp-label sidebar_label" for="{{options.id}}-pc-hp-temp">
+            {{localize "PF2E.TempHitPointsShortLabel"}}
+        </label>
+
+        <div class="hp-label hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
+            <label class="sidebar_label">
+                {{localize "PF2E.HitPointsHeader"}}
+                <i class="fas fa-eye"></i>
+            </label>
+        </div>
+    </div>
+
+    <div class="death-dying">
+        <div class="recovery-check">
+            <span class="sidebar_label">{{localize "PF2E.Recovery.Label"}}</span>
+            <a class="recovery-check rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
+                {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+            </a>
+        </div>
+        <a class="dying" data-tooltip-content="#{{options.id}}-dying">
+            <span class="sidebar_label">{{dyingLabel}}</span>
+            <div class="dots">{{{data.attributes.dying.icon}}}</div>
         </a>
-        <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
-            <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
-            <span>{{{data.attributes.dying.icon}}}</span>
-        </a>
-        <a class="dots wounded" title="{{localize "PF2E.condition.wounded.summary"}}">
-            <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
-            <span>{{{data.attributes.wounded.icon}}}</span>
-        </a>
-        <a class="roll-icon rest" data-action="rest" title="{{localize "PF2E.Actor.Character.Rest.Label"}}">
-            <i class="fas fa-bed"></i>
-        </a>
+
+        <div class="rest">
+            <span class="sidebar_label">{{localize "PF2E.Actor.Character.Rest.ShortLabel"}}</span>
+            <a class="roll-icon rest" data-action="rest" title="{{localize "PF2E.Actor.Character.Rest.Label"}}">
+                <i class="fas fa-bed"></i>
+            </a>
+        </div>
     </div>
 </div>
+
+<div class="hover-content" id="{{options.id}}-dying">
+    <p>{{localize "PF2E.condition.dying.name"}} {{data.attributes.dying.value}}</p>
+    <p>{{localize "PF2E.condition.wounded.name"}} {{data.attributes.wounded.value}}</p>
+    <p>{{localize "PF2E.condition.doomed.name"}} {{data.attributes.doomed.value}}</p>
+</div>
+
 {{#with data.attributes.hp}}
 {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title="PF2E.HitPointsHeader" }}
+{{/with}}
+{{#with data.attributes.ac}}
+{{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title="PF2E.ArmorClassLabel" }}
 {{/with}}

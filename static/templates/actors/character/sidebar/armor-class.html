@@ -1,21 +1,27 @@
-<div class="sidebar_title">
-    <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-ac-modifiers">
-        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
-    </button>
+<div class="sidebar_title shield-title">
+    <h2>{{localize "PF2E.ShieldLabel"}} ({{data.attributes.shield.name}})</h2>
 </div>
 <div class="armor-class">
-    <div class="shield ac">
-        <div class="data-value">
-            <h2>{{data.attributes.ac.value}}</h2>
-        </div>
-        <span class="sidebar_label">{{localize "PF2E.ArmorClassShortLabel"}}</span>
-    </div>
-    <div class="shield hp">
-        <div class="data-value">
-            <input id="{{@root.options.id}}-shield-hp" type="number" placeholder="0" name="data.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" title="{{localize "PF2E.ShieldCurrentTitle"}}" />
-        </div>
-        <label for="{{@root.options.id}}-shield-hp" class="sidebar_label">{{localize "PF2E.ShieldCurrentLabel"}}</label>
+    <div class="shield-hp">
+        <label
+            class="shield-hp-label sidebar_label"
+            for="{{@root.options.id}}-shield-hp" class="sidebar_label">{{localize "PF2E.ShieldCurrentLabel"}}</label>
+        <input
+            class="shield-hp"
+            id="{{@root.options.id}}-shield-hp"
+            type="number"
+            placeholder="0"
+            name="data.attributes.shield.hp.value"
+            value="{{data.attributes.shield.hp.value}}"
+            title="{{localize "PF2E.ShieldCurrentTitle"}}" />
+        <h2 class="divider">/</h2>
+        <input
+            class="shield-hp-max"
+            id="{{@root.options.id}}-shield-max"
+            type="number"
+            placeholder="0"
+            value="{{data.attributes.shield.hp.max}}"
+            readonly="readonly" />
     </div>
     <div class="shield-stats">
         <ol>
@@ -63,14 +69,10 @@
             </li>
         </ol>
     </div>
-    <div class="armor_footer">
-        <div class="shield-max">
-            <label for="{{@root.options.id}}-shield-max" class="sidebar_label" title="{{localize "PF2E.ShieldMaxTitle"}}">
-                {{localize "PF2E.ShieldLabel"}}<br />{{localize "PF2E.MaxHitPointsShortLabel"}}
-            </label>
-            <span class="data-value" title="{{localize "PF2E.ShieldMaxTitle"}}">
-                <input id="{{@root.options.id}}-shield-max" type="number" placeholder="0" value="{{data.attributes.shield.hp.max}}" readonly="readonly" />
-            </span>
+    <div class="shield-extra">
+        <div class="shield-status">
+            <span class="sidebar_label" title="{{localize "PF2E.ShieldRaisedTitle"}}">{{localize "PF2E.ShieldRaisedLabel"}}</span>
+            {{#if data.attributes.shield.raised}}<i class="far fa-times-circle"></i>{{else}}<i class="far fa-circle"></i>{{/if}}
         </div>
         <div class="shield-status">
             <span class="sidebar_label" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</span>
@@ -78,6 +80,4 @@
         </div>
     </div>
 </div>
-{{#with data.attributes.ac}}
-{{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.html title="PF2E.ArmorClassLabel" }}
-{{/with}}
+
