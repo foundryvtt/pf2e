@@ -17,6 +17,7 @@ import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-
 import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
 import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
 import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
+import { Migration718CarryType } from "@module/migration/migrations/718-carry-type";
 
 const migrations: MigrationBase[] = [
     new Migration707BracketedFormulasAtInstanceLevel(),
@@ -30,6 +31,7 @@ const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
     new Migration716StrikeDamageSelector(),
     new Migration717TakeFeatLimits(),
+    new Migration718CarryType(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
