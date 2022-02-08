@@ -392,7 +392,13 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.Thunderstone.Greater.success]</p>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
@@ -1123,9 +1129,15 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {3}[splash,sonic]]]{3 sonic splash damage}</p>\n<p>Each creature within 10 feet of the space in which the stone exploded must succeed at a @Check[type:fortitude|dc:28|name:Greater Thunderstone|traits:alchemical,bomb,sonic] saving throw with the listed DC or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn, and subjected to the effects of Binding Blast.</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.Thunderstone.Greater.success]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1134,6 +1146,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
                         "range-increment-30",
                         "splash"
                     ]
@@ -1167,7 +1182,20 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "alchemical",
+                                "bomb",
+                                "splash"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> Creatures that fail the saving throw against the thunderstone are also @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round. Creatures that critically fail are @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round. Creatures who protect their eyes, such as by wearing tinted goggles, are immune to the infused thunderstone's blinding effect.</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
