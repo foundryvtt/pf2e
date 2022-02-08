@@ -19,7 +19,7 @@
                     <a class="item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle"></i></a>
                 {{/if}}
             {{/if}}
-            <a class="item-toggle-equip{{#if item.data.equipped.value}} active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
+            {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=item}}
             <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fas fa-edit"></i></a>
             <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fas fa-trash"></i></a>
         </div>

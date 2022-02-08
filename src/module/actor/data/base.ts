@@ -210,7 +210,8 @@ export interface StrikeData {
     traits: StrikeTrait[];
     /** Any options always applied to this strike. */
     options: string[];
-
+    /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
+    ready: boolean;
     /** Alias for `attack`. */
     roll?: RollFunction;
     /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
@@ -243,6 +244,7 @@ export interface RollToggle {
     label: string;
     inputName: string;
     checked: boolean;
+    enabled: boolean;
 }
 
 /** Any skill or similar which provides a roll option for rolling this save. */

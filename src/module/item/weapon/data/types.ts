@@ -90,9 +90,6 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     category: WeaponCategory;
     group: WeaponGroup | null;
     baseItem: BaseWeaponType | null;
-    hands: {
-        value: boolean;
-    };
     bonus: {
         value: number;
     };
@@ -108,7 +105,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
         value: string;
     };
     usage: {
-        value: "worn-gloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
+        value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
     };
     MAP: {
         value: string;
@@ -142,7 +139,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
         critDamage: string;
         critDamageType: string;
     };
-    selectedAmmoId?: string;
+    selectedAmmoId: string | null;
 }
 
 export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];

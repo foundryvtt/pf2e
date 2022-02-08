@@ -572,7 +572,6 @@
         "ArmorClassLabel": "Armor Class",
         "ArmorClassShortLabel": "AC",
         "ArmorDexLabel": "Dex Modifier Cap",
-        "ArmorEquippedLabel": "Equipped",
         "ArmorGreaterResilientRune": "Greater Resilient",
         "ArmorGreaterStrikingRune": "Greater Striking",
         "ArmorGroupChain": "Chain",
@@ -794,6 +793,14 @@
         "BulkShortLabel": "Bulk",
         "BulkTypeLight": "Light",
         "CapacityBarLabel": "Capacity",
+        "CarryType": {
+            "held1": "Held 1H",
+            "held2": "Held 2H",
+            "worn": "Worn",
+            "worn-slotted": "Worn (Slotted)",
+            "stowed": "Stowed",
+            "dropped": "Dropped"
+        },
         "CastLabel": "Cast",
         "CharacterDetails": "Character Details",
         "CharacterLevelLabel": "Level",
@@ -965,7 +972,8 @@
             "ExpendFormula": "Expend Formula",
             "ToggleFreeCrafting": "Toggle Free Crafting",
             "ToggleQuickAlchemy": "Quick Alchemy",
-            "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted."
+            "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted.",
+            "QuickAddTitle": "Quick add this formula to the daily crafting list."
         },
         "CraftDCTitle": "DC",
         "CraftItemTitle": "Craft",
@@ -1332,6 +1340,21 @@
                     "EndOfTurn": "End of Turn"
                 },
                 "ShowTokenIcon": "Show token icon?"
+            },
+            "Feat": {
+                "OnlyLevel1": "Must be taken at level 1",
+                "TakeMultiple": {
+                    "Label": "Can be taken multiple times",
+                    "Two": "Up to 2×",
+                    "Three": "Up to 3×",
+                    "Four": "Up to 4×",
+                    "NoLimit": "No limit"
+                },
+                "Warning": {
+                    "TakenAfterLevel1": "{item} must be taken at level 1, but {actor} is at level {actorLevel}.",
+                    "TakenMoreThanOnce": "{item} may only be taken once, but {actor} has selected it an additional time.",
+                    "TakenMoreThanMax": "{item} may only be {maxTaken} times, but {actor} has selected it {timesTaken} times."
+                }
             },
             "Heritage": {
                 "AncestryNotFound": "The referenced ancestry item was not found.",
@@ -2377,7 +2400,7 @@
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "SpellCantripLabel": "Cantrip",
-        "SpellCastingFormat": "{preparationType} {traditionSpells}",
+        "SpellCastingFormat": "{traditionSpells} {preparationType} Spells",
         "SpellComponentF": "Focus",
         "SpellComponentM": "Material",
         "SpellComponentS": "Somatic",
@@ -2554,10 +2577,10 @@
         "TotalCoinage": "Total Coinage",
         "TotalWealth": "Total Wealth",
         "TraditionSpells": {
-            "Arcane": "{tradition} Spells",
-            "Divine": "{tradition} Spells",
-            "Occult": "{tradition} Spells",
-            "Primal": "{tradition} Spells"
+            "Arcane": "{tradition}",
+            "Divine": "{tradition}",
+            "Occult": "{tradition}",
+            "Primal": "{tradition}"
         },
         "TrainedSkillsLabel": "Trained Skills",
         "Traits": "Traits",
@@ -4551,6 +4574,7 @@
             "TotalNumberFamiliarAbilities": "Total # of Familiar Abilities",
             "Familiar": "Familiar",
             "Creature": "Creature",
+            "CreatureType": "Creature Type",
             "Perception": "Perception",
             "Defenses": "Defense",
             "ArmorClass": "Armor Class",

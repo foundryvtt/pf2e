@@ -79,7 +79,7 @@ export class TrickMagicItemEntry implements SpellcastingEntry {
     }
 
     async cast(spell: SpellPF2e, options: { level?: number } = {}) {
-        const level = options.level ?? spell.heightenedLevel;
+        const level = options.level ?? spell.level;
         try {
             spell.trickMagicEntry = this;
             await spell.toMessage(undefined, { data: { spellLvl: level } });

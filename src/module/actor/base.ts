@@ -9,10 +9,10 @@ import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
-import { hasInvestedProperty } from "@item/data/helpers";
+import { hasInvestedProperty, isPhysicalData } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
-import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
+import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { ConditionType } from "@item/condition/data";
@@ -27,6 +27,8 @@ import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
+import { ItemCarryType } from "@item/physical/data";
+import { isEquipped } from "../item/physical/usage";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -125,11 +127,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return false;
     }
 
-    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
-    getReach(_options: { to?: "interact" | "attack" }): number {
-        return 0;
-    }
-
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
@@ -141,6 +138,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get rollOptions(): RollOptionFlags {
         return this.data.flags.pf2e.rollOptions;
+    }
+
+    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
+    get heldShield(): Embedded<ArmorPF2e> | null {
+        return null;
+    }
+
+    /** Most actor types can host rule elements */
+    get canHostRuleElements(): boolean {
+        return true;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -165,14 +172,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .concat(effectTokenEffects);
     }
 
-    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
-    get heldShield(): Embedded<ArmorPF2e> | null {
-        return null;
-    }
-
-    /** Most actor types can host rule elements */
-    get canHostRuleElements(): boolean {
-        return true;
+    /** A means of checking this actor's type without risk of circular import references */
+    isOfType<T extends ActorType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
+        return this.type === type;
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */
@@ -181,6 +183,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             o.startsWith("self:") ? o.replace(/^self/, prefix) : []
         );
         return new Set(rollOptions);
+    }
+
+    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
+    getReach(_options: { to?: "interact" | "attack" }): number {
+        return 0;
     }
 
     /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
@@ -675,7 +682,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         const newItemData = item.toObject();
         newItemData.data.quantity.value = quantity;
-        newItemData.data.equipped.value = false;
+        newItemData.data.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
             const traits: Set<string> = item.traits;
             newItemData.data.invested.value = traits.has("invested") ? false : null;
@@ -729,6 +736,58 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
+     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
+     * @param item       The item
+     * @param carryType  Location to be set to
+     * @param handsHeld  Number of hands being held
+     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
+     */
+    async adjustCarryType(
+        item: Embedded<PhysicalItemPF2e>,
+        carryType: ItemCarryType,
+        handsHeld: number,
+        inSlot: boolean
+    ) {
+        if (carryType === "stowed") {
+            // since there's still an "items need to be in a tree" view, we
+            // need to actually put the item in a container when it's stowed.
+            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
+            await item.update({
+                "data.containerId.value": container?.id ?? "",
+                "data.equipped.carryType": "stowed",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
+            });
+        } else {
+            const equipped = {
+                carryType: carryType,
+                handsHeld: carryType === "held" ? handsHeld : 0,
+                inSlot: inSlot ?? false,
+            };
+
+            const updates = [];
+
+            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e) {
+                // see if they have another set of armor equipped
+                const wornArmor = this.items.filter((i) => isPhysicalData(i.data) && i.data.isEquipped);
+                for (const armor of wornArmor) {
+                    updates.push({
+                        _id: armor.id,
+                        "data.equipped.inSlot": false,
+                    });
+                }
+            }
+
+            updates.push({
+                _id: item.id,
+                "data.containerId.value": "",
+                "data.equipped": equipped,
+            });
+            await this.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
+    /**
      * Moves an item into the inventory into or out of a container.
      * @param actor       Actor whose inventory should be edited.
      * @param getItem     Lambda returning the item.
@@ -738,10 +797,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
             await item.update({
                 "data.containerId.value": container.id,
-                "data.equipped.value": false,
+                "data.equipped.carryType": "stowed",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
             });
         } else {
-            await item.update({ "data.containerId.value": null });
+            await item.update({
+                "data.containerId.value": null,
+                "data.equipped.carryType": "worn",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
+            });
         }
     }
 

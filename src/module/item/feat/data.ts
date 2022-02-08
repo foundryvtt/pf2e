@@ -28,6 +28,10 @@ export interface FeatSystemSource extends ItemSystemData, ItemLevelData {
     featType: {
         value: FeatType;
     };
+    /** Whether this feat must be taken at character level 1 */
+    onlyLevel1: boolean;
+    /** The maximum number of times this feat can be taken by a character. A value of `null` indicates no limit */
+    maxTakable: number | null;
     actionType: {
         value: ActionType;
     };
@@ -43,4 +47,7 @@ export interface FeatSystemSource extends ItemSystemData, ItemLevelData {
     location: string;
 }
 
-export type FeatSystemData = FeatSystemSource;
+export interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
+    /** `null` is set to `Infinity` during data preparation */
+    maxTakable: number;
+}

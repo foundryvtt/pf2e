@@ -139,9 +139,9 @@ export async function craftSpellConsumable(item: PhysicalItemPF2e, itemQuantity:
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
     const spellLevel = consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2);
     const validSpells = actor.itemTypes.spell
-        .filter((spell) => spell.level <= spellLevel && !spell.isCantrip && !spell.isFocusSpell && !spell.isRitual)
+        .filter((spell) => spell.baseLevel <= spellLevel && !spell.isCantrip && !spell.isFocusSpell && !spell.isRitual)
         .reduce((result, spell) => {
-            result[spell.level] = [...(result[spell.level] || []), spell];
+            result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
         }, <Record<number, Embedded<SpellPF2e>[]>>{});
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.html", {

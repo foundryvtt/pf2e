@@ -84,7 +84,11 @@ class StrikeRuleElement extends RuleElementPF2e {
                 range: this.data.range,
                 traits: { value: this.data.traits, rarity: "common", custom: "" },
                 options: { value: this.data.options ?? [] },
-                equipped: { value: true },
+                usage: { value: "held-in-one-hand" },
+                equipped: {
+                    carryType: "held",
+                    handsHeld: 1,
+                },
             },
         };
 

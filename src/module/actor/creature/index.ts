@@ -13,7 +13,6 @@ import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { hasInvestedProperty } from "@item/data/helpers";
 import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
@@ -42,6 +41,8 @@ import { HitPointsSummary } from "@actor/base";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
+import { DamageType } from "@module/damage-calculation";
+import { StrikeData } from "@actor/data/base";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -85,11 +86,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
             grg: 20,
         }[this.size];
 
-        if (to === "interact" || this.type === "familiar") {
+        if (to === "interact" || this.data.type === "familiar") {
             return baseReach;
         } else {
-            const reachWeapons = this.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has("reach"));
-            return reachWeapons.length > 0 ? baseReach + 5 : baseReach;
+            const attacks: StrikeData[] = this.data.data.actions;
+            const readyAttacks = attacks.filter((a: StrikeData) => a.ready);
+            const reachAttacks = readyAttacks.filter((a) => a.traits.some((t) => t.name.startsWith("reach")));
+            if (reachAttacks.length === 0) return baseReach;
+
+            const reaches = reachAttacks.map((attack): number => {
+                const hasWeaponReach = !!attack.weapon?.hasReach;
+                const reach = hasWeaponReach
+                    ? 5
+                    : Number(attack.traits.find((t) => /^reach-\d+$/.test(t.name))?.name.replace("reach-", "")) || 5;
+                // If the attack's weapon has the (unqualified) reach trait, add 5 to its base reach
+                return hasWeaponReach ? baseReach + 5 : reach;
+            });
+
+            return Math.max(...reaches);
         }
     }
 
@@ -256,6 +270,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     label: "PF2E.TargetFlatFootedLabel",
                     inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
                     checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                    enabled: true,
                 },
             ],
         };
@@ -436,7 +451,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         value: number,
         type: string,
         predicate?: RawPredicate,
-        damageType?: string,
+        damageType?: DamageType,
         damageCategory?: string
     ) {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
@@ -562,34 +577,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
         );
     }
 
+    // this is needed for type safety
     override async updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
         options: DocumentModificationContext = {}
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        const equippingUpdates = data.filter(
-            (update) => "data.equipped.value" in update && typeof update["data.equipped.value"] === "boolean"
-        );
-        const wornArmor = this.wornArmor;
-
-        for (const update of equippingUpdates) {
-            if (!("data.equipped.value" in update)) continue;
-
-            const item = this.physicalItems.get(update._id)!;
-            // Allow no more than one article of armor to be equipped at a time
-            if (wornArmor && item instanceof ArmorPF2e && item.isArmor && item.id !== wornArmor.id) {
-                data.push({ _id: wornArmor.id, "data.equipped.value": false, "data.invested.value": false });
-            }
-
-            // Uninvested items as they're unequipped
-            if (update["data.equipped.value"] === false && hasInvestedProperty(item.data)) {
-                update["data.invested.value"] = false;
-            }
-        }
-
         return super.updateEmbeddedDocuments(embeddedName, data, options);
     }
-
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */

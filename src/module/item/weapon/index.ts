@@ -50,7 +50,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get hands(): "0" | "1" | "1+" | "2" {
         const usageToHands = {
-            "worn-gloves": "0",
+            worngloves: "0",
             "held-in-one-hand": "1",
             "held-in-one-plus-hands": "1+",
             "held-in-two-hands": "2",
@@ -61,6 +61,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     /** The range of this weapon, or null if a melee weapon */
     get rangeIncrement(): WeaponRangeIncrement | null {
         return this.data.data.range;
+    }
+
+    get hasReach(): boolean {
+        return this.traits.has("reach");
     }
 
     get reload(): string | null {
@@ -105,9 +109,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 ranged: this.isRanged,
             })
                 .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    return `${delimitedPrefix}${key}`;
-                }),
+                .map(([key]) => `${delimitedPrefix}${key}`),
             this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
         ].flat();
     }
@@ -126,6 +128,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.traits.otherTags ??= [];
+        systemData.selectedAmmoId ||= null;
         AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
@@ -350,7 +353,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
+                reload: { value: "" },
                 traits: { value: meleeUsage.traits.concat("combination") },
+                selectedAmmoId: null,
             },
             flags: {
                 pf2e: {

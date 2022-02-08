@@ -21,6 +21,7 @@ import {
 import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
+import { DamageCategory } from "@system/damage/damage";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -38,8 +39,16 @@ export class SpellPF2e extends ItemPF2e {
      */
     trickMagicEntry?: TrickMagicItemEntry;
 
-    get level(): OneToTen {
+    get baseLevel(): OneToTen {
         return this.data.data.level.value;
+    }
+
+    /**
+     * Heightened level of the spell if heightened, otherwise base.
+     * This applies for spontaneous or innate spells usually, but not prepared ones.
+     */
+    get level() {
+        return this.data.data.heightenedLevel?.value ?? this.baseLevel;
     }
 
     get traits(): Set<SpellTrait> {
@@ -59,14 +68,6 @@ export class SpellPF2e extends ItemPF2e {
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
         return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
-    }
-
-    /**
-     * Heightened level of the spell if heightened, otherwise base.
-     * This applies for spontaneous or innate spells usually, but not prepared ones.
-     */
-    get heightenedLevel() {
-        return this.data.data.heightenedLevel?.value ?? this.level;
     }
 
     get isCantrip(): boolean {
@@ -116,10 +117,19 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         // Spells cannot go lower than base level
-        return Math.max(this.level, castLevel ?? this.heightenedLevel);
+        return Math.max(this.baseLevel, castLevel ?? this.level);
     }
 
     override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
+        const spellLevel = Number(rollOptions?.spellLvl) || null;
+        const castLevel = Math.max(this.baseLevel, spellLevel || this.level);
+
+        // If we need to heighten it, clone it and return its roll data instead
+        if (spellLevel && castLevel !== this.level) {
+            const heightenedSpell = this.clone({ "data.heightenedLevel.value": castLevel });
+            return heightenedSpell.getRollData();
+        }
+
         const rollData = super.getRollData();
         if (this.actor instanceof CharacterPF2e || this.actor instanceof NPCPF2e) {
             const spellcasting = this.spellcasting;
@@ -131,9 +141,8 @@ export class SpellPF2e extends ItemPF2e {
             }
         }
 
-        const castLevel = Number(rollOptions?.spellLvl) || this.heightenedLevel || this.level;
-        rollData["castLevel"] = Math.max(this.level, castLevel);
-        rollData["heighten"] = Math.max(0, castLevel - this.level);
+        rollData["castLevel"] = castLevel;
+        rollData["heighten"] = Math.max(0, castLevel - this.baseLevel);
 
         return rollData;
     }
@@ -170,7 +179,7 @@ export class SpellPF2e extends ItemPF2e {
             if (scaling?.interval) {
                 const scalingFormula = scaling.damage[id];
                 if (scalingFormula && scalingFormula !== "0" && scaling.interval) {
-                    const partCount = Math.floor((castLevel - this.level) / scaling.interval);
+                    const partCount = Math.floor((castLevel - this.baseLevel) / scaling.interval);
                     if (partCount > 0) {
                         const scalingParts = Array(partCount).fill(scalingFormula);
                         parts.push(scalingParts.join("+"));
@@ -205,7 +214,8 @@ export class SpellPF2e extends ItemPF2e {
         if (actor) {
             const statisticsModifiers = actor.synthetics.statisticsModifiers;
             const domains = ["damage", "spell-damage"];
-            const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: this } });
+            const heightened = this.clone({ "data.heightenedLevel.value": castLevel });
+            const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
@@ -228,20 +238,29 @@ export class SpellPF2e extends ItemPF2e {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
-    override getItemRollOptions(prefix?: string) {
-        const options = super.getItemRollOptions(prefix);
+    override getItemRollOptions(prefix = this.type): string[] {
+        const options = new Set<string>();
+
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
-            options.push(`${prefix}:spell-slot`);
-        }
-        if (!this.data.data.duration.value) {
-            options.push(`${prefix}:duration:0`);
-        }
-        if (this.data.data.spellType.value !== "heal") {
-            options.push("damaging-effect");
+            options.add(`${prefix}:spell-slot`);
         }
 
-        return options;
+        if (!this.data.data.duration.value) {
+            options.add(`${prefix}:duration:0`);
+        }
+
+        for (const damage of Object.values(this.data.data.damage.value)) {
+            const category = DamageCategory.fromDamageType(damage.type.value);
+            if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
+            if (category) options.add(`${prefix}:damage:${category}`);
+        }
+
+        if (this.data.data.spellType.value !== "heal") {
+            options.add("damaging-effect");
+        }
+
+        return super.getItemRollOptions(prefix).concat([...options]);
     }
 
     override async toMessage(
@@ -267,7 +286,7 @@ export class SpellPF2e extends ItemPF2e {
         htmlOptions: EnrichHTMLOptions = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
-        const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.heightenedLevel);
+        const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
@@ -320,7 +339,7 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
-        const baseLevel = this.level;
+        const baseLevel = this.baseLevel;
         const heightened = level - baseLevel;
         const levelLabel = (() => {
             const type = this.isCantrip
