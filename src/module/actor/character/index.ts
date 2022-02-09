@@ -10,7 +10,7 @@ import {
     ProficiencyModifier,
 } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e, RollParameters } from "@system/rolls";
+import { CheckPF2e, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import {
     ABILITY_ABBREVIATIONS,
     SAVE_TYPES,
@@ -47,8 +47,8 @@ import {
 } from "@item";
 import { CreaturePF2e } from "../";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data";
+import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
+import { PROFICIENCY_RANKS, ZeroToTwo, ZeroToFour } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
@@ -703,7 +703,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
             const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
-                _id: randomID(),
+                _id: "xxPF2ExUNARMEDxx",
                 name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
@@ -810,10 +810,10 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Set roll operations for ability scores and proficiency ranks */
-    private setNumericRollOptions(): void {
-        const rollOptionsAll = this.rollOptions.all;
+    protected override setNumericRollOptions(): void {
+        super.setNumericRollOptions();
 
-        rollOptionsAll[`self:level:${this.level}`] = true;
+        const rollOptionsAll = this.rollOptions.all;
 
         const perceptionRank = this.data.data.attributes.perception.rank;
         rollOptionsAll[`self:perception:rank:${perceptionRank}`] = true;
@@ -998,6 +998,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments
+        const weaponRollOptions = weapon.getItemRollOptions();
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustStrike(weapon);
         }
@@ -1023,7 +1024,6 @@ export class CharacterPF2e extends CreaturePF2e {
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = systemData.martial[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
-        const weaponRollOptions = weapon.getItemRollOptions();
         // If a weapon matches against a linked proficiency, add the `sameAs` category to the weapon's item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
             "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
@@ -1208,7 +1208,6 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             imageUrl: weapon.img,
-            item: weapon.id,
             quantity: weapon.quantity,
             slug: weapon.slug,
             ready: weapon.isEquipped,
@@ -1229,7 +1228,7 @@ export class CharacterPF2e extends CreaturePF2e {
         Object.defineProperty(action, "origin", {
             get: () => this.items.get(weapon.id),
         });
-        Object.defineProperty(action, "weapon", {
+        Object.defineProperty(action, "item", {
             get: () => weapon,
         });
 
@@ -1254,34 +1253,34 @@ export class CharacterPF2e extends CreaturePF2e {
             description: CONFIG.PF2E.traitsDescriptions.attack,
             toggle: false,
         };
-        action.traits = [attackTrait].concat(
-            [...weaponTraits].map((trait) => {
-                // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
-                // in use, which can include what are normally NPC-only traits
-                const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
-                const traitObject: StrikeTrait = {
-                    name: trait,
-                    label,
-                    toggle: false,
-                    description: traitDescriptions[trait] ?? "",
-                };
 
-                // look for toggleable traits
-                if (trait.startsWith("versatile-")) {
-                    traitObject.rollName = "damage-roll";
-                    traitObject.rollOption = trait;
-                }
+        const toStrikeTrait = (trait: WeaponTrait) => {
+            // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
+            // in use, which can include what are normally NPC-only traits
+            const label = CONFIG.PF2E.npcAttackTraits[trait] ?? trait;
+            const traitObject: StrikeTrait = {
+                name: trait,
+                label,
+                toggle: false,
+                description: traitDescriptions[trait] ?? "",
+            };
 
-                // trait can be toggled on/off
-                if (traitObject.rollName && traitObject.rollOption) {
-                    traitObject.toggle = true;
-                    traitObject.cssClass = this.getRollOptions([traitObject.rollName]).includes(traitObject.rollOption)
-                        ? "toggled-on"
-                        : "toggled-off";
-                }
-                return traitObject;
-            })
-        );
+            // look for toggleable traits
+            if (trait.startsWith("versatile-")) {
+                traitObject.rollName = "damage-roll";
+                traitObject.rollOption = trait;
+            }
+
+            // trait can be toggled on/off
+            if (traitObject.rollName && traitObject.rollOption) {
+                traitObject.toggle = true;
+                traitObject.cssClass = this.getRollOptions([traitObject.rollName]).includes(traitObject.rollOption)
+                    ? "toggled-on"
+                    : "toggled-off";
+            }
+            return traitObject;
+        };
+        action.traits = [attackTrait].concat([...weaponTraits].map(toStrikeTrait));
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
@@ -1289,7 +1288,7 @@ export class CharacterPF2e extends CreaturePF2e {
             .join(", ");
 
         const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-        const flavorText = weapon.traits.has("combination")
+        const flavorText = weaponTraits.has("combination")
             ? weapon.isMelee
                 ? game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Melee", { weapon: weapon.name })
                 : game.i18n.format("PF2E.Item.Weapon.MeleeUsage.StrikeLabel.Ranged", { weapon: weapon.name })
@@ -1328,12 +1327,16 @@ export class CharacterPF2e extends CreaturePF2e {
             ])
             .map(([label, constructModifier]) => ({
                 label,
-                roll: async (args: RollParameters): Promise<void> => {
-                    const traits = ["attack", ...weapon.traits];
-                    const context = this.createAttackRollContext({ traits });
+                roll: async (args: StrikeRollParams): Promise<void> => {
+                    const context = this.getAttackRollContext({
+                        domains: [],
+                        item: weapon,
+                        meleeUsage: args.meleeUsage,
+                        viewOnly: args.getFormula ?? false,
+                    });
 
                     // Set range-increment roll option
-                    const rangeIncrement = getRangeIncrement(context.distance);
+                    const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [
                         this.getRangePenalty(rangeIncrement, selectors, defaultOptions) ?? [],
@@ -1353,24 +1356,27 @@ export class CharacterPF2e extends CreaturePF2e {
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
                         rule.beforeRoll?.(baseSelectors, options);
                     }
+                    const finalRollOptions = Array.from(new Set(options));
 
-                    const dc = args.dc ?? context.dc;
+                    const dc = args.dc ?? context.target?.dc;
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
                     }
 
-                    const finalRollOptions = Array.from(new Set(options));
+                    const item = context.self.item;
+                    const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
+
                     const checkContext = {
-                        actor: this,
-                        item: weapon,
+                        actor: context.self.actor,
+                        item,
                         type: "attack-roll",
                         options: finalRollOptions,
                         notes,
                         dc,
-                        traits: action.traits,
+                        traits,
                     };
 
-                    if (!this.consumeAmmo(weapon, args)) return;
+                    if (!this.consumeAmmo(item, args)) return;
 
                     await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
                 },
@@ -1378,22 +1384,27 @@ export class CharacterPF2e extends CreaturePF2e {
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
-            action[method] = (args: RollParameters): string | void => {
-                const context = this.createDamageRollContext(args.event!);
+            action[method] = (args: StrikeRollParams): string | void => {
+                const context = this.getDamageRollContext({
+                    item: weapon,
+                    viewOnly: args.getFormula ?? false,
+                    meleeUsage: args.meleeUsage,
+                });
 
                 // Set range-increment roll option
-                const rangeIncrement = getRangeIncrement(context.distance);
+                const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                 const incrementOption =
                     typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
                 args.options ??= [];
                 const options = Array.from(
                     new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
                 );
+                const traits = [attackTrait, [...context.self.item.traits].map((t) => toStrikeTrait(t))].flat();
 
                 const damage = WeaponDamagePF2e.calculate(
-                    itemData,
-                    this,
-                    action.traits,
+                    context.self.item.data,
+                    context.self.actor,
+                    traits,
                     statisticsModifiers,
                     this.cloneSyntheticsRecord(synthetics.damageDice),
                     proficiencyRank,
@@ -1408,7 +1419,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 } else {
                     DamageRollPF2e.roll(
                         damage,
-                        { type: "damage-roll", item: weapon, actor: this, outcome, options },
+                        { type: "damage-roll", item: context.self.item, actor: context.self.actor, outcome, options },
                         args.event,
                         args.callback
                     );

@@ -690,8 +690,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const damageButton of $damageButtons) {
             const $button = $(damageButton);
             const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
+            const meleeUsage = Boolean($button.attr("data-melee-usage"));
             const strike = this.getStrikeFromDOM($button[0]);
-            const formula = strike?.[method]?.({ getFormula: true });
+            const formula = strike?.[method]?.({ getFormula: true, meleeUsage });
             if (formula) {
                 $button.attr({ title: formula });
                 $button.tooltipster({
@@ -722,7 +723,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
             const action = this.actor.data.data.actions[Number(actionIndex)];
-            const weapon = this.actor.items.get(action.item);
+            const weapon = this.actor.items.get(action.item?.id ?? "");
             const ammo = this.actor.items.get($(event.currentTarget).val() as string);
 
             if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });

@@ -55,25 +55,24 @@
                                         {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                                             {{#> attackDamage action}}{{/attackDamage}}
                                         {{/if}}
-
-                                        <div class="strike-actions">
-                                            {{#each action.auxiliaryActions as |aux aid|}}
-                                                <button type="button" class="" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
-                                                    <span class="activity-icon">{{aux.img}}</span>
-                                                    <span>{{aux.label}}</span>
-                                                </button>
-                                            {{/each}}
-                                        </div>
                                     </div>
                                 </div>
                                 {{#if action.meleeUsage}}
-                                    <div class="melee-usage" data-action="melee-usage">
+                                    <div class="melee-usage">
                                         <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
                                         {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
-                                            {{#> attackDamage action.meleeUsage}}{{/attackDamage}}
+                                            {{#> attackDamage action.meleeUsage isMeleeUsage=true}}{{/attackDamage}}
                                         {{/if}}
                                     </div>
                                 {{/if}}
+                                <div class="strike-actions">
+                                    {{#each action.auxiliaryActions as |aux aid|}}
+                                        <button type="button" class="" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
+                                            <span class="activity-icon">{{aux.img}}</span>
+                                            <span>{{aux.label}}</span>
+                                        </button>
+                                    {{/each}}
+                                </div>
                                 <div class="item-summary">
                                     <div class="item-description">
                                         <p>{{{localize action.description}}}</p>
@@ -202,16 +201,16 @@
 {{#*inline "attackDamage"}}
     <div class="button-group tags">
         {{#each variants as |variant vi|}}
-            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}"
+            <button type="button" class="tag variant-strike" data-action="strike-attack" data-variant-index="{{vi}}" data-melee-usage="{{../isMeleeUsage}}"
                 {{#if (eq ../quantity 0)}} disabled="disabled" title="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}>
                 {{#if (eq vi 0)}}<span class="activity-icon">{{../glyph}}</span>{{/if}}
                 {{variant.label}}
             </button>
         {{/each}}
-        <button type="button" class="tag damage" data-action="strike-damage">{{localize "PF2E.DamageLabel"}}</button>
-        <button type="button" class="tag damage" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+        <button type="button" class="tag damage" data-action="strike-damage" data-melee-usage="{{isMeleeUsage}}">{{localize "PF2E.DamageLabel"}}</button>
+        <button type="button" class="tag damage" data-action="strike-critical" data-melee-usage="{{isMeleeUsage}}">{{localize "PF2E.CriticalDamageLabel"}}</button>
         {{#if ammunition}}
-            <select name="ammo-used" {{#if ammunition.selected}}data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
+            <select name="ammo-used"{{#if ammunition.selected}} data-compatible="{{ammunition.selected.compatible}}"{{/if}}>
                 {{#select ammunition.selected.id}}
                     <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
                     {{#each ammunition.compatible as |ammo|}}

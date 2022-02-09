@@ -32,10 +32,15 @@ export interface RollParameters {
     dc?: CheckDC | null;
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
-    /** Other roll-specific options */
-    getFormula?: true;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
+}
+
+export interface StrikeRollParams extends RollParameters {
+    /** Retrieve the formula of the strike roll without following through to the end */
+    getFormula?: true;
+    /** The strike is to use the melee usage of a combination weapon */
+    meleeUsage?: boolean;
 }
 
 export type FateString = "none" | "fortune" | "misfortune";

@@ -34,6 +34,7 @@ import { CraftingEntryData } from "@module/crafting/crafting-entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { WeaponPF2e } from "@item";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -168,7 +169,8 @@ export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier &
-    StrikeData & {
+    Omit<StrikeData, "item"> & {
+        item?: Embedded<WeaponPF2e>;
         slug: string | null;
         adjustments?: DegreeOfSuccessAdjustment[];
         meleeUsage: CharacterStrike | null;

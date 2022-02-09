@@ -19,7 +19,7 @@ class PredicatePF2e implements RawPredicate {
     isValid: boolean;
 
     /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: RawPredicate = {}, options: string[] = []): boolean {
+    static test(predicate: RawPredicate = {}, options: string[]): boolean {
         return predicate instanceof PredicatePF2e
             ? predicate.test(options)
             : new PredicatePF2e(predicate).test(options);
@@ -43,7 +43,7 @@ class PredicatePF2e implements RawPredicate {
     }
 
     /** Test this predicate against a domain of discourse */
-    test(options: string[] = []): boolean {
+    test(options: string[]): boolean {
         if (!this.isValid) {
             console.error("PF2e System | The provided predicate set is malformed.");
             return false;

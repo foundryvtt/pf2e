@@ -159,7 +159,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             return undefined as CheckValue<T>;
         }
 
-        const domains = (data.domains ?? []).concat(check.domains ?? []);
+        const domains = [data.domains ?? [], check.domains ?? []].flat();
         const modifiers = (data.modifiers ?? []).concat(check.modifiers ?? []);
         const label = game.i18n.localize(check.label);
         const stat = new StatisticModifier(label, modifiers);
@@ -203,8 +203,9 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 // This is required to determine the AC for attack dialogs
                 const rollContext = (() => {
                     const isCreature = actor instanceof CreaturePF2e;
-                    if (isCreature && ["attack-roll", "spell-attack-roll"].includes(check.type)) {
-                        return actor.createAttackRollContext({ domains });
+                    const isAttackItem = item?.isOfType(["weapon", "melee", "spell"]);
+                    if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(check.type)) {
+                        return actor.getAttackRollContext({ domains, item });
                     }
 
                     return null;
@@ -239,7 +240,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 const context = {
                     actor,
                     item,
-                    dc: args.dc ?? rollContext?.dc,
+                    dc: args.dc ?? rollContext?.target?.dc,
                     notes: data.notes,
                     options,
                     type: check.type,
