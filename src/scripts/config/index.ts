@@ -22,7 +22,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
-import { ConditionType } from "@item/condition/data";
+import { ConditionSlug } from "@item/condition/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { PreciousMaterialGrade } from "@item/physical/data";
 import { DamageCategory, DamageType } from "@module/damage-calculation";
@@ -121,7 +121,7 @@ const damageTypes: Record<DamageType, string> = {
     untyped: "PF2E.TraitUntyped",
 };
 
-const conditionTypes: Record<ConditionType, string> = {
+const conditionTypes: Record<ConditionSlug, string> = {
     blinded: "PF2E.ConditionTypeBlinded",
     broken: "PF2E.ConditionTypeBroken",
     clumsy: "PF2E.ConditionTypeClumsy",

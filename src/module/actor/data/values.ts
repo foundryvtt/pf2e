@@ -11,7 +11,7 @@ export const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
 
 export const ALIGNMENT_TRAITS = ["chaotic", "evil", "good", "lawful"] as const;
 
-export const CONDITION_TYPES = [
+export const CONDITION_SLUGS = new Set([
     "blinded",
     "broken",
     "clumsy",
@@ -54,10 +54,10 @@ export const CONDITION_TYPES = [
     "unfriendly",
     "unnoticed",
     "wounded",
-] as const;
+] as const);
 
 export const IMMUNITY_TYPES = new Set([
-    ...CONDITION_TYPES,
+    ...CONDITION_SLUGS,
     ...DAMAGE_CATEGORIES,
     ...DAMAGE_TRAITS,
     ...DAMAGE_TYPES,

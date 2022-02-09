@@ -15,7 +15,7 @@ import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base"
 import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
-import { ConditionType } from "@item/condition/data";
+import { ConditionSlug } from "@item/condition/data";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
@@ -359,9 +359,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .map((c) => c.data);
 
         const { statisticsModifiers } = this.synthetics;
-        for (const [selector, modifiers] of game.pf2e.ConditionManager.getModifiersFromConditions(
-            conditions.values()
-        )) {
+        for (const [selector, modifiers] of game.pf2e.ConditionManager.getConditionModifiers(conditions.values())) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
@@ -903,7 +901,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param [options.all=false] return all conditions of the requested type in the order described above
      */
     getCondition(
-        slug: ConditionType,
+        slug: ConditionSlug,
         { all }: { all: boolean } = { all: false }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
         const conditions = this.itemTypes.condition
@@ -930,13 +928,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Does this actor have the provided condition?
      * @param slug The slug of the queried condition
      */
-    hasCondition(slug: ConditionType): boolean {
+    hasCondition(slug: ConditionSlug): boolean {
         return this.itemTypes.condition.some((condition) => condition.slug === slug);
     }
 
     /** Decrease the value of condition or remove it entirely */
     async decreaseCondition(
-        conditionSlug: ConditionType | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
         { forceRemove }: { forceRemove: boolean } = { forceRemove: false }
     ): Promise<void> {
         // Find a valid matching condition if a slug was passed
@@ -953,7 +951,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
-        conditionSlug: ConditionType | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
         { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {}
     ): Promise<void> {
         const existing = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
@@ -981,7 +979,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
-    async toggleCondition(conditionSlug: ConditionType): Promise<void> {
+    async toggleCondition(conditionSlug: ConditionSlug): Promise<void> {
         if (this.hasCondition(conditionSlug)) {
             await this.decreaseCondition(conditionSlug, { forceRemove: true });
         } else {
@@ -1149,11 +1147,11 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
         options?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 
-    getCondition(conditionType: ConditionType, { all }: { all: true }): Embedded<ConditionPF2e>[];
-    getCondition(conditionType: ConditionType, { all }: { all: false }): Embedded<ConditionPF2e> | null;
-    getCondition(conditionType: ConditionType): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionSlug, { all }: { all: true }): Embedded<ConditionPF2e>[];
+    getCondition(conditionType: ConditionSlug, { all }: { all: false }): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionSlug): Embedded<ConditionPF2e> | null;
     getCondition(
-        conditionType: ConditionType,
+        conditionType: ConditionSlug,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 

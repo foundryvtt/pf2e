@@ -1,4 +1,4 @@
-import { CONDITION_TYPES } from "@actor/data/values";
+import { CONDITION_SLUGS } from "@actor/data/values";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { ConditionPF2e } from ".";
@@ -16,7 +16,7 @@ export interface ConditionData extends Omit<ConditionSource, "effects" | "flags"
 }
 
 export interface ConditionSystemData extends ItemSystemData {
-    slug: ConditionType;
+    slug: ConditionSlug;
     active: boolean;
     removable: boolean;
     references: {
@@ -104,4 +104,4 @@ type ConditionValueData =
           ];
       };
 
-export type ConditionType = typeof CONDITION_TYPES[number];
+export type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
