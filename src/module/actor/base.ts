@@ -742,12 +742,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param handsHeld  Number of hands being held
      * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
      */
-    async adjustCarryType(
-        item: Embedded<PhysicalItemPF2e>,
-        carryType: ItemCarryType,
-        handsHeld: number,
-        inSlot: boolean
-    ) {
+    async adjustCarryType(item: Embedded<PhysicalItemPF2e>, carryType: ItemCarryType, handsHeld = 0, inSlot = false) {
         if (carryType === "stowed") {
             // since there's still an "items need to be in a tree" view, we
             // need to actually put the item in a container when it's stowed.
