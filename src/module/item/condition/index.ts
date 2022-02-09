@@ -1,7 +1,7 @@
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
-import { ConditionData, ConditionType } from "./data";
+import { ConditionData, ConditionSlug } from "./data";
 
 export class ConditionPF2e extends ItemPF2e {
     static override get schema(): typeof ConditionData {
@@ -121,7 +121,7 @@ export class ConditionPF2e extends ItemPF2e {
 export interface ConditionPF2e {
     readonly data: ConditionData;
 
-    get slug(): ConditionType;
+    get slug(): ConditionSlug;
 
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;

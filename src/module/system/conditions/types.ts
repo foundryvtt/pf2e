@@ -1,4 +1,4 @@
-import { ConditionType } from "@item/condition/data";
+import { ConditionSlug } from "@item/condition/data";
 
 export interface FlattenedCondition {
     id: string;
@@ -25,6 +25,6 @@ export interface ConditionReference {
           }
         | undefined;
     name: string;
-    base: ConditionType;
+    base: ConditionSlug;
     text: string;
 }
