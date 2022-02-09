@@ -48,7 +48,7 @@ import {
 import { CreaturePF2e } from "../";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
-import { PROFICIENCY_RANKS, ZeroToFour } from "@module/data";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
@@ -928,11 +928,11 @@ export class CharacterPF2e extends CreaturePF2e {
 
     prepareInteract(
         weapon: Embedded<WeaponPF2e>,
-        action: string,
-        kind: string,
-        actions: string,
+        action: "Release" | "Interact",
+        kind: "Release1H" | "Grip2H" | "Sheathe" | "Drop" | `Draw${1 | 2}H` | "Retrieve" | `PickUp${1 | 2}H`,
+        actions: "free" | "1" | "2",
         carryType: ItemCarryType,
-        handsHeld: number
+        handsHeld: ZeroToTwo
     ) {
         const actionGlyph = getActionGlyph(actions);
         return {
@@ -1173,16 +1173,16 @@ export class CharacterPF2e extends CreaturePF2e {
             multipleAttackPenalty.map3 = penalty * 2;
         }
 
-        const isRealItem = weapon.actor.items.has(weapon.id);
+        const isRealItem = this.items.has(weapon.id);
         const auxiliaryActions = [];
-        if (isRealItem) {
+        if (isRealItem && weapon.category !== "unarmed") {
             switch (weapon.carryType) {
                 case "held":
                     if (weapon.handsHeld !== 1) {
-                        auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Regrip1H", "free", "held", 1));
+                        auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Release1H", "free", "held", 1));
                     }
                     if (weapon.handsHeld !== 2) {
-                        auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Regrip2H", "1", "held", 2));
+                        auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Grip2H", "1", "held", 2));
                     }
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Sheathe", "1", "worn", 0));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Drop", "free", "dropped", 0));
@@ -1192,7 +1192,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw2H", "1", "held", 2));
                     break;
                 case "stowed":
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retreive", "2", "held", 1));
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retrieve", "2", "held", 1));
                     break;
                 case "dropped":
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp1H", "1", "held", 1));
