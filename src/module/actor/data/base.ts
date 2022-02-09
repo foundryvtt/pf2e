@@ -238,6 +238,13 @@ export interface StrikeData {
     origin?: Embedded<ItemPF2e> | null;
     /** The weapon (possibly ephemeral) behind this strike */
     weapon?: Embedded<WeaponPF2e>;
+    auxiliaryActions?: AuxiliaryAction[];
+}
+
+export interface AuxiliaryAction {
+    label: string;
+    img: string;
+    roll: RollFunction;
 }
 
 export interface RollToggle {
