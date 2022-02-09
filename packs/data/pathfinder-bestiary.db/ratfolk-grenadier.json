@@ -147,6 +147,9 @@
                     "value": "<p>Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -311,6 +314,9 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -403,7 +409,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.success]</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.success]</p>"
                     },
                     {
                         "key": "Note",
@@ -411,7 +417,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.criticalSuccess]</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.Acid Flask.Moderate.criticalSuccess]</p>"
                     }
                 ],
                 "size": {
@@ -498,6 +504,9 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -590,7 +599,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.success]</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.Success]</p>"
                     },
                     {
                         "key": "Note",
@@ -685,6 +694,9 @@
                     "value": "<p>The liquid reagents in this vial rapidly absorb heat when exposed to air. A frost vial deals the listed cold damage and cold splash damage. On a hit, the target takes a status penalty to its Speeds until the end of its next turn. Many types of frost vial also grant an item bonus to attack rolls.</p>\n<p>You gain a +1 item bonus to attack rolls, the bomb deals 2d6 cold damage and 2 cold splash damage, and the target takes a -10-foot penalty.</p>\n<hr />\n<p>@Compendium[pf2e.equipment-effects.Effect: Frost Vial (Moderate)]{Effect: Frost Vial (Moderate)}</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -774,7 +786,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> Target takes a -10-foot penalty to its Speeds.</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.FrostVial.Moderate.Success]</p>"
                     }
                 ],
                 "size": {
@@ -855,6 +867,9 @@
                     "value": 3
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -983,6 +998,9 @@
                     "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -1114,6 +1132,9 @@
                     "value": null
                 },
                 "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": "",
                     "value": true
                 },
                 "equippedBulk": {
@@ -1326,9 +1347,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d6}[persistent,acid]]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>\n<p>[[/r {2}[splash,acid]]]{2 acid splash damage}</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "acid-flask-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "acid-flask-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1371,9 +1409,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2}[persistent,fire]]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>[[/r {2}[splash,fire]]]{2 fire splash damage}</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "alchemists-fire-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "alchemists-fire-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AlchemistsFire.Moderate.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1416,9 +1471,15 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2}[splash,cold]]]{2 cold splash damage}</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Frost Vial (Moderate)]{Effect: Frost Vial (Moderate)}</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "frost-vial-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.FrostVial.Moderate.success]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
