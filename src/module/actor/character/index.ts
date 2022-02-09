@@ -67,8 +67,8 @@ import { extractModifiers, extractNotes } from "@module/rules/util";
 import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
-import { ChatMessagePF2e } from "../../chat-message";
-import { ItemCarryType } from "../../item/physical/data";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { ItemCarryType } from "@item/physical/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
