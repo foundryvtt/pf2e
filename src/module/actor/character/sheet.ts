@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
+import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
@@ -291,10 +291,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const readonlyEquipment: unknown[] = [];
 
-        const attacks: { weapon: { label: string; items: WeaponData[]; type: "weapon" } } = {
-            weapon: { label: "Compendium Weapon", items: [], type: "weapon" },
-        };
-
         // Skills
         const lores: LoreData[] = [];
 
@@ -359,9 +355,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
                     itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
-                    if (physicalData.type === "weapon") {
-                        attacks.weapon.items.push(itemData);
-                    }
                     if (physicalData.type === "book") {
                         inventory.equipment.items.push(itemData);
                     } else {
@@ -530,7 +523,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.featSlots = featSlots;
         actorData.pfsBoons = pfsBoons;
         actorData.deityBoonsCurses = deityBoonsCurses;
-        actorData.attacks = attacks;
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
