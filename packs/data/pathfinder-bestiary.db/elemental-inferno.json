@@ -142,9 +142,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {3d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Fire3d8.regular]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire3d8.regular]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Fire3d8.critical]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
