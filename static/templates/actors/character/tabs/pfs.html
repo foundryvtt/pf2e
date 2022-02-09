@@ -54,7 +54,8 @@
     <ol class="actions-list directory-list">
         {{#each actor.feats as |section sid|}}
             {{#if (eq section.label "PF2E.FeatPFSBoonHeader")}}
-                <li class="item action-header">
+                <li class="item action-header stroke-header">
+                    {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
                     <h3 class="feat-name pf-heading pf-actions">{{localize section.label}}</h3>
                     {{#if ../owner}}
                         <div class="item-controls">
@@ -81,7 +82,8 @@
             {{/if}}
         {{/each}}
 
-        <li class="item action-header">
+        <li class="item action-header stroke-header">
+            {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
             <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.FeatPFSBoonHeader"}}</h3>
             {{#if owner}}
                 <div class="item-controls">

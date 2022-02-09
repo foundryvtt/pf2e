@@ -14,7 +14,7 @@ nav.sheet-navigation {
     position: relative;
 
     .navigation-title {
-        color: white;
+        color: var(--text-light);
         margin-right: auto;
         padding-left: 1em;
         white-space: nowrap;
@@ -34,6 +34,7 @@ nav.sheet-navigation {
         z-index: 1;
         transition: all 0.1s ease-out;
         color: var(--tertiary);
+        fill: var(--tertiary);
         background-image: url('../assets/sheet/nav-item-inactive.webp');
         background-size: contain;
 
@@ -55,19 +56,10 @@ nav.sheet-navigation {
         &:hover,
         &.active {
             z-index: 2;
-            height: 28px;
-            width: 28px;
-            margin: 0 4px;
-            color: white;
+            transform: scale(1.2);
+            color: var(--text-light);
+            fill: var(--text-light);
             background-image: url('../assets/sheet/nav-item.webp');
-
-            &:last-child {
-                margin-right: 8px;
-            }
-
-            .pfs-icon {
-                content: url("../assets/icons/pfs-white.svg")
-            }
         }
 
         .fas {
@@ -75,9 +67,10 @@ nav.sheet-navigation {
         }
 
         .pfs-icon {
-            border: none;
             padding: 4px;
-            content: url("../assets/icons/pfs.svg")
+        }
+        &:hover .pfs-icon {
+            filter: drop-shadow( 0 0 8px var(--color-shadow-primary));
         }
     }
 }
