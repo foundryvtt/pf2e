@@ -1173,7 +1173,7 @@ export class CharacterPF2e extends CreaturePF2e {
             multipleAttackPenalty.map3 = penalty * 2;
         }
 
-        const isRealItem = weapon.actor.items.get(weapon.id) !== undefined;
+        const isRealItem = weapon.actor.items.has(weapon.id);
         const auxiliaryActions = [];
         if (isRealItem) {
             switch (weapon.carryType) {
