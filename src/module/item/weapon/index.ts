@@ -63,10 +63,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.range;
     }
 
-    get hasReach(): boolean {
-        return this.traits.has("reach");
-    }
-
     get reload(): string | null {
         return this.data.data.reload.value || null;
     }
@@ -363,7 +359,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 },
             },
         };
-        return this.clone(overlay) as Embedded<WeaponPF2e>;
+
+        return this.clone(overlay, { keepId: true });
     }
 
     /** Generate a melee item from this weapon for use by NPCs */

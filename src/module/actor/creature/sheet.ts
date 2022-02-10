@@ -158,14 +158,16 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
+            const meleeUsage = Boolean(event.currentTarget.dataset.meleeUsage);
+            this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event, meleeUsage });
         });
 
         $strikesList.find('button[data-action="strike-critical"]').on("click", (event) => {
             if (!["character", "npc"].includes(this.actor.data.type)) {
-                throw Error("This sheet only works for characters and NPCs");
+                throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
+            const meleeUsage = Boolean(event.currentTarget.dataset.meleeUsage);
+            this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event, meleeUsage });
         });
 
         $html.find(".spell-attack").on("click", (event) => {
@@ -203,8 +205,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!("actions" in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;
-            const variantIndex = $(event.currentTarget).attr("data-variant-index");
-            strike.variants[Number(variantIndex)]?.roll({ event });
+            const $button = $(event.currentTarget);
+            const variantIndex = $button.attr("data-variant-index");
+            const meleeUsage = Boolean($button.attr("data-melee-usage"));
+
+            strike.variants[Number(variantIndex)]?.roll({ event, meleeUsage });
         });
 
         const auxiliaryActionSelector = 'button[data-action="auxiliary-action"]';

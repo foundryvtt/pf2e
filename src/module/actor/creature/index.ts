@@ -18,7 +18,6 @@ import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
     AlignmentTrait,
-    AttackRollContext,
     CreatureSkills,
     CreatureSpeeds,
     InitiativeRollParams,
@@ -43,6 +42,16 @@ import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
 import { DamageType } from "@module/damage-calculation";
 import { StrikeData } from "@actor/data/base";
+import {
+    AttackItem,
+    AttackRollContext,
+    AttackTarget,
+    DamageRollContext,
+    GetReachParameters,
+    IsFlatFootedParams,
+    StrikeRollContext,
+    StrikeRollContextParams,
+} from "./types";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -74,9 +83,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /**
      * A currently naive measurement of this creature's reach
-     * @param [to] The context of the reach measurement. Interaction does not consider weapons.
+     * @param [context.action] The action context of the reach measurement. Interact actions don't consider weapons.
+     * @param [context.weapon] The "weapon," literal or otherwise, used in an attack-reach measurement
      */
-    override getReach({ to = "interact" }: { to?: "interact" | "attack" } = {}): number {
+    override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
         const baseReach = {
             tiny: 0,
             sm: 5,
@@ -86,21 +96,21 @@ export abstract class CreaturePF2e extends ActorPF2e {
             grg: 20,
         }[this.size];
 
-        if (to === "interact" || this.data.type === "familiar") {
+        if (action === "interact" || this.data.type === "familiar") {
             return baseReach;
         } else {
-            const attacks: StrikeData[] = this.data.data.actions;
-            const readyAttacks = attacks.filter((a: StrikeData) => a.ready);
-            const reachAttacks = readyAttacks.filter((a) => a.traits.some((t) => t.name.startsWith("reach")));
-            if (reachAttacks.length === 0) return baseReach;
+            const attacks: Pick<StrikeData, "item" | "ready">[] = weapon
+                ? [{ item: weapon, ready: true }]
+                : this.data.data.actions;
+            const readyAttacks = attacks.filter((a) => a.ready);
+            const traitsFromWeapons = readyAttacks.flatMap((a): Set<string> | never[] => a.item?.traits ?? []);
+            if (traitsFromWeapons.length === 0) return baseReach;
 
-            const reaches = reachAttacks.map((attack): number => {
-                const hasWeaponReach = !!attack.weapon?.hasReach;
-                const reach = hasWeaponReach
-                    ? 5
-                    : Number(attack.traits.find((t) => /^reach-\d+$/.test(t.name))?.name.replace("reach-", "")) || 5;
-                // If the attack's weapon has the (unqualified) reach trait, add 5 to its base reach
-                return hasWeaponReach ? baseReach + 5 : reach;
+            const reaches = traitsFromWeapons.map((traits): number => {
+                if (traits.has("reach")) return baseReach + 5;
+
+                const reachNPattern = /^reach-\d{1,3}$/;
+                return Number([...traits].find((t) => reachNPattern.test(t))?.replace("reach-", "")) || baseReach;
             });
 
             return Math.max(...reaches);
@@ -208,6 +218,29 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Whether the actor is flat-footed in the current scene context: currently only handles flanking */
+    isFlatFooted({ dueTo }: IsFlatFootedParams): boolean {
+        // The first data preparation round will occur before the game is ready
+        if (!game.ready) return false;
+
+        if (dueTo === "flanking") {
+            const { flanking } = this.attributes;
+            if (!flanking.flankable) return false;
+
+            const rollOptions = this.getRollOptions();
+            if (typeof flanking.flatFootable === "number") {
+                flanking.flatFootable = !PredicatePF2e.test(
+                    { any: [{ lte: ["origin:level", flanking.flatFootable] }] },
+                    rollOptions
+                );
+            }
+
+            return flanking.flatFootable && PredicatePF2e.test({ all: ["origin:flanking"] }, rollOptions);
+        }
+
+        return false;
+    }
+
     /** Construct a range penalty for this creature when making a ranged attack */
     protected getRangePenalty(
         increment: number | null,
@@ -231,9 +264,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         const attributes = this.data.data.attributes;
         attributes.hp = mergeObject(attributes.hp ?? {}, { negativeHealing: false });
         attributes.hardness ??= { value: 0 };
+        attributes.flanking.canFlank = true;
+        attributes.flanking.flankable = true;
+        attributes.flanking.flatFootable = true;
+
         if ("initiative" in attributes) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
         }
@@ -326,6 +364,20 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const sizeSlug = SIZE_SLUGS[sizeIndex];
         rollOptions.all[`self:size:${sizeIndex}`] = true;
         rollOptions.all[`self:size:${sizeSlug}`] = true;
+
+        // Add modifiers from being flanked
+        if (this.isFlatFooted({ dueTo: "flanking" })) {
+            const acModifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
+            const flatFooted = game.pf2e.ConditionManager.getCondition("flat-footed");
+            const modifiers = game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? [];
+            acModifiers.push(...modifiers.map((m) => () => m));
+            this.rollOptions.all["self:condition:flat-footed"] = true;
+            this.rollOptions.all["self:flatFooted"] = true; // legacy support
+        }
+    }
+
+    protected setNumericRollOptions(): void {
+        this.rollOptions.all[`self:level:${this.level}`] = true;
     }
 
     protected prepareInitiative(
@@ -467,7 +519,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
             // modifier predicate
             modifier.predicate = predicate instanceof PredicatePF2e ? predicate : new PredicatePF2e(predicate);
-            modifier.ignored = !modifier.predicate.test!();
+            modifier.ignored = !modifier.predicate.test([]);
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
             await this.update({ "data.customModifiers": customModifiers });
@@ -631,76 +683,108 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
      * but more can be added via the options.
      */
-    createAttackRollContext(options: { domains?: string[]; traits?: string[] } = {}): AttackRollContext {
-        const domains = ["all", "attack-roll", ...(options?.domains ?? [])];
-        const context = this.createStrikeRollContext(domains);
-        let dc: CheckDC | null = null;
-        if (context.target?.actor && context.target.actor) {
-            const attackTraits = ["attack", ...(options.traits ?? [])];
-            // Clone the actor to recalculate its AC with contextual roll options
-            const contextActor = context.target.actor.getContextualClone([
-                ...this.getSelfRollOptions("origin"),
-                ...attackTraits.map((trait) => `trait:${trait}`),
-            ]);
-
-            const { attributes } = contextActor;
-            if (attributes.ac) {
-                dc = {
-                    label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
-                        creature: context.target.name,
-                        dc: "{dc}",
-                    }),
-                    scope: "AttackOutcome",
-                    value: attributes.ac.value,
-                };
-            }
+    getAttackRollContext<A extends CreaturePF2e, I extends AttackItem>(
+        this: A,
+        params: StrikeRollContextParams<I>
+    ): AttackRollContext<A, I> {
+        params.domains ??= [];
+        const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
+        const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
+        const attackTarget: AttackTarget | null = context.target ? { ...context.target, dc: null } : null;
+        if (attackTarget && attackTarget.actor.attributes.ac) {
+            const { attributes } = attackTarget.actor;
+            attackTarget.dc = {
+                label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
+                    creature: attackTarget.token.name,
+                    dc: "{dc}",
+                }),
+                scope: "AttackOutcome",
+                value: attributes.ac.value,
+            };
         }
+
         return {
             options: Array.from(new Set(context.options)),
-            targets: context.targets,
-            dc,
-            distance: context.distance,
+            self: context.self,
+            target: attackTarget,
         };
     }
 
-    protected createDamageRollContext(event: JQuery.Event) {
-        const context = this.createStrikeRollContext(["all", "damage-roll"]);
+    protected getDamageRollContext<A extends CreaturePF2e, I extends AttackItem>(
+        this: A,
+        params: StrikeRollContextParams<I>
+    ): DamageRollContext<A, I> {
+        const context = this.getStrikeRollContext({ ...params, domains: ["all", "damage-roll"] });
         return {
-            event,
             options: Array.from(new Set(context.options)),
-            targets: context.targets,
-            distance: context.distance,
+            self: context.self,
+            target: context.target,
         };
     }
 
-    private createStrikeRollContext(domains: string[]) {
+    private getStrikeRollContext<A extends CreaturePF2e, I extends AttackItem>(
+        this: A,
+        params: StrikeRollContextParams<I>
+    ): StrikeRollContext<A, I> {
         const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
-        const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : null;
+        const targetToken = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : null;
 
-        const selfOptions = Array.from(this.getRollOptions(domains));
-        // Clone the actor to get contextual target options
-        const contextActor = target?.actor?.getContextualClone([...this.getSelfRollOptions("origin")]) ?? null;
-        const targetOptions = Array.from(contextActor?.getSelfRollOptions("target") ?? []);
+        const selfToken =
+            canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
+        const reach = !params.item.isOfType("spell")
+            ? this.getReach({ action: "attack", weapon: params.item })
+            : undefined;
+
+        const selfOptions = this.getRollOptions(params.domains ?? []);
+        if (targetToken && selfToken?.isFlanking(targetToken, { reach })) {
+            selfOptions.push("self:flanking");
+        }
+
+        const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
+        const actions: StrikeData[] = selfActor.data.data.actions ?? [];
+        const selfItem = ((): I => {
+            const mainItem = params.viewOnly
+                ? params.item
+                : (actions
+                      .flatMap((a) => a.item ?? [])
+                      .find((w) => w.id === params.item.id && w.name === params.item.name)! as I);
+
+            return mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
+                ? ((mainItem.toMeleeUsage() ?? mainItem) as I)
+                : mainItem;
+        })();
+
+        const self = { actor: selfActor, token: selfToken, item: selfItem };
+
+        // Clone the actor to recalculate its AC with contextual roll options
+        const targetActor = params.viewOnly
+            ? null
+            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin")]) ?? null;
+
         // Target roll options
-        const options = Array.from(new Set([selfOptions, targetOptions].flat()));
+        const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+        const rollOptions = Array.from(new Set([selfOptions, targetOptions].flat()));
 
         // Calculate distance and set as a roll option
-        const selfToken = canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift();
         const distance =
-            selfToken && target && !!canvas.grid
+            selfToken && targetToken && !!canvas.grid
                 ? ((): number => {
-                      const groundDistance = selfToken.distanceTo(target);
-                      const elevationDiff = Math.abs(selfToken.data.elevation - target.data.elevation);
+                      const groundDistance = selfToken.distanceTo(targetToken);
+                      const elevationDiff = Math.abs(selfToken.data.elevation - targetToken.data.elevation);
                       return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
                   })()
                 : null;
-        options.push(`target:distance:${distance}`);
+        rollOptions.push(`target:distance:${distance}`);
+
+        const target =
+            targetActor && targetToken && distance !== null
+                ? { actor: targetActor, token: targetToken, distance }
+                : null;
 
         return {
-            options,
-            targets: new Set(targets),
+            options: rollOptions,
+            self,
             target,
-            distance,
         };
     }
 

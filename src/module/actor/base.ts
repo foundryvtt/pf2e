@@ -177,16 +177,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.type === type;
     }
 
+    /** Whether this actor is an ally of the provided actor */
+    isAllyOf(actor: ActorPF2e): boolean {
+        return this.hasPlayerOwner === actor.hasPlayerOwner;
+    }
+
     /** Get roll options from this actor's effects, traits, and other properties */
-    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const rollOptions = Object.keys(this.rollOptions.all).flatMap((o) =>
-            o.startsWith("self:") ? o.replace(/^self/, prefix) : []
+    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): string[] {
+        const { rollOptions } = this;
+        return Object.keys(rollOptions.all).flatMap((o) =>
+            o.startsWith("self:") && rollOptions.all[o] ? o.replace(/^self/, prefix) : []
         );
-        return new Set(rollOptions);
     }
 
     /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
-    getReach(_options: { to?: "interact" | "attack" }): number {
+    getReach(_options: { action?: "interact" | "attack" }): number {
         return 0;
     }
 
@@ -278,6 +283,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.data.data.autoChanges = {};
+        this.data.data.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
 
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
@@ -359,7 +365,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .map((c) => c.data);
 
         const { statisticsModifiers } = this.synthetics;
-        for (const [selector, modifiers] of game.pf2e.ConditionManager.getConditionModifiers(conditions.values())) {
+        for (const [selector, modifiers] of game.pf2e.ConditionManager.getConditionModifiers(conditions)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
@@ -467,10 +473,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         const attribute = this.data.data.attributes[attributeName];
-        if (!attribute) return;
+        if (!(isObject(attribute) && "value" in attribute)) return;
+
         const parts = ["@mod", "@itemBonus"];
         const configAttributes = CONFIG.PF2E.attributes;
-        if (objectHasKey(configAttributes, attributeName)) {
+        if (isObject(attribute) && objectHasKey(configAttributes, attributeName)) {
             const flavor = `${game.i18n.localize(configAttributes[attributeName])} Check`;
             // Call the roll helper utility
             DicePF2e.d20Roll({

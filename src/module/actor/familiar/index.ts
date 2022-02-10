@@ -32,8 +32,12 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.prepareBaseData();
 
         type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
-        const systemData: DeepPartial<FamiliarSystemData> & { attributes: { speed: RawSpeed }; details: {} } =
-            this.data.data;
+        type PartialSystemData = DeepPartial<FamiliarSystemData> & {
+            attributes: { speed: RawSpeed; flanking: {} };
+            details: {};
+        };
+
+        const systemData: PartialSystemData = this.data.data;
         systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
         systemData.traits = {
@@ -42,6 +46,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             traits: { value: ["minion"], custom: "" },
         };
 
+        systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
         systemData.attributes.speed = {
             value: "25",
