@@ -3,12 +3,15 @@ import {
     BasePhysicalItemSource,
     MagicItemSystemData,
     PhysicalItemTraits,
+    PreciousMaterialGrade,
+    PreciousMaterialType,
 } from "@item/physical/data";
-import { ZeroToFour, ZeroToThree } from "@module/data";
+import { OneToThree, OneToFour, ZeroToThree } from "@module/data";
 import type { LocalizePF2e } from "@module/system/localize";
+import { ARMOR_PROPERTY_RUNES } from "@item/runes";
 import type { ArmorPF2e } from ".";
 
-export type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
+export type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemData>;
 
 export class ArmorData extends BasePhysicalItemData<ArmorPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/armor.svg";
@@ -26,7 +29,34 @@ type ArmorTraits = PhysicalItemTraits<ArmorTrait>;
 export type ArmorCategory = keyof ConfigPF2e["PF2E"]["armorTypes"];
 export type ArmorGroup = keyof ConfigPF2e["PF2E"]["armorGroups"];
 export type BaseArmorType = keyof typeof LocalizePF2e.translations.PF2E.Item.Armor.Base;
-export type ResilientRuneType = "" | "resilient" | "greaterResilient" | "majorResilient";
+export type armorMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
+export type ResilientRuneType = "resilient" | "greaterResilient" | "majorResilient";
+
+export type ArmorPropertyRuneType = keyof typeof ARMOR_PROPERTY_RUNES[number];
+export interface ArmorRuneData {
+    potency: OneToThree | null;
+    resilient: ResilientRuneType | null;
+    property: Record<OneToFour, ArmorPropertyRuneType | null>;
+}
+
+/** A weapon can either be unspecific or specific along with baseline material and runes */
+type SpecificArmorData =
+    | {
+          value: false;
+      }
+    | {
+          value: true;
+          price: string;
+          material: {
+              type: armorMaterialType;
+              grade: PreciousMaterialGrade;
+          };
+          runes: Omit<ArmorRuneData, "property">;
+      };
+
+export interface ArmorPropertyRuneSlot {
+    value: ArmorPropertyRuneType | null;
+}
 
 export interface ArmorSystemSource extends MagicItemSystemData {
     traits: ArmorTraits;
@@ -49,31 +79,25 @@ export interface ArmorSystemSource extends MagicItemSystemData {
     speed: {
         value: number;
     };
+    specific?: SpecificArmorData;
     potencyRune: {
-        value: ZeroToFour;
+        value: ZeroToThree | null;
     };
     resiliencyRune: {
-        value: ResilientRuneType | "";
+        value: ResilientRuneType | null;
     };
-    propertyRune1: {
-        value: string;
-    };
-    propertyRune2: {
-        value: string;
-    };
-    propertyRune3: {
-        value: string;
-    };
-    propertyRune4: {
-        value: string;
-    };
+    propertyRune1: ArmorPropertyRuneSlot;
+    propertyRune2: ArmorPropertyRuneSlot;
+    propertyRune3: ArmorPropertyRuneSlot;
+    propertyRune4: ArmorPropertyRuneSlot;
 }
 
-interface ArmorSystemData extends ArmorSystemSource {
+export interface ArmorSystemData extends ArmorSystemSource {
+    traits: ArmorTraits;
     runes: {
         potency: number;
         resilient: ZeroToThree;
-        property: string[];
+        property: ArmorPropertyRuneType[];
     };
 }
 

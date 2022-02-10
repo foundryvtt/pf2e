@@ -1,5 +1,5 @@
 import { ArmorSource, ItemSourcePF2e } from "@item/data";
-import { ZeroToFour } from "@module/data";
+import { ZeroToThree } from "@module/data";
 import { MigrationBase } from "../base";
 
 /** Set a speed penalty of -5 on all tower shields, plus some basic tidying */
@@ -22,7 +22,7 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
 
             systemData.armor.value = Number(systemData.armor.value) || 0;
             systemData.speed.value = Number(systemData.speed.value) || 0;
-            systemData.potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
+            systemData.potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToThree;
             if ("resilient" in systemData) {
                 // Aborted attempt to store rune data?
                 "game" in globalThis ? (systemData["-=resilient"] = null) : delete systemData.resilient;
