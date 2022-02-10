@@ -161,7 +161,8 @@ export class SpellPF2e extends ItemPF2e {
             }
 
             const parts: (string | number)[] = [];
-            if (damage.value && damage.value !== "0") parts.push(damage.value);
+            if (damage.diceNumber) parts.push(`${damage.diceNumber}${damage.dieSize}`);
+            if (damage.modifier) parts.push(damage.modifier);
             if (damage.applyMod && this.actor) parts.push("@mod");
 
             // Add elite/weak if its the first damage entry only

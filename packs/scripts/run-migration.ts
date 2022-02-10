@@ -19,6 +19,7 @@ import { Migration716StrikeDamageSelector } from "@module/migration/migrations/7
 import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
 import { Migration718CarryType } from "@module/migration/migrations/718-carry-type";
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
+import { Migration720SeparateSpellDamage } from "@module/migration/migrations/720-separate-spell-damage";
 
 const migrations: MigrationBase[] = [
     new Migration707BracketedFormulasAtInstanceLevel(),
@@ -34,6 +35,7 @@ const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
     new Migration718CarryType(),
     new Migration719ShrugFlanking(),
+    new Migration720SeparateSpellDamage(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
