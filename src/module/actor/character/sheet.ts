@@ -789,8 +789,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Decrease effect value
         $html
-            .find(".effects")
-            .find(".decrement")
+            .find(".tab.effects .effects-list .decrement")
             .on("click", async (event) => {
                 const actor = this.actor;
                 const target = $(event.currentTarget);
@@ -803,8 +802,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Increase effect value
         $html
-            .find(".effects")
-            .find(".increment")
+            .find(".tab.effects .effects-list .increment")
             .on("click", async (event) => {
                 type ConditionName = "dying" | "wounded" | "doomed";
                 const actor = this.actor;
