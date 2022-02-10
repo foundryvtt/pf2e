@@ -21,5 +21,6 @@ export function disarm(options: SkillActionOptions) {
             ActionsPF2e.note(selector, "PF2E.Actions.Disarm", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
         ],
+        weaponTrait: "disarm",
     });
 }

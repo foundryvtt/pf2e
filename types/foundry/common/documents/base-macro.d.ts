@@ -23,6 +23,8 @@ declare module foundry {
             readonly data: data.MacroData<this>;
 
             readonly parent: null;
+
+            get documentName(): typeof BaseMacro["metadata"]["name"];
         }
 
         interface MacroMetadata extends abstract.DocumentMetadata {

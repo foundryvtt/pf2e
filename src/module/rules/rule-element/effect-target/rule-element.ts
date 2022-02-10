@@ -3,16 +3,17 @@ import { EffectPF2e, ItemPF2e } from "@item";
 import { EffectTargetData, EffectTargetSource } from "./data";
 import { EffectTargetPrompt } from "./prompt";
 import { PredicatePF2e } from "@system/predication";
+import { ActorType } from "@actor/data";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
  * @category RuleElement
  */
 class EffectTargetRuleElement extends RuleElementPF2e {
+    validActorTypes: ActorType[] = ["character", "npc"];
+
     constructor(data: EffectTargetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
-
-        this.data.predicate ??= new PredicatePF2e({ all: ["weapon:equipped"] });
 
         // Pass the targetId to the parent effect item so that it may be referenced by other rule elements on the
         // same item.
@@ -27,6 +28,13 @@ class EffectTargetRuleElement extends RuleElementPF2e {
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<EffectTargetSource>): Promise<void> {
         if (!(this.item instanceof EffectPF2e)) return;
+
+        this.data.scope ??= "weapon";
+        this.data.predicate ??=
+            this.actor.type === "character" && this.data.scope === "weapon"
+                ? new PredicatePF2e({ all: ["weapon:equipped"] })
+                : new PredicatePF2e();
+
         const selection = await new EffectTargetPrompt({
             predicate: this.data.predicate,
             scope: this.data.scope ?? "weapon",
