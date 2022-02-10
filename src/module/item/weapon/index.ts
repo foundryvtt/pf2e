@@ -50,7 +50,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get hands(): "0" | "1" | "1+" | "2" {
         const usageToHands = {
-            "worn-gloves": "0",
+            worngloves: "0",
             "held-in-one-hand": "1",
             "held-in-one-plus-hands": "1+",
             "held-in-two-hands": "2",
@@ -105,9 +105,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 ranged: this.isRanged,
             })
                 .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    return `${delimitedPrefix}${key}`;
-                }),
+                .map(([key]) => `${delimitedPrefix}${key}`),
             this.data.data.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
         ].flat();
     }
@@ -361,7 +359,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 },
             },
         };
-        return this.clone(overlay) as Embedded<WeaponPF2e>;
+
+        return this.clone(overlay, { keepId: true });
     }
 
     /** Generate a melee item from this weapon for use by NPCs */

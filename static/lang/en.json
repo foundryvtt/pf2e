@@ -284,6 +284,38 @@
                 },
                 "Title": "High Jump"
             },
+            "Interact": {
+                "Title": "Interact",
+                "Notes": "",
+                "Draw1H": {
+                    "Title": "Draw (1H)",
+                    "Description": "Draw {weapon} (1 handed)."
+                },
+                "Draw2H": {
+                    "Title": "Draw (2H)",
+                    "Description": "Draw {weapon} (2 handed)."
+                },
+                "PickUp1H": {
+                    "Title": "Pick up (1H)",
+                    "Description": "Pick up {weapon} from ground (1 handed)."
+                },
+                "PickUp2H": {
+                    "Title": "Pick up (2H)",
+                    "Description": "Pick up {weapon} from ground (2 handed)."
+                },
+                "Grip2H": {
+                    "Title": "Grip (2H)",
+                    "Description": "Grip {weapon} with two hands."
+                },
+                "Retrieve": {
+                    "Title": "Retrieve",
+                    "Description": "Retrieve {weapon} from stowed container."
+                },
+                "Sheathe": {
+                    "Title": "Sheathe",
+                    "Description": "Sheathe {weapon}."
+                }
+            },
             "Impersonate": {
                 "Notes": {
                     "success": "<strong>Success</strong> You trick the creature into thinking you're the person you're disguised as. You might have to attempt a new check if your behavior changes.",
@@ -338,6 +370,18 @@
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
                 "NoShieldEquipped": "{actor} must have a shield equipped.",
                 "ShieldIsBroken": "{actor}'s {shield} is broken."
+            },
+            "Release": {
+                "Title": "Release",
+                "Notes": "Unlike most manipulate actions, Release does not trigger reactions that can be triggered by actions with the manipulate trait (such as Attack of Opportunity).",
+                "Drop": {
+                    "Title": "Drop",
+                    "Description": "Drop {weapon} onto ground."
+                },
+                "Release1H": {
+                    "Title": "Release (1H)",
+                    "Description": "Wield {weapon} with a single hand."
+                }
             },
             "Request": {
                 "Notes": {
@@ -668,49 +712,6 @@
         "BackgroundTitle": "Your character's background",
         "BaseModifier": "Base Modifier",
         "BaseWeapons": "Base Weapons",
-        "BattleForm": {
-            "Attack": {
-                "Antler": "Antler",
-                "Beak": "Beak",
-                "Beard": "Beard",
-                "Body": "Body",
-                "BoneShard": "Bone Shard",
-                "Boot": "Boot",
-                "Branch": "Branch",
-                "CubeFace": "Cube Face",
-                "Fangs": "Fangs",
-                "FireMote": "Fire Mote",
-                "Foot": "Foot",
-                "Foreleg": "Foreleg",
-                "Gust": "Gust",
-                "Hoof": "Hoof",
-                "Horn": "Horn",
-                "HolyMace": "Holy Mace",
-                "Leaf": "Leaf",
-                "Leg": "Leg",
-                "LightingLash": "Lightning Lash",
-                "Mandibles": "Mandibles",
-                "Moonbeam": "Moonbeam",
-                "PiercingHymn": "Piercing Hymn",
-                "Pincer": "Pincer",
-                "Pseudopod": "Pseudopod",
-                "Rock": "Rock",
-                "Spikes": "Spikes",
-                "Spine": "Spine",
-                "Stinger": "Stinger",
-                "Sunbeam": "Sunbeam",
-                "Tail": "Tail",
-                "Talon": "Talon",
-                "Tendril": "Tendril",
-                "Tentacle": "Tentacle",
-                "TentacleArm": "Tentacle Arm",
-                "Tongue": "Tongue",
-                "Vine": "Vine",
-                "Wave": "Wave",
-                "WaterSpout": "Water Spout",
-                "Wing": "Wing"
-            }
-        },
         "BestiaryBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "Biography": "Biography",
         "BiographyAllies": "Allies",
@@ -972,7 +973,8 @@
             "ExpendFormula": "Expend Formula",
             "ToggleFreeCrafting": "Toggle Free Crafting",
             "ToggleQuickAlchemy": "Quick Alchemy",
-            "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted."
+            "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted.",
+            "QuickAddTitle": "Quick add this formula to the daily crafting list."
         },
         "CraftDCTitle": "DC",
         "CraftItemTitle": "Craft",
@@ -1339,6 +1341,21 @@
                     "EndOfTurn": "End of Turn"
                 },
                 "ShowTokenIcon": "Show token icon?"
+            },
+            "Feat": {
+                "OnlyLevel1": "Must be taken at level 1",
+                "TakeMultiple": {
+                    "Label": "Can be taken multiple times",
+                    "Two": "Up to 2×",
+                    "Three": "Up to 3×",
+                    "Four": "Up to 4×",
+                    "NoLimit": "No limit"
+                },
+                "Warning": {
+                    "TakenAfterLevel1": "{item} must be taken at level 1, but {actor} is at level {actorLevel}.",
+                    "TakenMoreThanOnce": "{item} may only be taken once, but {actor} has selected it an additional time.",
+                    "TakenMoreThanMax": "{item} may only be {maxTaken} times, but {actor} has selected it {timesTaken} times."
+                }
             },
             "Heritage": {
                 "AncestryNotFound": "The referenced ancestry item was not found.",
@@ -2384,7 +2401,7 @@
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "SpellCantripLabel": "Cantrip",
-        "SpellCastingFormat": "{preparationType} {traditionSpells}",
+        "SpellCastingFormat": "{traditionSpells} {preparationType} Spells",
         "SpellComponentF": "Focus",
         "SpellComponentM": "Material",
         "SpellComponentS": "Somatic",
@@ -2561,10 +2578,10 @@
         "TotalCoinage": "Total Coinage",
         "TotalWealth": "Total Wealth",
         "TraditionSpells": {
-            "Arcane": "{tradition} Spells",
-            "Divine": "{tradition} Spells",
-            "Occult": "{tradition} Spells",
-            "Primal": "{tradition} Spells"
+            "Arcane": "{tradition}",
+            "Divine": "{tradition}",
+            "Occult": "{tradition}",
+            "Primal": "{tradition}"
         },
         "TrainedSkillsLabel": "Trained Skills",
         "Traits": "Traits",

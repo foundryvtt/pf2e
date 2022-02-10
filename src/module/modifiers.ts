@@ -571,7 +571,7 @@ export class DiceModifierPF2e implements BaseRawModifier {
         }
 
         this.predicate = new PredicatePF2e(param.predicate);
-        this.enabled = PredicatePF2e.test!(this.predicate);
+        this.enabled = this.predicate.test([]);
         this.ignored = !this.enabled;
     }
 }

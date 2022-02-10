@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData, WeaponData } from "@item/data";
+import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
@@ -291,10 +291,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const readonlyEquipment: unknown[] = [];
 
-        const attacks: { weapon: { label: string; items: WeaponData[]; type: "weapon" } } = {
-            weapon: { label: "Compendium Weapon", items: [], type: "weapon" },
-        };
-
         // Skills
         const lores: LoreData[] = [];
 
@@ -359,9 +355,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
                     itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
-                    if (physicalData.type === "weapon") {
-                        attacks.weapon.items.push(itemData);
-                    }
                     if (physicalData.type === "book") {
                         inventory.equipment.items.push(itemData);
                     } else {
@@ -530,7 +523,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.featSlots = featSlots;
         actorData.pfsBoons = pfsBoons;
         actorData.deityBoonsCurses = deityBoonsCurses;
-        actorData.attacks = attacks;
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
@@ -698,8 +690,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const damageButton of $damageButtons) {
             const $button = $(damageButton);
             const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
+            const meleeUsage = Boolean($button.attr("data-melee-usage"));
             const strike = this.getStrikeFromDOM($button[0]);
-            const formula = strike?.[method]?.({ getFormula: true });
+            const formula = strike?.[method]?.({ getFormula: true, meleeUsage });
             if (formula) {
                 $button.attr({ title: formula });
                 $button.tooltipster({
@@ -730,7 +723,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             const actionIndex = $(event.currentTarget).parents(".item").attr("data-action-index");
             const action = this.actor.data.data.actions[Number(actionIndex)];
-            const weapon = this.actor.items.get(action.item);
+            const weapon = this.actor.items.get(action.item?.id ?? "");
             const ammo = this.actor.items.get($(event.currentTarget).val() as string);
 
             if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
@@ -821,6 +814,23 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             flags.forEach(async (flag) => {
                 await this.actor.setFlag("pf2e", flag, false);
             });
+        });
+
+        const $craftingQuickAdd = $html.find(".crafting-pane .crafting-quick-add");
+        $craftingQuickAdd.on("click", async (event) => {
+            // find the formula based on the id of the clicked item
+            const { itemUuid } = event.currentTarget.dataset;
+            if (!itemUuid) return;
+            const craftingFormulas = await this.actor.getCraftingFormulas();
+            const formula = craftingFormulas.find((f) => f.uuid === itemUuid);
+            if (!formula) return;
+            // find all the crafting entries, if there is only one then add the formula
+            // otherwise prompt the user for which crafting entry to add the formula
+            const actorCraftingEntries = await this.actor.getCraftingEntries();
+            for (const actorCraftingEntry of actorCraftingEntries) {
+                // if actor ends up with a blank selector (happened in testing) then don't prepareFormula in this case
+                if (actorCraftingEntry.selector) await actorCraftingEntry.prepareFormula(formula);
+            }
         });
 
         const $formulas = $html.find(".craftingEntry-list");

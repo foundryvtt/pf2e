@@ -96,7 +96,8 @@ export class Migration680SetWeaponHands extends MigrationBase {
         } else if (itemSource.type === "weapon") {
             itemSource.data.usage ??= { value: "held-in-one-hand" };
 
-            const { baseItem, slug, traits, usage } = itemSource.data;
+            const { baseItem, slug, traits } = itemSource.data;
+            const usage: { value: string } = itemSource.data.usage;
 
             if (this.twoHandedWeapons.has(baseItem || slug || "")) {
                 usage.value = "held-in-two-hands";

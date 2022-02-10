@@ -39,37 +39,41 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this.data.flags.pf2e.linkToActorSize;
     }
 
-    /** Determine whether this token can flank another—given that they have a flanking buddy on the opposite side */
-    canFlank(flankee: TokenPF2e): boolean {
+    isAdjacentTo(token: TokenPF2e): boolean {
+        return this.distanceTo(token) === 5;
+    }
+
+    /**
+     * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
+     * @param flankee       The potentially flanked token
+     * @param context.reach An optional reach distance specific to this measurement */
+    canFlank(flankee: TokenPF2e, context: { reach?: number } = {}): boolean {
         if (this === flankee) return false;
 
+        if (!(this.actor?.attributes.flanking.canFlank && flankee.actor?.attributes.flanking.flankable)) {
+            return false;
+        }
+
         // Only PCs and NPCs can flank
-        if (!(this.actor && ["character", "npc"].includes(this.actor.type))) return false;
+        if (!["character", "npc"].includes(this.actor.type)) return false;
         // Only creatures can be flanked
         if (!(flankee.actor instanceof CreaturePF2e)) return false;
 
         // Allies don't flank each other
-        const areAlliedTokens =
-            [this, flankee].every((t) => t.actor!.hasPlayerOwner ?? false) ||
-            ![this, flankee].some((t) => t.actor!.hasPlayerOwner ?? false);
-        if (areAlliedTokens) return false;
+        if (this.actor.isAllyOf(flankee.actor)) return false;
 
-        const reach = this.actor.getReach({ to: "attack" });
+        const reach = context.reach ?? this.actor.getReach({ action: "attack" });
 
         return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
     /** Determine whether this token is in fact flanking another */
-    isFlanking(flankee: TokenPF2e): boolean {
-        if (!this.canFlank(flankee)) return false;
+    isFlanking(flankee: TokenPF2e, { reach }: { reach?: number } = {}): boolean {
+        if (!(this.actor && this.canFlank(flankee, { reach }))) return false;
 
         // Return true if a flanking buddy is found
-        const { lineCircleIntersection, lineSegmentIntersects } = foundry.utils;
-
-        const areOnOppositeCorners = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean =>
-            lineCircleIntersection(flankerA.center, flankerB.center, flankee.center, 1).intersections.length > 0;
-
-        const areOnOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
+        const { lineSegmentIntersects } = foundry.utils;
+        const onOppositeSides = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean => {
             const [centerA, centerB] = [flankerA.center, flankerB.center];
             const { bounds } = flankee;
 
@@ -98,12 +102,30 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             );
         };
 
-        const isAFlankingArrangement = (flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean =>
-            areOnOppositeCorners(flankerA, flankerB, flankee) || areOnOppositeSides(flankerA, flankerB, flankee);
+        const { flanking } = this.actor.attributes;
+        const flankingBuddies = canvas.tokens.placeables.filter((t) => t !== this && t.canFlank(flankee));
+        if (flankingBuddies.length === 0) return false;
 
-        return canvas.tokens.placeables.some(
-            (t) => t !== this && t.canFlank(flankee) && isAFlankingArrangement(this, t, flankee)
-        );
+        // The actual "Gang Up" rule or similar
+        const gangingUp = flanking.canGangUp.some((g) => typeof g === "number" && g <= flankingBuddies.length);
+        if (gangingUp) return true;
+
+        // The Side By Side feat with tie-in to the PF2e Animal Companion Compendia module
+        const ANIMAL_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.h6Ybhv5URar01WPk";
+        const sideBySide =
+            this.isAdjacentTo(flankee) &&
+            flanking.canGangUp.includes("animal-companion") &&
+            flankingBuddies.some(
+                (b) =>
+                    b.actor?.isOfType("character") &&
+                    b.actor.class?.sourceId === ANIMAL_COMPANION_SOURCE_ID &&
+                    game.modules.get("pf2e-animal-companions")?.active &&
+                    b.isAdjacentTo(flankee)
+            );
+        if (sideBySide) return true;
+
+        // Find a flanking buddy opposite this token
+        return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */

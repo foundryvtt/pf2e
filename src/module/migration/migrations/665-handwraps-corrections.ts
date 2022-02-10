@@ -9,7 +9,8 @@ export class Migration665HandwrapsCorrections extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e) {
         const slug = itemSource.data.slug ?? sluggify(itemSource.name);
         if (itemSource.type === "weapon" && slug === "handwraps-of-mighty-blows") {
-            itemSource.data.usage.value = "worn-gloves";
+            const usage: { value: string } = itemSource.data.usage;
+            usage.value = "worn-gloves";
         }
 
         const dirPath = "systems/pf2e/icons/equipment/worn-items/other-worn-items";

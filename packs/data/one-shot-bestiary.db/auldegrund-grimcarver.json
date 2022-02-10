@@ -2847,7 +2847,7 @@
                         "text": "<p class='compact-text'><strong>{item|name}</strong> Aulderund deals [[/r 2d6]] damage even on a miss using Cruel Shot. A critical miss still deals no damage.</p>"
                     },
                     {
-                        "damageType": "precision",
+                        "damageCategory": "precision",
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
@@ -2859,16 +2859,30 @@
                         "selector": "shortbow-damage"
                     },
                     {
-                        "damageType": "bleed",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "predicate": {
                             "all": [
                                 "cruel-shot"
                             ]
                         },
-                        "selector": "shortbow-damage"
+                        "selector": "shortbow-damage",
+                        "text": "<p data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.regular]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "cruel-shot"
+                            ]
+                        },
+                        "selector": "shortbow-damage",
+                        "text": "<p data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.critical]</p>"
                     }
                 ],
                 "slug": null,
