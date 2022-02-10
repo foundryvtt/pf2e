@@ -132,22 +132,24 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const { rollOptions } = this.actor;
-        if (rollOptions.all["polymorph"]) {
-            console.warn("PF2e System | You are already under the effect of a polymorph effect");
+        const { actor } = this;
+        if (actor.attributes.polymorphed) {
+            actor.synthetics.preparationWarnings.add("PF2e System | You are already under a polymorph effect");
             this.ignored = true;
             return;
         }
+        actor.attributes.polymorphed = true;
+
         this.setRollOptions();
         this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
-            const currentTraits = this.actor.data.data.traits.traits;
+            const currentTraits = actor.data.data.traits.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
         if (this.overrides.armorClass.ignoreSpeedPenalty) {
-            const speedRollOptions = (this.actor.rollOptions.speed ??= {});
+            const speedRollOptions = (actor.rollOptions.speed ??= {});
             speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
     }
