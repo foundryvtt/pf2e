@@ -14,6 +14,8 @@ declare module foundry {
             readonly data: data.PlaylistData<this>;
 
             readonly parent: null;
+
+            get documentName(): typeof BasePlaylist["metadata"]["name"];
         }
 
         interface PlaylistMetadata extends abstract.DocumentMetadata {
