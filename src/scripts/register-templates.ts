@@ -48,7 +48,12 @@ export function registerTemplates() {
 
         // SVG icons
         "systems/pf2e/templates/actors/character/icons/d20.html",
+        "systems/pf2e/templates/actors/character/icons/pfs.html",
         "systems/pf2e/templates/actors/character/icons/plus.html",
+
+        // Actor Sheet Partials (SVG images)
+        "systems/pf2e/templates/actors/partials/images/header_stroke.html",
+        "systems/pf2e/templates/actors/partials/images/header_stroke_large.html",
 
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.html",
