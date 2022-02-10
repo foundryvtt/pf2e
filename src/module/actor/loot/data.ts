@@ -5,6 +5,7 @@ import {
     BaseActorSourcePF2e,
     BaseTraitsData,
     BaseTraitsSource,
+    GangUpCircumstance,
 } from "@actor/data/base";
 import { LootPF2e } from ".";
 
@@ -41,8 +42,18 @@ export interface LootSystemSource extends ActorSystemSource {
     traits: BaseTraitsSource;
 }
 
-export interface LootSystemData extends Omit<ActorSystemData, "attributes">, LootSystemSource {
-    traits: BaseTraitsData;
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
-}
+export type LootSystemData = Omit<ActorSystemData, "attributes"> &
+    LootSystemSource & {
+        attributes: {
+            flanking: {
+                canFlank: false;
+                canGangUp: GangUpCircumstance[];
+                flankable: false;
+                flatFootable: false;
+            };
+        };
+
+        traits: BaseTraitsData;
+        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+        [key: string]: any;
+    };

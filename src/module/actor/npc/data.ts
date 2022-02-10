@@ -12,6 +12,7 @@ import {
     SkillData,
 } from "@actor/creature/data";
 import { AbilityString, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
+import { MeleePF2e } from "@item";
 import { StatisticModifier } from "@module/modifiers";
 import type { NPCPF2e } from ".";
 
@@ -70,21 +71,21 @@ export interface NPCSystemData extends CreatureSystemData {
     };
 }
 
-interface RawNPCStrike extends StrikeData {
-    /** The type of attack as a localization string */
-    attackRollType?: string;
-    /** The id of the item this strike is generated from */
-    sourceId?: string;
-    /** A list of all damage roll parts */
-    damageBreakdown?: string[];
-    /** Additional effects from a successful strike, like "Grab" */
-    additionalEffects: { tag: string; label: string }[];
-    /** A melee usage of a firearm: not available on NPC strikes */
-    meleeUsage?: never;
-}
-
 /** The full data for a NPC action (used primarily for strikes.) */
-export type NPCStrike = StatisticModifier & RawNPCStrike;
+export type NPCStrike = StatisticModifier &
+    Omit<StrikeData, "item"> & {
+        item?: Embedded<MeleePF2e>;
+        /** The type of attack as a localization string */
+        attackRollType?: string;
+        /** The id of the item this strike is generated from */
+        sourceId?: string;
+        /** A list of all damage roll parts */
+        damageBreakdown?: string[];
+        /** Additional effects from a successful strike, like "Grab" */
+        additionalEffects: { tag: string; label: string }[];
+        /** A melee usage of a firearm: not available on NPC strikes */
+        meleeUsage?: never;
+    };
 
 /** AC data with an additional "base" value */
 export interface NPCArmorClass extends StatisticModifier, ArmorClassData {

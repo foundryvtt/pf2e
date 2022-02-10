@@ -43,7 +43,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                     }));
                 }
             }
-        })().filter((choice) => this.predicate.test(choice.domain));
+        })().filter((choice) => this.predicate.test(choice.domain ?? []));
     }
 }
 

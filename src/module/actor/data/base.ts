@@ -13,11 +13,11 @@ import type { ActiveEffectPF2e } from "@module/active-effect";
 import type { ItemPF2e } from "@item/base";
 import { StatisticModifier } from "@module/modifiers";
 import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "./values";
-import { RollParameters } from "@module/system/rolls";
+import { RollParameters, StrikeRollParams } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
 import { ItemSourcePF2e } from "@item/data";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
-import { WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActorSizePF2e } from "@actor/data/size";
 import { SkillAbbreviation } from "@actor/creature/data";
 
@@ -92,7 +92,31 @@ export interface BaseHitPointsData {
 
 export interface BaseActorAttributes {
     hp?: Required<BaseHitPointsData>;
+    flanking: {
+        /** Whether the actor can flank at all */
+        canFlank: boolean;
+        /** Given the actor can flank, the conditions under which it can do so without an ally opposite the target */
+        canGangUp: GangUpCircumstance[];
+        /** Whether the actor can be flanked at all */
+        flankable: boolean;
+        /** Given the actor is flankable, whether it is flat-footed when flanked */
+        flatFootable: FlatFootableCircumstance;
+    };
 }
+
+type FlatFootableCircumstance =
+    /** Flat-footable in all flanking situations */
+    | true
+    /** Flat-footable if the flanker's level is less than or equal to the actor's own */
+    | number
+    /** Never flat-footable */
+    | false;
+
+export type GangUpCircumstance =
+    /** Requires at least `number` allies within melee reach of the target */
+    | number
+    /** Requires the actor's animal companion to be adjacent to the target */
+    | "animal-companion";
 
 /** Data related to actor hitpoints. */
 // expose _modifiers field to allow initialization in data preparation
@@ -142,7 +166,7 @@ export interface AbilityBasedStatistic {
 }
 
 /** A roll function which can be called to roll a given skill. */
-export type RollFunction = (parameters: RollParameters) => string | void | Promise<void>;
+export type RollFunction<T extends RollParameters = RollParameters> = (params: T) => string | void | Promise<void>;
 
 /** Basic initiative-relevant data. */
 export interface InitiativeData {
@@ -213,16 +237,16 @@ export interface StrikeData {
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
     ready: boolean;
     /** Alias for `attack`. */
-    roll?: RollFunction;
+    roll?: RollFunction<StrikeRollParams>;
     /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
-    attack?: RollFunction;
+    attack?: RollFunction<StrikeRollParams>;
     /** Roll normal (non-critical) damage for this weapon. */
-    damage?: RollFunction;
+    damage?: RollFunction<StrikeRollParams>;
     /** Roll critical damage for this weapon. */
-    critical?: RollFunction;
+    critical?: RollFunction<StrikeRollParams>;
 
     /** A list of attack variants which apply the Multiple Attack Penalty. */
-    variants: { label: string; roll: RollFunction }[];
+    variants: { label: string; roll: RollFunction<StrikeRollParams> }[];
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {
@@ -236,8 +260,8 @@ export interface StrikeData {
 
     /** The item that generated this strike */
     origin?: Embedded<ItemPF2e> | null;
-    /** The weapon (possibly ephemeral) behind this strike */
-    weapon?: Embedded<WeaponPF2e>;
+    /** The weapon or melee item--possibly ephemeral--being used for the strike */
+    item?: WeaponPF2e | MeleePF2e;
     auxiliaryActions?: AuxiliaryAction[];
 }
 

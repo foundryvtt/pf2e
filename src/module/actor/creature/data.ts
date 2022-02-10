@@ -11,6 +11,7 @@ import {
     StrikeData,
     InitiativeData,
     RollToggle,
+    BaseActorAttributes,
 } from "@actor/data/base";
 import type { ALIGNMENT_TRAITS, CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
@@ -18,8 +19,6 @@ import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
-import { TokenPF2e } from "@module/canvas";
-import { CheckDC } from "@system/check-degree-of-success";
 import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { CombatantPF2e } from "@module/encounter";
 import { Statistic, StatisticCompatData } from "@system/statistic";
@@ -135,7 +134,7 @@ export type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetai
 type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
-export interface CreatureAttributes {
+export interface CreatureAttributes extends BaseActorAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };
     hardness?: { value: number };
@@ -194,13 +193,6 @@ export enum VisionLevels {
 }
 
 export type VisionLevel = ZeroToThree;
-
-export interface AttackRollContext {
-    options: string[];
-    targets: Set<TokenPF2e>;
-    dc: CheckDC | null;
-    distance: number | null;
-}
 
 /** A PC's or NPC's held shield. An NPC's values can be stored directly on the actor or come from a shield item. */
 export interface HeldShieldData {

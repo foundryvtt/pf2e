@@ -143,19 +143,13 @@ class AELikeRuleElement extends RuleElementPF2e {
                 return Math.max(current ?? 0, change);
             }
             case "override": {
-                const currentValue = getProperty(this.actor.data, this.path);
-                if (typeof change === typeof currentValue || currentValue === undefined) {
-                    // Resolve all values if the override is an object
-                    if (isObject<Record<string, unknown>>(change)) {
-                        for (const [key, value] of Object.entries(change)) {
-                            if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
-                        }
+                // Resolve all values if the override is an object
+                if (isObject<Record<string, unknown>>(change)) {
+                    for (const [key, value] of Object.entries(change)) {
+                        if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
                     }
-                    return change;
                 }
-
-                this.warn("value");
-                return null;
+                return change;
             }
         }
     }
