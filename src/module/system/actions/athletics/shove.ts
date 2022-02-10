@@ -21,5 +21,6 @@ export function shove(options: SkillActionOptions) {
             ActionsPF2e.note(selector, "PF2E.Actions.Shove", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.Shove", "criticalFailure"),
         ],
+        weaponTrait: "shove",
     });
 }
