@@ -364,6 +364,9 @@ export interface CharacterAttributes extends CreatureAttributes {
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
     resolve: { value: number; max: number };
+
+    /** Whether this actor is under a polymorph effect */
+    polymorphed?: boolean;
 }
 
 interface CharacterHitPoints extends CreatureHitPoints {
