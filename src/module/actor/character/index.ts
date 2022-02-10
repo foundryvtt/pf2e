@@ -1251,7 +1251,6 @@ export class CharacterPF2e extends CreaturePF2e {
             name: "attack",
             label: CONFIG.PF2E.featTraits.attack,
             description: CONFIG.PF2E.traitsDescriptions.attack,
-            toggle: false,
         };
 
         const toStrikeTrait = (trait: WeaponTrait) => {
@@ -1261,7 +1260,6 @@ export class CharacterPF2e extends CreaturePF2e {
             const traitObject: StrikeTrait = {
                 name: trait,
                 label,
-                toggle: false,
                 description: traitDescriptions[trait] ?? "",
             };
 
@@ -1271,13 +1269,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 traitObject.rollOption = trait;
             }
 
-            // trait can be toggled on/off
-            if (traitObject.rollName && traitObject.rollOption) {
-                traitObject.toggle = true;
-                traitObject.cssClass = this.getRollOptions([traitObject.rollName]).includes(traitObject.rollOption)
-                    ? "toggled-on"
-                    : "toggled-off";
-            }
             return traitObject;
         };
         action.traits = [attackTrait].concat([...weaponTraits].map(toStrikeTrait));
