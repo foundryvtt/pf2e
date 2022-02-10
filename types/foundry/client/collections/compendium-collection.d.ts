@@ -43,23 +43,7 @@ declare global {
         /** Access the compendium configuration data for this pack */
         get config(): Record<string, unknown>;
 
-        override get documentName(): TDocument extends Actor
-            ? "Actor"
-            : TDocument extends Item
-            ? "Item"
-            : TDocument extends JournalEntry
-            ? "JournalEntry"
-            : TDocument extends Macro
-            ? "Macro"
-            : TDocument extends Playlist
-            ? "Playlist"
-            : TDocument extends RollTable
-            ? "RollTable"
-            : TDocument extends Scene
-            ? "Scene"
-            : TDocument extends CompendiumDocument
-            ? CompendiumDocumentType
-            : never;
+        override get documentName(): TDocument["documentName"];
 
         /** Track whether the Compendium Collection is locked for editing */
         get locked(): boolean;

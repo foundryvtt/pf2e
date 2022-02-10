@@ -57,6 +57,8 @@ declare global {
                 readonly data: data.SceneData<this>;
 
                 readonly parent: null;
+
+                get documentName(): typeof BaseScene["metadata"]["name"];
             }
 
             interface SceneMetadata extends abstract.DocumentMetadata {

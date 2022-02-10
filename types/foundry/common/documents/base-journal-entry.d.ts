@@ -11,6 +11,8 @@ declare module foundry {
             readonly data: data.JournalEntryData<this>;
 
             readonly parent: null;
+
+            get documentName(): typeof BaseJournalEntry["metadata"]["name"];
         }
     }
 
