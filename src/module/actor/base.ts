@@ -263,6 +263,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     protected override _initialize(): void {
         super._initialize();
         this.initialized = true;
+
+        // Send any accrued warnings to the console
+        this.synthetics.preparationWarnings.flush();
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
@@ -292,7 +295,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
 
-        const preparationWarnings = new Set<string>();
+        const preparationWarnings: Set<string> = new Set();
 
         this.synthetics = {
             damageDice: {},
@@ -1107,6 +1110,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 tokenDoc.onActorItemChange();
             }
         })();
+
+        // Send any accrued warnings to the console
+        this.synthetics.preparationWarnings.flush();
     }
 }
 
