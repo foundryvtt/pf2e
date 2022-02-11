@@ -27,7 +27,29 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "self:condition:flat-footed:ignore:flanking",
+                "predicate": {
+                    "all": [
+                        {
+                            "lte": [
+                                "origin:level",
+                                "self:level"
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.attributes.flanking.flatFootable",
+                "value": "@actor.level"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: The Mwangi Expanse"
         },
