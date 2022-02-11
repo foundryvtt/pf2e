@@ -46,6 +46,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.equipped.carryType === "held" ? this.data.data.equipped.handsHeld ?? 1 : 0;
     }
 
+    get isHeld(): boolean {
+        return this.handsHeld > 0;
+    }
+
     get price(): string {
         return this.data.data.price.value;
     }
@@ -158,18 +162,17 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         this.data.isAlchemical = traits.has("alchemical");
         this.data.isCursed = traits.has("cursed");
 
+        this.data.usage = getUsageDetails(systemData.usage.value);
+        this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
+        if (!systemData.equipped.carryType) {
+            systemData.equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
+        }
+
         // Magic and invested status is determined at the class-instance level since it can be updated later in data
         // preparation
         this.data.isMagical = this.isMagical;
         this.data.isInvested = this.isInvested;
         this.data.isTemporary = this.isTemporary;
-
-        this.data.usage = getUsageDetails(systemData.usage.value);
-        this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
-
-        if (!systemData.equipped.carryType) {
-            systemData.equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
-        }
 
         if (this.isTemporary) {
             systemData.price.value = "0 gp";
@@ -324,8 +327,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             this.data.update({
                 "data.equipped.carryType": "worn",
                 "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
             });
+            if (this.data.usage.type === "worn" && this.data.usage.where) {
+                this.data.update({ "data.equipped.inSlot": false });
+            }
+        } else {
+            this.data.update({ "data.-=equipped": null });
         }
     }
 
@@ -338,6 +345,24 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (typeof changed.data?.hp?.value === "number") {
             changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.maxHp.value);
         }
+
+        if (!changed.data) return await super._preUpdate(changed, options, user);
+
+        // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
+        const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
+        const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
+        if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
+
+        const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.data.data.usage.value));
+        const hasSlot = newUsage.type === "worn" && newUsage.where;
+        const isSlotted = Boolean(equipped.inSlot ?? this.data.data.equipped.inSlot);
+
+        if (hasSlot) {
+            equipped.inSlot = isSlotted;
+        } else {
+            equipped["-=inSlot"] = null;
+        }
+
         await super._preUpdate(changed, options, user);
     }
 }

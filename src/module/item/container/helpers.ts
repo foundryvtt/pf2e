@@ -15,7 +15,7 @@ import { Size } from "@module/data";
  * Datatype that holds container information for *every* item, even non containers
  * @category Other
  */
-class ContainerData {
+class ContainerSheetData {
     item: PhysicalItemData;
     heldItems: PhysicalItemData[];
     negateBulk: Bulk;
@@ -128,7 +128,7 @@ function toContainer({
     isInContainer: boolean;
     bulkConfig: BulkConfig;
     actorSize: Size;
-}): ContainerData {
+}): ContainerSheetData {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
     const [heldItemBulk] = calculateBulk({
         items: heldBulkItems,
@@ -136,7 +136,7 @@ function toContainer({
         actorSize,
     });
     const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
-    return new ContainerData({
+    return new ContainerSheetData({
         item,
         heldItems,
         negateBulk,
@@ -196,7 +196,7 @@ export function getContainerMap({
     bulkItemsById?: Map<string, BulkItem>;
     bulkConfig?: BulkConfig;
     actorSize?: Size;
-} = {}): Map<string, ContainerData> {
+} = {}): Map<string, ContainerSheetData> {
     const allIds = groupBy(items, (itemData) => itemData._id);
 
     const containerGroups = groupBy(items, (itemData) => {

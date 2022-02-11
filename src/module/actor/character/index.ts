@@ -929,7 +929,7 @@ export class CharacterPF2e extends CreaturePF2e {
         weapon: Embedded<WeaponPF2e>,
         action: "Release" | "Interact",
         kind: "Release1H" | "Grip2H" | "Sheathe" | "Drop" | `Draw${1 | 2}H` | "Retrieve" | `PickUp${1 | 2}H`,
-        actions: "free" | "1" | "2",
+        actions: "free" | "1" | "2" | "3",
         carryType: ItemCarryType,
         handsHeld: ZeroToTwo
     ) {
@@ -1176,7 +1176,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const auxiliaryActions = [];
         if (isRealItem && weapon.category !== "unarmed") {
             switch (weapon.carryType) {
-                case "held":
+                case "held": {
                     if (weapon.handsHeld !== 1) {
                         auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Release1H", "free", "held", 1));
                     }
@@ -1186,17 +1186,22 @@ export class CharacterPF2e extends CreaturePF2e {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Sheathe", "1", "worn", 0));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Drop", "free", "dropped", 0));
                     break;
-                case "worn":
+                }
+                case "worn": {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw1H", "1", "held", 1));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw2H", "1", "held", 2));
                     break;
-                case "stowed":
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retrieve", "2", "held", 1));
+                }
+                case "stowed": {
+                    const actions = weapon.container?.isHeld ? "2" : "3";
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retrieve", actions, "held", 1));
                     break;
-                case "dropped":
+                }
+                case "dropped": {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp1H", "1", "held", 1));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp2H", "1", "held", 2));
                     break;
+                }
             }
         }
 

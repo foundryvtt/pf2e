@@ -107,11 +107,11 @@ export interface IdentificationData {
     misidentified: {};
 }
 
-export interface EquippedData {
+export type EquippedData = {
     carryType: ItemCarryType;
     inSlot?: boolean;
     handsHeld?: number;
-}
+};
 
 export type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
 export type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
