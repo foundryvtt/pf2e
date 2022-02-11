@@ -694,10 +694,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (attackTarget && attackTarget.actor.attributes.ac) {
             const { attributes } = attackTarget.actor;
             attackTarget.dc = {
-                label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
-                    creature: attackTarget.token.name,
-                    dc: "{dc}",
-                }),
                 scope: "AttackOutcome",
                 value: attributes.ac.value,
             };
@@ -754,12 +750,19 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : mainItem;
         })();
 
-        const self = { actor: selfActor, token: selfToken, item: selfItem };
+        const self = { actor: selfActor, token: selfToken?.document ?? null, item: selfItem };
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
             : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin")]) ?? null;
+
+        // Log changes to AC between the original target actor and its contextual clone
+        const originalAC = targetToken?.actor?.attributes.ac;
+        const targetedAC = targetActor?.attributes.ac;
+        if (targetedAC instanceof StatisticModifier && originalAC instanceof StatisticModifier) {
+            targetedAC.logContextDiffs(originalAC);
+        }
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
@@ -778,7 +781,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const target =
             targetActor && targetToken && distance !== null
-                ? { actor: targetActor, token: targetToken, distance }
+                ? { actor: targetActor, token: targetToken.document, distance }
                 : null;
 
         return {

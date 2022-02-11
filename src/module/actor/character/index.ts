@@ -1363,6 +1363,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                     const checkContext = {
                         actor: context.self.actor,
+                        target: context.target,
                         item,
                         type: "attack-roll",
                         options: finalRollOptions,
