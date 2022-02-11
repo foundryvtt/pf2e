@@ -18,975 +18,999 @@
 /* Sheet Structure                           */
 /* ----------------------------------------- */
 
-.pf2e {
-    &.sheet {
-        .window-content {
-            padding: 5px;
-            font-size: 13px;
-            overflow-y: hidden;
+.pf2e.sheet {
+    .window-content {
+        padding: 5px;
+        font-size: 13px;
+        overflow-y: hidden;
+    }
+
+    .sheet-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        flex: 0 0 100%;
+        height: 48px;
+
+        > * {
+            flex: 1;
         }
 
-        .sheet-header {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            flex: 0 0 100%;
-            height: 48px;
+        h1 {
+            margin: 0;
+            border: none;
 
-            > * {
-                flex: 1;
-            }
-
-            h1 {
-                margin: 0;
-                border: none;
-
-                > input {
-                    @include serif-condensed;
-                    height: 40px;
-                    width: 100%;
-                    margin: 2px;
-                    color: #444;
-                    font-size: 36px;
-                    border: none;
-                }
-            }
-        }
-
-        .sheet-body {
-            height: calc(100% - 35px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
-        }
-
-        form {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-
-            /* Form Elements */
-            /* Select Fields */
-            /* Sheet Tabs */
-            /* Tags */
-
-            input {
-                &[type="text"], &[type="number"] {
-                    width: calc(100% - 2px);
-                    height: calc(100% - 2px);
-                    background: none;
-                    padding: 0;
-                    margin: 1px 0;
-                    color: #333;
-                    border: 1px solid transparent;
-
-                    &:hover, &:focus {
-                        border: 1px solid black;
-                        box-shadow: 0 0 10px #00005a;
-                    }
-                }
-            }
-
-            select {
-                font-size: 10px;
-                height: 18px;
-                background: rgba(255, 255, 255, 0.5);
-            }
-
-            input:disabled, select:disabled, textarea:disabled {
+            > input {
+                @include serif-condensed;
+                height: 40px;
+                width: 100%;
+                margin: 2px;
                 color: #444;
+                font-size: 36px;
                 border: none;
-            }
-
-            input:disabled:hover, select:disabled:hover, textarea:disabled:hover, input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
-                border: none;
-                box-shadow: none;
-            }
-
-            label {
-                display: block;
-            }
-
-            .mce-panel span {
-                display: inherit;
-            }
-
-            &.editable .rollable:hover {
-                color: #000;
-                text-shadow: 0 0 10px #00005a;
-                cursor: pointer;
-            }
-
-            .sheet-tabs {
-                font-weight: 500;
-                height: 30px;
-
-                > .list-row {
-                    line-height: 24px;
-                    padding-top: 3px;
-                    font-size: 12px;
-                    text-align: center;
-
-                    &:last-of-type {
-                        padding-right: 4px;
-                    }
-
-                    &.active {
-                        color: #000;
-                        font-weight: 700;
-                    }
-                }
-            }
-
-            .tab {
-                flex: 1;
-                overflow: hidden;
-            }
-
-            .tag-legacy {
-                float: left;
-                margin: 0 2px 2px 0;
-                padding: 0 3px;
-                font-size: 10px;
-                line-height: 16px;
-                border: 1px solid #999;
-                border-radius: 3px;
-                white-space: normal;
-                font-weight: 500;
             }
         }
     }
 
-    &.actor {
-        min-width: 650px;
-        min-height: 450px;
+    .sheet-body {
+        height: calc(100% - 35px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
 
-        /* NPC Sheet Adjustments */
-        /* ---------------------------------------- */
-        /* Navigation Tabs
-        /* ---------------------------------------- */
-        /* ---------------------------------------- */
-        /* Header Content
-        /* ---------------------------------------- */
-        /* ---------------------------------------- */
-        /* Showcase Content
-        /* ---------------------------------------- */
-        /* Character Details */
-        /* Primary Attributes */
-        /* Status Effects */
-        /* ---------------------------------------- */
-        /* Sidebar Content
-        /* ---------------------------------------- */
-        /* ---------------------------------------- */
-        /* Abilities Tab
-        /* ---------------------------------------- */
-        /* ----------------------------------------- */
-        /* Class List
-        /* ----------------------------------------- */
-        /* ---------------------------------------- */
-        /* Skills Tab
-        /* ---------------------------------------- */
-        /* ----------------------------------------- */
-        /* Traits Tab
-        /* ----------------------------------------- */
-        /* ----------------------------------------- */
-        /* Main Content Tabs
-        /* ----------------------------------------- */
-        /* Biography */
-        /* ----------------------------------------- */
-        /* Inventory Tab
-        /* ----------------------------------------- */
-        /* Inventory List */
-        /* Encumbrance Bar */
-        /* ----------------------------------------- */
-        /* Spellbook Tab
-        /* ----------------------------------------- */
-        /* ----------------------------------------- */
-        /* Feats Tab
-        /* ----------------------------------------- */
-        /* ----------------------------------------- */
-        /* Rest Buttons
-        /* ----------------------------------------- */
+    form {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
 
-        .sidebar {
+        /* Form Elements */
+        /* Select Fields */
+        /* Sheet Tabs */
+        /* Tags */
+
+        input {
+            &[type="text"], &[type="number"] {
+                width: calc(100% - 2px);
+                height: calc(100% - 2px);
+                background: none;
+                padding: 0;
+                margin: 1px 0;
+                color: #333;
+                border: 1px solid transparent;
+
+                &:hover, &:focus {
+                    border: 1px solid black;
+                    box-shadow: 0 0 10px #00005a;
+                }
+            }
+        }
+
+        select {
+            font-size: 10px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        input:disabled, select:disabled, textarea:disabled {
+            color: #444;
+            border: none;
+        }
+
+        input:disabled:hover, select:disabled:hover, textarea:disabled:hover, input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
+            border: none;
+            box-shadow: none;
+        }
+
+        label {
+            display: block;
+        }
+
+        .mce-panel span {
+            display: inherit;
+        }
+
+        &.editable .rollable:hover {
+            color: #000;
+            text-shadow: 0 0 10px #00005a;
+            cursor: pointer;
+        }
+
+        .sheet-tabs {
+            font-weight: 500;
+            height: 30px;
+
+            > .list-row {
+                line-height: 24px;
+                padding-top: 3px;
+                font-size: 12px;
+                text-align: center;
+
+                &:last-of-type {
+                    padding-right: 4px;
+                }
+
+                &.active {
+                    color: #000;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .tab {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .tag-legacy {
             float: left;
-            width: 220px;
+            margin: 0 2px 2px 0;
+            padding: 0 3px;
+            font-size: 10px;
+            line-height: 16px;
+            border: 1px solid #999;
+            border-radius: 3px;
+            white-space: normal;
+            font-weight: 500;
+        }
+    }
+}
+
+/* ---------------------------------------- */
+/* Actor Sheet
+/* ---------------------------------------- */
+
+.pf2e.actor {
+    min-width: 650px;
+    min-height: 450px;
+
+    /* NPC Sheet Adjustments */
+    /* ---------------------------------------- */
+    /* Navigation Tabs
+    /* ---------------------------------------- */
+    /* ---------------------------------------- */
+    /* Header Content
+    /* ---------------------------------------- */
+    /* ---------------------------------------- */
+    /* Showcase Content
+    /* ---------------------------------------- */
+    /* Character Details */
+    /* Primary Attributes */
+    /* Status Effects */
+    /* ---------------------------------------- */
+    /* Sidebar Content
+    /* ---------------------------------------- */
+    /* ---------------------------------------- */
+    /* Abilities Tab
+    /* ---------------------------------------- */
+    /* ----------------------------------------- */
+    /* Class List
+    /* ----------------------------------------- */
+    /* ---------------------------------------- */
+    /* Skills Tab
+    /* ---------------------------------------- */
+    /* ----------------------------------------- */
+    /* Traits Tab
+    /* ----------------------------------------- */
+    /* ----------------------------------------- */
+    /* Main Content Tabs
+    /* ----------------------------------------- */
+    /* Biography */
+    /* ----------------------------------------- */
+    /* Inventory Tab
+    /* ----------------------------------------- */
+    /* Inventory List */
+    /* Encumbrance Bar */
+    /* ----------------------------------------- */
+    /* Spellbook Tab
+    /* ----------------------------------------- */
+    /* ----------------------------------------- */
+    /* Feats Tab
+    /* ----------------------------------------- */
+    /* ----------------------------------------- */
+    /* Rest Buttons
+    /* ----------------------------------------- */
+
+    .sidebar {
+        float: left;
+        width: 220px;
+    }
+
+    .content {
+        float: right;
+        width: calc(100% - 220px);
+    }
+
+    .floatright {
+        float: right;
+    }
+
+    .sheet-upper {
+        height: 268px;
+
+        .sheet-header {
+            height: 48px;
         }
 
-        .content {
-            float: right;
-            width: calc(100% - 220px);
+        .sheet-profile, .sheet-showcase {
+            height: 220px;
+        }
+    }
+
+    .sheet-navigation {
+        height: 32px;
+
+        /* width: 100%;
+         */
+        float: right;
+        width: calc(100% - 220px);
+    }
+
+    .sheet-lower {
+        width: 100%;
+        height: calc(100% - 48px);
+
+        .sheet-content {
+            height: calc(100% - 32px);
+        }
+    }
+
+    .sheet-sidebar {
+        height: calc(100% - 48px);
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        > * {
+            flex: 1;
         }
 
-        .floatright {
-            float: right;
+        .sidebar-summary {
+            overflow-y: hidden;
         }
+    }
 
+    &.npc-sheet {
         .sheet-upper {
-            height: 268px;
+            height: 220px;
 
-            .sheet-header {
-                height: 48px;
+            .sheet-showcase {
+                height: calc(220px - 48px);
             }
-
-            .sheet-profile, .sheet-showcase {
-                height: 220px;
-            }
-        }
-
-        .sheet-navigation {
-            height: 32px;
-
-            /* width: 100%;
-             */
-            float: right;
-            width: calc(100% - 220px);
         }
 
         .sheet-lower {
-            width: 100%;
-            height: calc(100% - 48px);
+            height: calc(100% - 220px - 32px);
+        }
 
-            .sheet-content {
-                height: calc(100% - 32px);
+        section.sheet-body {
+            height: calc(100% - 48px);
+        }
+    }
+
+    .sheet-navigation {
+        border-top: 1px solid var(--secondary-background);
+        border-bottom: 1px solid var(--primary-background);
+
+        .sheet-tabs > .list-row {
+            border-radius: 5px 5px 0 0;
+
+            &.active {
+                border: 1px solid #666;
+                border-bottom: none;
+
+                /* box-shadow: 0 0 10px inset #ff6400;
+                 */
+                background: var(--primary-background);
+                color: #fff;
+                text-shadow: none;
+            }
+        }
+    }
+
+    .sheet-header {
+        border-bottom: 1px solid var(--primary-background);
+
+        h1 {
+            margin: 0;
+            border: none;
+
+            &.charname {
+                flex: 2;
             }
         }
 
-        .sheet-sidebar {
-            height: calc(100% - 48px);
+        .editsheet {
+            flex: 3;
+            font-size: 10px;
+            text-align: center;
+            margin-top: 3px;
+        }
+
+        .charlevel {
+            flex: 0 0 150px;
+            height: 44px;
             display: flex;
             flex-direction: column;
             flex-wrap: nowrap;
-            overflow-x: hidden;
-            overflow-y: auto;
+            align-items: flex-end;
+            text-align: right;
 
             > * {
                 flex: 1;
             }
 
-            .sidebar-summary {
-                overflow-y: hidden;
-            }
-        }
-
-        &.npc-sheet {
-            .sheet-upper {
-                height: 220px;
-
-                .sheet-showcase {
-                    height: calc(220px - 48px);
-                }
-            }
-
-            .sheet-lower {
-                height: calc(100% - 220px - 32px);
-            }
-
-            section.sheet-body {
-                height: calc(100% - 48px);
-            }
-        }
-
-        .sheet-navigation {
-            border-top: 1px solid var(--secondary-background);
-            border-bottom: 1px solid var(--primary-background);
-
-            .sheet-tabs > .list-row {
-                border-radius: 5px 5px 0 0;
-
-                &.active {
-                    border: 1px solid #666;
-                    border-bottom: none;
-
-                    /* box-shadow: 0 0 10px inset #ff6400;
-                     */
-                    background: var(--primary-background);
-                    color: #fff;
-                    text-shadow: none;
-                }
-            }
-        }
-
-        .sheet-header {
-            border-bottom: 1px solid var(--primary-background);
-
-            h1 {
-                margin: 0;
-                border: none;
-
-                &.charname {
-                    flex: 2;
-                }
-            }
-
-            .editsheet {
-                flex: 3;
-                font-size: 10px;
-                text-align: center;
-                margin-top: 3px;
-            }
-
-            .charlevel {
-                flex: 0 0 150px;
-                height: 44px;
-                display: flex;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                align-items: flex-end;
-                text-align: right;
-
-                > * {
-                    flex: 1;
-                }
-
-                .level {
-                    @include serif-condensed;
-                    flex: 0 0 20px;
-                    width: 100%;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    color: #444;
-                    font-size: 20px;
-                    line-height: 20px;
-
-                    > {
-                        * {
-                            flex: 1;
-                        }
-
-                        input {
-                            &[type="text"], &[type="number"] {
-                                flex: 0 0 26px;
-                                height: 20px;
-                                text-align: center;
-                            }
-                        }
-                    }
-                }
-
-                .xpbar {
-                    width: 100%;
-                    flex: 0 0 8px;
-                    background: #666;
-                    border: 1px solid #000;
-                    border-radius: 3px;
-
-                    .bar {
-                        height: 4px;
-                        margin: 1px;
-                        display: block;
-                        background: #afebff;
-                        border: 1px solid #000;
-                        border-radius: 2px;
-                    }
-                }
-
-                .experience {
-                    flex: 0 0 16px;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    justify-content: flex-end;
-
-                    > {
-                        * {
-                            flex: 1;
-                        }
-
-                        input {
-                            &[type="text"], &[type="number"] {
-                                flex: 1;
-                                text-align: right;
-                                height: 16px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .details {
-            height: 30px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border-bottom: 1px solid var(--secondary-background);
-
-            .character-detail {
-                width: 33.33%;
-                height: 30px;
-                float: left;
-                padding: 3px;
-                border-right: 1px solid var(--secondary-background);
-
-                &:last-child {
-                    border-right: none;
-                }
-
-                > input {
-                    @include serif-condensed;
-                    color: #444;
-                    font-size: 20px;
-                }
-            }
-        }
-
-        .primary-attributes {
-            height: 80px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            border-bottom: 1px solid var(--secondary-background);
-
-            > * {
-                flex: 1;
-            }
-
-            .attribute {
-                flex: 0 0 25%;
-                height: 79px;
-                padding: 4px;
-                border-right: 1px solid var(--secondary-background);
-
-                &:last-child {
-                    margin-right: 0;
-                    border-right: none;
-                }
-
-                .attribute-name {
-                    @include serif-condensed;
-                    position: relative;
-                    height: 22px;
-                    margin: 0 0 2px;
-                    line-height: 22px;
-                    font-size: 18px;
-                    color: #444;
-                    text-align: center;
-                    border-bottom: 1px solid var(--secondary-background);
-
-                    .npc-roll-hp {
-                        position: absolute;
-                        right: 2px;
-                    }
-                }
-
-                .attribute-value {
-                    @include serif-condensed;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    height: 32px;
-                    color: #444;
-                    font-size: 20px;
-                    line-height: 32px;
-                    text-align: center;
-
-                    > * {
-                        flex: 1;
-                    }
-                }
-
-                .attribute-footer {
-                    height: 16px;
-                    text-align: center;
-
-                    span {
-                        display: inline-block;
-                    }
-
-                    input {
-                        max-width: 24px;
-
-                        &.temphp {
-                            max-width: 45%;
-                        }
-
-                        &.hit-dice {
-                            min-width: 16px;
-                            max-width: 16px;
-                            text-align: right;
-                        }
-
-                        &[name="data.attributes.speed.value"] {
-                            max-width: none;
-                            text-align: left;
-                        }
-
-                        &.speed, &.hpformula {
-                            max-width: 90%;
-                        }
-                    }
-
-                    a.rest {
-                        padding: 0 2px;
-                        background: rgba(255, 255, 255, 0.25);
-                        border: 1px solid var(--secondary-background);
-                        border-radius: 2px;
-                    }
-
-                    &.recharge input[type="checkbox"] {
-                        margin: 1px;
-                    }
-                }
-            }
-        }
-
-        .statuses {
-            width: 100%;
-            height: 30px;
-            margin: 0;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-
-            > * {
-                flex: 1;
-            }
-
-            .status {
-                line-height: 30px;
-                padding: 0 6px;
-                border-right: 1px solid var(--secondary-background);
-                font-size: 14px;
+            .level {
+                @include serif-condensed;
+                flex: 0 0 20px;
+                width: 100%;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: flex-start;
+                color: #444;
+                font-size: 20px;
+                line-height: 20px;
 
-                > * {
-                    flex: 1;
-                }
+                > {
+                    * {
+                        flex: 1;
+                    }
 
-                &.death {
-                    flex: 0 0 50%;
-                }
-
-                &:last-child {
-                    border-right: none;
-                }
-
-                h4 {
-                    @include serif-condensed;
-                    flex: 1;
-                    margin: 0;
-                    font-size: 18px;
-                    color: #444;
-                }
-
-                .status-value {
-                    flex: none;
-
-                    > {
-                        * {
-                            display: inline-block;
-                            margin-right: 5px;
+                    input {
+                        &[type="text"], &[type="number"] {
+                            flex: 0 0 26px;
+                            height: 20px;
+                            text-align: center;
                         }
+                    }
+                }
+            }
 
-                        input {
-                            &[type="text"], &[type="number"] {
-                                height: 20px;
-                                max-width: 20px;
-                                margin: 0;
-                            }
+            .xpbar {
+                width: 100%;
+                flex: 0 0 8px;
+                background: #666;
+                border: 1px solid #000;
+                border-radius: 3px;
 
-                            &[type="checkbox"] {
-                                position: relative;
-                                top: 2px;
-                            }
+                .bar {
+                    height: 4px;
+                    margin: 1px;
+                    display: block;
+                    background: #afebff;
+                    border: 1px solid #000;
+                    border-radius: 2px;
+                }
+            }
+
+            .experience {
+                flex: 0 0 16px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                justify-content: flex-end;
+
+                > {
+                    * {
+                        flex: 1;
+                    }
+
+                    input {
+                        &[type="text"], &[type="number"] {
+                            flex: 1;
+                            text-align: right;
+                            height: 16px;
                         }
                     }
                 }
             }
         }
+    }
 
-        img.sheet-profile {
-            /* border: none;
-             */
-            border: 1px solid var(--secondary-background);
-            object-fit: contain;
-        }
+    .details {
+        height: 30px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid var(--secondary-background);
 
-        .sheet-sidebar {
-            border-right: 1px solid var(--primary-background);
+        .character-detail {
+            width: 33.33%;
+            height: 30px;
+            float: left;
+            padding: 3px;
+            border-right: 1px solid var(--secondary-background);
 
-            .tab {
-                height: 100%;
-                padding-top: 2px;
-                overflow-y: auto;
-            }
-        }
-
-        .abilities .defense-list {
-            display: grid;
-            grid: "defense" 40px / auto;
-            grid-auto-rows: 40px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .npc-defense-list {
-            display: grid;
-            grid: "defense" 40px / auto;
-            grid-auto-rows: 40px;
-            list-style: none;
-            margin: 0;
-            margin-left: 5px;
-            padding: 0;
-        }
-
-        .pf-heading {
-            @include serif-condensed;
-            font-size: 24px;
-            line-height: 24px;
-            color: #fff;
-            background: var(--primary-background);
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .pf-sub-category {
-            font-weight: bold;
-            font-size: 1em;
-            line-height: 20px;
-            color: #fff;
-            background: var(--secondary-background);
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .pf-bluelist {
-            color: #fff;
-            background: var(--primary-background);
-        }
-
-        .pf-add-item-row {
-            font-weight: 700;
-            line-height: 20px;
-            text-align: center;
-            font-size: 10px;
-            background: var(--primary-background);
-        }
-
-        .pf-redbackground {
-            background: var(--secondary-background);
-            color: white;
-            height: 32px;
-            margin-top: 2px;
-        }
-
-        .pf-indent {
-            text-indent: 10px;
-        }
-
-        .pf-width-100 {
-            width: 100%;
-        }
-
-        .pf-title {
-            background: var(--tertiary-background);
-            height: 16px;
-            border: 1px solid var(--tertiary-background);
-            text-align: center;
-            align-self: start;
-            margin-bottom: -1px;
-            color: #fff;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-
-        .pf-value {
-            background: #fff;
-            border: 1px solid var(--tertiary-background);
-            text-align: center;
-        }
-
-        .pf-rank {
-            letter-spacing: -3px;
-            font-size: 14px;
-            line-height: 16px;
-        }
-
-        .pf-container {
-            grid: "title" 15px "value" auto / auto;
-            margin-top: 2px;
-            justify-self: center;
-        }
-
-        .pf-small {
-            height: 20px;
-        }
-
-        .pf-large {
-            font-size: 26px;
-            height: 32px;
-        }
-
-        .abilities {
-            .ac-list {
-                display: grid;
-                grid: "score items" 38px "score items" 38px / 73px auto;
-                margin: unset;
-                padding: unset;
-                background: var(--secondary-background);
+            &:last-child {
+                border-right: none;
             }
 
-            .npc-defence-list {
-                display: grid;
-                grid: "ac current max" 38px / 73px 73px 73px;
-                margin: unset;
-                padding: unset;
-                background: var(--secondary-background);
+            > input {
+                @include serif-condensed;
+                color: #444;
+                font-size: 20px;
+            }
+        }
+    }
 
-                .ac-value {
-                    height: 16px;
-                    font-size: 12px;
-                    width: 46px;
-                }
+    .primary-attributes {
+        height: 80px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        border-bottom: 1px solid var(--secondary-background);
 
-                .ac-item {
-                    height: 13px;
-                    font-size: 11px;
-                    width: 46px;
+        > * {
+            flex: 1;
+        }
+
+        .attribute {
+            flex: 0 0 25%;
+            height: 79px;
+            padding: 4px;
+            border-right: 1px solid var(--secondary-background);
+
+            &:last-child {
+                margin-right: 0;
+                border-right: none;
+            }
+
+            .attribute-name {
+                @include serif-condensed;
+                position: relative;
+                height: 22px;
+                margin: 0 0 2px;
+                line-height: 22px;
+                font-size: 18px;
+                color: #444;
+                text-align: center;
+                border-bottom: 1px solid var(--secondary-background);
+
+                .npc-roll-hp {
+                    position: absolute;
+                    right: 2px;
                 }
             }
 
-            .ac-grid {
-                display: grid;
-                grid: "item item item" 32px / 33% 33% 33%;
-                margin: unset;
-                margin-top: 1px;
-                padding: unset;
-                background: var(--secondary-background);
+            .attribute-value {
+                @include serif-condensed;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
                 height: 32px;
-            }
-
-            .ac-list {
-                .ac-value {
-                    height: 16px;
-                    font-size: 12px;
-                    width: 46px;
-                }
-
-                .ac-item {
-                    height: 13px;
-                    font-size: 11px;
-                    width: 46px;
-                }
-            }
-
-            .armor-class {
-                grid-row-start: 1;
-                grid-row-end: 3;
-                grid-column-start: 1;
-                grid-column-end: 2;
-                align-self: center;
-                background: #fff;
-                height: 64px;
-                width: 64px;
-                border: 1px solid;
-                border-radius: 33px;
-                font-size: 42px;
+                color: #444;
+                font-size: 20px;
+                line-height: 32px;
                 text-align: center;
+
+                > * {
+                    flex: 1;
+                }
             }
 
-            .shield-value {
-                grid-row-start: 1;
-                grid-row-end: 3;
-                grid-column-start: 1;
-                grid-column-end: 2;
-                align-self: end;
-                justify-self: end;
-                height: 26px;
-                width: 26px;
-                background: #fff;
-                border: 1px solid;
-                font-size: 22px;
+            .attribute-footer {
+                height: 16px;
                 text-align: center;
-                border-radius: 14px;
-                margin-right: 2px;
-                margin-bottom: 2px;
-            }
 
-            .hp-list {
-                display: grid;
-                grid: "li" 50px / auto;
-                grid-auto-rows: 40px;
-                margin: unset;
-                margin-top: 4px;
-                padding: unset;
-            }
-
-            .hp-list-small {
-                display: grid;
-                grid: "li" 34px / auto;
-                margin: unset;
-                margin-top: 4px;
-                padding: unset;
-            }
-
-            .li-two-grid {
-                display: grid;
-                grid: "temp current max" 50px / 50% 50%;
-                margin: unset;
-                align-self: center;
-
-                /* margin-top: 1px;
-                 */
-                padding: unset;
-                background: var(--secondary-background);
-            }
-
-            .li-two-grid-small {
-                display: grid;
-                grid: "temp current max" 32px / 50% 50%;
-                margin: unset;
-                align-self: center;
-
-                /* margin-top: 1px;
-                 */
-                padding: unset;
-                background: var(--secondary-background);
-            }
-
-            .li-three-grid {
-                display: grid;
-                grid: "temp current max" 50px / 33% 33% 33%;
-                margin: unset;
-                align-self: center;
-
-                /* margin-top: 1px;
-                 */
-                padding: unset;
-                background: var(--secondary-background);
-            }
-
-            .li-four-grid {
-                display: grid;
-                grid: "one two three four" 32px / 25% 25% 25% 25%;
-                margin: unset;
-                align-self: center;
-
-                /* margin-top: 1px;
-                 */
-                padding: unset;
-                background: var(--secondary-background);
-            }
-
-            .hp-list {
-                .hp-current, .hp-max, .hp-temp {
-                    width: 64px;
+                span {
+                    display: inline-block;
                 }
 
-                .hp-conditions {
-                    grid-area: condition;
-                    width: 143px;
+                input {
+                    max-width: 24px;
+
+                    &.temphp {
+                        max-width: 45%;
+                    }
+
+                    &.hit-dice {
+                        min-width: 16px;
+                        max-width: 16px;
+                        text-align: right;
+                    }
+
+                    &[name="data.attributes.speed.value"] {
+                        max-width: none;
+                        text-align: left;
+                    }
+
+                    &.speed, &.hpformula {
+                        max-width: 90%;
+                    }
+                }
+
+                a.rest {
+                    padding: 0 2px;
+                    background: rgba(255, 255, 255, 0.25);
+                    border: 1px solid var(--secondary-background);
+                    border-radius: 2px;
+                }
+
+                &.recharge input[type="checkbox"] {
+                    margin: 1px;
                 }
             }
         }
+    }
 
-        .bio-container {
+    .statuses {
+        width: 100%;
+        height: 30px;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        > * {
+            flex: 1;
+        }
+
+        .status {
+            line-height: 30px;
+            padding: 0 6px;
+            border-right: 1px solid var(--secondary-background);
+            font-size: 14px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            > * {
+                flex: 1;
+            }
+
+            &.death {
+                flex: 0 0 50%;
+            }
+
+            &:last-child {
+                border-right: none;
+            }
+
+            h4 {
+                @include serif-condensed;
+                flex: 1;
+                margin: 0;
+                font-size: 18px;
+                color: #444;
+            }
+
+            .status-value {
+                flex: none;
+
+                > {
+                    * {
+                        display: inline-block;
+                        margin-right: 5px;
+                    }
+
+                    input {
+                        &[type="text"], &[type="number"] {
+                            height: 20px;
+                            max-width: 20px;
+                            margin: 0;
+                        }
+
+                        &[type="checkbox"] {
+                            position: relative;
+                            top: 2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    img.sheet-profile {
+        /* border: none;
+         */
+        border: 1px solid var(--secondary-background);
+        object-fit: contain;
+    }
+
+    .sheet-sidebar {
+        border-right: 1px solid var(--primary-background);
+
+        .tab {
+            height: 100%;
+            padding-top: 2px;
+            overflow-y: auto;
+        }
+    }
+
+    .abilities .defense-list {
+        display: grid;
+        grid: "defense" 40px / auto;
+        grid-auto-rows: 40px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .npc-defense-list {
+        display: grid;
+        grid: "defense" 40px / auto;
+        grid-auto-rows: 40px;
+        list-style: none;
+        margin: 0;
+        margin-left: 5px;
+        padding: 0;
+    }
+
+    .pf-heading {
+        @include serif-condensed;
+        font-size: 24px;
+        line-height: 24px;
+        color: #fff;
+        background: var(--primary-background);
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pf-sub-category {
+        font-weight: bold;
+        font-size: 1em;
+        line-height: 20px;
+        color: #fff;
+        background: var(--secondary-background);
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pf-bluelist {
+        color: #fff;
+        background: var(--primary-background);
+    }
+
+    .pf-add-item-row {
+        font-weight: 700;
+        line-height: 20px;
+        text-align: center;
+        font-size: 10px;
+        background: var(--primary-background);
+    }
+
+    .pf-redbackground {
+        background: var(--secondary-background);
+        color: white;
+        height: 32px;
+        margin-top: 2px;
+    }
+
+    .pf-indent {
+        text-indent: 10px;
+    }
+
+    .pf-width-100 {
+        width: 100%;
+    }
+
+    .pf-title {
+        background: var(--tertiary-background);
+        height: 16px;
+        border: 1px solid var(--tertiary-background);
+        text-align: center;
+        align-self: start;
+        margin-bottom: -1px;
+        color: #fff;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .pf-value {
+        background: #fff;
+        border: 1px solid var(--tertiary-background);
+        text-align: center;
+    }
+
+    .pf-rank {
+        letter-spacing: -3px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .pf-container {
+        grid: "title" 15px "value" auto / auto;
+        margin-top: 2px;
+        justify-self: center;
+    }
+
+    .pf-small {
+        height: 20px;
+    }
+
+    .pf-large {
+        font-size: 26px;
+        height: 32px;
+    }
+
+    .abilities {
+        .ac-list {
             display: grid;
-            grid: "image bio" 220px / 220px auto;
+            grid: "score items" 38px "score items" 38px / 73px auto;
             margin: unset;
+            padding: unset;
+            background: var(--secondary-background);
+        }
+
+        .npc-defence-list {
+            display: grid;
+            grid: "ac current max" 38px / 73px 73px 73px;
+            margin: unset;
+            padding: unset;
+            background: var(--secondary-background);
+
+            .ac-value {
+                height: 16px;
+                font-size: 12px;
+                width: 46px;
+            }
+
+            .ac-item {
+                height: 13px;
+                font-size: 11px;
+                width: 46px;
+            }
+        }
+
+        .ac-grid {
+            display: grid;
+            grid: "item item item" 32px / 33% 33% 33%;
+            margin: unset;
+            margin-top: 1px;
+            padding: unset;
+            background: var(--secondary-background);
+            height: 32px;
+        }
+
+        .ac-list {
+            .ac-value {
+                height: 16px;
+                font-size: 12px;
+                width: 46px;
+            }
+
+            .ac-item {
+                height: 13px;
+                font-size: 11px;
+                width: 46px;
+            }
+        }
+
+        .armor-class {
+            grid-row-start: 1;
+            grid-row-end: 3;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            align-self: center;
+            background: #fff;
+            height: 64px;
+            width: 64px;
+            border: 1px solid;
+            border-radius: 33px;
+            font-size: 42px;
+            text-align: center;
+        }
+
+        .shield-value {
+            grid-row-start: 1;
+            grid-row-end: 3;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            align-self: end;
+            justify-self: end;
+            height: 26px;
+            width: 26px;
+            background: #fff;
+            border: 1px solid;
+            font-size: 22px;
+            text-align: center;
+            border-radius: 14px;
+            margin-right: 2px;
+            margin-bottom: 2px;
+        }
+
+        .hp-list {
+            display: grid;
+            grid: "li" 50px / auto;
+            grid-auto-rows: 40px;
+            margin: unset;
+            margin-top: 4px;
             padding: unset;
         }
 
-        .biography {
-            .sheet-profile {
-                grid-area: image;
-            }
-
-            .bio-list {
-                grid-area: bio;
-                display: grid;
-                grid: "bio" 40px / auto auto;
-                grid-auto-rows: 40px;
-                margin: unset;
-                padding: unset;
-                background: var(--secondary-background);
-            }
-
-            .bio-3way {
-                display: grid;
-                grid: "bio" 40px / 33% 33% 33%;
-                grid-auto-rows: 40px;
-                margin: unset;
-                padding: unset;
-                background: var(--secondary-background);
-            }
+        .hp-list-small {
+            display: grid;
+            grid: "li" 34px / auto;
+            margin: unset;
+            margin-top: 4px;
+            padding: unset;
         }
 
-        .abilities .bio-list {
+        .li-two-grid {
+            display: grid;
+            grid: "temp current max" 50px / 50% 50%;
+            margin: unset;
+            align-self: center;
+
+            /* margin-top: 1px;
+             */
+            padding: unset;
+            background: var(--secondary-background);
+        }
+
+        .li-two-grid-small {
+            display: grid;
+            grid: "temp current max" 32px / 50% 50%;
+            margin: unset;
+            align-self: center;
+
+            /* margin-top: 1px;
+             */
+            padding: unset;
+            background: var(--secondary-background);
+        }
+
+        .li-three-grid {
+            display: grid;
+            grid: "temp current max" 50px / 33% 33% 33%;
+            margin: unset;
+            align-self: center;
+
+            /* margin-top: 1px;
+             */
+            padding: unset;
+            background: var(--secondary-background);
+        }
+
+        .li-four-grid {
+            display: grid;
+            grid: "one two three four" 32px / 25% 25% 25% 25%;
+            margin: unset;
+            align-self: center;
+
+            /* margin-top: 1px;
+             */
+            padding: unset;
+            background: var(--secondary-background);
+        }
+
+        .hp-list {
+            .hp-current, .hp-max, .hp-temp {
+                width: 64px;
+            }
+
+            .hp-conditions {
+                grid-area: condition;
+                width: 143px;
+            }
+        }
+    }
+
+    .bio-container {
+        display: grid;
+        grid: "image bio" 220px / 220px auto;
+        margin: unset;
+        padding: unset;
+    }
+
+    .biography {
+        .sheet-profile {
+            grid-area: image;
+        }
+
+        .bio-list {
             grid-area: bio;
             display: grid;
-            grid: "bio" 40px / 102px auto;
+            grid: "bio" 40px / auto auto;
             grid-auto-rows: 40px;
             margin: unset;
             padding: unset;
-            height: 32px;
             background: var(--secondary-background);
-            margin-top: 3px;
-            margin-bottom: 8px;
-
-            .npc-bio-item {
-                width: 100px;
-            }
         }
 
-        .biography {
-            .bio-3way > * {
-                width: 125px;
+        .bio-3way {
+            display: grid;
+            grid: "bio" 40px / 33% 33% 33%;
+            grid-auto-rows: 40px;
+            margin: unset;
+            padding: unset;
+            background: var(--secondary-background);
+        }
+    }
+
+    .abilities .bio-list {
+        grid-area: bio;
+        display: grid;
+        grid: "bio" 40px / 102px auto;
+        grid-auto-rows: 40px;
+        margin: unset;
+        padding: unset;
+        height: 32px;
+        background: var(--secondary-background);
+        margin-top: 3px;
+        margin-bottom: 8px;
+
+        .npc-bio-item {
+            width: 100px;
+        }
+    }
+
+    .biography {
+        .bio-3way > * {
+            width: 125px;
+        }
+
+        .bio-list {
+            > * {
+                width: 94px;
             }
 
-            .bio-list {
-                > * {
-                    width: 94px;
-                }
-
-                .bio-appearance, .bio-attitude {
-                    grid-column-start: 1;
-                    grid-column-end: 3;
-                    width: 170px;
-                }
-
-                .bio-appearance > input, .bio-attitude > input {
-                    text-align: start;
-                    word-break: break-all;
-                }
-            }
-
-            .editor {
-                grid-row-start: 2;
-                grid-row-end: 3;
+            .bio-appearance, .bio-attitude {
                 grid-column-start: 1;
                 grid-column-end: 3;
-                height: 230px;
-                padding-left: 8px;
+                width: 170px;
+            }
+
+            .bio-appearance > input, .bio-attitude > input {
+                text-align: start;
+                word-break: break-all;
             }
         }
 
-        .abilities .npc-defense, .npc-defense {
-            grid-row-start: auto;
-            align-self: center;
-            display: grid;
-            grid: "score name" 32px / 40px auto;
-            background: var(--secondary-background);
-            margin-right: 4px;
+        .editor {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            height: 230px;
+            padding-left: 8px;
         }
+    }
 
-        .abilities .npc-defense .attribute-name {
+    .abilities .npc-defense, .npc-defense {
+        grid-row-start: auto;
+        align-self: center;
+        display: grid;
+        grid: "score name" 32px / 40px auto;
+        background: var(--secondary-background);
+        margin-right: 4px;
+    }
+
+    .abilities .npc-defense .attribute-name {
+        grid-area: auto;
+        margin: 0;
+        background: var(--secondary-background);
+        color: white;
+        align-self: center;
+        font-size: 15px;
+    }
+
+    .npc-defense {
+        .attribute-name, .spelldc-name {
+            grid-area: auto;
+            margin: 0;
+            background: var(--secondary-background);
+            color: white;
+            align-self: center;
+            font-size: 15px;
+        }
+    }
+
+    .abilities .npc-defense {
+        .save-name {
             grid-area: auto;
             margin: 0;
             background: var(--secondary-background);
@@ -995,38 +1019,7 @@
             font-size: 15px;
         }
 
-        .npc-defense {
-            .attribute-name, .spelldc-name {
-                grid-area: auto;
-                margin: 0;
-                background: var(--secondary-background);
-                color: white;
-                align-self: center;
-                font-size: 15px;
-            }
-        }
-
-        .abilities .npc-defense {
-            .save-name {
-                grid-area: auto;
-                margin: 0;
-                background: var(--secondary-background);
-                color: white;
-                align-self: center;
-                font-size: 15px;
-            }
-
-            .defense-score {
-                @include serif-condensed;
-                grid-area: auto;
-                font-size: 28px;
-                text-align: center;
-                background: var(--secondary-background);
-                color: white;
-            }
-        }
-
-        .npc-defense .defense-score {
+        .defense-score {
             @include serif-condensed;
             grid-area: auto;
             font-size: 28px;
@@ -1034,93 +1027,96 @@
             background: var(--secondary-background);
             color: white;
         }
+    }
 
-        .abilities .npc-defense .defense-score > input, .npc-defense .defense-score > input {
-            @include serif-condensed;
-            width: 30px;
-            height: 30px;
-            margin: 3px;
-            font-size: 28px;
-            text-align: center;
-            background: #fff;
-            border: 1px solid;
-        }
+    .npc-defense .defense-score {
+        @include serif-condensed;
+        grid-area: auto;
+        font-size: 28px;
+        text-align: center;
+        background: var(--secondary-background);
+        color: white;
+    }
 
-        .list-row .skill-input > input {
-            @include serif-condensed;
-            width: 22px;
-            height: 22px;
-            margin: 1px;
-            font-size: 20px;
-            text-align: center;
-            background: #fff;
-            border: 1px solid;
-        }
+    .abilities .npc-defense .defense-score > input, .npc-defense .defense-score > input {
+        @include serif-condensed;
+        width: 30px;
+        height: 30px;
+        margin: 3px;
+        font-size: 28px;
+        text-align: center;
+        background: #fff;
+        border: 1px solid;
+    }
 
-        .abilities {
-            .defense {
-                grid-row-start: auto;
+    .list-row .skill-input > input {
+        @include serif-condensed;
+        width: 22px;
+        height: 22px;
+        margin: 1px;
+        font-size: 20px;
+        text-align: center;
+        background: #fff;
+        border: 1px solid;
+    }
+
+    .abilities {
+        .defense {
+            grid-row-start: auto;
+            align-self: center;
+            display: grid;
+            grid: "score name rank item" 32px / 34px auto 52px 52px;
+            background: var(--secondary-background);
+            margin-right: 4px;
+
+            .save-name, .attribute-name, .attribute-name-non-rollable {
+                grid-area: auto;
+                margin: 0;
+                background: var(--secondary-background);
+                color: white;
                 align-self: center;
-                display: grid;
-                grid: "score name rank item" 32px / 34px auto 52px 52px;
-                background: var(--secondary-background);
-                margin-right: 4px;
-
-                .save-name, .attribute-name, .attribute-name-non-rollable {
-                    grid-area: auto;
-                    margin: 0;
-                    background: var(--secondary-background);
-                    color: white;
-                    align-self: center;
-                    font-size: 15px;
-                }
+                font-size: 15px;
             }
+        }
 
-            .defense-container {
+        .defense-container {
+            background: var(--secondary-background);
+            width: 48px;
+            margin-top: 2px;
+        }
+
+        .defense {
+            .defense-score {
+                @include serif-condensed;
+                grid-area: auto;
+                font-size: 28px;
+                text-align: center;
                 background: var(--secondary-background);
-                width: 48px;
-                margin-top: 2px;
-            }
+                color: white;
 
-            .defense {
-                .defense-score {
+                > input {
                     @include serif-condensed;
-                    grid-area: auto;
+                    width: 30px;
+                    height: 30px;
+                    margin: 3px;
                     font-size: 28px;
                     text-align: center;
-                    background: var(--secondary-background);
-                    color: white;
-
-                    > input {
-                        @include serif-condensed;
-                        width: 30px;
-                        height: 30px;
-                        margin: 3px;
-                        font-size: 28px;
-                        text-align: center;
-                        background: #fff;
-                        border: 1px solid;
-                    }
+                    background: #fff;
+                    border: 1px solid;
                 }
+            }
 
-                .proficiency-name {
-                    grid-area: auto;
-                    font-size: 11px;
-                    height: 13px;
-                }
+            .proficiency-name {
+                grid-area: auto;
+                font-size: 11px;
+                height: 13px;
+            }
 
-                .proficiency-rank {
-                    letter-spacing: -3px;
-                    grid-area: auto;
-                    height: 16px;
-                    font-size: 12px;
-                }
-
-                .defense-item {
-                    grid-area: auto;
-                    font-size: 11px;
-                    height: 13px;
-                }
+            .proficiency-rank {
+                letter-spacing: -3px;
+                grid-area: auto;
+                height: 16px;
+                font-size: 12px;
             }
 
             .defense-item {
@@ -1128,139 +1124,158 @@
                 font-size: 11px;
                 height: 13px;
             }
-
-            .defense .defense-item-value, .defense-item-value {
-                grid-area: auto;
-                height: 16px;
-                font-size: 12px;
-            }
         }
 
-        .npc-abilities .ability-title, .abilities .ability-title {
-            @include serif-condensed;
-            flex: 0 0 24px;
-            font-size: 24px;
-            line-height: 24px;
-            color: #fff;
-            background: var(--primary-background);
-            text-align: center;
+        .defense-item {
+            grid-area: auto;
+            font-size: 11px;
+            height: 13px;
+        }
+
+        .defense .defense-item-value, .defense-item-value {
+            grid-area: auto;
+            height: 16px;
+            font-size: 12px;
+        }
+    }
+
+    .npc-abilities .ability-title, .abilities .ability-title {
+        @include serif-condensed;
+        flex: 0 0 24px;
+        font-size: 24px;
+        line-height: 24px;
+        color: #fff;
+        background: var(--primary-background);
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .npc-abilities {
+        .abilities-list {
+            display: grid;
+            grid: 38px 38px / 33.3% 33.3% 33.3%;
+            grid-auto-rows: 54px;
+            list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        .npc-abilities {
-            .abilities-list {
-                display: grid;
-                grid: 38px 38px / 33.3% 33.3% 33.3%;
-                grid-auto-rows: 54px;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
+        .ability {
+            grid-row-start: auto;
+            display: grid;
+            grid: [row1-start] "id" 26px [row1-end] [row2-start] "mod" 26px (([row2-end]) / 100%);
+            height: 26px;
+            line-height: 26px;
 
-            .ability {
-                grid-row-start: auto;
-                display: grid;
-                grid: [row1-start] "id" 26px [row1-end] [row2-start] "mod" 26px (([row2-end]) / 100%);
+            .ability-score {
+                grid-area: score;
+                align-self: center;
+                justify-self: right;
+                flex: 0 0 26px;
                 height: 26px;
+            }
+
+            .ability-mod {
+                @include serif-condensed;
+                flex: 0 0 24px;
+                font-size: 24px;
                 line-height: 26px;
+                color: #666;
+                text-align: center;
 
-                .ability-score {
-                    grid-area: score;
-                    align-self: center;
-                    justify-self: right;
-                    flex: 0 0 26px;
-                    height: 26px;
-                }
-
-                .ability-mod {
+                .ability-input {
                     @include serif-condensed;
-                    flex: 0 0 24px;
-                    font-size: 24px;
-                    line-height: 26px;
-                    color: #666;
+                    width: 30px;
+                    height: 30px;
+                    margin: 3px;
+                    font-size: 28px;
                     text-align: center;
-
-                    .ability-input {
-                        @include serif-condensed;
-                        width: 30px;
-                        height: 30px;
-                        margin: 3px;
-                        font-size: 28px;
-                        text-align: center;
-                        background: #fff;
-                        border: 1px solid;
-                        border-radius: 4px;
-                        margin-left: 18px;
-                    }
-                }
-
-                .ability-name {
-                    margin: 2px;
+                    background: #fff;
+                    border: 1px solid;
+                    border-radius: 4px;
+                    margin-left: 18px;
                 }
             }
-        }
 
-        .abilities {
-            .abilities-list {
-                display: grid;
-                grid: "ability ability" 50px / 50%;
-                grid-auto-rows: 50px;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            .ability {
-                grid-row-start: auto;
-                display: grid;
-                grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (([row2-end]) / 46%) 31% 18% 5%;
-                height: 36px;
-                line-height: 36px;
+            .ability-name {
+                margin: 2px;
             }
         }
+    }
 
-        .npc-abilities .ability > *, .abilities .ability > * {
-            flex: 1;
-            align-self: center;
+    .abilities {
+        .abilities-list {
+            display: grid;
+            grid: "ability ability" 50px / 50%;
+            grid-auto-rows: 50px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-        .npc-abilities .ability .ability-proficiency, .abilities .ability .ability-proficiency {
-            flex: 0 0 20px;
-            height: 100%;
-            text-align: left;
-            padding-left: 3px;
+        .ability {
+            grid-row-start: auto;
+            display: grid;
+            grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (([row2-end]) / 46%) 31% 18% 5%;
+            height: 36px;
+            line-height: 36px;
         }
+    }
 
-        .npc-abilities .ability .ability-proficiency i.fa-circle, .abilities .ability .ability-proficiency i.fa-circle {
-            font-size: 10px;
-        }
+    .npc-abilities .ability > *, .abilities .ability > * {
+        flex: 1;
+        align-self: center;
+    }
 
-        .npc-abilities .ability .ability-name {
+    .npc-abilities .ability .ability-proficiency, .abilities .ability .ability-proficiency {
+        flex: 0 0 20px;
+        height: 100%;
+        text-align: left;
+        padding-left: 3px;
+    }
+
+    .npc-abilities .ability .ability-proficiency i.fa-circle, .abilities .ability .ability-proficiency i.fa-circle {
+        font-size: 10px;
+    }
+
+    .npc-abilities .ability .ability-name {
+        grid-area: header;
+        font-size: 12px;
+        color: #444;
+        margin: 0;
+    }
+
+    .abilities .ability {
+        .ability-name {
             grid-area: header;
             font-size: 12px;
             color: #444;
             margin: 0;
         }
 
-        .abilities .ability {
-            .ability-name {
-                grid-area: header;
-                font-size: 12px;
-                color: #444;
-                margin: 0;
-            }
-
-            .ability-score {
-                grid-area: score;
-                align-self: center;
-                justify-self: right;
-                flex: 0 0 36px;
-                height: 36px;
-            }
+        .ability-score {
+            grid-area: score;
+            align-self: center;
+            justify-self: right;
+            flex: 0 0 36px;
+            height: 36px;
         }
+    }
 
-        .npc-abilities .ability .ability-score > input {
+    .npc-abilities .ability .ability-score > input {
+        width: 20px;
+        height: 20px;
+        margin: 3px;
+        font-size: 12px;
+        color: #444;
+        text-align: center;
+        background: #fff;
+        border: 1px solid;
+    }
+
+    .abilities .ability {
+        .ability-score > input {
             width: 20px;
             height: 20px;
             margin: 3px;
@@ -1271,208 +1286,205 @@
             border: 1px solid;
         }
 
-        .abilities .ability {
-            .ability-score > input {
-                width: 20px;
-                height: 20px;
-                margin: 3px;
-                font-size: 12px;
-                color: #444;
-                text-align: center;
-                background: #fff;
-                border: 1px solid;
-            }
-
-            .ability-mod {
-                @include serif-condensed;
-                flex: 0 0 24px;
-                font-size: 24px;
-                line-height: 36px;
-                color: #666;
-                text-align: center;
-            }
-        }
-
-        .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+        .ability-mod {
             @include serif-condensed;
             flex: 0 0 24px;
-            font-size: 32px;
-            background: var(--secondary-background);
-            border-radius: 8px;
-            line-height: 28px;
-            color: #fff;
+            font-size: 24px;
+            line-height: 36px;
+            color: #666;
             text-align: center;
         }
+    }
 
-        .npc-abilities .ability .ability-mod, .abilities .ability .ability-mod {
-            grid-area: mod;
-            align-self: center;
+    .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+        @include serif-condensed;
+        flex: 0 0 24px;
+        font-size: 32px;
+        background: var(--secondary-background);
+        border-radius: 8px;
+        line-height: 28px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .npc-abilities .ability .ability-mod, .abilities .ability .ability-mod {
+        grid-area: mod;
+        align-self: center;
+    }
+
+    .npc-abilities .ability .ability-name, .abilities .ability .ability-id {
+        grid-area: id;
+        align-self: center;
+    }
+
+    .class-levels {
+        margin: 0 5px 0 0;
+        height: 156px;
+        overflow: hidden;
+
+        .class-header {
+            line-height: 20px;
+            position: relative;
+            margin: 3px 0 1px;
+
+            h3 {
+                @include serif-condensed;
+                text-align: center;
+                color: #444;
+                font-size: 18px;
+                color: #222;
+                margin: 0;
+            }
+
+            a.item-create {
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-size: 11px;
+                color: #666;
+            }
         }
 
-        .npc-abilities .ability .ability-name, .abilities .ability .ability-id {
-            grid-area: id;
-            align-self: center;
-        }
+        .class-list {
+            overflow-y: hidden;
 
-        .class-levels {
-            margin: 0 5px 0 0;
-            height: 156px;
-            overflow: hidden;
+            .list-row {
+                height: 44px;
+                background: rgba(0, 0, 0, 0.03);
+                padding: 2px;
+                border: 1px solid var(--secondary-background);
+                border-radius: 2px;
+                margin-bottom: 2px;
 
-            .class-header {
-                line-height: 20px;
-                position: relative;
-                margin: 3px 0 1px;
-
-                h3 {
-                    @include serif-condensed;
-                    text-align: center;
-                    color: #444;
-                    font-size: 18px;
-                    color: #222;
+                h4, h5 {
+                    width: calc(100% - 44px);
+                    float: left;
                     margin: 0;
+                    line-height: 20px;
+                    font-weight: strong;
                 }
 
-                a.item-create {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    font-size: 11px;
-                    color: #666;
-                }
-            }
+                .item-header {
+                    flex: 0 0 100%;
+                    height: 20px;
 
-            .class-list {
-                overflow-y: hidden;
-
-                .list-row {
-                    height: 44px;
-                    background: rgba(0, 0, 0, 0.03);
-                    padding: 2px;
-                    border: 1px solid var(--secondary-background);
-                    border-radius: 2px;
-                    margin-bottom: 2px;
-
-                    h4, h5 {
-                        width: calc(100% - 44px);
-                        float: left;
+                    .class-levels {
+                        @include serif-condensed;
+                        width: 44px;
+                        height: 100%;
+                        float: right;
                         margin: 0;
-                        line-height: 20px;
-                        font-weight: strong;
+                        font-size: 10px;
+                        text-align: right;
+                        font-size: 18px;
+                        color: #222;
                     }
+                }
 
-                    .item-header {
-                        flex: 0 0 100%;
-                        height: 20px;
+                .class-subclass {
+                    flex: 0 0 100%;
+                    height: 20px;
 
-                        .class-levels {
-                            @include serif-condensed;
-                            width: 44px;
-                            height: 100%;
-                            float: right;
-                            margin: 0;
-                            font-size: 10px;
+                    .item-controls {
+                        width: 44px;
+                        float: right;
+
+                        a {
                             text-align: right;
-                            font-size: 18px;
-                            color: #222;
-                        }
-                    }
-
-                    .class-subclass {
-                        flex: 0 0 100%;
-                        height: 20px;
-
-                        .item-controls {
-                            width: 44px;
-                            float: right;
-
-                            a {
-                                text-align: right;
-                            }
                         }
                     }
                 }
             }
         }
+    }
 
-        .skills .skills-list {
+    .skills .skills-list {
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid: "skill skill" 36px / 50% 50%;
+        grid-auto-rows: 36px;
+    }
+
+    .pf-three-grid {
+        grid-area: auto;
+        display: grid;
+        grid: "one two three" 100% / auto 90px 20px;
+    }
+
+    .pf-two-grid {
+        grid-area: auto;
+        display: grid;
+        grid: "one two" 100% / auto 90px;
+    }
+
+    .pf-justify-center {
+        justify-self: center;
+    }
+
+    .skills {
+        .lores-list {
             margin: 0;
             padding: 0;
-            display: grid;
-            grid: "skill skill" 36px / 50% 50%;
-            grid-auto-rows: 36px;
         }
 
-        .pf-three-grid {
+        .martial {
             grid-area: auto;
             display: grid;
-            grid: "one two three" 100% / auto 90px 20px;
+            grid: "name rank space" 100% / auto 46px 20px;
         }
 
-        .pf-two-grid {
+        .skill {
             grid-area: auto;
             display: grid;
-            grid: "one two" 100% / auto 90px;
+            grid: "value name rank item armor" 100% / 35px auto 46px 46px 20px;
         }
+    }
 
-        .pf-justify-center {
-            justify-self: center;
+    .actions-list .lores-list .list-row, .lores-list .list-row {
+        grid-area: auto;
+        display: grid;
+        grid: "value name rank item armor" 36px / 32px auto 46px 46px 20px;
+    }
+
+    .skill-container .item-item {
+        height: 16px;
+        margin-top: 2px;
+        font-size: 12px;
+    }
+
+    .skills .skill-container {
+        display: grid;
+        grid: "title" 12px "value" 18px / auto;
+        background: var(--secondary-background);
+        height: 32px;
+        align-self: center;
+    }
+
+    .skills .skill-container .skill-proficiency {
+        font-size: 12px;
+    }
+
+    .skills .skill-container > * {
+        width: 43px;
+    }
+
+    .skills {
+        .skill > *, .list-row > * {
+            flex: 1;
         }
+    }
 
-        .skills {
-            .lores-list {
-                margin: 0;
-                padding: 0;
-            }
+    .skills .skill-name {
+        margin: 0;
+        align-self: center;
+        background: var(--secondary-background);
+        line-height: 32px;
+        color: white;
+    }
 
-            .martial {
-                grid-area: auto;
-                display: grid;
-                grid: "name rank space" 100% / auto 46px 20px;
-            }
-
-            .skill {
-                grid-area: auto;
-                display: grid;
-                grid: "value name rank item armor" 100% / 35px auto 46px 46px 20px;
-            }
-        }
-
-        .actions-list .lores-list .list-row, .lores-list .list-row {
-            grid-area: auto;
-            display: grid;
-            grid: "value name rank item armor" 36px / 32px auto 46px 46px 20px;
-        }
-
-        .skill-container .item-item {
-            height: 16px;
-            margin-top: 2px;
-            font-size: 12px;
-        }
-
-        .skills .skill-container {
-            display: grid;
-            grid: "title" 12px "value" 18px / auto;
-            background: var(--secondary-background);
-            height: 32px;
-            align-self: center;
-        }
-
-        .skills .skill-container .skill-proficiency {
-            font-size: 12px;
-        }
-
-        .skills .skill-container > * {
-            width: 43px;
-        }
-
-        .skills {
-            .skill > *, .list-row > * {
-                flex: 1;
-            }
-        }
-
-        .skills .skill-name {
+    .skills {
+        .lore-name, .lore-name-input {
             margin: 0;
             align-self: center;
             background: var(--secondary-background);
@@ -1480,90 +1492,74 @@
             color: white;
         }
 
-        .skills {
-            .lore-name, .lore-name-input {
-                margin: 0;
-                align-self: center;
-                background: var(--secondary-background);
-                line-height: 32px;
-                color: white;
-            }
-
-            .skill-proficiency {
-                margin-top: 2px;
-            }
-        }
-
-        .skills .skill-item {
+        .skill-proficiency {
             margin-top: 2px;
-            font-size: 11px;
+        }
+    }
+
+    .skills .skill-item {
+        margin-top: 2px;
+        font-size: 11px;
+    }
+
+    .skills {
+        .skill-ability {
+            flex: 0 0 36px;
+            color: #666;
+            text-align: right;
+            margin-right: 4px;
+            flex: 0 0 36px;
+            color: #666;
+            text-align: right;
+            margin-right: 4px;
         }
 
-        .skills {
-            .skill-ability {
-                flex: 0 0 36px;
-                color: #666;
-                text-align: right;
-                margin-right: 4px;
-                flex: 0 0 36px;
-                color: #666;
-                text-align: right;
-                margin-right: 4px;
-            }
-
-            .skill-armor {
-                align-self: center;
-                background: var(--secondary-background);
-                line-height: 32px;
-                color: white;
-                width: 16px;
-                margin: unset;
-            }
-
-            .skill-score {
-                @include serif-condensed;
-                font-size: 28px;
-                text-align: center;
-                align-self: center;
-                background: var(--secondary-background);
-                color: white;
-            }
+        .skill-armor {
+            align-self: center;
+            background: var(--secondary-background);
+            line-height: 32px;
+            color: white;
+            width: 16px;
+            margin: unset;
         }
 
-        &.locked {
-            .ability-proficiency, .skill-proficiency {
-                text-shadow: none;
-                cursor: default;
-            }
+        .skill-score {
+            @include serif-condensed;
+            font-size: 28px;
+            text-align: center;
+            align-self: center;
+            background: var(--secondary-background);
+            color: white;
+        }
+    }
+
+    &.locked {
+        .ability-proficiency, .skill-proficiency {
+            text-shadow: none;
+            cursor: default;
+        }
+    }
+
+    .traits {
+        label {
+            font-weight: bold;
         }
 
-        .traits {
-            label {
-                font-weight: bold;
-            }
+        select {
+            margin: 2px 0;
+        }
 
-            select {
-                margin: 2px 0;
-            }
+        .trait-perception > input {
+            flex: 0 0 32px;
+            text-align: center;
+        }
 
-            .trait-perception > input {
-                flex: 0 0 32px;
-                text-align: center;
-            }
-
-            .trait-selector {
-                float: right;
-                margin-right: 3px;
-                color: #999;
-                font-size: 10px;
-                line-height: 16px;
-            }
-
-            .traits-list {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
+        .trait-selector {
+            float: right;
+            margin-right: 3px;
+            color: #999;
+            font-size: 10px;
+            line-height: 16px;
         }
 
         .traits-list {
@@ -1571,155 +1567,155 @@
             margin: 0;
             padding: 0;
         }
+    }
 
-        .traits .configure-flags i.fas {
-            float: right;
-            margin-right: 3px;
-            text-align: right;
-            color: #999;
-            line-height: 24px;
+    .traits-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 
-            &:hover {
-                color: #111;
-                text-shadow: 0 0 10px #ff6400;
-            }
+    .traits .configure-flags i.fas {
+        float: right;
+        margin-right: 3px;
+        text-align: right;
+        color: #999;
+        line-height: 24px;
+
+        &:hover {
+            color: #111;
+            text-shadow: 0 0 10px #ff6400;
+        }
+    }
+
+    &.npc-sheet .biography .editor {
+        height: 465px;
+    }
+
+    .spellbook-header {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .inventory-header {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .action-header .item-controls {
+        flex: 0 0 44px;
+    }
+
+    .action-header .item-controls a {
+        display: block;
+        float: left;
+        width: 44px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .inventory-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-y: auto;
+        margin-bottom: 2px;
+    }
+
+    .spellcastingEntry-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: calc(100% - 20px);
+        overflow-y: auto;
+    }
+
+    .singleColumn-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+    }
+
+    .overflow-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .inventory-list .list-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        flex-flow: wrap row;
+        justify-content: flex-start;
+        line-height: 1.8em;
+        padding: 0;
+        border-bottom: 1px solid var(--secondary-background);
+
+        > * {
+            flex: 1;
+            display: flex;
         }
 
-        &.npc-sheet .biography .editor {
-            height: 465px;
-        }
-
-        .spellbook-header {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .inventory-header {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .action-header .item-controls {
-            flex: 0 0 44px;
-        }
-
-        .action-header .item-controls a {
-            display: block;
-            float: left;
-            width: 44px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .inventory-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow-y: auto;
-            margin-bottom: 2px;
-        }
-
-        .spellcastingEntry-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            height: calc(100% - 20px);
-            overflow-y: auto;
-        }
-
-        .singleColumn-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            overflow-y: auto;
-        }
-
-        .overflow-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow-y: auto;
-        }
-
-        .inventory-list .list-row {
+        .item-name, .melee-name {
             display: flex;
             flex-direction: row;
-            flex-wrap: nowrap;
-            flex-flow: wrap row;
+            flex-wrap: wrap;
             justify-content: flex-start;
-            line-height: 1.8em;
-            padding: 0;
-            border-bottom: 1px solid var(--secondary-background);
-
-            > * {
-                flex: 1;
-                display: flex;
+            cursor: pointer;
+            padding: 1px 0;
+            &:first-child {
+                padding-left: 4px;
+                &.long {
+                    min-width: 230px;
+                }
             }
-
-            .item-name, .melee-name {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
+            button {
                 cursor: pointer;
-                padding: 1px 0;
-                &:first-child {
-                    padding-left: 4px;
-                    &.long {
-                        min-width: 230px;
-                    }
-                }
-                button {
-                    cursor: pointer;
-                }
+            }
+        }
+
+        .item-name .item-image, .melee-name .item-image {
+            flex: 0 0 24px;
+            margin-right: 4px;
+            background-size: 24px;
+            background-repeat: no-repeat;
+        }
+
+        .item-name h4, .melee-name h4 {
+            flex: 2;
+            margin: 0;
+        }
+
+        .item-name {
+            .prepared {
+                color: #666;
+                margin-left: 3px;
+                font-size: 10px;
             }
 
-            .item-name .item-image, .melee-name .item-image {
-                flex: 0 0 24px;
-                margin-right: 4px;
-                background-size: 24px;
-                background-repeat: no-repeat;
+            .item-charges {
+                color: #666;
+                font-size: 12px;
+                flex: 0;
             }
 
-            .item-name h4, .melee-name h4 {
-                flex: 2;
-                margin: 0;
+            &:hover .item-image {
+                background-image: url("../../../icons/svg/d20-grey.svg") !important;
             }
 
-            .item-name {
-                .prepared {
-                    color: #666;
-                    margin-left: 3px;
-                    font-size: 10px;
-                }
-
-                .item-charges {
-                    color: #666;
-                    font-size: 12px;
-                    flex: 0;
-                }
-
-                &:hover .item-image {
-                    background-image: url("../../../icons/svg/d20-grey.svg") !important;
-                }
-
-                .item-image:hover {
-                    background-image: url("../../../icons/svg/d20-black.svg") !important;
-                }
+            .item-image:hover {
+                background-image: url("../../../icons/svg/d20-black.svg") !important;
             }
         }
     }
-}
 
-/* ---------------------------------------- */
-/* Actor Sheet
-/* ---------------------------------------- */
-
-.pf2e.actor {
     .inventory-list .list-row {
         .item-controls {
             flex: 0 0 64px;
