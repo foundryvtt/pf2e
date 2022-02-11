@@ -251,7 +251,7 @@ export class CheckPF2e {
                                   dcNumber.toString(),
                                   [
                                       `<span class="preadjusted-dc">${preadjustedDC}</span>`,
-                                      `<span class="${direction}-dc">${dc.value}`,
+                                      `<span class="${direction}-dc">${dc.value}</span>`,
                                   ].join(" ")
                               );
                           })()
