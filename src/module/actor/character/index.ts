@@ -707,7 +707,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 data: {
-                    slug: "unarmed",
+                    slug: "basic-unarmed",
                     baseItem: null,
                     category: "unarmed",
                     bonus: { value: 0 },
