@@ -788,38 +788,34 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
 
         // Decrease effect value
-        $html
-            .find(".tab.effects .effects-list .decrement")
-            .on("click", async (event) => {
-                const actor = this.actor;
-                const target = $(event.currentTarget);
-                const parent = target.parents(".item");
-                const effect = actor.items.get(parent.attr("data-item-id") ?? "");
-                if (effect instanceof ConditionPF2e) {
-                    await actor.decreaseCondition(effect);
-                }
-            });
+        $html.find(".tab.effects .effects-list .decrement").on("click", async (event) => {
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await actor.decreaseCondition(effect);
+            }
+        });
 
         // Increase effect value
-        $html
-            .find(".tab.effects .effects-list .increment")
-            .on("click", async (event) => {
-                type ConditionName = "dying" | "wounded" | "doomed";
-                const actor = this.actor;
-                const target = $(event.currentTarget);
-                const parent = target.parents(".item");
-                const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
-                if (effect instanceof ConditionPF2e) {
-                    if (["dying", "wounded", "doomed"].includes(effect.slug)) {
-                        const condition = effect.slug as ConditionName;
-                        this.actor.increaseCondition(condition, {
-                            max: this.actor.data.data.attributes[condition].max,
-                        });
-                    } else {
-                        await actor.increaseCondition(effect);
-                    }
+        $html.find(".tab.effects .effects-list .increment").on("click", async (event) => {
+            type ConditionName = "dying" | "wounded" | "doomed";
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                if (["dying", "wounded", "doomed"].includes(effect.slug)) {
+                    const condition = effect.slug as ConditionName;
+                    this.actor.increaseCondition(condition, {
+                        max: this.actor.data.data.attributes[condition].max,
+                    });
+                } else {
+                    await actor.increaseCondition(effect);
                 }
-            });
+            }
+        });
 
         // Spontaneous Spell slot reset handler:
         $html.find(".spell-slots-increment-reset").on("click", (event) => {
