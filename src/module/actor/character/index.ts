@@ -637,56 +637,55 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Lore skills
-        itemTypes.lore
-            .map((loreItem) => loreItem.data)
-            .forEach((skill) => {
-                // normalize skill name to lower-case and dash-separated words
-                const shortForm = sluggify(skill.name) as SkillAbbreviation;
-                const rank = skill.data.proficient.value;
+        for (const item of itemTypes.lore) {
+            const skill = item.data;
+            // normalize skill name to lower-case and dash-separated words
+            const shortForm = sluggify(skill.name) as SkillAbbreviation;
+            const rank = skill.data.proficient.value;
 
-                const domains = [shortForm, `int-based`, "skill-check", "all"];
-                const modifiers = [
-                    AbilityModifier.fromScore("int", systemData.abilities.int.value),
-                    ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                    ...extractModifiers(statisticsModifiers, domains),
-                ];
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "all"];
+            const modifiers = [
+                AbilityModifier.fromScore("int", systemData.abilities.int.value),
+                ProficiencyModifier.fromLevelAndRank(this.level, rank),
+                ...extractModifiers(statisticsModifiers, domains),
+            ];
 
-                const loreSkill = systemData.skills[shortForm];
-                const rollOptions = this.getRollOptions(domains);
-                const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
-                    overwrite: false,
-                });
-                stat.itemID = skill._id;
-                stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
-                stat.rank = rank ?? 0;
-                stat.shortform = shortForm;
-                stat.expanded = skill;
-                stat.value = stat.totalModifier;
-                stat.lore = true;
-                stat.breakdown = stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    .join(", ");
-                stat.roll = (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
-                    const options = args.options ?? [];
-                    ensureProficiencyOption(options, rank);
-
-                    // Get just-in-time roll options from rule elements
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        rule.beforeRoll?.(domains, options);
-                    }
-
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
-                        args.event,
-                        args.callback
-                    );
-                };
-
-                skills[shortForm] = stat;
+            const loreSkill = systemData.skills[shortForm];
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
+                overwrite: false,
             });
+            stat.itemID = skill._id;
+            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.rank = rank ?? 0;
+            stat.shortform = shortForm;
+            stat.expanded = skill;
+            stat.value = stat.totalModifier;
+            stat.lore = true;
+            stat.breakdown = stat.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .join(", ");
+            stat.roll = (args: RollParameters) => {
+                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
+                const options = args.options ?? [];
+                ensureProficiencyOption(options, rank);
+
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, options);
+                }
+
+                CheckPF2e.roll(
+                    new CheckModifier(label, stat),
+                    { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
+                    args.event,
+                    args.callback
+                );
+            };
+
+            skills[shortForm] = stat;
+        }
 
         systemData.skills = skills as Required<typeof skills>;
 
