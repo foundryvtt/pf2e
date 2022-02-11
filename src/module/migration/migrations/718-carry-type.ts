@@ -29,21 +29,23 @@ export class Migration718CarryType extends MigrationBase {
             return;
         }
 
-        if (systemData.equipped !== undefined && "value" in systemData.equipped) {
+        if (isObject(systemData.equipped) && "value" in systemData.equipped) {
             const equipped: ExistingEquipped = systemData.equipped;
             if (!setHasElement(ITEM_CARRY_TYPES, systemData.equipped.carryType)) {
                 equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
                 equipped.handsHeld = 0;
+                const usage = getUsageDetails(systemData.usage.value);
 
                 if (equipped.value) {
-                    const usage = getUsageDetails(systemData.usage.value);
-                    if (usage.type === "worn") {
-                        equipped.carryType = "worn";
-                        equipped.inSlot = true;
-                    } else if (usage.type === "held") {
+                    if (usage.type === "held") {
                         equipped.carryType = "held";
                         equipped.handsHeld = usage.hands ?? 1;
+                    } else if (["held", "worn"].includes(usage.type)) {
+                        equipped.carryType = "worn";
                     }
+                }
+                if (usage.type === "worn" && usage.where) {
+                    equipped.inSlot = !!equipped.value;
                 }
             }
 

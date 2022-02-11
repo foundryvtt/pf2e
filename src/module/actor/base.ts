@@ -9,7 +9,7 @@ import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
-import { hasInvestedProperty, isPhysicalData } from "@item/data/helpers";
+import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
@@ -27,7 +27,7 @@ import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
-import { ItemCarryType } from "@item/physical/data";
+import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "../item/physical/usage";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
@@ -692,8 +692,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            const traits: Set<string> = item.traits;
-            newItemData.data.invested.value = traits.has("invested") ? false : null;
+            newItemData.data.invested.value = item.traits.has("invested") ? false : null;
         }
 
         return targetActor.addToInventory(newItemData, container);
@@ -759,31 +758,28 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 "data.containerId.value": container?.id ?? "",
                 "data.equipped.carryType": "stowed",
                 "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
+                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
             });
         } else {
-            const equipped = {
+            const equipped: EquippedData = {
                 carryType: carryType,
                 handsHeld: carryType === "held" ? handsHeld : 0,
-                inSlot: inSlot ?? false,
+                inSlot: item.data.usage.where ? inSlot : undefined,
             };
 
             const updates = [];
 
-            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e) {
+            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
                 // see if they have another set of armor equipped
-                const wornArmor = this.items.filter((i) => isPhysicalData(i.data) && i.data.isEquipped);
-                for (const armor of wornArmor) {
-                    updates.push({
-                        _id: armor.id,
-                        "data.equipped.inSlot": false,
-                    });
+                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
+                for (const armor of wornArmors) {
+                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
                 }
             }
 
             updates.push({
                 _id: item.id,
-                "data.containerId.value": "",
+                "data.containerId.value": null,
                 "data.equipped": equipped,
             });
             await this.updateEmbeddedDocuments("Item", updates);
