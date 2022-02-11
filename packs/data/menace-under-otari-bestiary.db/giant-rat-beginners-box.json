@@ -160,7 +160,7 @@
             "type": "melee"
         },
         {
-            "_id": "WRm1Fj2RovJ8ytZW",
+            "_id": "rZBGWTopAw3GV5VN",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -206,52 +206,6 @@
             "type": "action"
         },
         {
-            "_id": "Ld2l7Qr9tmd1tbPT",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "scent",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 30 feet",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
             "_id": "YRgD2IyCeEvQv1nF",
             "data": {
                 "description": {
@@ -278,7 +232,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 300000,
             "type": "lore"
         },
         {
@@ -296,20 +250,10 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Climb",
+                        "label": "PF2E.SkillVariant.ClimbOrSwim",
                         "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
-                        "selector": "athletics",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": {
-                            "all": [
+                            "any": [
+                                "action:climb",
                                 "action:swim"
                             ]
                         },
@@ -328,12 +272,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+4 to Climb",
-                        "options": "action:climb"
-                    },
-                    "1": {
-                        "label": "or Swim",
-                        "options": "action:swim"
+                        "label": "+4 to Climb or Swim",
+                        "options": "action:climb,action:swim"
                     }
                 }
             },
@@ -341,7 +281,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -371,7 +311,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 500000,
             "type": "lore"
         }
     ],

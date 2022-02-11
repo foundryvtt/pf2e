@@ -133,13 +133,13 @@
                     "value": 14
                 },
                 "damageRolls": {
-                    "h8kbarxxl1a6qohnbuq2b2": {
-                        "damage": "1d4",
-                        "damageType": "poison"
-                    },
                     "qzz7vglbvhmrym3ewnumw": {
                         "damage": "2d8+4",
                         "damageType": "piercing"
+                    },
+                    "s4ms4gxbvx89r522h189": {
+                        "damage": "1d4",
+                        "damageType": "poison"
                     }
                 },
                 "description": {
@@ -299,7 +299,7 @@
             "type": "melee"
         },
         {
-            "_id": "xGlQPgeM11MKLAAi",
+            "_id": "JaJLITtJG6QOyapG",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -362,7 +362,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.twistingTail"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "twistingTail"
+                            ]
+                        },
+                        "selector": "tail-attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "twistingTail"
+                            ]
+                        },
+                        "selector": "tail-attack",
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.AttackEffects.InterruptAction]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -399,7 +424,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {5d6}[poison]]]{5d6 poison damage} in a @Template[type:cone|distance:30]. Each creature in the area must attempt a @Check[type:reflex|dc:24|basic:true] save. The dragon can't use their Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {5d6}[poison]]]{5d6 poison damage} in a @Template[type:cone|distance:30]. Each creature in the area must attempt a @Check[type:reflex|dc:24|basic:true] save.</p>\n<p data-visibility=\"gm\">The dragon can't use their Breath Weapon again for [[/br 1d4 #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
