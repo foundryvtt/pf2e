@@ -1,19 +1,19 @@
 import { ActorPF2e } from "@actor";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { TokenPF2e } from "@module/canvas";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/check-degree-of-success";
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
 interface StrikeSelf<A extends ActorPF2e, I extends AttackItem> {
     actor: A;
-    token: TokenPF2e | null;
+    token: TokenDocumentPF2e | null;
     item: I;
 }
 
 interface StrikeTarget {
     actor: ActorPF2e;
-    token: TokenPF2e;
+    token: TokenDocumentPF2e;
     distance: number;
 }
 
