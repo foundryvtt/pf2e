@@ -3789,8 +3789,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "slug": "deny-advantage-level-3",
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.flanking.flatFootable",
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": "deny-advantage",
                 "source": {
                     "value": ""
                 },
