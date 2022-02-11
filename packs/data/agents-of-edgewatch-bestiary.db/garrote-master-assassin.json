@@ -1041,7 +1041,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The master assassin makes a crossbow Strike against an adjacent enemy; unlike most ranged Strikes, this Strike doesn't provoke reactions. If successful, the attack deals an additional [[/r 4d8]] precision damage.</p>"
+                    "value": "<p>The master assassin makes a crossbow Strike against an adjacent enemy; unlike most ranged Strikes, this Strike doesn't provoke reactions. If successful, the attack deals an additional [[/r {4d8}[precision]]]{4d8 precision damage].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1127,13 +1127,26 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The master assassin deals an additional [[/r 3d6]] precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The master assassin deals an additional [[/r {3d6}[precision]]]{3d6 precision damage] to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -1150,7 +1163,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1200000,
