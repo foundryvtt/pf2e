@@ -11,8 +11,8 @@ export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean
         return false;
     }
 
-    if (usage.type === "worn") {
-        return equipped.inSlot ?? false;
+    if (usage.type === "worn" && equipped.inSlot === false) {
+        return false;
     } else if (usage.type === "held") {
         return (equipped.handsHeld ?? 0) >= (usage.hands ?? 1);
     }

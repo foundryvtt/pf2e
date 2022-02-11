@@ -307,6 +307,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bulkConfig,
             actorSize: this.actor.size,
         });
+        sheetData.hasRealContainers = this.actor.itemTypes.backpack.some((c) => c.data.data.stowing);
 
         let investedCount = 0; // Tracking invested items
         const investedMax = actorData.data.resources.investiture.max;

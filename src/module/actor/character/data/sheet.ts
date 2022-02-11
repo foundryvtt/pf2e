@@ -73,6 +73,8 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     crafting: CraftingData;
     data: CharacterSystemSheetData;
     hasStamina: boolean;
+    /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
+    hasRealContainers: boolean;
     magicTraditions: Record<MagicTradition, string>;
     options: CharacterSheetOptions;
     preparationType: Object;

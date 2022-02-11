@@ -315,9 +315,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             $html.find(".carry-type-hover").tooltipster("close");
 
             const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId);
+            const item = this.actor.items.get(itemId, { strict: true });
             if (!(item instanceof PhysicalItemPF2e)) {
-                throw new Error("PF2e System | Tried to update location on item that doesn't have location");
+                throw ErrorPF2e("Tried to update carry type of non-physical item");
             }
 
             const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
