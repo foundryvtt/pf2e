@@ -403,6 +403,8 @@ export class StatisticModifier {
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
+    /** A log of differences among its modifiers compared to an original (i.e., this instance is a clone) */
+    contextLog: { label: string; value: number }[] = [];
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 
@@ -477,6 +479,24 @@ export class StatisticModifier {
         if (rollOptions) this.applyAdjustments(rollOptions);
 
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
+    }
+
+    /**
+     * Given that this is the `StatisticModifier` from a cloned actor, identify newly-introduced or -activated
+     * modifiers when compared to the original copy of itself.
+     * @param original The statistic from the original actor
+     */
+    logContextDiffs(original: StatisticModifier): void {
+        if (original.name !== this.name) throw ErrorPF2e("Unable to compare provided StatisticModifier");
+
+        const originalModifiers = original.modifiers;
+        for (const modifier of this._modifiers) {
+            const originalModifier = originalModifiers.find((m) => m.slug === modifier.slug);
+            // The modifier was added due to contextual circumstance
+            if (!originalModifier || (modifier.enabled && !originalModifier.enabled)) {
+                this.contextLog.push({ label: modifier.label, value: modifier.modifier });
+            }
+        }
     }
 
     private applyAdjustments(rollOptions: string[]): void {

@@ -11,11 +11,11 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
 import { fontAwesomeIcon } from "@util";
 import { TokenDocumentPF2e } from "@scene";
-import { UserPF2e } from "@module/user";
 import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { AttackTarget } from "@actor/creature/types";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -60,10 +60,10 @@ export interface CheckModifiersContext {
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
     token?: TokenDocumentPF2e;
-    /** The user which initiated this roll. */
-    user?: UserPF2e;
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
+    /** If this is an attack, the target of that attack */
+    target?: AttackTarget | null;
     /** Optional title of the roll options dialog; defaults to the check name */
     title?: string;
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
@@ -80,10 +80,14 @@ export interface CheckModifiersContext {
     isReroll?: boolean;
 }
 
-interface ExtendedCheckModifersContext extends Omit<CheckModifiersContext, "actor" | "token" | "user"> {
+interface ExtendedCheckModifersContext extends Omit<CheckModifiersContext, "actor" | "token" | "target"> {
     actor?: ActorPF2e | string;
     token?: TokenDocumentPF2e | string;
-    user?: UserPF2e | string;
+    target?: {
+        actor: ActorPF2e | ActorUUID | TokenDocumentUUID;
+        token?: TokenDocumentPF2e | TokenDocumentUUID;
+    } | null;
+    user?: string;
     outcome?: typeof DegreeOfSuccessText[number];
     unadjustedOutcome?: typeof DegreeOfSuccessText[number];
 }
@@ -151,6 +155,7 @@ export class CheckPF2e {
 
         const options: string[] = [];
         const ctx: ExtendedCheckModifersContext = context;
+
         let dice = "1d20";
         ctx.fate ??= "none";
         if (ctx.fate === "misfortune") {
@@ -169,9 +174,9 @@ export class CheckPF2e {
         if (ctx.token instanceof TokenDocumentPF2e) {
             ctx.token = ctx.token.id;
         }
-        if (ctx.user instanceof UserPF2e) {
-            ctx.user = ctx.user.id;
-        }
+
+        ctx.user = game.user.id;
+
         const item = context.item;
         delete context.item;
 
@@ -196,8 +201,9 @@ export class CheckPF2e {
         }
 
         // Add the degree of success if a DC was supplied
-        if (ctx.dc) {
-            const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
+        const { dc } = context;
+        if (dc) {
+            const degreeOfSuccess = getDegreeOfSuccess(roll, dc);
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
             ctx.outcome = degreeOfSuccessText;
 
@@ -205,12 +211,61 @@ export class CheckPF2e {
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
 
             const needsDCParam =
-                typeof ctx.dc.label === "string" && Number.isInteger(ctx.dc.value) && !ctx.dc.label.includes("{dc}");
-            if (needsDCParam && ctx.dc.label) ctx.dc.label = `${ctx.dc.label.trim()}: {dc}`;
+                typeof dc.label === "string" && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
+            if (needsDCParam && dc.label) dc.label = `${dc.label.trim()}: {dc}`;
 
-            const dcLabel = game.i18n.format(ctx.dc.label ?? "PF2E.DCLabel", { dc: ctx.dc.value });
-            const showDC = ctx.dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
-            flavor += `<div data-visibility="${showDC}"><b>${dcLabel}</b></div>`;
+            // Get any contextual adjustments to the target's AC
+            const [preadjustedDC] = ((): [number, { label: string; value: number }[]] | [null, null] => {
+                const targetDC = context.target?.actor.attributes.ac;
+                if (targetDC instanceof StatisticModifier && targetDC.contextLog.length > 0) {
+                    const totalChange = targetDC.contextLog.reduce((total, entry) => total + entry.value, 0);
+                    return [dc.value - totalChange, targetDC.contextLog];
+                } else {
+                    return [null, null];
+                }
+            })();
+
+            const showDC = context.target?.actor.hasPlayerOwner
+                ? "all"
+                : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
+
+            const dcMarkup = ((): string => {
+                // If no target, just show the DC
+                if (!context.target?.token) {
+                    const dcLabel = game.i18n.format(dc.label ?? "PF2E.Check.DC", { dc: dc.value });
+                    return `<div data-visibility="${showDC}">${dcLabel}</div>`;
+                }
+
+                // Later there will need to be a different way of deciding between AC or DC, since not all
+                // actor-targetted checks are against AC
+                dc.label ??= context.target.token ? "PF2E.Check.AC" : "PF2E.Check.DC";
+
+                const targetName = context.target.token.name;
+                const dcNumber = preadjustedDC ?? dc.value;
+                const dcLabel = game.i18n.format(dc.label, { dc: dcNumber });
+                const adjustedDCLabel =
+                    typeof preadjustedDC === "number" && preadjustedDC !== dc.value
+                        ? (() => {
+                              const direction = preadjustedDC < dc.value ? "increased" : "decreased";
+                              return dcLabel.replace(
+                                  dcNumber.toString(),
+                                  [
+                                      `<span class="preadjusted-dc">${preadjustedDC}</span>`,
+                                      `<span class="${direction}-dc">${dc.value}</span>`,
+                                  ].join(" ")
+                              );
+                          })()
+                        : dcLabel;
+
+                const targetDCLabel = game.i18n.format("PF2E.Check.TargetDC", {
+                    target: targetName,
+                    dcLabel: adjustedDCLabel,
+                });
+
+                return `<div data-visibility="${showDC}">${targetDCLabel}</div>`;
+            })();
+
+            flavor += dcMarkup;
 
             const adjustment = (() => {
                 switch (degreeOfSuccess.degreeAdjustment) {
@@ -230,21 +285,21 @@ export class CheckPF2e {
             ctx.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
 
             const resultLabel = game.i18n.localize("PF2E.ResultLabel");
-            const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? "CheckOutcome"}.${degreeOfSuccessText}`);
-            const showResult = ctx.dc.visibility ?? game.settings.get("pf2e", "metagame.showResults");
+            const degreeLabel = game.i18n.localize(`PF2E.${dc.scope ?? "CheckOutcome"}.${degreeOfSuccessText}`);
+            const showResult = dc.visibility ?? game.settings.get("pf2e", "metagame.showResults");
             const offsetLabel = (() => {
                 return game.i18n.format("PF2E.ResultOffset", {
                     offset: new Intl.NumberFormat(game.i18n.lang, {
                         maximumFractionDigits: 0,
                         signDisplay: "always",
                         useGrouping: false,
-                    }).format(roll.total - (ctx.dc.value ?? 0)),
+                    }).format(roll.total - dc.value),
                 });
             })();
             flavor += `<div data-visibility="${showResult}" class="degree-of-success">`;
-            flavor += `<b>${resultLabel}: <span class="${degreeOfSuccessText}">${degreeLabel} `;
+            flavor += `<span>${resultLabel}: <span class="${degreeOfSuccessText}">${degreeLabel} `;
             flavor += showResult === showDC ? offsetLabel : `<span data-visibility=${showDC}>${offsetLabel}</span>`;
-            flavor += `</span></b> ${adjustmentLabel}`;
+            flavor += `</span></span> ${adjustmentLabel}`;
             flavor += "</div>";
         }
 
@@ -301,6 +356,13 @@ export class CheckPF2e {
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
         const coreFlags: Record<string, unknown> = { canPopout: true };
         if (context.type === "initiative") coreFlags.initiativeRoll = true;
+
+        if (context.target) {
+            ctx.target = {
+                actor: context.target.actor.uuid,
+                token: context.target.token.uuid,
+            };
+        }
 
         const message = (await roll.toMessage(
             {
