@@ -51,13 +51,14 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
     override afterPrepareData(): void {
-        if (this.data.replaceBasicUnarmed && this.actor.data.type === "character") {
+        if (!this.actor.isOfType("character")) return;
+
+        if (this.data.replaceAll) {
             const systemData = this.actor.data.data;
-            systemData.actions = systemData.actions.filter((action) => action.weapon?.slug !== "unarmed");
-        }
-        if (this.data.replaceAll && this.actor.data.type === "character") {
+            systemData.actions = systemData.actions.filter((action) => action.item === this.weapon);
+        } else if (this.data.replaceBasicUnarmed) {
             const systemData = this.actor.data.data;
-            systemData.actions = systemData.actions.filter((action) => action.weapon === this.weapon);
+            systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
         }
     }
 
