@@ -260,13 +260,6 @@ export interface StrikeData {
     origin?: Embedded<ItemPF2e> | null;
     /** The weapon or melee item--possibly ephemeral--being used for the strike */
     item?: WeaponPF2e | MeleePF2e;
-    auxiliaryActions?: AuxiliaryAction[];
-}
-
-export interface AuxiliaryAction {
-    label: string;
-    img: string;
-    roll: RollFunction;
 }
 
 export interface RollToggle {
