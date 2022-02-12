@@ -71,6 +71,8 @@ import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemCarryType } from "@item/physical/data";
 import { CreateAuxiliaryParams } from "./types";
+import { StrikeWeaponTraits } from "./strike-weapon-traits";
+import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -1105,37 +1107,6 @@ export class CharacterPF2e extends CreaturePF2e {
             }
         }
 
-        // Kickback trait
-        if (weaponTraits.has("kickback")) {
-            // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with 14 or
-            // more Strength ignore the penalty."
-            const penalty = new ModifierPF2e({
-                label: CONFIG.PF2E.weaponTraits.kickback,
-                modifier: -2,
-                type: MODIFIER_TYPE.CIRCUMSTANCE,
-                predicate: new PredicatePF2e({ all: [{ lt: ["self:ability:str:score", 14] }] }),
-            });
-            modifiers.push(penalty);
-        }
-
-        // Volley trait
-        const volleyTrait = Array.from(weaponTraits).find((t) => /^volley-\d+$/.test(t));
-        if (volleyTrait && weapon.rangeIncrement) {
-            const penaltyRange = Number(/-(\d+)$/.exec(volleyTrait)![1]);
-            const penalty = new ModifierPF2e({
-                label: CONFIG.PF2E.weaponTraits[volleyTrait],
-                modifier: -2,
-                type: MODIFIER_TYPE.UNTYPED,
-                ignored: true,
-                predicate: new PredicatePF2e({
-                    all: [{ lte: ["target:distance", penaltyRange] }],
-                    not: ["self:ignore-volley-penalty"],
-                }),
-            });
-            modifiers.push(penalty);
-            weaponRollOptions.push("volley", "weapon:trait:volley");
-        }
-
         // Get best weapon potency
         const weaponPotency = (() => {
             const potency = selectors
@@ -1371,11 +1342,12 @@ export class CharacterPF2e extends CreaturePF2e {
                         viewOnly: args.getFormula ?? false,
                     });
 
-                    // Set range-increment roll option
+                    // Set range-increment roll option and penalty
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [
                         this.getRangePenalty(rangeIncrement, selectors, defaultOptions) ?? [],
+                        context.self.modifiers,
                     ].flat();
 
                     // Collect roll options from all sources
@@ -1465,6 +1437,30 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         return action;
+    }
+
+    /** Possibly modify this weapon depending on its */
+    protected override getStrikeRollContext<I extends AttackItem>(
+        params: StrikeRollContextParams<I>
+    ): StrikeRollContext<this, I> {
+        const context = super.getStrikeRollContext(params);
+        if (context.self.item.isOfType("weapon")) {
+            StrikeWeaponTraits.modifyWeapon(context.self.item);
+        }
+
+        return context;
+    }
+
+    /** Create attack-roll modifiers from weapon traits */
+    override getAttackRollContext<I extends AttackItem>(
+        params: StrikeRollContextParams<I>
+    ): AttackRollContext<this, I> {
+        const context = super.getAttackRollContext(params);
+        if (context.self.item.isOfType("weapon")) {
+            context.self.modifiers.push(...StrikeWeaponTraits.createAttackModifiers(context.self.item));
+        }
+
+        return context;
     }
 
     consumeAmmo(weapon: WeaponPF2e, args: RollParameters): boolean {
