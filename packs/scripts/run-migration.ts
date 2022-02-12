@@ -157,7 +157,6 @@ async function migrate() {
     const migrationRunner = new MigrationRunnerBase(migrations);
 
     for (const filePath of allEntries) {
-        if (!filePath.includes("iconics.db")) continue;
         const content = await fs.readFile(filePath, { encoding: "utf-8" });
 
         let source: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
