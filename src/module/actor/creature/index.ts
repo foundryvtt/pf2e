@@ -369,8 +369,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (this.isFlatFooted({ dueTo: "flanking" })) {
             const acModifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
             const flatFooted = game.pf2e.ConditionManager.getCondition("flat-footed");
-            const modifiers = game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? [];
-            acModifiers.push(...modifiers.map((m) => () => m));
+            const modifier = (game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? []).pop();
+            if (!modifier) throw ErrorPF2e("Unexpected error retrieving condition");
+
+            modifier.label = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            acModifiers.push(() => modifier);
+
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
         }
@@ -756,13 +760,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const targetActor = params.viewOnly
             ? null
             : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin")]) ?? null;
-
-        // Log changes to AC between the original target actor and its contextual clone
-        const originalAC = targetToken?.actor?.attributes.ac;
-        const targetedAC = targetActor?.attributes.ac;
-        if (targetedAC instanceof StatisticModifier && originalAC instanceof StatisticModifier) {
-            targetedAC.logContextDiffs(originalAC);
-        }
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
