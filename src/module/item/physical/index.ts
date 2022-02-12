@@ -331,8 +331,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             if (this.data.usage.type === "worn" && this.data.usage.where) {
                 this.data.update({ "data.equipped.inSlot": false });
             }
-        } else {
-            this.data.update({ "data.-=equipped": null });
         }
     }
 
