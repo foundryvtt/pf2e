@@ -637,56 +637,55 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Lore skills
-        itemTypes.lore
-            .map((loreItem) => loreItem.data)
-            .forEach((skill) => {
-                // normalize skill name to lower-case and dash-separated words
-                const shortForm = sluggify(skill.name) as SkillAbbreviation;
-                const rank = skill.data.proficient.value;
+        for (const item of itemTypes.lore) {
+            const skill = item.data;
+            // normalize skill name to lower-case and dash-separated words
+            const shortForm = sluggify(skill.name) as SkillAbbreviation;
+            const rank = skill.data.proficient.value;
 
-                const domains = [shortForm, `int-based`, "skill-check", "all"];
-                const modifiers = [
-                    AbilityModifier.fromScore("int", systemData.abilities.int.value),
-                    ProficiencyModifier.fromLevelAndRank(this.level, rank),
-                    ...extractModifiers(statisticsModifiers, domains),
-                ];
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "all"];
+            const modifiers = [
+                AbilityModifier.fromScore("int", systemData.abilities.int.value),
+                ProficiencyModifier.fromLevelAndRank(this.level, rank),
+                ...extractModifiers(statisticsModifiers, domains),
+            ];
 
-                const loreSkill = systemData.skills[shortForm];
-                const rollOptions = this.getRollOptions(domains);
-                const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
-                    overwrite: false,
-                });
-                stat.itemID = skill._id;
-                stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
-                stat.rank = rank ?? 0;
-                stat.shortform = shortForm;
-                stat.expanded = skill;
-                stat.value = stat.totalModifier;
-                stat.lore = true;
-                stat.breakdown = stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    .join(", ");
-                stat.roll = (args: RollParameters) => {
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
-                    const options = args.options ?? [];
-                    ensureProficiencyOption(options, rank);
-
-                    // Get just-in-time roll options from rule elements
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        rule.beforeRoll?.(domains, options);
-                    }
-
-                    CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
-                        args.event,
-                        args.callback
-                    );
-                };
-
-                skills[shortForm] = stat;
+            const loreSkill = systemData.skills[shortForm];
+            const rollOptions = this.getRollOptions(domains);
+            const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
+                overwrite: false,
             });
+            stat.itemID = skill._id;
+            stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
+            stat.rank = rank ?? 0;
+            stat.shortform = shortForm;
+            stat.expanded = skill;
+            stat.value = stat.totalModifier;
+            stat.lore = true;
+            stat.breakdown = stat.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                .join(", ");
+            stat.roll = (args: RollParameters) => {
+                const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
+                const options = args.options ?? [];
+                ensureProficiencyOption(options, rank);
+
+                // Get just-in-time roll options from rule elements
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    rule.beforeRoll?.(domains, options);
+                }
+
+                CheckPF2e.roll(
+                    new CheckModifier(label, stat),
+                    { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
+                    args.event,
+                    args.callback
+                );
+            };
+
+            skills[shortForm] = stat;
+        }
 
         systemData.skills = skills as Required<typeof skills>;
 
@@ -708,7 +707,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 data: {
-                    slug: "unarmed",
+                    slug: "basic-unarmed",
                     baseItem: null,
                     category: "unarmed",
                     bonus: { value: 0 },
@@ -930,7 +929,7 @@ export class CharacterPF2e extends CreaturePF2e {
         weapon: Embedded<WeaponPF2e>,
         action: "Release" | "Interact",
         kind: "Release1H" | "Grip2H" | "Sheathe" | "Drop" | `Draw${1 | 2}H` | "Retrieve" | `PickUp${1 | 2}H`,
-        actions: "free" | "1" | "2",
+        actions: "free" | "1" | "2" | "3",
         carryType: ItemCarryType,
         handsHeld: ZeroToTwo
     ) {
@@ -1177,7 +1176,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const auxiliaryActions = [];
         if (isRealItem && weapon.category !== "unarmed") {
             switch (weapon.carryType) {
-                case "held":
+                case "held": {
                     if (weapon.handsHeld !== 1) {
                         auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Release1H", "free", "held", 1));
                     }
@@ -1187,17 +1186,22 @@ export class CharacterPF2e extends CreaturePF2e {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Sheathe", "1", "worn", 0));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Drop", "free", "dropped", 0));
                     break;
-                case "worn":
+                }
+                case "worn": {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw1H", "1", "held", 1));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw2H", "1", "held", 2));
                     break;
-                case "stowed":
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retrieve", "2", "held", 1));
+                }
+                case "stowed": {
+                    const actions = weapon.container?.isHeld ? "2" : "3";
+                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retrieve", actions, "held", 1));
                     break;
-                case "dropped":
+                }
+                case "dropped": {
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp1H", "1", "held", 1));
                     auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp2H", "1", "held", 2));
                     break;
+                }
             }
         }
 
@@ -1251,7 +1255,6 @@ export class CharacterPF2e extends CreaturePF2e {
             name: "attack",
             label: CONFIG.PF2E.featTraits.attack,
             description: CONFIG.PF2E.traitsDescriptions.attack,
-            toggle: false,
         };
 
         const toStrikeTrait = (trait: WeaponTrait) => {
@@ -1261,7 +1264,6 @@ export class CharacterPF2e extends CreaturePF2e {
             const traitObject: StrikeTrait = {
                 name: trait,
                 label,
-                toggle: false,
                 description: traitDescriptions[trait] ?? "",
             };
 
@@ -1271,13 +1273,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 traitObject.rollOption = trait;
             }
 
-            // trait can be toggled on/off
-            if (traitObject.rollName && traitObject.rollOption) {
-                traitObject.toggle = true;
-                traitObject.cssClass = this.getRollOptions([traitObject.rollName]).includes(traitObject.rollOption)
-                    ? "toggled-on"
-                    : "toggled-off";
-            }
             return traitObject;
         };
         action.traits = [attackTrait].concat([...weaponTraits].map(toStrikeTrait));
@@ -1368,6 +1363,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                     const checkContext = {
                         actor: context.self.actor,
+                        target: context.target,
                         item,
                         type: "attack-roll",
                         options: finalRollOptions,

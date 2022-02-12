@@ -201,10 +201,8 @@ export class WeaponDamagePF2e {
         const numericModifiers: ModifierPF2e[] = [];
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
-        options = traits
-            .filter((trait) => !trait.toggle)
-            .map((t) => t.name)
-            .concat(options); // always add all weapon traits to the options
+        // Always add all weapon traits to the options
+        options = traits.map((t) => t.name).concat(options);
 
         if (proficiencyRank >= 0) {
             options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
