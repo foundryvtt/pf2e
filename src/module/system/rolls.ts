@@ -214,16 +214,16 @@ export class CheckPF2e {
                 typeof dc.label === "string" && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
             if (needsDCParam && dc.label) dc.label = `${dc.label.trim()}: {dc}`;
 
-            // Get any contextual adjustments to the target's AC
-            const [preadjustedDC] = ((): [number, { label: string; value: number }[]] | [null, null] => {
-                const targetDC = context.target?.actor.attributes.ac;
-                if (targetDC instanceof StatisticModifier && targetDC.contextLog.length > 0) {
-                    const totalChange = targetDC.contextLog.reduce((total, entry) => total + entry.value, 0);
-                    return [dc.value - totalChange, targetDC.contextLog];
-                } else {
-                    return [null, null];
-                }
-            })();
+            // Get any circumstance adjustments (penalties or bonuses) to the target's AC
+            const targetAC = context.target?.actor.attributes.ac;
+            const circumstances =
+                targetAC instanceof StatisticModifier
+                    ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
+                    : null;
+            const preadjustedDC =
+                circumstances && targetAC
+                    ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
+                    : targetAC?.value ?? null;
 
             const showDC = context.target?.actor.hasPlayerOwner
                 ? "all"
@@ -244,14 +244,22 @@ export class CheckPF2e {
                 const dcNumber = preadjustedDC ?? dc.value;
                 const dcLabel = game.i18n.format(dc.label, { dc: dcNumber });
                 const adjustedDCLabel =
-                    typeof preadjustedDC === "number" && preadjustedDC !== dc.value
+                    circumstances && typeof preadjustedDC === "number" && preadjustedDC !== dc.value
                         ? (() => {
                               const direction = preadjustedDC < dc.value ? "increased" : "decreased";
+                              const adjustments = Handlebars.escapeExpression(
+                                  JSON.stringify(circumstances.map((c) => ({ label: c.label, value: c.modifier })))
+                              );
+                              const attributes = [
+                                  `class="adjusted-dc ${direction}"`,
+                                  `data-adjustments="${adjustments}"`,
+                              ].join(" ");
+
                               return dcLabel.replace(
                                   dcNumber.toString(),
                                   [
                                       `<span class="preadjusted-dc">${preadjustedDC}</span>`,
-                                      `<span class="${direction}-dc">${dc.value}</span>`,
+                                      `<span ${attributes}>${dc.value}</span>`,
                                   ].join(" ")
                               );
                           })()

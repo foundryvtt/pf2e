@@ -13,6 +13,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { ErrorPF2e } from "@util";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -145,6 +146,28 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         DegreeOfSuccessHighlights.listen(this, $html);
         if (canvas.ready) SetAsInitiative.listen($html);
 
+        // Check DC adjusted by circumstance bonuses or penalties
+        try {
+            const $adjustedDC = $html.find(".adjusted-dc[data-adjustments]");
+            if ($adjustedDC.length === 1) {
+                const adjustments = JSON.parse($adjustedDC.attr("data-adjustments") ?? "");
+                if (!Array.isArray(adjustments)) throw ErrorPF2e("Malformed adjustments array");
+
+                const content = adjustments
+                    .map((a: { label: string; value: number }) => {
+                        const sign = a.value >= 0 ? "+" : "";
+                        return $("<div>").text(`${a.label}: ${sign}${a.value}`);
+                    })
+                    .reduce(($concatted, $a) => $concatted.append($a), $("<div>"))
+                    .prop("outerHTML");
+
+                $adjustedDC.tooltipster({ content, contentAsHTML: true, theme: "crb-hover" });
+            }
+        } catch (error) {
+            if (error instanceof Error) console.error(error.message);
+        }
+
+        // Trait tooltips
         $html.find(".tag[data-trait]").each((_idx, span) => {
             const $tag = $(span);
             const description = $tag.attr("data-description");

@@ -2,11 +2,15 @@
     .preadjusted-dc {
         text-decoration: line-through;
     }
-    .increased-dc {
-        color: $degree-success-critical;
-    }
-    .decreased-dc {
-        color: $degree-failure-critical;
+
+    .adjusted-dc {
+        text-decoration: underline dotted;
+        &.increased {
+            color: $degree-success-critical;
+        }
+        &.decreased {
+            color: $degree-failure-critical;
+        }
     }
 
     .degree-of-success {
