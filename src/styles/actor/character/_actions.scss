@@ -12,12 +12,12 @@
             }
 
             .actions-nav {
+                @include p-reset;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: center;
                 align-items: flex-start;
                 list-style: none;
-                @include p-reset;
                 border-radius: 3px;
                 margin-bottom: 1rem;
 
@@ -324,10 +324,14 @@
                 }
             }
 
-            .strike-actions {
+            .auxiliary-actions {
                 display: flex;
                 gap: 3px;
                 margin-left: 41px;
+
+                &.weapon-drawn {
+                    flex-basis: 100%;
+                }
 
                 button {
                     @include button;
@@ -360,8 +364,11 @@
                         cursor: pointer;
 
                         &:hover {
-                            box-shadow: none;
                             text-shadow: 0 0 1px var(--black);
+                        }
+
+                        &:active {
+                            box-shadow: none;
                         }
                     }
                 }

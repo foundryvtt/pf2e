@@ -254,13 +254,14 @@ export function getActionIcon(
 }
 
 const actionGlyphMap: Record<string, string> = {
+    0: "F",
+    free: "F",
     1: "A",
     2: "D",
     3: "T",
     "1 or 2": "A/D",
     "1 to 3": "A - T",
     "2 or 3": "D/T",
-    free: "F",
     reaction: "R",
 };
 
@@ -269,11 +270,13 @@ const actionGlyphMap: Record<string, string> = {
  * to display an icon. If null it returns empty string.
  */
 export function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }) {
-    if (!action) return "";
+    if (!action && action !== 0) return "";
+
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
         .toLowerCase()
         .trim();
+
     return actionGlyphMap[sanitized] ?? "";
 }
 

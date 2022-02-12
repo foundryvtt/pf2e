@@ -33,6 +33,7 @@ import {
     MartialProficiency,
     CharacterSheetTabVisibility,
     LinkedProficiency,
+    AuxiliaryAction,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, getActionGlyph, sluggify, sortedStringify } from "@util";
@@ -48,7 +49,7 @@ import {
 import { CreaturePF2e } from "../";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
-import { PROFICIENCY_RANKS, ZeroToTwo, ZeroToFour } from "@module/data";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
@@ -69,6 +70,7 @@ import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemCarryType } from "@item/physical/data";
+import { CreateAuxiliaryParams } from "./types";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -925,56 +927,69 @@ export class CharacterPF2e extends CreaturePF2e {
         return super.prepareSpeed(movementType);
     }
 
-    prepareInteract(
-        weapon: Embedded<WeaponPF2e>,
-        action: "Release" | "Interact",
-        kind: "Release1H" | "Grip2H" | "Sheathe" | "Drop" | `Draw${1 | 2}H` | "Retrieve" | `PickUp${1 | 2}H`,
-        actions: "free" | "1" | "2" | "3",
-        carryType: ItemCarryType,
-        handsHeld: ZeroToTwo
-    ) {
+    /** Create an "auxiliary" action, an Interact or Release action using a weapon */
+    createAuxAction({ weapon, action, purpose, hands }: CreateAuxiliaryParams): AuxiliaryAction {
+        // A variant title reflects the options to draw, pick up, or retrieve a weapon with one or two hands */
+        const [actions, carryType, fullPurpose] = ((): [ZeroToThree, ItemCarryType, string] => {
+            switch (purpose) {
+                case "Draw":
+                    return [1, "held", `${purpose}${hands}H`];
+                case "PickUp":
+                    return [1, "held", `${purpose}${hands}H`];
+                case "Retrieve":
+                    return [weapon.container?.isHeld ? 2 : 3, "held", `${purpose}${hands}H`];
+                case "Grip":
+                    return [action === "Interact" ? 1 : 0, "held", purpose];
+                case "Sheathe":
+                    return [1, "worn", purpose];
+                case "Drop":
+                    return [0, "dropped", purpose];
+            }
+        })();
         const actionGlyph = getActionGlyph(actions);
+
         return {
-            label: game.i18n.localize(`PF2E.Actions.${action}.${kind}.Title`),
+            label: game.i18n.localize(`PF2E.Actions.${action}.${fullPurpose}.Title`),
             img: actionGlyph,
-            roll: () => {
-                this.adjustCarryType(weapon, carryType, handsHeld);
+            execute: async (): Promise<void> => {
+                await this.adjustCarryType(weapon, carryType, hands);
 
-                const traits = ["manipulate"];
-                let flavor = "";
-                flavor += `<p><h2>${game.i18n.localize(`PF2E.Actions.${action}.Title`)}</b> `;
-                flavor += `<span class="pf2-icon">${actionGlyph}</span></h2>`;
+                if (!game.combat) return; // Only send out messages if in encounter mode
 
-                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.featTraits;
+                const templates = {
+                    flavor: "./systems/pf2e/templates/chat/action/flavor.html",
+                    content: "./systems/pf2e/templates/chat/action/content.html",
+                };
 
-                const traitsDisplay: string = traits
-                    .map((trait) => ({
-                        name: trait,
-                        label: actionTraits[trait] ?? trait,
-                    }))
-                    .map((trait) => {
-                        trait.label = game.i18n.localize(trait.label);
-                        return trait;
-                    })
-                    .sort((a: StrikeTrait, b: StrikeTrait) => a.label.localeCompare(b.label))
-                    .map((trait: StrikeTrait) => {
-                        const $trait = $("<span>").addClass("tag").attr({ "data-trait": trait.name }).text(trait.label);
-                        if (trait.description) $trait.attr({ "data-description": trait.description });
-                        return $trait.prop("outerHTML");
-                    })
-                    .join("");
+                const flavorAction = {
+                    title: `PF2E.Actions.${action}.Title`,
+                    subtitle: `PF2E.Actions.${action}.${fullPurpose}.Title`,
+                    typeNumber: actionGlyph,
+                };
 
-                flavor += `<div class="tags">${traitsDisplay}</div>`;
+                const flavor = await renderTemplate(templates.flavor, {
+                    action: flavorAction,
+                    traits: [
+                        {
+                            name: CONFIG.PF2E.featTraits.manipulate,
+                            description: CONFIG.PF2E.traitsDescriptions.manipulate,
+                        },
+                    ],
+                });
 
-                flavor += `<p>${game.i18n.format(`PF2E.Actions.${action}.${kind}.Description`, {
-                    weapon: weapon.name,
-                })}</p>`;
+                const content = await renderTemplate(templates.content, {
+                    imgPath: weapon.img,
+                    message: game.i18n.format(`PF2E.Actions.${action}.${fullPurpose}.Description`, {
+                        actor: this.name,
+                        weapon: weapon.name,
+                    }),
+                });
 
-                flavor += `<p>${game.i18n.format(`PF2E.Actions.${action}.Notes`)}</p>`;
-
-                ChatMessagePF2e.create({
+                await ChatMessagePF2e.create({
+                    content,
                     speaker: ChatMessagePF2e.getSpeaker({ actor: this }),
-                    content: flavor,
+                    flavor,
+                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
                 });
             },
         };
@@ -1172,34 +1187,60 @@ export class CharacterPF2e extends CreaturePF2e {
             multipleAttackPenalty.map3 = penalty * 2;
         }
 
+        const auxiliaryActions: AuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
-        const auxiliaryActions = [];
+
         if (isRealItem && weapon.category !== "unarmed") {
+            const traitsArray = weapon.data.data.traits.value;
+            const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
+            const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
+            const canWield2H = weapon.data.usage.hands === 2 || hasFatalAimTrait || hasTwoHandTrait;
+
             switch (weapon.carryType) {
                 case "held": {
-                    if (weapon.handsHeld !== 1) {
-                        auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Release1H", "free", "held", 1));
+                    if (weapon.handsHeld === 2) {
+                        auxiliaryActions.push(
+                            this.createAuxAction({ weapon, action: "Release", purpose: "Grip", hands: 1 })
+                        );
+                    } else if (weapon.handsHeld === 1 && canWield2H) {
+                        auxiliaryActions.push(
+                            this.createAuxAction({ weapon, action: "Interact", purpose: "Grip", hands: 2 })
+                        );
                     }
-                    if (weapon.handsHeld !== 2) {
-                        auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Grip2H", "1", "held", 2));
-                    }
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Sheathe", "1", "worn", 0));
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Release", "Drop", "free", "dropped", 0));
+                    auxiliaryActions.push(
+                        this.createAuxAction({ weapon, action: "Interact", purpose: "Sheathe", hands: 0 })
+                    );
+                    auxiliaryActions.push(
+                        this.createAuxAction({ weapon, action: "Release", purpose: "Drop", hands: 0 })
+                    );
                     break;
                 }
                 case "worn": {
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw1H", "1", "held", 1));
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Draw2H", "1", "held", 2));
+                    if (canWield2H) {
+                        auxiliaryActions.push(
+                            this.createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 2 })
+                        );
+                    }
+                    auxiliaryActions.push(
+                        this.createAuxAction({ weapon, action: "Interact", purpose: "Draw", hands: 1 })
+                    );
                     break;
                 }
                 case "stowed": {
-                    const actions = weapon.container?.isHeld ? "2" : "3";
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "Retrieve", actions, "held", 1));
+                    auxiliaryActions.push(
+                        this.createAuxAction({ weapon, action: "Interact", purpose: "Retrieve", hands: 1 })
+                    );
                     break;
                 }
                 case "dropped": {
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp1H", "1", "held", 1));
-                    auxiliaryActions.push(this.prepareInteract(weapon, "Interact", "PickUp2H", "1", "held", 2));
+                    if (canWield2H) {
+                        auxiliaryActions.push(
+                            this.createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 2 })
+                        );
+                    }
+                    auxiliaryActions.push(
+                        this.createAuxAction({ weapon, action: "Interact", purpose: "PickUp", hands: 1 })
+                    );
                     break;
                 }
             }
