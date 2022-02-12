@@ -174,6 +174,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     docSource.data.description = { value: docSource.data.description.value };
                     if (isPhysicalData(docSource)) {
                         const systemData: { identification: DeepPartial<IdentificationData> } = docSource.data;
+                        // Reset identification status
                         systemData.identification = {
                             status: "identified",
                             unidentified: {
@@ -244,6 +245,9 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
 
             delete (docSource.data as { slug?: unknown }).slug;
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
+            if (isPhysicalData(docSource)) {
+                delete (docSource.data as { equipped?: unknown }).equipped;
+            }
         }
 
         if (isActorSource(docSource)) {

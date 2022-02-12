@@ -323,16 +323,19 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (this.isEmbedded) {
-            this.data.update({
-                "data.equipped.carryType": "worn",
-                "data.equipped.handsHeld": 0,
-            });
-            if (this.data.usage.type === "worn" && this.data.usage.where) {
+
+        // Set some defaults
+        this.data.update({
+            "data.equipped.carryType": "worn",
+            "data.equipped.-=handsHeld": null,
+            "data.equipped.-=inSlot": null,
+        });
+
+        if (this.actor) {
+            const isSlottedItem = this.data.usage.type === "worn" && !!this.data.usage.where;
+            if (this.actor.isOfType("character", "npc") && isSlottedItem) {
                 this.data.update({ "data.equipped.inSlot": false });
             }
-        } else {
-            this.data.update({ "data.-=equipped": null });
         }
     }
 

@@ -173,8 +173,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** A means of checking this actor's type without risk of circular import references */
-    isOfType<T extends ActorType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
-        return this.type === type;
+    isOfType<T extends ActorType>(
+        ...types: T[]
+    ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
+        return types.some((t) => this.data.type === t);
     }
 
     /** Whether this actor is an ally of the provided actor */
