@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { ModifierPF2e } from "@module/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/check-degree-of-success";
 
@@ -8,7 +9,10 @@ type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 interface StrikeSelf<A extends ActorPF2e, I extends AttackItem> {
     actor: A;
     token: TokenDocumentPF2e | null;
+    /** The item used for the strike */
     item: I;
+    /** Bonuses and penalties added at the time of a strike */
+    modifiers: ModifierPF2e[];
 }
 
 interface StrikeTarget {
@@ -45,10 +49,6 @@ interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> {
     target: AttackTarget | null;
 }
 
-type DamageRollContext<A extends ActorPF2e, I extends AttackItem> = Omit<AttackRollContext<A, I>, "target"> & {
-    target: StrikeTarget | null;
-};
-
 interface GetReachParameters {
     action?: "interact" | "attack";
     weapon?: WeaponPF2e | MeleePF2e | null;
@@ -63,7 +63,6 @@ export {
     AttackItem,
     AttackRollContext,
     AttackTarget,
-    DamageRollContext,
     IsFlatFootedParams,
     StrikeRollContext,
     StrikeRollContextParams,
