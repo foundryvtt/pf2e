@@ -38,8 +38,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return options;
     }
 
-    override async getData() {
-        const data: any = this.getBaseData();
+    override async getData(options?: Partial<DocumentSheetOptions>) {
+        const data: any = this.getBaseData(options);
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
 
@@ -342,10 +342,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollsLinks.listen($html);
-
-        // Work around core bug present as of v9.241 in which contenteditable is ignored by `KeyboardManager` unless
-        // it has the value "true"
-        $html.find('span[contenteditable=""]').attr({ contenteditable: "true" });
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {

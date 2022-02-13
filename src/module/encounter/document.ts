@@ -50,11 +50,15 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
                 ui.notifications.warn(`${token.name} has no associated actor.`);
                 return false;
             }
-            if (actor.type === "loot" || actor.traits.has("minion")) {
+
+            const actorTraits = actor.traits;
+            if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.has(t))) {
                 const translation = LocalizePF2e.translations.PF2E.Encounter.ExcludingFromInitiative;
                 const type = game.i18n.localize(
-                    actor.traits.has("minion")
+                    actorTraits.has("minion")
                         ? CONFIG.PF2E.creatureTraits.minion
+                        : actorTraits.has("eidolon")
+                        ? CONFIG.PF2E.creatureTraits.eidolon
                         : CONFIG.PF2E.actorTypes[actor.data.type]
                 );
                 ui.notifications.info(game.i18n.format(translation, { type, actor: actor.name }));

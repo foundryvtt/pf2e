@@ -284,6 +284,42 @@
                 },
                 "Title": "High Jump"
             },
+            "Interact": {
+                "Title": "Interact",
+                "Parenthetical": "Interact {purpose}",
+                "Draw1H": {
+                    "Title": "Draw (1H)",
+                    "Description": "{actor} draws their {weapon}."
+                },
+                "Draw2H": {
+                    "Title": "Draw (2H)",
+                    "Description": "{actor} draws their {weapon}."
+                },
+                "PickUp1H": {
+                    "Title": "Pick Up (1H)",
+                    "Description": "{actor} picks up {weapon} from the ground."
+                },
+                "PickUp2H": {
+                    "Title": "Pick Up (2H)",
+                    "Description": "{actor} picks up {weapon} from the ground."
+                },
+                "Grip": {
+                    "Title": "Change Grip (2H)",
+                    "Description": "{actor} grips their {weapon} with two hands."
+                },
+                "Retrieve1H": {
+                    "Title": "Retrieve (1H)",
+                    "Description": "{actor} retrieves their {weapon}."
+                },
+                "Retrieve2H": {
+                    "Title": "Retrieve (1H)",
+                    "Description": "{actor} retrieves their {weapon}."
+                },
+                "Sheathe": {
+                    "Title": "Sheathe",
+                    "Description": "{actor} sheathes their {weapon}."
+                }
+            },
             "Impersonate": {
                 "Notes": {
                     "success": "<strong>Success</strong> You trick the creature into thinking you're the person you're disguised as. You might have to attempt a new check if your behavior changes.",
@@ -338,6 +374,17 @@
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
                 "NoShieldEquipped": "{actor} must have a shield equipped.",
                 "ShieldIsBroken": "{actor}'s {shield} is broken."
+            },
+            "Release": {
+                "Title": "Release",
+                "Drop": {
+                    "Title": "Drop",
+                    "Description": "{actor} drops their {weapon} onto the ground."
+                },
+                "Grip": {
+                    "Title": "Change Grip (1H)",
+                    "Description": "{actor} releases a hand from their {weapon}."
+                }
             },
             "Request": {
                 "Notes": {
@@ -572,7 +619,6 @@
         "ArmorClassLabel": "Armor Class",
         "ArmorClassShortLabel": "AC",
         "ArmorDexLabel": "Dex Modifier Cap",
-        "ArmorEquippedLabel": "Equipped",
         "ArmorGreaterResilientRune": "Greater Resilient",
         "ArmorGreaterStrikingRune": "Greater Striking",
         "ArmorGroupChain": "Chain",
@@ -669,49 +715,6 @@
         "BackgroundTitle": "Your character's background",
         "BaseModifier": "Base Modifier",
         "BaseWeapons": "Base Weapons",
-        "BattleForm": {
-            "Attack": {
-                "Antler": "Antler",
-                "Beak": "Beak",
-                "Beard": "Beard",
-                "Body": "Body",
-                "BoneShard": "Bone Shard",
-                "Boot": "Boot",
-                "Branch": "Branch",
-                "CubeFace": "Cube Face",
-                "Fangs": "Fangs",
-                "FireMote": "Fire Mote",
-                "Foot": "Foot",
-                "Foreleg": "Foreleg",
-                "Gust": "Gust",
-                "Hoof": "Hoof",
-                "Horn": "Horn",
-                "HolyMace": "Holy Mace",
-                "Leaf": "Leaf",
-                "Leg": "Leg",
-                "LightingLash": "Lightning Lash",
-                "Mandibles": "Mandibles",
-                "Moonbeam": "Moonbeam",
-                "PiercingHymn": "Piercing Hymn",
-                "Pincer": "Pincer",
-                "Pseudopod": "Pseudopod",
-                "Rock": "Rock",
-                "Spikes": "Spikes",
-                "Spine": "Spine",
-                "Stinger": "Stinger",
-                "Sunbeam": "Sunbeam",
-                "Tail": "Tail",
-                "Talon": "Talon",
-                "Tendril": "Tendril",
-                "Tentacle": "Tentacle",
-                "TentacleArm": "Tentacle Arm",
-                "Tongue": "Tongue",
-                "Vine": "Vine",
-                "Wave": "Wave",
-                "WaterSpout": "Water Spout",
-                "Wing": "Wing"
-            }
-        },
         "BestiaryBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "Biography": "Biography",
         "BiographyAllies": "Allies",
@@ -794,12 +797,25 @@
         "BulkShortLabel": "Bulk",
         "BulkTypeLight": "Light",
         "CapacityBarLabel": "Capacity",
+        "CarryType": {
+            "held1": "Held 1H",
+            "held2": "Held 2H",
+            "worn": "Worn",
+            "worn-in-slot": "Worn (In Slot)",
+            "stowed": "Stowed",
+            "dropped": "Dropped"
+        },
         "CastLabel": "Cast",
         "CharacterDetails": "Character Details",
         "CharacterLevelLabel": "Level",
         "CharacterNamePlaceholder": "Character Name",
         "CharacterTraits": "Character Traits",
         "CharacterTraitsHeader": "Traits & Other Details",
+        "Check": {
+            "AC": "AC: {dc}",
+            "DC": "DC: {dc}",
+            "TargetDC": "{target} {dcLabel}"
+        },
         "CheckOutcome": {
             "criticalSuccess": "Critical Success",
             "success": "Success",
@@ -965,7 +981,8 @@
             "ExpendFormula": "Expend Formula",
             "ToggleFreeCrafting": "Toggle Free Crafting",
             "ToggleQuickAlchemy": "Quick Alchemy",
-            "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted."
+            "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted.",
+            "QuickAddTitle": "Quick add this formula to the daily crafting list."
         },
         "CraftDCTitle": "DC",
         "CraftItemTitle": "Craft",
@@ -978,7 +995,6 @@
         "CreateSkillTitle": "Create Skill",
         "CreateSpellTitle": "Create Spell",
         "CreatureStatisticDC": {
-            "ac": "{creature} AC: {dc}",
             "deception": "{creature} Deception DC: {dc}",
             "fortitude": "{creature} Fortitude DC: {dc}",
             "perception": "{creature} Perception DC: {dc}",
@@ -1024,7 +1040,6 @@
         "DCAdjustmentVeryHard": "very hard",
         "DCAdjustmentIncrediblyHard": "incredibly hard",
         "DCBase": "Base DC 10",
-        "DCLabel": "DC: {dc}",
         "DCWithValue": "DC {dc} {text}",
         "DecrementEffectTitle": "Decrease Effect Level",
         "DefencesLabel": "Defences",
@@ -1308,6 +1323,9 @@
                 }
             },
             "CannotAddType": "{type} items cannot be added to this actor.",
+            "Condition": {
+                "Flanked": "Flat-Footed (Flanked)"
+            },
             "Deity": {
                 "Alignment": "Alignment",
                 "FollowerAlignments": "Follower Alignments",
@@ -1333,6 +1351,21 @@
                 },
                 "ShowTokenIcon": "Show token icon?"
             },
+            "Feat": {
+                "OnlyLevel1": "Must be taken at level 1",
+                "TakeMultiple": {
+                    "Label": "Can be taken multiple times",
+                    "Two": "Up to 2×",
+                    "Three": "Up to 3×",
+                    "Four": "Up to 4×",
+                    "NoLimit": "No limit"
+                },
+                "Warning": {
+                    "TakenAfterLevel1": "{item} must be taken at level 1, but {actor} is at level {actorLevel}.",
+                    "TakenMoreThanOnce": "{item} may only be taken once, but {actor} has selected it an additional time.",
+                    "TakenMoreThanMax": "{item} may only be {maxTaken} times, but {actor} has selected it {timesTaken} times."
+                }
+            },
             "Heritage": {
                 "AncestryNotFound": "The referenced ancestry item was not found.",
                 "DragAncestryHere": "Drag an ancestry item here to set this heritage's required ancestry.",
@@ -1347,7 +1380,40 @@
             },
             "Physical": {
                 "LevelLabel": "Item {level}",
-                "PriceLabel": "Price: {price}"
+                "PriceLabel": "Price: {price}",
+                "Usage": {
+                    "WornParenthetical": "Worn ({where})",
+                    "WornSlot": {
+                        "amulet": "Amulet",
+                        "anklets": "Anklets",
+                        "armbands": "Armbands",
+                        "armor": "Armor",
+                        "backpack": "Backpack",
+                        "barding": "Barding",
+                        "belt": "Belt",
+                        "beltpouch": "Belt Pouch",
+                        "bracelet": "Bracelet",
+                        "bracers": "Bracers",
+                        "circlet": "Circlet",
+                        "cloak": "Cloak",
+                        "clothing": "Clothing",
+                        "collar": "Collar",
+                        "crown": "Crown",
+                        "epaulet": "Epaulet",
+                        "eyepiece": "Eyepiece",
+                        "garment": "Garment",
+                        "gloves": "Gloves",
+                        "headwear": "Headwear",
+                        "horseshoes": "Horseshoes",
+                        "mask": "Mask",
+                        "necklace": "Necklace",
+                        "onbelt": "OnBelt",
+                        "ring": "Ring",
+                        "saddle": "Saddle",
+                        "shoes": "Shoes",
+                        "wrist": "On Wrists"
+                    }
+                }
             },
             "Plural": "Items",
             "Weapon": {
@@ -2377,7 +2443,7 @@
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "SpellCantripLabel": "Cantrip",
-        "SpellCastingFormat": "{preparationType} {traditionSpells}",
+        "SpellCastingFormat": "{traditionSpells} {preparationType} Spells",
         "SpellComponentF": "Focus",
         "SpellComponentM": "Material",
         "SpellComponentS": "Somatic",
@@ -2554,10 +2620,10 @@
         "TotalCoinage": "Total Coinage",
         "TotalWealth": "Total Wealth",
         "TraditionSpells": {
-            "Arcane": "{tradition} Spells",
-            "Divine": "{tradition} Spells",
-            "Occult": "{tradition} Spells",
-            "Primal": "{tradition} Spells"
+            "Arcane": "{tradition}",
+            "Divine": "{tradition}",
+            "Occult": "{tradition}",
+            "Primal": "{tradition}"
         },
         "TrainedSkillsLabel": "Trained Skills",
         "Traits": "Traits",
@@ -3108,6 +3174,7 @@
         "TraitLitany": "Litany",
         "TraitLizardfolk": "Lizardfolk",
         "TraitLocathah": "Locathah",
+        "TraitMagic": "Magic",
         "TraitMagical": "Magical",
         "TraitMagus": "Magus",
         "TraitManipulate": "Manipulate",
@@ -3691,6 +3758,7 @@
                 "starknife": "Starknife",
                 "stiletto-pen": "Stiletto Pen",
                 "sun-sling": "Sun Sling",
+                "switchscythe": "Switchscythe",
                 "sword-cane": "Sword Cane",
                 "tamchal-chakram": "Tamchal Chakram",
                 "taw-launcher": "Taw Launcher",
@@ -4549,6 +4617,7 @@
             "TotalNumberFamiliarAbilities": "Total # of Familiar Abilities",
             "Familiar": "Familiar",
             "Creature": "Creature",
+            "CreatureType": "Creature Type",
             "Perception": "Perception",
             "Defenses": "Defense",
             "ArmorClass": "Armor Class",
@@ -4576,7 +4645,7 @@
                     "FastHealing": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>",
                     "Ferocity": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>",
                     "FormUp": "<p>The troop chooses one of the squares it currently occupies and redistributes its squares to any configuration in which all squares are contiguous and within 15 feet of the chosen square. The troop can't share its space with other creatures.</p>",
-                    "FrightfulPresence": "<hr />\n<p>A creature that first enters the area must attempt a Will save.</p>\n<div data-visibility=\"gm\">\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>\n</div>",
+                    "FrightfulPresence": "<p>A creature that first enters the area must attempt a Will save.</p>\n<div data-visibility=\"gm\">\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>\n</div>",
                     "Grab": "<p data-visibility=\"gm\"><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>",
                     "GreaterConstrict": "<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, and a creature that succeeds is then temporarily immune to falling unconscious from Greater Constrict for 1 minute.</p>",
                     "GreaterDarkvision": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level <em>@Compendium[pf2e.spells-srd.Darkness]{Darkness}</em> spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>",

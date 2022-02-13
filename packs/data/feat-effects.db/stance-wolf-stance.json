@@ -25,8 +25,9 @@
                 },
                 "group": "brawling",
                 "key": "Strike",
-                "label": "Wolf Jaw",
+                "label": "PF2E.SpecificRule.Stance.Attack.WolfJaws",
                 "range": null,
+                "slug": "wolf-jaws",
                 "traits": [
                     "agile",
                     "backstabber",
@@ -34,6 +35,22 @@
                     "unarmed",
                     "nonlethal"
                 ]
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:wolf-jaws"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "self:flanking"
+                    ]
+                },
+                "property": "traits",
+                "value": "trip"
             }
         ],
         "source": {

@@ -41,6 +41,7 @@ function createItem({
     return {
         _id: id,
         type: type,
+        isEquipped: equipped,
         data: {
             size: {
                 value: size,
@@ -56,9 +57,6 @@ function createItem({
             },
             containerId: {
                 value: containerId,
-            },
-            equipped: {
-                value: equipped,
             },
             weight: {
                 value: weight,

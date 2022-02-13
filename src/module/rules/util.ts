@@ -1,15 +1,17 @@
-import { ModifierPF2e } from "@module/modifiers";
+import { DeferredValueParams, ModifierPF2e } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
+import { DeferredModifier } from "./rule-element/data";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 export function extractModifiers(
-    modifiers: Record<string, ModifierPF2e[]>,
+    modifiers: Record<string, DeferredModifier[]>,
     selectors: string[],
-    options: { test?: string[] } = {}
-) {
+    options: { test?: string[] } & DeferredValueParams = {}
+): ModifierPF2e[] {
     return selectors
         .flatMap((selector) => modifiers[selector] ?? [])
-        .map((modifier) => modifier.clone({ test: options.test }));
+        .map((m) => m(options) ?? [])
+        .flat();
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */

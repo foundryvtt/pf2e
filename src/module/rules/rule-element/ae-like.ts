@@ -18,7 +18,6 @@ class AELikeRuleElement extends RuleElementPF2e {
         data.phase ??= "applyAEs";
 
         super(data, item, options);
-        this.validateData();
     }
 
     protected validateData(): void {
@@ -74,13 +73,14 @@ class AELikeRuleElement extends RuleElementPF2e {
         if (!this.ignored && this.data.phase === "beforeRoll") this.applyAELike(rollOptions);
     }
 
-    protected applyAELike(rollOptions = this.actor.getRollOptions(["all"])): void {
+    protected applyAELike(rollOptions = this.actor.getRollOptions()): void {
+        this.validateData();
+        if (this.ignored) return;
+
         // Test predicate if present. AE-Like predicates are severely limited: at their default phase, they can only be
         // tested against roll options set by `ItemPF2e#prepareActorData` and higher-priority AE-Likes.
         const { predicate } = this.data;
-        if (predicate && !predicate.test(rollOptions)) {
-            return;
-        }
+        if (predicate && !predicate.test(rollOptions)) return;
 
         this.data.path = this.resolveInjectedProperties(this.data.path);
         // Do not proceed if injected-property resolution failed
@@ -109,7 +109,7 @@ class AELikeRuleElement extends RuleElementPF2e {
                     this.warn("path");
                     return null;
                 }
-                return (current ?? 0) * change;
+                return Math.trunc((current ?? 0) * change);
             }
             case "add": {
                 // A numeric add is valid if the change value is a number and the current value is a number or nullish
@@ -143,19 +143,13 @@ class AELikeRuleElement extends RuleElementPF2e {
                 return Math.max(current ?? 0, change);
             }
             case "override": {
-                const currentValue = getProperty(this.actor.data, this.path);
-                if (typeof change === typeof currentValue || currentValue === undefined) {
-                    // Resolve all values if the override is an object
-                    if (isObject<Record<string, unknown>>(change)) {
-                        for (const [key, value] of Object.entries(change)) {
-                            if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
-                        }
+                // Resolve all values if the override is an object
+                if (isObject<Record<string, unknown>>(change)) {
+                    for (const [key, value] of Object.entries(change)) {
+                        if (typeof value === "string") change[key] = this.resolveInjectedProperties(value);
                     }
-                    return change;
                 }
-
-                this.warn("value");
-                return null;
+                return change;
             }
         }
     }
@@ -182,8 +176,7 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     protected warn(property: string): void {
-        const item = this.item;
-        this.failValidation(`"${property}" property on RuleElement from item ${item.name} (${item.uuid}) is invalid`);
+        this.failValidation(`"${property}" property is invalid`);
     }
 }
 

@@ -140,12 +140,13 @@ export const EnrichContent = {
         // Deduplicate traits
         const allTraits = Array.from(new Set(traits));
 
-        // Let the inline roll function handle level base DCs
-        const checkDC = params.dc === "@self.level" ? params.dc : getCheckDc(params, item);
-
         // Build the inline link
         const html = document.createElement("span");
-        html.setAttribute("data-pf2-dc", checkDC);
+        if (params.dc) {
+            // Let the inline roll function handle level base DCs
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDc(params, item);
+            html.setAttribute("data-pf2-dc", checkDC);
+        }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
         html.setAttribute(
             "data-pf2-label",
@@ -239,19 +240,18 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
 
         switch (type) {
             case "flat":
-                return params.immutable === "false" ? getStatisticValue([]) : base.toString();
+                return params.immutable === "false" ? getStatisticValue(["inline-dc"]) : base.toString();
             case "perception":
-                return getStatisticValue(["perception", "wis-based", "all"]);
+                return getStatisticValue(["all", "inline-dc"]);
             case "fortitude":
             case "reflex":
             case "will": {
-                const ability = CONFIG.PF2E.savingThrowDefaultAbilities[type];
-                const selectors = [type, `${ability}-based`, "all"];
+                const selectors = ["all", "inline-dc"];
                 return getStatisticValue(selectors);
             }
             default: {
                 // Skill or Lore
-                const selectors = ["skill-check", "all"];
+                const selectors = ["all", "inline-dc"];
                 if (SKILL_EXPANDED[type]) {
                     // Long form
                     selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);

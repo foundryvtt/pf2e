@@ -34,6 +34,7 @@ import { CraftingEntryData } from "@module/crafting/crafting-entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { WeaponPF2e } from "@item";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -168,11 +169,19 @@ export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier &
-    StrikeData & {
+    Omit<StrikeData, "item"> & {
+        item?: Embedded<WeaponPF2e>;
         slug: string | null;
         adjustments?: DegreeOfSuccessAdjustment[];
         meleeUsage: CharacterStrike | null;
+        auxiliaryActions: AuxiliaryAction[];
     };
+
+export interface AuxiliaryAction {
+    label: string;
+    img: string;
+    execute: () => Promise<void>;
+}
 
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
@@ -362,6 +371,9 @@ export interface CharacterAttributes extends CreatureAttributes {
 
     /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
     resolve: { value: number; max: number };
+
+    /** Whether this actor is under a polymorph effect */
+    polymorphed?: boolean;
 }
 
 interface CharacterHitPoints extends CreatureHitPoints {

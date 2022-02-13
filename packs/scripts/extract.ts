@@ -166,6 +166,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     }
                 }
 
+                // Prune several common item data defaults
                 if (isItemSource(docSource)) {
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
@@ -173,6 +174,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     docSource.data.description = { value: docSource.data.description.value };
                     if (isPhysicalData(docSource)) {
                         const systemData: { identification: DeepPartial<IdentificationData> } = docSource.data;
+                        // Reset identification status
                         systemData.identification = {
                             status: "identified",
                             unidentified: {
@@ -188,14 +190,17 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         };
                     } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
                         delete (docSource.data as { ability?: unknown }).ability;
-                    } else if (
-                        docSource.type === "feat" &&
-                        ["ancestry", "archetype", "bonus", "class", "general", "skill"].includes(
-                            docSource.data.featType.value
-                        ) &&
-                        docSource.img === "systems/pf2e/icons/default-icons/feat.svg"
-                    ) {
-                        docSource.img = "systems/pf2e/icons/features/feats/feats.webp";
+                    } else if (docSource.type === "feat") {
+                        const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.data.featType.value);
+                        if (isFeat && docSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
+                            docSource.img = "systems/pf2e/icons/features/feats/feats.webp";
+                        }
+                        if (docSource.data.maxTakable === 1) {
+                            delete (docSource.data as { maxTakable?: number }).maxTakable;
+                        }
+                        if (!docSource.data.onlyLevel1) {
+                            delete (docSource.data as { onlyLevel1?: boolean }).onlyLevel1;
+                        }
                     }
                 }
                 if (docSource.type !== "script") {
@@ -240,6 +245,9 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
 
             delete (docSource.data as { slug?: unknown }).slug;
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
+            if (isPhysicalData(docSource)) {
+                delete (docSource.data as { equipped?: unknown }).equipped;
+            }
         }
 
         if (isActorSource(docSource)) {

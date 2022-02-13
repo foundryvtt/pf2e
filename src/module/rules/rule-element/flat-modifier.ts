@@ -1,10 +1,10 @@
-import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
+import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
-import { RuleElementOptions } from "./base";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -15,8 +15,6 @@ class FlatModifierRuleElement extends RuleElementPF2e {
 
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
-
-        this.data.phase = data.phase ?? "beforeDerived";
 
         const modifierTypes: readonly unknown[] = MODIFIER_TYPES;
         this.data.type ??= MODIFIER_TYPE.UNTYPED;
@@ -37,42 +35,47 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.data.label = data.label ?? CONFIG.PF2E.abilities[this.data.ability];
             this.data.value ??= `@actor.abilities.${this.data.ability}.mod`;
         }
+
+        this.data.ignored = AutomaticBonusProgression.assessRuleElement(this);
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
+        const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        const slug = this.data.slug ?? sluggify(this.label);
 
-        const defer = !!selector && this.data.phase !== "beforeDerived";
-        const computeValue = (options?: DeferredValueParams) => {
-            const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
-            return Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
-        };
-
-        const value = defer ? computeValue : computeValue();
-
-        if (selector && value) {
+        if (selector && this.data.value) {
             // Strip out the title ("Effect:", etc.) of the effect name
-            const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
-            const slug = this.data.slug ?? sluggify(this.label);
-            const modifier = new ModifierPF2e({
-                slug,
-                label,
-                modifier: value,
-                adjustments: this.actor.getModifierAdjustments([selector], slug),
-                type: this.data.type,
-                ability: this.data.type === "ability" ? this.data.ability : null,
-                predicate: this.data.predicate,
-                damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
-                damageCategory: this.data.damageCategory || undefined,
-                hideIfDisabled: this.data.hideIfDisabled,
-            });
+            const construct = (options: DeferredValueParams = {}): ModifierPF2e | null => {
+                const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
+                if (this.ignored) return null;
+
+                const finalValue = Math.clamped(
+                    resolvedValue,
+                    this.data.min ?? resolvedValue,
+                    this.data.max ?? resolvedValue
+                );
+                const modifier = new ModifierPF2e({
+                    slug,
+                    label,
+                    modifier: finalValue,
+                    adjustments: this.actor.getModifierAdjustments([selector], slug),
+                    type: this.data.type,
+                    ability: this.data.type === "ability" ? this.data.ability : null,
+                    predicate: this.data.predicate,
+                    damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
+                    damageCategory: this.data.damageCategory || undefined,
+                    hideIfDisabled: this.data.hideIfDisabled,
+                });
+                if (options.test) modifier.test(options.test);
+
+                return modifier;
+            };
             const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
-            modifiers.push(modifier);
-        } else if (value === 0) {
-            // omit modifiers with a value of zero
-        } else if (CONFIG.debug.ruleElement) {
+            modifiers.push(construct);
+        } else {
             this.failValidation("Flat modifier requires selector and value properties");
         }
     }
@@ -92,7 +95,6 @@ interface FlatModifierSource extends RuleElementSource {
     damageType?: unknown;
     damageCategory?: unknown;
     hideIfDisabled?: unknown;
-    phase?: ModifierPhase;
 }
 
 type FlatModifierData = FlatAbilityModifierData | FlatOtherModifierData;

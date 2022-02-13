@@ -22,36 +22,24 @@
             }
         },
         "attributes": {
-            "ancestryhp": 6,
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
-            "bonusbulk": 0,
-            "classDC": {
-                "rank": 0
-            },
-            "classhp": 8,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
+            "classDC": {},
             "hp": {
                 "details": "",
                 "temp": 0,
                 "value": 15
             },
             "initiative": {
-                "ability": ""
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
-            "perception": {
-                "rank": 0
-            },
+            "perception": {},
             "resolve": {
                 "value": 0
             },
             "sp": {
                 "details": "",
                 "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -60,6 +48,7 @@
             }
         },
         "crafting": {
+            "entries": {},
             "formulas": []
         },
         "details": {
@@ -68,12 +57,6 @@
             },
             "alignment": {
                 "value": "CG"
-            },
-            "ancestry": {
-                "value": ""
-            },
-            "background": {
-                "value": ""
             },
             "biography": {
                 "allies": "",
@@ -89,11 +72,8 @@
                 "likes": "",
                 "organaizations": ""
             },
-            "class": {
-                "value": ""
-            },
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
                 "value": ""
             },
             "ethnicity": {
@@ -109,7 +89,6 @@
                 "value": "str"
             },
             "level": {
-                "min": 1,
                 "value": 1
             },
             "nationality": {
@@ -150,20 +129,7 @@
                 "value": 1
             }
         },
-        "saves": {
-            "fortitude": {
-                "rank": 0,
-                "value": 0
-            },
-            "reflex": {
-                "rank": 0,
-                "value": 0
-            },
-            "will": {
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "saves": {},
         "skills": {
             "acr": {
                 "rank": 1
@@ -226,12 +192,9 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "common",
-                    "halfling",
                     "infernal"
                 ]
             },
-            "rarity": "common",
             "senses": [],
             "traits": {
                 "custom": "",
@@ -244,7 +207,7 @@
     "img": "systems/pf2e/icons/iconics/LemFull.webp",
     "items": [
         {
-            "_id": "V7urZyMGighVxVnf",
+            "_id": "gjrsey57c3mgsn8c",
             "data": {
                 "additionalLanguages": {
                     "count": 0,
@@ -310,7 +273,7 @@
                 "size": "sm",
                 "slug": "halfling",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": 25,
                 "traits": {
@@ -329,13 +292,13 @@
                     "sourceId": "Compendium.pf2e.ancestries.GgZAHbrjnzWOZy2v"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/halfling.svg",
             "name": "Halfling",
-            "sort": 100000,
+            "sort": 0,
             "type": "ancestry"
         },
         {
-            "_id": "ZCImypKfIv38dt20",
+            "_id": "z36ktqzj7vryiimb",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -355,7 +318,7 @@
                 "level": {
                     "value": 0
                 },
-                "location": "V7urZyMGighVxVnf",
+                "location": "gjrsey57c3mgsn8c",
                 "prerequisites": {
                     "value": []
                 },
@@ -385,6 +348,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
+                    "selected": {
+                        "halfling": "Halfling"
+                    },
                     "value": [
                         "halfling"
                     ]
@@ -398,11 +364,301 @@
             },
             "img": "systems/pf2e/icons/features/ancestry/keen-eyes.webp",
             "name": "Keen Eyes",
-            "sort": 200000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "67u0PTnqfvORMzbu",
+            "_id": "QGvdSRUDGAsic8O4",
+            "data": {
+                "ancestry": {
+                    "name": "Halfling",
+                    "uuid": "Compendium.pf2e.ancestries.GgZAHbrjnzWOZy2v"
+                },
+                "description": {
+                    "value": "<p>Your family line is known for keeping a level head and staving off fear when the chips were down, making them wise leaders and sometimes even heroes. When you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": {
+                            "all": [
+                                "emotion"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "skill"
+                    }
+                ],
+                "slug": "gutsy-halfling",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Eq42wZ5OTweJLnLU"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/gutsy-halfling.webp",
+            "name": "Gutsy Halfling",
+            "sort": 0,
+            "type": "heritage"
+        },
+        {
+            "_id": "oupbivnzxsssvj6u",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>As a bard, you select one muse at 1st level. This muse leads you to great things, and might be a physical creature, a deity, a philosophy, or a captivating mystery.</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Enigma]{Enigma}</li>\n<li>@Compendium[pf2e.classfeatures.Maestro]{Maestro}</li>\n<li>@Compendium[pf2e.classfeatures.Polymath]{Polymath}</li>\n<li>@Compendium[pf2e.classfeatures.Warrior]{Warrior}</li>\n</ul>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "f2w61576g3wr14ob",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "all": [
+                                "item:level:1",
+                                "item:trait:bard",
+                                "item:type:feature"
+                            ],
+                            "label": "1st-level Bard class feature"
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.4ripp6EfdVpS0d60"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.YMBsi4bndRAk5CX4"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.y0jGimYdMGDJWrEq"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.N03BtRvjX9TeHRa4"
+                            }
+                        ],
+                        "flag": "muses",
+                        "key": "ChoiceSet",
+                        "prompt": "Select a muse.",
+                        "selection": "Compendium.pf2e.classfeatures.YMBsi4bndRAk5CX4"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.muses}"
+                    }
+                ],
+                "slug": "muses",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.AIOBWGOS4nkfH3kW"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "g8mzi29u9d9ftowk"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "name": "Muses",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "j9zd4ga8lwepv08w",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<h2>Composition Spells</h2>\n<p>You can infuse your performances with magic to create unique effects called compositions. Compositions are a special type of spell that often require you to use the Performance skill when casting them. Composition spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to perform, write a new composition, or otherwise engage your muse.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Taking feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points.</p>\n<p>You learn the <em>@Compendium[pf2e.spells-srd.Counter Performance]{Counter Performance}</em> composition spell, protecting against auditory and visual effects.</p>\n<h3>Composition Cantrips</h3>\n<p>Composition cantrips are special composition spells that don't cost Focus Points, so you can use them as often as you like. Composition cantrips are in addition to the cantrips you choose from the occult list. Generally, only feats can give you more composition cantrips. Unlike other cantrips, you can't swap out composition cantrips gained from bard feats at a later level, unless you swap out the specific feat via retraining. You learn the <em>@Compendium[pf2e.spells-srd.Inspire Courage]{Inspire Courage}</em> composition cantrip, which boosts your allies' attacks, damage, and defense against fear.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "f2w61576g3wr14ob",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 1
+                    }
+                ],
+                "slug": "composition-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "selected": {},
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.s0VbbQJNlSgPocui"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
+            "name": "Composition Spells",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "itt5kh8k538obkmb",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You draw upon magic from esoteric knowledge. You can cast occult spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a bard, you can usually play an instrument for spells requiring somatic or material components, as long as it takes at least one of your hands to do so. If you use an instrument, you don't need a material component pouch or another hand free. You can usually also play an instrument for spells requiring verbal components, instead of speaking.</p>\n<p>Each day, you can cast up to two 1st-level spells. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots.</p>\n<p>As you increase in level as a bard, your number of spells per day increases, as does the highest level of spells you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "f2w61576g3wr14ob",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "occult-spellcasting",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.fEOj0eOBe34qYdAa"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/occult-spellcasting.webp",
+            "name": "Occult Spellcasting",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "7l5p09e2xhm6rpfs",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and five cantrips of your choice. You choose these from the common spells from the occult spell list, or from other occult spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot, you add a spell of the same level to your spell repertoire. At 2nd level, you select another 1st-level spell; at 3rd level, you select two 2nd-level spells, and so on. When you add spells, you might choose a higher-level version of a spell you already have so that you can cast a heightened version of that spell.</p>\n<p>Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\"><strong>Swapping Spells in your Repertoire</strong></h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "f2w61576g3wr14ob",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "spell-repertoire-bard",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.6FsusoMYxxjyIkVh"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/spellbook.webp",
+            "name": "Spell Repertoire (Bard)",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "f2w61576g3wr14ob",
             "data": {
                 "abilityBoostLevels": {
                     "value": [
@@ -434,16 +690,16 @@
                 "classDC": 0,
                 "classFeatLevels": {
                     "value": [
-                        "2",
-                        "4",
-                        "6",
-                        "8",
-                        "10",
-                        "12",
-                        "14",
-                        "16",
-                        "18",
-                        "20"
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
                     ]
                 },
                 "defenses": {
@@ -522,13 +778,6 @@
                         "name": "Composition Spells",
                         "pack": "pf2e.classfeatures"
                     },
-                    "hoz9u": {
-                        "id": "AIOBWGOS4nkfH3kW",
-                        "img": "systems/pf2e/icons/default-icons/feat.svg",
-                        "level": 1,
-                        "name": "Muses",
-                        "pack": "pf2e.classfeatures"
-                    },
                     "iipml": {
                         "id": "F57Na5VxfBp56kke",
                         "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
@@ -541,6 +790,13 @@
                         "img": "systems/pf2e/icons/features/classes/signature-spells-sorcerer.webp",
                         "level": 3,
                         "name": "Signature Spells (Level 3)",
+                        "pack": "pf2e.classfeatures"
+                    },
+                    "oyw8v": {
+                        "id": "AIOBWGOS4nkfH3kW",
+                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "level": 1,
+                        "name": "Muses",
                         "pack": "pf2e.classfeatures"
                     },
                     "q84eq": {
@@ -561,7 +817,7 @@
                         "id": "5LOARurr4qWkfS9K",
                         "img": "systems/pf2e/icons/features/classes/greater-resolve.webp",
                         "level": 17,
-                        "name": "Greater Resolve (Level 17)",
+                        "name": "Greater Resolve",
                         "pack": "pf2e.classfeatures"
                     },
                     "tjlz3": {
@@ -640,6 +896,35 @@
                         "mode": "upgrade",
                         "path": "data.martial.weapon-base-whip.rank",
                         "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.proficiencies.traditions.occult.rank",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 6,
+                                    "start": 1,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 14,
+                                    "start": 7,
+                                    "value": 2
+                                },
+                                {
+                                    "end": 18,
+                                    "start": 15,
+                                    "value": 3
+                                },
+                                {
+                                    "start": 19,
+                                    "value": 4
+                                }
+                            ],
+                            "field": "actor|data.details.level.value"
+                        }
                     }
                 ],
                 "savingThrows": {
@@ -676,7 +961,7 @@
                 },
                 "slug": "bard",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "trainedSkills": {
                     "additional": 4,
@@ -702,11 +987,11 @@
             },
             "img": "systems/pf2e/icons/classes/bard.webp",
             "name": "Bard",
-            "sort": 300000,
+            "sort": 0,
             "type": "class"
         },
         {
-            "_id": "afjKCjVhhKQ5hzR1",
+            "_id": "g8mzi29u9d9ftowk",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -718,7 +1003,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and five cantrips of your choice. You choose these from the common spells from the occult spell list, or from other occult spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot, you add a spell of the same level to your spell repertoire. At 2nd level, you select another 1st-level spell; at 3rd level, you select two 2nd-level spells, and so on. When you add spells, you might choose a higher-level version of a spell you already have so that you can cast a heightened version of that spell.</p>\n<p>Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\"><strong>Swapping Spells in your Repertoire</strong></h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
+                    "value": "<p>Your muse is a virtuoso, inspiring you to greater heights. If it's a creature, it might be a performance-loving creature such as a choral angel or lillend azata; if a deity, it might be @Compendium[pf2e.deities.Shelyn]{Shelyn}. As a bard with a maestro muse, you are an inspiration to your allies and confident of your musical and oratorical abilities. You gain the @Compendium[pf2e.feats-srd.Lingering Composition]{Lingering Composition} feat and add <em>@Compendium[pf2e.spells-srd.Soothe]{Soothe}</em> to your spell repertoire.</p>"
                 },
                 "featType": {
                     "value": "classfeature"
@@ -726,119 +1011,17 @@
                 "level": {
                     "value": 1
                 },
-                "location": "67u0PTnqfvORMzbu",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "spell-repertoire-bard",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "bard"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.6FsusoMYxxjyIkVh"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/spellbook.webp",
-            "name": "Spell Repertoire (Bard)",
-            "sort": 400000,
-            "type": "feat"
-        },
-        {
-            "_id": "Ko4DzCZ12tcqEgyP",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<h2 class=\"title\">Composition Spells</h2>\n<p>You can infuse your performances with magic to create unique effects called compositions. Compositions are a special type of spell that often require you to use the Performance skill when casting them. Composition spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to perform, write a new composition, or otherwise engage your muse.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Taking feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points. The full rules for focus spells appear on page 300.</p>\n<p>You learn the <em>@Compendium[pf2e.spells-srd.Counter Performance]{Counter Performance}</em> composition spell, protecting against auditory and visual effects.</p>\n<h3 class=\"title\"><strong>Composition Cantrips</strong></h3>\n<p>Composition cantrips are special composition spells that don't cost Focus Points, so you can use them as often as you like. Composition cantrips are in addition to the cantrips you choose from the occult list. Generally, only feats can give you more composition cantrips. Unlike other cantrips, you can't swap out composition cantrips gained from bard feats at a later level, unless you swap out the specific feat via retraining. You learn the <em>@Compendium[pf2e.spells-srd.Inspire Courage]{Inspire Courage}</em> composition cantrip, which boosts your allies' attacks, damage, and defense against fear.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "67u0PTnqfvORMzbu",
+                "location": "",
                 "prerequisites": {
                     "value": []
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "data.resources.focus.max",
-                        "priority": 10,
-                        "value": 1
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.sVjATEo8eqkAosNp"
                     }
                 ],
-                "slug": "composition-spells",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "selected": {},
-                    "value": [
-                        "bard"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.s0VbbQJNlSgPocui"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
-            "name": "Composition Spells",
-            "sort": 500000,
-            "type": "feat"
-        },
-        {
-            "_id": "TpODBDaNkaJ2MI6F",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>As a bard, you select one muse at 1st level. This muse leads you to great things, and might be a physical creature, a deity, a philosophy, or a captivating mystery.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "67u0PTnqfvORMzbu",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "muses",
+                "slug": "maestro",
                 "source": {
                     "value": ""
                 },
@@ -853,260 +1036,22 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.AIOBWGOS4nkfH3kW"
+                    "sourceId": "Compendium.pf2e.classfeatures.YMBsi4bndRAk5CX4"
+                },
+                "pf2e": {
+                    "grantedBy": "oupbivnzxsssvj6u",
+                    "itemGrants": [
+                        "71o170k6fx7d4wpp"
+                    ]
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/feat.svg",
-            "name": "Muses",
-            "sort": 600000,
+            "img": "systems/pf2e/icons/features/classes/maestro.webp",
+            "name": "Maestro",
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "HP1FxJEFwz7D5TdN",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You draw upon magic from esoteric knowledge. You can cast occult spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a bard, you can usually play an instrument for spells requiring somatic or material components, as long as it takes at least one of your hands to do so. If you use an instrument, you don't need a material component pouch or another hand free. You can usually also play an instrument for spells requiring verbal components, instead of speaking.</p>\n<p>Each day, you can cast up to two 1st-level spells. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots.</p>\n<p>As you increase in level as a bard, your number of spells per day increases, as does the highest level of spells you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "67u0PTnqfvORMzbu",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "occult-spellcasting",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "bard"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.fEOj0eOBe34qYdAa"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/occult-spellcasting.webp",
-            "name": "Occult Spellcasting",
-            "sort": 700000,
-            "type": "feat"
-        },
-        {
-            "_id": "C05qHxEgaIQufrfb",
-            "data": {
-                "boosts": {
-                    "0": {
-                        "value": [
-                            "cha",
-                            "dex"
-                        ]
-                    },
-                    "1": {
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>Through an education in the arts or sheer dogged practice, you learned to entertain crowds. You might have been an actor, a dancer, a musician, a street magician, or any other sort of performer.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Performance skill and the Theater Lore skill. You gain the @Compendium[pf2e.feats-srd.Fascinating Performance]{Fascinating Performance} skill feat.</p>"
-                },
-                "items": {
-                    "q8t33": {
-                        "id": "7LB00jkh6JaJr3vS",
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
-                        "level": "1",
-                        "name": "Fascinating Performance",
-                        "pack": "pf2e.feats-srd"
-                    }
-                },
-                "rules": [],
-                "slug": "entertainer",
-                "source": {
-                    "value": ""
-                },
-                "trainedLore": "Theatre Lore",
-                "trainedSkills": {
-                    "value": [
-                        "prf"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.i4hN6OYv8qmi3GLW"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Entertainer",
-            "sort": 800000,
-            "type": "background"
-        },
-        {
-            "_id": "PWEjvWHdAffFuo8c",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When you Perform, compare your result to the Will DC of one observer. If you succeed, the target is fascinated by you for 1 round. If the observer is in a situation that demands immediate attention, such as combat, you must critically succeed to fascinate it and the Perform action gains the incapacitation trait. You must choose which creature you're trying to fascinate before you roll your check, and the target is then temporarily immune for 1 hour. If you're an expert in Performance, you can fascinate up to four observers; if you're a master, you can fascinate up to 10 observers; and if you're legendary, you can fascinate any number of observers at the same time.</p>"
-                },
-                "featType": {
-                    "value": "skill"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "C05qHxEgaIQufrfb",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Performance"
-                        }
-                    ]
-                },
-                "rules": [],
-                "slug": "fascinating-performance",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.7LB00jkh6JaJr3vS"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Fascinating Performance",
-            "sort": 900000,
-            "type": "feat"
-        },
-        {
-            "_id": "ibQcalpXOvURD0vA",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 1
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Theatre Lore",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "QXHpwWY6NRJbsgz9",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail a skill check or saving throw.</p>\n<hr />\n<p>Your happy-go-lucky nature makes it seem like misfortune avoids you, and to an extent, that might even be true. You can reroll the triggering check, but you must use the new result, even if it's worse than your first roll.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "halfling-luck",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fortune",
-                        "halfling"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.ZbRVqf14RTJJIZXG"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Halfling Luck",
-            "sort": 1100000,
-            "type": "feat"
-        },
-        {
-            "_id": "KHn1pK38gaI1OpmI",
+            "_id": "71o170k6fx7d4wpp",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1144,7 +1089,7 @@
                 ],
                 "slug": "lingering-composition",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -1158,15 +1103,79 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.sVjATEo8eqkAosNp"
+                },
+                "pf2e": {
+                    "grantedBy": "g8mzi29u9d9ftowk"
                 }
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Lingering Composition (Maestro Muse)",
-            "sort": 1200000,
+            "name": "Lingering Composition",
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "TtfVToQ8vBpXl0VP",
+            "_id": "7903gg8gk1ek4sey",
+            "data": {
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "cha",
+                            "dex"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>Through an education in the arts or sheer dogged practice, you learned to entertain crowds. You might have been an actor, a dancer, a musician, a street magician, or any other sort of performer.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Performance skill and the Theater Lore skill. You gain the @Compendium[pf2e.feats-srd.Fascinating Performance]{Fascinating Performance} skill feat.</p>"
+                },
+                "items": {
+                    "q8t33": {
+                        "id": "7LB00jkh6JaJr3vS",
+                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "level": "1",
+                        "name": "Fascinating Performance",
+                        "pack": "pf2e.feats-srd"
+                    }
+                },
+                "rules": [],
+                "slug": "entertainer",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "trainedLore": "Theatre Lore",
+                "trainedSkills": {
+                    "value": [
+                        "prf"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.i4hN6OYv8qmi3GLW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Entertainer",
+            "sort": 0,
+            "type": "background"
+        },
+        {
+            "_id": "8ucjmery5j94rgn4",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1186,7 +1195,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "",
+                "location": "7903gg8gk1ek4sey",
                 "prerequisites": {
                     "value": [
                         {
@@ -1197,7 +1206,7 @@
                 "rules": [],
                 "slug": "fascinating-performance",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -1216,60 +1225,91 @@
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Fascinating Performance",
-            "sort": 1300000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "kfs3tSw4prO1FXkM",
+            "_id": "mYjJumRH5DmPWPzm",
             "data": {
-                "actionCategory": {
+                "description": {
                     "value": ""
                 },
-                "actionType": {
-                    "value": "passive"
+                "mod": {
+                    "value": 0
                 },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Your muse is a virtuoso, inspiring you to greater heights. If it's a creature, it might be a performance-loving creature such as a choral angel or lillend azata; if a deity, it might be @Compendium[pf2e.deities.Shelyn]{Shelyn}. As a bard with a maestro muse, you are an inspiration to your allies and confident of your musical and oratorical abilities. You gain the @Compendium[pf2e.feats-srd.Lingering Composition]{Lingering Composition} feat and add <em>@Compendium[pf2e.spells-srd.Soothe]{Soothe}</em> to your spell repertoire.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
+                "proficient": {
                     "value": 1
                 },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
                 "rules": [],
-                "slug": "maestro",
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Theatre Lore",
+            "sort": 0,
+            "type": "lore"
+        },
+        {
+            "_id": "E4X7aVI9CDtUxsx8",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail a skill check or saving throw.</p>\n<hr />\n<p>Your happy-go-lucky nature makes it seem like misfortune avoids you, and to an extent, that might even be true. You can reroll the triggering check, but you must use the new result, even if it's worse than your first roll.</p>"
+                },
+                "featType": {
+                    "value": "ancestry"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "halfling-luck",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
                     "value": [
-                        "bard"
+                        "fortune",
+                        "halfling"
                     ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.YMBsi4bndRAk5CX4"
+                    "sourceId": "Compendium.pf2e.feats-srd.ZbRVqf14RTJJIZXG"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/maestro.webp",
-            "name": "Maestro",
-            "sort": 1400000,
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Halfling Luck",
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "j5MqCGMDoDNFBmas",
+            "_id": "vf93Y9vVzvMCxBfk",
             "data": {
                 "ability": {
                     "value": "cha"
@@ -1282,10 +1322,11 @@
                 },
                 "displayLevels": {},
                 "prepared": {
+                    "flexible": false,
                     "value": "spontaneous"
                 },
                 "proficiency": {
-                    "value": 1
+                    "value": 0
                 },
                 "rules": [],
                 "showSlotlessLevels": {
@@ -1364,10 +1405,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": 17,
-                    "item": 0,
-                    "mod": 4,
-                    "value": 7
+                    "dc": 0,
+                    "mod": 0,
+                    "value": 0
                 },
                 "tradition": {
                     "value": "occult"
@@ -1382,11 +1422,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Spontaneous Occult Spells",
-            "sort": 1600000,
+            "sort": 0,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "zH7KLIo9J7FSd1VD",
+            "_id": "gCz4sF1hgtUNanQE",
             "data": {
                 "ability": {
                     "value": "cha"
@@ -1399,10 +1439,11 @@
                 },
                 "displayLevels": {},
                 "prepared": {
+                    "flexible": false,
                     "value": "focus"
                 },
                 "proficiency": {
-                    "value": 1
+                    "value": 0
                 },
                 "rules": [],
                 "showSlotlessLevels": {
@@ -1481,10 +1522,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": 17,
-                    "item": 0,
-                    "mod": 4,
-                    "value": 7
+                    "dc": 0,
+                    "mod": 0,
+                    "value": 0
                 },
                 "tradition": {
                     "value": "occult"
@@ -1498,12 +1538,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
-            "sort": 1700000,
+            "name": "Focus Occult Spells",
+            "sort": 0,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "QU0rysbQhhlx5yGO",
+            "_id": "RqEAJNheNQ5UjZii",
             "data": {
                 "ability": {
                     "value": ""
@@ -1555,7 +1595,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -1591,7 +1631,7 @@
                 },
                 "slug": "daze",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1630,11 +1670,11 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1800000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "GzPmspd14UxZnAOz",
+            "_id": "hNnUx9jkqLp9QGhd",
             "data": {
                 "ability": {
                     "value": ""
@@ -1677,7 +1717,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -1707,7 +1747,7 @@
                 },
                 "slug": "ghost-sound",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1744,11 +1784,126 @@
             },
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
-            "sort": 1900000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "HDf2y8CJy8c079M6",
+            "_id": "xDSvnJ3NtV557OZx",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "value": "60"
+                },
+                "areasize": {
+                    "value": "60-foot emanation"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
+                },
+                "duration": {
+                    "value": "1 round"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "gCz4sF1hgtUNanQE"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "inspire-courage",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "bard",
+                        "cantrip",
+                        "composition",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IAjvwqgiDr3qGYxY"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/inspire-courage.webp",
+            "name": "Inspire Courage",
+            "sort": 0,
+            "type": "spell"
+        },
+        {
+            "_id": "dPB7H1Ddofa7Ng66",
             "data": {
                 "ability": {
                     "value": ""
@@ -1779,7 +1934,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -1791,7 +1946,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -1821,7 +1976,7 @@
                 },
                 "slug": "light",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1861,11 +2016,11 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 2000000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "DuITnHPHRsv0QhaK",
+            "_id": "QrD5ZAO5Wt0IWuL7",
             "data": {
                 "ability": {
                     "value": ""
@@ -1908,7 +2063,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -1938,7 +2093,7 @@
                 },
                 "slug": "prestidigitation",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1977,11 +2132,11 @@
             },
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
             "name": "Prestidigitation",
-            "sort": 2100000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "oO3sGaGBPiUxpItH",
+            "_id": "LWBgKbZ5ODtJxlQg",
             "data": {
                 "ability": {
                     "value": ""
@@ -2033,7 +2188,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -2069,7 +2224,7 @@
                 },
                 "slug": "telekinetic-projectile",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -2106,11 +2261,11 @@
             },
             "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
             "name": "Telekinetic Projectile",
-            "sort": 2200000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "An1ij1mjY9qct4hR",
+            "_id": "HdfmV8v0TAw4OEU6",
             "data": {
                 "ability": {
                     "value": ""
@@ -2149,11 +2304,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -2183,7 +2341,7 @@
                 },
                 "slug": "charm",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -2222,11 +2380,11 @@
             },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
-            "sort": 2300000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "57TdIBYseOshT3Rw",
+            "_id": "TttWwYAmpIHN6Ocy",
             "data": {
                 "ability": {
                     "value": ""
@@ -2265,11 +2423,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -2299,7 +2460,7 @@
                 },
                 "slug": "fear",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -2339,11 +2500,11 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 2400000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "o09DEBKHtK9Lxw4t",
+            "_id": "dC0GL2KysMpQBDse",
             "data": {
                 "ability": {
                     "value": ""
@@ -2390,11 +2551,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 1
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "j5MqCGMDoDNFBmas"
+                    "value": "vf93Y9vVzvMCxBfk"
                 },
                 "materials": {
                     "value": ""
@@ -2430,7 +2594,7 @@
                 },
                 "slug": "soothe",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -2467,348 +2631,11 @@
             },
             "img": "systems/pf2e/icons/spells/soothe.webp",
             "name": "Soothe",
-            "sort": 2500000,
+            "sort": 0,
             "type": "spell"
         },
         {
-            "_id": "u6IY5pteCnPqJpKZ",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You add a flourish to your composition to extend its benefits. If your next action is to cast a cantrip composition with a duration of 1 round, attempt a Performance check. The DC is usually a standard-difficulty DC of a level equal to the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect depends on the result of your check.</p>\n<hr /><strong>Critical Success</strong> The composition lasts 4 rounds.\n<p><strong>Success</strong> The composition lasts 3 rounds.</p>\n<p><strong>Failure</strong> The composition lasts 1 round, but you don't spend the Focus Point for casting this spell.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "zH7KLIo9J7FSd1VD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "lingering-composition",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "free"
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "bard"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.irTdhxTixU9u9YUm"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/lingering-composition.webp",
-            "name": "Lingering Composition",
-            "sort": 2600000,
-            "type": "spell"
-        },
-        {
-            "_id": "NRXFNamsANnKFUo6",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot emanation"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> You or an ally within 60 feet rolls a saving throw against an auditory or visual effect.</p>\n<hr />\n<p>Your performance protects you and your allies. Roll a Performance check for a type you know: an auditory performance if the trigger was auditory, or a visual one for a visual trigger. You and allies in the area can use the better result between your Performance check and the saving throw.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "zH7KLIo9J7FSd1VD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "counter-performance",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "reaction"
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "bard",
-                        "composition",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.WILXkjU5Yq3yw10r"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/counter-performance.webp",
-            "name": "Counter Performance",
-            "sort": 2700000,
-            "type": "spell"
-        },
-        {
-            "_id": "0Xr4GB8ha2EAR19k",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot emanation"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
-                },
-                "duration": {
-                    "value": "1 round"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "zH7KLIo9J7FSd1VD"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "inspire-courage",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "bard",
-                        "cantrip",
-                        "composition",
-                        "emotion",
-                        "mental"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.IAjvwqgiDr3qGYxY"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/inspire-courage.webp",
-            "name": "Inspire Courage",
-            "sort": 2800000,
-            "type": "spell"
-        },
-        {
-            "_id": "owz8BwD5cJzAr4kI",
+            "_id": "yWu1ZuQU8ThkTgge",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -2839,7 +2666,9 @@
                     "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true
                 },
                 "equippedBulk": {
                     "value": "0"
@@ -2893,7 +2722,7 @@
                 },
                 "slug": "backpack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -2919,11 +2748,826 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
             "name": "Backpack",
-            "sort": 2900000,
+            "sort": 0,
             "type": "backpack"
         },
         {
-            "_id": "ekTXwMfiIaczklGI",
+            "_id": "g4N3tZWKXUcb9Kg3",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "bedroll",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "name": "Bedroll",
+            "sort": 0,
+            "type": "equipment"
+        },
+        {
+            "_id": "LMFLhACNyGCw2f7O",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": "<p>A lit candle sheds dim light in a 10‑foot radius.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": {
+                    "value": 10
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "candle",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Ti4gWILk69LPxKuU"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/candle.webp",
+            "name": "Candle",
+            "sort": 0,
+            "type": "consumable"
+        },
+        {
+            "_id": "Bk2XF5k7L5mzOqkD",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "flint-and-steel",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
+            "name": "Flint and Steel",
+            "sort": 0,
+            "type": "equipment"
+        },
+        {
+            "_id": "nFPeGKx2CMSwAES1",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 7,
+                    "value": 7
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": ""
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": "4 sp"
+                },
+                "quantity": {
+                    "value": 3
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "rations",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 0,
+            "type": "consumable"
+        },
+        {
+            "_id": "1yKZl9a3iHhqzPe2",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "0 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "scroll-case",
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.yxDOmx3VYSWoAEMa"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/scroll-case.webp",
+            "name": "Scroll Case",
+            "sort": 0,
+            "type": "equipment"
+        },
+        {
+            "_id": "QRKRvliWsiyd2it3",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "waterskin",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 0,
+            "type": "equipment"
+        },
+        {
+            "_id": "3hGWea8rExFqlfy7",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "yWu1ZuQU8ThkTgge"
+                },
+                "description": {
+                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "writing-set",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.QJb8S927Yj81EgHH"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/writing-set.webp",
+            "name": "Writing Set",
+            "sort": 0,
+            "type": "equipment"
+        },
+        {
+            "_id": "KLwztWTDFzp6BFxg",
             "data": {
                 "armor": {
                     "value": 1
@@ -2952,7 +3596,9 @@
                     "value": 3
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true
                 },
                 "equippedBulk": {
                     "value": "L"
@@ -3026,7 +3672,7 @@
                 },
                 "slug": "padded-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -3059,11 +3705,11 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/padded-armor.webp",
             "name": "Padded Armor",
-            "sort": 3000000,
+            "sort": 0,
             "type": "armor"
         },
         {
-            "_id": "NeHmsHZ6N06K5Vqj",
+            "_id": "gjQpxrHCq6YIHz7i",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3082,7 +3728,8 @@
                     "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 2
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3136,7 +3783,7 @@
                 },
                 "slug": "musical-instrument-handheld",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -3160,12 +3807,12 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
-            "name": "Musical Instrument (Handheld) (Flute)",
-            "sort": 3100000,
+            "name": "Flute - Musical Instrument (Handheld)",
+            "sort": 0,
             "type": "equipment"
         },
         {
-            "_id": "zU8c36MM5XqevDJD",
+            "_id": "dzz8NsF81wA3O6i5",
             "data": {
                 "activation": {
                     "condition": "",
@@ -3213,7 +3860,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3263,13 +3911,19 @@
                     "units": "",
                     "value": null
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.Thunderstone.Lesser.success]</p>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
                 "slug": "healing-potion-minor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -3291,6 +3945,7 @@
                         "healing",
                         "magical",
                         "necromancy",
+                        "positive",
                         "potion"
                     ]
                 },
@@ -3316,11 +3971,11 @@
             },
             "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
             "name": "Healing Potion (Minor)",
-            "sort": 3200000,
+            "sort": 0,
             "type": "consumable"
         },
         {
-            "_id": "mXofX1n9PJkBZvCc",
+            "_id": "51f8zdqC5wNzKjUg",
             "data": {
                 "MAP": {
                     "value": ""
@@ -3355,7 +4010,8 @@
                     "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3441,13 +4097,13 @@
                     "value": ""
                 },
                 "rules": [],
-                "selectedAmmoId": "NKwPNkQVId7EgPVg",
+                "selectedAmmoId": "yMGemJ5k01QL7T7P",
                 "size": {
                     "value": "med"
                 },
                 "slug": "shortbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -3483,11 +4139,161 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
             "name": "Shortbow",
-            "sort": 3300000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "NGRhGyjfKJWzgqzc",
+            "_id": "yMGemJ5k01QL7T7P",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 1
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 sp"
+                },
+                "quantity": {
+                    "value": 20
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "arrows",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 0,
+            "type": "consumable"
+        },
+        {
+            "_id": "nkSCXhpGFgwYmLXu",
             "data": {
                 "MAP": {
                     "value": ""
@@ -3522,7 +4328,8 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3613,7 +4420,7 @@
                 },
                 "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -3651,160 +4458,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
             "name": "Shortsword",
-            "sort": 3400000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "NKwPNkQVId7EgPVg",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 0,
-                    "value": 0
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "value": true
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 sp"
-                },
-                "quantity": {
-                    "value": 20
-                },
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "arrows",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": {
-                    "value": "arrows"
-                },
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 3500000,
-            "type": "consumable"
-        },
-        {
-            "_id": "d19VgOM6m55LsMTa",
+            "_id": "jrTBf9XScUT34ugD",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3823,7 +4481,8 @@
                     "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3877,7 +4536,7 @@
                 },
                 "slug": "thieves-tools",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -3902,11 +4561,11 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools",
-            "sort": 3600000,
+            "sort": 0,
             "type": "equipment"
         },
         {
-            "_id": "jXiOb7jNILC50MTn",
+            "_id": "Nltk3bXWqGD1P9DS",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3925,7 +4584,8 @@
                     "value": "<p>These are replacement picks for @Compendium[pf2e.equipment-srd.Thieves' Tools]{Thieves' Tools}.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3979,7 +4639,7 @@
                 },
                 "slug": "thieves-tools-replacement-picks",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -4004,11 +4664,11 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools (Replacement Picks)",
-            "sort": 3700000,
+            "sort": 0,
             "type": "equipment"
         },
         {
-            "_id": "YkXd7o1rlMbdy1rB",
+            "_id": "PILeG8E241lcXdna",
             "data": {
                 "MAP": {
                     "value": ""
@@ -4040,10 +4700,11 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a Fortitude saving throw with the listed DC or be deafened until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>The bomb deals 1d4 sonic damage and 1 sonic splash damage, and the DC is 17.</p>"
+                    "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a @Check[type:fortitude|dc:17|name:Lesser Thunderstone|showDC:all] saving throw with the listed DC or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>The bomb deals 1d4 sonic damage and 1 sonic splash damage, and the DC is 17.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -4128,13 +4789,19 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect</strong> All creatures within 10 feet must succeed at a @Check[type:fortitude|dc:17|name:Lesser Thunderstone|showDC:all] save or become @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
                 "slug": "thunderstone-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -4174,670 +4841,11 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/thunderstone.webp",
             "name": "Thunderstone (Lesser)",
-            "sort": 3800000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "2bIDDB85akmQDI3n",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
-                },
-                "description": {
-                    "value": "<p>A rolled up bed.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "2 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "bedroll",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
-            "name": "Bedroll",
-            "sort": 3900000,
-            "type": "equipment"
-        },
-        {
-            "_id": "slfE2tbj3lgGTOwb",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 1,
-                    "value": 1
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
-                },
-                "description": {
-                    "value": "<p>A lit candle sheds dim light in a 10‑foot radius.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 cp"
-                },
-                "quantity": {
-                    "value": 10
-                },
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "candle",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Ti4gWILk69LPxKuU"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/candle.webp",
-            "name": "Candle",
-            "sort": 4000000,
-            "type": "consumable"
-        },
-        {
-            "_id": "czie92ZZIapKkOx3",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
-                },
-                "description": {
-                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "flint-and-steel",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
-            "name": "Flint and Steel",
-            "sort": 4100000,
-            "type": "equipment"
-        },
-        {
-            "_id": "EJxvT6xXIe5QKZim",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
-                },
-                "description": {
-                    "value": "<p>Scrolls, maps, and other rolled documents are stored in scroll cases for safe transport.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 sp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "scroll-case",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.yxDOmx3VYSWoAEMa"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/scroll-case.webp",
-            "name": "Scroll Case",
-            "sort": 4300000,
-            "type": "equipment"
-        },
-        {
-            "_id": "9YWJtS7IRCEd3Y8P",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
-                },
-                "description": {
-                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "waterskin",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
-            "name": "Waterskin",
-            "sort": 4400000,
-            "type": "equipment"
-        },
-        {
-            "_id": "jMOh1CWa1Hye0aZE",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
-                },
-                "description": {
-                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 gp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "writing-set",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.QJb8S927Yj81EgHH"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/writing-set.webp",
-            "name": "Writing Set",
-            "sort": 4500000,
-            "type": "equipment"
-        },
-        {
-            "_id": "HhHXd9Es07nHqxv1",
+            "_id": "vzDZcsqQnBB3ennu",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -4859,7 +4867,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -4910,7 +4919,7 @@
                 },
                 "slug": "gold-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": "coins"
@@ -4938,11 +4947,11 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
             "name": "Gold Pieces",
-            "sort": 4600000,
+            "sort": 0,
             "type": "treasure"
         },
         {
-            "_id": "bAaID6GHprucXZeD",
+            "_id": "QLtov0579I1mxjfZ",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -4964,7 +4973,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -5015,7 +5025,7 @@
                 },
                 "slug": "silver-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": "coins"
@@ -5043,11 +5053,11 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
             "name": "Silver Pieces",
-            "sort": 4700000,
+            "sort": 0,
             "type": "treasure"
         },
         {
-            "_id": "lscrXpp64NCj0Ujt",
+            "_id": "h99J7W5UZdsOjTY6",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -5069,7 +5079,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -5120,7 +5131,7 @@
                 },
                 "slug": "copper-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": "coins"
@@ -5148,200 +5159,230 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
             "name": "Copper Pieces",
-            "sort": 4800000,
+            "sort": 0,
             "type": "treasure"
         },
         {
-            "_id": "SQwEz0r5ju75WRsj",
+            "_id": "02VK1pDC87ENfiVr",
             "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
+                "ability": {
                     "value": ""
                 },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 7,
-                    "value": 7
+                "area": {
+                    "areaType": "emanation",
+                    "value": "60"
                 },
-                "collapsed": {
-                    "value": false
+                "areasize": {
+                    "value": "60-foot emanation"
                 },
-                "consumableType": {
-                    "value": "other"
+                "autoHeightenLevel": {
+                    "value": null
                 },
-                "consume": {
-                    "_deprecated": true,
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
                     "value": ""
                 },
-                "containerId": {
-                    "value": "owz8BwD5cJzAr4kI"
+                "damage": {
+                    "value": {}
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> You or an ally within 60 feet rolls a saving throw against an auditory or visual effect.</p>\n<hr />\n<p>Your performance protects you and your allies. Roll a Performance check for a type you know: an auditory performance if the trigger was auditory, or a visual one for a visual trigger. You and allies in the area can use the better result between your Performance check and the saving throw.</p>"
                 },
                 "duration": {
-                    "units": "",
-                    "value": null
+                    "value": ""
                 },
-                "equipped": {
+                "hasCounteractCheck": {
                     "value": false
                 },
-                "equippedBulk": {
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "gCz4sF1hgtUNanQE"
+                },
+                "materials": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
+                "prepared": {
+                    "value": ""
                 },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": "4 sp"
-                },
-                "quantity": {
-                    "value": 3
+                "primarycheck": {
+                    "value": ""
                 },
                 "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
+                    "value": ""
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
+                "save": {
+                    "basic": "",
+                    "value": ""
                 },
-                "slug": "rations",
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "counter-performance",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
+                "spellType": {
+                    "value": "utility"
                 },
-                "stackGroup": {
-                    "value": ""
+                "sustained": {
+                    "value": false
                 },
                 "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Rations",
-            "sort": 4200000,
-            "type": "consumable"
-        },
-        {
-            "_id": "vnrwkp4t1e97rof8",
-            "data": {
-                "ancestry": {
-                    "name": "Halfling",
-                    "uuid": "Compendium.pf2e.ancestries.GgZAHbrjnzWOZy2v"
-                },
-                "description": {
-                    "value": "<p>Your family line is known for keeping a level head and staving off fear when the chips were down, making them wise leaders and sometimes even heroes. When you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success against an emotion effect, you get a critical success instead.</p>"
-                    }
-                ],
-                "slug": "gutsy-halfling",
-                "source": {
                     "value": ""
                 },
+                "time": {
+                    "value": "reaction"
+                },
+                "traditions": {
+                    "value": []
+                },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
-                    "value": []
+                    "rarity": "uncommon",
+                    "value": [
+                        "bard",
+                        "composition",
+                        "mental"
+                    ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Eq42wZ5OTweJLnLU"
+                    "sourceId": "Compendium.pf2e.spells-srd.WILXkjU5Yq3yw10r"
                 }
             },
-            "img": "systems/pf2e/icons/features/ancestry/gutsy-halfling.webp",
-            "name": "Gutsy Halfling",
-            "sort": 1500000,
-            "type": "heritage"
+            "img": "systems/pf2e/icons/spells/counter-performance.webp",
+            "name": "Counter Performance",
+            "sort": 0,
+            "type": "spell"
+        },
+        {
+            "_id": "T3O0SnybSYJvFN2D",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You add a flourish to your composition to extend its benefits. If your next action is to cast a cantrip composition with a duration of 1 round, attempt a Performance check. The DC is usually a standard-difficulty DC of a level equal to the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect depends on the result of your check.</p>\n<hr /><strong>Critical Success</strong> The composition lasts 4 rounds.\n<p><strong>Success</strong> The composition lasts 3 rounds.</p>\n<p><strong>Failure</strong> The composition lasts 1 round, but you don't spend the Focus Point for casting this spell.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "gCz4sF1hgtUNanQE"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "lingering-composition",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "free"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.irTdhxTixU9u9YUm"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/lingering-composition.webp",
+            "name": "Lingering Composition",
+            "sort": 0,
+            "type": "spell"
         }
     ],
     "name": "Lem (Level 1)",

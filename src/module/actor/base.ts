@@ -12,10 +12,10 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
 import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
-import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
+import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
-import { ConditionType } from "@item/condition/data";
+import { ConditionSlug } from "@item/condition/data";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
@@ -27,6 +27,8 @@ import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
+import { EquippedData, ItemCarryType } from "@item/physical/data";
+import { isEquipped } from "../item/physical/usage";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -125,11 +127,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return false;
     }
 
-    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
-    getReach(_options: { to?: "interact" | "attack" }): number {
-        return 0;
-    }
-
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
         return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
@@ -141,6 +138,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get rollOptions(): RollOptionFlags {
         return this.data.flags.pf2e.rollOptions;
+    }
+
+    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
+    get heldShield(): Embedded<ArmorPF2e> | null {
+        return null;
+    }
+
+    /** Most actor types can host rule elements */
+    get canHostRuleElements(): boolean {
+        return true;
     }
 
     /** Add effect icons from effect items and rule elements */
@@ -165,22 +172,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .concat(effectTokenEffects);
     }
 
-    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
-    get heldShield(): Embedded<ArmorPF2e> | null {
-        return null;
+    /** A means of checking this actor's type without risk of circular import references */
+    isOfType<T extends ActorType>(
+        ...types: T[]
+    ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]> {
+        return types.some((t) => this.data.type === t);
     }
 
-    /** Most actor types can host rule elements */
-    get canHostRuleElements(): boolean {
-        return true;
+    /** Whether this actor is an ally of the provided actor */
+    isAllyOf(actor: ActorPF2e): boolean {
+        return this.hasPlayerOwner === actor.hasPlayerOwner;
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */
-    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): Set<string> {
-        const rollOptions = Object.keys(this.rollOptions.all).flatMap((o) =>
-            o.startsWith("self:") ? o.replace(/^self/, prefix) : []
+    getSelfRollOptions(prefix: "self" | "target" | "origin" = "self"): string[] {
+        const { rollOptions } = this;
+        return Object.keys(rollOptions.all).flatMap((o) =>
+            o.startsWith("self:") && rollOptions.all[o] ? o.replace(/^self/, prefix) : []
         );
-        return new Set(rollOptions);
+    }
+
+    /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
+    getReach(_options: { action?: "interact" | "attack" }): number {
+        return 0;
     }
 
     /** Create a clone of this actor to recalculate its statistics with temporary roll options included */
@@ -251,6 +265,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     protected override _initialize(): void {
         super._initialize();
         this.initialized = true;
+
+        // Send any accrued warnings to the console
+        this.synthetics.preparationWarnings.flush();
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
@@ -258,16 +275,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super.prepareData();
 
         this.preparePrototypeToken();
-        if (this.initialized) {
-            const tokenDocs = this.getActiveTokens(false, true);
-            for (const tokenDoc of tokenDocs) {
-                tokenDoc.prepareData({ fromActor: true });
-            }
-            if (canvas.ready) {
-                const thisTokenIsControlled = tokenDocs.some((t) => !!t.object?.isControlled);
-                if (game.user.character === this || thisTokenIsControlled) {
-                    game.pf2e.effectPanel.refresh();
-                }
+        if (this.initialized && canvas.ready) {
+            const thisTokenIsControlled = this.getActiveTokens(false).some((t) => !!t.isControlled);
+            if (game.user.character === this || thisTokenIsControlled) {
+                game.pf2e.effectPanel.refresh();
             }
         }
     }
@@ -277,6 +288,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.data.data.autoChanges = {};
+        this.data.data.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
 
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
@@ -284,6 +296,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Setup the basic structure of pf2e flags with roll options
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+
+        const preparationWarnings: Set<string> = new Set();
 
         this.synthetics = {
             damageDice: {},
@@ -296,6 +310,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             strikes: [],
             striking: {},
             weaponPotency: {},
+            preparationWarnings: {
+                add: (warning: string) => preparationWarnings.add(warning),
+                flush: foundry.utils.debounce(() => {
+                    for (const warning of preparationWarnings) {
+                        console.warn(warning);
+                    }
+                    preparationWarnings.clear();
+                }, 10), // 10ms also handles separate module executions
+            },
         };
     }
 
@@ -347,18 +370,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             .map((c) => c.data);
 
         const { statisticsModifiers } = this.synthetics;
-        for (const [selector, modifiers] of game.pf2e.ConditionManager.getModifiersFromConditions(
-            conditions.values()
-        )) {
+        for (const [selector, modifiers] of game.pf2e.ConditionManager.getConditionModifiers(conditions)) {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
-            syntheticModifiers.push(...modifiers);
+            syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
     }
 
+    /** Set traits as roll options */
     override prepareDerivedData(): void {
-        // Record stored traits as roll options
+        const { rollOptions } = this;
         for (const trait of this.traits) {
-            this.rollOptions.all[`self:trait:${trait}`] = true;
+            rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
 
@@ -373,7 +395,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Disable manually-configured vision settings on the prototype token
-        if (canvas.sight?.rulesBasedVision) {
+        if (canvas.sight?.rulesBasedVision && ["character", "familiar"].includes(this.type)) {
             for (const property of ["brightSight", "dimSight"] as const) {
                 this.data.token[property] = this.data.token._source[property] = 0;
             }
@@ -456,10 +478,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         const attribute = this.data.data.attributes[attributeName];
-        if (!attribute) return;
+        if (!(isObject(attribute) && "value" in attribute)) return;
+
         const parts = ["@mod", "@itemBonus"];
         const configAttributes = CONFIG.PF2E.attributes;
-        if (objectHasKey(configAttributes, attributeName)) {
+        if (isObject(attribute) && objectHasKey(configAttributes, attributeName)) {
             const flavor = `${game.i18n.localize(configAttributes[attributeName])} Check`;
             // Call the roll helper utility
             DicePF2e.d20Roll({
@@ -669,10 +692,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         const newItemData = item.toObject();
         newItemData.data.quantity.value = quantity;
-        newItemData.data.equipped.value = false;
+        newItemData.data.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            const traits: Set<string> = item.traits;
-            newItemData.data.invested.value = traits.has("invested") ? false : null;
+            newItemData.data.invested.value = item.traits.has("invested") ? false : null;
         }
 
         return targetActor.addToInventory(newItemData, container);
@@ -723,6 +745,50 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
+     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
+     * @param item       The item
+     * @param carryType  Location to be set to
+     * @param handsHeld  Number of hands being held
+     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
+     */
+    async adjustCarryType(item: Embedded<PhysicalItemPF2e>, carryType: ItemCarryType, handsHeld = 0, inSlot = false) {
+        if (carryType === "stowed") {
+            // since there's still an "items need to be in a tree" view, we
+            // need to actually put the item in a container when it's stowed.
+            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
+            await item.update({
+                "data.containerId.value": container?.id ?? "",
+                "data.equipped.carryType": "stowed",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
+            });
+        } else {
+            const equipped: EquippedData = {
+                carryType: carryType,
+                handsHeld: carryType === "held" ? handsHeld : 0,
+                inSlot: item.data.usage.where ? inSlot : undefined,
+            };
+
+            const updates = [];
+
+            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
+                // see if they have another set of armor equipped
+                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
+                for (const armor of wornArmors) {
+                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
+                }
+            }
+
+            updates.push({
+                _id: item.id,
+                "data.containerId.value": null,
+                "data.equipped": equipped,
+            });
+            await this.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
+    /**
      * Moves an item into the inventory into or out of a container.
      * @param actor       Actor whose inventory should be edited.
      * @param getItem     Lambda returning the item.
@@ -732,10 +798,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
             await item.update({
                 "data.containerId.value": container.id,
-                "data.equipped.value": false,
+                "data.equipped.carryType": "stowed",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
             });
         } else {
-            await item.update({ "data.containerId.value": null });
+            await item.update({
+                "data.containerId.value": null,
+                "data.equipped.carryType": "worn",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
+            });
         }
     }
 
@@ -805,19 +878,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics).
-     * Roll option in this case is a predication property used for filtering.
+     * Retrieve all roll option from the requested domains. Micro-optimized in an excessively verbose for-loop.
+     * @param domains The domains of discourse from which to pull options. Always includes the "all" domain.
      */
-    getRollOptions(domains: string[]): string[] {
-        const rollOptions = this.data.flags.pf2e.rollOptions;
-        const results = new Set<string>();
-        for (const domain of domains) {
-            for (const [key, value] of Object.entries(rollOptions[domain] ?? {})) {
-                if (value) results.add(key);
+    getRollOptions(domains: string[] = []): string[] {
+        const withAll = Array.from(new Set(["all", ...domains]));
+        const { rollOptions } = this;
+        const toReturn: Set<string> = new Set();
+
+        for (const domain of withAll) {
+            for (const [option, value] of Object.entries(rollOptions[domain] ?? {})) {
+                if (value) toReturn.add(option);
             }
         }
 
-        return [...results];
+        return Array.from(toReturn);
     }
 
     /* -------------------------------------------- */
@@ -834,7 +909,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param [options.all=false] return all conditions of the requested type in the order described above
      */
     getCondition(
-        slug: ConditionType,
+        slug: ConditionSlug,
         { all }: { all: boolean } = { all: false }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
         const conditions = this.itemTypes.condition
@@ -861,13 +936,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Does this actor have the provided condition?
      * @param slug The slug of the queried condition
      */
-    hasCondition(slug: ConditionType): boolean {
+    hasCondition(slug: ConditionSlug): boolean {
         return this.itemTypes.condition.some((condition) => condition.slug === slug);
     }
 
     /** Decrease the value of condition or remove it entirely */
     async decreaseCondition(
-        conditionSlug: ConditionType | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
         { forceRemove }: { forceRemove: boolean } = { forceRemove: false }
     ): Promise<void> {
         // Find a valid matching condition if a slug was passed
@@ -884,7 +959,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
-        conditionSlug: ConditionType | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
         { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {}
     ): Promise<void> {
         const existing = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
@@ -912,7 +987,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
-    async toggleCondition(conditionSlug: ConditionType): Promise<void> {
+    async toggleCondition(conditionSlug: ConditionSlug): Promise<void> {
         if (this.hasCondition(conditionSlug)) {
             await this.decreaseCondition(conditionSlug, { forceRemove: true });
         } else {
@@ -1023,10 +1098,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         super._onDelete(options, userId);
     }
 
-    /** As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors */
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
         super._onEmbeddedDocumentChange(embeddedName);
-        this.token?.object?.drawEffects();
+        (async () => {
+            // As of at least Foundry 9.238, the `Actor` classes skips updating token effect icons on unlinked actors
+            await this.token?.object?.drawEffects();
+            // Foundry doesn't determine whether a token needs to be redrawn when its actor's embedded items change
+            for (const tokenDoc of this.getActiveTokens(true, true)) {
+                tokenDoc.onActorItemChange();
+            }
+        })();
+
+        // Send any accrued warnings to the console
+        this.synthetics.preparationWarnings.flush();
     }
 }
 
@@ -1074,11 +1158,11 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
         options?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 
-    getCondition(conditionType: ConditionType, { all }: { all: true }): Embedded<ConditionPF2e>[];
-    getCondition(conditionType: ConditionType, { all }: { all: false }): Embedded<ConditionPF2e> | null;
-    getCondition(conditionType: ConditionType): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionSlug, { all }: { all: true }): Embedded<ConditionPF2e>[];
+    getCondition(conditionType: ConditionSlug, { all }: { all: false }): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionSlug): Embedded<ConditionPF2e> | null;
     getCondition(
-        conditionType: ConditionType,
+        conditionType: ConditionSlug,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 

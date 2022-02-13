@@ -1523,7 +1523,8 @@
                     "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. Thehead of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1689,7 +1690,8 @@
                     "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1850,7 +1852,8 @@
                     "value": 1
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "inSlot": true
                 },
                 "equippedBulk": {
                     "value": "2"
@@ -1978,7 +1981,8 @@
                     "value": "<p>Auldegrund's infernal contract with Alocer.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2076,7 +2080,8 @@
                     "value": "<p>Key ring for every door in <span style=\"color: var(--body); font-size: 1em;\">Lionlodge.</span></p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2203,7 +2208,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2358,7 +2364,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2507,7 +2514,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2847,7 +2855,7 @@
                         "text": "<p class='compact-text'><strong>{item|name}</strong> Aulderund deals [[/r 2d6]] damage even on a miss using Cruel Shot. A critical miss still deals no damage.</p>"
                     },
                     {
-                        "damageType": "precision",
+                        "damageCategory": "precision",
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
@@ -2859,16 +2867,30 @@
                         "selector": "shortbow-damage"
                     },
                     {
-                        "damageType": "bleed",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "predicate": {
                             "all": [
                                 "cruel-shot"
                             ]
                         },
-                        "selector": "shortbow-damage"
+                        "selector": "shortbow-damage",
+                        "text": "<p data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "cruel-shot"
+                            ]
+                        },
+                        "selector": "shortbow-damage",
+                        "text": "<p data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,

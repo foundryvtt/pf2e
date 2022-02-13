@@ -23,9 +23,10 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
     /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
     protected override getChoices(): PromptChoice<Embedded<ItemPF2e>>[] {
         return ((): PromptChoice<Embedded<ItemPF2e>>[] => {
+            const { itemTypes } = this.actor;
             switch (this.scope) {
                 case "armor": {
-                    return this.actor.itemTypes.armor
+                    return itemTypes.armor
                         .filter((armor) => armor.isArmor)
                         .map((armor) => ({
                             value: armor,
@@ -35,7 +36,8 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                         }));
                 }
                 case "weapon": {
-                    return this.actor.itemTypes.weapon.map((weapon) => ({
+                    const itemType = this.actor.type === "character" ? "weapon" : "melee";
+                    return itemTypes[itemType].map((weapon) => ({
                         value: weapon,
                         label: weapon.name,
                         img: weapon.img,
@@ -43,7 +45,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                     }));
                 }
             }
-        })().filter((choice) => this.predicate.test(choice.domain));
+        })().filter((choice) => this.predicate.test(choice.domain ?? []));
     }
 }
 

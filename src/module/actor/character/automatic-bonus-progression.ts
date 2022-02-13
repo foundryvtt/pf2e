@@ -1,6 +1,7 @@
 import { WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers";
 import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
+import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 
 export class AutomaticBonusProgression {
     /**
@@ -16,37 +17,41 @@ export class AutomaticBonusProgression {
         const save = values.save;
 
         if (save > 0) {
-            synthetics.statisticsModifiers["saving-throw"] = (
-                synthetics.statisticsModifiers["saving-throw"] || []
-            ).concat(
-                new ModifierPF2e({
-                    slug: "save-potency",
-                    label: "PF2E.AutomaticBonusProgression.savePotency",
-                    modifier: save,
-                    type: MODIFIER_TYPE.POTENCY,
-                })
+            const modifiers = (synthetics.statisticsModifiers["saving-throw"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "save-potency",
+                        label: "PF2E.AutomaticBonusProgression.savePotency",
+                        modifier: save,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
             );
         }
 
         if (ac > 0) {
-            synthetics.statisticsModifiers["ac"] = (synthetics.statisticsModifiers["ac"] || []).concat(
-                new ModifierPF2e({
-                    slug: "defense-potency",
-                    label: "PF2E.AutomaticBonusProgression.defensePotency",
-                    modifier: ac,
-                    type: MODIFIER_TYPE.POTENCY,
-                })
+            const modifiers = (synthetics.statisticsModifiers["ac"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "defense-potency",
+                        label: "PF2E.AutomaticBonusProgression.defensePotency",
+                        modifier: ac,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
             );
         }
 
         if (perception > 0) {
-            synthetics.statisticsModifiers["perception"] = (synthetics.statisticsModifiers["perception"] || []).concat(
-                new ModifierPF2e({
-                    slug: "perception-potency",
-                    label: "PF2E.AutomaticBonusProgression.perceptionPotency",
-                    modifier: perception,
-                    type: MODIFIER_TYPE.POTENCY,
-                })
+            const modifiers = (synthetics.statisticsModifiers["perception"] ??= []);
+            modifiers.push(
+                () =>
+                    new ModifierPF2e({
+                        slug: "perception-potency",
+                        label: "PF2E.AutomaticBonusProgression.perceptionPotency",
+                        modifier: perception,
+                        type: MODIFIER_TYPE.POTENCY,
+                    })
             );
         }
 
@@ -55,15 +60,15 @@ export class AutomaticBonusProgression {
             const attack = values.attack;
             const damage = values.damage;
             if (attack > 0) {
-                synthetics.statisticsModifiers["mundane-attack"] = (
-                    synthetics.statisticsModifiers["mundane-attack"] || []
-                ).concat(
-                    new ModifierPF2e({
-                        slug: "attack-potency",
-                        label: "PF2E.AutomaticBonusProgression.attackPotency",
-                        modifier: attack,
-                        type: MODIFIER_TYPE.POTENCY,
-                    })
+                const modifiers = (synthetics.statisticsModifiers["mundane-attack"] ??= []);
+                modifiers.push(
+                    () =>
+                        new ModifierPF2e({
+                            slug: "attack-potency",
+                            label: "PF2E.AutomaticBonusProgression.attackPotency",
+                            modifier: attack,
+                            type: MODIFIER_TYPE.POTENCY,
+                        })
                 );
             }
 
@@ -135,6 +140,20 @@ export class AutomaticBonusProgression {
         for (const bonus of potencyBonuses) {
             bonus.property = deepClone(weapon.data.data.runes.property);
         }
+    }
+
+    /**
+     * Determine whether a rule element can be applied to an actor. This analysis is limited in that it has no way of
+     * determining whether an effect item is associated with an article of equipment.
+     * @param rule The rule element to assess
+     * @returns Whether the rule element is to be ignored
+     */
+    static assessRuleElement(rule: FlatModifierRuleElement): boolean {
+        if (rule.actor.type !== "character" || game.settings.get("pf2e", "automaticBonusVariant") === "noABP") {
+            return rule.ignored;
+        }
+
+        return rule.data.type === "item" && rule.item.data.isPhysical && !rule.data.selector?.endsWith("speed");
     }
 
     private static abpValues(level: number) {

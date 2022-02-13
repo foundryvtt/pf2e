@@ -1,6 +1,7 @@
 {
-    "_id": "eFxUcQDkxcX9KoE1",
+    "_id": "h0CKGrgjGNSg21BW",
     "data": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Boost Eidolon]{Boost Eidolon}</em></p>\n<p>You focus deeply on the link between you and your eidolon and boost the power of your eidolon's attacks. Your eidolon gains a +2 status bonus to damage rolls with its unarmed attacks. If your eidolon's Strikes deal more than one weapon damage die, the status bonus increases to 2 per weapon damage die, to a maximum of +8 with four weapon damage dice.</p>"
         },
@@ -15,6 +16,29 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "1 die",
+                        "value": 2
+                    },
+                    {
+                        "label": "2 dice",
+                        "value": 4
+                    },
+                    {
+                        "label": "3 dice",
+                        "value": 6
+                    },
+                    {
+                        "label": "4 dice",
+                        "value": 8
+                    }
+                ],
+                "flag": "boostEidolon",
+                "key": "ChoiceSet",
+                "prompt": "Number of damage dice"
+            },
+            {
                 "key": "FlatModifier",
                 "label": "Boost Eidolon",
                 "predicate": {
@@ -24,11 +48,11 @@
                 },
                 "selector": "strike-damage",
                 "type": "status",
-                "value": 2
+                "value": "{item|flags.pf2e.rulesSelections.boostEidolon}"
             }
         ],
         "source": {
-            "value": "Pathfinder Secrets of Magic"
+            "value": ""
         },
         "start": {
             "initiative": null,
@@ -47,6 +71,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/effect.svg",
-    "name": "Spell Effect: Boost Eidolon (1 Die)",
+    "name": "Spell Effect: Boost Eidolon",
     "type": "effect"
 }

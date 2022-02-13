@@ -29,7 +29,7 @@ declare class ItemSheet<TItem extends Item = Item> extends DocumentSheet<TItem> 
     /** The Actor instance which owns this item. This may be null if the item is unowned. */
     get actor(): TItem["parent"];
 
-    override getData(option?: this["options"]): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
+    override getData(option?: Partial<this["options"]>): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events

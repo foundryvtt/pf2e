@@ -53,7 +53,7 @@
         },
         "details": {
             "alignment": {
-                "value": "NA"
+                "value": "N"
             },
             "blurb": "",
             "creatureType": "",
@@ -61,7 +61,7 @@
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>This creature can be summoned with the spell Unseen Servant.</p>",
+            "publicNotes": "<p>This creature can be summoned with the spell @Compendium[pf2e.spells-srd.Unseen Servant]{Unseen Servant}.</p>",
             "source": {
                 "value": "Pathfinder Core Rulebook"
             }
@@ -84,11 +84,11 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "non-magical attacks",
+                "custom": "",
                 "value": [
-                    "custom",
                     "disease",
                     "mental",
+                    "nonmagical-attacks",
                     "paralyzed",
                     "poison",
                     "precision",
@@ -97,27 +97,29 @@
             },
             "dr": [
                 {
-                    "exceptions": "force or ghost touch",
-                    "label": "All",
+                    "exceptions": "except force or ghost touch",
                     "type": "all",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
             "languages": {
-                "custom": "understands its creator",
+                "custom": "Understands Its Creator",
                 "selected": [],
                 "value": []
             },
             "rarity": "common",
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "mindless"
+                    "mindless",
+                    "summoned"
                 ]
             }
         }
@@ -127,52 +129,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UYnNMvrWFg5VBhO2",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>An unseen servant is invisible, though it normally doesn't Sneak, so it is usually only hidden.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Invisible",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
             "_id": "EbIYH4fdrCUr8wIS",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -207,6 +167,48 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Force Body",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "UYnNMvrWFg5VBhO2",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>An unseen servant is @Compendium[pf2e.conditionitems.Invisible]{Invisible}, though it normally doesn't @Compendium[pf2e.actionspf2e.Sneak]{Sneak}, so it is usually only @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Invisible",
             "sort": 200000,
             "type": "action"
         },
