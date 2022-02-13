@@ -11,13 +11,21 @@ export class Migration718CarryType extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (!isPhysicalData(itemData)) return;
+
         const systemData = itemData.data;
 
-        // Correct erronous hyphen in worngloves usage
+        // Correct some known past erronous usages
         if (systemData.usage.value === "worn-gloves") {
             systemData.usage.value = "worngloves";
+        } else if (itemData.type === "armor") {
+            const { category } = itemData.data;
+            systemData.usage.value = category === "shield" ? "held-in-one-hand" : "wornarmor";
+        } else if (itemData.type === "equipment" && systemData.slug?.startsWith("clothing-")) {
+            // Basic adventurer's gear clothing
+            systemData.usage.value = "worn";
         }
 
+        // Set some defaults or wipe equipped property if updating unowned compendium items
         if ("game" in globalThis || actor) {
             systemData.equipped ??= { carryType: "worn" };
             systemData.equipped.carryType ??= "worn";
@@ -27,44 +35,38 @@ export class Migration718CarryType extends MigrationBase {
         }
 
         const equipped: OldEquippedData = systemData.equipped;
+        if (!("value" in equipped)) return;
 
-        if (actor) {
-            const containerId = itemData.data.containerId.value;
-            const inStowingContainer = actor.items.some(
-                (i) => i.type === "backpack" && i.data.stowing && i._id === containerId
-            );
-            systemData.equipped.carryType = inStowingContainer ? "stowed" : "worn";
-
-            if (!["character", "npc"].includes(actor.type ?? "")) {
-                equipped["-=value"] = null;
-                delete equipped.value;
-                return;
-            }
-        }
-
-        if ("value" in systemData.equipped) {
-            const usage = getUsageDetails(systemData.usage.value);
-            if (actor) {
-                equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
-                if (usage.type === "worn" && usage.where) {
-                    equipped.inSlot = !!equipped.value;
-                } else if (usage.type === "held") {
-                    equipped.handsHeld = 0;
-                }
-            }
-
-            if (equipped.value) {
-                if (usage.type === "held") {
-                    equipped.carryType = "held";
-                    equipped.handsHeld = usage.hands ?? 1;
-                } else if (["held", "worn"].includes(usage.type)) {
-                    equipped.carryType = "worn";
-                }
-            }
-
+        if (!(actor && ["character", "npc"].includes(actor.type ?? ""))) {
             equipped["-=value"] = null;
             delete equipped.value;
+            return;
         }
+
+        // Remove dangling containerId references
+        const containerId = itemData.data.containerId.value;
+        const inStowingContainer = actor.items.some(
+            (i) => i.type === "backpack" && i.data.stowing && i._id === containerId
+        );
+        if (containerId && !inStowingContainer) {
+            itemData.data.containerId.value = null;
+        } else if (inStowingContainer) {
+            equipped.carryType = "stowed";
+            return;
+        }
+
+        equipped.carryType = "worn";
+        const usage = getUsageDetails(systemData.usage.value);
+
+        if (usage.type === "worn") {
+            equipped.inSlot = !!equipped.value;
+        } else if (usage.type === "held") {
+            if (equipped.value) equipped.carryType = "held";
+            equipped.handsHeld = equipped.value ? usage.hands ?? 1 : 0;
+        }
+
+        equipped["-=value"] = null;
+        delete equipped.value;
     }
 }
 
