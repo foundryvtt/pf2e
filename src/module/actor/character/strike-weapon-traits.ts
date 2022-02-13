@@ -27,13 +27,6 @@ class StrikeWeaponTraits {
 
         return traits.flatMap((trait) => {
             switch (trait.replace(/-d?\d{1,3}$/, "")) {
-                case "fatal-aim": {
-                    if (weapon.rangeIncrement && weapon.handsHeld === 2) {
-                        const fatal = trait.replace("-aim", "") as WeaponTrait;
-                        weapon.data.data.traits.value.push(fatal);
-                    }
-                    return [];
-                }
                 case "kickback": {
                     // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
                     // 14 or more Strength ignore the penalty."
