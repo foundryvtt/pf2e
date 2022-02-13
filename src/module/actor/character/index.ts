@@ -1161,7 +1161,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const auxiliaryActions: AuxiliaryAction[] = [];
         const isRealItem = this.items.has(weapon.id);
 
-        if (isRealItem && weapon.category !== "unarmed") {
+        if (isRealItem && this.canAct && weapon.category !== "unarmed") {
             const traitsArray = weapon.data.data.traits.value;
             const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
             const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
