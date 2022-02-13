@@ -148,7 +148,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     override get canAct(): boolean {
         const conditions = this.itemTypes.condition;
-        return this.hitPoints.value > 0 && !conditions.some((c) => ["paralyzed", "unconscious"].includes(c.slug));
+        const cantAct = ["paralyzed", "stunned", "unconscious"];
+        return this.hitPoints.value > 0 && !conditions.some((c) => cantAct.includes(c.slug));
     }
 
     override get canAttack(): boolean {
