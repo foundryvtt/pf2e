@@ -55,9 +55,9 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
             if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.has(t))) {
                 const translation = LocalizePF2e.translations.PF2E.Encounter.ExcludingFromInitiative;
                 const type = game.i18n.localize(
-                    actor.traits.has("minion")
+                    actorTraits.has("minion")
                         ? CONFIG.PF2E.creatureTraits.minion
-                        : actor.traits.has("eidolon")
+                        : actorTraits.has("eidolon")
                         ? CONFIG.PF2E.creatureTraits.eidolon
                         : CONFIG.PF2E.actorTypes[actor.data.type]
                 );
