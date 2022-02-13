@@ -15,6 +15,10 @@ export class Migration718CarryType extends MigrationBase {
         const systemData = itemData.data;
 
         // Correct some known past erronous usages
+        if (!(systemData.usage instanceof Object)) {
+            systemData.usage = { value: "held-in-one-hand" };
+        }
+
         if (systemData.usage.value === "worn-gloves") {
             systemData.usage.value = "worngloves";
         } else if (itemData.type === "armor") {
