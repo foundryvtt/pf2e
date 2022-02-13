@@ -738,15 +738,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
         const actions: StrikeData[] = selfActor.data.data.actions ?? [];
         const selfItem = ((): I => {
-            const mainItem = params.viewOnly
-                ? params.item
-                : (actions
-                      .flatMap((a) => a.item ?? [])
-                      .find((w) => w.id === params.item.id && w.name === params.item.name)! as I);
+            const mainItem =
+                params.viewOnly || params.item.isOfType("spell")
+                    ? params.item
+                    : actions
+                          .flatMap((a) => a.item ?? [])
+                          .find((w) => w.id === params.item.id && w.name === params.item.name) ?? params.item;
 
-            return mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
-                ? ((mainItem.toMeleeUsage() ?? mainItem) as I)
-                : mainItem;
+            return (
+                mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
+                    ? mainItem.toMeleeUsage() ?? mainItem
+                    : mainItem
+            ) as I;
         })();
 
         // Clone the actor to recalculate its AC with contextual roll options
