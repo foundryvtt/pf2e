@@ -13,7 +13,7 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, MartialProficiencies } from "./data";
+import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./data";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
@@ -713,6 +713,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
+        const auxiliaryActionSelector = 'button[data-action="auxiliary-action"]';
+        $strikesList.find(auxiliaryActionSelector).on("click", (event) => {
+            const auxiliaryActionIndex = $(event.currentTarget)
+                .closest("[data-auxiliary-action-index]")
+                .attr("data-auxiliary-action-index");
+
+            const strike = this.getStrikeFromDOM(event.currentTarget);
+            strike?.auxiliaryActions?.[Number(auxiliaryActionIndex)]?.execute();
+        });
+
         $strikesList.find(".melee-icon").tooltipster({
             content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
             position: "left",
@@ -1345,4 +1355,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         ];
         return icons[level] ?? icons[0];
     }
+}
+
+export interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+    getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
 }

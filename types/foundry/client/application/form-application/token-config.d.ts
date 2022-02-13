@@ -16,7 +16,9 @@ declare class TokenConfig<TDocument extends TokenDocument = TokenDocument> exten
 
     get title(): string;
 
-    override getData(options?: Partial<FormApplicationOptions>): TokenConfigData<TDocument>;
+    override getData(
+        options?: Partial<FormApplicationOptions>
+    ): TokenConfigData<TDocument> | Promise<TokenConfigData<TDocument>>;
 
     override render(force?: boolean, options?: RenderOptions): Promise<this>;
 
@@ -51,7 +53,7 @@ declare interface TokenConfigData<T extends TokenDocument | Token> extends FormA
     isPrototype: boolean;
     hasAlternates: boolean;
     alternateImages: string[];
-    object: T;
+    object: T["data"];
     options: Partial<FormApplicationOptions>;
     gridUnits: string;
     barAttributes: string[];

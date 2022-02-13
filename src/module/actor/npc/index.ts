@@ -554,7 +554,8 @@ export class NPCPF2e extends CreaturePF2e {
                                 new CheckModifier(`Strike: ${action.name}`, action, otherModifiers),
                                 {
                                     actor: context.self.actor,
-                                    item: meleeItem,
+                                    item: context.self.item,
+                                    target: context.target,
                                     type: "attack-roll",
                                     options,
                                     notes: rollNotes,
