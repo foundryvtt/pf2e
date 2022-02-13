@@ -40,6 +40,7 @@ export function registerTemplates() {
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
+        "systems/pf2e/templates/actors/partials/carry-type.html",
         "systems/pf2e/templates/actors/crafting-entry-alchemical.html",
         "systems/pf2e/templates/actors/crafting-entry-list.html",
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
@@ -47,7 +48,12 @@ export function registerTemplates() {
 
         // SVG icons
         "systems/pf2e/templates/actors/character/icons/d20.html",
+        "systems/pf2e/templates/actors/character/icons/pfs.html",
         "systems/pf2e/templates/actors/character/icons/plus.html",
+
+        // Actor Sheet Partials (SVG images)
+        "systems/pf2e/templates/actors/partials/images/header_stroke.html",
+        "systems/pf2e/templates/actors/partials/images/header_stroke_large.html",
 
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.html",

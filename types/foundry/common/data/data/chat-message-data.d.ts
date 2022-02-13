@@ -15,7 +15,7 @@ declare module foundry {
             roll: object | string;
             sound: AudioPath;
             emote?: boolean;
-            flags: Record<string, Record<string, unknown>>;
+            flags: ChatMessageFlags;
         }
 
         class ChatMessageData<
@@ -26,5 +26,13 @@ declare module foundry {
         interface ChatMessageData extends ChatMessageSource {
             readonly _source: ChatMessageSource;
         }
+
+        type ChatMessageFlags = Record<string, Record<string, unknown>> & {
+            core?: {
+                canPopout?: boolean;
+                initiativeRoll?: boolean;
+                RollTable?: string;
+            };
+        };
     }
 }

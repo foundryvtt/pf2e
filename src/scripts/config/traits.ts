@@ -191,6 +191,7 @@ const creatureTraits = {
     spirit: "PF2E.TraitSpirit",
     spriggan: "PF2E.TraitSpriggan",
     stheno: "PF2E.TraitStheno",
+    summoned: "PF2E.TraitSummoned",
     swarm: "PF2E.TraitSwarm",
     sylph: "PF2E.TraitSylph",
     tane: "PF2E.TraitTane",

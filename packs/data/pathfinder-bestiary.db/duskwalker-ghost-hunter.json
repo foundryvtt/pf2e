@@ -157,7 +157,8 @@
                     "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -325,7 +326,8 @@
                     "value": "<p>This small axe can be used in close combat or thrown.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -487,7 +489,8 @@
                     "value": 4
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "inSlot": true
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -644,7 +647,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1018,7 +1022,7 @@
                             ]
                         },
                         "selector": "attack",
-                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> The duskwalker's weapons have the benefits of the <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune on attacks against incorporeal undead.</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.WeaponPropertyRune.ghostTouch.Note]</p>"
                     }
                 ],
                 "slug": null,
@@ -1065,19 +1069,19 @@
                 "rules": [
                     {
                         "key": "ToggleProperty",
-                        "label": "Designated Prey attacks the Duskwalker",
-                        "property": "flags.pf2e.rollOptions.all.hunt-prey-attack"
+                        "label": "PF2E.NPCAbility.DuskwalkerHuntPrey.AC",
+                        "property": "flags.pf2e.rollOptions.ac.huntPreyAC"
                     },
                     {
                         "key": "ToggleProperty",
-                        "label": "Duskwalker rolls checks against his Designated Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunt-prey-checks"
+                        "label": "PF2E.NPCAbility.DuskwalkerHuntPrey.Checks",
+                        "property": "flags.pf2e.rollOptions.all.huntPreyChecks"
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks",
+                                "huntPreyChecks",
                                 "action:seek"
                             ]
                         },
@@ -1089,7 +1093,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks",
+                                "huntPreyChecks",
                                 "action:track"
                             ]
                         },
@@ -1101,7 +1105,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks"
+                                "huntPreyChecks"
                             ]
                         },
                         "selector": "deception",
@@ -1112,7 +1116,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks"
+                                "huntPreyChecks"
                             ]
                         },
                         "selector": "intimidation",
@@ -1123,7 +1127,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-checks"
+                                "huntPreyChecks"
                             ]
                         },
                         "selector": "stealth",
@@ -1134,7 +1138,7 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "hunt-prey-attack"
+                                "huntPreyAC"
                             ]
                         },
                         "selector": "ac",

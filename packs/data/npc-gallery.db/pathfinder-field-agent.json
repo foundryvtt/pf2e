@@ -149,7 +149,8 @@
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -317,7 +318,8 @@
                     "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -477,7 +479,8 @@
                     "value": 3
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "inSlot": true
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -605,7 +608,8 @@
                     "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -736,7 +740,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -890,7 +895,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1046,7 +1052,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1200,7 +1207,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1497,7 +1505,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.flanking.flatFootable",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

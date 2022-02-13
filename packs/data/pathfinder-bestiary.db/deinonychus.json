@@ -172,16 +172,29 @@
                     "hev2jkur99aow1x3v9n4": {
                         "damage": "1d6+3",
                         "damageType": "slashing"
-                    },
-                    "q78tnn8h5q897q3clz1v": {
-                        "damage": "1d4",
-                        "damageType": "bleed"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

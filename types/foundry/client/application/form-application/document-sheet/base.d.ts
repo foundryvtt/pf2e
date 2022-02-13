@@ -34,7 +34,9 @@ declare global {
          */
         get document(): TDocument;
 
-        override getData(options?: TOptions): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
+        override getData(
+            options?: Partial<TOptions>
+        ): DocumentSheetData<TDocument> | Promise<DocumentSheetData<TDocument>>;
 
         protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
     }

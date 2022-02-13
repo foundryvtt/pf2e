@@ -141,7 +141,10 @@ declare global {
              * @param other
              * @return
              */
-            function diffObject(original: object, other: object): Record<string, unknown>;
+            function diffObject<T extends Record<string, unknown> = Record<string, unknown>>(
+                original: object,
+                other: object
+            ): T;
 
             /**
              * A helper function which tests whether an object has a property or nested property given a string key.

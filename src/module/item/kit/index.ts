@@ -1,72 +1,65 @@
 import { ActorPF2e } from "@actor/index";
 import { ContainerPF2e, ItemPF2e, PhysicalItemPF2e } from "@item/index";
 import { ErrorPF2e } from "@util";
+import { fromUUIDs } from "@util/from-uuids";
 import { KitData, KitEntryData } from "./data";
-
-const SYSTEM_EQUIPMENT_PACK_ID = "pf2e.equipment-srd";
 
 export class KitPF2e extends ItemPF2e {
     static override get schema(): typeof KitData {
         return KitData;
     }
 
-    get entries() {
+    get entries(): KitEntryData[] {
         return Object.values(this.data.data.items);
     }
 
+    /** Expand a tree of kit entry data into a list of physical items */
+    async inflate({
+        entries = this.entries,
+        containerId = null,
+    }: { entries?: KitEntryData[]; containerId?: string | null } = {}): Promise<PhysicalItemPF2e[]> {
+        const itemUUIDs = entries.map((e): ItemUUID => (e.pack ? `Compendium.${e.pack}.${e.id}` : `Item.${e.id}`));
+        const items = await fromUUIDs(itemUUIDs);
+        if (entries.length !== items.length) throw ErrorPF2e(`Some items from ${this.name} were not found`);
+
+        return items.reduce(async (promise: PhysicalItemPF2e[] | Promise<PhysicalItemPF2e[]>, item, index) => {
+            const prepared = await promise;
+            const clone = item.clone({ _id: randomID() }, { keepId: true });
+            const entry = entries[index];
+            if (clone.data.isPhysical) {
+                clone.data.update({
+                    "data.quantity.value": entry.quantity,
+                    "data.containerId.value": containerId,
+                });
+            }
+
+            if (clone instanceof ContainerPF2e && entry.items) {
+                const contents = await this.inflate({
+                    entries: Object.values(entry.items),
+                    containerId: clone.id,
+                });
+                prepared.push(clone, ...contents);
+            } else if (clone instanceof KitPF2e) {
+                const inflatedKit = await clone.inflate({ containerId });
+                prepared.push(...inflatedKit);
+            } else if (clone instanceof PhysicalItemPF2e) {
+                prepared.push(clone);
+            }
+
+            return prepared;
+        }, []);
+    }
+
     /** Inflate this kit and add its items to the provided actor */
-    async dumpContents(actor: ActorPF2e, kitEntries?: KitEntryData[], containerId = ""): Promise<void> {
-        kitEntries ??= this.entries;
-        const equipmentPack = await game.packs.get(SYSTEM_EQUIPMENT_PACK_ID)?.getDocuments();
-        if (!equipmentPack) {
-            throw ErrorPF2e("Failed to acquire system equipment compendium");
-        }
-
-        const promises = kitEntries.map(async (kitEntry): Promise<PhysicalItemPF2e | null> => {
-            const inflatedItem = await (async () => {
-                if (kitEntry.pack === SYSTEM_EQUIPMENT_PACK_ID) {
-                    return equipmentPack.find((item) => item.id === kitEntry.id);
-                } else if (kitEntry.pack) {
-                    return game.packs.get(kitEntry.pack)?.getDocument(kitEntry.id);
-                } else {
-                    return game.items.get(kitEntry.id);
-                }
-            })();
-
-            if (inflatedItem instanceof KitPF2e) {
-                await inflatedItem.dumpContents(actor);
-                // Filtered out just before item creation
-                return null;
-            }
-            if (!(inflatedItem instanceof PhysicalItemPF2e)) {
-                throw ErrorPF2e(`${kitEntry.pack ?? "World item"} ${kitEntry.name}} (${kitEntry.id}) not found`);
-            }
-
-            const clonedItem = inflatedItem.clone();
-            clonedItem.data.update({
-                "data.quantity.value": kitEntry.quantity,
-                "data.containerId.value": containerId,
-            });
-
-            // Get items in this container and inflate any items that might be contained inside
-            if (clonedItem instanceof ContainerPF2e && kitEntry.items) {
-                const container = await ContainerPF2e.create(clonedItem.toObject(), { parent: actor });
-                if (container) {
-                    await this.dumpContents(actor, Object.values(kitEntry.items), container.id);
-                }
-                return null;
-            }
-
-            return clonedItem;
-        });
-
-        const createData = (await Promise.all(promises))
-            .flat()
-            .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
-            .map((item) => item.toObject());
-        if (createData.length > 0) {
-            await actor.createEmbeddedDocuments("Item", createData);
-        }
+    async dumpContents({
+        actor,
+        containerId = null,
+    }: {
+        actor: ActorPF2e;
+        containerId?: string | null;
+    }): Promise<void> {
+        const sources = (await this.inflate({ containerId })).map((i) => i.toObject());
+        await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
     }
 }
 

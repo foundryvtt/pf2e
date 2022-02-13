@@ -1,26 +1,22 @@
 import { ModifierPF2e } from "@module/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { ConditionData, ConditionSource } from "@item/condition/data";
+import { ConditionData, ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
 import { ActorPF2e } from "@actor";
 import { TokenPF2e } from "@module/canvas";
 import { ConditionReference, FlattenedCondition } from "./types";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { CONDITION_SLUGS } from "@actor/data/values";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
-    private static _conditions: Map<string, ConditionData> = new Map();
+    static conditions: Map<ConditionSlug, ConditionData> = new Map();
 
     static _conditionStatusNames: Map<string, ConditionData> = new Map();
 
-    /** Gets a copy of the conditions Map */
-    static get conditions(): Map<string, ConditionData> {
-        return new Map(this._conditions.entries());
-    }
-
     /** Gets a list of condition slugs. */
     static get conditionsNames(): string[] {
-        return [...this._conditions.keys()];
+        return [...this.conditions.keys()];
     }
 
     /** Gets a list of status names. */
@@ -33,21 +29,22 @@ export class ConditionManager {
             (await game.packs.get<CompendiumCollection<ConditionPF2e>>("pf2e.conditionitems")?.getDocuments()) ?? [];
 
         for (const condition of content) {
-            this._conditions.set(condition.slug, condition.data);
+            this.conditions.set(condition.slug, condition.data);
             this._conditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
         }
-
-        Object.freeze(ConditionManager._conditions);
-        Object.freeze(ConditionManager._conditionStatusNames);
     }
 
     /**
      * Get a condition using the condition name.
-     * @param conditionKey A condition slug
+     * @param slug A condition slug
      */
-    static getCondition(conditionKey: string): ConditionData {
-        conditionKey = sluggify(conditionKey);
-        const condition = ConditionManager._conditions.get(conditionKey)?.toObject();
+    static getCondition(slug: string): ConditionData {
+        slug = sluggify(slug);
+        if (!setHasElement(CONDITION_SLUGS, slug)) {
+            throw ErrorPF2e(`"${slug} is not a recognized condition slug`);
+        }
+
+        const condition = ConditionManager.conditions.get(slug)?.toObject();
         if (!condition) throw ErrorPF2e("Unexpected failure looking up condition");
 
         return new ConditionData(condition);
@@ -301,13 +298,13 @@ export class ConditionManager {
      * @param conditions A collection of conditions to retrieve modifiers from.
      * @return A map of PF2Modifiers from the conditions collection.
      */
-    static getModifiersFromConditions(conditions: IterableIterator<ConditionData>): Map<string, Array<ModifierPF2e>> {
-        const conditionModifiers = new Map<string, Array<ModifierPF2e>>();
+    static getConditionModifiers(conditions: Iterable<ConditionData>): Map<string, Array<ModifierPF2e>> {
+        const conditionModifiers: Map<string, ModifierPF2e[]> = new Map();
 
         for (const condition of conditions) {
             for (const modifier of condition.data.modifiers) {
                 if (!conditionModifiers.has(modifier.group)) {
-                    conditionModifiers.set(modifier.group, <Array<ModifierPF2e>>[]);
+                    conditionModifiers.set(modifier.group, []);
                 }
 
                 if (condition.data.value.isValued) {

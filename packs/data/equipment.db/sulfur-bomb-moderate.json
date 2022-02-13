@@ -33,9 +33,6 @@
         "description": {
             "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">1</span> Strike</p>\n<hr />\n<p>A thick, sulfurous, irritating gas fills this golden‑yellow flask. You gain a +1 item bonus to attack rolls. The bomb deals [[/r {2d4}[acid]]]{2d4 acid damage} and [[/r {2}[acid]]]{2 acid damage}. On a hit, the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn, or becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} on a critical hit. Creatures hit with this bomb are temporarily immune to the effects of the bomb for 1 minute.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Sulfur Bomb (Failure)]{Effect: Sulfur Bomb (Failure)}</p>"
         },
-        "equipped": {
-            "value": false
-        },
         "equippedBulk": {
             "value": ""
         },
@@ -119,7 +116,24 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.SulfurBomb.Moderate.success]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.SulfurBomb.Moderate.criticalSuccess]</p>"
+            }
+        ],
         "size": {
             "value": "med"
         },

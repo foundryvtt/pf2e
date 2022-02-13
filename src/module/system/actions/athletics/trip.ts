@@ -21,5 +21,7 @@ export function trip(options: SkillActionOptions) {
             ActionsPF2e.note(selector, "PF2E.Actions.Trip", "success"),
             ActionsPF2e.note(selector, "PF2E.Actions.Trip", "criticalFailure"),
         ],
+        weaponTrait: "trip",
+        weaponTraitWithPenalty: "ranged-trip",
     });
 }

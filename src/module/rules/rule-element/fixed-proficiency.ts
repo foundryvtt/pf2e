@@ -33,13 +33,12 @@ export class FixedProficiencyRuleElement extends RuleElementPF2e {
             console.warn("PF2E | Fixed modifier requires at least a non-zero value or formula field.");
         } else {
             const modifier = new ModifierPF2e(
-                this.data.name ?? this.label,
+                this.label,
                 value - this.actor.data.data.abilities[ability].mod,
                 MODIFIER_TYPE.PROFICIENCY
             );
-            modifier.label = this.label;
             const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
-            modifiers.push(modifier);
+            modifiers.push(() => modifier);
         }
     }
 

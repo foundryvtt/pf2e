@@ -42,6 +42,20 @@ describe("Predication with numeric-comparison atomics return correct results", (
         expect(predicate.test(["foo:3", "bar:2"])).toEqual(true);
         expect(predicate.test(["foo:4", "bar:1"])).toEqual(true);
     });
+
+    test("greater-than with two strings", () => {
+        const predicate = new PredicatePF2e({ all: [{ gt: ["self:level", "target:level"] }] });
+        expect(predicate.test(["self:level:1", "target:level:1"])).toEqual(false);
+        expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(false);
+        expect(predicate.test(["self:level:2", "target:level:1"])).toEqual(true);
+    });
+
+    test("less-than-or-equal-to with two strings", () => {
+        const predicate = new PredicatePF2e({ all: [{ lte: ["self:level", "target:level"] }] });
+        expect(predicate.test(["self:level:1", "target:level:1"])).toEqual(true);
+        expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(true);
+        expect(predicate.test(["self:level:2", "target:level:1"])).toEqual(false);
+    });
 });
 
 describe("Predication with conjunction and negation return correct results", () => {

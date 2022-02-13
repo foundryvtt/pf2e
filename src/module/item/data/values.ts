@@ -20,6 +20,8 @@ export class MystifiedTraits {
     }
 }
 
+export const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
+
 export const PHYSICAL_ITEM_TYPES = [
     "armor",
     "backpack",

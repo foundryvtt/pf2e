@@ -1,13 +1,14 @@
 {
-    "_id": "uJNDI3CGGOtcG8nB",
+    "_id": "ORdhj3IAvYACNGkJ",
     "data": {
+        "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Gravity Weapon]{Gravity Weapon}</em> if your weapon deals 2 dice of damage.</p>"
+            "value": "<p>Whenever you are in exploration mode, roll a separate Search activity check with a +1 status bonus; this does not affect your Speed. If the check succeeds, a fox appears to inform you of this discovery as best as it can, although it cannot speak.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "hours",
             "value": 1
         },
         "level": {
@@ -16,27 +17,23 @@
         "rules": [
             {
                 "key": "ToggleProperty",
-                "label": "First weapon strike this round",
-                "property": "flags.pf2e.rollOptions.damage-roll.gravity-weapon"
+                "label": "Separate Search check during exploration",
+                "property": "flags.pf2e.rollOptions.perception-check.separateCheck"
             },
             {
                 "key": "FlatModifier",
-                "label": "Gravity Weapon",
                 "predicate": {
                     "all": [
-                        "gravity-weapon"
-                    ],
-                    "not": [
-                        "unarmed"
+                        "separateCheck"
                     ]
                 },
-                "selector": "strike-damage",
+                "selector": "perception",
                 "type": "status",
-                "value": 4
+                "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Blog"
         },
         "start": {
             "initiative": null,
@@ -54,7 +51,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/gravity-weapon.webp",
-    "name": "Spell Effect: Gravity Weapon (2 Dice)",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Shrine Inarizushi",
     "type": "effect"
 }

@@ -22,5 +22,6 @@ export function grapple(options: SkillActionOptions) {
             ActionsPF2e.note(selector, "PF2E.Actions.Grapple", "failure"),
             ActionsPF2e.note(selector, "PF2E.Actions.Grapple", "criticalFailure"),
         ],
+        weaponTrait: "grapple",
     });
 }

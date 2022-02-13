@@ -153,7 +153,8 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -315,7 +316,8 @@
                     "value": 5
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "inSlot": false
                 },
                 "equippedBulk": {
                     "value": "L"
@@ -471,7 +473,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -647,8 +650,19 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {3}[splash,acid]]]{3 acid splash damage} and [[/r {3d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Greater.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Greater.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -702,8 +716,19 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {3}[splash,fire]]]{3 fire splash damage} and [[/r {3}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Greater.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Greater.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -758,7 +783,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {3}[splash,electricity]]]{3 electricity splash damage} and the target becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn."
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.BottledLightning.Greater.success]</p>"
                     }
                 ],
                 "slug": null,
@@ -813,7 +838,7 @@
                     {
                         "key": "Note",
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {3}[splash,cold]]]{3 cold splash damage} and the target takes a -10-foot penalty to its Speeds until the end of its next turn."
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.FrostVial.Greater.success]</p>"
                     }
                 ],
                 "slug": null,

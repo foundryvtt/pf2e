@@ -39,6 +39,7 @@ import { TempHPRuleElement } from "./rule-element/temp-hp";
 import { TogglePropertyRuleElement } from "./rule-element/toggle-property";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon";
 import { TokenImageRuleElement } from "./rule-element/token-image";
+import { TokenLightRuleElement } from "./rule-element/token-light";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
 import type { ItemPF2e } from "@item";
 
@@ -77,6 +78,7 @@ class RuleElements {
         ToggleProperty: TogglePropertyRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
+        TokenLight: TokenLightRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
@@ -96,8 +98,10 @@ class RuleElements {
                     try {
                         return new REConstructor(data, item, options);
                     } catch (error) {
-                        console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
-                        console.warn(error);
+                        if (!options?.suppressWarnings) {
+                            console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
+                            console.warn(error);
+                        }
                         return null;
                     }
                 })();

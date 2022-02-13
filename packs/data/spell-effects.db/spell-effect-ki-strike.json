@@ -1,0 +1,229 @@
+{
+    "_id": "8olfnTmWh0GGPDqX",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Ki Strike]{Ki Strike}</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage of the chosen type.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "predicate": {
+                            "any": [
+                                "self:trait:lawful",
+                                "sacred-ki:lawful"
+                            ]
+                        },
+                        "value": "lawful"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": {
+                            "any": [
+                                "self:feat:elemental-fist",
+                                "entwined-energy-ki:electricity"
+                            ]
+                        },
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": {
+                            "all": [
+                                "self:feat:elemental-fist"
+                            ]
+                        },
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": {
+                            "any": [
+                                "self:feat:elemental-fist",
+                                "entwined-energy-ki:fire"
+                            ]
+                        },
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": {
+                            "any": [
+                                "self:feat:elemental-fist",
+                                "entwined-energy-ki:cold"
+                            ]
+                        },
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitChaotic",
+                        "predicate": {
+                            "all": [
+                                "sacred-ki:chaos"
+                            ]
+                        },
+                        "value": "chaotic"
+                    },
+                    {
+                        "label": "PF2E.TraitEvil",
+                        "predicate": {
+                            "all": [
+                                "sacred-ki:evil"
+                            ]
+                        },
+                        "value": "evil"
+                    },
+                    {
+                        "label": "PF2E.TraitGood",
+                        "predicate": {
+                            "all": [
+                                "sacred-ki:good"
+                            ]
+                        },
+                        "value": "good"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": {
+                            "all": [
+                                "entwined-energy-ki:acid"
+                            ]
+                        },
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": {
+                            "all": [
+                                "entwined-energy-ki:sonic"
+                            ]
+                        },
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "kiStrike",
+                "key": "ChoiceSet",
+                "prompt": "Choose the damage type."
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Ki Strike",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.kiStrike}",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "ki-strike:{item|flags.pf2e.rulesSelections.kiStrike}"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "ki-strike:electricity"
+                    ]
+                },
+                "property": "traits",
+                "value": "air"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "ki-strike:bludgeoning"
+                    ]
+                },
+                "property": "traits",
+                "value": "earth"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "ki-strike:bludgeoning"
+                    ]
+                },
+                "property": "traits",
+                "value": "earth"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/ki-strike.webp",
+    "name": "Spell Effect: Ki Strike",
+    "type": "effect"
+}

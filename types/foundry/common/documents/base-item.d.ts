@@ -41,6 +41,8 @@ declare module foundry {
             readonly data: data.ItemData<BaseItem, BaseActiveEffect>;
 
             readonly parent: BaseActor | null;
+
+            get documentName(): typeof BaseItem["metadata"]["name"];
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {

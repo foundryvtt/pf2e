@@ -147,7 +147,8 @@
                     "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -307,7 +308,8 @@
                     "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a Fortitude saving throw with the listed DC or be deafened until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d4 sonic damage and 3 sonic splash damage, and the DC is 28.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -392,7 +394,13 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.Thunderstone.Greater.success]</p>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
@@ -473,7 +481,8 @@
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -629,7 +638,8 @@
                     "value": 3
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -753,7 +763,7 @@
                     ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
@@ -786,7 +796,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -913,7 +924,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1123,9 +1135,15 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {3}[splash,sonic]]]{3 sonic splash damage}</p>\n<p>Each creature within 10 feet of the space in which the stone exploded must succeed at a @Check[type:fortitude|dc:28|name:Greater Thunderstone|traits:alchemical,bomb,sonic] saving throw with the listed DC or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn, and subjected to the effects of Binding Blast.</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.Thunderstone.Greater.success]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1134,6 +1152,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
                         "range-increment-30",
                         "splash"
                     ]

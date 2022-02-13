@@ -152,7 +152,8 @@
                     "value": "<p>This large crossbow is harder to load and more substantial than a regular crossbow, but it packs a greater punch.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -316,7 +317,8 @@
                     "value": "<p>Derived from a farming tool used to mow down long grains and cereals, this weapon has a long wooden shaft with protruding handles, capped with a curved blade set at a right angle.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -483,7 +485,8 @@
                     "value": "<p>A tanglefoot bag is filled with sticky substances. When you hit a creature with a tanglefoot bag, that creature takes a -15-foot status penalty to its Speeds for 1 minute. You gain a +1 item bonus to attack rolls, and the Escape DC is 19.</p>\n<p>On a critical hit, a creature in contact with a solid surface becomes stuck to the surface and immobilized for 1 round, and a creature flying via wings has its wings tangled, causing it to fall safely to the ground and become unable to Fly again for 1 round. Tanglefoot bags are not effective when used on a creature that is in water.</p>\n<p>The target can end any effects by Escaping or spending a total of 3 actions to carefully remove the sticky substances. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -568,7 +571,24 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.TanglefootBag.Moderate.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.TanglefootBag.Moderate.criticalSuccess]</p>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
@@ -645,7 +665,8 @@
                     "value": 1
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "inSlot": false
                 },
                 "equippedBulk": {
                     "value": "2"
@@ -776,7 +797,7 @@
                     "value": "<p>This plain silver ring has an almost oily sheen. While wearing the ring, you gain a +2 item bonus to Deception checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact</p>\n<p><strong>Effect</strong> Snapping your fingers on the hand that wears the ring causes the ring to cast <em>@Compendium[pf2e.spells-srd.Glibness]{Glibness}</em> on you with no visual manifestations of a spell being cast.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Deception checks</li>\n</ul>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -918,7 +939,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1072,7 +1094,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1225,7 +1248,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1380,7 +1404,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""

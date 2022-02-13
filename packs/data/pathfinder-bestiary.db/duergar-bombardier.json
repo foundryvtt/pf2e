@@ -499,7 +499,9 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 1d6 persistent acid damage, and 1 acid splash damage.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -591,7 +593,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Lesser.success]</p>"
                     },
                     {
                         "key": "Note",
@@ -599,7 +601,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*(1d6) #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AcidFlask.Lesser.criticalSuccess]</p>"
                     }
                 ],
                 "size": {
@@ -686,7 +688,9 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 1d8 fire damage, 1 persistent fire damage, and 1 fire splash damage.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -778,7 +782,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.success]</p>"
                     },
                     {
                         "key": "Note",
@@ -786,7 +790,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*1 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.criticalSuccess]</p>"
                     }
                 ],
                 "size": {
@@ -873,7 +877,9 @@
                     "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. Thehead of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1033,7 +1039,10 @@
                     "value": 3
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -1161,7 +1170,9 @@
                     "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1292,7 +1303,9 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1453,7 +1466,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}</p>\n<p>[[/r {1}[splash,fire]]]{1 fire splash damage}</p>"
+                    "value": "<p>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.success]</p>"
                 },
                 "rules": [
                     {
@@ -1462,7 +1475,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Lesser Alchemist's Fire</strong> [[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} and [[/r {1}[splash,fire]]]{1 splash fire damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.success]</p>"
                     },
                     {
                         "key": "Note",
@@ -1470,7 +1483,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Lesser Alchemist's Fire</strong> [[/r {2}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} and [[/r {2}[splash,fire]]]{2 splash fire damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AlchemistsFire.Lesser.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -1516,7 +1529,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}</p>\n<p>[[/r {1}[splash,acid]]]{1 acid splash damage}</p>"
+                    "value": "<p>@Localize[PF2E.BombNotes.AcidFlask.Lesser.success]</p>"
                 },
                 "rules": [
                     {
@@ -1525,7 +1538,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Lesser Acid Flask</strong> [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} and [[/r {1}[splash,acid]]]{1 splash acid damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AcidFlask.Lesser.success]</p>"
                     },
                     {
                         "key": "Note",
@@ -1533,7 +1546,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Lesser Acid Flask</strong> [[/r {2d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} and [[/r {2}[splash,acid]]]{2 splash acid damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.BombNotes.AcidFlask.Lesser.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,

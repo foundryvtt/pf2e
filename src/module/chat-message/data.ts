@@ -15,7 +15,7 @@ interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
     flags: ChatMessageFlagsPF2e;
 }
 
-type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
+type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
         context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
@@ -27,11 +27,7 @@ type ChatMessageFlagsPF2e = Record<string, Record<string, unknown>> & {
         [key: string]: unknown;
         isFromConsumable?: boolean;
     };
-    core: {
-        canPopout?: boolean;
-        RollTable?: string;
-        [key: string]: unknown;
-    };
+    core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
 };
 
 interface DamageRollFlag {

@@ -3,14 +3,8 @@
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>
             {{item.name}}
-            {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize 'PF2E.TemporaryItemToolTip'}}"></i>{{/if}}
+            {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
             {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{data.identification.identified.name}})</span>{{/if}}
-            {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
-            {{#if item.isTwoHanded}}
-                <span title="{{localize 'PF2E.TraitTwoHandedHelp'}}">
-                    <i class="far fa-hand-paper"></i> (<i class="far fa-hand-paper"></i>)
-                </span>
-            {{/if}}
         </h4>
         {{#if item.hasCharges}}
             <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
@@ -23,7 +17,7 @@
             <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.price.value}}{{/if}}</span>
         {{/if}}
     {{else}}
-        {{#if (eq item.type 'treasure')}}
+        {{#if (eq item.type "treasure")}}
             <span class="item-sell-value">{{multiply item.data.value.value item.data.quantity.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}</span>
         {{/if}}
     {{/if}}
@@ -52,8 +46,8 @@
                 {{#if item.isInvestable}}
                     <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
                 {{/if}}
-                <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
             {{/if}}
+            {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=this}}
             {{#if user.isGM}}
                 {{#if item.isIdentified}}
                     <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>

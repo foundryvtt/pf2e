@@ -50,7 +50,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            this.object.redraw();
             canvas.lighting.setPerceivedLightLevel(this);
         }
     }
@@ -90,7 +89,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         if (this.scene.rulesBasedVision && this.actor.type !== "npc") {
             const hasDarkvision = this.hasDarkvision && (this.scene.isDark || this.scene.isDimlyLit);
             const hasLowLightVision = (this.hasLowLightVision || this.hasDarkvision) && this.scene.isDimlyLit;
-            this.data.brightSight = this.data._source.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
+            this.data.brightSight = this.data.brightSight = hasDarkvision || hasLowLightVision ? 1000 : 0;
         }
     }
 
@@ -110,16 +109,12 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         if (actor instanceof VehiclePF2e) {
             // Vehicles can have unequal dimensions
             const { width, height } = actor.getTokenDimensions();
-            data.width = data._source.width = width;
-            data.height = data._source.height = height;
+            data.width = width;
+            data.height = height;
         } else {
-            data.width = data._source.width = size;
-            data.height = data._source.height = size;
-            data.scale = data._source.scale = game.settings.get("pf2e", "tokens.autoscale")
-                ? actor.size === "sm"
-                    ? 0.8
-                    : 1
-                : data.scale;
+            data.width = size;
+            data.height = size;
+            data.scale = game.settings.get("pf2e", "tokens.autoscale") ? (actor.size === "sm" ? 0.8 : 1) : data.scale;
         }
     }
 
@@ -184,6 +179,21 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
+
+    /** Rerun token data preparation and possibly redraw token when the actor's embedded items change */
+    onActorItemChange(): void {
+        if (!this.isLinked) return; // Handled by upstream
+
+        const currentData = this.toObject(false);
+        this.prepareData({ fromActor: true });
+        const newData = this.toObject(false);
+        const changed = diffObject<DeepPartial<foundry.data.TokenSource>>(currentData, newData);
+
+        if (Object.keys(changed).length > 0) {
+            // TokenDocument#_onUpdate doesn't actually do anything with the user ID
+            this._onUpdate(changed, {}, game.user.id);
+        }
+    }
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(

@@ -5,9 +5,10 @@ import { Rarity, Size } from "@module/data";
 import { LootPF2e } from "@actor";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
-import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from "./data";
+import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait } from "./data";
 import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
 import { UserPF2e } from "@module/user";
+import { getUsageDetails, isEquipped } from "./usage";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -35,6 +36,18 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get isEquipped(): boolean {
         return this.data.isEquipped;
+    }
+
+    get carryType(): ItemCarryType {
+        return this.data.data.equipped.carryType ?? (this.data.data.containerId.value ? "worn" : "stowed");
+    }
+
+    get handsHeld(): number {
+        return this.data.data.equipped.carryType === "held" ? this.data.data.equipped.handsHeld ?? 1 : 0;
+    }
+
+    get isHeld(): boolean {
+        return this.handsHeld > 0;
     }
 
     get price(): string {
@@ -143,12 +156,17 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // Normalize price string
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
 
-        this.data.isEquipped = systemData.equipped.value;
         this.data.isIdentified = systemData.identification.status === "identified";
 
         const traits = this.traits;
         this.data.isAlchemical = traits.has("alchemical");
         this.data.isCursed = traits.has("cursed");
+
+        this.data.usage = getUsageDetails(systemData.usage.value);
+        this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
+        if (!systemData.equipped.carryType) {
+            systemData.equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
+        }
 
         // Magic and invested status is determined at the class-instance level since it can be updated later in data
         // preparation
@@ -167,7 +185,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Unequip items on loot actors so that rule elements are not initialized
         if (this.actor instanceof LootPF2e) {
-            this.data.data.equipped.value = false;
+            this.data.data.equipped.carryType = "worn";
+            this.data.data.equipped.inSlot = false;
         }
     }
 
@@ -200,7 +219,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const thisData = this.toObject().data;
         const otherData = item.toObject().data;
         thisData.quantity.value = otherData.quantity.value;
-        thisData.equipped.value = otherData.equipped.value;
+        thisData.equipped = otherData.equipped;
         thisData.containerId.value = otherData.containerId.value;
         thisData.schema = otherData.schema;
         thisData.identification = otherData.identification;
@@ -304,7 +323,20 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (this.isEmbedded) this.data.update({ "data.equipped.value": false });
+
+        // Set some defaults
+        this.data.update({
+            "data.equipped.carryType": "worn",
+            "data.equipped.-=handsHeld": null,
+            "data.equipped.-=inSlot": null,
+        });
+
+        if (this.actor) {
+            const isSlottedItem = this.data.usage.type === "worn" && !!this.data.usage.where;
+            if (this.actor.isOfType("character", "npc") && isSlottedItem) {
+                this.data.update({ "data.equipped.inSlot": false });
+            }
+        }
     }
 
     /** Clamp hit points to between zero and max */
@@ -316,6 +348,24 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (typeof changed.data?.hp?.value === "number") {
             changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.maxHp.value);
         }
+
+        if (!changed.data) return await super._preUpdate(changed, options, user);
+
+        // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere
+        const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
+        const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
+        if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
+
+        const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.data.data.usage.value));
+        const hasSlot = newUsage.type === "worn" && newUsage.where;
+        const isSlotted = Boolean(equipped.inSlot ?? this.data.data.equipped.inSlot);
+
+        if (hasSlot) {
+            equipped.inSlot = isSlotted;
+        } else {
+            equipped["-=inSlot"] = null;
+        }
+
         await super._preUpdate(changed, options, user);
     }
 }
