@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 3.4.1
+
+### Core System Improvements
+* (stwlam) Accommodate 0-hp eidolon play from Companion Compendia module when assessing flanking
+
+### Bugfixes
+* (SoldierC4) Localize familiar sheet save labels
+* (stwlam) Filter trackable token attributes for relevance and circular-reference avoidance
+* (stwlam) Fix predication system's handling of negative numbers
+* (swtlam) Fix issue preventing error notification from getting sent out when players interact with a loot actor when a GM isn't logged in
+
+### Data Updates
+* (Cora) Make a handful of small corrections to Abomination Vaults bestiary
+* (SoldierC4) Fix rule elements on Necrotic Bombs
+
+
 ## Version 3.4.0
 
 ### New Features
