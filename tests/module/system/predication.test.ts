@@ -45,6 +45,7 @@ describe("Predication with numeric-comparison atomics return correct results", (
 
     test("greater-than with two strings", () => {
         const predicate = new PredicatePF2e({ all: [{ gt: ["self:level", "target:level"] }] });
+        expect(predicate.test(["self:level:1", "target:level:-1"])).toEqual(true);
         expect(predicate.test(["self:level:1", "target:level:1"])).toEqual(false);
         expect(predicate.test(["self:level:1", "target:level:2"])).toEqual(false);
         expect(predicate.test(["self:level:2", "target:level:1"])).toEqual(true);
