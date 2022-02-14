@@ -147,9 +147,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get canAct(): boolean {
+        // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
+        const traits = this.data.data.traits.traits.value;
+        const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
+
         const conditions = this.itemTypes.condition;
-        const cantAct = ["paralyzed", "stunned", "unconscious"];
-        return this.hitPoints.value > 0 && !conditions.some((c) => cantAct.includes(c.slug));
+        const cannotAct = ["paralyzed", "stunned", "unconscious"];
+
+        return aliveOrEidolon && !conditions.some((c) => cannotAct.includes(c.slug));
     }
 
     override get canAttack(): boolean {

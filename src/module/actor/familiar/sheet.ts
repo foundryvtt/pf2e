@@ -54,6 +54,14 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         baseData.actor = actorData;
         baseData.data = actorData.data;
 
+        // Update save labels
+        if (baseData.data.saves) {
+            for (const key of ["fortitude", "reflex", "will"] as const) {
+                const save = baseData.data.saves[key];
+                save.label = CONFIG.PF2E.saves[key];
+            }
+        }
+
         return {
             ...baseData,
             master: this.actor.master,

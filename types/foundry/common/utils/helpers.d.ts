@@ -126,7 +126,7 @@ declare global {
              * @param _d   Recursion depth, to prevent overflow
              * @return     An expanded object
              */
-            function expandObject(obj: object, _d?: number): object;
+            function expandObject<T extends object>(obj: object, _d?: number): T;
 
             /**
              * A simple function to test whether or not an Object is empty
