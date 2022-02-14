@@ -1844,10 +1844,6 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
             },
-            experimentalDamageFormatting: {
-                name: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Name",
-                hint: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Hint",
-            },
         },
         homebrew: {
             creatureTraits: {

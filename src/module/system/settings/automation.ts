@@ -10,7 +10,6 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "effectExpiration",
         "removeExpiredEffects",
         "lootableNPCs",
-        "experimentalDamageFormatting",
     ] as const;
 
     protected static override get settings(): Record<ConfigPF2eListName, PartialSettingsData> {
@@ -46,12 +45,6 @@ export class AutomationSettings extends SettingsMenuPF2e {
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
-                default: false,
-                type: Boolean,
-            },
-            experimentalDamageFormatting: {
-                name: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.name,
-                hint: CONFIG.PF2E.SETTINGS.automation.experimentalDamageFormatting.hint,
                 default: false,
                 type: Boolean,
             },
