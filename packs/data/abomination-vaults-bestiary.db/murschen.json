@@ -56,7 +56,7 @@
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>The cowardly and lazy skulks live on the fringes of organized societies and steal from others without a second thought. Even murder is merely another necessity, and they think nothing of creeping into a house, dispatching the residents, and taking what they want.</p>\n<p>Their chameleon-like ability to blend into their surroundings makes skulks difficult to detect, so their ever-present populations around the periphery of large settlements are nearly impossible to dislodge permanently. They typically travel in small groups of no more than 16 individuals, since groups larger than that tend to break into violence directed at one other. While skulks see themselves as sharing a common history of being cast out and hated, this is not a strong enough bond to hold large groups of the creatures together with a shared purpose for very long.</p>\n<p>Entrances and exits from cities, especially less-guarded access ways around sewers and the like, are skulks&rsquo; favorite stomping grounds. These sites allow them to closely observe who comes and goes from the city while also affording them swift escape options, should the authorities uncover their presence. On rare occasions, a well-disciplined skulk can rise to prominence within the local thieves' guild and become sought after for difficult jobs. Their repugnant personalities and overwhelming selfishness, however, usually means they are unable to secure longlasting leadership roles.</p>\n<p>A typical skulk is 6 feet tall with similar body structure to a gangly human. Skulks mature quickly and can live up to 50 years, although most meet a violent end long before then. The rare skulk who manages to escape their society of violence and craven bitterness can be of any alignment, but those skulks who remain bound by their traditions always see these self-imposed exiles as the worst kind of traitors, and the exiles are often targeted for eradication to the exclusion of all other victims. More than one band of skulks has accidentally engineered its own doom after throwing caution to the wind and exposing its existence to the authorities in an ill-planned but violently passionate attempt to track down such an exile.</p>",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
@@ -113,28 +113,50 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "1ynofwKXx2T3DHiy",
+            "_id": "0gD4v7579cLZZRwx",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
                 "baseItem": null,
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "unarmed",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
+                    "value": null
+                },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4",
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "brawling",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -160,7 +182,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
                 "maxHp": {
                     "value": 0
@@ -168,71 +190,166 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "35 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Striking",
+                        "predicate": {
+                            "all": [
+                                "unarmed"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "WeaponPotency",
+                        "predicate": {
+                            "all": [
+                                "unarmed"
+                            ]
+                        },
+                        "property": true,
+                        "selector": "attack"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "handwraps-of-mighty-blows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": "striking"
+                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "invested",
+                        "magical",
+                        "nonlethal",
+                        "transmutation",
+                        "unarmed"
+                    ]
                 },
                 "usage": {
-                    "value": ""
+                    "value": "worngloves"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "+1 striking handwraps of mighty blows",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.FNDq4NFSN0g2HKWO"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-mighty-blows.webp",
+            "name": "+1 Striking Handwraps of Mighty Blows",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "xunSeGVxzrgq6JPE",
+            "_id": "PVuZWzaQHtYJRSc0",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "shuriken",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "category": "martial",
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
+                    "value": null
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4",
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>This \"throwing star\" is a small piece of flat metal with sharp edges, designed to be flung with a flick of the wrist.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": "dart",
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -266,50 +383,100 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 cp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 10
+                },
+                "range": 20,
+                "reload": {
+                    "value": "-"
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "shuriken",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
+                "strikingRune": {
                     "value": ""
                 },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "monk",
+                        "thrown"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "platinum medal worth 20 gp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fjkwYZ0hRmBztwBG"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
+            "name": "Shuriken",
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "XslFXRZ2k05WXFcW",
+            "_id": "i7f5BgAL5FJKJd7b",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -322,13 +489,17 @@
                     "value": false
                 },
                 "containerId": {
-                    "value": ""
+                    "value": null
+                },
+                "denomination": {
+                    "value": "gp"
                 },
                 "description": {
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -352,9 +523,6 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 0
                 },
@@ -365,13 +533,13 @@
                     "value": "0"
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": 0
                 },
                 "quantity": {
                     "value": 1
@@ -395,16 +563,19 @@
                 "usage": {
                     "value": ""
                 },
+                "value": {
+                    "value": 20
+                },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "shuriken (10)",
+            "img": "systems/pf2e/icons/equipment/treasure/art-objects/lesser-art-object/simple-silver-circlet.webp",
+            "name": "Platinum Medal",
             "sort": 300000,
-            "type": "equipment"
+            "type": "treasure"
         },
         {
             "_id": "NrJvXEDlrKMp5Eh0",
@@ -453,7 +624,7 @@
             "type": "melee"
         },
         {
-            "_id": "Wtak6WJnXkOC1YlV",
+            "_id": "Cth0VtGbtTcGpsAR",
             "data": {
                 "attack": {
                     "value": ""
@@ -492,7 +663,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Item.WoAsAorLNzTTlV1e"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Red Claw",
             "sort": 500000,
@@ -517,7 +692,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, range increment 20 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -544,6 +719,52 @@
             "type": "melee"
         },
         {
+            "_id": "jqJroJQSIk3eYFSA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "W7NJfdI36Wt2pLfo",
             "data": {
                 "actionCategory": {
@@ -556,7 +777,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Murschen gains the benefit of the Cover Tracks action in forests and subterranean settings without moving at half Speed.</p>"
+                    "value": "<p>Murschen gains the benefit of the @Compendium[pf2e.actionspf2e.Cover Tracks]{Cover Tracks} action in forests and subterranean settings without moving at half Speed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -582,7 +803,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Camouflaged Step",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -598,12 +819,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Murschen's skin shifts and changes to match the surroundings. As long as most of his body isn't covered by clothing or armor, he gains a +2 circumstance bonus to Stealth checks to Hide.</p>"
+                    "value": "<p>Murschen's skin shifts and changes to match the surroundings. As long as most of his body isn't covered by clothing or armor, he gains a +2 circumstance bonus to Stealth checks to @Compendium[pf2e.actionspf2e.Hide]{Hide}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.skill-check.chameleonSkin"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "chameleonSkin",
+                                "action:hide"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -624,7 +862,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Chameleon Skin",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -640,7 +878,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> Murschen makes two unarmed Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses. Murschen's multiple attack penalty applies normally to these Strikes.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> Murschen makes two unarmed Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses. Murschen's multiple attack penalty applies normally to these Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -666,7 +904,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flurry of Blows",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -682,7 +920,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Murschen is unarmored</p>\n<p><strong>Effect</strong> Murschen takes the stance of the red ruin, designed to tear away chunks of flesh like a ferocious beast. Murschen can make red claw unarmed attacks. These attacks deal [[/r {1d10}[slashing]]]{1d10 slashing damage}; are in the brawling group; and have the finesse, sweep, and unarmed traits. While in this stance, when Murschen would reduce his frightened condition value by 1, he reduces it to 0.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> Murschen is unarmored</p>\n<p><strong>Effect</strong> Murschen takes the stance of the red ruin, designed to tear away chunks of flesh like a ferocious beast. Murschen can make red claw unarmed attacks. These attacks deal [[/r {1d10}[slashing]]]{1d10 slashing damage}; are in the brawling group; and have the finesse, sweep, and unarmed traits.</p>\n<p>While in this stance, when Murschen would reduce his @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition value by 1, he reduces it to 0.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -710,11 +948,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Red Ruin Stance",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "v0EyZ4SbPDX60bDr",
+            "_id": "IJTHmP61FLx42vVO",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -726,13 +964,31 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Murschen's Strikes deals an additional [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>Murschen's Strikes deal an additional [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -749,10 +1005,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -782,7 +1042,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -812,7 +1072,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -842,7 +1102,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -872,7 +1132,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -902,7 +1162,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         }
     ],
