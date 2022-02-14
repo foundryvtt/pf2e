@@ -135,7 +135,7 @@
                     "value": false
                 },
                 "containerId": {
-                    "value": ""
+                    "value": null
                 },
                 "damage": {
                     "damageType": "bludgeoning",
@@ -147,8 +147,8 @@
                     "value": "<p>This smaller version of the warhammer has a wooden or metal shaft ending in a metal head. Unlike its heavier cousin, it is light enough to throw.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "slot": ""
                 },
                 "equippedBulk": {
@@ -281,7 +281,7 @@
             "type": "weapon"
         },
         {
-            "_id": "QbmnAI48xtLiRweR",
+            "_id": "j2rbPzfS6n5EwSzO",
             "data": {
                 "MAP": {
                     "value": ""
@@ -304,7 +304,7 @@
                     "value": false
                 },
                 "containerId": {
-                    "value": ""
+                    "value": null
                 },
                 "damage": {
                     "damageType": "slashing",
@@ -316,9 +316,8 @@
                     "value": "<p>This <em>+1 striking longsword</em> has a mirror-like blade free of tarnish despite being millennia old.</p>\n<p>While wielding it, you gain a +2 item bonus to checks to @Compendium[pf2e.actionspf2e.Aid]{Aid}. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "slot": ""
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -445,6 +444,7 @@
                     "custom": "",
                     "rarity": "unique",
                     "value": [
+                        "divination",
                         "versatile-p"
                     ]
                 },
@@ -1015,58 +1015,6 @@
             "type": "action"
         },
         {
-            "_id": "ccRzTDWDz4LkUE7l",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>While wielding the Cooperative Blade, Carman gains a +2 item bonus to checks to @Compendium[pf2e.actionspf2e.Aid]{Aid}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Aid",
-                        "predicate": {
-                            "all": [
-                                "action:aid"
-                            ]
-                        },
-                        "selector": "skill-check",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cooperative Blade",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
             "_id": "NJwXFlfXwTfxdk7U",
             "data": {
                 "actionCategory": {
@@ -1127,7 +1075,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1171,7 +1119,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sudden Throw",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1213,7 +1161,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attacker",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1243,7 +1191,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1273,7 +1221,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1500000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1303,7 +1251,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1600000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1333,7 +1281,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1363,7 +1311,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1393,7 +1341,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1423,7 +1371,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],
