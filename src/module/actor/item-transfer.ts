@@ -33,7 +33,7 @@ export class ItemTransfer implements ItemTransferData {
 
     async request(): Promise<void> {
         const gamemaster = game.users.find((user) => user.isGM && user.active);
-        if (gamemaster === null) {
+        if (!gamemaster) {
             const source = this.getSource();
             const target = this.getTarget();
             const loot = [source, target].find(
@@ -45,10 +45,10 @@ export class ItemTransfer implements ItemTransferData {
             ui.notifications.error(
                 game.i18n.format(translations.GMSupervisionError, { loot: ItemTransfer.tokenName(loot) })
             );
-            return Promise.reject();
+            return;
         }
-        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster?.name ?? "<None available>"}`);
 
+        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster.name}`);
         game.socket.emit("system.pf2e", { request: "itemTransfer", data: this });
     }
 
