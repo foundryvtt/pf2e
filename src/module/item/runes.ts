@@ -6,7 +6,7 @@ import { DamageDieSize } from "@system/damage/damage";
 import { PredicateStatement, RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
-import type { OtherWeaponTag, StrikingRuneType, WeaponTrait } from "./weapon/data";
+import type { OtherWeaponTag, StrikingRuneType, WeaponSystemData, WeaponTrait } from "./weapon/data";
 import type { ArmorTrait } from "./armor/data";
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
@@ -38,11 +38,10 @@ export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number
     return runes;
 }
 
-export function getAttackBonus(itemData: WeaponData["data"]): number {
-    // fix me later
-    //    if (itemData.group?.value === "bomb") {
-    // return Number(itemData?.bonus?.value) || 0;
-    // }
+export function getAttackBonus(itemData: WeaponSystemData): number {
+    if (itemData.group === "bomb") {
+        return Number(itemData?.bonus?.value) || 0;
+    }
     return itemData.potencyRune.value ?? 0;
 }
 
@@ -1288,38 +1287,31 @@ export function hasGhostTouchRune(itemData: WeaponData): boolean {
 /*  Rune Valuation                              */
 /* -------------------------------------------- */
 
-export interface ArmorRuneValuationData {
+export interface RuneValuationData {
     level: number;
     price: number;
     rarity: Rarity;
-    traits: ArmorTrait[];
-}
-
-export interface WeaponRuneValuationData {
-    level: number;
-    price: number;
-    rarity: Rarity;
-    traits: WeaponTrait[];
-    otherTags?: OtherWeaponTag[];
+    traits: WeaponTrait[] | ArmorTrait[];
+    otherTags?: OtherWeaponTag[] | null;
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
-const ARMOR_POTENCY_RUNE_DATA: Record<OneToThree, ArmorRuneValuationData> = {
+const ARMOR_POTENCY_RUNE_DATA: Record<OneToThree, RuneValuationData> = {
     1: { level: 5, price: 160, rarity: "common", traits: ["abjuration"] },
     2: { level: 11, price: 1060, rarity: "common", traits: ["abjuration"] },
     3: { level: 18, price: 20560, rarity: "common", traits: ["abjuration"] },
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
-const RESILIENT_RUNE_DATA: Record<ResilientRuneType, ArmorRuneValuationData> = {
+const RESILIENT_RUNE_DATA: Record<ResilientRuneType, RuneValuationData> = {
     resilient: { level: 8, price: 340, rarity: "common", traits: ["abjuration"] },
     greaterResilient: { level: 14, price: 3440, rarity: "common", traits: ["abjuration"] },
     majorResilient: { level: 20, price: 49440, rarity: "common", traits: ["abjuration"] },
 };
 
 interface ArmorValuationData {
-    potency: { 0: null } & Record<OneToThree, ArmorRuneValuationData>;
-    resilient: { "": null } & Record<ResilientRuneType, ArmorRuneValuationData>;
+    potency: { 0: null } & Record<OneToThree, RuneValuationData>;
+    resilient: { "": null } & Record<ResilientRuneType, RuneValuationData>;
 }
 
 export const ARMOR_VALUATION_DATA: ArmorValuationData = {
@@ -1328,7 +1320,7 @@ export const ARMOR_VALUATION_DATA: ArmorValuationData = {
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
-const WEAPON_POTENCY_RUNE_DATA: Record<OneToFour, WeaponRuneValuationData> = {
+const WEAPON_POTENCY_RUNE_DATA: Record<OneToFour, RuneValuationData> = {
     1: { level: 2, price: 35, rarity: "common", traits: ["evocation"] },
     2: { level: 10, price: 935, rarity: "common", traits: ["evocation"] },
     3: { level: 16, price: 8935, rarity: "common", traits: ["evocation"] },
@@ -1336,18 +1328,30 @@ const WEAPON_POTENCY_RUNE_DATA: Record<OneToFour, WeaponRuneValuationData> = {
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
-const STRIKING_RUNE_DATA: Record<StrikingRuneType, WeaponRuneValuationData> = {
+const STRIKING_RUNE_DATA: Record<StrikingRuneType, RuneValuationData> = {
     striking: { level: 4, price: 65, rarity: "common", traits: ["evocation"] },
     greaterStriking: { level: 12, price: 1065, rarity: "common", traits: ["evocation"] },
     majorStriking: { level: 19, price: 31065, rarity: "common", traits: ["evocation"] },
 };
 
 interface WeaponValuationData {
-    potency: { 0: null } & Record<OneToFour, WeaponRuneValuationData>;
-    striking: { "": null } & Record<StrikingRuneType, WeaponRuneValuationData>;
+    potency: { 0: null } & Record<OneToFour, RuneValuationData>;
+    striking: { "": null } & Record<StrikingRuneType, RuneValuationData>;
 }
 
 export const WEAPON_VALUATION_DATA: WeaponValuationData = {
     potency: { 0: null, ...WEAPON_POTENCY_RUNE_DATA },
     striking: { "": null, ...STRIKING_RUNE_DATA },
+};
+
+export type RuneParams = {
+    base: string | null;
+    material: string | null;
+    potency: number | null;
+    resilient: string | null;
+    striking: string | null;
+    property1: string | null;
+    property2: string | null;
+    property3: string | null;
+    property4: string | null;
 };
