@@ -10,6 +10,29 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized?: true;
 
+    /** Filter trackable attributes for relevance and avoidance of circular references */
+    static override getTrackedAttributes(data: Record<string, unknown>, _path: string[] = []): TokenAttributes {
+        if (_path.length > 0) return super.getTrackedAttributes(data, _path);
+
+        const patterns = {
+            positive: /^(?:attributes|resources)\./,
+            negative: /\b(?:rank|_?modifiers|item|classdc|dexcap|familiar|\w+hp\b)|bonus/i,
+        };
+
+        const prunedData = expandObject<Record<string, unknown>>(
+            Object.fromEntries(
+                Object.entries(flattenObject(data)).filter(
+                    ([k, v]) =>
+                        patterns.positive.test(k) &&
+                        !patterns.negative.test(k) &&
+                        !["boolean", "string"].includes(typeof v)
+                )
+            )
+        );
+
+        return super.getTrackedAttributes(prunedData, _path);
+    }
+
     /** This should be in Foundry core, but ... */
     get scene(): ScenePF2e | null {
         return this.parent;
