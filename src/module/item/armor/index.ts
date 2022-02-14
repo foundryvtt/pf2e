@@ -1,9 +1,8 @@
 import { ArmorRuneValuationData, ARMOR_VALUATION_DATA } from "../runes";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
-import { ArmorPropertyRuneType, ArmorTrait } from "./data";
-import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { sluggify } from "@util";
+import { ArmorPropertyRuneType } from "./data";
+import { coinsToString, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 // import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -141,24 +140,19 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     processMaterialAndRunes(): void {
         const systemData = this.data.data;
-        // Collect all traits from the runes and apply them to the armor
+
+        // Collect all traits from the runes and apply them to the item
         const runesData = this.getRunesData();
         const baseTraits = systemData.traits.value;
-        const traitsFromRunes = runesData.flatMap((datum: { traits: readonly ArmorTrait[] }) => datum.traits);
-        const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.concat(traitsFromRunes).includes(trait));
-        const magicTraits: "magical"[] = traitsFromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
-        systemData.traits.value = Array.from(new Set([...baseTraits, ...traitsFromRunes, ...magicTraits]));
+        const hasRunes = this.hasRunes();
+        const magicTraits: "magical"[] = hasRunes ? ["magical"] : [];
+        systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
-        // Stop here if this armor is not a magical or precious-material item, or if it is a specific magic armor
+        // Stop here if this armor is not a magical or precious-material item, or if it is a specific magic item
         const materialData = this.getMaterialData();
-        const basePrice = extractPriceFromItem(this.data, 1);
-        if (!(this.isMagical || materialData) || this.isSpecific) {
-            // set price and name to base
-            // systemData.modifiedPrice.value = coinsToString(basePrice);
-            return;
-        }
-        // Adjust the armor price according to precious material and runes
-        // https://2e.aonprd.com/Rules.aspx?ID=731
+        if (!(this.isMagical || materialData) || this.isSpecific) return;
+
+        // Adjust the item price according to precious material and runes
         const materialPrice = materialData?.price ?? 0;
         const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this.data).bulk.normal), 1);
         const materialValue = toCoins("gp", materialPrice + (bulk * materialPrice) / 10);
@@ -167,10 +161,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             data: { quantity: { value: 1 }, price: { value: `${runeValue} gp` } },
         });
         const modifiedPrice = combineCoins(withRunes, materialValue);
-
-        const highestPrice =
-            coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice) ? modifiedPrice : basePrice;
-        systemData.price.value = coinsToString(highestPrice);
+        systemData.price.value = coinsToString(modifiedPrice);
 
         const baseLevel = this.level;
         systemData.level.value = runesData
@@ -193,8 +184,27 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         this.data.name = this.generateMagicName();
     }
 
+    private hasRunes() {
+        return (() => {
+            const hasFundamentalRunes = !!this.data.data.potencyRune.value || !!this.data.data.resiliencyRune.value;
+            const hasPropertyRunes = ([1, 2, 3, 4] as const)
+                .map((n) => this.data.data[`propertyRune${n}` as const])
+                .some((r) => !!r.value);
+            const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
+            return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
+        })();
+    }
+
     getRunesData(): ArmorRuneValuationData[] {
         const systemData = this.data.data;
+console.log([
+    ARMOR_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
+    ARMOR_VALUATION_DATA.resilient[systemData.resiliencyRune.value ?? ""],
+    CONFIG.PF2E.runes.armor.property[systemData.propertyRune1.value ?? ""],
+    CONFIG.PF2E.runes.armor.property[systemData.propertyRune2.value ?? ""],
+    CONFIG.PF2E.runes.armor.property[systemData.propertyRune3.value ?? ""],
+    CONFIG.PF2E.runes.armor.property[systemData.propertyRune4.value ?? ""],
+])
         return [
             ARMOR_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
             ARMOR_VALUATION_DATA.resilient[systemData.resiliencyRune.value ?? ""],
@@ -212,38 +222,15 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     /** Generate a armor name base on precious-material composition and runes */
     generateMagicName(): string {
-        const sluggifiedName = sluggify(this.data._source.name);
-        if (this.isSpecific || sluggifiedName !== this.baseType) return this.data.name;
-
-        const systemData = this.data.data;
-        const translations = LocalizePF2e.translations.PF2E;
-
-        const baseArmors = translations.Item.Armor.Base;
-        const potencyRune = systemData.potencyRune.value;
-        const resiliencyRune = systemData.resiliencyRune.value;
-        const propertyRunes = {
-            1: systemData.propertyRune1?.value ?? null,
-            2: systemData.propertyRune2?.value ?? null,
-            3: systemData.propertyRune3?.value ?? null,
-            4: systemData.propertyRune4?.value ?? null,
-        };
-        const params = {
-            base: this.baseType ? baseArmors[this.baseType] : this.name,
-            material: this.material && game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
-            potency: potencyRune,
-            resilient: resiliencyRune && game.i18n.localize(CONFIG.PF2E.armorResiliencyRunes[resiliencyRune]),
-            property1: propertyRunes[1] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[1]]),
-            property2: propertyRunes[2] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[2]]),
-            property3: propertyRunes[3] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[3]]),
-            property4: propertyRunes[4] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[4]]),
-        };
-
-        const formatStrings = translations.Item.Armor.GeneratedName;
+        if (this.isSpecific || !this.baseType) return this.data.name;
+        const params = this.getRuneParams();
+        const formatStrings = this.getFormatStrings();
         // Construct a localization key from the armor material and runes
         const formatString = (() => {
             const potency = params.potency && "Potency";
-            const resilient = params.resilient && "Resilient";
+            const itemSpecific = (params.resilient && "Resilient") || (params.striking && "Striking");
             const properties = params.property4
+            8004
                 ? "FourProperties"
                 : params.property3
                 ? "ThreeProperties"
@@ -253,17 +240,45 @@ export class ArmorPF2e extends PhysicalItemPF2e {
                 ? "OneProperty"
                 : null;
             const material = params.material && "Material";
-            const key = ([potency, resilient, properties, material]
+            const key = ([potency, [itemSpecific], properties, material]
                 .filter((keyPart): keyPart is string => !!keyPart)
                 .join("") || null) as keyof typeof formatStrings | null;
-            key;
             return key && formatStrings[key];
         })();
-
         return formatString ? game.i18n.format(formatString, params) : this.name;
     }
 
-    override prepareActorData(this: Embedded<ArmorPF2e>): void {
+    getFormatStrings() {
+        const translations = LocalizePF2e.translations.PF2E;
+        return translations.Item.Armor.GeneratedName;
+    }
+
+    getRuneParams() {
+        const translations = LocalizePF2e.translations.PF2E;
+        const systemData = this.data.data;
+        const potencyRune = systemData.potencyRune.value;
+        const resiliencyRune = systemData.resiliencyRune.value;
+        const propertyRunes = {
+            1: systemData.propertyRune1?.value ?? null,
+            2: systemData.propertyRune2?.value ?? null,
+            3: systemData.propertyRune3?.value ?? null,
+            4: systemData.propertyRune4?.value ?? null,
+        };
+        const baseArmors = translations.Item.Armor.Base;
+        return {
+            base: this.baseType ? baseArmors[this.baseType] : this.name,
+            material: this.material && game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
+            potency: potencyRune,
+            resilient: resiliencyRune && game.i18n.localize(CONFIG.PF2E.armorResiliencyRunes[resiliencyRune]),
+            striking: "",
+            property1: propertyRunes[1] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[1]]),
+            property2: propertyRunes[2] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[2]]),
+            property3: propertyRunes[3] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[3]]),
+            property4: propertyRunes[4] && game.i18n.localize(CONFIG.PF2E.armorPropertyRunes[propertyRunes[4]]),
+        };
+    }
+
+     override prepareActorData(this: Embedded<ArmorPF2e>): void {
         if (this.isArmor && this.isEquipped) {
             const traits = this.traits;
             for (const [trait, domain] of [
