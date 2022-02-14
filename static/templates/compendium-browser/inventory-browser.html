@@ -9,8 +9,15 @@
                 <div class="name">
                     <a class="item-link">{{item.name}}</a>
                 </div>
-                <div class="cell">
-                    <span style="margin-left: 10px;" title="Item Price">{{item.price}}</span>
+                <div class="rarity tags">
+                    {{#unless (eq item.rarity "common")}}
+                    <span class="tag {{item.rarity}}">
+                        {{lookup (lookup ../filterData.checkboxes.rarity.options item.rarity) "label"}}
+                    </span>
+                    {{/unless}}
+                </div>
+                <div class="price" title="Item Price">
+                    {{item.price}}
                 </div>
                 <div class="level">
                     <span title="Item level">{{item.level}}</span>
