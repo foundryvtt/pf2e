@@ -148,7 +148,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -239,7 +241,7 @@
                 },
                 "slug": "light-hammer",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -316,7 +318,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -401,7 +405,19 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:aid"
+                            ]
+                        },
+                        "selector": "skill-check",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
@@ -452,7 +468,7 @@
             "type": "weapon"
         },
         {
-            "_id": "DvFURGIIebBdJXDu",
+            "_id": "jbA5MFmKFD5CdN9h",
             "data": {
                 "armor": {
                     "value": 2
@@ -482,7 +498,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": true
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -511,7 +529,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 5
                 },
                 "maxHp": {
                     "value": null
@@ -524,13 +542,13 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": "163 gp"
                 },
                 "propertyRune1": {
                     "value": ""
@@ -556,7 +574,7 @@
                 },
                 "slug": "studded-leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -591,7 +609,7 @@
             "type": "armor"
         },
         {
-            "_id": "Dra7Om7KiX02b9VF",
+            "_id": "blqi3StR3jW03YKa",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -611,7 +629,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -665,7 +685,7 @@
                 },
                 "slug": "thieves-tools",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": ""
@@ -694,7 +714,7 @@
             "type": "equipment"
         },
         {
-            "_id": "Ns7ZIWA6HBIDpNwC",
+            "_id": "fjsMs9fLy2IyOgNv",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -716,7 +736,10 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "slot": ""
                 },
                 "equippedBulk": {
                     "value": ""
@@ -767,7 +790,7 @@
                 },
                 "slug": "gold-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": "coins"
@@ -805,6 +828,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -850,6 +874,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -894,6 +919,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -906,7 +932,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, thrown 20 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -950,7 +976,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.skillfulCatch"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "skillfulCatch"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -975,7 +1017,7 @@
             "type": "action"
         },
         {
-            "_id": "HtkACt7hJUNEMv1S",
+            "_id": "ccRzTDWDz4LkUE7l",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -987,13 +1029,82 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Carman deals an extra [[/r {2d6}[precision]]]{2d6 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>While wielding the Cooperative Blade, Carman gains a +2 item bonus to checks to Aid.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "action:aid"
+                            ]
+                        },
+                        "selector": "skill-check",
+                        "type": "item",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Cooperative Blade",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "NJwXFlfXwTfxdk7U",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Carman deals an extra [[/r {2d6}[precision]]]{2d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -1010,10 +1121,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1029,7 +1144,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Carman quickly draws a thrown weapon and makes a ranged Strike with it. His target must succeed at a @Check[type:perception|dc:22] check or be caught flat-footed by the attack.</p>"
+                    "value": "<p>Carman quickly draws a thrown weapon and makes a ranged Strike with it. His target must succeed at a @Check[type:perception|dc:22] check or be caught @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} by the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1057,7 +1172,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Sudden Throw",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1073,7 +1188,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are flat-footed to Carman.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Carman.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1099,7 +1214,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attacker",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1129,7 +1244,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1159,7 +1274,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1189,7 +1304,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1219,7 +1334,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1249,7 +1364,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1279,7 +1394,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1309,7 +1424,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         }
     ],

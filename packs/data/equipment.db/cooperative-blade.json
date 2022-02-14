@@ -31,7 +31,12 @@
             "value": ""
         },
         "description": {
-            "value": "<p>This +1 striking longsword has a mirror-like blade free of tarnish despite being millennia old. While wielding it, you gain a +2 item bonus to checks to Aid. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
+            "value": "<p>This +1 striking longsword has a mirror-like blade free of tarnish despite being millennia old.</p>\n<p>While wielding it, you gain a +2 item bonus to checks to Aid. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
+        },
+        "equipped": {
+            "carryType": "worn",
+            "handsHeld": 0,
+            "slot": ""
         },
         "equippedBulk": {
             "value": ""
@@ -116,7 +121,19 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:aid"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "item",
+                "value": 2
+            }
+        ],
         "size": {
             "value": "med"
         },
@@ -144,6 +161,7 @@
             "custom": "",
             "rarity": "unique",
             "value": [
+                "divination",
                 "versatile-p"
             ]
         },
