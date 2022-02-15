@@ -11,8 +11,18 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     private initialized?: true;
 
     /** Filter trackable attributes for relevance and avoidance of circular references */
-    static override getTrackedAttributes(data: Record<string, unknown>, _path: string[] = []): TokenAttributes {
-        if (_path.length > 0) return super.getTrackedAttributes(data, _path);
+    static override getTrackedAttributes(data: Record<string, unknown> = {}, _path: string[] = []): TokenAttributes {
+        // This method is being called with no associated actor: fill from the models
+        if (_path.length === 0 && Object.keys(data).length === 0) {
+            for (const [type, model] of Object.entries(game.system.model.Actor)) {
+                if (!["character", "npc"].includes(type)) continue;
+                foundry.utils.mergeObject(data, model);
+            }
+        }
+
+        if (_path.length > 0) {
+            return super.getTrackedAttributes(data, _path);
+        }
 
         const patterns = {
             positive: /^(?:attributes|resources)\./,
