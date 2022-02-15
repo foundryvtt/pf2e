@@ -921,10 +921,10 @@ export class CharacterPF2e extends CreaturePF2e {
               })
             : null;
         if (armorPenalty) {
-            const speedModifiers = extractModifiers(this.synthetics.statisticsModifiers, ["speed"]);
+            const speedModifiers = (this.synthetics.statisticsModifiers["speed"] ??= []);
             armorPenalty.predicate.not = ["armor:ignore-speed-penalty"];
             armorPenalty.test(this.getRollOptions(["all", "speed", `${movementType}-speed`]));
-            speedModifiers.push(armorPenalty);
+            speedModifiers.push(() => armorPenalty);
         }
         return super.prepareSpeed(movementType);
     }
