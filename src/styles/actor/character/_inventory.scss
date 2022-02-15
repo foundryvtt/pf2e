@@ -151,29 +151,28 @@
 
         .item-control {
             margin-right: 4px;
-            color: rgba(black, 0.75);
+            color: var(--body);
 
             &.item-toggle-invest,
-            &.item-toggle-equip {
-                color: rgba(black, 0.4);
+            &.item-toggle-equip,
+            &.item-carry-type {
                 &.active {
                     color: var(--secondary);
-                }
-            }
-            &.item-toggle-invest {
-                i {
-                    font-family: 'Noto Sans JP', sans-serif;
-                    font-size: 16px;
-                    position: relative;
-                    top: -2px;
                 }
             }
 
             &.item-carry-type {
+                color: rgba(black, 0.5);
                 text-align: right;
-                color: rgba(black, 0.4);
-                &.active {
-                    color: var(--secondary);
+            }
+
+            &.item-toggle-invest {
+                color: rgba(black, 0.5);
+                i {
+                    font-family: "Noto Sans JP", sans-serif;
+                    font-size: 16px;
+                    position: relative;
+                    top: -4px;
                 }
             }
         }

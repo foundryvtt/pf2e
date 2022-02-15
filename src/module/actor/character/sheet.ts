@@ -11,9 +11,9 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { FeatPF2e, LorePF2e } from "@item";
+import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, MartialProficiencies } from "./data";
+import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./data";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
@@ -307,6 +307,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bulkConfig,
             actorSize: this.actor.size,
         });
+        sheetData.hasRealContainers = this.actor.itemTypes.backpack.some((c) => c.data.data.stowing);
 
         let investedCount = 0; // Tracking invested items
         const investedMax = actorData.data.resources.investiture.max;
@@ -712,6 +713,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
+        const auxiliaryActionSelector = 'button[data-action="auxiliary-action"]';
+        $strikesList.find(auxiliaryActionSelector).on("click", (event) => {
+            const auxiliaryActionIndex = $(event.currentTarget)
+                .closest("[data-auxiliary-action-index]")
+                .attr("data-auxiliary-action-index");
+
+            const strike = this.getStrikeFromDOM(event.currentTarget);
+            strike?.auxiliaryActions?.[Number(auxiliaryActionIndex)]?.execute();
+        });
+
         $strikesList.find(".melee-icon").tooltipster({
             content: game.i18n.localize("PF2E.Item.Weapon.MeleeUsage.Label"),
             position: "left",
@@ -785,6 +796,36 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     this.onClickDyingWoundedDoomed(condition, event);
                 }
             });
+
+        // Decrease effect value
+        $html.find(".tab.effects .effects-list .decrement").on("click", async (event) => {
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = actor.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                await actor.decreaseCondition(effect);
+            }
+        });
+
+        // Increase effect value
+        $html.find(".tab.effects .effects-list .increment").on("click", async (event) => {
+            type ConditionName = "dying" | "wounded" | "doomed";
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof ConditionPF2e) {
+                if (["dying", "wounded", "doomed"].includes(effect.slug)) {
+                    const condition = effect.slug as ConditionName;
+                    this.actor.increaseCondition(condition, {
+                        max: this.actor.data.data.attributes[condition].max,
+                    });
+                } else {
+                    await actor.increaseCondition(effect);
+                }
+            }
+        });
 
         // Spontaneous Spell slot reset handler:
         $html.find(".spell-slots-increment-reset").on("click", (event) => {
@@ -1314,4 +1355,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         ];
         return icons[level] ?? icons[0];
     }
+}
+
+export interface CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
+    getStrikeFromDOM(target: HTMLElement): CharacterStrike | null;
 }

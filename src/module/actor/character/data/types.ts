@@ -174,7 +174,14 @@ export type CharacterStrike = StatisticModifier &
         slug: string | null;
         adjustments?: DegreeOfSuccessAdjustment[];
         meleeUsage: CharacterStrike | null;
+        auxiliaryActions: AuxiliaryAction[];
     };
+
+export interface AuxiliaryAction {
+    label: string;
+    img: string;
+    execute: () => Promise<void>;
+}
 
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";

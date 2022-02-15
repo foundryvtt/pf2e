@@ -33,9 +33,6 @@
         "description": {
             "value": "<p>This tightly sealed metal container is filled with highly pressurized gas that can explode to release a powerful shockwave. A pressure bomb deals [[/r {2d4}[bludgeoning]]]{2d4 bludgeoning damage} and [[/r {2}[splash,bludgeoning]]]{2 bludgeoning splash damage}. On a critical hit, the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p>Small or smaller targets are pushed 5 feet away from you.</p>\n<p>You gain a +1 item bonus to attack rolls.</p>"
         },
-        "equipped": {
-            "value": false
-        },
         "equippedBulk": {
             "value": ""
         },
@@ -123,15 +120,18 @@
             {
                 "key": "Note",
                 "outcome": [
-                    "criticalSuccess"
+                    "success"
                 ],
                 "selector": "{item|_id}-damage",
-                "text": "<p class='compact-text'><strong>Effect</strong> On a critical hit, the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}</p>"
+                "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.PressureBomb.Moderate.success]</p>"
             },
             {
                 "key": "Note",
-                "selector": "strike-damage",
-                "text": "<p class='compact text'><strong>Pressure Bomb</strong> Small or smaller targets are pushed 5 feet away from you.</p>"
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.PressureBomb.Moderate.criticalSuccess]</p>"
             }
         ],
         "size": {

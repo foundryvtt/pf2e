@@ -22,36 +22,24 @@
             }
         },
         "attributes": {
-            "ancestryhp": 10,
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
-            "bonusbulk": 0,
-            "classDC": {
-                "rank": 0
-            },
-            "classhp": 10,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
+            "classDC": {},
             "hp": {
                 "details": "",
                 "temp": 0,
                 "value": 22
             },
             "initiative": {
-                "ability": ""
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
-            "perception": {
-                "rank": 0
-            },
+            "perception": {},
             "resolve": {
                 "value": 0
             },
             "sp": {
                 "details": "",
                 "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -60,6 +48,7 @@
             }
         },
         "crafting": {
+            "entries": {},
             "formulas": []
         },
         "details": {
@@ -68,12 +57,6 @@
             },
             "alignment": {
                 "value": "LN"
-            },
-            "ancestry": {
-                "value": ""
-            },
-            "background": {
-                "value": ""
             },
             "biography": {
                 "allies": "",
@@ -89,11 +72,8 @@
                 "likes": "",
                 "organaizations": ""
             },
-            "class": {
-                "value": ""
-            },
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
                 "value": ""
             },
             "ethnicity": {
@@ -109,7 +89,6 @@
                 "value": "str"
             },
             "level": {
-                "min": 1,
                 "value": 1
             },
             "nationality": {
@@ -147,20 +126,7 @@
                 "value": 1
             }
         },
-        "saves": {
-            "fortitude": {
-                "rank": 0,
-                "value": 0
-            },
-            "reflex": {
-                "rank": 0,
-                "value": 0
-            },
-            "will": {
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "saves": {},
         "skills": {
             "acr": {
                 "rank": 1
@@ -181,7 +147,7 @@
                 "rank": 0
             },
             "itm": {
-                "rank": 0
+                "rank": 1
             },
             "med": {
                 "rank": 0
@@ -217,31 +183,14 @@
                 "custom": "",
                 "value": []
             },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "1"
-                }
-            ],
+            "dr": [],
             "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": [
-                    "common",
-                    "dwarven"
-                ]
+                "value": []
             },
-            "rarity": "common",
-            "senses": [
-                {
-                    "label": "Darkvision",
-                    "type": "darkvision",
-                    "value": ""
-                }
-            ],
+            "senses": [],
             "traits": {
                 "custom": "",
                 "value": []
@@ -253,7 +202,7 @@
     "img": "systems/pf2e/icons/iconics/HarskFull.webp",
     "items": [
         {
-            "_id": "9DyA4BeSAoGaCd5e",
+            "_id": "491sfx0lq3s17ubv",
             "data": {
                 "additionalLanguages": {
                     "count": 0,
@@ -300,7 +249,15 @@
                     }
                 },
                 "hp": 10,
-                "items": {},
+                "items": {
+                    "5vjeq": {
+                        "id": "Eyuqu6eIaoGCjnMv",
+                        "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+                        "level": 0,
+                        "name": "Clan Dagger",
+                        "pack": "pf2e.ancestryfeatures"
+                    }
+                },
                 "languages": {
                     "custom": "",
                     "value": [
@@ -313,7 +270,7 @@
                 "size": "med",
                 "slug": "dwarf",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": 20,
                 "traits": {
@@ -334,11 +291,519 @@
             },
             "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/dwarf.svg",
             "name": "Dwarf",
-            "sort": 100000,
+            "sort": 0,
             "type": "ancestry"
         },
         {
-            "_id": "6naDRW5ml1y0ibiR",
+            "_id": "fabi42llc46gs2gl",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You get one @Compendium[pf2e.equipment-srd.Clan Dagger]{clan dagger} of your clan for free, as it was given to you at birth. Selling this dagger is a terrible taboo and earns you the disdain of other dwarves.</p>"
+                },
+                "featType": {
+                    "value": "ancestryfeature"
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": "491sfx0lq3s17ubv",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "all": [
+                                "item:level:0",
+                                "item:trait:dwarf",
+                                "item:type:weapon"
+                            ],
+                            "label": "level-0 dwarf weapon"
+                        },
+                        "choices": [
+                            {
+                                "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+                                "label": "PF2E.Weapon.Base.clan-dagger",
+                                "value": "clan-dagger"
+                            },
+                            {
+                                "img": "systems/pf2e/icons/equipment/weapons/clan-pistol.webp",
+                                "label": "PF2E.SpecificRule.ClanWeapon.ClanPistol",
+                                "value": "clan-pistol"
+                            }
+                        ],
+                        "flag": "clanWeapon",
+                        "key": "ChoiceSet",
+                        "label": "PF2E.SpecificRule.ClanWeapon.Label",
+                        "prompt": "PF2E.SpecificRule.ClanWeapon.Prompt",
+                        "selection": "clan-dagger"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "predicate": {
+                            "all": [
+                                "clan-dagger"
+                            ]
+                        },
+                        "uuid": "Compendium.pf2e.equipment-srd.kJJvKm80KwWXPukV"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "nestFeat": false,
+                        "predicate": {
+                            "all": [
+                                "clan-pistol"
+                            ]
+                        },
+                        "uuid": "Compendium.pf2e.feats-srd.LvVg83ZDj8mabcWF"
+                    }
+                ],
+                "slug": "clan-dagger",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "dwarf"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestryfeatures.Eyuqu6eIaoGCjnMv"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "ktdi3fey3mlujbpr"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+            "name": "Clan Dagger",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "ktdi3fey3mlujbpr",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "clan-dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "category": "simple",
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This broad dagger is carried by dwarves as a weapon, tool, and designation of clan. Losing or having to surrender a clan dagger is considered a mark of embarrassment to most dwarves.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 1
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "knife",
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "clan-dagger",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "dwarf",
+                        "parry",
+                        "versatile-b"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.kJJvKm80KwWXPukV"
+                },
+                "pf2e": {
+                    "grantedBy": "fabi42llc46gs2gl"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
+            "name": "Clan Dagger",
+            "sort": 0,
+            "type": "weapon"
+        },
+        {
+            "_id": "JPI7jgVGNIzQCOvL",
+            "data": {
+                "ancestry": {
+                    "name": "Dwarf",
+                    "uuid": "Compendium.pf2e.ancestries.BYj5ZvlXZdpaEgA6"
+                },
+                "description": {
+                    "value": "<p>Your blood runs hearty and strong, and you can shake off toxins. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "poison"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).</p>"
+                    },
+                    {
+                        "key": "Resistance",
+                        "type": "poison",
+                        "value": "max(1,floor(@actor.level/2))"
+                    }
+                ],
+                "slug": "strong-blooded-dwarf",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.UV2sABrTC5teOXTE"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/strong-blooded-dwarf.webp",
+            "name": "Strong-Blooded Dwarf",
+            "sort": 0,
+            "type": "heritage"
+        },
+        {
+            "_id": "z1aabohk18psqs6c",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You have trained for countless hours to become a skilled hunter and tracker, gaining an additional benefit when you Hunt Prey depending on the focus of your training. Choose one of the following hunter's edges:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Flurry]{Flurry}</li>\n<li>@Compendium[pf2e.classfeatures.Outwit]{Outwit}</li>\n<li>@Compendium[pf2e.classfeatures.Precision]{Precision}</li>\n</ul>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "90lh36npez6xmnbt",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "all": [
+                                "item:level:1",
+                                "item:trait:ranger",
+                                "item:type:feature"
+                            ],
+                            "label": "1st-level Ranger class feature"
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.NBHyoTrI8q62uDsU"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.u6cBjqz2fiRBadBt"
+                            }
+                        ],
+                        "flag": "huntersEdge",
+                        "key": "ChoiceSet",
+                        "prompt": "Select a Hunter's Edge.",
+                        "selection": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.huntersEdge}"
+                    }
+                ],
+                "slug": "hunters-edge",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.mzkkj9LEWjJPBhaq"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "g31bdrzaysskmdt0"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "name": "Hunter's Edge",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "oxqryl6ve8gj58gg",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the @Compendium[pf2e.actionspf2e.Hunt Prey]{Hunt Prey} action.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "90lh36npez6xmnbt",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Target is your Hunted Prey",
+                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Seek hunted prey",
+                        "predicate": {
+                            "all": [
+                                "action:seek",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Track hunted prey",
+                        "predicate": {
+                            "all": [
+                                "action:track",
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.JYi4MnsdFu618hPm"
+                    }
+                ],
+                "slug": "hunt-prey",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.0nIOGpHQNHsKSFKT"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "picwggthzxps4d69"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
+            "name": "Hunt Prey",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "90lh36npez6xmnbt",
             "data": {
                 "abilityBoostLevels": {
                     "value": [
@@ -417,13 +882,6 @@
                         "name": "Weapon Specialization",
                         "pack": "pf2e.classfeatures"
                     },
-                    "57qwv": {
-                        "id": "mzkkj9LEWjJPBhaq",
-                        "img": "systems/pf2e/icons/default-icons/feat.svg",
-                        "level": 1,
-                        "name": "Hunter's Edge",
-                        "pack": "pf2e.classfeatures"
-                    },
                     "7gij8": {
                         "id": "j2R64kwUgEJ1TudD",
                         "img": "systems/pf2e/icons/features/classes/natures-end.webp",
@@ -450,6 +908,13 @@
                         "img": "systems/pf2e/icons/features/classes/medium-armor-expertise.webp",
                         "level": 11,
                         "name": "Medium Armor Expertise",
+                        "pack": "pf2e.classfeatures"
+                    },
+                    "bhe5z": {
+                        "id": "mzkkj9LEWjJPBhaq",
+                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "level": 1,
+                        "name": "Hunter's Edge",
                         "pack": "pf2e.classfeatures"
                     },
                     "bucqx": {
@@ -599,7 +1064,7 @@
                 },
                 "slug": "ranger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "trainedSkills": {
                     "additional": 4,
@@ -625,11 +1090,11 @@
             },
             "img": "systems/pf2e/icons/classes/ranger.webp",
             "name": "Ranger",
-            "sort": 300000,
+            "sort": 0,
             "type": "class"
         },
         {
-            "_id": "5FhJHentB3MrOgEj",
+            "_id": "g31bdrzaysskmdt0",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -641,401 +1106,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>You have trained for countless hours to become a skilled hunter and tracker, gaining an additional benefit when you Hunt Prey depending on the focus of your training. Choose one of the following hunter's edges:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Flurry]{Flurry}</li>\n<li>@Compendium[pf2e.classfeatures.Outwit]{Outwit}</li>\n<li>@Compendium[pf2e.classfeatures.Precision]{Precision}</li>\n</ul>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "6naDRW5ml1y0ibiR",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "hunters-edge",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.mzkkj9LEWjJPBhaq"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/feat.svg",
-            "name": "Hunter's Edge",
-            "sort": 400000,
-            "type": "feat"
-        },
-        {
-            "_id": "kIQ5QbB5gOz2ORZu",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the Hunt Prey action.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "6naDRW5ml1y0ibiR",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ToggleProperty",
-                        "label": "Target is your Hunted Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Seek hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Track hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
-                        "selector": "survival",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "domain": "ranged-attack-roll",
-                        "key": "RollOption",
-                        "option": "ignore-range-penalty:2",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        }
-                    }
-                ],
-                "slug": "hunt-prey",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.0nIOGpHQNHsKSFKT"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
-            "name": "Hunt Prey",
-            "sort": 500000,
-            "type": "feat"
-        },
-        {
-            "_id": "ARnwF01KyiEL5hcv",
-            "data": {
-                "boosts": {
-                    "0": {
-                        "value": [
-                            "dex",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>You called the wilderness home as you found trails and guided travelers. Your wanderlust could have called you to the adventuring life, or perhaps you served as a scout for soldiers and found you liked battle.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Survival skill and a Lore skill related to one terrain you scouted in (such as Forest Lore or Cavern Lore). You gain the @Compendium[pf2e.feats-srd.Forager]{Forager} skill feat.</p>"
-                },
-                "items": {
-                    "hkkx3": {
-                        "id": "8qebBeOJsyRIchcu",
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
-                        "level": "1",
-                        "name": "Forager",
-                        "pack": "pf2e.feats-srd"
-                    }
-                },
-                "rules": [],
-                "slug": "scout",
-                "source": {
-                    "value": ""
-                },
-                "trainedLore": "<Terrain> Lore",
-                "trainedSkills": {
-                    "value": [
-                        "sur"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.o7RbsQbv5iLRvd8j"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Scout",
-            "sort": 600000,
-            "type": "background"
-        },
-        {
-            "_id": "ROi3HLyXhCMAdQAh",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>While using Survival to Subsist, if you roll any result worse than a success, you get a success.</p>\n<p>On a success, you can provide subsistence living for yourself and four additional creatures, and on a critical success, you can take care of twice as many creatures as on a success.</p>\n<p>Each time your proficiency rank in Survival increases, double the number of additional creatures you can take care of on a success (to eight if you're an expert, 16 if you're a master, or 32 if you're legendary).</p>\n<p>You can choose to care for half the number of additional creatures and provide a comfortable living instead of subsistence living.</p>\n<p>Multiple smaller creatures or creatures with significantly smaller appetites than a human are counted as a single creature for this feat, and larger creatures or those with significantly greater appetites each count as multiple creatures. The GM determines how much a non-human creature needs to eat.</p>"
-                },
-                "featType": {
-                    "value": "skill"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ARnwF01KyiEL5hcv",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Survival"
-                        }
-                    ]
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:subsist"
-                            ]
-                        },
-                        "selector": "survival",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.</p>"
-                    }
-                ],
-                "slug": "forager",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.8qebBeOJsyRIchcu"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Forager",
-            "sort": 700000,
-            "type": "feat"
-        },
-        {
-            "_id": "Ph5UUQ8ku3kXyQc4",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 1
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forest Lore",
-            "sort": 800000,
-            "type": "lore"
-        },
-        {
-            "_id": "kNq4HxbOLirbTYht",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Your kin have instilled in you an affinity for hard-hitting weapons, and you prefer these to more elegant arms. You are trained with the battle axe, pick, and warhammer. You also gain access to all uncommon dwarf weapons. For the purpose of determining your proficiency, martial dwarf weapons are simple weapons and advanced dwarf weapons are martial weapons.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "dwarven-weapon-familiarity",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "dwarf"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.CXS0ryG2SODSobm9"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Dwarven Weapon Familiarity",
-            "sort": 1000000,
-            "type": "feat"
-        },
-        {
-            "_id": "A2LQ4yLJ7JVkQbi3",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You have a deep understanding of the crossbow. When you're wielding a crossbow and use Hunt Prey or use Interact to reload your crossbow, you gain a +2 circumstance bonus to the damage roll on your next Strike with that crossbow. If the crossbow is a simple crossbow, also increase the damage die size for that attack by one step. You must make the attack before the end of your next turn or these benefits are lost.</p>"
-                },
-                "featType": {
-                    "value": "class"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "crossbow-ace",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "ranger"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.CpjN7v1QN8TQFcvI"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Crossbow Ace",
-            "sort": 1100000,
-            "type": "feat"
-        },
-        {
-            "_id": "FCfvJg6CAK73A1NT",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You have trained to unleash a devastating flurry of attacks upon your prey. Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
+                    "value": "<p>You have trained to unleash a devastating flurry of attacks upon your prey.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
                 },
                 "featType": {
                     "value": "classfeature"
@@ -1075,7 +1146,7 @@
                 ],
                 "slug": "flurry",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -1089,56 +1160,643 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.6v4Rj7wWfOH1882r"
+                },
+                "pf2e": {
+                    "grantedBy": "z1aabohk18psqs6c"
                 }
             },
             "img": "systems/pf2e/icons/features/classes/flurry.webp",
-            "name": "Hunter's Edge: Flurry",
-            "sort": 1200000,
+            "name": "Flurry",
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "qTbeR3vmQdFIMSqh",
+            "_id": "picwggthzxps4d69",
             "data": {
-                "MAP": {
+                "actionCategory": {
                     "value": ""
                 },
-                "baseItem": "clan-dagger",
-                "bonus": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration.</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you Seek your prey and a +2 circumstance bonus to Survival checks when you @Compendium[pf2e.actionspf2e.Track]{Track} your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting.</p>\n<p>You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "hunt-prey",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "ranger"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.JYi4MnsdFu618hPm"
+                },
+                "pf2e": {
+                    "grantedBy": "oxqryl6ve8gj58gg"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hunt Prey",
+            "sort": 0,
+            "type": "action"
+        },
+        {
+            "_id": "nbq5dire6g92wnfj",
+            "data": {
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "dex",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You called the wilderness home as you found trails and guided travelers. Your wanderlust could have called you to the adventuring life, or perhaps you served as a scout for soldiers and found you liked battle.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Survival skill and a Lore skill related to one terrain you scouted in (such as Forest Lore or Cavern Lore). You gain the @Compendium[pf2e.feats-srd.Forager]{Forager} skill feat.</p>"
+                },
+                "items": {
+                    "hkkx3": {
+                        "id": "8qebBeOJsyRIchcu",
+                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "level": "1",
+                        "name": "Forager",
+                        "pack": "pf2e.feats-srd"
+                    }
+                },
+                "rules": [],
+                "slug": "scout",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "trainedLore": "<Terrain> Lore",
+                "trainedSkills": {
+                    "value": [
+                        "sur"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.o7RbsQbv5iLRvd8j"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Scout",
+            "sort": 0,
+            "type": "background"
+        },
+        {
+            "_id": "aifnb0cg0xhz2hxj",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>While using Survival to Subsist, if you roll any result worse than a success, you get a success.</p>\n<p>On a success, you can provide subsistence living for yourself and four additional creatures, and on a critical success, you can take care of twice as many creatures as on a success.</p>\n<p>Each time your proficiency rank in Survival increases, double the number of additional creatures you can take care of on a success (to eight if you're an expert, 16 if you're a master, or 32 if you're legendary).</p>\n<p>You can choose to care for half the number of additional creatures and provide a comfortable living instead of subsistence living.</p>\n<p>Multiple smaller creatures or creatures with significantly smaller appetites than a human are counted as a single creature for this feat, and larger creatures or those with significantly greater appetites each count as multiple creatures. The GM determines how much a non-human creature needs to eat.</p>"
+                },
+                "featType": {
+                    "value": "skill"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "nbq5dire6g92wnfj",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Survival"
+                        }
+                    ]
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "action:subsist"
+                            ]
+                        },
+                        "selector": "survival",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.</p>"
+                    }
+                ],
+                "slug": "forager",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.8qebBeOJsyRIchcu"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Forager",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "i49QhtMMGL3swBxM",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
                     "value": 0
                 },
-                "bonusDamage": {
-                    "value": 0
+                "proficient": {
+                    "value": 1
                 },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forest Lore",
+            "sort": 0,
+            "type": "lore"
+        },
+        {
+            "_id": "gQqtzD0V3pxmhYpR",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Your kin have instilled in you an affinity for hard-hitting weapons, and you prefer these to more elegant arms. You are trained with the @Compendium[pf2e.equipment-srd.Battle Axe]{Battle Axe}, @Compendium[pf2e.equipment-srd.Pick]{Pick}, and @Compendium[pf2e.equipment-srd.Warhammer]{Warhammer}.</p>\n<p>You also gain access to all uncommon dwarf weapons. For the purpose of determining your proficiency, martial dwarf weapons are simple weapons and advanced dwarf weapons are martial weapons.</p>"
+                },
+                "featType": {
+                    "value": "ancestry"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-battle-axe.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-pick.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-warhammer.rank",
+                        "value": 1
+                    },
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:trait:dwarf",
+                                "weapon:category:advanced"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedDwarfWeapons",
+                        "sameAs": "martial",
+                        "slug": "advanced-dwarf-weapons"
+                    },
+                    {
+                        "definition": {
+                            "all": [
+                                "weapon:trait:dwarf",
+                                "weapon:category:martial"
+                            ]
+                        },
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialDwarfWeapons",
+                        "sameAs": "simple",
+                        "slug": "martial-dwarf-weapons"
+                    }
+                ],
+                "slug": "dwarven-weapon-familiarity",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "dwarf"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.CXS0ryG2SODSobm9"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Dwarven Weapon Familiarity",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "4taQfM0hDH8mRC2J",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You have a deep understanding of the crossbow. When you're wielding a crossbow and use Hunt Prey or use Interact to reload your crossbow, you gain a +2 circumstance bonus to the damage roll on your next Strike with that crossbow.</p>\n<p>If the crossbow is a simple crossbow, also increase the damage die size for that attack by one step.</p>\n<p>You must make the attack before the end of your next turn or these benefits are lost.</p>"
+                },
+                "featType": {
+                    "value": "class"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "label": "Reloaded crossbow or Hunted Prey",
+                        "property": "flags.pf2e.rollOptions.damage-roll.crossbow-ace"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "crossbow-ace",
+                                "weapon:tag:crossbow"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "Crossbow Ace",
+                        "override": {
+                            "upgrade": true
+                        },
+                        "predicate": {
+                            "all": [
+                                "crossbow-ace",
+                                "weapon:tag:crossbow",
+                                "weapon:category:simple"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "slug": "crossbow-ace-dice-upgrade"
+                    }
+                ],
+                "slug": "crossbow-ace",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "ranger"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.CpjN7v1QN8TQFcvI"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Crossbow Ace",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "1X9BdENbgM7SsBVM",
+            "data": {
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
-                    "value": ""
+                    "value": "4"
                 },
-                "category": "simple",
+                "capacity": {
+                    "type": "weight",
+                    "value": 0,
+                    "weightless": false
+                },
                 "collapsed": {
                     "value": false
                 },
                 "containerId": {
                     "value": ""
                 },
-                "damage": {
-                    "damageType": "piercing",
-                    "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                "currency": {
+                    "cp": 0,
+                    "ep": 0,
+                    "gp": 0,
+                    "pp": 0,
+                    "sp": 0
                 },
                 "description": {
-                    "value": "<p>This broad dagger is carried by dwarves as a weapon, tool, and designation of clan. Losing or having to surrender a clan dagger is considered a mark of embarrassment to most dwarves.</p>"
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true
+                },
+                "equippedBulk": {
+                    "value": "0"
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "2"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 sp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "backpack",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "stowing": true,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.3lgwjrFEsQVKzhh7"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
+            "name": "Backpack",
+            "sort": 0,
+            "type": "backpack"
+        },
+        {
+            "_id": "NRiQvF84ZGuWKhf5",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": "knife",
-                "hands": {
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 sp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "rope",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fyYnQf1NAx9fWFaS"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rope.webp",
+            "name": "Rope",
+            "sort": 600000,
+            "type": "equipment"
+        },
+        {
+            "_id": "IQGSKoeHWJpY2Ycp",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
                     "value": ""
                 },
                 "hardness": {
@@ -1172,8 +1830,979 @@
                 "negateBulk": {
                     "value": "0"
                 },
-                "potencyRune": {
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "waterskin",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 700000,
+            "type": "equipment"
+        },
+        {
+            "_id": "fuozXF18Op6aF75y",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": {
+                    "value": 10
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "chalk",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.xShIDyydOMkGvGNb"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 200000,
+            "type": "equipment"
+        },
+        {
+            "_id": "IrduIlp37swR8KVv",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "flint-and-steel",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
+            "name": "Flint and Steel",
+            "sort": 300000,
+            "type": "equipment"
+        },
+        {
+            "_id": "kezkmKEdabm8kCWe",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 7,
+                    "value": 7
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": ""
+                },
+                "duration": {
+                    "units": "",
                     "value": null
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": "4 sp"
+                },
+                "quantity": {
+                    "value": 2
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "rations",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 100000,
+            "type": "consumable"
+        },
+        {
+            "_id": "jV0HXzaln4xbsWdU",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": {
+                    "value": 5
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "torch",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.8Jdw4yAzWYylGePS"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
+            "name": "Torch",
+            "sort": 675000,
+            "type": "equipment"
+        },
+        {
+            "_id": "740bMzJxndJbVrzw",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "bedroll",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "name": "Bedroll",
+            "sort": 100000,
+            "type": "equipment"
+        },
+        {
+            "_id": "ZqVpOxIZeVwD01fb",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "soap",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.81aHsD27HFGnq1Nt"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/soap.webp",
+            "name": "Soap",
+            "sort": 650000,
+            "type": "equipment"
+        },
+        {
+            "_id": "8uzSKKUqNdzDdBGL",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 sp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "grappling-hook",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.6DCy7tEF1cxaIJMy"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
+            "name": "Grappling Hook",
+            "sort": 400000,
+            "type": "equipment"
+        },
+        {
+            "_id": "bdrLvClzipGdLeKL",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "mug",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.wRSS5vP8ltrThsoC"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/mug.webp",
+            "name": "Mug",
+            "sort": 500000,
+            "type": "equipment"
+        },
+        {
+            "_id": "Ns2oISkV9bHq21wt",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": "1X9BdENbgM7SsBVM"
+                },
+                "description": {
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1184,19 +2813,124 @@
                 "price": {
                     "value": "2 gp"
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "repair-kit",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": {
                     "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.vLGDUFrg4yGzpTQX"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.webp",
+            "name": "Repair Kit",
+            "sort": 550000,
+            "type": "equipment"
+        },
+        {
+            "_id": "M7quU8hL44gZZst5",
+            "data": {
+                "armor": {
+                    "value": 2
+                },
+                "baseItem": "studded-leather-armor",
+                "brokenThreshold": {
+                    "value": null
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "category": "light",
+                "check": {
+                    "value": -1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dex": {
+                    "value": 3
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true
+                },
+                "equippedBulk": {
+                    "value": "1"
+                },
+                "group": "leather",
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "3 gp"
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1213,60 +2947,51 @@
                 "quantity": {
                     "value": 1
                 },
-                "range": null,
-                "reload": {
+                "resiliencyRune": {
                     "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": "clan-dagger",
+                "slug": "studded-leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
-                "splashDamage": {
-                    "value": null
+                "speed": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
-                "strikingRune": {
-                    "value": ""
+                "strength": {
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "agile",
-                        "dwarf",
-                        "parry",
-                        "versatile-b"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": "L"
+                    "value": "2"
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.kJJvKm80KwWXPukV"
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/clan-dagger.webp",
-            "name": "Clan Dagger",
-            "sort": 1300000,
-            "type": "weapon"
+            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
+            "name": "Studded Leather Armor",
+            "sort": 0,
+            "type": "armor"
         },
         {
-            "_id": "ALtJH1bUkQTBj7jX",
+            "_id": "7ObR5qYZbf2zbGEW",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1284,7 +3009,7 @@
                 "bulkCapacity": {
                     "value": ""
                 },
-                "category": "martial",
+                "category": "advanced",
                 "collapsed": {
                     "value": false
                 },
@@ -1301,7 +3026,8 @@
                     "value": "<p>This favored weapon of the dwarves has a large, ornate head mounted on a thick handle. This powerful axe can be wielded with one hand or two.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1392,7 +3118,7 @@
                 },
                 "slug": "dwarven-war-axe",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1430,11 +3156,166 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dwarven-war-axe.webp",
             "name": "Dwarven War Axe",
-            "sort": 1400000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "szAuGcBNC8KcaJxJ",
+            "_id": "S6QlFZtGafD3KOGH",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "elixir"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": "1d6"
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 1
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 1
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "3 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "elixir-of-life-minor",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hDLbR56Id2OtU318"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Minor)",
+            "sort": 0,
+            "type": "consumable"
+        },
+        {
+            "_id": "JMK7Ww91MtYdSmdC",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1469,7 +3350,8 @@
                     "value": "<p>This small axe can be used in close combat or thrown.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1560,7 +3442,7 @@
                 },
                 "slug": "hatchet",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1598,11 +3480,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/hatchet.webp",
             "name": "Hatchet",
-            "sort": 1500000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "4e5ks2wzRK1CKN5v",
+            "_id": "AhDuS778lZv40XyO",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1637,7 +3519,8 @@
                     "value": "<p>This large crossbow is harder to load and more substantial than a regular crossbow, but it packs a greater punch.</p>"
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 2
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1723,13 +3606,13 @@
                     "value": "2"
                 },
                 "rules": [],
-                "selectedAmmoId": "DhrUhkzn1hHat35M",
+                "selectedAmmoId": "D4pvWHmoD23Uz7Vr",
                 "size": {
                     "value": "med"
                 },
                 "slug": "heavy-crossbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1763,303 +3646,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/heavy-crossbow.webp",
             "name": "Heavy Crossbow",
-            "sort": 1600000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "lMv0VvCnQckRv0tY",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 1,
-                    "value": 1
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": "1d6"
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "value": true
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 1
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "3 gp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "elixir-of-life-minor",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.hDLbR56Id2OtU318"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Minor)",
-            "sort": 1700000,
-            "type": "consumable"
-        },
-        {
-            "_id": "tDYqmZKv7lyali4d",
-            "data": {
-                "armor": {
-                    "value": 2
-                },
-                "baseItem": "studded-leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "category": "light",
-                "check": {
-                    "value": -1
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
-                },
-                "dex": {
-                    "value": 3
-                },
-                "equipped": {
-                    "value": true
-                },
-                "equippedBulk": {
-                    "value": "1"
-                },
-                "group": "leather",
-                "hardness": {
-                    "value": null
-                },
-                "hp": {
-                    "value": null
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": null
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "3 gp"
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "resiliencyRune": {
-                    "value": ""
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "studded-leather-armor",
-                "source": {
-                    "value": ""
-                },
-                "speed": {
-                    "value": 0
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "strength": {
-                    "value": 12
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "2"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
-            "name": "Studded Leather Armor",
-            "sort": 1800000,
-            "type": "armor"
-        },
-        {
-            "_id": "DhrUhkzn1hHat35M",
+            "_id": "D4pvWHmoD23Uz7Vr",
             "data": {
                 "activation": {
                     "condition": "",
@@ -2107,7 +3698,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "value": true
+                    "carryType": "worn",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2163,7 +3755,7 @@
                 },
                 "slug": "bolts",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -2204,1146 +3796,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 1900000,
+            "sort": -100000,
             "type": "consumable"
         },
         {
-            "_id": "E28agMOOq3ZSTMeb",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": "4"
-                },
-                "capacity": {
-                    "type": "weight",
-                    "value": 0,
-                    "weightless": false
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "currency": {
-                    "cp": 0,
-                    "ep": 0,
-                    "gp": 0,
-                    "pp": 0,
-                    "sp": 0
-                },
-                "description": {
-                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
-                },
-                "equipped": {
-                    "value": true
-                },
-                "equippedBulk": {
-                    "value": "0"
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "2"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 sp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "backpack",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "stowing": true,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "wornbackpack"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.3lgwjrFEsQVKzhh7"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
-            "name": "Backpack",
-            "sort": 2000000,
-            "type": "backpack"
-        },
-        {
-            "_id": "X6SAv6rmMhCurFSk",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>50 feet of rope.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 sp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "rope",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.fyYnQf1NAx9fWFaS"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rope.webp",
-            "name": "Rope",
-            "sort": 2100000,
-            "type": "equipment"
-        },
-        {
-            "_id": "auJM2lmpZ3UEFWx6",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "waterskin",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
-            "name": "Waterskin",
-            "sort": 2200000,
-            "type": "equipment"
-        },
-        {
-            "_id": "S4MkEQFC5vPkesLj",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 cp"
-                },
-                "quantity": {
-                    "value": 10
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "chalk",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.xShIDyydOMkGvGNb"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 2300000,
-            "type": "equipment"
-        },
-        {
-            "_id": "PwzPv40uAvKJFLN6",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "flint-and-steel",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
-            "name": "Flint and Steel",
-            "sort": 2400000,
-            "type": "equipment"
-        },
-        {
-            "_id": "IOpnra0hieHg78ra",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 cp"
-                },
-                "quantity": {
-                    "value": 5
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "torch",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.8Jdw4yAzWYylGePS"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
-            "name": "Torch",
-            "sort": 2600000,
-            "type": "equipment"
-        },
-        {
-            "_id": "dBJeVAPQOFqF9npJ",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>A rolled up bed.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "2 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "bedroll",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
-            "name": "Bedroll",
-            "sort": 2700000,
-            "type": "equipment"
-        },
-        {
-            "_id": "DKaE7s3ehiNlgHxB",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>Bar of soap.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "2 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "soap",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.81aHsD27HFGnq1Nt"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/soap.webp",
-            "name": "Soap",
-            "sort": 2800000,
-            "type": "equipment"
-        },
-        {
-            "_id": "HBZ9u2s131EzYf5d",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 sp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "grappling-hook",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.6DCy7tEF1cxaIJMy"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
-            "name": "Grappling Hook",
-            "sort": 2900000,
-            "type": "equipment"
-        },
-        {
-            "_id": "2L8lefa6dlYtptRG",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 cp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "mug",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.wRSS5vP8ltrThsoC"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/mug.webp",
-            "name": "Mug",
-            "sort": 3000000,
-            "type": "equipment"
-        },
-        {
-            "_id": "b6bU8IL0xUr2Qr1i",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "2 gp"
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "repair-kit",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.vLGDUFrg4yGzpTQX"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.webp",
-            "name": "Repair Kit",
-            "sort": 3100000,
-            "type": "equipment"
-        },
-        {
-            "_id": "2ugT68ih2nPXqFhk",
+            "_id": "ILjH945nC1mNPFvU",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3365,7 +3822,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3416,7 +3874,7 @@
                 },
                 "slug": "gold-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": "coins"
@@ -3444,11 +3902,11 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
             "name": "Gold Pieces",
-            "sort": 3200000,
+            "sort": 0,
             "type": "treasure"
         },
         {
-            "_id": "62BBcbdb6gAbtOmq",
+            "_id": "UnwVcBc9rdxZ8sR1",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3470,7 +3928,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3521,7 +3980,7 @@
                 },
                 "slug": "silver-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": {
                     "value": "coins"
@@ -3549,200 +4008,8 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
             "name": "Silver Pieces",
-            "sort": 3300000,
+            "sort": 0,
             "type": "treasure"
-        },
-        {
-            "_id": "BbjiVvkDUT077t3f",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 7,
-                    "value": 7
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": {
-                    "value": "E28agMOOq3ZSTMeb"
-                },
-                "description": {
-                    "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": "4 sp"
-                },
-                "quantity": {
-                    "value": 2
-                },
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": "rations",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Rations",
-            "sort": 2500000,
-            "type": "consumable"
-        },
-        {
-            "_id": "pcztl7tx3wiayw8u",
-            "data": {
-                "ancestry": {
-                    "name": "Dwarf",
-                    "uuid": "Compendium.pf2e.ancestries.BYj5ZvlXZdpaEgA6"
-                },
-                "description": {
-                    "value": "<p>Your blood runs hearty and strong, and you can shake off toxins. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "poison"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).</p>"
-                    }
-                ],
-                "slug": "strong-blooded-dwarf",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.UV2sABrTC5teOXTE"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/strong-blooded-dwarf.webp",
-            "name": "Strong-Blooded Dwarf",
-            "sort": 900000,
-            "type": "heritage"
         }
     ],
     "name": "Harsk (Level 1)",

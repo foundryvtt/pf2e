@@ -1,22 +1,54 @@
-<a class="carry-type-hover item-carry-type item-control {{#if item.isEquipped}}active{{/if}}"
-    data-tooltip-content="#inventory-{{item._id}}-carryType"
-    title="Testing">
+<a class="carry-type-hover item-carry-type item-control{{#if item.isEquipped}} active{{/if}}"
+    data-tooltip-content="#inventory-{{item._id}}-carryType">
     <strong>
-{{#if (eq item.data.equipped.carryType "held")}}{{#if (eq item.data.equipped.handsHeld 1)}}1<i class="fas fa-hand-rock"></i>{{/if}}{{/if}}
-{{#if (eq item.data.equipped.carryType "held")}}{{#if (eq item.data.equipped.handsHeld 2)}}2<i class="fas fa-hand-rock"></i>{{/if}}{{/if}}
-{{#if (eq item.data.equipped.carryType "worn")}}<i class="fas fa-tshirt"></i>{{/if}}
-{{#if (eq item.data.equipped.carryType "stowed")}}<i class="fas fa-box"></i>{{/if}}
-{{#if (eq item.data.equipped.carryType "dropped")}}<i class="fas fa-grip-lines"></i>{{/if}}
+        {{#if (and (eq item.data.equipped.carryType "held") (eq item.data.equipped.handsHeld 1))}}1<i class="fas fa-hand-rock"></i>{{/if}}
+        {{#if (and (eq item.data.equipped.carryType "held") (eq item.data.equipped.handsHeld 2))}}2<i class="fas fa-hand-rock"></i>{{/if}}
+        {{#if (eq item.data.equipped.carryType "worn")}}<i class="fas fa-tshirt"></i>{{/if}}
+        {{#if (eq item.data.equipped.carryType "stowed")}}<i class="fas fa-box"></i>{{/if}}
+        {{#if (eq item.data.equipped.carryType "dropped")}}<i class="fas fa-grip-lines"></i>{{/if}}
     </strong>
 </a>
-<div class="hover-content" id="inventory-{{item._id}}-carryType" data-item-id="{{item._id}}">
+<div class="hover-content carry-hover-content" id="inventory-{{item._id}}-carryType" data-item-id="{{item._id}}">
     <!-- {{item.usage.type}} / {{item.usage.where}} / {{item.usage.hands}} / {{item.usage.value}} -->
-<ul>
-    <li><a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "held")}}{{#if (eq item.data.equipped.handsHeld 1)}}selected{{/if}}{{/if}}" data-carry-type="held" data-hands-held="1"><i class="fas fa-hand-rock"></i>{{localize "PF2E.CarryType.held1"}}</a></li>
-    <li><a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "held")}}{{#if (eq item.data.equipped.handsHeld 2)}}selected{{/if}}{{/if}}" data-carry-type="held" data-hands-held="2"><i class="fas fa-hand-rock"></i>{{localize "PF2E.CarryType.held2"}}</a></li>
-    {{#if (eq item.usage.type "worn")}}<li><a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "worn")}}{{#if (eq item.data.equipped.inSlot true)}}selected{{/if}}{{/if}}" data-carry-type="worn" data-in-slot="true"><i class="fas fa-tshirt"></i>{{localize "PF2E.CarryType.worn-slotted"}}</a></li>{{/if}}
-    <li><a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "worn")}}{{#if (eq item.data.equipped.inSlot true)}}{{else}}selected{{/if}}{{/if}}" data-carry-type="worn" data-in-slot="false"><i class="fas fa-tshirt"></i>{{localize "PF2E.CarryType.worn"}}</a></li>
-    <li><a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "stowed")}}selected{{/if}}" data-carry-type="stowed"><i class="fas fa-box"></i>{{localize "PF2E.CarryType.stowed"}}</a></li>
-    <li><a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "dropped")}}selected{{/if}}" data-carry-type="dropped"><i class="fas fa-grip-lines"></i>{{localize "PF2E.CarryType.dropped"}}</a></li>
+    <ul>
+        {{#if (eq item.usage.type "held")}}
+            <li>
+                <a class="item-control item-location-option{{#if (and (eq item.data.equipped.carryType "held") (eq item.data.equipped.handsHeld 1))}} selected{{/if}}"
+                    data-carry-type="held"
+                    data-hands-held="1">
+                    <i class="fas fa-hand-rock"></i>{{localize "PF2E.CarryType.held1"}}
+                </a>
+            </li>
+        {{/if}}
+    <li>
+        <a class="item-control item-location-option{{#if (and (eq item.data.equipped.carryType "held") (eq item.data.equipped.handsHeld 2))}} selected{{/if}}"
+            data-carry-type="held"
+            data-hands-held="2">
+            <i class="fas fa-hand-rock"></i>{{localize "PF2E.CarryType.held2"}}
+        </a>
+    </li>
+    {{#if (and (eq item.usage.type "worn") item.usage.where)}}
+        <li>
+            <a class="item-control item-location-option{{#if item.data.equipped.inSlot}} selected{{/if}}" data-carry-type="worn" data-in-slot="true">
+                <i class="fas fa-tshirt"></i>{{localize "PF2E.Item.Physical.Usage.WornParenthetical" where=(localize (concat "PF2E.Item.Physical.Usage.WornSlot." item.usage.where))}}
+            </a>
+        </li>
+    {{/if}}
+    <li>
+        <a class="item-control item-location-option{{#if (and (eq item.data.equipped.carryType "worn") (or (not item.usage.where) (eq item.data.equipped.inSlot false)))}} selected{{/if}}"
+            data-carry-type="worn"
+            data-in-slot="false"><i class="fas fa-tshirt"></i>{{localize "PF2E.CarryType.worn"}}</a>
+    </li>
+
+    {{#if @root.hasStowingContainers}}
+        <li>
+            <a class="item-control item-location-option{{#if (eq item.data.equipped.carryType "stowed")}} selected{{/if}}"
+                data-carry-type="stowed"><i class="fas fa-box"></i>{{localize "PF2E.CarryType.stowed"}}</a>
+        </li>
+    {{/if}}
+    <li>
+        <a class="item-control item-location-option {{#if (eq item.data.equipped.carryType "dropped")}}selected{{/if}}"
+            data-carry-type="dropped"><i class="fas fa-grip-lines"></i>{{localize "PF2E.CarryType.dropped"}}</a>
+    </li>
 </ul>
 </div>

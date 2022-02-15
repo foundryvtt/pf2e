@@ -47,7 +47,7 @@
                                                     {{/with}}
 
                                                     {{#if (eq action.origin.type "weapon")}}
-                                                    {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
+                                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
                                                     {{/if}}
                                                 </div>
                                             {{/if}}
@@ -58,15 +58,13 @@
                                         {{/if}}
                                     </div>
                                 </div>
-                                {{#if action.meleeUsage}}
+                                {{#if (and action.meleeUsage (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
                                     <div class="melee-usage">
                                         <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
-                                        {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
-                                            {{#> attackDamage action.meleeUsage isMeleeUsage=true}}{{/attackDamage}}
-                                        {{/if}}
+                                        {{#> attackDamage action.meleeUsage isMeleeUsage=true}}{{/attackDamage}}
                                     </div>
                                 {{/if}}
-                                <div class="strike-actions">
+                                <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
                                         <button type="button" class="" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
                                             <span class="activity-icon">{{aux.img}}</span>

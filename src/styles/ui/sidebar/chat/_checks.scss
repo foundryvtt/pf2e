@@ -1,5 +1,19 @@
 .flavor-text {
-    div.degree-of-success {
+    .preadjusted-dc {
+        text-decoration: line-through;
+    }
+
+    .adjusted-dc {
+        text-decoration: underline dotted;
+        &.increased {
+            color: $degree-success-critical;
+        }
+        &.decreased {
+            color: $degree-failure-critical;
+        }
+    }
+
+    .degree-of-success {
         .criticalSuccess {
             color: $degree-success-critical;
         }

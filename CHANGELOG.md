@@ -1,6 +1,104 @@
 # Changelog
 
+## Version 3.4.2
+
+### Bugfixes
+* (SoldierC4) Fix stealth DC label on hazard sheet
+* (stwlam) Fix application of armor speed penalties
+
+### Data Updates
+* (Tikael) Fix spell type of Imprint Message
+
+
+## Version 3.4.1
+
+### Core System Improvements
+* (stwlam) Accommodate 0-hp eidolon play from Companion Compendia module when assessing flanking
+
+### Bugfixes
+* (SoldierC4) Localize familiar sheet save labels
+* (stwlam) Filter trackable token attributes for relevance and circular-reference avoidance
+* (stwlam) Fix predication system's handling of negative numbers
+* (swtlam) Fix issue preventing error notification from getting sent out when players interact with a loot actor when a GM isn't logged in
+
+### Data Updates
+* (Cora) Make a handful of small corrections to Abomination Vaults bestiary
+* (SoldierC4) Fix rule elements on Necrotic Bombs
+
+
+## Version 3.4.0
+
+### New Features
+* (fryguy) Add carry type (held/worn/stowed) management for physical items
+* (fryguy) Add Interact and Release buttons for weapons on the PC sheet's Actions tab
+* (stwlam) Automate flanking and various ways to mitigate/ignore it
+* (stwlam) Add a TokenLight rule element (see Everburning Torch and Spell Effect: Light)
+
+### Core System Improvements
+* (Friz) Add Quick Add button to crafting screen to allow one click adding formula to daily crafting
+* (Glunt) Add item bonuses from weapons with appropriate traits to skill actions
+* (SkepticRobot) Add increment and decrement controls to pc effect tab
+* (stwlam) Create embedded items from kits in a single transaction
+* (stwlam) Include rule element key in validation warnings sent to console
+* (stwlam) Track whether a feat must be taken at level 1 or can be taken more than once
+* (stwlam) Automate Fatal Aim trait
+* (stwlam) Add a "lore-skill-check" modifier selector, implement with Brooch of Inspiration
+* (Supe) Add spell damage roll options for type and category
+* (Tikael) Remove Take Cover macro (now just requires single effect in Equipment Effects compendium)
+* (unpaid_bill) Redesign the Familiar sheet
+
+### Bugfixes
+* (Abaddon) Fix default spellcasting entry names
+* (Chup) Fix background color of dropdowns
+* (Chup) Fix tab-button highlighting on PC sheet
+* (In3luki) Fix compendium browser hazard tab sorting by level
+* (stwlam) When using ABP, ignore equipment-based item bonuses from FlatModifier rule elements
+* (stwlam) Apply result of initiative reroll to combatant's initiative score
+* (Tikael) Add inline-specific selector for @Checks, set DC for only if specified
+* (Tikael) Fix colliding toggles in Nimble Dodge and Dodge Away
+* (Tikael) Exclude eidolons from the combat tracker (relevant to Companion Compendium module)
+
+### Data Updates
+* (Abaddon) Brushup giant fly, giant solifugid, vampiric mist, morlock, and dream spider
+* (Abaddon) Brushup unseen servant
+* (Abaddon) Change vampiric mist persistent damage notes to trigger on damage roll
+* (Abaddon) Fix dance of ruin description for Vrock
+* (Abaddon) Improve rule element localizations for bestiary 1
+* (Abaddon) Localize bombs and bomb strikes for ratfolk grenadier and duergar bombardier
+* (Abaddon) Localize persistent damage on strikes for bestiary 1
+* (cepvep) Add ChoiceSet to Spell Effects up to L
+* (cepvep) Fix Tiller's Drive speed type
+* (cepvep) Add ChoiceSet to Ring of Energy Resistance
+* (Cerapter) Fix Sovereign Draconic bloodline being referred to as "mental" in damageType determination for Sorcerers
+* (Cora) Add familiar abilities for GB and SoM to the compendium
+* (InfamousSky) Add template buttons to Weapon Storm description
+* (InfamousSky) Fix FotRP Dervish perception, attack bonus, damage and action cost
+* (InfamousSky) Fix Shoggoth alignment
+* (InfamousSky) Fix Vital Beacon effect duration
+* (markusfaehling) Fix missing values in QftFF bestiary compendium
+* (SoldierC4) Localize bomb notes
+* (SoldierC4) Localize the rest of the bomb notes
+* (SoldierC4) Scrub @Check names and traits (7)
+* (SpartanCPA) Add horizontal line elements to Aura abilities
+* (SpartanCPA) Review and make corrections to Abomination Vaults Book 1
+* (SpartanCPA) Update Family Abilities for Ghoul/Ghast/Ghost
+* (stwlam) Limit oracle martial weapon expertise to battle mystery
+* (TMun) update the iconics and add new iconics art
+* (Tikael) Add Content from Lunar New Years blog
+* (Tikael) Add missing weapons from LOGB and AoE
+* (Tikael) Brushup the Beginner Box NPCs and hazards
+* (Tikael) Consolidate Oracle Curse effects
+* (Tikael) Fix bleed damage on NPC strikes
+* (Tikael) Fix inline roll formatting for Xotanispawn
+* (Tikael) Fix inline roll on Bharlen Sajor
+* (Tikael) Fix the description of Divine Decree
+* (Tikael) Stop multiclass druids from getting too many focus points
+
+
 ## Version 3.3.1
+
+### Core System Improvements
+* (stwlam) Apply range penalties to NPC strikes when applicable
 
 ### Bugfixes
 * (Chup) Fix display issue on PC sheet when max HP is a single digit
@@ -8,9 +106,6 @@
 * (stwlam) Fix scale-change detection for small tokens
 * (stwlam) Fix issue preventing adding more than one of the same feat that grants other feats
 * (stwlam) Fix underyling issue causing Paragon's Guard effect to not work
-
-### Core System Improvements
-* (stwlam) Apply range penalties to NPC strikes when applicable
 
 ### Data Updates
 * (rectulo) Fix a typo in swashbuckler class

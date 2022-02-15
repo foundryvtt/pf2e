@@ -12,12 +12,12 @@
             }
 
             .actions-nav {
+                @include p-reset;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: center;
                 align-items: flex-start;
                 list-style: none;
-                @include p-reset;
                 border-radius: 3px;
                 margin-bottom: 1rem;
 
@@ -116,8 +116,11 @@
             $border-color: lighten($alt-color, 40);
             border: solid transparent;
             border-width: 0 0 1px;
-            border-image: linear-gradient(90deg, #f1edea, $border-color) 1
-                repeat;
+            border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
+
+            > * {
+                margin: 1px 0;
+            }
 
             p:empty {
                 display: none;
@@ -199,8 +202,8 @@
             }
 
             .melee-usage {
-                margin-left: calc(3em - 1px);
-                padding-top: 3px;
+                flex-basis: 100%;
+                margin-left: calc(3em - 2px);
                 position: relative;
 
                 img.melee-icon {
@@ -217,7 +220,7 @@
                 display: flex;
                 font-family: var(--sans-serif);
                 font-weight: 600;
-                gap: 3px;
+                gap: 2px;
                 .ammo-icon {
                     display: inline-block;
                     width: 14px;
@@ -324,10 +327,14 @@
                 }
             }
 
-            .strike-actions {
+            .auxiliary-actions {
                 display: flex;
                 gap: 3px;
-                margin-left: 41px;
+                margin-left: 40px;
+
+                &.weapon-drawn {
+                    flex-basis: 100%;
+                }
 
                 button {
                     @include button;
@@ -360,8 +367,11 @@
                         cursor: pointer;
 
                         &:hover {
-                            box-shadow: none;
                             text-shadow: 0 0 1px var(--black);
+                        }
+
+                        &:active {
+                            box-shadow: none;
                         }
                     }
                 }

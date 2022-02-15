@@ -265,6 +265,5 @@ export function populateFoundryUtilFunctions() {
     global.getType = getType;
     global.mergeObject = mergeObject;
     global.diffObject = diffObject;
-    global.expandObject = expandObject;
     global.duplicate = duplicate;
 }

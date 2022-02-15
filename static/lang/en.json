@@ -286,34 +286,38 @@
             },
             "Interact": {
                 "Title": "Interact",
-                "Notes": "",
+                "Parenthetical": "Interact {purpose}",
                 "Draw1H": {
                     "Title": "Draw (1H)",
-                    "Description": "Draw {weapon} (1 handed)."
+                    "Description": "{actor} draws their {weapon}."
                 },
                 "Draw2H": {
                     "Title": "Draw (2H)",
-                    "Description": "Draw {weapon} (2 handed)."
+                    "Description": "{actor} draws their {weapon}."
                 },
                 "PickUp1H": {
-                    "Title": "Pick up (1H)",
-                    "Description": "Pick up {weapon} from ground (1 handed)."
+                    "Title": "Pick Up (1H)",
+                    "Description": "{actor} picks up {weapon} from the ground."
                 },
                 "PickUp2H": {
-                    "Title": "Pick up (2H)",
-                    "Description": "Pick up {weapon} from ground (2 handed)."
+                    "Title": "Pick Up (2H)",
+                    "Description": "{actor} picks up {weapon} from the ground."
                 },
-                "Grip2H": {
-                    "Title": "Grip (2H)",
-                    "Description": "Grip {weapon} with two hands."
+                "Grip": {
+                    "Title": "Change Grip (2H)",
+                    "Description": "{actor} grips their {weapon} with two hands."
                 },
-                "Retrieve": {
-                    "Title": "Retrieve",
-                    "Description": "Retrieve {weapon} from stowed container."
+                "Retrieve1H": {
+                    "Title": "Retrieve (1H)",
+                    "Description": "{actor} retrieves their {weapon}."
+                },
+                "Retrieve2H": {
+                    "Title": "Retrieve (1H)",
+                    "Description": "{actor} retrieves their {weapon}."
                 },
                 "Sheathe": {
                     "Title": "Sheathe",
-                    "Description": "Sheathe {weapon}."
+                    "Description": "{actor} sheathes their {weapon}."
                 }
             },
             "Impersonate": {
@@ -373,14 +377,13 @@
             },
             "Release": {
                 "Title": "Release",
-                "Notes": "Unlike most manipulate actions, Release does not trigger reactions that can be triggered by actions with the manipulate trait (such as Attack of Opportunity).",
                 "Drop": {
                     "Title": "Drop",
-                    "Description": "Drop {weapon} onto ground."
+                    "Description": "{actor} drops their {weapon} onto the ground."
                 },
-                "Release1H": {
-                    "Title": "Release (1H)",
-                    "Description": "Wield {weapon} with a single hand."
+                "Grip": {
+                    "Title": "Change Grip (1H)",
+                    "Description": "{actor} releases a hand from their {weapon}."
                 }
             },
             "Request": {
@@ -798,7 +801,7 @@
             "held1": "Held 1H",
             "held2": "Held 2H",
             "worn": "Worn",
-            "worn-slotted": "Worn (Slotted)",
+            "worn-in-slot": "Worn (In Slot)",
             "stowed": "Stowed",
             "dropped": "Dropped"
         },
@@ -808,6 +811,11 @@
         "CharacterNamePlaceholder": "Character Name",
         "CharacterTraits": "Character Traits",
         "CharacterTraitsHeader": "Traits & Other Details",
+        "Check": {
+            "AC": "AC: {dc}",
+            "DC": "DC: {dc}",
+            "TargetDC": "{target} {dcLabel}"
+        },
         "CheckOutcome": {
             "criticalSuccess": "Critical Success",
             "success": "Success",
@@ -987,7 +995,6 @@
         "CreateSkillTitle": "Create Skill",
         "CreateSpellTitle": "Create Spell",
         "CreatureStatisticDC": {
-            "ac": "{creature} AC: {dc}",
             "deception": "{creature} Deception DC: {dc}",
             "fortitude": "{creature} Fortitude DC: {dc}",
             "perception": "{creature} Perception DC: {dc}",
@@ -1033,7 +1040,6 @@
         "DCAdjustmentVeryHard": "very hard",
         "DCAdjustmentIncrediblyHard": "incredibly hard",
         "DCBase": "Base DC 10",
-        "DCLabel": "DC: {dc}",
         "DCWithValue": "DC {dc} {text}",
         "DecrementEffectTitle": "Decrease Effect Level",
         "DefencesLabel": "Defences",
@@ -1317,6 +1323,9 @@
                 }
             },
             "CannotAddType": "{type} items cannot be added to this actor.",
+            "Condition": {
+                "Flanked": "Flat-Footed (Flanked)"
+            },
             "Deity": {
                 "Alignment": "Alignment",
                 "FollowerAlignments": "Follower Alignments",
@@ -1371,7 +1380,40 @@
             },
             "Physical": {
                 "LevelLabel": "Item {level}",
-                "PriceLabel": "Price: {price}"
+                "PriceLabel": "Price: {price}",
+                "Usage": {
+                    "WornParenthetical": "Worn ({where})",
+                    "WornSlot": {
+                        "amulet": "Amulet",
+                        "anklets": "Anklets",
+                        "armbands": "Armbands",
+                        "armor": "Armor",
+                        "backpack": "Backpack",
+                        "barding": "Barding",
+                        "belt": "Belt",
+                        "beltpouch": "Belt Pouch",
+                        "bracelet": "Bracelet",
+                        "bracers": "Bracers",
+                        "circlet": "Circlet",
+                        "cloak": "Cloak",
+                        "clothing": "Clothing",
+                        "collar": "Collar",
+                        "crown": "Crown",
+                        "epaulet": "Epaulet",
+                        "eyepiece": "Eyepiece",
+                        "garment": "Garment",
+                        "gloves": "Gloves",
+                        "headwear": "Headwear",
+                        "horseshoes": "Horseshoes",
+                        "mask": "Mask",
+                        "necklace": "Necklace",
+                        "onbelt": "OnBelt",
+                        "ring": "Ring",
+                        "saddle": "Saddle",
+                        "shoes": "Shoes",
+                        "wrist": "On Wrists"
+                    }
+                }
             },
             "Plural": "Items",
             "Weapon": {
@@ -4603,7 +4645,7 @@
                     "FastHealing": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>",
                     "Ferocity": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>",
                     "FormUp": "<p>The troop chooses one of the squares it currently occupies and redistributes its squares to any configuration in which all squares are contiguous and within 15 feet of the chosen square. The troop can't share its space with other creatures.</p>",
-                    "FrightfulPresence": "<hr />\n<p>A creature that first enters the area must attempt a Will save.</p>\n<div data-visibility=\"gm\">\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>\n</div>",
+                    "FrightfulPresence": "<p>A creature that first enters the area must attempt a Will save.</p>\n<div data-visibility=\"gm\">\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>\n</div>",
                     "Grab": "<p data-visibility=\"gm\"><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>",
                     "GreaterConstrict": "<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, and a creature that succeeds is then temporarily immune to falling unconscious from Greater Constrict for 1 minute.</p>",
                     "GreaterDarkvision": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level <em>@Compendium[pf2e.spells-srd.Darkness]{Darkness}</em> spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>",

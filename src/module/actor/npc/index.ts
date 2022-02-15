@@ -443,7 +443,6 @@ export class NPCPF2e extends CreaturePF2e {
                     name: "attack",
                     label: CONFIG.PF2E.featTraits.attack,
                     description: CONFIG.PF2E.traitsDescriptions.attack,
-                    toggle: false,
                 };
                 const strikeTraits = [
                     attackTrait,
@@ -452,7 +451,6 @@ export class NPCPF2e extends CreaturePF2e {
                             name: trait,
                             label: CONFIG.PF2E.npcAttackTraits[trait] ?? trait,
                             description: CONFIG.PF2E.traitsDescriptions[trait],
-                            toggle: false,
                         })
                     ),
                 ];
@@ -494,7 +492,6 @@ export class NPCPF2e extends CreaturePF2e {
                     action.traits.splice(1, 0, {
                         name: "range",
                         label: game.i18n.localize("PF2E.TraitRange"),
-                        toggle: false,
                     });
                 }
                 // Add a damage roll breakdown
@@ -557,7 +554,8 @@ export class NPCPF2e extends CreaturePF2e {
                                 new CheckModifier(`Strike: ${action.name}`, action, otherModifiers),
                                 {
                                     actor: context.self.actor,
-                                    item: meleeItem,
+                                    item: context.self.item,
+                                    target: context.target,
                                     type: "attack-roll",
                                     options,
                                     notes: rollNotes,

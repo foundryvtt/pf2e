@@ -20,6 +20,15 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
         }[actorSize];
     }
 
+    /** Show token data in config sheet that is unmodified by `TokenDocumentPF2e` */
+    override async getData(options?: Partial<FormApplicationOptions>): Promise<TokenConfigData<TDocument>> {
+        const data = await super.getData(options);
+        const DataConstructor = data.object.constructor as ConstructorOf<TDocument["data"]>;
+        data.object = new DataConstructor(data.object.toObject(), data.object.document);
+
+        return data;
+    }
+
     /** Hide token-sight settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
         const $linkToActorSize = $html.find<HTMLInputElement>('input[name="flags.pf2e.linkToActorSize"]');

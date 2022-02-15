@@ -46,7 +46,6 @@ import {
     AttackItem,
     AttackRollContext,
     AttackTarget,
-    DamageRollContext,
     GetReachParameters,
     IsFlatFootedParams,
     StrikeRollContext,
@@ -148,8 +147,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get canAct(): boolean {
+        // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
+        const traits = this.data.data.traits.traits.value;
+        const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
+
         const conditions = this.itemTypes.condition;
-        return this.hitPoints.value > 0 && !conditions.some((c) => ["paralyzed", "unconscious"].includes(c.slug));
+        const cannotAct = ["paralyzed", "stunned", "unconscious"];
+
+        return aliveOrEidolon && !conditions.some((c) => cannotAct.includes(c.slug));
     }
 
     override get canAttack(): boolean {
@@ -369,8 +374,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (this.isFlatFooted({ dueTo: "flanking" })) {
             const acModifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
             const flatFooted = game.pf2e.ConditionManager.getCondition("flat-footed");
-            const modifiers = game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? [];
-            acModifiers.push(...modifiers.map((m) => () => m));
+            const modifier = (game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? []).pop();
+            if (!modifier) throw ErrorPF2e("Unexpected error retrieving condition");
+
+            modifier.label = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            acModifiers.push(() => modifier);
+
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
         }
@@ -683,10 +692,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
      * but more can be added via the options.
      */
-    getAttackRollContext<A extends CreaturePF2e, I extends AttackItem>(
-        this: A,
-        params: StrikeRollContextParams<I>
-    ): AttackRollContext<A, I> {
+    getAttackRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): AttackRollContext<this, I> {
         params.domains ??= [];
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
@@ -694,10 +700,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (attackTarget && attackTarget.actor.attributes.ac) {
             const { attributes } = attackTarget.actor;
             attackTarget.dc = {
-                label: game.i18n.format("PF2E.CreatureStatisticDC.ac", {
-                    creature: attackTarget.token.name,
-                    dc: "{dc}",
-                }),
                 scope: "AttackOutcome",
                 value: attributes.ac.value,
             };
@@ -710,10 +712,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    protected getDamageRollContext<A extends CreaturePF2e, I extends AttackItem>(
-        this: A,
+    protected getDamageRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
-    ): DamageRollContext<A, I> {
+    ): StrikeRollContext<this, I> {
         const context = this.getStrikeRollContext({ ...params, domains: ["all", "damage-roll"] });
         return {
             options: Array.from(new Set(context.options)),
@@ -722,10 +723,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    private getStrikeRollContext<A extends CreaturePF2e, I extends AttackItem>(
-        this: A,
+    protected getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
-    ): StrikeRollContext<A, I> {
+    ): StrikeRollContext<this, I> {
         const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
         const targetToken = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : null;
 
@@ -743,18 +743,19 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
         const actions: StrikeData[] = selfActor.data.data.actions ?? [];
         const selfItem = ((): I => {
-            const mainItem = params.viewOnly
-                ? params.item
-                : (actions
-                      .flatMap((a) => a.item ?? [])
-                      .find((w) => w.id === params.item.id && w.name === params.item.name)! as I);
+            const mainItem =
+                params.viewOnly || params.item.isOfType("spell")
+                    ? params.item
+                    : actions
+                          .flatMap((a) => a.item ?? [])
+                          .find((w) => w.id === params.item.id && w.name === params.item.name) ?? params.item;
 
-            return mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
-                ? ((mainItem.toMeleeUsage() ?? mainItem) as I)
-                : mainItem;
+            return (
+                mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
+                    ? mainItem.toMeleeUsage() ?? mainItem
+                    : mainItem
+            ) as I;
         })();
-
-        const self = { actor: selfActor, token: selfToken, item: selfItem };
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
@@ -776,9 +777,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : null;
         rollOptions.push(`target:distance:${distance}`);
 
+        const self = {
+            actor: selfActor,
+            token: selfToken?.document ?? null,
+            item: selfItem,
+            modifiers: [],
+        };
+
         const target =
             targetActor && targetToken && distance !== null
-                ? { actor: targetActor, token: targetToken, distance }
+                ? { actor: targetActor, token: targetToken.document, distance }
                 : null;
 
         return {
