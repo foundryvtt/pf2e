@@ -3,6 +3,7 @@ import { WeaponData } from "@item/data";
 import { getPropertyRuneModifiers, getStrikingDice } from "@item/runes";
 import {
     BaseRawModifier,
+    DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
     ModifierPF2e,
@@ -27,7 +28,10 @@ export interface DamagePartials {
 }
 
 export interface DamageFormula {
-    data: object;
+    data: {
+        baseDamageType: DamageType;
+        effectiveDamageDice: number;
+    };
     formula: string;
     partials: DamagePartials;
 }
@@ -292,7 +296,7 @@ export class WeaponDamagePF2e {
         // Custom damage
         const normalDice = weapon.data.property1?.dice ?? 0;
         if (normalDice > 0) {
-            const damageType = weapon.data.property1.damageType ?? baseDamageType;
+            const damageType = weapon.data.property1.damageType || null;
             diceModifiers.push(
                 new DiceModifierPF2e({
                     label: "PF2E.WeaponCustomDamageLabel",
@@ -304,7 +308,7 @@ export class WeaponDamagePF2e {
         }
         const critDice = weapon.data.property1?.critDice ?? 0;
         if (critDice > 0) {
-            const damageType = weapon.data.property1.critDamageType ?? baseDamageType;
+            const damageType = weapon.data.property1.critDamageType || null;
             diceModifiers.push(
                 new DiceModifierPF2e({
                     label: "PF2E.WeaponCustomDamageLabel",
@@ -459,12 +463,6 @@ export class WeaponDamagePF2e {
         const synthetics = extractModifiers(statisticsModifiers, selectors, { resolvables, injectables });
         numericModifiers.push(...new StatisticModifier("", synthetics, options).modifiers);
 
-        // Set base damage type and category to all non-specific numeric modifiers
-        for (const modifier of numericModifiers) {
-            modifier.damageType ??= baseDamageType;
-            modifier.damageCategory ??= DamageCategory.fromDamageType(modifier.damageType);
-        }
-
         const notes = selectors.flatMap(
             (s) =>
                 rollNotes[s]
@@ -472,7 +470,7 @@ export class WeaponDamagePF2e {
                     .filter((note) => PredicatePF2e.test(note.predicate, options)) ?? []
         );
 
-        const damage: DamageTemplate = {
+        const damage: Omit<DamageTemplate, "formula"> = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
@@ -490,11 +488,6 @@ export class WeaponDamagePF2e {
             numericModifiers,
             notes,
             traits: (traits ?? []).map((t) => t.name),
-            // These are calculated below
-            formula: {
-                success: { data: {}, formula: "", partials: {} },
-                criticalSuccess: { data: {}, formula: "", partials: {} },
-            },
         };
 
         // Damage dice from synthetics
@@ -531,15 +524,18 @@ export class WeaponDamagePF2e {
 
         this.excludeDamage(actor, [...numericModifiers, ...diceModifiers], options);
 
-        damage.formula.success = this.getFormula(damage, false);
-        damage.formula.criticalSuccess = this.getFormula(damage, true);
-
-        return damage;
+        return {
+            ...damage,
+            formula: {
+                success: this.getFormula(deepClone(damage), false),
+                criticalSuccess: this.getFormula(deepClone(damage), true),
+            },
+        };
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage: DamageTemplate, critical: boolean): DamageFormula {
-        const base = duplicate(damage.base);
+    static getFormula(damage: Omit<DamageTemplate, "formula">, critical: boolean): DamageFormula {
+        const { base } = damage;
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
         // First, increase the damage die. This can only be done once, so we
@@ -548,26 +544,28 @@ export class WeaponDamagePF2e {
             base.dieSize = nextDamageDieSize(base.dieSize);
         }
 
-        // override next, to ensure the dice stacking works properly
-        diceModifiers
-            .filter((dm) => dm.enabled)
-            .filter((dm) => dm.override)
-            .forEach((dm) => {
-                if (critical && dm.critical) {
-                    base.dieSize = dm.override?.dieSize ?? base.dieSize;
-                    base.damageType = dm.override?.damageType ?? base.damageType;
-                } else if (!dm.critical) {
-                    base.dieSize = dm.override?.dieSize ?? base.dieSize;
-                    base.damageType = dm.override?.damageType ?? base.damageType;
-                }
-            });
+        // Override next, to ensure the dice stacking works properly
+        const enabledDiceModifiers = diceModifiers.filter(
+            (dm): dm is DiceModifierPF2e & { override: DamageDiceOverride } => !!(dm.enabled && dm.override)
+        );
+        for (const dm of enabledDiceModifiers) {
+            if (critical && dm.critical) {
+                base.dieSize = dm.override.dieSize ?? base.dieSize;
+                base.damageType = dm.override.damageType ?? base.damageType;
+            } else if (!dm.critical) {
+                base.dieSize = dm.override.dieSize ?? base.dieSize;
+                base.damageType = dm.override.damageType ?? base.damageType;
+            }
+        }
+
+        base.category = DamageCategory.fromDamageType(base.damageType);
 
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
         dicePool[base.damageType] = {
             base: true,
             categories: {
-                [base.category ?? DamageCategory.fromDamageType(base.damageType)]: {
+                [DamageCategory.fromDamageType(base.damageType)]: {
                     dice: { [base.dieSize]: base.diceNumber },
                     modifier: base.modifier ?? 0,
                 },
@@ -606,7 +604,8 @@ export class WeaponDamagePF2e {
             const modifiers = damage.numericModifiers
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
                 .flatMap((nm: ModifierPF2e) => {
-                    nm.damageType ??= damage.base.damageType;
+                    nm.damageType ??= base.damageType;
+                    nm.damageCategory ??= DamageCategory.fromDamageType(nm.damageType);
                     if (critical && nm.damageCategory === "splash") {
                         return [];
                     } else if (critical && nm.critical) {
@@ -682,6 +681,7 @@ export class WeaponDamagePF2e {
             formula,
             partials,
             data: {
+                baseDamageType: base.damageType,
                 effectiveDamageDice: damage.effectDice,
             },
         };

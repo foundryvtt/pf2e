@@ -16,6 +16,7 @@ import { StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget } from "@actor/creature/types";
+import { DamageCategory } from "./damage/damage";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -571,19 +572,24 @@ export class CheckPF2e {
  * @category PF2
  */
 export class DamageRollPF2e {
-    /**
-     * @param damage
-     * @param context
-     * @param event
-     * @param callback
-     */
-    static roll(damage: DamageTemplate, context: CheckRollContext = {}, _event?: JQuery.Event, callback?: Function) {
+    static roll(
+        damage: DamageTemplate,
+        context: CheckRollContext = {},
+        _event?: JQuery.TriggeredEvent,
+        callback?: Function
+    ) {
+        // Change the base damage type in case it was overridden
+        const baseDamageType = damage.formula[context.outcome ?? "success"]?.data.baseDamageType;
+        damage.base.damageType = baseDamageType ?? damage.base.damageType;
+        damage.base.category = DamageCategory.fromDamageType(damage.base.damageType);
+
+        // Change default roll mode to blind GM roll if the "secret" option is specified
         if (context.options && context.options?.length > 0) {
-            // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map((o: string) => o.toLowerCase()).includes("secret")) {
                 context.secret = true;
             }
         }
+
         DamageRollModifiersDialog.roll(damage, context, callback);
     }
 }
