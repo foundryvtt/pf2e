@@ -1075,7 +1075,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
-            const abilityModifier = [...modifiers, ...extractModifiers(statisticsModifiers, baseSelectors)]
+            const options = { resolvables: { weapon } };
+            const abilityModifier = [...modifiers, ...extractModifiers(statisticsModifiers, baseSelectors, options)]
                 .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
                 .flatMap((modifier) => (modifier.predicate.test(defaultOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
