@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 3.4.2
+
+### Bugfixes
+* (SoldierC4) Fix stealth DC label on hazard sheet
+* (stwlam) Fix application of armor speed penalties
+
+### Data Updates
+* (Tikael) Fix spell type of Imprint Message
+
+
 ## Version 3.4.1
 
 ### Core System Improvements
