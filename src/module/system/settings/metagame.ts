@@ -10,6 +10,7 @@ export class MetagameSettings extends SettingsMenuPF2e {
         "showResults",
         "tokenSetsNameVisibility",
         "secretDamage",
+        "secretDamageNumbers",
         "secretCondition",
         "partyVision",
     ] as const;
@@ -60,6 +61,18 @@ export class MetagameSettings extends SettingsMenuPF2e {
                 hint: "PF2E.SETTINGS.Metagame.SecretDamage.Hint",
                 default: false,
                 type: Boolean,
+            },
+            secretDamageNumbers: {
+                name: "PF2E.SETTINGS.Metagame.SecretDamageNumbers.Name",
+                hint: "PF2E.SETTINGS.Metagame.SecretDamageNumbers.Hint",
+                default: "all",
+                type: String,
+                choices: {
+                    none: "PF2E.SETTINGS.Metagame.SecretDamageNumbers.None",
+                    gm: "PF2E.SETTINGS.Metagame.SecretDamageNumbers.Gm",
+                    owner: "PF2E.SETTINGS.Metagame.SecretDamageNumbers.Owner",
+                    all: "PF2E.SETTINGS.Metagame.SecretDamageNumbers.All",
+                },
             },
             secretCondition: {
                 name: "PF2E.SETTINGS.Metagame.SecretCondition.Name",
