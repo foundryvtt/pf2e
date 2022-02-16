@@ -45,7 +45,7 @@ export interface StrikeRollParams extends RollParameters {
 
 export type FateString = "none" | "fortune" | "misfortune";
 
-export interface CheckModifiersContext {
+export interface CheckRollContext {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Any notes which should be shown for the roll. */
@@ -78,17 +78,18 @@ export interface CheckModifiersContext {
     skipDialog?: boolean;
     /** Is the roll a reroll? */
     isReroll?: boolean;
+    /** The outcome a roll (usually relevant only to rerolls) */
+    outcome?: typeof DegreeOfSuccessText[number];
 }
 
-interface ExtendedCheckModifersContext extends Omit<CheckModifiersContext, "actor" | "token" | "target"> {
-    actor?: ActorPF2e | string;
-    token?: TokenDocumentPF2e | string;
+export interface CheckRollContextFlag extends Omit<CheckRollContext, "actor" | "token" | "target"> {
+    actor?: string;
+    token?: string;
+    item?: never;
     target?: {
-        actor: ActorPF2e | ActorUUID | TokenDocumentUUID;
-        token?: TokenDocumentPF2e | TokenDocumentUUID;
+        actor: ActorUUID | TokenDocumentUUID;
+        token?: TokenDocumentUUID;
     } | null;
-    user?: string;
-    outcome?: typeof DegreeOfSuccessText[number];
     unadjustedOutcome?: typeof DegreeOfSuccessText[number];
 }
 
@@ -103,7 +104,7 @@ export class CheckPF2e {
      */
     static async roll(
         check: StatisticModifier,
-        context: CheckModifiersContext = {},
+        context: Readonly<CheckRollContext> | CheckRollContextFlag = {},
         event: JQuery.TriggeredEvent | null = null,
         callback?: (
             roll: Rolled<Roll>,
@@ -115,37 +116,54 @@ export class CheckPF2e {
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
 
+        const isContextFlag = (context: CheckRollContext | CheckRollContextFlag): context is CheckRollContextFlag =>
+            !(context.actor instanceof ActorPF2e);
+
+        const contextFlag: CheckRollContextFlag = isContextFlag(context)
+            ? context
+            : {
+                  ...context,
+                  item: undefined,
+                  fate: context.fate ?? "none",
+                  actor: context.actor?.id,
+                  token: context.token?.id,
+                  target: context.target
+                      ? { actor: context.target.actor.uuid, token: context.target.token.uuid }
+                      : null,
+              };
+
         if (context.options?.length && !context.isReroll) {
-            context.isReroll = false;
+            contextFlag.isReroll = false;
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.calculateTotal(context.options);
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.includes("secret")) {
-                context.secret = true;
+                contextFlag.secret = true;
             }
         }
 
-        context.notes = (context.notes ?? []).filter((note: RollNotePF2e) =>
+        contextFlag.notes = (context.notes ?? []).filter((note: RollNotePF2e) =>
             PredicatePF2e.test(note.predicate, context.options ?? [])
         );
-        if (context.dc) {
-            const { adjustments } = context.dc;
+
+        if (contextFlag.dc) {
+            const { adjustments } = contextFlag.dc;
             if (adjustments) {
-                adjustments.forEach((adjustment) => {
+                for (const adjustment of adjustments) {
                     const merge = adjustment.predicate
                         ? PredicatePF2e.test(adjustment.predicate, context.options ?? [])
                         : true;
 
                     if (merge) {
-                        context.dc!.modifiers ??= {};
-                        mergeObject(context.dc!.modifiers, adjustment.modifiers);
+                        contextFlag.dc.modifiers ??= {};
+                        mergeObject(contextFlag.dc.modifiers, adjustment.modifiers);
                     }
-                });
+                }
             }
         }
 
-        if (!context.skipDialog) {
+        if (!context.skipDialog && !isContextFlag(context)) {
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
                 new CheckModifiersDialog(check, resolve, context).render(true);
             });
@@ -154,33 +172,22 @@ export class CheckPF2e {
         }
 
         const options: string[] = [];
-        const ctx: ExtendedCheckModifersContext = context;
-
         let dice = "1d20";
-        ctx.fate ??= "none";
-        if (ctx.fate === "misfortune") {
+        if (context.fate === "misfortune") {
             dice = "2d20kl";
             options.push("PF2E.TraitMisfortune");
-        } else if (ctx.fate === "fortune") {
+        } else if (context.fate === "fortune") {
             dice = "2d20kh";
             options.push("PF2E.TraitFortune");
         }
 
         const speaker: { actor?: ActorPF2e } = {};
-        if (ctx.actor instanceof ActorPF2e) {
-            speaker.actor = ctx.actor;
-            ctx.actor = ctx.actor.id;
-        }
-        if (ctx.token instanceof TokenDocumentPF2e) {
-            ctx.token = ctx.token.id;
+        if (context.actor instanceof ActorPF2e) {
+            speaker.actor = context.actor;
         }
 
-        ctx.user = game.user.id;
-
-        const item = context.item;
-        delete context.item;
-
-        ctx.rollMode = ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
+        contextFlag.rollMode =
+            context.rollMode ?? (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
@@ -195,7 +202,7 @@ export class CheckPF2e {
         const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
 
         let flavor = `<strong>${check.name}</strong>`;
-        if (ctx.type === "spell-attack-roll" && game.modules.get("pf2qr")?.active) {
+        if (context.type === "spell-attack-roll" && game.modules.get("pf2qr")?.active) {
             // Until the PF2eQR module uses the roll type instead of feeling around for "Attack Roll"
             flavor = flavor.replace(/^<strong>/, '<strong data-pf2qr-hint="Attack Roll">');
         }
@@ -205,7 +212,7 @@ export class CheckPF2e {
         if (dc) {
             const degreeOfSuccess = getDegreeOfSuccess(roll, dc);
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
-            ctx.outcome = degreeOfSuccessText;
+            contextFlag.outcome = degreeOfSuccessText;
 
             // Add degree of success to roll for the callback function
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
@@ -215,7 +222,20 @@ export class CheckPF2e {
             if (needsDCParam && dc.label) dc.label = `${dc.label.trim()}: {dc}`;
 
             // Get any circumstance adjustments (penalties or bonuses) to the target's AC
-            const targetAC = context.target?.actor.attributes.ac;
+            const targetActor = await (async (): Promise<ActorPF2e | null> => {
+                if (!context.target?.actor) return null;
+                if (context.target.actor instanceof ActorPF2e) return context.target.actor;
+
+                // This is a context flag: get the actor via UUID
+                const maybeActor = await fromUuid(context.target.actor);
+                return maybeActor instanceof ActorPF2e
+                    ? maybeActor
+                    : maybeActor instanceof TokenDocumentPF2e
+                    ? maybeActor.actor
+                    : null;
+            })();
+
+            const targetAC = targetActor?.attributes.ac;
             const circumstances =
                 targetAC instanceof StatisticModifier
                     ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
@@ -225,11 +245,11 @@ export class CheckPF2e {
                     ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : targetAC?.value ?? null;
 
-            const showDC = context.target?.actor.hasPlayerOwner
+            const showDC = targetActor?.hasPlayerOwner
                 ? "all"
                 : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
 
-            const dcMarkup = ((): string => {
+            const dcMarkup = await (async (): Promise<string> => {
                 // If no target, just show the DC
                 if (!context.target?.token) {
                     const dcLabel = game.i18n.format(dc.label ?? "PF2E.Check.DC", { dc: dc.value });
@@ -238,9 +258,17 @@ export class CheckPF2e {
 
                 // Later there will need to be a different way of deciding between AC or DC, since not all
                 // actor-targetted checks are against AC
-                dc.label ??= context.target.token ? "PF2E.Check.AC" : "PF2E.Check.DC";
+                dc.label ??= game.i18n.localize(context.target.token ? "PF2E.Check.AC" : "PF2E.Check.DC");
 
-                const targetName = context.target.token.name;
+                const targetToken = await (async (): Promise<TokenDocumentPF2e | null> => {
+                    if (!context.target?.token) return null;
+                    if (context.target.token instanceof TokenDocumentPF2e) return context.target.token;
+
+                    // This is a context flag: get the actor via UUID
+                    return fromUuid(context.target.token);
+                })();
+
+                const targetName = targetToken?.name ?? targetActor?.name ?? "";
                 const dcNumber = preadjustedDC ?? dc.value;
                 const dcLabel = game.i18n.format(dc.label, { dc: dcNumber });
                 const adjustedDCLabel =
@@ -290,7 +318,7 @@ export class CheckPF2e {
                 }
             })();
             const adjustmentLabel = adjustment ? ` (${adjustment})` : "";
-            ctx.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
+            contextFlag.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
 
             const resultLabel = game.i18n.localize("PF2E.ResultLabel");
             const degreeLabel = game.i18n.localize(`PF2E.${dc.scope ?? "CheckOutcome"}.${degreeOfSuccessText}`);
@@ -311,24 +339,29 @@ export class CheckPF2e {
             flavor += "</div>";
         }
 
-        const notes = (ctx.notes ?? [])
-            .filter((note) => {
-                if (!ctx.dc || note.outcome.length === 0) {
-                    // Always show the note if the check has no DC or no outcome is specified.
-                    return true;
-                } else if (ctx.outcome && ctx.unadjustedOutcome) {
-                    if (note.outcome.includes(ctx.outcome) || note.outcome.includes(ctx.unadjustedOutcome)) {
-                        // Show the note if the specified outcome was achieved.
+        const notes =
+            context.notes
+                ?.filter((note) => {
+                    if (!context.dc || note.outcome.length === 0) {
+                        // Always show the note if the check has no DC or no outcome is specified.
                         return true;
+                    } else if (contextFlag.outcome && contextFlag.unadjustedOutcome) {
+                        if (
+                            [contextFlag.outcome, contextFlag.unadjustedOutcome].some((o) => note.outcome.includes(o))
+                        ) {
+                            // Show the note if the specified outcome was achieved.
+                            return true;
+                        }
                     }
-                }
-                return false;
-            })
-            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text))
-            .join("<br />");
+                    return false;
+                })
+                .map((note) => game.pf2e.TextEditor.enrichHTML(note.text))
+                .join("<br />") ?? "";
 
-        if (ctx.traits) {
-            const traits: string = ctx.traits
+        const item = context.item ?? null;
+
+        if (context.traits) {
+            const traits: string = context.traits
                 .map((trait) => {
                     trait.label = game.i18n.localize(trait.label);
                     return trait;
@@ -356,21 +389,14 @@ export class CheckPF2e {
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
 
-        if (ctx.options && ctx.options.indexOf("incapacitation") > -1) {
+        if (context.options && context.options.indexOf("incapacitation") > -1) {
             flavor += `<p class="compact-text"><strong>${game.i18n.localize("PF2E.TraitIncapacitation")}:</strong> `;
             flavor += `${game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort")}</p>`;
         }
 
-        const origin = item ? { uuid: item.uuid, type: item.type } : null;
+        const origin = item && { uuid: item.uuid, type: item.type };
         const coreFlags: Record<string, unknown> = { canPopout: true };
         if (context.type === "initiative") coreFlags.initiativeRoll = true;
-
-        if (context.target) {
-            ctx.target = {
-                actor: context.target.actor.uuid,
-                token: context.target.token.uuid,
-            };
-        }
 
         const message = (await roll.toMessage(
             {
@@ -379,8 +405,8 @@ export class CheckPF2e {
                 flags: {
                     core: coreFlags,
                     pf2e: {
-                        canReroll: !["fortune", "misfortune"].includes(ctx.fate),
-                        context,
+                        canReroll: !["fortune", "misfortune"].includes(contextFlag.fate ?? ""),
+                        context: contextFlag,
                         unsafe: flavor,
                         modifierName: check.name,
                         modifiers: check.modifiers,
@@ -389,15 +415,16 @@ export class CheckPF2e {
                 },
             },
             {
-                rollMode: ctx.rollMode ?? "publicroll",
-                create: ctx.createMessage === undefined ? true : ctx.createMessage,
+                rollMode: contextFlag.rollMode ?? "publicroll",
+                create: contextFlag.createMessage === undefined ? true : contextFlag.createMessage,
             }
         )) as ChatMessagePF2e | ChatMessageSourcePF2e;
 
         if (callback) {
-            // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData instance in v9
+            // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData
+            // instance in V9
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            await callback(roll, ctx.outcome, msg);
+            await callback(roll, contextFlag.outcome, msg);
         }
 
         // Consume one unit of the weapon if it has the consumable trait
@@ -550,12 +577,7 @@ export class DamageRollPF2e {
      * @param event
      * @param callback
      */
-    static roll(
-        damage: DamageTemplate,
-        context: ExtendedCheckModifersContext = {},
-        _event: JQuery.Event | undefined,
-        callback?: Function
-    ) {
+    static roll(damage: DamageTemplate, context: CheckRollContext = {}, _event?: JQuery.Event, callback?: Function) {
         if (context.options && context.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map((o: string) => o.toLowerCase()).includes("secret")) {

@@ -1,5 +1,5 @@
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
-import { CheckModifiersContext, FateString } from "./rolls";
+import { CheckRollContext, FateString } from "./rolls";
 import { LocalizePF2e } from "./localize";
 
 /**
@@ -10,13 +10,13 @@ export class CheckModifiersDialog extends Application {
     /** The check which is being edited. */
     check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
-    context: CheckModifiersContext;
+    context: CheckRollContext;
     /** A Promise resolve method */
     resolve: (value: boolean) => void;
     /** Has the promise been resolved? */
     isResolved = false;
 
-    constructor(check: StatisticModifier, resolve: (value: boolean) => void, context?: CheckModifiersContext) {
+    constructor(check: StatisticModifier, resolve: (value: boolean) => void, context?: CheckRollContext) {
         super({
             title: context?.title || check.name,
             template: "systems/pf2e/templates/chat/check-modifiers-dialog.html",
