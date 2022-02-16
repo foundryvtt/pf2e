@@ -7,7 +7,6 @@ import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
-import { DamageChatCard } from "@system/damage/chat-card";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
@@ -205,17 +204,6 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (token?.isVisible) {
             token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
         }
-    }
-
-    protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
-    ): Promise<void> {
-        if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
-            await DamageChatCard.preformat(this);
-        }
-        return super._preCreate(data, options, user);
     }
 
     protected override _onCreate(
