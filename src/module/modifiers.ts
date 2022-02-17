@@ -509,7 +509,7 @@ export class CheckModifier extends StatisticModifier {
     }
 }
 
-interface DamageDiceOverride {
+export interface DamageDiceOverride {
     /** Upgrade the damage dice to the next size */
     upgrade?: boolean;
 
@@ -543,7 +543,7 @@ export class DiceModifierPF2e implements BaseRawModifier {
     critical?: boolean;
     /** The damage category of these dice. */
     category?: string;
-    damageType?: string;
+    damageType?: string | null;
     /** If true, these dice overide the base damage dice of the weapon. */
     override?: DamageDiceOverride;
     ignored: boolean;
