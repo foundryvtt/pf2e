@@ -1279,11 +1279,6 @@ export function getPropertyRuneModifiers(runes: string[]): DiceModifierPF2e[] {
     });
 }
 
-export function hasGhostTouchRune(itemData: WeaponData): boolean {
-    const runes = new Set(getPropertyRunes(itemData, getPropertySlots(itemData)));
-    return runes.has("ghostTouch");
-}
-
 /* -------------------------------------------- */
 /*  Rune Valuation                              */
 /* -------------------------------------------- */
