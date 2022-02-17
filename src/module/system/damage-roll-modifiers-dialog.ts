@@ -126,7 +126,8 @@ export class DamageRollModifiersDialog extends Application {
             )}"></i></h3>`;
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll = new Roll(partial, formula.data).evaluate({ async: false });
+                const data: object = formula.data;
+                const roll = new Roll(partial, data).evaluate({ async: false });
                 rolls.push(roll);
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
