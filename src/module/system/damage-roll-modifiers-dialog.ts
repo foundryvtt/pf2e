@@ -3,9 +3,8 @@ import { RollNotePF2e } from "@module/notes";
 import { ModifierPF2e } from "@module/modifiers";
 import { DamageTemplate } from "@system/damage/weapon";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ActorPF2e } from "@actor/index";
-import type { ItemPF2e } from "@item";
 import { DamageRollFlag } from "@module/chat-message/data";
+import { CheckRollContext } from "./rolls";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
@@ -46,7 +45,7 @@ export class DamageRollModifiersDialog extends Application {
         this.callback = callback;
     }
 
-    static roll(damage: DamageTemplate, context: any, callback: any) {
+    static roll(damage: DamageTemplate, context: CheckRollContext = {}, callback?: Function) {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? "success") as DegreeOfSuccessString;
 
@@ -127,7 +126,8 @@ export class DamageRollModifiersDialog extends Application {
             )}"></i></h3>`;
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll = new Roll(partial, formula.data).evaluate({ async: false });
+                const data: object = formula.data;
+                const roll = new Roll(partial, data).evaluate({ async: false });
                 rolls.push(roll);
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
@@ -167,16 +167,12 @@ export class DamageRollModifiersDialog extends Application {
             return Roll.fromTerms([pool]);
         })();
 
-        const speaker: { actor?: ActorPF2e } = {
-            actor: ctx.actor,
-        };
-
-        const item: ItemPF2e | null = context.item ?? null;
+        const item = context.item ?? null;
         const origin = item ? { uuid: item.uuid, type: item.data.type } : null;
         ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessagePF2e.getSpeaker(speaker),
+                speaker: ChatMessagePF2e.getSpeaker({ actor: ctx.actor, token: ctx.token }),
                 flavor,
                 content: content.trim(),
                 roll,

@@ -767,14 +767,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const rollOptions = Array.from(new Set([selfOptions, targetOptions].flat()));
 
         // Calculate distance and set as a roll option
-        const distance =
-            selfToken && targetToken && !!canvas.grid
-                ? ((): number => {
-                      const groundDistance = selfToken.distanceTo(targetToken);
-                      const elevationDiff = Math.abs(selfToken.data.elevation - targetToken.data.elevation);
-                      return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
-                  })()
-                : null;
+        const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
         rollOptions.push(`target:distance:${distance}`);
 
         const self = {

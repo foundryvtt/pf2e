@@ -77,12 +77,6 @@ interface VehicleTraitsData extends BaseTraitsData {
     traits: VehicleTraits;
 }
 
-export interface VehicleDimensions {
-    length: number;
-    width: number;
-    height: number;
-}
-
 export interface TokenDimensions {
     width: number;
     height: number;
