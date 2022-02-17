@@ -988,6 +988,7 @@ export const PF2ECONFIG = {
         emotion: "PF2E.TraitEmotion",
         evil: "PF2E.TraitEvil",
         extradimensional: "PF2E.TraitExtradimensional",
+        focused: "PF2E.TraitFocused",
         fear: "PF2E.TraitFear",
         force: "PF2E.TraitForce",
         flexible: "PF2E.TraitFlexible",

@@ -11,7 +11,7 @@ import type { LocalizePF2e } from "@module/system/localize";
 import { ARMOR_PROPERTY_RUNES } from "@item/runes";
 import type { ArmorPF2e } from ".";
 
-export type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemData>;
+export type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 
 export class ArmorData extends BasePhysicalItemData<ArmorPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/armor.svg";
@@ -29,8 +29,8 @@ type ArmorTraits = PhysicalItemTraits<ArmorTrait>;
 export type ArmorCategory = keyof ConfigPF2e["PF2E"]["armorTypes"];
 export type ArmorGroup = keyof ConfigPF2e["PF2E"]["armorGroups"];
 export type BaseArmorType = keyof typeof LocalizePF2e.translations.PF2E.Item.Armor.Base;
-export type armorMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
 export type ResilientRuneType = "resilient" | "greaterResilient" | "majorResilient";
+export type armorMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
 
 export type ArmorPropertyRuneType = keyof typeof ARMOR_PROPERTY_RUNES[number];
 export interface ArmorRuneData {

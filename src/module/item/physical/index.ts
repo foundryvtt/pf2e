@@ -216,6 +216,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
+    // used by weapon/armor item types to calculate item price and generate magic name (if applicable)
     processMaterialAndRunes(): void {
         const systemData = this.data.data;
 
@@ -262,10 +263,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         this.data.name = this.generateMagicName();
     }
 
+    // array of rune information for the item, null/empty if not a runable item - see weapon/armor for examples of usage
     getRunesData(): RuneValuationData[] {
         return [].filter((datum) => !!datum);
     }
 
+    // bool to indicate if item has runes or not, false if not a runable item - see weapon/armor for examples of usage
     hasRunes() {
         return false;
     }
@@ -275,11 +278,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return MATERIAL_VALUATION_DATA[material?.type ?? ""][material?.grade ?? "low"];
     }
 
+    // bool to indicate if item has been marked by user as specific, false if not a runable item - see weapon/armor for examples of usage
     isItemSpecific(): boolean {
         return false;
     }
 
-    /** Generate a item (weapon/armor) name base on precious-material composition and runes */
+    // Generate a item (weapon/armor) name base on precious-material composition and runes
     generateMagicName(): string {
         if (this.getShouldItemKeepName()) return this.data.name;
         const params = this.getRuneParams();
@@ -306,14 +310,17 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return formatString ? game.i18n.format(formatString, params) : this.name;
     }
 
+    // bool to indicate if item should keep the user entered name, false if not a runable item - see weapon/armor for examples of usage
     getShouldItemKeepName() {
         return true;
     }
 
+    // array of format strings used to generate magic item name, empty if not a runable item - see weapon/armor for examples of usage
     getFormatStrings() {
         return {};
     }
 
+    // array to format rune paramater for formating magic item name, null entries if not a runable item - see weapon/armor for examples of usage
     getRuneParams(): RuneParams {
         return {
             base: this.name,

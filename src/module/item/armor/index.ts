@@ -1,10 +1,9 @@
-import { RuneValuationData, ARMOR_VALUATION_DATA } from "../runes";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { ArmorPropertyRuneType } from "./data";
 import { addSign } from "@util";
 import { PhysicalItemPF2e } from "../physical";
-import { getArmorBonus, getResiliencyBonus, RuneParams } from "../runes";
+import { RuneValuationData, ARMOR_VALUATION_DATA, getResiliencyBonus, RuneParams } from "../runes";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
 
 export class ArmorPF2e extends PhysicalItemPF2e {
@@ -79,7 +78,22 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isBroken(): boolean {
-        return this.hitPoints.value <= this.brokenThreshold;
+        const { hitPoints } = this;
+        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= this.brokenThreshold;
+    }
+
+    get isDestroyed(): boolean {
+        const { hitPoints } = this;
+        return hitPoints.max > 0 && hitPoints.value === 0;
+    }
+
+    /** Given this is a shield, is it raised? */
+    get isRaised(): boolean {
+        if (!(this.isShield && (this.actor?.data.type === "character" || this.actor?.data.type === "npc"))) {
+            return false;
+        }
+
+        return this.actor.heldShield === this && this.actor.data.data.attributes.shield.raised;
     }
 
     /** Generate a list of strings for use in predication */
@@ -92,8 +106,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => {
-                    const separatedPrefix = prefix ? `${prefix}:` : "";
-                    return `${separatedPrefix}${key}`;
+                    const delimitedPrefix = prefix ? `${prefix}:` : "";
+                    return `${delimitedPrefix}${key}`;
                 })
         );
     }
@@ -110,9 +124,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
         // Add traits from potency rune
         const baseTraits = this.data.data.traits.value;
-        const fromRunes: ("invested" | "abjuration")[] = this.data.data.potencyRune.value
-            ? ["invested", "abjuration"]
-            : [];
+        const fromRunes: ("invested" | "abjuration")[] =
+            this.data.data.potencyRune.value || this.data.data.resiliencyRune.value ? ["invested", "abjuration"] : [];
         const hasTraditionTraits = MAGIC_TRADITIONS.some((trait) => baseTraits.includes(trait));
         const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
@@ -196,7 +209,12 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     override prepareActorData(this: Embedded<ArmorPF2e>): void {
+        const { actor } = this;
+        const ownerIsPCOrNPC = actor.data.type === "character" || actor.data.type === "npc";
+        const shieldIsAssigned = ownerIsPCOrNPC && actor.data.data.attributes.shield.itemId !== null;
+
         if (this.isArmor && this.isEquipped) {
+            // Set roll options for certain armor traits
             const traits = this.traits;
             for (const [trait, domain] of [
                 ["bulwark", "reflex"],
@@ -208,25 +226,39 @@ export class ArmorPF2e extends PhysicalItemPF2e {
                     checkOptions[`self:armor:trait:${trait}`] = true;
                 }
             }
+        } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && this.actor.heldShield === this) {
+            // Set actor-shield data from this shield item
+            actor.data.data.attributes.shield = {
+                itemId: this.id,
+                name: this.name,
+                ac: this.acBonus,
+                hp: this.hitPoints,
+                hardness: this.hardness,
+                brokenThreshold: this.brokenThreshold,
+                raised: false,
+                broken: this.isBroken,
+                destroyed: this.isDestroyed,
+                icon: this.img,
+            };
+            actor.rollOptions.all["self:shield:equipped"] = true;
         }
     }
 
     override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
-        const localize = game.i18n.localize.bind(game.i18n);
+        const translations = LocalizePF2e.translations.PF2E;
         const properties = [
-            CONFIG.PF2E.armorTypes[this.category],
-            this.group ? CONFIG.PF2E.armorGroups[this.group] : null,
-            `${addSign(getArmorBonus(data))} ${localize("PF2E.ArmorArmorLabel")}`,
-            `${data.dex.value || 0} ${localize("PF2E.ArmorDexLabel")}`,
-            `${data.check.value || 0} ${localize("PF2E.ArmorCheckLabel")}`,
-            `${data.speed.value || 0} ${localize("PF2E.ArmorSpeedLabel")}`,
-        ].filter((property) => property);
+            this.isArmor ? CONFIG.PF2E.armorTypes[this.category] : CONFIG.PF2E.weaponCategories.martial,
+            `${addSign(this.acBonus)} ${translations.ArmorArmorLabel}`,
+            this.isArmor ? `${data.dex.value || 0} ${translations.ArmorDexLabel}` : null,
+            this.isArmor ? `${data.check.value || 0} ${translations.ArmorCheckLabel}` : null,
+            this.speedPenalty ? `${data.speed.value || 0} ${translations.ArmorSpeedLabel}` : null,
+        ];
 
         return this.processChatData(htmlOptions, {
-            ...data,
-            properties,
+            ...super.getChatData(),
             traits: this.traitChatData(CONFIG.PF2E.armorTraits),
+            properties,
         });
     }
 
