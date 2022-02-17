@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
+import { CheckRollContextFlag, RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e, SpellPF2e } from "@item";
@@ -7,7 +7,6 @@ import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
-import { DamageChatCard } from "@system/damage/chat-card";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
@@ -207,17 +206,6 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
-    protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
-    ): Promise<void> {
-        if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
-            await DamageChatCard.preformat(this);
-        }
-        return super._preCreate(data, options, user);
-    }
-
     protected override _onCreate(
         data: foundry.data.ChatMessageSource,
         options: DocumentModificationContext,
@@ -241,7 +229,7 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
     getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
     getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;
-    getFlag(scope: "pf2e", key: "context"): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
+    getFlag(scope: "pf2e", key: "context"): CheckRollContextFlag | undefined;
 }
 
 declare namespace ChatMessagePF2e {

@@ -19,9 +19,9 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     /** Get the HTML template path to use depending on whether this sheet is in edit mode */
     override get template(): string {
-        const path = "systems/pf2e/templates/actors/";
-        if (this.actor.getFlag("pf2e", "editHazard.value")) return `${path}hazard-sheet.html`;
-        return `${path}hazard-sheet-no-edit.html`;
+        const path = "systems/pf2e/templates/actors/hazard/";
+        if (this.actor.getFlag("pf2e", "editHazard.value")) return `${path}sheet.html`;
+        return `${path}sheet-no-edit.html`;
     }
 
     override async getData() {

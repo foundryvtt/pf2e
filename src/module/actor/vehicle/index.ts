@@ -1,17 +1,19 @@
+import { ActorDimensions } from "@actor/types";
 import { ItemPF2e } from "@item/base";
 import { ItemSourcePF2e } from "@item/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { ActorPF2e, HitPointsSummary } from "../base";
-import { TokenDimensions, VehicleData, VehicleDimensions, VehicleSource } from "./data";
+import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
     static override get schema(): typeof VehicleData {
         return VehicleData;
     }
 
-    get dimensions(): VehicleDimensions {
+    /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
+    override get dimensions(): ActorDimensions {
         return {
             length: this.data.data.details.space.long,
             width: this.data.data.details.space.wide,
@@ -19,7 +21,7 @@ export class VehiclePF2e extends ActorPF2e {
         };
     }
 
-    getTokenDimensions(dimensions: Omit<VehicleDimensions, "height"> = this.dimensions): TokenDimensions {
+    getTokenDimensions(dimensions: Omit<ActorDimensions, "height"> = this.dimensions): TokenDimensions {
         return {
             width: Math.max(Math.round(dimensions.width / 5), 1),
             height: Math.max(Math.round(dimensions.length / 5), 1),
