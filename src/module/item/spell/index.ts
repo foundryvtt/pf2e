@@ -149,16 +149,11 @@ export class SpellPF2e extends ItemPF2e {
 
     /** Calculates the full damage formula for a specific spell level */
     getDamageFormula(castLevel?: number, rollData: object = {}) {
-        const experimentalDamageFormat = game.settings.get("pf2e", "automation.experimentalDamageFormatting");
-
         castLevel = this.computeCastLevel(castLevel);
         const formulas: string[] = [];
         for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
-            // Persistent / Splash are currently not supported for regular modes
-            const isPersistentOrSplash = damage.type.subtype === "persistent" || damage.type.subtype === "splash";
-            if (!experimentalDamageFormat && isPersistentOrSplash) {
-                continue;
-            }
+            // Currently unable to handle display of perisistent and splash damage
+            if (damage.type.subtype) continue;
 
             const parts: (string | number)[] = [];
             if (damage.value && damage.value !== "0") parts.push(damage.value);
@@ -202,11 +197,7 @@ export class SpellPF2e extends ItemPF2e {
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
             const formula = DicePF2e.combineTerms(baseFormulaFixed).formula;
-            if (experimentalDamageFormat) {
-                formulas.push(`{${formula}}[${categories.join(",")}]`);
-            } else {
-                formulas.push(formula);
-            }
+            formulas.push(formula);
         }
 
         // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this

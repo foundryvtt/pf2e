@@ -100,6 +100,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`material:${this.material?.type}`]: !!this.material?.type,
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
+                [`damage-dice:${1 + this.data.data.runes.striking}`]: true,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,

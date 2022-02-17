@@ -243,7 +243,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         const gridSize = canvas.dimensions.size;
 
-        const tokenRect = (token: TokenPF2e): PIXI.Rectangle => {
+        const tokenRect = (token: { x: number; y: number; w: number; h: number }): PIXI.Rectangle => {
             return new PIXI.Rectangle(
                 token.x + gridSize / 2,
                 token.y + gridSize / 2,
@@ -252,7 +252,41 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             );
         };
 
-        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach });
+        const distance = {
+            horizontal: MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach }),
+            vertical: 0,
+        };
+
+        const selfElevation = this.data.elevation;
+        const targetElevation = target.data.elevation;
+        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.horizontal;
+
+        const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
+        if (!(selfDimensions && targetDimensions)) return distance.horizontal;
+
+        const verticalPlane = {
+            self: {
+                x: this.x,
+                y: (this.data.elevation / 5) * gridSize,
+                w: this.w,
+                h: (selfDimensions.height / 5) * gridSize,
+            },
+            target: {
+                x: target.x,
+                y: (target.data.elevation / 5) * gridSize,
+                w: target.w,
+                h: (targetDimensions.height / 5) * gridSize,
+            },
+        };
+
+        distance.vertical = MeasuredTemplatePF2e.measureDistanceRect(
+            tokenRect(verticalPlane.self),
+            tokenRect(verticalPlane.target),
+            { reach }
+        );
+
+        const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
+        return Math.floor(hypotenuse / 5) * 5;
     }
 
     /* -------------------------------------------- */
