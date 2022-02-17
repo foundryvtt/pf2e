@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 3.4.3
+
+### Core System Improvements
+* (stwlam) Take token elevation into account when assessing flanking
+* (stwlam) Represent token spaces as cubes rather than squares when calculating three-dimensional reach and range increments
+* (stwlam) Provide sufficient information for Gravity Weapon effect to automatically determine number of weapon damage dice
+
+### Bugfixes
+* (stwlam) Fix rerolling attacks when flanking
+* (stwlam) Work around Foundry bug that can adversely affect vision when activating a different scene
+* (stwlam) Fix overriding damage type from Damage Dice rule element
+* (stwlam) Remove experimental damage chat card formatting
+
+
 ## Version 3.4.2
 
 ### Bugfixes
