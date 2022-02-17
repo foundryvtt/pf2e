@@ -29,6 +29,7 @@ import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "../item/physical/usage";
+import { ActorDimensions } from "./types";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -107,6 +108,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get size(): Size {
         return this.data.data.traits.size.value;
+    }
+
+    /**
+     * With the exception of vehicles, actor heights aren't specified. For the purpose of three-dimensional
+     * token-distance measurement, however, the system will generally treat actors as cubes.
+     */
+    get dimensions(): ActorDimensions {
+        const { size } = this.data.data.traits;
+        return {
+            length: size.length,
+            width: size.width,
+            height: Math.min(size.length, size.width),
+        };
     }
 
     /**
