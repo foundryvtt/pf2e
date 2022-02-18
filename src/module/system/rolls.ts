@@ -188,7 +188,7 @@ export class CheckPF2e {
         }
 
         contextFlag.rollMode =
-            context.rollMode ?? (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
+            context.rollMode ?? (contextFlag.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
