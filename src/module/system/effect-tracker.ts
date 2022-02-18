@@ -133,18 +133,27 @@ export class EffectTracker {
         }
     }
 
+    /** Expire or remove on-encounter-end effects */
     async onEncounterEnd(encounter: EncounterPF2e): Promise<void> {
+        const autoRemoveExpired = game.settings.get("pf2e", "automation.removeExpiredEffects");
+        const autoExpireEffects = !autoRemoveExpired && game.settings.get("pf2e", "automation.effectExpiration");
+        if (!(autoExpireEffects || autoRemoveExpired)) return;
+
         const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
         for (const actor of actors) {
             const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
-            if (expiresNow.length > 0) {
-                actor.updateEmbeddedDocuments(
-                    "Item",
-                    expiresNow.map((e) => ({ _id: e.id, "data.expired": true }))
-                );
-                for (const effect of expiresNow) {
-                    this.unregister(effect);
-                }
+            if (expiresNow.length === 0) return;
+
+            if (autoExpireEffects) {
+                const updates = expiresNow.map((e) => ({ _id: e.id, "data.expired": true }));
+                await actor.updateEmbeddedDocuments("Item", updates);
+            } else {
+                const deletes = expiresNow.map((e) => e.id);
+                await actor.deleteEmbeddedDocuments("Item", deletes);
+            }
+
+            for (const effect of expiresNow) {
+                this.unregister(effect);
             }
         }
     }
