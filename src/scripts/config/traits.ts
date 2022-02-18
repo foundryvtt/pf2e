@@ -476,6 +476,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 
 const otherWeaponTags = {
     crossbow: "PF2E.Weapon.Base.crossbow",
+    improvised: "PF2E.Item.Weapon.Improvised",
     "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
