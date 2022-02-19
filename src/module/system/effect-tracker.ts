@@ -142,7 +142,7 @@ export class EffectTracker {
         const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
         for (const actor of actors) {
             const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
-            if (expiresNow.length === 0) return;
+            if (expiresNow.length === 0) continue;
 
             if (autoExpireEffects) {
                 const updates = expiresNow.map((e) => ({ _id: e.id, "data.expired": true }));
