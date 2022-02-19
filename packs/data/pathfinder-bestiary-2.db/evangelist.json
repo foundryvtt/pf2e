@@ -56,7 +56,7 @@
                 "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>Evangelists, the velstracs' unofficial ambassadors, roam the farthest reaches of the planes to spread the word of their kind's abhorrent belief in perfection through pain. They are therefore the most frequently encountered velstracs on the Material Plane, leading covens of hedonistic mortal flesh-sculptors or serving as wardens of horrific dungeons. In regions ruled by infernal powers, evangelists may serve as lieutenants or advisors, whispering secret paths to power in exchange for mortal's souls or choice mortal flesh. Evangelists are the same size as humans, although with the heavy chains that always drape their forms, they often weigh 350 pounds or more.</p>",
+            "publicNotes": "<p>Evangelists, the velstracs' unofficial ambassadors, roam the farthest reaches of the planes to spread the word of their kind's abhorrent belief in perfection through pain. They are therefore the most frequently encountered velstracs on the Material Plane, leading covens of hedonistic mortal flesh-sculptors or serving as wardens of horrific dungeons. In regions ruled by infernal powers, evangelists may serve as lieutenants or advisors, whispering secret paths to power in exchange for mortal's souls or choice mortal flesh. Evangelists are the same size as humans, although with the heavy chains that always drape their forms, they often weigh 350 pounds or more.</p>\n<hr />\n<p>The search for ultimate sensation through self-mutilation is the horrifying preoccupation of the shadow-dwelling fiends known as velstracs. They transcend their stoic detachment only when inflicting pain and terror upon their victims, practicing new forms of torture, or when turning their agonizing practices back on themselves. Velstracs consider themselves enlightened beings, transcending such limitations as morality or mortal taboos, but their victims know them as emotionless tormentors who inflict sadistic suffering. These fiends claim to seek perfection in thought, form, and action, although they don't recognize any refinement that doesn't require the painful excision of the flesh or spirit.</p>\n<p>Velstracs manifest from the souls of the most extreme masochistic or sadistic mortals who are judged and sent on to the Shadow Plane. They take on forms that suit their vile predilections, ranging from the low-ranking augurs to the maestros of suffering and mutilation called eremites. The process of transformation warps the soul step by step, with other velstracs conveying their new members through untold chambers of pain among the dark reaches of the Shadow Plane.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
@@ -90,14 +90,12 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Silver",
                     "type": "silver",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -151,9 +149,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.regular]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.regular]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.critical]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -181,7 +196,7 @@
             "type": "melee"
         },
         {
-            "_id": "Tl6uzJpsMmLaHI2P",
+            "_id": "41jyyqtM7TidzhJx",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -272,7 +287,7 @@
             "type": "action"
         },
         {
-            "_id": "4f8Xn8AVpubItk3h",
+            "_id": "Ybx41yIdQO59hKjK",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -296,9 +311,9 @@
                             "any": [
                                 "magical",
                                 "arcane",
+                                "divine",
                                 "primal",
-                                "occult",
-                                "divine"
+                                "occult"
                             ]
                         },
                         "selector": "saving-throw",
@@ -306,7 +321,7 @@
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -323,14 +338,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs Magic",
+            "name": "+1 Status to All Saves vs Magic",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "GhoTNgQqndSEwa43",
+            "_id": "VH3uvuMCquGbT6Wx",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -371,12 +390,12 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 10 (deactivated by good or silver)",
+            "name": "Regeneration 10 (Deactivated by Good or Silver)",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "gnpmR7nH5v5Ra3xZ",
+            "_id": "78oc41E029XUkMoS",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -434,7 +453,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -528,7 +547,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The evangelist stares at a creature they can see within 30 feet. The target must immediately attempt a Will save against Unnerving gaze. In addition, if the creature was already @Compendium[pf2e.conditionitems.Frightened]{Frightened}, on a failed save, the evangelist is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from the creature for as long as the creature remains frightened. After attempting this save, the creature is then temporarily immune until the start of the evangelist's next turn.</p>"
+                    "value": "<p>The evangelist stares at a creature they can see within 30 feet. The target must immediately attempt a @Check[type:will|dc:21] save against Unnerving gaze. In addition, if the creature was already @Compendium[pf2e.conditionitems.Frightened]{Frightened}, on a failed save, the evangelist is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from the creature for as long as the creature remains frightened.</p>\n<p>After attempting this save, the creature is then temporarily immune until the start of the evangelist's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
