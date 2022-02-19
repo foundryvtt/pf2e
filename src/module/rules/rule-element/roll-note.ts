@@ -1,6 +1,6 @@
 import { RuleElementPF2e, BracketedValue, RuleElementData } from "./";
 import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessText, DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/check-degree-of-success";
 
 /**
  * @category RuleElement
@@ -16,7 +16,7 @@ export class RollNoteRuleElement extends RuleElementPF2e {
             }
             if (Array.isArray(this.data.outcome)) {
                 note.outcome = this.data.outcome.filter((outcome: string): outcome is DegreeOfSuccessString =>
-                    DegreeOfSuccessText.some((degree) => degree === outcome)
+                    DEGREE_OF_SUCCESS_STRINGS.some((degree) => degree === outcome)
                 );
             }
             const notes = (this.actor.synthetics.rollNotes[selector] ??= []);

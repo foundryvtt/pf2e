@@ -21,10 +21,10 @@ export const DegreeAdjustment = {
     INCREASE_BY_TWO: 2,
 } as const;
 
-export type DegreeAdjustmentValues = typeof DegreeAdjustment[keyof typeof DegreeAdjustment];
+export type DegreeAdjustmentValue = typeof DegreeAdjustment[keyof typeof DegreeAdjustment];
 
 export function adjustDegreeOfSuccess(
-    adjustment: DegreeAdjustmentValues,
+    adjustment: DegreeAdjustmentValue,
     degreeOfSuccess: DegreeOfSuccess
 ): DegreeOfSuccess {
     return DegreeOfSuccess[

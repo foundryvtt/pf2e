@@ -11,7 +11,7 @@ import {
 import { CheckPF2e } from "../rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
-import { CheckDC, DegreeOfSuccessString, DegreeOfSuccessText } from "@system/check-degree-of-success";
+import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/check-degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { balance } from "./acrobatics/balance";
@@ -65,7 +65,7 @@ export interface SkillActionOptions extends ActionDefaultOptions {
 export interface CheckResultCallback {
     actor: ActorPF2e;
     message?: ChatMessage;
-    outcome?: typeof DegreeOfSuccessText[number];
+    outcome: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null | undefined;
     roll: Rolled<Roll>;
 }
 

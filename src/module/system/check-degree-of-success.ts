@@ -1,7 +1,7 @@
 import {
     DieRoll,
     DegreeAdjustment,
-    DegreeAdjustmentValues,
+    DegreeAdjustmentValue,
     DegreeOfSuccess,
     calculateDegreeOfSuccess,
     adjustDegreeOfSuccess,
@@ -48,23 +48,24 @@ const ADJUSTMENTS = Object.freeze({
     "two-degrees-worse": DegreeAdjustment.LOWER_BY_TWO,
 });
 
-export const DegreeOfSuccessText = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
-export type DegreeOfSuccessString = typeof DegreeOfSuccessText[number];
+export const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
+export type DegreeOfSuccessString = typeof DEGREE_OF_SUCCESS_STRINGS[number];
 
-export function getDegreeOfSuccess(
-    roll: Roll<RollDataPF2e>,
-    checkDC: CheckDC
-): { unadjusted: DegreeOfSuccess; value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustmentValues | undefined } {
+export interface DegreeOfSuccessData {
+    unadjusted: DegreeOfSuccess;
+    value: DegreeOfSuccess;
+    degreeAdjustment: DegreeAdjustmentValue | null;
+}
+
+export function getDegreeOfSuccess(roll: Rolled<Roll<RollDataPF2e>>, checkDC: CheckDC): DegreeOfSuccessData {
     const dieRoll: DieRoll = {
-        dieValue: Number(roll.terms[0].total) ?? 0,
-        modifier: roll.data.totalModifier ?? 0,
+        dieValue: roll.terms.find((t): t is Die => t instanceof Die)?.total ?? 0,
+        modifier: roll.terms.find((t): t is NumericTerm => t instanceof NumericTerm)?.total ?? 0,
     };
     const unadjusted = calculateDegreeOfSuccess(dieRoll, checkDC.value);
-    let value = unadjusted;
-    const degreeAdjustment = getDegreeAdjustment(value, checkDC.modifiers ?? {});
-    if (degreeAdjustment !== undefined) {
-        value = adjustDegreeOfSuccess(degreeAdjustment, value);
-    }
+    const degreeAdjustment = getDegreeAdjustment(unadjusted, checkDC.modifiers ?? {});
+    const value = degreeAdjustment ? adjustDegreeOfSuccess(degreeAdjustment, unadjusted) : unadjusted;
+
     return {
         unadjusted,
         value,
@@ -72,7 +73,7 @@ export function getDegreeOfSuccess(
     };
 }
 
-function getDegreeAdjustment(value: DegreeOfSuccess, modifiers: CheckDCModifiers): DegreeAdjustmentValues | undefined {
+function getDegreeAdjustment(value: DegreeOfSuccess, modifiers: CheckDCModifiers): DegreeAdjustmentValue | null {
     for (const degree of ["all", "criticalFailure", "failure", "success", "criticalSuccess"] as const) {
         const checkDC = modifiers[degree];
         if (!checkDC) continue;
@@ -92,5 +93,6 @@ function getDegreeAdjustment(value: DegreeOfSuccess, modifiers: CheckDCModifiers
             }
         }
     }
-    return;
+
+    return null;
 }
