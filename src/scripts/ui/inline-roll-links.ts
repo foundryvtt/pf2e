@@ -21,19 +21,6 @@ function resolveActors(): ActorPF2e[] {
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollsLinks = {
-    // Conditionally show DCs in the text
-    injectDCText: ($links: JQuery) => {
-        $links.each((_idx, link) => {
-            const dc = Number(link.dataset.pf2Dc?.trim() ?? "");
-            const role = link.dataset.pf2ShowDc?.trim() ?? "";
-            const userCanView = ["all", "owner"].includes(role) || (role === "gm" && game.user.isGM);
-            if (userCanView && dc > 0) {
-                const text = link.innerHTML;
-                link.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text });
-            }
-        });
-    },
-
     injectRepostElement: ($links: JQuery) => {
         $links.each((_idx, link) => {
             if (game.user.isGM) {
@@ -51,7 +38,6 @@ export const InlineRollsLinks = {
 
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
-        InlineRollsLinks.injectDCText($links);
         InlineRollsLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
