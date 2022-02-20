@@ -70,6 +70,25 @@ export const Ready = {
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
 
+            // Warn GMs for each active module without V9 compatibility
+            if (game.user.isGM) {
+                const subV9Modules = Array.from(game.modules.values()).filter(
+                    (m) =>
+                        m.active &&
+                        // Foundry does not enforce the presence of `ModuleData#compatibleCoreVersion`, but modules
+                        // without it will also not be listed in the package manager. Skip warning those without it in
+                        // case they were made for private use.
+                        m.data.compatibleCoreVersion &&
+                        !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion, "0.8.9")
+                );
+
+                for (const badModule of subV9Modules) {
+                    ui.notifications.warn(
+                        game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.data.title })
+                    );
+                }
+            }
+
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");
         });
