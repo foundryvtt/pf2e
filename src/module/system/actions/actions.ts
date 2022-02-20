@@ -214,11 +214,6 @@ export class ActionsPF2e {
                     .concat(options.extraOptions)
                     .concat(options.traits)
                     .concat(targetOptions);
-                {
-                    // options for roller's conditions
-                    const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-                    finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
-                }
                 // modifier from roller's equipped weapons
                 if (options.weaponTrait) {
                     this.getApplicableEquippedWeapons(actor, options.weaponTrait).map((item: WeaponPF2e) =>
