@@ -24,7 +24,7 @@ export class Migration717TakeFeatLimits extends MigrationBase {
         "animal-senses-darkvision": Infinity,
         "animal-senses-low-light-vision": Infinity,
         "animal-senses-scent-imprecise": Infinity,
-        "armor-training": 2,
+        "armor-proficiency": 3,
         assurance: Infinity,
         "automatic-knowledge": Infinity,
         "blessing-of-the-sun-gods": Infinity,
