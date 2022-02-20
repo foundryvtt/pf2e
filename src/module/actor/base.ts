@@ -518,32 +518,34 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<void> {
         const { hitPoints } = this;
-        if (!(hitPoints && "shield" in this.attributes)) return;
+        if (!hitPoints) return;
         damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
 
         // Calculate damage to hit points and shield
         const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
-        const actorShield = this.attributes.shield;
-        const shieldBlock = shieldBlockRequest
-            ? ((): boolean => {
-                  if (actorShield.broken) {
-                      const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
-                      ui.notifications.warn(
-                          game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: actorShield.name })
-                      );
-                      return false;
-                  } else if (!actorShield.raised) {
-                      ui.notifications.warn(game.i18n.format(translations.ShieldNotRaised, { actor: token.name }));
-                      return false;
-                  } else {
-                      return true;
-                  }
-              })()
-            : false;
+        const { attributes } = this;
+        const actorShield = "shield" in attributes ? attributes.shield : null;
+        const shieldBlock =
+            actorShield && shieldBlockRequest
+                ? ((): boolean => {
+                      if (actorShield.broken) {
+                          const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
+                          ui.notifications.warn(
+                              game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: actorShield.name })
+                          );
+                          return false;
+                      } else if (!actorShield.raised) {
+                          ui.notifications.warn(game.i18n.format(translations.ShieldNotRaised, { actor: token.name }));
+                          return false;
+                      } else {
+                          return true;
+                      }
+                  })()
+                : false;
 
-        const shieldHardness = shieldBlock ? actorShield.hardness ?? 0 : 0;
+        const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
         const absorbedDamage = Math.min(shieldHardness, Math.abs(damage));
-        const shieldDamage = shieldBlock ? Math.min(actorShield.hp.value, Math.abs(damage) - absorbedDamage) : 0;
+        const shieldDamage = shieldBlock ? Math.min(actorShield?.hp.value ?? 0, Math.abs(damage) - absorbedDamage) : 0;
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
@@ -555,7 +557,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Make updates
         if (shieldDamage > 0) {
             const shield = (() => {
-                const item = this.items.get(actorShield.itemId ?? "");
+                const item = this.items.get(actorShield?.itemId ?? "");
                 return item instanceof ArmorPF2e ? item : null;
             })();
             await shield?.update(
@@ -587,9 +589,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
         })();
 
-        const updatedShield = this.attributes.shield;
+        const updatedShield = "shield" in this.attributes ? this.attributes.shield : null;
         const shieldStatement =
-            shieldDamage > 0
+            updatedShield && shieldDamage > 0
                 ? updatedShield.broken
                     ? translations.ShieldDamagedForNBroken
                     : updatedShield.destroyed
