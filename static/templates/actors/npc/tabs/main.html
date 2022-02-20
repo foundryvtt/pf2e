@@ -46,7 +46,7 @@
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
                         <div class="labelled-field" data-attribute="{{id}}">
-                            <label class="rollable"><a>{{ ability.localizedCode }}</a></label>
+                            <label title="{{localize ability.label}}">{{localize ability.shortLabel}}</label>
                             <input class="modifier" type="text" data-property="data.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
                         </div>
                     {{/each}}
