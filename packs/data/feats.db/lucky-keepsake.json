@@ -19,6 +19,7 @@
         "level": {
             "value": 9
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,24 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "spell",
+                        "magical",
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
