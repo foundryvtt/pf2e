@@ -1339,7 +1339,6 @@ export class CharacterPF2e extends CreaturePF2e {
                     const context = this.getAttackRollContext({
                         domains: [],
                         item: weapon,
-                        meleeUsage: args.meleeUsage,
                         viewOnly: args.getFormula ?? false,
                     });
 
@@ -1398,7 +1397,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: args.getFormula ?? false,
-                    meleeUsage: args.meleeUsage,
                 });
 
                 // Set range-increment roll option
