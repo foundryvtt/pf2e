@@ -207,10 +207,13 @@ export class ActionsPF2e {
                 flavor += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
                 const stat = getProperty(actor, options.statName) as StatisticModifier;
                 const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
+
+                const targetOptions = target.actor?.getSelfRollOptions("target") ?? [];
                 const finalOptions = actor
                     .getRollOptions(options.rollOptions)
                     .concat(options.extraOptions)
-                    .concat(options.traits);
+                    .concat(options.traits)
+                    .concat(targetOptions);
                 {
                     // options for roller's conditions
                     const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
@@ -235,26 +238,12 @@ export class ActionsPF2e {
                         );
                     });
                 }
+
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 const dc = (() => {
                     if (options.difficultyClass) {
                         return options.difficultyClass;
                     } else if (target && target.actor instanceof CreaturePF2e) {
-                        const targetOptions: string[] = [];
-
-                        // target's conditions
-                        const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-                        targetOptions.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
-
-                        // target's traits
-                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? "")
-                            .split(/[;,\\|]/)
-                            .map((value) => value.trim())
-                            .concat(target.actor.data.data.traits.traits.value ?? [])
-                            .filter((value) => !!value)
-                            .map((trait) => `target:${trait}`);
-                        targetOptions.push(...targetTraits);
-
                         // try to resolve target's defense stat and calculate DC
                         const dcStat = options.difficultyClassStatistic?.(target.actor);
                         if (dcStat) {
