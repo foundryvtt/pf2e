@@ -158,16 +158,14 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            const meleeUsage = Boolean(event.currentTarget.dataset.meleeUsage);
-            this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event, meleeUsage });
+            this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
         });
 
         $strikesList.find('button[data-action="strike-critical"]').on("click", (event) => {
             if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            const meleeUsage = Boolean(event.currentTarget.dataset.meleeUsage);
-            this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event, meleeUsage });
+            this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
         $html.find(".spell-attack").on("click", (event) => {
@@ -206,10 +204,9 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const strike = this.getStrikeFromDOM(event.currentTarget);
             if (!strike) return;
             const $button = $(event.currentTarget);
-            const variantIndex = $button.attr("data-variant-index");
-            const meleeUsage = Boolean($button.attr("data-melee-usage"));
+            const variantIndex = Number($button.attr("data-variant-index"));
 
-            strike.variants[Number(variantIndex)]?.roll({ event, meleeUsage });
+            strike.variants[variantIndex]?.roll({ event });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.
@@ -233,12 +230,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
-        const $target = $(target);
-        const actionIndex = $target.closest("[data-action-index]").attr("data-action-index");
-        const rootAction = this.actor.data.data.actions?.[Number(actionIndex)];
+        const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
+        const rootAction = this.actor.data.data.actions?.[actionIndex];
         if (!rootAction) return null;
 
-        const isMeleeUsage = $target.closest('div[data-action="melee-usage"]').length === 1;
+        const isMeleeUsage = Boolean(target.dataset.meleeUsage);
         return isMeleeUsage && rootAction?.meleeUsage ? rootAction.meleeUsage : rootAction;
     }
 

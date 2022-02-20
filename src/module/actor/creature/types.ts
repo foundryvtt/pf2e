@@ -35,8 +35,6 @@ interface StrikeRollContextParams<T extends AttackItem> {
     domains?: string[];
     /** Whether the request is for display in a sheet view. If so, targets are not considered */
     viewOnly?: boolean;
-    /** The strike is to use the melee usage of a combination weapon */
-    meleeUsage?: boolean;
 }
 
 interface AttackTarget extends StrikeTarget {
