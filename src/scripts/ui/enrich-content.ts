@@ -148,10 +148,9 @@ export const EnrichContent = {
             html.setAttribute("data-pf2-dc", checkDC);
         }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
-        html.setAttribute(
-            "data-pf2-label",
-            game.i18n.format("PF2E.InlineCheck.DCWithName", { name: params.name ?? item?.name ?? params.type })
-        );
+        const label = params.name ?? item?.name ?? params.type;
+        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { label }));
+        html.setAttribute("data-pf2-repost-flavor", label);
         html.setAttribute("data-pf2-show-dc", params.showDC ?? "owner");
         html.setAttribute("data-pf2-adjustment", params.adjustment);
 
