@@ -4,6 +4,7 @@ import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/check-degree-of-success";
 import { Statistic } from "@system/statistic";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { sluggify } from "@util";
@@ -248,7 +249,7 @@ export const InlineRollsLinks = {
         ) {
             const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
             const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
-            ChatMessage.create({
+            ChatMessagePF2e.create({
                 content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
             });
         }
