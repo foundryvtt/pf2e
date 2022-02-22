@@ -50,6 +50,8 @@ abstract class RuleElementPF2e {
             data.ignored = true;
         }
 
+        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
+
         this.data = {
             priority: 100,
             ...data,
@@ -96,7 +98,7 @@ abstract class RuleElementPF2e {
             return (this.data.ignored = true);
         }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
-        return (this.data.ignored = !item.isEquipped || (item.isInvested === false && !!this.data.requiresInvestment));
+        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
     }
 
     set ignored(value: boolean) {

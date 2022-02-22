@@ -23,9 +23,15 @@ class StrikeWeaponTraits {
     }
 
     static createAttackModifiers(weapon: WeaponPF2e): ModifierPF2e[] {
-        const traits = weapon.data.data.traits.value;
+        const traitsAndTags = [weapon.data.data.traits.value, weapon.data.data.traits.otherTags].flat();
 
-        return traits.flatMap((trait) => {
+        const getLabel = (traitOrTag: string): string => {
+            const traits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
+            const tags: Record<string, string | undefined> = CONFIG.PF2E.otherWeaponTags;
+            return traits[traitOrTag] ?? tags[traitOrTag] ?? traitOrTag;
+        };
+
+        return traitsAndTags.flatMap((trait) => {
             switch (trait.replace(/-d?\d{1,3}$/, "")) {
                 case "kickback": {
                     // "Firing a kickback weapon gives a –2 circumstance penalty to the attack roll, but characters with
@@ -42,7 +48,7 @@ class StrikeWeaponTraits {
 
                     const penaltyRange = Number(/-(\d+)$/.exec(trait)![1]);
                     return new ModifierPF2e({
-                        label: CONFIG.PF2E.weaponTraits[trait],
+                        label: getLabel(trait),
                         modifier: -2,
                         type: MODIFIER_TYPE.UNTYPED,
                         ignored: true,

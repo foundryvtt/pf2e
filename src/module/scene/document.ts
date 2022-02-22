@@ -42,6 +42,20 @@ export class ScenePF2e extends Scene<
         this.data.flags.pf2e ??= { syncDarkness: "default" };
         this.data.flags.pf2e.syncDarkness ??= "default";
     }
+
+    /** Work around Foundry bug present as of 9.249 in which data is left in an unprepared state upon activating */
+    protected override _onActivate(active: boolean): Promise<this> {
+        if (!active) return super._onActivate(active);
+
+        // Skip this scene, now active, since Foundry will otherwise reset the data but not re-preprare it.
+        for (const scene of game.scenes) {
+            if (scene.data.active && scene !== this) {
+                scene.data.update({ active: false });
+            }
+        }
+
+        return this.view();
+    }
 }
 
 export interface ScenePF2e {

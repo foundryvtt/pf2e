@@ -1,5 +1,40 @@
 # Changelog
 
+## Version 3.4.4
+
+### Bugfixes
+* (stwlam) Remove on-encounter-end effects if setting is enabled
+* (stwlam) Fix bug causing effects from invested items to apply even when not invested
+* (stwlam) Fix ability score used with melee usage of combination weapons
+* (stwlam) Fix damage application to familiars and hazards
+* (TikaelSol) Fix blind rolling of checks with the secret trait
+
+### Data Updates
+* (Abaddon) Review Chapter 1 of AV Book 2
+* (rectulo) Fix a typo in the mudrock snare
+* (stwlam) Replace Fatal Aim trait with Fatal on several two-handed firearms
+* (TikaelSol) Grant Surprise Attack feature with Rogue Dedication
+* (TikaelSol) Fix description of Ventriloquism spell
+* (TikaelSol) Add fey trait to Fey-Touched Gnome heritage
+* (TikaelSol) Add unarmed category to fighter weapon group improvements
+* (TikaelSol) Fix spell type of several spells
+* (TikaelSol) Change several instances of claws to claw in rule element selectors
+
+
+## Version 3.4.3
+
+### Core System Improvements
+* (stwlam) Take token elevation into account when assessing flanking
+* (stwlam) Represent token spaces as cubes rather than squares when calculating three-dimensional reach and range increments
+* (stwlam) Provide sufficient information for Gravity Weapon effect to automatically determine number of weapon damage dice
+
+### Bugfixes
+* (stwlam) Fix rerolling attacks when flanking
+* (stwlam) Work around Foundry bug that can adversely affect vision when activating a different scene
+* (stwlam) Fix overriding damage type from Damage Dice rule element
+* (stwlam) Remove experimental damage chat card formatting
+
+
 ## Version 3.4.2
 
 ### Bugfixes

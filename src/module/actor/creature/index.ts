@@ -386,7 +386,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected setNumericRollOptions(): void {
-        this.rollOptions.all[`self:level:${this.level}`] = true;
+        this.rollOptions.all[`self:level:${this.level}`] = true; // `;
     }
 
     protected prepareInitiative(
@@ -741,21 +741,26 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
-        const actions: StrikeData[] = selfActor.data.data.actions ?? [];
-        const selfItem = ((): I => {
-            const mainItem =
-                params.viewOnly || params.item.isOfType("spell")
-                    ? params.item
-                    : actions
-                          .flatMap((a) => a.item ?? [])
-                          .find((w) => w.id === params.item.id && w.name === params.item.name) ?? params.item;
+        const actions: StrikeData[] =
+            selfActor.data.data.actions?.flatMap((a) => (a.meleeUsage ? [a, a.meleeUsage] : a)) ?? [];
 
-            return (
-                mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
-                    ? mainItem.toMeleeUsage() ?? mainItem
-                    : mainItem
-            ) as I;
-        })();
+        const selfItem =
+            params.viewOnly || params.item.isOfType("spell")
+                ? params.item
+                : ((actions
+                      .flatMap((a) => a.item ?? [])
+                      .find((weapon) => {
+                          // Find the matching weapon or melee item
+                          if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
+                          if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
+
+                          // Discriminate between melee/thrown usages by checking that both are either melee or ranged
+                          return (
+                              params.item.isOfType("weapon") &&
+                              weapon.isOfType("weapon") &&
+                              params.item.isMelee === weapon.isMelee
+                          );
+                      }) ?? params.item) as I);
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly

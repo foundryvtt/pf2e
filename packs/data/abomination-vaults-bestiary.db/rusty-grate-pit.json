@@ -16,13 +16,13 @@
             },
             "stealth": {
                 "details": "",
-                "value": 0
+                "value": -10
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>The rusty grate covers a pit that's 10 feet in diameter and 40 feet deep.</p>",
-            "disable": "<p>DC 18 Thievery to harmlessly trigger the trap by nudging the gate or the dangling winch, or DC 24 Thievery to stabilize the grate so it doesn't collapse.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18|name:Harmlessly Trigger Trap] to harmlessly trigger the trap by nudging the gate or the dangling winch, or @Check[type:thievery|dc:24|name:Stabilize Grate] to stabilize the grate so it doesn't collapse.</p>",
             "isComplex": false,
             "level": {
                 "value": 6
@@ -56,7 +56,7 @@
                 "value": [
                     "critical-hits",
                     "object-immunities",
-                    "precision-damage"
+                    "precision"
                 ]
             },
             "dr": [],
@@ -90,7 +90,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature walks onto the grate</p>\n<p><strong>Effect</strong> The triggering creature falls in and takes falling damage ([[/r {20}[bludgeoning]]]{20 bludgeoning damage}). That creature can use the Grab an Edge reaction to avoid falling. Whether or not the creature Grabs an Edge, the rusty winch above crashes down atop the triggering creature, dealing [[/r {3d10}[bludgeoning]]]{3d10 bludgeoning damage} and dislodging its grip (@Check[type:reflex|dc:24|basic:true] save). The creature can still try to Grab an Edge again.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature walks onto the grate</p>\n<p><strong>Effect</strong> The triggering creature falls in and takes falling damage ([[/r {20}[bludgeoning]]]{20 bludgeoning damage}). That creature can use the @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} reaction to avoid falling.</p>\n<p>Whether or not the creature Grabs an Edge, the rusty winch above crashes down atop the triggering creature, dealing [[/r {3d10}[bludgeoning]]]{3d10 bludgeoning damage} and dislodging its grip (@Check[type:reflex|dc:24|basic:true] save). The creature can still try to Grab an Edge again.</p>"
                 },
                 "requirements": {
                     "value": ""
