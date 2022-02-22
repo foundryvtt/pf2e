@@ -200,21 +200,10 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
     const dc = params.dc ?? "0";
     const base = (() => {
         if (dc.startsWith("resolve") && item) {
+            params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
-            if (value.startsWith("max")) {
-                const match = [...value.matchAll(/max\((.+?)\)/g)].map((matches) => matches[1]);
-                if (match.length === 1) {
-                    const values = match[0]
-                        .split(",")
-                        .map((val) =>
-                            Number.isInteger(Number(val)) ? Number(val) : resolveItemValue(item, val.trim()) ?? 0
-                        );
-                    return Math.max(...values);
-                }
-            }
-            // Handle standard resolve
-            return resolveItemValue(item, value);
+            return Roll.safeEval(Roll.replaceFormulaData(value, { actor: item.actor!, item: item }));
         }
         return Number(dc) || undefined;
     })();
@@ -265,19 +254,4 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
         }
     }
     return "0";
-};
-
-const resolveItemValue = (item: ItemPF2e, formula: string): number | undefined => {
-    // Return 0 for unowned items that reference an actor value
-    if (formula.startsWith("@actor") && !item.isOwned) return 0;
-
-    const result = Roll.replaceFormulaData(
-        formula,
-        { item, actor: item.actor },
-        {
-            missing: "0",
-            warn: true,
-        }
-    );
-    return Number(result) || undefined;
 };
