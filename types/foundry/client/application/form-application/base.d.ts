@@ -14,7 +14,7 @@ declare global {
      * @param options   Additional options which modify the rendering of the sheet.
      */
     abstract class FormApplication<
-        TObject extends {} = {},
+        TObject extends object = object,
         TOptions extends FormApplicationOptions = FormApplicationOptions
     > extends Application<TOptions> {
         constructor(object?: TObject, options?: Partial<TOptions>);
@@ -152,7 +152,7 @@ declare global {
     }
 
     interface FormApplicationData<O extends {} = {}> {
-        object?: O;
+        object?: O | object;
         options?: Partial<FormApplicationOptions>;
         title?: string;
     }
