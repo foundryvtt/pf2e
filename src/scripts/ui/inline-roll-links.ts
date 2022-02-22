@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
@@ -70,12 +70,7 @@ export const InlineRollsLinks = {
                     event,
                     glyph: pf2Glyph,
                     variant: pf2Variant,
-                    difficultyClass: pf2Dc
-                        ? {
-                              scope: "CheckOutcome",
-                              value: parseInt(pf2Dc),
-                          }
-                        : undefined,
+                    difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0 } : undefined,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);

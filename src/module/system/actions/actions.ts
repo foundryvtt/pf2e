@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/base";
 import { CreaturePF2e } from "@actor";
-import { SKILL_EXPANDED } from "@actor/data/values";
+import { DC_SLUGS, SKILL_EXPANDED } from "@actor/data/values";
 import {
     ensureProficiencyOption,
     CheckModifier,
@@ -11,7 +11,7 @@ import {
 import { CheckPF2e } from "../rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
-import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/check-degree-of-success";
+import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { balance } from "./acrobatics/balance";
@@ -45,6 +45,7 @@ import { pickALock } from "./thievery/pick-a-lock";
 import { PredicatePF2e } from "@system/predication";
 import { WeaponPF2e } from "@item/weapon";
 import { WeaponTrait } from "@item/weapon/data";
+import { setHasElement } from "@util";
 
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 
@@ -194,8 +195,9 @@ export class ActionsPF2e {
             rollers.push(game.user.character);
         }
 
-        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
-        const target = targets[0];
+        const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
+        const target = targets.shift()?.document ?? null;
+        const targetActor = target?.actor ?? null;
 
         if (rollers.length) {
             rollers.forEach((actor) => {
@@ -208,34 +210,37 @@ export class ActionsPF2e {
                 const stat = getProperty(actor, options.statName) as StatisticModifier;
                 const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
 
-                const targetOptions = target.actor?.getSelfRollOptions("target") ?? [];
+                const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
                 const finalOptions = actor
                     .getRollOptions(options.rollOptions)
                     .concat(options.extraOptions)
                     .concat(options.traits)
                     .concat(targetOptions);
-                // modifier from roller's equipped weapons
-                if (options.weaponTrait) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTrait).map((item: WeaponPF2e) =>
-                        check.push(this.getWeaponPotencyModifier(item, actor))
-                    );
+
+                // modifier from roller's equipped weapon
+                const weapon = (
+                    options.weaponTrait ? this.getApplicableEquippedWeapons(actor, options.weaponTrait) : []
+                ).shift();
+                if (weapon) {
+                    check.push(this.getWeaponPotencyModifier(weapon, actor));
                 }
-                // modifier from roller's equipped weapons with -2 ranged penalty
-                if (options.weaponTraitWithPenalty) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty).map((item: WeaponPF2e) => {
-                        check.push(this.getWeaponPotencyModifier(item, actor));
-                        check.push(
-                            new ModifierPF2e(
-                                item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
-                                Number("-2"),
-                                MODIFIER_TYPE.CIRCUMSTANCE
-                            )
-                        );
-                    });
+
+                const weaponTraits = weapon?.traits;
+
+                // Modifier from roller's equipped weapon with -2 ranged penalty
+                if (options.weaponTraitWithPenalty === "ranged-trip" && weaponTraits?.has("ranged-trip")) {
+                    check.push(
+                        new ModifierPF2e({
+                            type: MODIFIER_TYPE.CIRCUMSTANCE,
+                            slug: "ranged-trip",
+                            label: CONFIG.PF2E.weaponTraits["ranged-trip"],
+                            modifier: -2,
+                        })
+                    );
                 }
 
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
-                const dc = (() => {
+                const dc = ((): CheckDC | null => {
                     if (options.difficultyClass) {
                         return options.difficultyClass;
                     } else if (target && target.actor instanceof CreaturePF2e) {
@@ -244,26 +249,39 @@ export class ActionsPF2e {
                         if (dcStat) {
                             const extraRollOptions = finalOptions.concat(targetOptions);
                             const dc = dcStat.dc({ extraRollOptions });
-                            const labelKey = `PF2E.CreatureStatisticDC.${dcStat.slug}`;
-                            return {
-                                label: game.i18n.format(labelKey, { creature: target.name, dc: "{dc}" }),
+                            const dcData: CheckDC = {
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],
                             };
+                            if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
+
+                            return dcData;
                         }
                     }
-                    return undefined;
+                    return null;
                 })();
                 const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.featTraits;
                 const traitObjects = options.traits.map((trait) => ({
                     name: trait,
                     label: actionTraits[trait] ?? trait,
                 }));
+
+                const selfToken = actor.getActiveTokens(false, true).shift();
+                const distance = ((): number | null => {
+                    const reach =
+                        actor instanceof CreaturePF2e ? actor.getReach({ action: "attack", weapon }) ?? null : null;
+                    return selfToken?.object && target?.object
+                        ? selfToken.object.distanceTo(target.object, { reach })
+                        : null;
+                })();
+                const hasTarget = !!(targetActor && target) && typeof distance === "number";
+
                 CheckPF2e.roll(
                     check,
                     {
                         actor,
                         createMessage: options.createMessage,
+                        target: hasTarget ? { actor: targetActor, token: target, dc, distance } : null,
                         dc,
                         type: options.checkType,
                         options: finalOptions,
@@ -297,8 +315,6 @@ export class ActionsPF2e {
     }
 
     private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e[] {
-        return actor.itemTypes.weapon
-            .filter((weapon) => weapon.isEquipped)
-            .filter((weapon) => weapon.traits.has(trait));
+        return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
     }
 }

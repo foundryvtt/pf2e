@@ -1,6 +1,6 @@
 import { RuleElementPF2e, BracketedValue, RuleElementData } from "./";
 import { RollNotePF2e } from "@module/notes";
-import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success";
 
 /**
  * @category RuleElement

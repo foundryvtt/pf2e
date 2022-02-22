@@ -226,6 +226,16 @@ export function sluggify(str: string, { camel = null }: { camel?: "dromedary" | 
     }
 }
 
+/** Parse a string containing html */
+export function parseHTML(unparsed: string): HTMLElement {
+    const fragment = document.createElement("template");
+    fragment.innerHTML = unparsed;
+    const element = fragment.content.firstElementChild;
+    if (!(element instanceof HTMLElement)) throw ErrorPF2e("Unexpected error parsing HTML");
+
+    return element;
+}
+
 const actionImgMap: Record<string, ImagePath> = {
     1: "systems/pf2e/icons/actions/OneAction.webp",
     2: "systems/pf2e/icons/actions/TwoActions.webp",

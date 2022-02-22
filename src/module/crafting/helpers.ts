@@ -8,7 +8,7 @@ import {
     extractPriceFromItem,
     multiplyCoinValue,
 } from "@module/item/treasure/helpers";
-import { DegreeOfSuccess } from "@module/degree-of-success";
+import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";

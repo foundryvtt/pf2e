@@ -1,7 +1,7 @@
 import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { RawModifier } from "@module/modifiers";
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { CheckRollContextFlag } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
 

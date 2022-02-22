@@ -131,6 +131,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         // Show/Hide GM only sections, DCs, and other such elements
         UserVisibility.process($html, { message: this, actor: this.actor });
 
+        // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
+        const $targetDC = $html.find(".target-dc");
+        if ($targetDC.children().length === 0) $targetDC.remove();
+        const $dcResult = $html.find(".dc-result");
+        if ($dcResult.children().length === 0) $dcResult.remove();
+
         if (this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
 
@@ -147,12 +153,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         // Check DC adjusted by circumstance bonuses or penalties
         try {
-            const $adjustedDC = $html.find(".adjusted-dc[data-adjustments]");
+            const $adjustedDC = $html.find(".adjusted-dc[data-circumstances]");
             if ($adjustedDC.length === 1) {
-                const adjustments = JSON.parse($adjustedDC.attr("data-adjustments") ?? "");
-                if (!Array.isArray(adjustments)) throw ErrorPF2e("Malformed adjustments array");
+                const circumstances = JSON.parse($adjustedDC.attr("data-circumstances") ?? "");
+                if (!Array.isArray(circumstances)) throw ErrorPF2e("Malformed adjustments array");
 
-                const content = adjustments
+                const content = circumstances
                     .map((a: { label: string; value: number }) => {
                         const sign = a.value >= 0 ? "+" : "";
                         return $("<div>").text(`${a.label}: ${sign}${a.value}`);

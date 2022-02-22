@@ -1,7 +1,7 @@
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { DiceModifierPF2e } from "@module/modifiers";
 import { isBlank } from "@util";
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { DamageDieSize } from "@system/damage/damage";
 import { PredicateStatement, RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";

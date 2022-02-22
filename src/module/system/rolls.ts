@@ -3,13 +3,12 @@ import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
 import { ModifierPF2e, StatisticModifier } from "../modifiers";
-import { getDegreeOfSuccess, DEGREE_OF_SUCCESS_STRINGS, CheckDC, DegreeOfSuccessData } from "./check-degree-of-success";
-import { DegreeAdjustment } from "@module/degree-of-success";
+import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
 import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, parseHTML, sluggify } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
@@ -102,19 +101,6 @@ interface RerollOptions {
     keep?: "new" | "best" | "worst";
 }
 
-/** Parameters for CheckPF2e#progressDegreeOfSucess */
-interface ProcessDegreeParams {
-    roll: Rolled<Roll<RollDataPF2e>>;
-    dc: CheckDC | null;
-    target: AttackTarget | CheckTargetFlag | null;
-}
-
-/** Return of CheckPF2e#progressDegreeOfSucess */
-interface ProcessedDegree {
-    data: DegreeOfSuccessData;
-    flavor: string;
-}
-
 export class CheckPF2e {
     /**
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
@@ -183,15 +169,12 @@ export class CheckPF2e {
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
         const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
 
-        const degree = await this.processDegreeOfSuccess({
-            roll,
-            dc: context.dc ?? null,
-            target: context.target ?? null,
-        });
+        const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
 
         if (degree) {
-            context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.data.value];
-            context.unadjustedOutcome = DEGREE_OF_SUCCESS_STRINGS[degree.data.unadjusted];
+            context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
+            context.unadjustedOutcome = DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted];
+            roll.data.degreeOfSuccess = degree.value;
         }
 
         const notes =
@@ -213,7 +196,8 @@ export class CheckPF2e {
 
         const item = context.item ?? null;
 
-        let flavor = `<strong>${check.name}</strong>${degree?.flavor ?? ""}`;
+        const degreeFlavor = await this.createFlavorMarkup({ degree, target: context.target ?? null });
+        let flavor = `<h4 class="action">${check.name}</h4>${degreeFlavor}`;
 
         if (context.traits) {
             const traits = context.traits
@@ -295,17 +279,7 @@ export class CheckPF2e {
             const { rollMode } = contextFlag;
             const create = contextFlag.createMessage;
 
-            return roll.toMessage(
-                {
-                    speaker,
-                    flavor,
-                    flags,
-                },
-                {
-                    rollMode,
-                    create,
-                }
-            ) as MessagePromise;
+            return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
         })();
 
         if (callback) {
@@ -322,139 +296,6 @@ export class CheckPF2e {
         }
 
         return roll;
-    }
-
-    static async processDegreeOfSuccess({ roll, dc, target }: ProcessDegreeParams): Promise<ProcessedDegree | null> {
-        if (!dc) return null;
-
-        // Add degree of success to roll for the callback function
-        const degreeOfSuccess = getDegreeOfSuccess(roll, dc);
-        roll.data.degreeOfSuccess = degreeOfSuccess.value;
-
-        const needsDCParam = typeof dc.label === "string" && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
-        if (needsDCParam && dc.label) dc.label = `${dc.label.trim()}: {dc}`;
-
-        // Get any circumstance adjustments (penalties or bonuses) to the target's AC
-        const targetActor = await (async (): Promise<ActorPF2e | null> => {
-            if (!target?.actor) return null;
-            if (target.actor instanceof ActorPF2e) return target.actor;
-
-            // This is a context flag: get the actor via UUID
-            const maybeActor = await fromUuid(target.actor);
-            return maybeActor instanceof ActorPF2e
-                ? maybeActor
-                : maybeActor instanceof TokenDocumentPF2e
-                ? maybeActor.actor
-                : null;
-        })();
-
-        const targetAC = targetActor?.attributes.ac;
-        const circumstances =
-            targetAC instanceof StatisticModifier
-                ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
-                : null;
-        const preadjustedDC =
-            circumstances && targetAC
-                ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
-                : targetAC?.value ?? null;
-
-        const showDC = targetActor?.hasPlayerOwner
-            ? "all"
-            : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
-
-        const dcMarkup = await (async (): Promise<string> => {
-            // If no target, just show the DC
-            if (!target?.token) {
-                const dcLabel = game.i18n.format(dc.label ?? "PF2E.Check.DC", { dc: dc.value });
-                return `<div data-visibility="${showDC}">${dcLabel}</div>`;
-            }
-
-            // Later there will need to be a different way of deciding between AC or DC, since not all
-            // actor-targetted checks are against AC
-            dc.label ??= game.i18n.localize(target.token ? "PF2E.Check.AC" : "PF2E.Check.DC");
-
-            const targetToken = await (async (): Promise<TokenDocumentPF2e | null> => {
-                if (!target?.token) return null;
-                if (target.token instanceof TokenDocumentPF2e) return target.token;
-
-                // This is from a context flag: get the actor via UUID
-                return fromUuid(target.token);
-            })();
-
-            const targetName = targetToken?.name ?? targetActor?.name ?? "";
-            const dcNumber = preadjustedDC ?? dc.value;
-            const dcLabel = game.i18n.format(dc.label, { dc: dcNumber });
-            const adjustedDCLabel =
-                circumstances && typeof preadjustedDC === "number" && preadjustedDC !== dc.value
-                    ? (() => {
-                          const direction = preadjustedDC < dc.value ? "increased" : "decreased";
-                          const adjustments = Handlebars.escapeExpression(
-                              JSON.stringify(circumstances.map((c) => ({ label: c.label, value: c.modifier })))
-                          );
-                          const attributes = [
-                              `class="adjusted-dc ${direction}"`,
-                              `data-adjustments="${adjustments}"`,
-                          ].join(" ");
-
-                          return dcLabel.replace(
-                              dcNumber.toString(),
-                              [
-                                  `<span class="preadjusted-dc">${preadjustedDC}</span>`,
-                                  `<span ${attributes}>${dc.value}</span>`,
-                              ].join(" ")
-                          );
-                      })()
-                    : dcLabel;
-
-            const targetDCLabel = game.i18n.format("PF2E.Check.TargetDC", {
-                target: targetName,
-                dcLabel: adjustedDCLabel,
-            });
-
-            return `<div data-visibility="${showDC}">${targetDCLabel}</div>`;
-        })();
-
-        let flavor = dcMarkup;
-
-        const adjustment = (() => {
-            switch (degreeOfSuccess.degreeAdjustment) {
-                case DegreeAdjustment.INCREASE_BY_TWO:
-                    return game.i18n.localize("PF2E.TwoDegreesBetter");
-                case DegreeAdjustment.INCREASE:
-                    return game.i18n.localize("PF2E.OneDegreeBetter");
-                case DegreeAdjustment.LOWER:
-                    return game.i18n.localize("PF2E.OneDegreeWorse");
-                case DegreeAdjustment.LOWER_BY_TWO:
-                    return game.i18n.localize("PF2E.TwoDegreesWorse");
-                default:
-                    return null;
-            }
-        })();
-        const adjustmentLabel = adjustment ? ` (${adjustment})` : "";
-        const dosString = DEGREE_OF_SUCCESS_STRINGS[degreeOfSuccess.value];
-
-        const resultLabel = game.i18n.localize("PF2E.ResultLabel");
-        const degreeLabel = game.i18n.localize(`PF2E.${dc.scope ?? "CheckOutcome"}.${dosString}`);
-        const showResult = dc.visibility ?? game.settings.get("pf2e", "metagame.showResults");
-        const offsetLabel = (() => {
-            return game.i18n.format("PF2E.ResultOffset", {
-                offset: new Intl.NumberFormat(game.i18n.lang, {
-                    maximumFractionDigits: 0,
-                    signDisplay: "always",
-                    useGrouping: false,
-                }).format(roll.total - dc.value),
-            });
-        })();
-        flavor += `<div data-visibility="${showResult}" class="degree-of-success">`;
-        flavor += `<span>${resultLabel}: <span class="${dosString}">${degreeLabel} `;
-        flavor += showResult === showDC ? offsetLabel : `<span data-visibility=${showDC}>${offsetLabel}</span>`;
-        flavor += `</span></span> ${adjustmentLabel}`;
-        flavor += "</div>";
-
-        return {
-            data: degreeOfSuccess,
-            flavor: $('<div class="target-outcome">').append(flavor).prop("outerHTML"),
-        };
     }
 
     /** Reroll a rolled check given a chat message. */
@@ -517,24 +358,20 @@ export class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const newDegreeOfSuccess = await this.processDegreeOfSuccess({
-            roll: newRoll,
-            dc: message.data.flags.pf2e.context?.dc ?? null,
-            target: message.data.flags.pf2e.context?.target ?? null,
-        });
+        const dc = message.data.flags.pf2e.context?.dc ?? null;
+        const oldFlavor = message.data.flavor ?? "";
+        const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
+        const createNewFlavor = keepRoll === newRoll && !!degree;
 
-        const newFlavor = ((): string => {
-            const oldFlavor = message.data.flavor ?? "";
-            if (keepRoll === newRoll && newDegreeOfSuccess) {
-                const $parsedFlavor = $("<div>").append(oldFlavor);
-                console.debug($parsedFlavor.prop("outerHTML"));
-                $parsedFlavor.find(".target-outcome").replaceWith(newDegreeOfSuccess.flavor);
-                console.debug($parsedFlavor.html());
-                return $parsedFlavor.html();
-            }
-
-            return oldFlavor;
-        })();
+        const newFlavor = createNewFlavor
+            ? await (async (): Promise<string> => {
+                  const $parsedFlavor = $("<div>").append(oldFlavor);
+                  const target = message.data.flags.pf2e.context?.target ?? null;
+                  const newFlavor = await this.createFlavorMarkup({ degree, target });
+                  $parsedFlavor.find(".target-outcome").replaceWith(newFlavor);
+                  return $parsedFlavor.html();
+              })()
+            : oldFlavor;
 
         // If this was an initiative roll, apply the result to the current encounter
         const { initiativeRoll } = message.data.flags.core;
@@ -561,44 +398,234 @@ export class CheckPF2e {
     }
 
     /**
-     * Renders the reroll.
-     * This function is rather complicated, as we can unfortunately not pass any values to the renderChatMessage hook.
-     * This results in the need to parse the failure and success classes used by foundry directly into the template.
-     * Another point of concern is the reason, the render function of rolls does only return a string.
-     * This means we cannot use any of the fancy js functions like getElementsByClass etc.
-     * @param roll - The reroll that is to be rerendered
+     * Renders the reroll, highlighting the old result if it was a critical success or failure
+     * @param roll - The roll that is to be rerendered
      */
-    static async renderReroll(roll: Roll): Promise<string> {
-        let rollHtml = await roll.render();
+    static async renderReroll(roll: Rolled<Roll>): Promise<string> {
+        const die = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20);
+        if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
 
-        if (roll.dice.length === 0) {
-            return rollHtml;
-        }
+        const html = await roll.render();
+        if (![1, 20].includes(die.total)) return html;
 
-        const die = roll.dice[0];
-
-        if (die.total === 20) {
-            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "success");
-        } else if (die.total === 1) {
-            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "failure");
-        }
-
-        return rollHtml;
+        const element = parseHTML(html);
+        element.querySelector(".dice-total")?.classList.add(die.total === 20 ? "success" : "failure");
+        return element.outerHTML;
     }
 
-    /**
-     * Takes a rendered roll and inserts the specified class for failure or success into it.
-     * @param rollHtml - The prerendered roll template.
-     * @param classToInsert - The specifier whether we want to have a success or failure.
-     */
-    static insertNatOneAndNatTwentyIntoRollTemplate(rollHtml: string, classToInsert: string): string {
-        const classIdentifierDice = "dice-total";
-        const locationOfDiceRoll = rollHtml.search(classIdentifierDice);
-        const partBeforeClass = rollHtml.substr(0, locationOfDiceRoll);
-        const partAfterClass = rollHtml.substr(locationOfDiceRoll, rollHtml.length);
-        return partBeforeClass.concat(classToInsert, " ", partAfterClass);
+    private static async createFlavorMarkup({ degree, target }: CreateFlavorMarkupParams): Promise<string> {
+        if (!degree) return "";
+
+        const { dc } = degree;
+        const needsDCParam = typeof dc.label === "string" && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
+        if (needsDCParam && dc.label) dc.label &&= `${dc.label.trim()}: {dc}`;
+
+        const targetActor = await (async (): Promise<ActorPF2e | null> => {
+            if (!target?.actor) return null;
+            if (target.actor instanceof ActorPF2e) return target.actor;
+
+            // This is a context flag: get the actor via UUID
+            const maybeActor = await fromUuid(target.actor);
+            return maybeActor instanceof ActorPF2e
+                ? maybeActor
+                : maybeActor instanceof TokenDocumentPF2e
+                ? maybeActor.actor
+                : null;
+        })();
+
+        // Not actually included in the template, but used for creating other template data
+        const targetData = await (async (): Promise<{ name: string; visibility: string } | null> => {
+            if (!target) return null;
+
+            const token = await (async (): Promise<TokenDocumentPF2e | null> => {
+                if (!target.token) return null;
+                if (target.token instanceof TokenDocumentPF2e) return target.token;
+                if (targetActor?.token) return targetActor.token;
+
+                // This is from a context flag: get the actor via UUID
+                return fromUuid(target.token);
+            })();
+
+            const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.data.token.toObject() ?? {}))
+                .playersCanSeeName;
+            const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+
+            return {
+                name: token?.name ?? targetActor?.name ?? "",
+                visibility: canSeeName ? "all" : "gm",
+            };
+        })();
+
+        // DC, circumstance adjustments, and the target's name
+        const dcData = ((): FlavorTemplateData["dc"] => {
+            const targetAC = targetActor?.attributes.ac;
+
+            const dcLabel = ((): string => {
+                const key = dc.slug ? `PF2E.Check.DC.Specific.${dc.slug}` : "PF2E.Check.DC.Unspecific";
+                return dc.slug === "ac" && targetAC
+                    ? game.i18n.format(key, { dc: targetAC.value })
+                    : game.i18n.format(key, { dc: dc.value });
+            })();
+
+            // Get any circumstance penalties or bonuses to the target's DC
+            const circumstances =
+                targetAC instanceof StatisticModifier
+                    ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
+                    : null;
+            const preadjustedDC =
+                circumstances && targetAC
+                    ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
+                    : targetAC?.value ?? null;
+
+            const visibility = targetActor?.hasPlayerOwner
+                ? "all"
+                : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
+
+            if (!(preadjustedDC && circumstances) || preadjustedDC === targetAC?.value) {
+                const unadjustedDC = targetData
+                    ? game.i18n.format("PF2E.Check.Target.WithDC", { target: targetData.name, dc: dcLabel })
+                    : dcLabel;
+                return { markup: unadjustedDC, visibility };
+            }
+
+            const adjustment = {
+                preadjusted: preadjustedDC,
+                direction: preadjustedDC < dc.value ? "increased" : "decreased",
+                circumstances: circumstances.map((c) => ({ label: c.label, value: c.modifier })),
+            } as const;
+
+            const markup = game.i18n.format("PF2E.Check.Target.AdjustedDC", {
+                target: targetData?.name ?? game.user.name,
+                preadjusted: preadjustedDC,
+                adjusted: dc.value,
+            });
+
+            return { markup, visibility, adjustment };
+        })();
+
+        // The result: degree of success (with adjustment if applicable) and visibility setting
+        const resultData = ((): FlavorTemplateData["result"] => {
+            const offset = {
+                value: new Intl.NumberFormat(game.i18n.lang, {
+                    maximumFractionDigits: 0,
+                    signDisplay: "always",
+                    useGrouping: false,
+                }).format(degree.rollTotal - dc.value),
+                visibility: dc.visibility,
+            };
+
+            const adjustment = ((): string | null => {
+                switch (degree.degreeAdjustment) {
+                    case DEGREE_ADJUSTMENTS.INCREASE_BY_TWO:
+                        return game.i18n.localize("PF2E.TwoDegreesBetter");
+                    case DEGREE_ADJUSTMENTS.INCREASE:
+                        return game.i18n.localize("PF2E.OneDegreeBetter");
+                    case DEGREE_ADJUSTMENTS.LOWER:
+                        return game.i18n.localize("PF2E.OneDegreeWorse");
+                    case DEGREE_ADJUSTMENTS.LOWER_BY_TWO:
+                        return game.i18n.localize("PF2E.TwoDegreesWorse");
+                    default:
+                        return null;
+                }
+            })();
+
+            const checkOrAttack = sluggify(dc.scope ?? "Check", { camel: "bactrian" });
+            const dosKey = DEGREE_OF_SUCCESS_STRINGS[degree.value];
+            const degreeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.${checkOrAttack}.${dosKey}`);
+
+            const markup = adjustment
+                ? game.i18n.format("PF2E.Check.Result.Label", { degree: degreeLabel, offset: offset.value })
+                : game.i18n.format("PF2E.Check.Result.Label", {
+                      degree: degreeLabel,
+                      offset: offset.value,
+                      adjustment,
+                  });
+            const visibility = game.settings.get("pf2e", "metagame.showResults");
+
+            return { markup, visibility };
+        })();
+
+        // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
+        const markup = await (async (): Promise<string> => {
+            const rendered = await renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.html", {
+                target: targetData,
+                dc: dcData,
+                result: resultData,
+            });
+            const html = parseHTML(rendered);
+
+            const convertXMLNode = (
+                nodeName: string,
+                visibility: string | null,
+                ...cssClasses: string[]
+            ): HTMLElement | null => {
+                const node = html.querySelector(nodeName);
+                if (!node) return null;
+
+                const span = document.createElement("span");
+                if (visibility) span.dataset.visibility = visibility;
+                span.append(...Array.from(node.childNodes));
+                for (const cssClass of cssClasses) {
+                    span.classList.add(cssClass);
+                }
+
+                node.replaceWith(span);
+                return span;
+            };
+
+            if (targetData) convertXMLNode("target", targetData.visibility);
+            convertXMLNode("dc", dcData.visibility);
+            if (dcData.adjustment) {
+                const { adjustment } = dcData;
+                convertXMLNode("preadjusted", null, "preadjusted-dc");
+
+                // Add circumstance bonuses/penalties for tooltip content
+                const adjustedNode = convertXMLNode("adjusted", null, "adjusted-dc", adjustment.direction);
+                if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
+                adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
+            }
+            convertXMLNode("degree", resultData.visibility, DEGREE_OF_SUCCESS_STRINGS[degree.value]);
+            convertXMLNode("offset", dcData.visibility);
+
+            if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
+                // If target and DC are both hidden from view, hide both
+                const targetDC = html.querySelector<HTMLElement>(".target-dc");
+                if (targetDC) targetDC.dataset.visibility = dcData.visibility;
+
+                // If result is also hidden, hide everything
+                if (resultData.visibility === dcData.visibility) {
+                    html.dataset.visibility = dcData.visibility;
+                }
+            }
+
+            return html.outerHTML;
+        })();
+
+        return markup;
     }
 }
+
+interface CreateFlavorMarkupParams {
+    degree: DegreeOfSuccess | null;
+    target?: AttackTarget | CheckTargetFlag | null;
+}
+
+interface FlavorTemplateData {
+    dc: {
+        markup: string;
+        visibility: string;
+        adjustment?: {
+            preadjusted: number;
+            direction: "increased" | "decreased";
+            circumstances: { label: string; value: number }[];
+        };
+    };
+    result: {
+        markup: string;
+        visibility: string;
+    };
+}
+
 /**
  * @category PF2
  */

@@ -1,5 +1,6 @@
 import { AbilityString } from "@actor/data/base";
 import { DamageCategory, DamageDieSize } from "@system/damage/damage";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "../util";
 import { DamageType, DAMAGE_TYPES } from "./damage-calculation";
@@ -403,6 +404,7 @@ export class StatisticModifier {
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
+    adjustments?: DegreeOfSuccessAdjustment[];
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 
