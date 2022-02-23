@@ -16,9 +16,52 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ToggleProperty",
+                "property": "flags.pf2e.rollOptions.damage-roll.one-shot-one-kill"
+            },
+            {
+                "damageCategory": "precision",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "one-shot-one-kill"
+                    ],
+                    "any": [
+                        "weapon:group:firearm",
+                        "weapon:tag:crossbow"
+                    ]
+                },
+                "selector": "strike-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 14,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 15,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
