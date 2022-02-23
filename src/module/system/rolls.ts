@@ -14,8 +14,8 @@ import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { AttackTarget } from "@actor/creature/types";
-import { DamageCategory } from "./damage/damage";
+import { AttackTarget, StrikeTarget } from "@actor/creature/types";
+import { DamageCategory, DamageRollContext } from "./damage/damage";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -45,7 +45,7 @@ export interface StrikeRollParams extends RollParameters {
 
 export type FateString = "none" | "fortune" | "misfortune";
 
-export interface CheckRollContext {
+export interface BaseRollContext {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Any notes which should be shown for the roll. */
@@ -54,6 +54,24 @@ export interface CheckRollContext {
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
+    /** If this is an attack, the target of that attack */
+    target?: StrikeTarget | null;
+    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
+    type?: string;
+    /** Any traits for the check. */
+    traits?: StrikeTrait[];
+    /** The outcome a roll (usually relevant only to rerolls) */
+    outcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
+    /** The outcome prior to being changed by abilities raising or lowering degree of success */
+    unadjustedOutcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
+    /** Should the roll be immediately created as a chat message? */
+    createMessage?: boolean;
+    /** Skip the roll dialog regardless of user setting  */
+    skipDialog?: boolean;
+}
+
+export interface CheckRollContext extends BaseRollContext {
+    target?: AttackTarget | null;
     /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
     fate?: FateString;
     /** The actor which initiated this roll. */
@@ -62,26 +80,12 @@ export interface CheckRollContext {
     token?: TokenDocumentPF2e;
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
-    /** If this is an attack, the target of that attack */
-    target?: AttackTarget | null;
     /** Optional title of the roll options dialog; defaults to the check name */
     title?: string;
-    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
-    type?: string;
-    /** Any traits for the check. */
-    traits?: StrikeTrait[];
     /** Optional DC data for the check */
     dc?: CheckDC | null;
-    /** Should the roll be immediately created as a chat message? */
-    createMessage?: boolean;
-    /** Skip the roll dialog regardless of user setting  */
-    skipDialog?: boolean;
     /** Is the roll a reroll? */
     isReroll?: boolean;
-    /** The outcome a roll (usually relevant only to rerolls) */
-    outcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
-    /** The outcome prior to being changed by abilities raising or lowering degree of success */
-    unadjustedOutcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
 }
 
 interface CheckTargetFlag {
@@ -630,12 +634,7 @@ interface FlavorTemplateData {
  * @category PF2
  */
 export class DamageRollPF2e {
-    static roll(
-        damage: DamageTemplate,
-        context: CheckRollContext = {},
-        _event?: JQuery.TriggeredEvent,
-        callback?: Function
-    ) {
+    static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function) {
         // Change the base damage type in case it was overridden
         const baseDamageType = damage.formula[context.outcome ?? "success"]?.data.baseDamageType;
         damage.base.damageType = baseDamageType ?? damage.base.damageType;
@@ -648,6 +647,6 @@ export class DamageRollPF2e {
             }
         }
 
-        DamageRollModifiersDialog.roll(damage, context, callback);
+        await DamageRollModifiersDialog.roll(damage, context, callback);
     }
 }
