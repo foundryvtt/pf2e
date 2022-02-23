@@ -24,6 +24,7 @@ import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { LocalizePF2e } from "@system/localize";
+import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
@@ -796,6 +797,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     this.onClickDyingWoundedDoomed(condition, event);
                 }
             });
+
+        $html.find("[data-action=rest]").on("click", (event) => {
+            restForTheNight({ event, actors: this.actor });
+        });
 
         // Decrease effect value
         $html.find(".tab.effects .effects-list .decrement").on("click", async (event) => {
