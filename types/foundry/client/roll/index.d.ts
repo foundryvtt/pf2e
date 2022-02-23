@@ -428,15 +428,7 @@ declare global {
          * Represent the data of the Roll as an object suitable for JSON serialization.
          * @return Structured data which can be serialized into JSON
          */
-        toJSON(): {
-            class: string;
-            options: Record<string, unknown>;
-            dice: DiceTerm[];
-            formula: string;
-            terms: RollTerm[];
-            total?: number;
-            evaluated: boolean;
-        };
+        toJSON(): RollJSON;
 
         /**
          * Recreate a Roll instance using a provided data object
@@ -480,6 +472,16 @@ declare global {
         terms?: RollTermData[];
         total?: number | undefined;
         evaluated?: boolean;
+    }
+
+    interface RollJSON {
+        class: string;
+        options: Record<string, unknown>;
+        dice: DiceTerm[];
+        formula: string;
+        terms: RollTerm[];
+        total?: number;
+        evaluated: boolean;
     }
 
     /** An evaluated Roll instance */
