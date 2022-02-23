@@ -566,6 +566,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected async prepareCraftingEntries() {
         const actorCraftingEntries = await this.actor.getCraftingEntries();
         const craftingEntries = {
+            dailyCrafting: false,
             other: <CraftingEntry[]>[],
             alchemical: {
                 entries: <CraftingEntry[]>[],
@@ -577,8 +578,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(entry);
                 craftingEntries.alchemical.totalReagentCost += entry.reagentCost || 0;
+                craftingEntries.dailyCrafting = true;
             } else {
                 craftingEntries.other.push(entry);
+                if (entry.isDailyPrep) craftingEntries.dailyCrafting = true;
             }
         });
         return craftingEntries;
