@@ -42,6 +42,7 @@ import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
+import { CreaturePF2e } from "@actor/creature";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -999,9 +1000,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             } else {
                 itemData.data.equipped.carryType = "worn";
             }
-            if (actor.size === "tiny") {
-                itemData.data.size.value = "tiny";
-            }
+            // If the item is from a compendium, adjust the size to be appropriate to the creature's
+            const resizeItem =
+                data.pack &&
+                itemData.type !== "treasure" &&
+                !["med", "sm"].includes(actor.size) &&
+                actor instanceof CreaturePF2e;
+            if (resizeItem) itemData.data.size.value = actor.size;
         }
         return this._onDropItemCreate(itemData);
     }
