@@ -64,7 +64,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get reload(): string | null {
-        return this.data.data.reload.value || null;
+        return this.data.data.reload.value;
     }
 
     get isSpecific(): boolean {
@@ -79,9 +79,14 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.rangeIncrement !== null;
     }
 
+    /** Does this weapon require ammunition in order to make a strike? */
+    get requiresAmmo(): boolean {
+        return this.isRanged && ![null, "-"].includes(this.reload);
+    }
+
     get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
-        return ammo instanceof ConsumablePF2e ? ammo : null;
+        return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
     }
 
     /** Generate a list of strings for use in predication */
@@ -124,6 +129,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
+        systemData.reload.value || null;
         systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         AutomaticBonusProgression.cleanupRunes(this);
@@ -350,7 +356,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
-                reload: { value: "" },
+                reload: { value: null },
                 traits: { value: meleeUsage.traits.concat("combination") },
                 selectedAmmoId: null,
             },

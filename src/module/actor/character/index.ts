@@ -1336,6 +1336,11 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
+                    if (weapon.requiresAmmo && !weapon.ammo) {
+                        ui.notifications.warn(game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name }));
+                        return;
+                    }
+
                     const context = this.getAttackRollContext({
                         domains: [],
                         item: weapon,
