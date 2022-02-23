@@ -35,7 +35,7 @@ declare namespace foundry {
             displayName: TokenDisplayMode;
             actorId: string | null;
             actorLink: boolean;
-            img: string;
+            img: VideoPath;
             randomImg: boolean;
             tint: string | null;
             width: number;

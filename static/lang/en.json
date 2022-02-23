@@ -481,23 +481,23 @@
             }
         },
         "ActionsCheck": {
-            "acrobatics": "Acrobatics Skill Check",
-            "arcana": "Arcana Skill Check",
-            "athletics": "Athletics Skill Check",
-            "crafting": "Crafting Skill Check",
-            "deception": "Deception Skill Check",
-            "diplomacy": "Diplomacy Skill Check",
-            "intimidation": "Intimidation Skill Check",
-            "medicine": "Medicine Skill Check",
-            "nature": "Nature Skill Check",
-            "occultism": "Occultism Skill Check",
+            "acrobatics": "Acrobatics Check",
+            "arcana": "Arcana Check",
+            "athletics": "Athletics Check",
+            "crafting": "Crafting Check",
+            "deception": "Deception Check",
+            "diplomacy": "Diplomacy Check",
+            "intimidation": "Intimidation Check",
+            "medicine": "Medicine Check",
+            "nature": "Nature Check",
+            "occultism": "Occultism Check",
             "perception": "Perception Check",
-            "performance": "Performance Skill Check",
-            "religion": "Religion Skill Check",
-            "society": "Society Skill Check",
-            "stealth": "Stealth Skill Check",
-            "survival": "Survival Skill Check",
-            "thievery": "Thievery Skill Check"
+            "performance": "Performance Check",
+            "religion": "Religion Check",
+            "society": "Society Check",
+            "stealth": "Stealth Check",
+            "survival": "Survival Check",
+            "thievery": "Thievery Check"
         },
         "ActionsWarning": {
             "DeceptionUnknownVariant": "Unknown variant '{variant}' used for Deception, use either distracting words, gesture, or trick.",
@@ -690,12 +690,6 @@
         "AttackEffectPush": "Push",
         "AttackEffectTrip": "Trip",
         "AttackLabel": "Attack",
-        "AttackOutcome": {
-            "criticalSuccess": "Critical Hit",
-            "success": "Hit",
-            "failure": "Miss",
-            "criticalFailure": "Critical Miss"
-        },
         "AttitudeLabel": "Attitude",
         "Attitudes": {
             "Hostile": "Hostile",
@@ -813,15 +807,42 @@
         "CharacterTraits": "Character Traits",
         "CharacterTraitsHeader": "Traits & Other Details",
         "Check": {
-            "AC": "AC: {dc}",
-            "DC": "DC: {dc}",
-            "TargetDC": "{target} {dcLabel}"
-        },
-        "CheckOutcome": {
-            "criticalSuccess": "Critical Success",
-            "success": "Success",
-            "failure": "Failure",
-            "criticalFailure": "Critical Failure"
+            "DC": {
+                "Specific": {
+                    "ac": "AC {dc}",
+                    "athletics": "Athletics DC {dc}",
+                    "deception": "Deception DC {dc}",
+                    "fortitude": "Fortitude DC {dc}",
+                    "perception": "Perception DC {dc}",
+                    "reflex": "Reflex DC {dc}",
+                    "stealth": "Stealth DC {dc}",
+                    "will": "Will DC {dc}"
+                },
+                "Unspecific": "DC {dc}"
+            },
+            "Label": "Check",
+            "Result": {
+                "Degree": {
+                    "Attack": {
+                        "criticalSuccess": "Critical Hit",
+                        "success": "Hit",
+                        "failure": "Miss",
+                        "criticalFailure": "Critical Miss"
+                    },
+                    "Check": {
+                        "criticalSuccess": "Critical Success",
+                        "success": "Success",
+                        "failure": "Failure",
+                        "criticalFailure": "Critical Failure"
+                    }
+                },
+                "Label": "Result: <degree>{degree}</degree> <offset>by {offset}</offset>",
+                "AdjustedLabel": "Result: <degree>{degree}</degree> <offset>by {offset}</offset> ({adjustment})"
+            },
+            "Target": {
+                "WithDC": "<target>Target: {target}</target> <dc>({dc})</dc>",
+                "AdjustedDC": "<target>Target: {target}</target> <dc>(<preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>"
+            }
         },
         "CircumstanceBonusShortLabel": "Circumstance",
         "CircumstanceBonusTitle": "Circumstance Bonus",
@@ -995,14 +1016,6 @@
         "CreateLabelUniversal": "Create",
         "CreateSkillTitle": "Create Skill",
         "CreateSpellTitle": "Create Spell",
-        "CreatureStatisticDC": {
-            "deception": "{creature} Deception DC: {dc}",
-            "fortitude": "{creature} Fortitude DC: {dc}",
-            "perception": "{creature} Perception DC: {dc}",
-            "reflex": "{creature} Reflex DC: {dc}",
-            "stealth": "{creature} Stealth DC: {dc}",
-            "will": "{creature} Will DC: {dc}"
-        },
         "CritFailure": "<strong>Critical Failure</strong>",
         "CritSuccess": "<strong>Critical Success</strong>",
         "CriticalDamageLabel": "Critical",
@@ -1917,8 +1930,6 @@
         "ResolvePointsShortLabel": "Resolve",
         "ResolveTitle": "The amount of resolve points you have",
         "RestoreSpellTitle": "Restore Spell",
-        "ResultLabel": "Result",
-        "ResultOffset": "by {offset}",
         "Roll": {
             "Modifier": "Modifier",
             "Type": "Type",

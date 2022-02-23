@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ModifierPF2e } from "@module/modifiers";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 

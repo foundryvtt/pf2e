@@ -29,7 +29,7 @@ import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { CraftingFormulaData } from "@module/crafting/formula";
-import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CraftingEntryData } from "@module/crafting/crafting-entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";

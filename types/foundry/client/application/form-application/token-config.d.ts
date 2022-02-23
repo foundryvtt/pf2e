@@ -1,5 +1,8 @@
 /** A Token Configuration Application */
-declare class TokenConfig<TDocument extends TokenDocument = TokenDocument> extends FormApplication<TDocument> {
+declare class TokenConfig<
+    TDocument extends TokenDocument = TokenDocument,
+    TOptions extends FormApplicationOptions = FormApplicationOptions
+> extends FormApplication<TDocument, TOptions> {
     constructor(object: TDocument, options?: Partial<FormApplicationOptions>);
 
     token: TDocument;
@@ -16,9 +19,7 @@ declare class TokenConfig<TDocument extends TokenDocument = TokenDocument> exten
 
     get title(): string;
 
-    override getData(
-        options?: Partial<FormApplicationOptions>
-    ): TokenConfigData<TDocument> | Promise<TokenConfigData<TDocument>>;
+    override getData(options?: Partial<TOptions>): TokenConfigData<TDocument> | Promise<TokenConfigData<TDocument>>;
 
     override render(force?: boolean, options?: RenderOptions): Promise<this>;
 
@@ -48,7 +49,7 @@ declare class TokenConfig<TDocument extends TokenDocument = TokenDocument> exten
     protected _onBarChange(event: Event): void;
 }
 
-declare interface TokenConfigData<T extends TokenDocument | Token> extends FormApplicationData {
+declare interface TokenConfigData<T extends TokenDocument> extends FormApplicationData<T> {
     cssClasses: string;
     isPrototype: boolean;
     hasAlternates: boolean;
