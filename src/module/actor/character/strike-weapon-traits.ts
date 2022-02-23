@@ -58,6 +58,14 @@ class StrikeWeaponTraits {
                         }),
                     });
                 }
+                case "improvised": {
+                    return new ModifierPF2e({
+                        label: getLabel(trait),
+                        modifier: -2,
+                        type: MODIFIER_TYPE.ITEM,
+                        predicate: new PredicatePF2e({ not: ["self:ignore-improvised-penalty"] }),
+                    });
+                }
                 default:
                     return [];
             }
