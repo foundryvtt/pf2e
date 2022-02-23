@@ -13,7 +13,6 @@ import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
@@ -649,43 +648,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */
-
-    /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    rollRecovery(event: JQuery.TriggeredEvent) {
-        if (this.data.type !== "character") {
-            throw Error("Recovery rolls are only applicable to characters");
-        }
-
-        const dying = this.data.data.attributes.dying.value;
-        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-        const recoveryMod = getProperty(this.data.data.attributes, "dying.recoveryMod") || 0;
-
-        const dc: CheckDC = {
-            label: game.i18n.format("PF2E.Recovery.rollingDescription", {
-                dying,
-                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
-            }),
-            value: 10 + recoveryMod + dying,
-            visibility: "all",
-        };
-
-        const notes: RollNotePF2e[] = [
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critSuccess"), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.success"), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.failure"), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critFailure"), undefined, ["criticalFailure"]),
-        ];
-
-        const modifier = new StatisticModifier(game.i18n.localize("PF2E.FlatCheck"), []);
-
-        CheckPF2e.roll(modifier, { actor: this, dc, notes }, event);
-
-        // No automated update yet, not sure if Community wants that.
-        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
-    }
 
     /**
      * Calculates attack roll target data including the target's DC.

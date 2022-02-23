@@ -146,11 +146,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.actor.skills[key]?.check.roll(eventToRollParams(event));
         });
 
-        // Roll recovery flat check when Dying
-        $html.find(".recoveryCheck.rollable").on("click", (event) => {
-            this.actor.rollRecovery(event);
-        });
-
         // strikes
         const $strikesList = $html.find("ol.strikes-list");
 
