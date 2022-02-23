@@ -73,6 +73,7 @@ import { ItemCarryType } from "@item/physical/data";
 import { CreateAuxiliaryParams } from "./types";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
+import { DamageRollContext } from "@system/damage/damage";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -1393,7 +1394,7 @@ export class CharacterPF2e extends CreaturePF2e {
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
-            action[method] = (args: StrikeRollParams): string | void => {
+            action[method] = async (args: StrikeRollParams): Promise<string | void> => {
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: args.getFormula ?? false,
@@ -1425,12 +1426,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
-                    DamageRollPF2e.roll(
-                        damage,
-                        { type: "damage-roll", item: context.self.item, actor: context.self.actor, outcome, options },
-                        args.event,
-                        args.callback
-                    );
+                    const { self, target, options } = context;
+                    const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
+
+                    await DamageRollPF2e.roll(damage, damageContext, args.callback);
                 }
             };
         }

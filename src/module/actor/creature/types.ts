@@ -6,7 +6,7 @@ import { CheckDC } from "@system/degree-of-success";
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
-interface StrikeSelf<A extends ActorPF2e, I extends AttackItem> {
+interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
     actor: A;
     token: TokenDocumentPF2e | null;
     /** The item used for the strike */
@@ -64,5 +64,7 @@ export {
     IsFlatFootedParams,
     StrikeRollContext,
     StrikeRollContextParams,
+    StrikeSelf,
+    StrikeTarget,
     GetReachParameters,
 };
