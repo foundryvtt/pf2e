@@ -1,14 +1,14 @@
 {
-    "_id": "uqjx1bwYduHwwC7d",
+    "_id": "wHQZO70bSECtSUZn",
     "data": {
         "badge": null,
         "description": {
-            "value": ""
+            "value": "<p>The creature gains a +1 status bonus to Will saving throws and all skill checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "days",
             "value": 1
         },
         "level": {
@@ -16,35 +16,20 @@
         },
         "rules": [
             {
-                "key": "ToggleProperty",
-                "label": "Attacking designated target",
-                "property": "flags.pf2e.rollOptions.all.guiding-words-target"
-            },
-            {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "guiding-words-target"
-                    ]
-                },
-                "selector": "attack",
+                "selector": "will",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "guiding-words-target"
-                    ]
-                },
-                "selector": "damage",
+                "selector": "skill-check",
                 "type": "status",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder #176: Lost Mammoth Valley"
         },
         "start": {
             "initiative": null,
@@ -62,7 +47,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/agitate.webp",
-    "name": "Effect: Guiding Words",
+    "img": "systems/pf2e/icons/spells/phantom-crowd.webp",
+    "name": "Effect: Ancestral Journey",
     "type": "effect"
 }
