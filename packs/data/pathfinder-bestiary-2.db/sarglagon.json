@@ -1193,117 +1193,6 @@
             "type": "spell"
         },
         {
-            "_id": "40RSZBmoJLjsUJmN",
-            "data": {
-                "badge": null,
-                "description": {
-                    "value": "<p>When you're behind an obstacle that could block weapons, guard you against explosions, and make you harder to detect, you're behind cover. Standard cover gives you a +2 circumstance bonus to AC, to Reflex saves against area effects, and to Stealth checks to Hide, Sneak, or otherwise avoid detection. You can increase this to greater cover using the Take Cover basic action, increasing the circumstance bonus to +4. If cover is especially light, typically when it's provided by a creature, you have lesser cover, which grants a +1 circumstance bonus to AC. A creature with standard cover or greater cover can attempt to use Stealth to Hide, but lesser cover isn't sufficient.</p>"
-                },
-                "duration": {
-                    "expiry": null,
-                    "sustained": false,
-                    "unit": "unlimited",
-                    "value": -1
-                },
-                "level": {
-                    "value": 1
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.SpecificRule.Cover.Lesser",
-                                "sort": 1,
-                                "value": 1
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Cover.Standard",
-                                "sort": 2,
-                                "value": 2
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Cover.Greater",
-                                "sort": 3,
-                                "value": 4
-                            }
-                        ],
-                        "flag": "cover",
-                        "ignored": true,
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Cover.Prompt"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": "@item.data.flags.pf2e.rulesSelections.cover"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "area-effect"
-                            ]
-                        },
-                        "selector": "reflex",
-                        "type": "circumstance",
-                        "value": "@item.data.flags.pf2e.rulesSelections.cover"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:hide",
-                                "action:sneak",
-                                "avoid-detection"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "type": "circumstance",
-                        "value": "@item.data.flags.pf2e.rulesSelections.cover"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:avoid-notice"
-                            ]
-                        },
-                        "selector": "initiative",
-                        "type": "circumstance",
-                        "value": "@item.data.flags.pf2e.rulesSelections.cover"
-                    }
-                ],
-                "slug": "cover",
-                "source": {
-                    "value": ""
-                },
-                "start": {
-                    "initiative": null,
-                    "value": 102
-                },
-                "target": null,
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-effects.I9lfZUiCwMiGogVi"
-                }
-            },
-            "img": "systems/pf2e/icons/conditions-2/status_acup.webp",
-            "name": "Cover",
-            "sort": 1000000,
-            "type": "effect"
-        },
-        {
             "_id": "LbkW4zjvlyreuGX1",
             "data": {
                 "attack": {
@@ -1350,7 +1239,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
@@ -1403,7 +1292,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tentacle Arm",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "melee"
         },
         {
@@ -1449,7 +1338,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1499,7 +1388,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1545,7 +1434,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1500000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1591,7 +1480,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1600000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1653,7 +1542,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Magic",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1700,7 +1589,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Heavy Aura",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1742,7 +1631,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Stygian Guardian",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1788,7 +1677,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Drown",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1832,7 +1721,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sarglagon Venom",
-            "sort": 2100000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1862,7 +1751,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2200000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1892,7 +1781,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2300000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1922,7 +1811,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2400000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1952,7 +1841,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2500000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1982,7 +1871,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2600000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -2012,7 +1901,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2700000,
+            "sort": 2600000,
             "type": "lore"
         }
     ],
