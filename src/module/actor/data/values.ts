@@ -157,6 +157,10 @@ export const SKILL_DICTIONARY = {
     thi: "thievery",
 } as const;
 
+export const SKILL_LONG_FORMS = new Set(Object.values(SKILL_DICTIONARY));
+
+export const DC_SLUGS = new Set(["ac", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
+
 interface SkillExpanded {
     ability: AbilityString;
     shortform: SkillAbbreviation;

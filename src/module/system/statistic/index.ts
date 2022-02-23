@@ -17,7 +17,7 @@ import {
     StatisticDataWithCheck,
 } from "./data";
 import { ItemPF2e } from "@item";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { isObject } from "@util";
 import { eventToRollParams } from "@scripts/sheet-util";
 

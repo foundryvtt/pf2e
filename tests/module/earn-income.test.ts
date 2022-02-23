@@ -1,5 +1,5 @@
 import { earnIncome } from "../../src/scripts/macros/earn-income";
-import { DegreeOfSuccess } from "../../src/module/degree-of-success";
+import { DegreeOfSuccess } from "../../src/module/system/degree-of-success";
 
 const options = {
     useLoreAsExperiencedProfessional: false,

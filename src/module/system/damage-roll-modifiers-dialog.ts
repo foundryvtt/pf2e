@@ -1,4 +1,4 @@
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RollNotePF2e } from "@module/notes";
 import { ModifierPF2e } from "@module/modifiers";
 import { DamageTemplate } from "@system/damage/weapon";
@@ -57,7 +57,7 @@ export class DamageRollModifiersDialog extends Application {
                 damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
         }
 
-        const outcomeLabel = game.i18n.localize(`PF2E.CheckOutcome.${outcome}`);
+        const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
             const strikeTraits: Record<string, string | undefined> = {

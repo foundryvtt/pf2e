@@ -5,12 +5,12 @@ export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
     static override version = 0.622;
 
     override async updateActor(actorData: ActorWithTokenEffect): Promise<void> {
-        // remove deprecated condition token effects
+        // Remove deprecated condition token effects
         if (actorData.token.effects) {
             actorData.token["-=effects"] = null;
         }
 
-        // remove deprecated rule element token effects
+        // Remove deprecated rule element token effects
         const effects = actorData.flags.pf2e?.token?.effects ?? {};
         for (const img of Object.keys(effects)) {
             if (actorData.token.effects?.map((fx) => fx.replace(/[.]/g, "-"))?.includes(img)) {
@@ -20,14 +20,12 @@ export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
     }
 
     override async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
-        // remove deprecated condition token effects
+        // Remove deprecated condition token effects
         tokenData.effects = tokenData.effects.filter((fx) => !fx.startsWith("systems/pf2e/icons/conditions/"));
 
-        // remove deprecated rule element token effects
-        const effects =
-            tokenData.actorData.flags?.pf2e?.token?.effects ??
-            game.actors.get(tokenData.actorId)?.data?.flags?.pf2e?.token?.effects ??
-            {};
+        // Remove deprecated rule element token effects
+        const actorData = tokenData.actorData ?? game.actors.get(tokenData.actorId ?? "")?.data;
+        const effects: Record<string, unknown> = actorData.flags?.pf2e?.token?.effects ?? {};
         for (const img of Object.keys(effects)) {
             if (tokenData.effects.map((fx) => fx.replace(/[.]/g, "-")).includes(img)) {
                 tokenData.effects = tokenData.effects.filter((fx) => fx.replace(/[.]/g, "-") !== img);

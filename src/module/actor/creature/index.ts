@@ -13,7 +13,7 @@ import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
@@ -698,10 +698,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
         const attackTarget: AttackTarget | null = context.target ? { ...context.target, dc: null } : null;
         if (attackTarget && attackTarget.actor.attributes.ac) {
-            const { attributes } = attackTarget.actor;
             attackTarget.dc = {
-                scope: "AttackOutcome",
-                value: attributes.ac.value,
+                scope: "attack",
+                slug: "ac",
+                value: attackTarget.actor.attributes.ac.value,
             };
         }
 

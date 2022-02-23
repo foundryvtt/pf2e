@@ -1,4 +1,4 @@
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 
 export class RollNotePF2e {

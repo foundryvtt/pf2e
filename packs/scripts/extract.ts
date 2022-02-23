@@ -152,7 +152,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         img: docSource.token.img.replace(
                             "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
                             "systems/pf2e/"
-                        ),
+                        ) as VideoPath,
                         name: docSource.token.name,
                         width: docSource.token.width,
                     };
