@@ -94,75 +94,6 @@ $light-text: #f5efe0;
         height: 100%;
         overflow: hidden scroll;
 
-        .side-bar-section {
-            display: flex;
-            flex: auto;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-
-            .controls {
-                padding-right: 4px;
-            }
-
-            &.initiative {
-                a.roll-init {
-                    display: flex;
-                    flex-wrap: nowrap;
-                    font-weight: 700;
-                    margin-left: auto;
-                    margin-bottom: 2px;
-                    padding-right: 0.5em;
-
-                    i.fa-dice-d20 {
-                        font-size: 1rem;
-                        margin-right: 0.2em;
-                    }
-                }
-                select {
-                    background: none;
-                    text-transform: unset;
-                }
-            }
-        }
-
-        .side-bar-section-header {
-            display: flex;
-            width: 100%;
-            font-size: 1rem;
-            border-bottom: 1px solid;
-            border-color: $faded-color;
-            margin-top: 10px;
-            margin-bottom: 0px;
-
-            .side-bar-label {
-                display: flex;
-                flex: auto;
-                flex-direction: row;
-                align-items: flex-start;
-
-                .fa {
-                    font-size: 0.8rem;
-                }
-
-                h4 {
-                    font-size: 0.8rem;
-                    margin-bottom: 0px;
-                    padding-left: 6px;
-                }
-            }
-        }
-
-        .side-bar-section-content {
-            display: flex;
-            width: 100%;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding-top: 2px;
-        }
-
         .armor-section {
             .armor-value {
                 flex: 0;
@@ -303,6 +234,76 @@ $light-text: #f5efe0;
             }
         }
     }
+   
+    .side-bar-section {
+        display: flex;
+        flex: auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .controls {
+            padding-right: 4px;
+        }
+
+        &.initiative {
+            a.roll-init {
+                display: flex;
+                flex-wrap: nowrap;
+                font-weight: 700;
+                margin-left: auto;
+                margin-bottom: 2px;
+                padding-right: 0.5em;
+
+                i.fa-dice-d20 {
+                    font-size: 1rem;
+                    margin-right: 0.2em;
+                }
+            }
+            select {
+                background: none;
+                text-transform: unset;
+            }
+        }
+    }
+
+    .side-bar-section-content {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 2px;
+    }
+
+    .side-bar-section-header {
+        display: flex;
+        width: 100%;
+        font-size: 1rem;
+        border-bottom: 1px solid;
+        border-color: $faded-color;
+        margin-top: 10px;
+        margin-bottom: 0px;
+
+        .side-bar-label {
+            display: flex;
+            flex: auto;
+            flex-direction: row;
+            align-items: flex-start;
+
+            .fa {
+                font-size: 0.8rem;
+            }
+
+            h4 {
+                font-size: 0.8rem;
+                margin-bottom: 0px;
+                padding-left: 6px;
+            }
+        }
+    }
+
 
     .sheet-body {
         flex: auto;
@@ -358,13 +359,13 @@ $light-text: #f5efe0;
     }
 
     .disabled {
-        color: $color-disabled !important;
-        border-color: $color-disabled !important;
-    }
-
-    .disabled:hover {
-        color: $color !important;
-        border-color: $faded-color !important;
+        color: $color-disabled;
+        border-color: $color-disabled;
+        
+        &:hover, &.active {
+            color: $color;
+            border-color: $faded-color;
+        }
     }
 
     .trait {
@@ -781,48 +782,53 @@ $light-text: #f5efe0;
         font-family: var(--sans-serif);
         font-weight: 500;
         text-transform: uppercase;
+
+        option {
+            color: var(--text-light);
+            background-color: var(--alt);
+        }
     }
 
     .alignment-select {
-        background: #566193 !important;
-        border: 2px solid #d8c384 !important;
-        color: white !important;
+        background: #566193;
+        border: 2px solid #d8c384;
+        color: white;
     }
 
     .size-select {
-        background: #3a7a58 !important;
-        border: 2px solid #d8c384 !important;
-        color: white !important;
+        background: #3a7a58;
+        border: 2px solid #d8c384;
+        color: white;
     }
 
     .rarity-select {
-        border: 2px solid #d8c384 !important;
-        color: white !important;
+        border: 2px solid #d8c384;
+        color: white;
 
         &.common {
-            background: $rarity-common !important;
+            background: $rarity-common;
         }
         &.uncommon {
-            background: $rarity-uncommon !important;
+            background: $rarity-uncommon;
         }
         &.rare {
-            background: $rarity-rare !important;
+            background: $rarity-rare;
         }
         &.unique {
-            background: $rarity-unique !important;
+            background: $rarity-unique;
         }
     }
 
     .adjustment-select {
         .adjustment {
             &.active {
-                background-color: $primary-accent !important;
+                background-color: $primary-accent;
                 color: $light-text;
             }
 
             &:not(.active) {
-                background-color: $faded-color !important;
-                color: $light-text !important;
+                background-color: $faded-color;
+                color: $light-text;
             }
         }
     }
