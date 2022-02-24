@@ -1,7 +1,7 @@
 <div class="tab details character" data-group="primary" data-tab="details">
     <ul class="directory-list">
         <li class="details-content">
-            <div class="bio-item trait-size pf-container">
+            <div class="bio-item trait-size">
                 <section class="vehicle-details">
                     <div class="frame">
                         <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%"
@@ -16,8 +16,7 @@
                         </div>
                         <div>
                             <label class="details-label" for="{{options.id}}-ehicle-rarity">{{localize "PF2E.Rarity"}}</label>
-                            <select id="{{options.id}}-vehicle-rarity" class="pf-value pf-small pf-width-100" name="data.traits.rarity"
-                                data-dtype="String">
+                            <select id="{{options.id}}-vehicle-rarity" name="data.traits.rarity" data-dtype="String">
                                 {{#select data.traits.rarity}}
                                     {{#each actorRarities as |label key|}}
                                         <option value="{{key}}">{{localize label}}</option>
@@ -26,8 +25,7 @@
                             </select>
                         </div>
 
-                        <div class="row-nr-2 span-2-columns"
-                            title="{{localize "PF2E.vehicle.PropertyDescriptionSpeed"}}">
+                        <div class="row-nr-2 span-2-columns" title="{{localize "PF2E.vehicle.PropertyDescriptionSpeed"}}">
                             <label class="details-label" for="{{options.id}}-vehicle-speed">{{localize "PF2E.Speed"}}</label>
                             <span>
                                 <input id="{{options.id}}-vehicle-speed" name="data.details.speed" type="text" value="{{data.details.speed}}" placeholder="0" />
@@ -57,7 +55,7 @@
 
                         <div class="row-nr-3">
                             <label class="details-label" for="{{options.id}}-vehicle-size-value">{{localize "PF2E.SizeLabel"}}</label>
-                            <select id="{{options.id}}-vehicle-size-value" class="pf-value pf-small pf-width-100" name="data.traits.size.value"
+                            <select id="{{options.id}}-vehicle-size-value" name="data.traits.size.value"
                                 data-dtype="String">
                                 {{#select data.traits.size.value}}
                                     {{#each actorSizes as |label size|}}
@@ -106,7 +104,7 @@
 
                     {{#if owner}}
                         <div class="detailsInput flexitem-full">
-                            <span class="details-label" class="pf-title">{{localize "PF2E.Traits"}}</span>
+                            <span class="details-label">{{localize "PF2E.Traits"}}</span>
                             <ul class="tags">
                                 {{#each data.traits.traits.selected as |v k|}}
                                     <li class="tag tag_alt {{k}}">{{localize v}}</li>

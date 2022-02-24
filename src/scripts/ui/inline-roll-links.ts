@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
@@ -22,6 +22,19 @@ function resolveActors(): ActorPF2e[] {
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollsLinks = {
+    // Conditionally show DCs in the text
+    injectDCText: ($links: JQuery) => {
+        $links.each((_idx, link) => {
+            const dc = Number(link.dataset.pf2Dc?.trim() ?? "");
+            const role = link.dataset.pf2ShowDc?.trim() ?? "";
+            const userCanView = ["all", "owner"].includes(role) || (role === "gm" && game.user.isGM);
+            if (userCanView && dc > 0) {
+                const text = link.innerHTML;
+                link.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text });
+            }
+        });
+    },
+
     injectRepostElement: ($links: JQuery) => {
         $links.each((_idx, link) => {
             if (game.user.isGM) {
@@ -39,6 +52,7 @@ export const InlineRollsLinks = {
 
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
+        InlineRollsLinks.injectDCText($links);
         InlineRollsLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
@@ -56,12 +70,7 @@ export const InlineRollsLinks = {
                     event,
                     glyph: pf2Glyph,
                     variant: pf2Variant,
-                    difficultyClass: pf2Dc
-                        ? {
-                              scope: "CheckOutcome",
-                              value: parseInt(pf2Dc),
-                          }
-                        : undefined,
+                    difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0 } : undefined,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -249,8 +258,21 @@ export const InlineRollsLinks = {
         ) {
             const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
             const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
+
+            // Need to strip out the DC from the inner HTML if it exists before repost.
+            const regexDC = new RegExp(
+                game.i18n
+                    .localize("PF2E.DCWithValue")
+                    .replace(/\{dc\}/g, "\\d+")
+                    .replace(/\{text\}/g, "(.*)")
+            );
+            const newInnerHTML = target.innerHTML
+                .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
+                .replace(regexDC, "$1");
+            const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
+
             ChatMessagePF2e.create({
-                content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
+                content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
             });
         }
     },

@@ -1,3 +1,6 @@
+import { StrikeSelf, StrikeTarget } from "@actor/creature/types";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { BaseRollContext } from "@system/rolls";
 import { combineObjects } from "../../../util";
 
 /** The possible standard damage die sizes. */
@@ -115,3 +118,14 @@ export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> =
 
 /** Custom damage type mappings; maps damage types to their damage category. */
 export const CUSTOM_DAMAGE_TYPES_TO_CATEGORIES: Record<string, string> = {};
+
+interface DamageRollContext extends BaseRollContext {
+    type: "damage-roll";
+    outcome?: DegreeOfSuccessString;
+    self?: StrikeSelf | null;
+    target?: StrikeTarget | null;
+    options: string[];
+    secret?: boolean;
+}
+
+export { DamageRollContext };

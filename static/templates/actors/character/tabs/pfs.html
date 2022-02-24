@@ -21,7 +21,7 @@
     <div class="pfs">
         <div class="spacing">
             <label class="details-label" for="{{options.id}}-pfs-current-faction">{{localize "PF2E.PFS.CurrentFaction"}}</label>
-            <span class="pf-value pf-small" title="{{localize "PF2E.PFS.CurrentFaction"}}">
+            <span title="{{localize "PF2E.PFS.CurrentFaction"}}">
                 <select id="{{options.id}}-pfs-current-faction" name="data.pfs.currentFaction">
                     {{#select data.pfs.currentFaction}}
                         {{#each pfsFactions as |label key|}}
@@ -56,7 +56,7 @@
             {{#if (eq section.label "PF2E.FeatPFSBoonHeader")}}
                 <li class="item action-header stroke-header">
                     {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                    <h3 class="feat-name pf-heading pf-actions">{{localize section.label}}</h3>
+                    <h3 class="feat-name">{{localize section.label}}</h3>
                     {{#if ../owner}}
                         <div class="item-controls">
                             <a class="item-control item-create" title="{{localize "PF2E.CreateFeatTitle"}}" data-type="feat" data-feat-type="{{sid}}"><i class="fas fa-plus"></i></a>
@@ -84,7 +84,7 @@
 
         <li class="item action-header stroke-header">
             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-            <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.FeatPFSBoonHeader"}}</h3>
+            <h3 class="item-name">{{localize "PF2E.FeatPFSBoonHeader"}}</h3>
             {{#if owner}}
                 <div class="item-controls">
                     <a class="item-control item-create" title="{{localize "PF2E.CreateFeatTitle"}}" data-type="feat" data-feat-type="pfsboon"><i class="fas fa-plus"></i></a>

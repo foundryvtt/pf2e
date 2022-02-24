@@ -18,12 +18,13 @@ import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/dat
 import { CraftingFormula } from "@module/crafting/formula";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { craftItem, craftSpellConsumable } from "@module/crafting/helpers";
 import { CharacterSheetData } from "./data/sheet";
 import { CraftingEntry } from "@module/crafting/crafting-entry";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { LocalizePF2e } from "@system/localize";
+import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
@@ -566,6 +567,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected async prepareCraftingEntries() {
         const actorCraftingEntries = await this.actor.getCraftingEntries();
         const craftingEntries = {
+            dailyCrafting: false,
             other: <CraftingEntry[]>[],
             alchemical: {
                 entries: <CraftingEntry[]>[],
@@ -577,8 +579,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(entry);
                 craftingEntries.alchemical.totalReagentCost += entry.reagentCost || 0;
+                craftingEntries.dailyCrafting = true;
             } else {
                 craftingEntries.other.push(entry);
+                if (entry.isDailyPrep) craftingEntries.dailyCrafting = true;
             }
         });
         return craftingEntries;
@@ -797,6 +801,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             });
 
+        $html.find("[data-action=rest]").on("click", (event) => {
+            restForTheNight({ event, actors: this.actor });
+        });
+
         // Decrease effect value
         $html.find(".tab.effects .effects-list .decrement").on("click", async (event) => {
             const actor = this.actor;
@@ -908,7 +916,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 value: formula.dc,
                 visibility: "all",
                 adjustments: this.actor.data.data.skills["cra"].adjustments,
-                scope: "CheckOutcome",
+                scope: "check",
             };
 
             craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
