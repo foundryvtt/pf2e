@@ -633,14 +633,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         {
             // ensure correct tab name is displayed after actor update
-            const title = $(".sheet-navigation .active").data("tabTitle");
+            const title = $(".sheet-navigation .active").attr("title");
             if (title) {
                 $html.find(".navigation-title").text(title);
             }
         }
 
         $html.find(".sheet-navigation").on("mouseover", ".item,.manage-tabs", (event) => {
-            const title = event.currentTarget.dataset.tabTitle;
+            const title = event.currentTarget.title;
             if (title) {
                 $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
             }
@@ -648,7 +648,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         $html.find(".sheet-navigation").on("mouseout", ".item,.manage-tabs", (event) => {
             const parent = $(event.currentTarget).parents(".sheet-navigation");
-            const title = parent.find(".item.active").data("tabTitle");
+            const title = parent.find(".item.active").attr("title");
             if (title) {
                 parent.find(".navigation-title").text(title);
             }
