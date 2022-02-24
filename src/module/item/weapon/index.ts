@@ -129,7 +129,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
-        systemData.reload.value || null;
+        systemData.reload.value ||= null;
         systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         AutomaticBonusProgression.cleanupRunes(this);
