@@ -43,6 +43,7 @@ type CharacterSystemSheetData = CharacterSystemData & {
 };
 
 interface CraftingEntries {
+    dailyCrafting: boolean;
     other: CraftingEntry[];
     alchemical: {
         entries: CraftingEntry[];
