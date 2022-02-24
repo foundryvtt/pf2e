@@ -102,7 +102,7 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     };
     range: WeaponRangeIncrement | null;
     reload: {
-        value: string;
+        value: string | null;
     };
     usage: {
         value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
