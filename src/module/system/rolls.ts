@@ -184,6 +184,7 @@ export class CheckPF2e {
         const notes =
             context.notes
                 ?.filter((note) => {
+                    if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;

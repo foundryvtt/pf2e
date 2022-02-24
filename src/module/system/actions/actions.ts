@@ -211,11 +211,12 @@ export class ActionsPF2e {
                 const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
 
                 const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-                const finalOptions = actor
-                    .getRollOptions(options.rollOptions)
-                    .concat(options.extraOptions)
-                    .concat(options.traits)
-                    .concat(targetOptions);
+                const finalOptions = [
+                    actor.getRollOptions(options.rollOptions),
+                    options.extraOptions,
+                    options.traits,
+                    targetOptions,
+                ].flat();
 
                 // modifier from roller's equipped weapon
                 const weapon = (
@@ -275,19 +276,19 @@ export class ActionsPF2e {
                         : null;
                 })();
                 const hasTarget = !!(targetActor && target) && typeof distance === "number";
+                const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
 
                 CheckPF2e.roll(
                     check,
                     {
                         actor,
+                        token: selfToken,
                         createMessage: options.createMessage,
                         target: hasTarget ? { actor: targetActor, token: target, dc, distance } : null,
                         dc,
                         type: options.checkType,
                         options: finalOptions,
-                        notes: (stat.notes ?? []).concat(
-                            options.extraNotes ? options.extraNotes(options.statName) : []
-                        ),
+                        notes,
                         traits: traitObjects,
                         title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
