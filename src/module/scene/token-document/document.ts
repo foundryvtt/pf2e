@@ -244,13 +244,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         options: DocumentModificationContext<this>,
         userId: string
     ): void {
-        // Nudge foundry to do a full redraw for unlinked actors if any effects were added
-        if (!this.isLinked && Array.isArray(changed.actorData?.items)) {
-            // Flaw in `DeepPartial` type: it considers arrays as possibly "partial" arrays without all their methods
-            const effectChange = changed.actorData!.items.some((i) => i!.type === "effect");
-            if (effectChange) changed.width ??= this.data.width;
-        }
-
         super._onUpdate(changed, options, userId);
 
         game.pf2e.effectPanel.refresh();
