@@ -166,6 +166,14 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register("pf2e", "worldSystemVersion", {
+        name: "World System Version",
+        scope: "world",
+        config: false,
+        default: game.system.data.version,
+        type: String,
+    });
+
     game.settings.registerMenu("pf2e", "automation", {
         name: "PF2E.SETTINGS.Automation.Name",
         label: "PF2E.SETTINGS.Automation.Label",
