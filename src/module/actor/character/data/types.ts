@@ -332,7 +332,7 @@ export interface CharacterAttributes extends CreatureAttributes {
     bonusEncumbranceBulk: number;
 
     /** The current dying level (and maximum) for this character. */
-    dying: { value: number; max: number };
+    dying: { value: number; max: number; recoveryMod: number };
     /** The current wounded level (and maximum) for this character. */
     wounded: { value: number; max: number };
     /** The current doomed level (and maximum) for this character. */

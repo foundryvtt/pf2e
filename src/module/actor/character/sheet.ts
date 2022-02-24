@@ -801,6 +801,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             });
 
+        // Roll recovery flat check when Dying
+        const $recoveryCheck = $html.find('a[data-action="recovery-check"]:not(.disabled)');
+        $recoveryCheck.on("click", (event) => {
+            this.actor.rollRecovery(event);
+        });
+
         $html.find("[data-action=rest]").on("click", (event) => {
             restForTheNight({ event, actors: this.actor });
         });
