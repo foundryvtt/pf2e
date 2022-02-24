@@ -301,11 +301,29 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Refresh vision and the `EffectsPanel` */
-    protected override _onRelease(options?: Record<string, unknown>) {
+    protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
 
         canvas.lighting.setPerceivedLightLevel();
         super._onRelease(options);
+    }
+
+    /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this["document"]>,
+        userId: string
+    ): void {
+        if (!this.document.isLinked) {
+            const { width, height, scale, img } = this.data;
+            this.document.prepareData();
+            // If any of the following changed, a full redraw should be performed
+            const { data } = this;
+            const postChange = { width: data.width, height: data.height, scale: data.scale, img: data.img };
+            mergeObject(changed, diffObject({ width, height, scale, img }, postChange));
+        }
+
+        super._onUpdate(changed, options, userId);
     }
 }
 
