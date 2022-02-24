@@ -141,6 +141,7 @@ declare global {
         get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
+        get(module: "pf2e", setting: "worldSystemVersion"): string;
     }
 
     interface ClientSettingsMap {
