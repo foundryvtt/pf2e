@@ -202,14 +202,14 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
-            const saferEval = (): number => {
+            const saferEval = (resolveString: string): number => {
                 try {
-                    return Roll.safeEval(Roll.replaceFormulaData(value, { actor: item.actor!, item: item }));
+                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor: item.actor!, item: item }));
                 } catch {
                     return 0;
                 }
             };
-            return Number(saferEval);
+            return Number(saferEval(value));
         }
         return Number(dc) || undefined;
     })();
