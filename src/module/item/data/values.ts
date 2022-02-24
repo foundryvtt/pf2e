@@ -33,13 +33,18 @@ export const PHYSICAL_ITEM_TYPES = [
 ] as const;
 
 export const PRECIOUS_MATERIAL_TYPES = [
+    "abysium",
     "adamantine",
     "coldIron",
     "darkwood",
+    "djezet",
     "dragonhide",
     "grisantian-pelt",
+    "inubrix",
     "mithral",
+    "noqual",
     "orichalcum",
+    "siccatite",
     "silver",
     "sovereignSteel",
     "warpglass",
