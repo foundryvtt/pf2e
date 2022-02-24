@@ -74,6 +74,8 @@ import { CreateAuxiliaryParams } from "./types";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 import { DamageRollContext } from "@system/damage/damage";
+import { RollNotePF2e } from "@module/notes";
+import { CheckDC } from "@system/degree-of-success";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -212,7 +214,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };
-        attributes.dying = { value: 0, max: 4 };
+        attributes.dying = { value: 0, max: 4, recoveryMod: 0 };
         attributes.wounded = { value: 0, max: 3 };
 
         // Hit points
@@ -1544,6 +1546,42 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         await this.update({ [`data.martial.-=${key}`]: null });
+    }
+
+    /**
+     * Roll a Recovery Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     */
+    rollRecovery(event: JQuery.TriggeredEvent) {
+        const dying = this.data.data.attributes.dying.value;
+        if (!dying) return;
+
+        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+        const recoveryMod = this.data.data.attributes.dying.recoveryMod;
+
+        const dc: CheckDC = {
+            label: game.i18n.format("PF2E.Recovery.rollingDescription", {
+                dying,
+                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
+            }),
+            value: 10 + recoveryMod + dying,
+            visibility: "all",
+        };
+
+        const notes = [
+            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critSuccess"), undefined, ["criticalSuccess"]),
+            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.success"), undefined, ["success"]),
+            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.failure"), undefined, ["failure"]),
+            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critFailure"), undefined, ["criticalFailure"]),
+        ];
+
+        const modifier = new StatisticModifier(game.i18n.localize("PF2E.FlatCheck"), []);
+        const token = this.getActiveTokens(false, true).shift();
+
+        CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
+
+        // No automated update yet, not sure if Community wants that.
+        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */
