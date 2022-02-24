@@ -76,6 +76,7 @@ import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextPara
 import { DamageRollContext } from "@system/damage/damage";
 import { RollNotePF2e } from "@module/notes";
 import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -1556,11 +1557,14 @@ export class CharacterPF2e extends CreaturePF2e {
         const dying = this.data.data.attributes.dying.value;
         if (!dying) return;
 
+        const translations = LocalizePF2e.translations.PF2E;
+        const { Recovery } = translations;
+
         // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
         const recoveryMod = this.data.data.attributes.dying.recoveryMod;
 
         const dc: CheckDC = {
-            label: game.i18n.format("PF2E.Recovery.rollingDescription", {
+            label: game.i18n.format(translations.Recovery.rollingDescription, {
                 dying,
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
@@ -1569,13 +1573,13 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         const notes = [
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critSuccess"), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.success"), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.failure"), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critFailure"), undefined, ["criticalFailure"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
         ];
 
-        const modifier = new StatisticModifier(game.i18n.localize("PF2E.FlatCheck"), []);
+        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
         const token = this.getActiveTokens(false, true).shift();
 
         CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
