@@ -16,7 +16,7 @@ export class CraftingEntry implements CraftingEntryData {
     fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
-    maxItemLevel?: number;
+    maxItemLevel: number;
 
     constructor(private parentActor: CharacterPF2e, knownFormulas: CraftingFormula[], data: CraftingEntryData) {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
@@ -27,7 +27,7 @@ export class CraftingEntry implements CraftingEntryData {
         this.isPrepared = data.isPrepared;
         this.requiredTraits = data.requiredTraits;
         this.maxSlots = data.maxSlots;
-        this.maxItemLevel = data.maxItemLevel;
+        this.maxItemLevel = data.maxItemLevel ?? parentActor.level;
 
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
@@ -110,7 +110,7 @@ export class CraftingEntry implements CraftingEntryData {
         if (this.parentActor.level < formula.level) {
             ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.CharacterLevel"));
         }
-        if (this.maxItemLevel && formula.level > this.maxItemLevel) {
+        if (formula.level > this.maxItemLevel) {
             ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxItemLevel"));
         }
         if (
