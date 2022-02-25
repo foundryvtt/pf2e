@@ -1017,7 +1017,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments
-        const weaponRollOptions = weapon.getItemRollOptions();
+        const weaponRollOptions = weapon.getRollOptions();
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustStrike(weapon);
         }

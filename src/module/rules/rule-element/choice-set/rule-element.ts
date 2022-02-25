@@ -52,7 +52,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * ignored if no selection was made.
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
-        const rollOptions = [this.actor.getRollOptions(), this.item.getItemRollOptions("item")].flat();
+        const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
         if (this.data.predicate && !this.data.predicate.test(rollOptions)) return;
 
         this.setDefaultFlag(ruleSource);
@@ -187,7 +187,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             // Apply the followup predication filter if there is one
             const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
-                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getItemRollOptions("item")]))
+                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getRollOptions("item")]))
                 : feats;
 
             // Exclude any feat of which the character already has its maximum number and return final list
