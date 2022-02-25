@@ -42,12 +42,7 @@
                 "value": 7
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "fly",
-                        "value": "30"
-                    }
-                ],
+                "otherSpeeds": [],
                 "value": "20"
             }
         },
@@ -837,7 +832,141 @@
             "type": "spell"
         },
         {
-            "_id": "LD8TK8mGL7ubLU4I",
+            "_id": "sM537hPvRb9UlE92",
+            "data": {
+                "badge": null,
+                "description": {
+                    "value": ""
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Imp",
+                                "value": "Compendium.pf2e.bestiary-effects.yMAwMIQEejDPMsxi"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Boar",
+                                "value": "Compendium.pf2e.bestiary-effects.yMAwMIQEejDPMsxi"
+                            }
+                        ],
+                        "flag": "changeShapeChoice",
+                        "ignored": true,
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.NPCAbility.ChangeShape.Prompt"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "replaceSelf": true,
+                        "uuid": "{item|flags.pf2e.rulesSelections.changeShapeChoice}"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 108
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": false
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.iPkw10Qykq8NUean"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/effect.svg",
+            "name": "Effect: Change Shape (Imp)",
+            "sort": 700000,
+            "type": "effect"
+        },
+        {
+            "_id": "t7dycwc9rqfy1anu",
+            "data": {
+                "badge": null,
+                "description": {
+                    "value": ""
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "key": "BaseSpeed",
+                        "selector": "land-speed",
+                        "value": 20
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "selector": "fly-speed",
+                        "value": 30
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.bestiary-effects.DuDRJK5Ow94eUHpP"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 108
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.h54Z0K1WQ1EFOUZn"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "6d9yut4hss6qehbi"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/effect.svg",
+            "name": "Effect: Imp Shape (Imp)",
+            "sort": 800000,
+            "type": "effect"
+        },
+        {
+            "_id": "6d9yut4hss6qehbi",
             "data": {
                 "attack": {
                     "value": ""
@@ -884,10 +1013,17 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Item.ivc8A9vbcZWaXDx6"
+                },
+                "pf2e": {
+                    "grantedBy": "t7dycwc9rqfy1anu"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Stinger",
-            "sort": 700000,
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -933,7 +1069,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -983,7 +1119,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy touch",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1029,7 +1165,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1045,7 +1181,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<ul>\n<li><strong>Boar</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li>@Compendium[pf2e.bestiary-ability-glossary-srd.Scent]{Scent (Imprecise) 30 feet}</li>\n<li><strong>Speed</strong> 40 feet</li>\n<li><strong>Melee</strong> tusk [[/r 1d20+9 #Tusk]]{+9}/[[/r 1d20+4 #Tusk]]{+4}/[[/r 1d20-1 #Tusk]]{-1} (finesse), <strong>Damage</strong> [[/r {1d10-1}[piercing]]]{1d10-1 piercing damage}</li>\n</ul>\n</li>\n<li><strong>Giant Spider</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li><strong>Speed</strong> 25 feet, climb 25 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+9 #Fangs]]{+9}/[[/r 1d20+4 #Fangs]]{+4}/[[/r 1d20-1 #Fangs]]{-1} (finesse, poison), <strong>Damage</strong> [[/r {1d6-1}[piercing]+{1d4}[poison]]]{1d6-1 piercing damage plus 1d4 poison damage}</li>\n</ul>\n</li>\n<li><strong>Rat</strong>\n<ul>\n<li>@Compendium[pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 20 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+9 #Jaws]]{+9}/[[/r 1d20+5 #Jaws]]{+5}/[[/r 1d20+1 #Jaws]]{+1} (agile, finesse), <strong>Damage</strong> [[/r {1}[piercing]]]{1 piercing damage}</li>\n</ul>\n</li>\n<li><strong>Raven</strong>\n<ul>\n<li>@Compendium[pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 10 feet, fly 40 feet</li>\n<li><strong>Melee</strong> beak [[/r 1d20+9 #Beak]]{+9}/[[/r 1d20+4 #Beak]]{+4}/[[/r 1d20-1 #Beak]]{-1} (finesse), <strong>Damage</strong> [[/r {1}[piercing]]]{1 piercing damage}</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<ul>\n<li><strong>Boar</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li>@Compendium[pf2e.bestiary-ability-glossary-srd.Scent]{Scent (Imprecise) 30 feet}</li>\n<li><strong>Speed</strong> 40 feet</li>\n<li><strong>Melee</strong> tusk [[/r 1d20+9 #Tusk]]{+9}/[[/r 1d20+4 #Tusk]]{+4}/[[/r 1d20-1 #Tusk]]{-1} (finesse), <strong>Damage</strong> [[/r {1d10-1}[piercing]]]{1d10-1 piercing damage}</li>\n</ul>\n</li>\n<li><strong>Giant Spider</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li><strong>Speed</strong> 25 feet, climb 25 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+9 #Fangs]]{+9}/[[/r 1d20+4 #Fangs]]{+4}/[[/r 1d20-1 #Fangs]]{-1} (finesse, poison), <strong>Damage</strong> [[/r {1d6-1}[piercing]+{1d4}[poison]]]{1d6-1 piercing damage plus 1d4 poison damage}</li>\n</ul>\n</li>\n<li><strong>Rat</strong>\n<ul>\n<li>@Compendium[pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 20 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+9 #Jaws]]{+9}/[[/r 1d20+5 #Jaws]]{+5}/[[/r 1d20+1 #Jaws]]{+1} (agile, finesse), <strong>Damage</strong> [[/r {1}[piercing]]]{1 piercing damage}</li>\n</ul>\n</li>\n<li><strong>Raven</strong>\n<ul>\n<li>@Compendium[pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 10 feet, fly 40 feet</li>\n<li><strong>Melee</strong> beak [[/r 1d20+9 #Beak]]{+9}/[[/r 1d20+4 #Beak]]{+4}/[[/r 1d20-1 #Beak]]{-1} (finesse), <strong>Damage</strong> [[/r {1}[piercing]]]{1 piercing damage}</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Change Shape (Imp)]{Effect: Change Shape (Imp)}</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1080,7 +1216,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1127,7 +1263,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Diabolic Healing",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1171,7 +1307,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Imp Venom",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1219,7 +1355,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Infernal Temptation",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1249,7 +1385,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1279,7 +1415,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1309,7 +1445,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1339,7 +1475,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1800000,
+            "sort": 2000000,
             "type": "lore"
         }
     ],
