@@ -6,9 +6,12 @@ import { LootPF2e } from "@actor";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait } from "./data";
-import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
+import { coinsToString, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
+import { RuneValuationData, RuneParams } from "../runes";
+import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { toBulkItem } from "@item/physical/bulk";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -211,6 +214,125 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Fill gaps in unidentified data with defaults
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
+    }
+
+    // used by weapon/armor item types to calculate item price and generate magic name (if applicable)
+    processMaterialAndRunes(): void {
+        const systemData = this.data.data;
+
+        // Collect all traits from the runes and apply them to the item
+        const runesData = this.getRunesData();
+        const baseTraits = systemData.traits.value;
+        const hasRunes = this.hasRunes();
+        const magicTraits: "magical"[] = hasRunes ? ["magical"] : [];
+        systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
+
+        // Stop here if this item (weapon/armor) is not a magical or precious-material item, or if it is a specific magic item
+        const materialData = this.getMaterialData();
+        if (!(this.isMagical || materialData) || this.isItemSpecific()) return;
+
+        // Adjust the item price according to precious material and runes
+        const materialPrice = materialData?.price ?? 0;
+        const bulk = materialPrice && Math.max(Math.ceil(toBulkItem(this.data).bulk.normal), 1);
+        const materialValue = toCoins("gp", materialPrice + (bulk * materialPrice) / 10);
+        const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
+        const withRunes = extractPriceFromItem({
+            data: { quantity: { value: 1 }, price: { value: `${runeValue} gp` } },
+        });
+        const modifiedPrice = combineCoins(withRunes, materialValue);
+        systemData.price.value = coinsToString(modifiedPrice);
+
+        const baseLevel = this.level;
+        systemData.level.value = runesData
+            .map((runeData) => runeData.level)
+            .concat(materialData?.level ?? 0)
+            .reduce((highest, level) => (level > highest ? level : highest), baseLevel);
+
+        const rarityOrder = {
+            common: 0,
+            uncommon: 1,
+            rare: 2,
+            unique: 3,
+        };
+        const baseRarity = this.rarity;
+        systemData.traits.rarity = runesData
+            .map((runeData) => runeData.rarity)
+            .concat(materialData?.rarity ?? "common")
+            .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
+        // Set the name according to the precious material and runes
+        this.data.name = this.generateMagicName();
+    }
+
+    // array of rune information for the item, null/empty if not a runable item - see weapon/armor for examples of usage
+    getRunesData(): RuneValuationData[] {
+        return [].filter((datum) => !!datum);
+    }
+
+    // bool to indicate if item has runes or not, false if not a runable item - see weapon/armor for examples of usage
+    hasRunes() {
+        return false;
+    }
+
+    getMaterialData(): MaterialGradeData | null {
+        const material = this.material;
+        return MATERIAL_VALUATION_DATA[material?.type ?? ""][material?.grade ?? "low"];
+    }
+
+    // bool to indicate if item has been marked by user as specific, false if not a runable item - see weapon/armor for examples of usage
+    isItemSpecific(): boolean {
+        return false;
+    }
+
+    // Generate a item (weapon/armor) name base on precious-material composition and runes
+    generateMagicName(): string {
+        if (this.getShouldItemKeepName()) return this.data.name;
+        const params = this.getRuneParams();
+        const formatStrings = this.getFormatStrings();
+        // Construct a localization key from the item (weapon/armor) material and runes
+        const formatString = (() => {
+            const potency = params.potency && "Potency";
+            const itemSpecific = (params.resilient && "Resilient") || (params.striking && "Striking");
+            const properties = params.property4
+                ? "FourProperties"
+                : params.property3
+                ? "ThreeProperties"
+                : params.property2
+                ? "TwoProperties"
+                : params.property1
+                ? "OneProperty"
+                : null;
+            const material = params.material && "Material";
+            const key = ([potency, [itemSpecific], properties, material]
+                .filter((keyPart): keyPart is string => !!keyPart)
+                .join("") || null) as keyof typeof formatStrings | null;
+            return key && formatStrings[key];
+        })();
+        return formatString ? game.i18n.format(formatString, params) : this.name;
+    }
+
+    // bool to indicate if item should keep the user entered name, false if not a runable item - see weapon/armor for examples of usage
+    getShouldItemKeepName() {
+        return true;
+    }
+
+    // array of format strings used to generate magic item name, empty if not a runable item - see weapon/armor for examples of usage
+    getFormatStrings() {
+        return {};
+    }
+
+    // array to format rune paramater for formating magic item name, null entries if not a runable item - see weapon/armor for examples of usage
+    getRuneParams(): RuneParams {
+        return {
+            base: this.name,
+            material: null,
+            potency: null,
+            resilient: null,
+            striking: null,
+            property1: null,
+            property2: null,
+            property3: null,
+            property4: null,
+        };
     }
 
     /** Can the provided item stack with this item? */

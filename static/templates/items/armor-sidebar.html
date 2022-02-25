@@ -53,8 +53,11 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
+        <label>
+            {{localize "PF2E.PriceLabel"}}
+            {{#if adjustedPriceHint}}<i class="fas fa-info-circle small" title="{{adjustedPriceHint}}"></i>{{/if}}
+        </label>
+        <input type="text" {{#if adjustedPriceHint}}class="adjusted"{{/if}} data-property="data.price.value" value="{{data.price.value}}" spellcheck="false" />	
     </div>
 
     <ol class="item-tags tags">

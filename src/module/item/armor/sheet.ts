@@ -2,6 +2,7 @@ import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { LocalizePF2e } from "@system/localize";
 import { getPropertySlots } from "../runes";
 import { ArmorPF2e } from ".";
+import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
 
 export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData() {
@@ -15,6 +16,28 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
                 propertyRuneSlots[`propertyRuneSlots${slot}`] = true;
             }
         }
+
+        // Armors have derived level, price, and traits: base data is shown for editing
+        const baseData = this.item.toObject();
+        sheetData.data.traits.rarity = baseData.data.traits.rarity;
+        const hintText = LocalizePF2e.translations.PF2E.Item.Armor.FromMaterialAndRunes;
+        const adjustedLevelHint =
+            this.item.level !== baseData.data.level.value
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.LevelLabel"),
+                      value: this.item.level,
+                  })
+                : null;
+        const adjustedPriceHint = (() => {
+            const basePrice = coinValueInCopper(extractPriceFromItem(baseData));
+            const derivedPrice = coinValueInCopper(extractPriceFromItem(sheetData.item));
+            return basePrice !== derivedPrice
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.PriceLabel"),
+                      value: this.item.price,
+                  })
+                : null;
+        })();
 
         return {
             ...sheetData,
@@ -30,6 +53,8 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             sizes: CONFIG.PF2E.actorSizes,
             traits: this.prepareOptions(CONFIG.PF2E.armorTraits, sheetData.item.data.traits, { selectedOnly: true }),
             ...propertyRuneSlots,
+            adjustedLevelHint,
+            adjustedPriceHint,
         };
     }
 }
