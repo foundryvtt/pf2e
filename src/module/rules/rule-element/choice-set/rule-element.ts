@@ -52,7 +52,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * ignored if no selection was made.
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
-        const rollOptions = this.actor.getRollOptions();
+        const rollOptions = [this.actor.getRollOptions(), this.item.getItemRollOptions("item")].flat();
         if (this.data.predicate && !this.data.predicate.test(rollOptions)) return;
 
         this.setDefaultFlag(ruleSource);
