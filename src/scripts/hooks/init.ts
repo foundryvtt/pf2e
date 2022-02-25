@@ -2,21 +2,22 @@ import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { MystifiedTraits } from "@item/data/values";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { FogExplorationPF2e } from "@module/fog-exploration";
+import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import {
     AmbientLightPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
     SightLayerPF2e,
-    TokenPF2e,
     TemplateLayerPF2e,
     TokenLayerPF2e,
+    TokenPF2e,
 } from "@module/canvas";
-import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { EncounterPF2e, CombatantPF2e } from "@module/encounter";
+import { ActorsPF2e } from "@module/collection/actors";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
+import { FogExplorationPF2e } from "@module/fog-exploration";
 import { FolderPF2e } from "@module/folder";
-import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { MacroPF2e } from "@module/macro";
 import {
     AmbientLightDocumentPF2e,
@@ -27,13 +28,13 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
-import { registerSettings } from "@system/settings";
-import { registerTemplates } from "@scripts/register-templates";
-import { PlayerConfigPF2e } from "@module/user/player-config";
-import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { ActorsPF2e } from "@module/collection/actors";
+import { PlayerConfigPF2e } from "@module/user/player-config";
+import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { registerTemplates } from "@scripts/register-templates";
+import { SetGamePF2e } from "@scripts/set-game-pf2e";
+import { registerSettings } from "@system/settings";
+import { PF2ECONFIG } from "../config";
 
 export const Init = {
     listen: (): void => {
@@ -178,6 +179,9 @@ export const Init = {
             registerSettings();
             registerTemplates();
             registerHandlebarsHelpers();
+
+            // Create and populate initial game.pf2e interface
+            SetGamePF2e.onInit();
         });
     },
 };
