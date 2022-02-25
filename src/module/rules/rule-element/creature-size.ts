@@ -43,7 +43,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
 
     override beforePrepareData(): void {
         if (this.ignored) return;
-        if (!(this.data.predicate?.test(this.actor.getRollOptions()) ?? false)) {
+        if (!(this.data.predicate?.test(this.actor.getRollOptions()) ?? true)) {
             return;
         }
 
