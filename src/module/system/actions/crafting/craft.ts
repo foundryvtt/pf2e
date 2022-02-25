@@ -2,7 +2,7 @@ import { ActionsPF2e, SkillActionOptions } from "@system/actions/actions";
 import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
-import { renderCraftingInline } from "@module/crafting/helpers";
+import { renderCraftingInline } from "@actor/character/crafting/helpers";
 import { ChatMessagePF2e } from "@module/chat-message";
 
 interface CraftActionOptions extends SkillActionOptions {

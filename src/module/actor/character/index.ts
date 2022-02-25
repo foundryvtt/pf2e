@@ -47,7 +47,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression } from "./automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
@@ -58,10 +58,9 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource, SaveType } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
-import { CraftingEntry } from "@module/crafting/crafting-entry";
+import { CraftingEntry, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";

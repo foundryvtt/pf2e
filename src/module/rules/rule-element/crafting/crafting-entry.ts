@@ -3,7 +3,7 @@ import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { PhysicalItemTrait } from "@item/physical/data";
-import { CraftingEntryData } from "@module/crafting/crafting-entry";
+import { CraftingEntryData } from "@actor/character/crafting/entry";
 
 /**
  * @category RuleElement
