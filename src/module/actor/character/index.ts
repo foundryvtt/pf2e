@@ -1104,7 +1104,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Extract weapon roll notes
         const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
 
-        if (weapon.group === "bomb") {
+        if (weapon.group === "bomb" && !AutomaticBonusProgression.isEnabled) {
             const attackBonus = Number(itemData.data.bonus?.value) || 0;
             if (attackBonus !== 0) {
                 modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
