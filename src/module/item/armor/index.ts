@@ -92,8 +92,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getItemRollOptions(prefix = "armor"): string[] {
-        return super.getItemRollOptions(prefix).concat(
+    override getRollOptions(prefix = "armor"): string[] {
+        return super.getRollOptions(prefix).concat(
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,

@@ -76,7 +76,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
         const droppedItem = await ItemPF2e.fromDropData(dropData);
         if (!droppedItem) throw ErrorPF2e("Unexpected error resolving drop");
 
-        const isAllowedDrop = this.allowedDrops.test(droppedItem.getItemRollOptions("item"));
+        const isAllowedDrop = this.allowedDrops.test(droppedItem.getRollOptions("item"));
         if (!isAllowedDrop) {
             ui.notifications.error(
                 game.i18n.format("PF2E.Item.ABC.InvalidDrop", {

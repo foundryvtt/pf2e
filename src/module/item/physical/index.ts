@@ -126,8 +126,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getItemRollOptions(prefix = this.type): string[] {
-        const baseOptions = super.getItemRollOptions(prefix);
+    override getRollOptions(prefix = this.type): string[] {
+        const baseOptions = super.getRollOptions(prefix);
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,

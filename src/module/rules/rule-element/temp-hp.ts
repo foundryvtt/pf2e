@@ -26,9 +26,7 @@ class TempHPRuleElement extends RuleElementPF2e {
         const rollOptions = Array.from(
             new Set([
                 ...this.actor.getRollOptions(),
-                ...this.actor.itemTypes.weapon.flatMap((w) =>
-                    w.isEquipped ? w.getItemRollOptions("self:weapon") : []
-                ),
+                ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
         if (this.data.predicate && !this.data.predicate.test(rollOptions)) {
@@ -56,9 +54,7 @@ class TempHPRuleElement extends RuleElementPF2e {
         const rollOptions = Array.from(
             new Set([
                 ...this.actor.getRollOptions(["all"]),
-                ...this.actor.itemTypes.weapon.flatMap((w) =>
-                    w.isEquipped ? w.getItemRollOptions("self:weapon") : []
-                ),
+                ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
         if (this.data.predicate && !this.data.predicate.test(rollOptions)) {
