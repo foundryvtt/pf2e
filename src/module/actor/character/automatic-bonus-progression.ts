@@ -4,17 +4,22 @@ import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "@module/
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 
 export class AutomaticBonusProgression {
+    static get isEnabled(): boolean {
+        return game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+    }
+
     /**
      * @param level The name of this collection of statistic modifiers.
      * @param synthetics All relevant modifiers for this statistic.
      */
-    static concatModifiers(level: number, synthetics: RuleElementSynthetics) {
-        if (game.settings.get("pf2e", "automaticBonusVariant") === "noABP") return;
+    static concatModifiers(level: number, synthetics: RuleElementSynthetics): void {
+        if (!this.isEnabled) return;
 
         const values = this.abpValues(level);
         const ac = values.ac;
         const perception = values.perception;
         const save = values.save;
+        const setting = game.settings.get("pf2e", "automaticBonusVariant");
 
         if (save > 0) {
             const modifiers = (synthetics.statisticsModifiers["saving-throw"] ??= []);
@@ -55,7 +60,7 @@ export class AutomaticBonusProgression {
             );
         }
 
-        if (game.settings.get("pf2e", "automaticBonusVariant") === "ABPRulesAsWritten") {
+        if (setting === "ABPRulesAsWritten") {
             const values = this.abpValues(level);
             const attack = values.attack;
             const damage = values.damage;
@@ -84,7 +89,7 @@ export class AutomaticBonusProgression {
             }
         }
 
-        if (game.settings.get("pf2e", "automaticBonusVariant") === "ABPFundamentalPotency") {
+        if (setting === "ABPFundamentalPotency") {
             const values = this.abpValues(level);
             const attack = values.attack;
             const damage = values.damage;
@@ -149,7 +154,7 @@ export class AutomaticBonusProgression {
      * @returns Whether the rule element is to be ignored
      */
     static assessRuleElement(rule: FlatModifierRuleElement): boolean {
-        if (rule.actor.type !== "character" || game.settings.get("pf2e", "automaticBonusVariant") === "noABP") {
+        if (rule.actor.type !== "character" || !this.isEnabled) {
             return rule.ignored;
         }
 
