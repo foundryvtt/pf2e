@@ -44,6 +44,7 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { ActorsPF2e } from "@module/collection/actors";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 declare global {
     interface Game {
@@ -67,6 +68,9 @@ declare global {
             };
             importer: {
                 actor: typeof ActorImporter;
+            };
+            variantRules: {
+                AutomaticBonusProgression: typeof AutomaticBonusProgression;
             };
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
