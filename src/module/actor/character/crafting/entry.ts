@@ -8,11 +8,11 @@ export class CraftingEntry implements CraftingEntryData {
     preparedFormulas: PreparedFormula[];
     name: string;
     selector: string;
-    isAlchemical?: boolean;
-    isDailyPrep?: boolean;
-    isPrepared?: boolean;
-    requiredTraits?: PhysicalItemTrait[][];
-    maxSlots?: number;
+    isAlchemical: boolean;
+    isDailyPrep: boolean;
+    isPrepared: boolean;
+    requiredTraits: PhysicalItemTrait[][];
+    maxSlots: number;
     fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
@@ -22,40 +22,37 @@ export class CraftingEntry implements CraftingEntryData {
         this.actorPreparedFormulas = data.actorPreparedFormulas;
         this.selector = data.selector;
         this.name = data.name;
-        this.isAlchemical = data.isAlchemical;
-        this.isDailyPrep = data.isDailyPrep;
-        this.isPrepared = data.isPrepared;
-        this.requiredTraits = data.requiredTraits;
-        this.maxSlots = data.maxSlots;
-        this.maxItemLevel = data.maxItemLevel ?? parentActor.level;
-
+        this.isAlchemical = data.isAlchemical ?? false;
+        this.isDailyPrep = data.isDailyPrep ?? false;
+        this.isPrepared = data.isPrepared ?? false;
+        this.maxSlots = data.maxSlots ?? 0;
+        this.maxItemLevel = data.maxItemLevel || parentActor.level;
         this.fieldDiscovery = data.fieldDiscovery;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
 
-        if (knownFormulas && this.actorPreparedFormulas) {
-            this.preparedFormulas = this.actorPreparedFormulas
-                .map((prepData): PreparedFormula | undefined => {
-                    const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
-                    if (formula) {
-                        return Object.assign(new CraftingFormula(formula.item), {
-                            quantity: prepData.quantity,
-                            expended: prepData.expended,
-                            isSignatureItem: prepData.isSignatureItem,
-                        });
-                    }
-                    return;
-                })
-                .filter((prepData): prepData is PreparedFormula => prepData !== undefined);
-        } else {
-            this.preparedFormulas = [];
-        }
+        this.requiredTraits = data.requiredTraits ?? [[]];
+        if (this.requiredTraits.length === 0) this.requiredTraits.push([]);
+
+        this.preparedFormulas = this.actorPreparedFormulas
+            .map((prepData): PreparedFormula | undefined => {
+                const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
+                if (formula) {
+                    return Object.assign(new CraftingFormula(formula.item), {
+                        quantity: prepData.quantity,
+                        expended: prepData.expended,
+                        isSignatureItem: prepData.isSignatureItem,
+                    });
+                }
+                return;
+            })
+            .filter((prepData): prepData is PreparedFormula => prepData !== undefined);
     }
 
     get formulas() {
         const formulas: (PreparedFormula | null)[] = [];
         Object.assign(formulas, this.preparedFormulas);
-        if (this.maxSlots) {
+        if (this.maxSlots > 0) {
             const fill = this.maxSlots - this.preparedFormulas.length;
             if (fill > 0) {
                 const nulls = new Array(fill).fill(null);
@@ -92,7 +89,7 @@ export class CraftingEntry implements CraftingEntryData {
     async prepareFormula(formula: CraftingFormula) {
         this.checkEntryRequirements(formula);
 
-        if (this.isAlchemical && this.preparedFormulas.find((f) => f.uuid === formula.uuid)) {
+        if (this.isAlchemical && this.preparedFormulas.some((f) => f.uuid === formula.uuid)) {
             const index = this.preparedFormulas.findIndex((f) => f.uuid === formula.uuid);
             const quantity = this.preparedFormulas[index].quantity || 1;
             this.preparedFormulas[index].quantity = quantity + 1;
@@ -105,24 +102,29 @@ export class CraftingEntry implements CraftingEntryData {
         this.updateActorEntryFormulas();
     }
 
-    checkEntryRequirements(formula: CraftingFormula) {
-        if (this.maxSlots && this.preparedFormulas.length >= this.maxSlots) return;
+    checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
+        if (this.maxSlots && this.preparedFormulas.length >= this.maxSlots) return false;
         if (this.parentActor.level < formula.level) {
-            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.CharacterLevel"));
+            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.CharacterLevel"));
+            return false;
         }
         if (formula.level > this.maxItemLevel) {
-            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxItemLevel"));
+            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxItemLevel"));
+            return false;
         }
-        if (
-            this.requiredTraits &&
-            !this.requiredTraits.some((traits) => traits.every((t) => formula.item.traits.has(t)))
-        ) {
-            ui.notifications.warn(
-                game.i18n.format("PF2E.CraftingTab.Alerts.ItemMissingTraits", {
-                    traits: JSON.stringify(this.requiredTraits),
-                })
-            );
+
+        if (!this.requiredTraits.some((traits) => traits.every((t) => formula.item.traits.has(t)))) {
+            if (warn) {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.CraftingTab.Alerts.ItemMissingTraits", {
+                        traits: JSON.stringify(this.requiredTraits),
+                    })
+                );
+            }
+            return false;
         }
+
+        return true;
     }
 
     async unprepareFormula(index: number, itemUUID: string) {
