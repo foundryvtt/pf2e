@@ -9,7 +9,7 @@ import {
 } from "@item/treasure/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { craftSpellConsumable } from "@module/crafting/helpers";
+import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, tupleHasValue } from "@util";
