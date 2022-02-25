@@ -1,5 +1,5 @@
 {
-    "_id": "RF12ziGVG9YKGaqU",
+    "_id": "nza9skYTNtJe2Wd3",
     "data": {
         "baseItem": null,
         "brokenThreshold": {
@@ -12,10 +12,10 @@
             "value": false
         },
         "containerId": {
-            "value": ""
+            "value": null
         },
         "description": {
-            "value": "<p>Each of these full-face masks is made of stitched materials — often including humanoid skin — and has a single, bulbous eye. While wearing the mask, you gain a +1 item bonus to Deception checks to Lie and the mask doesn't impair your vision. The mask can also be activated, with an ability based on its type.</p>\n<hr />\n<p>This featureless mask is made of thin, papery skin. Its single eye is a fragile bubble of venom-filled glass.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Interact (divination)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You twist the mask's eye and peer at an object. You know whether the object is poison or has been poisoned, but you don't learn the number or type of poisons present in the object.</p>"
+            "value": "<p>Obtained from @Compendium[pf2e.feats-srd.Lucky Keepsake]{Lucky Keepsake}</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -40,10 +40,10 @@
             }
         },
         "invested": {
-            "value": false
+            "value": null
         },
         "level": {
-            "value": 3
+            "value": 9
         },
         "maxHp": {
             "value": 0
@@ -52,13 +52,13 @@
             "value": "0"
         },
         "preciousMaterial": {
-            "value": ""
+            "value": null
         },
         "preciousMaterialGrade": {
-            "value": ""
+            "value": null
         },
         "price": {
-            "value": "60 gp"
+            "value": "0 gp"
         },
         "quantity": {
             "value": 1
@@ -66,14 +66,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Secret-Keeper's Mask",
                 "predicate": {
-                    "any": [
-                        "action:lie"
+                    "all": [
+                        "spell",
+                        "magical",
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult"
                     ]
                 },
-                "selector": "deception",
-                "type": "item",
+                "selector": "saving-throw",
+                "type": "circumstance",
                 "value": 1
             }
         ],
@@ -81,23 +85,20 @@
             "value": "med"
         },
         "source": {
-            "value": "Pathfinder Blog"
+            "value": "Pathfinder Lost Omens: Character Guide"
         },
         "stackGroup": {
             "value": ""
         },
         "traits": {
             "custom": "",
-            "rarity": "rare",
+            "rarity": "common",
             "value": [
-                "divination",
-                "enchantment",
-                "invested",
-                "magical"
+                "leshy"
             ]
         },
         "usage": {
-            "value": "wornmask"
+            "value": "held-in-one-hand"
         },
         "weight": {
             "value": "-"
@@ -105,7 +106,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/secret-keepers-mask.webp",
-    "name": "Secret-Keeper's Mask (Blackfingers)",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/vanishing-coin.webp",
+    "name": "Lucky Keepsake",
     "type": "equipment"
 }
