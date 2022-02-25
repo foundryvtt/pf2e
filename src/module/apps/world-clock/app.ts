@@ -2,6 +2,7 @@ import { LocalizePF2e } from "@system/localize";
 import { ordinal } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness";
+import { Mode, TimeOfDay } from "@module/apps/world-clock/point-in-time";
 
 interface WorldClockData {
     date: string;
@@ -175,13 +176,29 @@ export class WorldClock extends Application {
         return settingsButton.concat(...super._getHeaderButtons());
     }
 
+    private static calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
+        const mode = intervalMode === "+" ? Mode.ADVANCE : Mode.RETRACT;
+        if (interval === "dawn") {
+            return TimeOfDay.dawn().calculateSecondsDifference(wordTime, mode);
+        } else if (interval === "noon") {
+            return TimeOfDay.noon().calculateSecondsDifference(wordTime, mode);
+        } else if (interval === "dusk") {
+            return TimeOfDay.dusk().calculateSecondsDifference(wordTime, mode);
+        } else {
+            const sign = mode === Mode.ADVANCE ? 1 : -1;
+            return Number(interval) * sign;
+        }
+    }
+
     /** Advance the world time by a static or input value */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html.find("button[data-advance-time]").on("click", (event) => {
             const $button = $(event.currentTarget);
-            const increment = Number($button.data("advanceTime") ?? 0);
+            const advanceTime = $button.data("advanceTime") ?? "0";
+            const advanceMode = $button.data("advanceMode") ?? "+";
+            const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
             if (increment !== 0) game.time.advance(increment);
         });
 
@@ -203,7 +220,9 @@ export class WorldClock extends Application {
                 const $buttons = $html.find("button[data-advance-time]");
                 $buttons.each((_index, button) => {
                     const $button = $(button);
-                    $button.attr("data-advance-time", -1 * Number($button.attr("data-advance-time")));
+                    const currentMode = $button.attr("data-advance-mode");
+                    const nextMode = currentMode === "+" ? "-" : "+";
+                    $button.attr("data-advance-mode", nextMode);
                 });
                 $buttons.find(".sign").text(retractTime ? "-" : "+");
 
