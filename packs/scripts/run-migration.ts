@@ -6,9 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration707BracketedFormulasAtInstanceLevel } from "@module/migration/migrations/707-bracketed-formulas-at-instance-level";
-import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-specific-rule-label";
-import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
 import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
 import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
 import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
@@ -21,9 +18,6 @@ import { Migration718CarryType } from "@module/migration/migrations/718-carry-ty
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
 
 const migrations: MigrationBase[] = [
-    new Migration707BracketedFormulasAtInstanceLevel(),
-    new Migration708SpecificRuleLabel(),
-    new Migration709REFormulasAtInstanceLevelRedux(),
     new Migration710RarityToString(),
     new Migration711HeritageItems(),
     new Migration712ActorShieldStructure(),
