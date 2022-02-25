@@ -56,10 +56,11 @@ export class TimeOfDay implements PointInTime {
     }
 
     private static getTargetDayDifferenceInDays(currentSecondsOfDay: number, changeToSecondsOfDay: number, mode: Mode) {
-        if (currentSecondsOfDay > changeToSecondsOfDay && mode === Mode.ADVANCE) {
+        // if we have the same point in time, we always want to either skip or rewind a full day
+        if (currentSecondsOfDay >= changeToSecondsOfDay && mode === Mode.ADVANCE) {
             // case: now: 12:01 and advance to 12:00 -> we need to add 1 day to calculate the difference
             return 1;
-        } else if (currentSecondsOfDay < changeToSecondsOfDay && mode === Mode.RETRACT) {
+        } else if (currentSecondsOfDay <= changeToSecondsOfDay && mode === Mode.RETRACT) {
             // case: now: 12:00 and retract to 12:01 -> we need to subtract 1 day to calculate the difference
             return -1;
         } else {

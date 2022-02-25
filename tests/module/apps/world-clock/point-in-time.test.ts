@@ -10,11 +10,11 @@ describe("Time Of Day Calculation", () => {
         minute: 0,
         second: 0,
     });
-    test("advancing to same point in time should do nothing", () => {
+    test("advancing/rewinding to same time of day should skip/rewind a day", () => {
         const time = new TimeOfDay(12, 0, 0);
 
-        expect(time.calculateSecondsDifference(noon, Mode.ADVANCE)).toBe(0);
-        expect(time.calculateSecondsDifference(noon, Mode.RETRACT)).toBe(0);
+        expect(time.calculateSecondsDifference(noon, Mode.ADVANCE)).toBe(24 * 60 * 60);
+        expect(time.calculateSecondsDifference(noon, Mode.RETRACT)).toBe(-24 * 60 * 60);
     });
 
     test("advancing from 12:00:00 to 12:59:59", () => {
