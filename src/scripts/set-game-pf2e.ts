@@ -1,3 +1,4 @@
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { LicenseViewer } from "@module/apps/license-viewer";
@@ -44,30 +45,33 @@ export const SetGamePF2e = {
 
         Object.defineProperty(globalThis.game, "pf2e", { value: {} });
 
-        mergeObject(game.pf2e, {
+        const initSafe: Partial<typeof game["pf2e"]> = {
+            actions,
             AbilityModifier: AbilityModifier,
             Check: CheckPF2e,
             CheckModifier: CheckModifier,
             ConditionManager: ConditionManager,
             Dice: DicePF2e,
-            Modifier: ModifierPF2e,
-            ModifierType: MODIFIER_TYPE,
-            ProficiencyModifier: ProficiencyModifier,
-            RuleElement: RuleElementPF2e,
-            RuleElements: RuleElements,
-            StatisticModifier: StatisticModifier,
-            StatusEffects: StatusEffects,
-            TextEditor: TextEditorPF2e,
-            actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
             gm: { calculateXP, launchTravelSheet },
             importer: { actor: ActorImporter },
             licenseViewer: new LicenseViewer(),
+            Modifier: ModifierPF2e,
+            ModifierType: MODIFIER_TYPE,
+            ProficiencyModifier: ProficiencyModifier,
             rollActionMacro,
             rollItemMacro,
+            RuleElement: RuleElementPF2e,
+            RuleElements: RuleElements,
+            StatisticModifier: StatisticModifier,
+            StatusEffects: StatusEffects,
             system: { remigrate, sluggify },
-        });
+            TextEditor: TextEditorPF2e,
+            variantRules: { AutomaticBonusProgression },
+        };
+
+        mergeObject(game.pf2e, initSafe);
     },
 
     onSetup: (): void => {

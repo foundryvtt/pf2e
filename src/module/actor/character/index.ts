@@ -47,7 +47,6 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { AutomaticBonusProgression } from "./automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
@@ -309,7 +308,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const { synthetics } = this;
 
         if (!this.getFlag("pf2e", "disableABP")) {
-            AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+            game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
         // Extract as separate variables for easier use in this method.
         const { statisticsModifiers, strikes, rollNotes } = synthetics;
@@ -1103,8 +1102,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Extract weapon roll notes
         const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
+        const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
-        if (weapon.group === "bomb" && !AutomaticBonusProgression.isEnabled) {
+        if (weapon.group === "bomb" && !ABP.isEnabled) {
             const attackBonus = Number(itemData.data.bonus?.value) || 0;
             if (attackBonus !== 0) {
                 modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
@@ -1116,7 +1116,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const potency = selectors
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
-            AutomaticBonusProgression.applyPropertyRunes(potency, weapon);
+            ABP.applyPropertyRunes(potency, weapon);
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
 
             if (potencyRune) {
