@@ -120,7 +120,10 @@ export class CharacterPF2e extends CreaturePF2e {
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        return (await fromUUIDs(formulas.map((data) => data.uuid)))
+        const items: unknown[] = await fromUUIDs(formulas.map((data) => data.uuid));
+        if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
+
+        return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
