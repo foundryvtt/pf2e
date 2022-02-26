@@ -153,7 +153,7 @@ export class AutomaticBonusProgression {
      * @param rule The rule element to assess
      * @returns Whether the rule element is to be ignored
      */
-    static assessRuleElement(rule: FlatModifierRuleElement): boolean {
+    static suppressRuleElement(rule: FlatModifierRuleElement): boolean {
         if (rule.actor.type !== "character" || !this.isEnabled) {
             return rule.ignored;
         }
