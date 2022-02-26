@@ -462,13 +462,18 @@ const weaponTraits = {
 };
 
 const preciousMaterials: Record<PreciousMaterialType, string> = {
+    abysium: "PF2E.PreciousMaterialAbysium",
     adamantine: "PF2E.PreciousMaterialAdamantine",
     coldIron: "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
+    djezet: "PF2E.PreciousMaterialDjezet",
     dragonhide: "PF2E.PreciousMaterialDragonhide",
-    mithral: "PF2E.PreciousMaterialMithral",
     "grisantian-pelt": "PF2E.PreciousMaterialGrisantianPelt",
+    inubrix: "PF2E.PreciousMaterialInubrix",
+    mithral: "PF2E.PreciousMaterialMithral",
+    noqual: "PF2E.PreciousMaterialNoqual",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
+    siccatite: "PF2E.PreciousMaterialSiccatite",
     silver: "PF2E.PreciousMaterialSilver",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
@@ -476,6 +481,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 
 const otherWeaponTags = {
     crossbow: "PF2E.Weapon.Base.crossbow",
+    improvised: "PF2E.Item.Weapon.Improvised",
     "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 

@@ -39,7 +39,7 @@
                 "ability": "perception"
             },
             "perception": {
-                "value": 16
+                "value": 18
             },
             "speed": {
                 "otherSpeeds": [],
@@ -53,7 +53,7 @@
             "blurb": "",
             "creatureType": "Aberration",
             "level": {
-                "value": 9
+                "value": 8
             },
             "privateNotes": "",
             "publicNotes": "<p>Irnakurse are surface elves who drow have subjected to particularly cruel and humiliating fleshwarping practices, as drow take special delight in the torment of their surface-dwelling kin. The process of crafting an irnakurse involves twisting an unfortunate elf into a deformed mass of misplaced limbs, loose flesh, and bony protrusions-parts that should be internal are often left on full display to the world. Irnakurse are subject to mental conditioning that causes them to hate their prior forms, and these creatures prefer to attack surface elves over all other targets.</p>\n<hr />\n<p>Horrid abominations reshaped by vile alchemical magic, the two fleshwarps presented here were created by drow, who transform captured elves or xulgaths into twisted monstrosities that can then be loosed to cause havoc and terror.</p>",
@@ -65,15 +65,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 18
+                "value": 20
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 16
+                "value": 18
             },
             "will": {
                 "saveDetail": "",
-                "value": 14
+                "value": 16
             }
         },
         "traits": {
@@ -116,19 +116,95 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "93s2yi7nb08mzhdu",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Frightened",
+                "description": {
+                    "value": "<p>You're gripped by fear and struggle to control your nerves. The frightened condition always includes a value. You take a status penalty equal to this value to all your checks and DCs. Unless specified otherwise, at the end of each of your turns, the value of your frightened condition decreases by 1.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/frightened.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "frightened"
+                },
+                "modifiers": [
+                    {
+                        "group": "all",
+                        "type": "status"
+                    }
+                ],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "frightened",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 2
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/frightened.webp",
+            "name": "Frightened",
+            "sort": 100000,
+            "type": "condition"
+        },
+        {
             "_id": "gH06P6rp2bswuGya",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
-                    "value": 18
+                    "value": 20
                 },
                 "damageRolls": {
-                    "0": {
+                    "3frcv0yi2cnpe50zp9jj": {
                         "damage": "2d12+11",
                         "damageType": "piercing"
                     }
@@ -156,7 +232,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 100000,
+            "sort": 200000,
             "type": "melee"
         },
         {
@@ -166,12 +242,13 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "mind-lash"
                     ]
                 },
                 "bonus": {
-                    "value": 18
+                    "value": 20
                 },
                 "damageRolls": {
                     "0": {
@@ -203,11 +280,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tentacle",
-            "sort": 200000,
+            "sort": 300000,
             "type": "melee"
         },
         {
-            "_id": "8VEmyLzY1O8sVo9w",
+            "_id": "iPIBtZVZ5TaPEFp6",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -219,13 +296,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The irnakurse is permanently frightened 2, which lowers its effective level by 1.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -242,17 +319,67 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Fearful Curse",
-            "sort": 300000,
+            "name": "Darkvision",
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "fAJKDhrroX62Lb0s",
+            "_id": "bxjYZ892TLi9AizW",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "PXA2uFcT0VRiQkBO",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -261,7 +388,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>The irnakurse is permanently @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}, which lowers its effective level by 1.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -278,16 +405,13 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 400000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fearful Curse",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -303,7 +427,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A non-evil creature hit by an irnakurse's tentacle is overwhelmed with corrupted images of a ruined life and must succeed at a @Check[type:will|dc:28] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 4} on a critical failure). After attempting this save, a creature is temporarily immune to Mind Lash for 24 hours.</p>"
+                    "value": "<p>A non-evil creature hit by an irnakurse's tentacle is overwhelmed with corrupted images of a ruined life and must succeed at a @Check[type:will|dc:28] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 4} on a critical failure).</p>\n<p>After attempting this save, a creature is temporarily immune to Mind Lash for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -334,11 +458,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mind Lash",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "iXYfQDvrwhjEKpeu",
+            "_id": "3AqKPdexSndZxd5X",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -356,7 +480,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
@@ -373,10 +497,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -392,7 +520,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The irnakurse unleashes an alien shriek of nightmarish horror and pain. All non-evil creatures within a @Template[type:emanation|distance:10] must attempt a @Check[type:will|dc:28] save.</p><p data-visbility=\"gm\">The irnakurse can Sustain Soul Scream for up to 6 rounds; each time it does, it repeats the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune to Soul Scream for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is stupefied 1. Further failed saves against Soul Scream increase the condition value by 1, to a maximum of stupefied 4. Each time the character gets a full night's rest, the stupefied condition gained from Soul Scream decreases by 1.</p>\n<p><strong>Critical Failure</strong> As failure, except the stupefied value increases by 2 instead of by 1.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The irnakurse unleashes an alien shriek of nightmarish horror and pain. All non-evil creatures within a @Template[type:emanation|distance:10] must attempt a @Check[type:will|dc:28] save. The irnakurse can Sustain Soul Scream for up to 6 rounds; each time it does, it repeats the effect.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune to Soul Scream for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is stupefied 1. Further failed saves against Soul Scream increase the condition value by 1, to a maximum of stupefied 4. Each time the character gets a full night's rest, the stupefied condition gained from Soul Scream decreases by 1.</p>\n<p><strong>Critical Failure</strong> As failure, except the stupefied value increases by 2 instead of by 1.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -425,7 +553,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Soul Scream",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -467,7 +595,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Storm of Tentacles",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -477,7 +605,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 18
+                    "value": 20
                 },
                 "proficient": {
                     "value": 0
@@ -497,7 +625,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -507,7 +635,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 18
+                    "value": 20
                 },
                 "proficient": {
                     "value": 0
@@ -527,7 +655,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -537,7 +665,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 18
+                    "value": 20
                 },
                 "proficient": {
                     "value": 0
@@ -557,7 +685,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

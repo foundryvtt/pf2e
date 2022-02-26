@@ -3,9 +3,9 @@
  */
 
 import { ProficiencyRank } from "@item/data";
-import { Coins } from "../../module/item/treasure/helpers";
-import { calculateDC, DCOptions } from "../../module/dc";
-import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from "../../module/degree-of-success";
+import { Coins } from "@item/treasure/helpers";
+import { calculateDC, DCOptions } from "@module/dc";
+import { DegreeIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-success";
 
 // you have to be at least trained to earn income
 export type TrainedProficiencies = Exclude<ProficiencyRank, "untrained">;
@@ -65,7 +65,7 @@ export interface EarnIncomeResult {
         perDay: Partial<Coins>;
         combined: Partial<Coins>;
     };
-    degreeOfSuccess: DegreeOfSuccess;
+    degreeOfSuccess: DegreeIndex;
     daysSpentWorking: number;
     level: number;
     dc: number;
@@ -74,7 +74,7 @@ export interface EarnIncomeResult {
 
 export interface PerDayEarnIncomeResult {
     rewards: Partial<Coins>;
-    degreeOfSuccess: DegreeOfSuccess;
+    degreeOfSuccess: DegreeIndex;
 }
 
 export interface EarnIncomeOptions {
@@ -112,7 +112,7 @@ function applyIncomeOptions(
 /**
  * @param level number between 0 and 20
  * @param days how many days you want to work for
- * @param roll the actual die roll
+ * @param rollBrief the die result and total modifier of a check roll
  * @param proficiency proficiency in the relevant skill
  * @param earnIncomeOptions feats or items that affect earn income
  * @param dcOptions if dc by level is active
@@ -120,24 +120,20 @@ function applyIncomeOptions(
 export function earnIncome(
     level: number,
     days: number,
-    roll: DieRoll,
+    rollBrief: RollBrief,
     proficiency: TrainedProficiencies,
     earnIncomeOptions: EarnIncomeOptions,
     dcOptions: DCOptions
 ): EarnIncomeResult {
     const dc = calculateDC(level, dcOptions);
-    const degreeOfSuccess = calculateDegreeOfSuccess(roll, dc);
+    const degree = new DegreeOfSuccess(rollBrief, dc);
+    const result = { rewards: {}, degreeOfSuccess: degree.value };
 
-    const result = {
-        rewards: {},
-        degreeOfSuccess,
-    };
-
-    if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
+    if (degree.value === DegreeOfSuccess.CRITICAL_SUCCESS) {
         result.rewards = getIncomeForLevel(level + 1).rewards[proficiency];
-    } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
+    } else if (degree.value === DegreeOfSuccess.SUCCESS) {
         result.rewards = getIncomeForLevel(level).rewards[proficiency];
-    } else if (degreeOfSuccess === DegreeOfSuccess.FAILURE) {
+    } else if (degree.value === DegreeOfSuccess.FAILURE) {
         result.rewards = getIncomeForLevel(level).failure;
     }
 
@@ -152,6 +148,6 @@ export function earnIncome(
         daysSpentWorking: days,
         level,
         dc,
-        roll: roll.modifier + roll.dieValue,
+        roll: degree.rollTotal,
     };
 }

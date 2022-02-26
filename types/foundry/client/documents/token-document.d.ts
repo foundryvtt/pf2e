@@ -6,7 +6,7 @@ declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
-            context: TokenDocumentConstructionContext<TokenDocument>
+            context?: TokenDocumentConstructionContext<TokenDocument>
         );
 
         /**

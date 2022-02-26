@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -5
             },
             "con": {
                 "mod": 3
@@ -100,22 +100,19 @@
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Piercing",
                     "type": "piercing",
-                    "value": "10"
+                    "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Slashing",
                     "type": "slashing",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [
                 {
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -198,6 +195,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -280,7 +278,7 @@
             "type": "melee"
         },
         {
-            "_id": "ilmZPmHmepXYTxvH",
+            "_id": "AyfJyi6gCHBgaToD",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -326,7 +324,7 @@
             "type": "action"
         },
         {
-            "_id": "DSrNZqWdWeSwaoHn",
+            "_id": "wcJ7xyyDuDpmKxyt",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -372,7 +370,7 @@
             "type": "action"
         },
         {
-            "_id": "JWaz3QBxwko5mr6p",
+            "_id": "vBp53lYo9D4gq1jh",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -425,7 +423,7 @@
             "type": "action"
         },
         {
-            "_id": "suH8X7mzPkWz69ZK",
+            "_id": "mUJY9mXKNFT1G9Ri",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -490,7 +488,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the shanrigol behemoth dies, its flesh rots away and sublimates into a foul-smelling gas that fills a @Template[type:emanation|distance:5] around the body.</p>\n<p>This gas deals [[/r {9d6}[negative]]]{9d6 negative damage} to creatures in this area as their flesh curdles and rots as well (@Check[type:fortitude|dc:27|basic:true] save).</p>"
+                    "value": "<p>When the shanrigol behemoth dies, its flesh rots away and sublimates into a foul-smelling gas that fills a @Template[type:emanation|distance:5] around the body. This gas deals [[/r {9d6}[negative]]]{9d6 negative damage} to creatures in this area as their flesh curdles and rots as well (@Check[type:fortitude|dc:27|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -536,7 +534,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r {1d10+11}[bludgeoning]]]{1d10+11 bludgeoning} and [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The shanrigol has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r {1d10+11}[bludgeoning]]]{1d10+11 bludgeoning} and @Localize[PF2E.PersistentDamage.Bleed1d6.success] (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -578,7 +576,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A shanrigol behemoth's attacks brutally rend its foes.</p>\n<p>Creatures critically hit by the shanrigol's fleshy slap Strike take an additional [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
+                    "value": "<p>A shanrigol behemoth's attacks brutally rend its foes. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional @Localize[PF2E.PersistentDamage.Bleed2d6.success] and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -590,7 +588,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "fleshy-slap-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> Creatures critically hit by the shanrigol's fleshy slap Strike take an additional [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}<span data-visibility='gm'> for as long as they are bleeding</span>.</p>"
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
                     }
                 ],
                 "slug": null,
@@ -698,7 +696,7 @@
             "type": "action"
         },
         {
-            "_id": "icwjyvHiOYhYD0xr",
+            "_id": "cxiSU1lrmfq49Cag",
             "data": {
                 "actionCategory": {
                     "value": "offensive"

@@ -78,7 +78,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Generate a list of strings for use in predication */
-    getItemRollOptions(prefix = this.type): string[] {
+    getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
         const traits = this.data.data.traits?.value.map((t) => `trait:${t}`) ?? [];
         const delimitedPrefix = prefix ? `${prefix}:` : "";

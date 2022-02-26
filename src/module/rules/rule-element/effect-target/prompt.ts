@@ -32,7 +32,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                             value: armor,
                             label: armor.name,
                             img: armor.img,
-                            domain: armor.getItemRollOptions(),
+                            domain: armor.getRollOptions(),
                         }));
                 }
                 case "weapon": {
@@ -41,7 +41,7 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
                         value: weapon,
                         label: weapon.name,
                         img: weapon.img,
-                        domain: weapon.getItemRollOptions(),
+                        domain: weapon.getRollOptions(),
                     }));
                 }
             }

@@ -24,7 +24,7 @@
                     <ol class="actions-list item-list directory-list strikes-list">
                         <li class="action-header stroke-header">
                             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                            <h3 class="pf-heading pf-actions">{{localize "PF2E.StrikesLabel"}}</h3>
+                            <h3>{{localize "PF2E.StrikesLabel"}}</h3>
                             <div class="item-controls">
                                 <a class="item-control toggle-unready-strikes" title="{{localize "PF2E.ToggleUnreadyStrikes"}}"><i class="fas fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i></a>
                             </div>
@@ -96,7 +96,7 @@
                         {{#each actor.actions as |section sid|}}
                             <li class="action-header stroke-header">
                                 {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                                <h3 class="pf-heading pf-actions">{{section.label}}</h3>
+                                <h3>{{section.label}}</h3>
                                 {{#if @root.owner}}
                                     <div class="item-controls">
                                         <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i></a>
@@ -131,7 +131,7 @@
                     <ol class="actions-list item-list directory-list">
                         <li class="action-header stroke-header">
                             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                            <h3 class="pf-heading pf-actions">{{localize "PF2E.ActionsActionsHeader"}}</h3>
+                            <h3>{{localize "PF2E.ActionsActionsHeader"}}</h3>
                             {{#if owner}}
                                 <div class="item-controls" style="display: flex">
                                     <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
@@ -165,7 +165,7 @@
                     <ol class="actions-list item-list directory-list">
                         <li class="action-header stroke-header">
                             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                            <h3 class="pf-heading pf-actions">{{localize "PF2E.ActionsActionsHeader"}}</h3>
+                            <h3>{{localize "PF2E.ActionsActionsHeader"}}</h3>
                             {{#if owner}}
                                 <div class="item-controls" style="display: flex">
                                     <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>

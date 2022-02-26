@@ -1,0 +1,216 @@
+{
+    "_id": "8ct9FQL7WuiX4Dve",
+    "data": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 55,
+                "temp": 0,
+                "value": 55
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 22
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "<p>An array of spring-loaded, ceiling-mounted darts are primed to fire down into the hallway when triggered by a pressure plate.</p>",
+            "disable": "<p>@Check[type:thievery|dc:25|trait:hazard,trap,mechanical]{Thievery (expert)} on the floor tile or wall socket</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "critical-hits",
+                    "object-immunities",
+                    "precision"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical",
+                    "trap"
+                ]
+            }
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "NYFHKRRaPEtLeynP",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Pressure is applied to the floor tile</p>\n<p><strong>Effect</strong> The trap shoots darts, making an attack against each creature in a @Template[type:line|distance:30] centered on the floor tile.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Darts",
+            "sort": 0,
+            "type": "action"
+        },
+        {
+            "_id": "N1DlNwW7rdwRgvZf",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "old-giant-wasp-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "pdt0lu457k98nhuo57xk": {
+                        "damage": "4d6+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 0,
+            "type": "melee"
+        },
+        {
+            "_id": "ww3XNNjqDJOclXVx",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<hr />\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison} damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r {3d6}[poison]]]{3d6 poison} damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r {4d6}[poison]]]{4d6 poison} damage and clumsy 2 (1 round).</p>\n</div>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Old Giant Wasp Venom",
+            "sort": 0,
+            "type": "action"
+        }
+    ],
+    "name": "Hail of Darts",
+    "token": {
+        "disposition": 0,
+        "height": 1,
+        "img": "systems/pf2e/icons/default-icons/hazard.svg",
+        "name": "Hail of Darts",
+        "width": 1
+    },
+    "type": "hazard"
+}

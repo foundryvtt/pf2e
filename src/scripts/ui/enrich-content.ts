@@ -148,10 +148,9 @@ export const EnrichContent = {
             html.setAttribute("data-pf2-dc", checkDC);
         }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
-        html.setAttribute(
-            "data-pf2-label",
-            game.i18n.format("PF2E.InlineCheck.DCWithName", { name: params.name ?? item?.name ?? params.type })
-        );
+        const label = params.name ?? item?.name ?? params.type;
+        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { label }));
+        html.setAttribute("data-pf2-repost-flavor", label);
         html.setAttribute("data-pf2-show-dc", params.showDC ?? "gm");
         html.setAttribute("data-pf2-adjustment", params.adjustment);
 
@@ -200,21 +199,17 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
     const dc = params.dc ?? "0";
     const base = (() => {
         if (dc.startsWith("resolve") && item) {
+            params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
-            if (value.startsWith("max")) {
-                const match = [...value.matchAll(/max\((.+?)\)/g)].map((matches) => matches[1]);
-                if (match.length === 1) {
-                    const values = match[0]
-                        .split(",")
-                        .map((val) =>
-                            Number.isInteger(Number(val)) ? Number(val) : resolveItemValue(item, val.trim()) ?? 0
-                        );
-                    return Math.max(...values);
+            const saferEval = (resolveString: string): number => {
+                try {
+                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor: item.actor!, item: item }));
+                } catch {
+                    return 0;
                 }
-            }
-            // Handle standard resolve
-            return resolveItemValue(item, value);
+            };
+            return Number(saferEval(value));
         }
         return Number(dc) || undefined;
     })();
@@ -265,19 +260,4 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
         }
     }
     return "0";
-};
-
-const resolveItemValue = (item: ItemPF2e, formula: string): number | undefined => {
-    // Return 0 for unowned items that reference an actor value
-    if (formula.startsWith("@actor") && !item.isOwned) return 0;
-
-    const result = Roll.replaceFormulaData(
-        formula,
-        { item, actor: item.actor },
-        {
-            missing: "0",
-            warn: true,
-        }
-    );
-    return Number(result) || undefined;
 };

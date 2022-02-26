@@ -55,7 +55,7 @@ export class FakeActor {
     }
 
     static fromToken(token: Token): ActorPF2e | null {
-        let actor = game.actors.get(token.data.actorId);
+        let actor = game.actors.get(token.data.actorId ?? "");
         if (!actor) return null;
         if (!token.data._id) return actor;
         if (!token.data.actorLink) actor = FakeActor.createTokenActor(actor, token);

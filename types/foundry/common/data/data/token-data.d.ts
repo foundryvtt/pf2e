@@ -44,7 +44,7 @@ declare module foundry {
          * @property [bar2]               The configuration of the Token's secondary resource bar
          * @property [flags={}]           An object of optional key/value flags
          */
-        interface TokenSource extends foundry.abstract.DocumentSource, TokenLightData {
+        interface TokenSource extends PrototypeTokenSource, TokenLightData {
             _id: string;
             name: string;
 
@@ -55,7 +55,7 @@ declare module foundry {
             navName: string;
 
             img: VideoPath;
-            actorId: string;
+            actorId: string | null;
             actorLink: boolean;
             actorData: DeepPartial<ActorSource>;
             scale: number;

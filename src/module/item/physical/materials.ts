@@ -19,6 +19,19 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: null,
         high: null,
     },
+    abysium: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 2000,
+            rarity: "rare",
+        },
+        high: {
+            level: 18,
+            price: 24000,
+            rarity: "rare",
+        },
+    },
     adamantine: {
         low: null,
         standard: {
@@ -62,6 +75,19 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
+    djezet: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1800,
+            rarity: "rare",
+        },
+        high: {
+            level: 18,
+            price: 22000,
+            rarity: "rare",
+        },
+    },
     dragonhide: {
         low: null,
         standard: {
@@ -88,6 +114,19 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    inubrix: {
+        low: null,
+        standard: {
+            level: 11,
+            price: 1400,
+            rarity: "rare",
+        },
+        high: {
+            level: 17,
+            price: 13500,
+            rarity: "rare",
+        },
+    },
     mithral: {
         low: null,
         standard: {
@@ -101,12 +140,38 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
+    noqual: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 1600,
+            rarity: "rare",
+        },
+        high: {
+            level: 18,
+            price: 24000,
+            rarity: "rare",
+        },
+    },
     orichalcum: {
         low: null,
         standard: null,
         high: {
             level: 18,
             price: 22500,
+            rarity: "rare",
+        },
+    },
+    siccatite: {
+        low: null,
+        standard: {
+            level: 11,
+            price: 1400,
+            rarity: "rare",
+        },
+        high: {
+            level: 17,
+            price: 15000,
             rarity: "rare",
         },
     },
