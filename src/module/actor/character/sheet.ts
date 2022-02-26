@@ -197,22 +197,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return sheetData;
     }
 
-    /**
-     * Organize and classify Items for Character sheets
-     */
+    /** Organize and classify Items for Character sheets */
     protected prepareItems(sheetData: CharacterSheetData) {
         const actorData: any = sheetData.actor;
+
         // Inventory
-        const inventory: Record<
-            Exclude<PhysicalItemType, "book">,
-            {
-                label: string;
-                items: PhysicalItemData[];
-                investedItemCount?: number;
-                investedMax?: number;
-                overInvested?: boolean;
-            }
-        > = {
+        interface InventorySheetData {
+            label: string;
+            items: PhysicalItemData[];
+            investedItemCount?: number;
+            investedMax?: number;
+            overInvested?: boolean;
+        }
+
+        const inventory: Record<Exclude<PhysicalItemType, "book">, InventorySheetData> = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
             equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
@@ -864,7 +862,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             item.update(data);
         });
 
-        const $craftingOptions = $html.find(".crafting-options").find("input:checkbox");
+        const $craftingTab = $html.find(".tab.crafting");
+
+        const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");
         $craftingOptions.on("click", async (event) => {
             const flags: string[] = [];
             $craftingOptions.each((_index, element) => {
@@ -877,26 +877,27 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             });
         });
 
-        const $craftingQuickAdd = $html.find(".crafting-pane .crafting-quick-add");
-        $craftingQuickAdd.on("click", async (event) => {
-            // find the formula based on the id of the clicked item
+        $craftingTab.find("a[data-action=quick-add]").on("click", async (event) => {
             const { itemUuid } = event.currentTarget.dataset;
-            if (!itemUuid) return;
             const craftingFormulas = await this.actor.getCraftingFormulas();
             const formula = craftingFormulas.find((f) => f.uuid === itemUuid);
             if (!formula) return;
-            // find all the crafting entries, if there is only one then add the formula
-            // otherwise prompt the user for which crafting entry to add the formula
-            const actorCraftingEntries = await this.actor.getCraftingEntries();
-            for (const actorCraftingEntry of actorCraftingEntries) {
-                // if actor ends up with a blank selector (happened in testing) then don't prepareFormula in this case
-                if (actorCraftingEntry.selector) await actorCraftingEntry.prepareFormula(formula);
+
+            const entries = (await this.actor.getCraftingEntries()).filter(
+                (e) => !!e.selector && e.checkEntryRequirements(formula, { warn: false })
+            );
+            for (const entry of entries) {
+                await entry.prepareFormula(formula);
+            }
+
+            if (entries.length === 0) {
+                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.NoEligibleEntry"));
             }
         });
 
-        const $formulas = $html.find(".craftingEntry-list");
+        const $formulas = $craftingTab.find(".craftingEntry-list");
 
-        $formulas.find(".craft-item").on("click", async (event) => {
+        $formulas.find("a[data-action=craft-item]").on("click", async (event) => {
             const { itemUuid } = event.currentTarget.dataset;
             const itemQuantity =
                 Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
