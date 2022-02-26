@@ -207,7 +207,7 @@ export class SpellPF2e extends ItemPF2e {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.heightenedLevel.value": castLevel });
             const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
-            const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
+            const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
         }
@@ -229,7 +229,7 @@ export class SpellPF2e extends ItemPF2e {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
-    override getItemRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         const options = new Set<string>();
 
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
@@ -251,7 +251,7 @@ export class SpellPF2e extends ItemPF2e {
             options.add("damaging-effect");
         }
 
-        return super.getItemRollOptions(prefix).concat([...options]);
+        return super.getRollOptions(prefix).concat([...options]);
     }
 
     override async toMessage(

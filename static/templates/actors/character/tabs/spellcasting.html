@@ -13,7 +13,7 @@
                 </a>
                 {{/if}}
 
-                    <h3 class="item-name pf-heading pf-actions">
+                    <h3 class="item-name">
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}" />
                     </h3>
                     {{#if @root.owner}}
@@ -42,8 +42,8 @@
                             {{#if entry.isFocusPool}}
                             <div class="skill-container focus-pool">
                                 <img class="pool-size" src="systems/pf2e/assets/sheet/circle.svg" />
-                                <span class="skill-item pf-value focus-pool-text" title="{{localize "PF2E.Focus.poolTitle"}}">
-                                    <h4 class="skill-item pf-title">{{localize "PF2E.Focus.poolLabel"}}</h4>
+                                <span class="skill-item focus-pool-text" title="{{localize "PF2E.Focus.poolTitle"}}">
+                                    <h4 class="skill-item">{{localize "PF2E.Focus.poolLabel"}}</h4>
                                     <span class="focus-pool-max">
                                         {{#if @root.data.resources.focus.max}}
                                             {{@root.data.resources.focus.max}}
@@ -58,7 +58,7 @@
                         <li class="spell-ability">
                             <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
                             <div class="spellcasting-prof button-group skill-container">
-                                <select class="skill-proficiency pf-value pf-rank adjust-item-stat-select" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">
+                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="data.proficiency.value" value="{{entry.data.proficiency.value}}">
                                     {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=entry.data.proficiency.value}}
                                 </select>
                             </div>
@@ -72,7 +72,7 @@
 
         {{#if @root.owner}}
             <li class="item spellbook-empty">
-                    <div class="item-controls pf-bluelist pf-add-item-row">
+                    <div class="item-controls pf-add-item-row">
                         <a class="item-control spellcasting-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
                             data-level="{{lvl}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}</a>
                     </div>

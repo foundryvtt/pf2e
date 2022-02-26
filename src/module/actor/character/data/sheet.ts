@@ -3,8 +3,8 @@ import { SpellcastingSheetData } from "@actor/npc/sheet";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, HeritagePF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { CraftingEntry } from "@module/crafting/crafting-entry";
-import { CraftingFormula } from "@module/crafting/formula";
+import { CraftingEntry } from "@actor/character/crafting/entry";
+import { CraftingFormula } from "@actor/character/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
 import { CharacterSystemData } from ".";
 import { CharacterSheetTabVisibility } from "./types";
@@ -43,6 +43,7 @@ type CharacterSystemSheetData = CharacterSystemData & {
 };
 
 interface CraftingEntries {
+    dailyCrafting: boolean;
     other: CraftingEntry[];
     alchemical: {
         entries: CraftingEntry[];

@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/base";
 import { CreaturePF2e } from "@actor";
-import { SKILL_EXPANDED } from "@actor/data/values";
+import { DC_SLUGS, SKILL_EXPANDED } from "@actor/data/values";
 import {
     ensureProficiencyOption,
     CheckModifier,
@@ -11,7 +11,7 @@ import {
 import { CheckPF2e } from "../rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
-import { CheckDC, DegreeOfSuccessString, DegreeOfSuccessText } from "@system/check-degree-of-success";
+import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { balance } from "./acrobatics/balance";
@@ -45,6 +45,7 @@ import { pickALock } from "./thievery/pick-a-lock";
 import { PredicatePF2e } from "@system/predication";
 import { WeaponPF2e } from "@item/weapon";
 import { WeaponTrait } from "@item/weapon/data";
+import { setHasElement } from "@util";
 
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 
@@ -65,7 +66,7 @@ export interface SkillActionOptions extends ActionDefaultOptions {
 export interface CheckResultCallback {
     actor: ActorPF2e;
     message?: ChatMessage;
-    outcome?: typeof DegreeOfSuccessText[number];
+    outcome: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null | undefined;
     roll: Rolled<Roll>;
 }
 
@@ -91,55 +92,55 @@ interface SimpleRollActionCheckOptions {
 }
 
 export class ActionsPF2e {
-    static exposeActions(actions: { [key: string]: Function }) {
-        // basic
-        actions.seek = seek;
-        actions.senseMotive = senseMotive;
+    static actionMacros = {
+        // Basic
+        seek,
+        senseMotive,
 
-        // acrobatics
-        actions.balance = balance;
-        actions.maneuverInFlight = maneuverInFlight;
-        actions.squeeze = squeeze;
-        actions.tumbleThrough = tumbleThrough;
+        // Acrobatics
+        balance,
+        maneuverInFlight,
+        squeeze,
+        tumbleThrough,
 
-        // athletics
-        actions.climb = climb;
-        actions.disarm = disarm;
-        actions.forceOpen = forceOpen;
-        actions.grapple = grapple;
-        actions.highJump = highJump;
-        actions.longJump = longJump;
-        actions.shove = shove;
-        actions.swim = swim;
-        actions.trip = trip;
-        actions.whirlingThrow = whirlingThrow;
+        // Athletics
+        climb,
+        disarm,
+        forceOpen,
+        grapple,
+        highJump,
+        longJump,
+        shove,
+        swim,
+        trip,
+        whirlingThrow,
 
-        // crafting
-        actions.craft = craft;
+        // Crafting
+        craft,
 
-        // deception
-        actions.createADiversion = createADiversion;
-        actions.feint = feint;
-        actions.impersonate = impersonate;
-        actions.lie = lie;
+        // Deception
+        createADiversion,
+        feint,
+        impersonate,
+        lie,
 
-        // diplomacy
-        actions.bonMot = bonMot;
-        actions.gatherInformation = gatherInformation;
-        actions.makeAnImpression = makeAnImpression;
-        actions.request = request;
+        // Diplomacy
+        bonMot,
+        gatherInformation,
+        makeAnImpression,
+        request,
 
-        // intimidation
-        actions.coerce = coerce;
-        actions.demoralize = demoralize;
+        // Intimidation
+        coerce,
+        demoralize,
 
-        // stealth
-        actions.hide = hide;
-        actions.sneak = sneak;
+        // Stealth
+        hide,
+        sneak,
 
-        // thievery
-        actions.pickALock = pickALock;
-    }
+        // Thievery
+        pickALock,
+    };
 
     static resolveStat(stat: string): {
         checkType: CheckType;
@@ -194,8 +195,9 @@ export class ActionsPF2e {
             rollers.push(game.user.character);
         }
 
-        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
-        const target = targets[0];
+        const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
+        const target = targets.shift()?.document ?? null;
+        const targetActor = target?.actor ?? null;
 
         if (rollers.length) {
             rollers.forEach((actor) => {
@@ -207,85 +209,86 @@ export class ActionsPF2e {
                 flavor += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
                 const stat = getProperty(actor, options.statName) as StatisticModifier;
                 const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
-                const finalOptions = actor
-                    .getRollOptions(options.rollOptions)
-                    .concat(options.extraOptions)
-                    .concat(options.traits);
-                {
-                    // options for roller's conditions
-                    const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-                    finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
+
+                const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+                const finalOptions = [
+                    actor.getRollOptions(options.rollOptions),
+                    options.extraOptions,
+                    options.traits,
+                    targetOptions,
+                ].flat();
+
+                // modifier from roller's equipped weapon
+                const weapon = (
+                    options.weaponTrait ? this.getApplicableEquippedWeapons(actor, options.weaponTrait) : []
+                ).shift();
+                if (weapon) {
+                    check.push(this.getWeaponPotencyModifier(weapon, actor));
                 }
-                // modifier from roller's equipped weapons
-                if (options.weaponTrait) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTrait).map((item: WeaponPF2e) =>
-                        check.push(this.getWeaponPotencyModifier(item, actor))
+
+                const weaponTraits = weapon?.traits;
+
+                // Modifier from roller's equipped weapon with -2 ranged penalty
+                if (options.weaponTraitWithPenalty === "ranged-trip" && weaponTraits?.has("ranged-trip")) {
+                    check.push(
+                        new ModifierPF2e({
+                            type: MODIFIER_TYPE.CIRCUMSTANCE,
+                            slug: "ranged-trip",
+                            label: CONFIG.PF2E.weaponTraits["ranged-trip"],
+                            modifier: -2,
+                        })
                     );
                 }
-                // modifier from roller's equipped weapons with -2 ranged penalty
-                if (options.weaponTraitWithPenalty) {
-                    this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty).map((item: WeaponPF2e) => {
-                        check.push(this.getWeaponPotencyModifier(item, actor));
-                        check.push(
-                            new ModifierPF2e(
-                                item.data.name + ` - ${game.i18n.localize("PF2E.TraitRangedTrip")}`,
-                                Number("-2"),
-                                MODIFIER_TYPE.CIRCUMSTANCE
-                            )
-                        );
-                    });
-                }
+
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
-                const dc = (() => {
+                const dc = ((): CheckDC | null => {
                     if (options.difficultyClass) {
                         return options.difficultyClass;
                     } else if (target && target.actor instanceof CreaturePF2e) {
-                        const targetOptions: string[] = [];
-
-                        // target's conditions
-                        const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-                        targetOptions.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
-
-                        // target's traits
-                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? "")
-                            .split(/[;,\\|]/)
-                            .map((value) => value.trim())
-                            .concat(target.actor.data.data.traits.traits.value ?? [])
-                            .filter((value) => !!value)
-                            .map((trait) => `target:${trait}`);
-                        targetOptions.push(...targetTraits);
-
                         // try to resolve target's defense stat and calculate DC
                         const dcStat = options.difficultyClassStatistic?.(target.actor);
                         if (dcStat) {
                             const extraRollOptions = finalOptions.concat(targetOptions);
                             const dc = dcStat.dc({ extraRollOptions });
-                            const labelKey = `PF2E.CreatureStatisticDC.${dcStat.slug}`;
-                            return {
-                                label: game.i18n.format(labelKey, { creature: target.name, dc: "{dc}" }),
+                            const dcData: CheckDC = {
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],
                             };
+                            if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
+
+                            return dcData;
                         }
                     }
-                    return undefined;
+                    return null;
                 })();
                 const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.featTraits;
                 const traitObjects = options.traits.map((trait) => ({
                     name: trait,
                     label: actionTraits[trait] ?? trait,
                 }));
+
+                const selfToken = actor.getActiveTokens(false, true).shift();
+                const distance = ((): number | null => {
+                    const reach =
+                        actor instanceof CreaturePF2e ? actor.getReach({ action: "attack", weapon }) ?? null : null;
+                    return selfToken?.object && target?.object
+                        ? selfToken.object.distanceTo(target.object, { reach })
+                        : null;
+                })();
+                const hasTarget = !!(targetActor && target) && typeof distance === "number";
+                const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
+
                 CheckPF2e.roll(
                     check,
                     {
                         actor,
+                        token: selfToken,
                         createMessage: options.createMessage,
+                        target: hasTarget ? { actor: targetActor, token: target, dc, distance } : null,
                         dc,
                         type: options.checkType,
                         options: finalOptions,
-                        notes: (stat.notes ?? []).concat(
-                            options.extraNotes ? options.extraNotes(options.statName) : []
-                        ),
+                        notes,
                         traits: traitObjects,
                         title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
                     },
@@ -313,8 +316,6 @@ export class ActionsPF2e {
     }
 
     private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): WeaponPF2e[] {
-        return actor.itemTypes.weapon
-            .filter((weapon) => weapon.isEquipped)
-            .filter((weapon) => weapon.traits.has(trait));
+        return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
     }
 }

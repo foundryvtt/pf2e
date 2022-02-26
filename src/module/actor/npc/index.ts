@@ -509,9 +509,6 @@ export class NPCPF2e extends CreaturePF2e {
                     }
                 }
 
-                const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const meleeItem = this.items.get(meleeData._id);
-
                 const getRangeIncrement = (distance: number | null): number | null => {
                     const weaponIncrement =
                         Number(
@@ -524,6 +521,7 @@ export class NPCPF2e extends CreaturePF2e {
                         : null;
                 };
 
+                const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
                 const maps = ItemPF2e.calculateMap(meleeData);
                 const sign = action.totalModifier < 0 ? "" : "+";
 
@@ -571,13 +569,15 @@ export class NPCPF2e extends CreaturePF2e {
 
                 const damageRoll =
                     (outcome: "success" | "criticalSuccess"): RollFunction =>
-                    (args: RollParameters) => {
-                        const ctx = this.getDamageRollContext({ item, viewOnly: false });
+                    async (args: RollParameters) => {
+                        const context = this.getDamageRollContext({ item, viewOnly: false });
                         // always add all weapon traits as options
-                        const options = (args.options ?? []).concat(ctx.options).concat(meleeData.data.traits.value);
+                        const options = (args.options ?? [])
+                            .concat(context.options)
+                            .concat(meleeData.data.traits.value);
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                            ctx.self.item.data,
-                            ctx.self.actor,
+                            context.self.item.data,
+                            context.self.actor,
                             action.traits,
                             statisticsModifiers,
                             this.cloneSyntheticsRecord(damageDice),
@@ -585,10 +585,11 @@ export class NPCPF2e extends CreaturePF2e {
                             options,
                             rollNotes
                         );
-                        DamageRollPF2e.roll(
+                        const { self, target } = context;
+
+                        await DamageRollPF2e.roll(
                             damage,
-                            { type: "damage-roll", item: meleeItem, actor: this, outcome, options },
-                            args.event,
+                            { type: "damage-roll", self, target, outcome, options },
                             args.callback
                         );
                     };

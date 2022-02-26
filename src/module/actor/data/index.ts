@@ -7,6 +7,7 @@ import type { FamiliarData, FamiliarSource } from "@actor/familiar/data";
 import type { NPCData, NPCSource } from "@actor/npc/data";
 import { AbilityString } from "./base";
 import { SAVE_TYPES } from "./values";
+import { DCSlug, SaveType } from "./types";
 
 export type CreatureData = CharacterData | NPCData | FamiliarData;
 export type ActorType = CreatureType | "hazard" | "loot" | "vehicle";
@@ -14,19 +15,17 @@ export type ActorType = CreatureType | "hazard" | "loot" | "vehicle";
 export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 export type ActorSourcePF2e = ActorDataPF2e["_source"];
 
-export type SaveType = typeof SAVE_TYPES[number];
-
 export type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
 export interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
     secret?: boolean;
     skipDialog?: boolean;
 }
-
 export {
     AbilityString,
     CharacterData,
     CharacterSource,
+    DCSlug,
     NPCData,
     NPCSource,
     FamiliarData,
@@ -35,6 +34,7 @@ export {
     HazardSource,
     LootData,
     LootSource,
+    SaveType,
     SAVE_TYPES,
     VehicleData,
     VehicleSource,

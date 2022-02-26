@@ -2,13 +2,13 @@ import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/check-degree-of-success";
+import { DegreeOfSuccessAdjustment, CheckDCModifiers } from "@system/degree-of-success";
 import { tupleHasValue } from "@util";
 
 /**
  * @category RuleElement
  */
-export class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
+class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     override afterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const adjustment = this.data.adjustment;
@@ -82,10 +82,12 @@ export class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     }
 }
 
-export interface AdjustDegreeOfSuccessRuleElement {
+interface AdjustDegreeOfSuccessRuleElement {
     data: RuleElementData & {
         adjustment?: CheckDCModifiers;
     };
 
     get actor(): CharacterPF2e | NPCPF2e;
 }
+
+export { AdjustDegreeOfSuccessRuleElement };

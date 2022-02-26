@@ -885,10 +885,6 @@
                     "DFE1HJnzXfiY5jJC": {
                         "damage": "1d6+2",
                         "damageType": "piercing"
-                    },
-                    "xl0y34s8nvdzng2w3jg1": {
-                        "damage": "3d8",
-                        "damageType": "precision"
                     }
                 },
                 "description": {
@@ -937,7 +933,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageCategory": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "ranged",
+                                "deadly-bolts"
+                            ]
+                        },
+                        "selector": "hand-crossbow-damage"
+                    },
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.deadly-bolts"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

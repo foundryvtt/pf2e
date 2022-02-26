@@ -10,7 +10,7 @@
             />
         </div>
         <div class="alignment">
-            <span class="bio-alignment pf-value pf-small" title="{{localize "PF2E.AlignmentTitle"}}">
+            <span class="bio-alignment" title="{{localize "PF2E.AlignmentTitle"}}">
                 <select aria-label="{{localize "PF2E.Alignment"}}" name="data.details.alignment.value">
                     {{#select data.details.alignment.value}}
                         {{#each alignments as |label key|}}
@@ -25,7 +25,7 @@
                 <label class="details-label" for="{{options.id}}-pc-deity">
                     {{localize "PF2E.Deity"}}
                 </label>
-                <input id="{{options.id}}-pc-deity" name="data.details.deity.value" type="text" value="{{data.details.deity.value}}" />
+                <input class="details-input" id="{{options.id}}-pc-deity" name="data.details.deity.value" type="text" value="{{data.details.deity.value}}" />
             </div>
             <img src="{{data.details.deity.image}}" alt="{{data.details.deity.value}}" title="{{localize "PF2E.DeityTitle"}}" data-edit="data.details.deity.image" />
         </div>

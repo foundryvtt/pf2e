@@ -138,7 +138,7 @@
         {{#if (and entry.data.showUnpreparedSpells.value section.displayPrepared
             (or (gt (lookup (lookup entry.spellPrepList section.level) 'length') 0)
                 entry.data.showSlotlessLevels.value))}}
-            <header class="item-name pf-sub-category pf-actions level-prepared-header">
+            <header class="item-name level-prepared-header">
                 {{localize "PF2E.UnpreparedSpellsLabel" label=(localize section.label) }}
                 {{#if (and entry.flexibleAvailable (not section.isCantrip))}}
                     <div class="flexible-available">

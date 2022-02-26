@@ -25,12 +25,12 @@
 
 <div class="pc pc_bonus-bulk encumbered">
     <label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">{{localize "PF2E.BonusEncumbranceBulkLabel"}}</label>
-    <input id="{{options.id}}-bonus-encumbrance-bulk" type="number" {{#if adjustedBonusEncumbranceBulk}}class="adjusted"{{/if}}
+    <input class="details-input {{#if adjustedBonusEncumbranceBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-encumbrance-bulk" type="number" 
         data-property="data.attributes.bonusEncumbranceBulk" value="{{data.attributes.bonusEncumbranceBulk}}" placeholder="0" />
 </div>
 <div class="pc pc_bonus-bulk">
     <label class="details-label" for="{{options.id}}-bonus-limit-bulk">{{localize "PF2E.BonusLimitBulkLabel"}}</label>
-    <input id="{{options.id}}-bonus-limit-bulk" type="number" {{#if adjustedBonusLimitBulk}}class="adjusted"{{/if}}
+    <input class="details-input {{#if adjustedBonusLimitBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-limit-bulk" type="number"
         data-property="data.attributes.bonusLimitBulk" value="{{data.attributes.bonusLimitBulk}}" placeholder="0" />
 </div>
 <div class="character-traits">

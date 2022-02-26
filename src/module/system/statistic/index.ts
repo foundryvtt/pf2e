@@ -17,7 +17,7 @@ import {
     StatisticDataWithCheck,
 } from "./data";
 import { ItemPF2e } from "@item";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { isObject } from "@util";
 import { eventToRollParams } from "@scripts/sheet-util";
 
@@ -131,7 +131,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         }
 
         if (item) {
-            rollOptions.push(...item.getItemRollOptions("item"));
+            rollOptions.push(...item.getRollOptions("item"));
             if (item.actor && item.actor.id !== this.actor.id) {
                 rollOptions.push(...item.actor.getSelfRollOptions("origin"));
             }

@@ -1,6 +1,7 @@
 {
     "_id": "uqjx1bwYduHwwC7d",
     "data": {
+        "badge": null,
         "description": {
             "value": ""
         },
@@ -15,13 +16,28 @@
         },
         "rules": [
             {
+                "key": "ToggleProperty",
+                "label": "Attacking designated target",
+                "property": "flags.pf2e.rollOptions.all.guidingWordsTarget"
+            },
+            {
                 "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "guidingWordsTarget"
+                    ]
+                },
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "guidingWordsTarget"
+                    ]
+                },
                 "selector": "strike-damage",
                 "type": "status",
                 "value": 1

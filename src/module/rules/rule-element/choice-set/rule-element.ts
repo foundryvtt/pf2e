@@ -52,7 +52,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * ignored if no selection was made.
      */
     override async preCreate({ ruleSource }: REPreCreateParameters<ChoiceSetSource>): Promise<void> {
-        const rollOptions = this.actor.getRollOptions();
+        const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
         if (this.data.predicate && !this.data.predicate.test(rollOptions)) return;
 
         this.setDefaultFlag(ruleSource);
@@ -187,13 +187,18 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             // Apply the followup predication filter if there is one
             const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
-                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getItemRollOptions("item")]))
+                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getRollOptions("item")]))
                 : feats;
 
-            // Exclude any feat the character already has and return final list
-            const existing = new Set(this.actor.itemTypes.feat.flatMap((f) => f.sourceId ?? []));
+            // Exclude any feat of which the character already has its maximum number and return final list
+            const existing: Map<string, number> = new Map();
+            for (const feat of this.actor.itemTypes.feat) {
+                const slug = feat.slug ?? sluggify(feat.name);
+                existing.set(slug, (existing.get(slug) ?? 0) + 1);
+            }
+
             return filtered
-                .filter((f) => !existing.has(f.sourceId!))
+                .filter((f) => (existing.get(f.slug ?? sluggify(f.name)) ?? 0) < f.maxTakeable)
                 .map((f) => ({ value: f.uuid, label: f.name, img: f.img }));
         } catch (error) {
             // Send warning even if suppressWarnings option is true
