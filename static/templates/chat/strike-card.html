@@ -7,18 +7,18 @@
     <div class="card-content">{{{strikeDescription}}}</div>
 
     <div class="card-buttons" data-visibility="owner">
-        <button data-action="strikeAttack">{{strike.variants.0.label}}</button>
-        <button data-action="strikeAttack2">{{strike.variants.1.label}}</button>
-        <button data-action="strikeAttack3">{{strike.variants.2.label}}</button>
+        <button type="button" data-action="strike-attack">{{strike.variants.0.label}}</button>
+        <button type="button" data-action="strike-attack2">{{strike.variants.1.label}}</button>
+        <button type="button" data-action="strike-attack3">{{strike.variants.2.label}}</button>
         <div class="card-buttons-two-column">
-          <button type="button" data-action="strikeDamage">{{localize "PF2E.DamageLabel"}}</button>
-          <button type="button" data-action="strikeCritical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+            <button type="button" data-action="strike-damage">{{localize "PF2E.DamageLabel"}}</button>
+            <button type="button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
         </div>
     </div>
 
     <footer class="card-footer">
-    {{#each strike.traits}}
-        <span title="{{localize this.description}}">{{localize this.label}}</span>
-    {{/each}}
+        {{#each strike.traits}}
+            <span title="{{localize this.description}}">{{localize this.label}}</span>
+        {{/each}}
     </footer>
 </div>

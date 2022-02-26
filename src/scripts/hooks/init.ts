@@ -33,6 +33,7 @@ import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
+import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
 import { PF2ECONFIG } from "../config";
 
@@ -43,6 +44,8 @@ export const Init = {
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
+
+            CONFIG.Dice.rolls.push(Check.Roll, Check.StrikeAttackRoll);
 
             // Assign document and Canvas classes
             CONFIG.Item.documentClass = ItemPF2e;

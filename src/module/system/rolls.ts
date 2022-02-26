@@ -2,7 +2,7 @@ import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
-import { ModifierPF2e, StatisticModifier } from "../modifiers";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "../modifiers";
 import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
 import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
@@ -11,16 +11,22 @@ import { ZeroToThree } from "@module/data";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "./predication";
-import { StrikeTrait } from "@actor/data/base";
+import { StrikeData, StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget, StrikeTarget } from "@actor/creature/types";
 import { DamageCategory, DamageRollContext } from "./damage/damage";
 import { LocalizePF2e } from "./localize";
+import { Check } from "./check";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
     degreeOfSuccess?: ZeroToThree;
+    strike?: {
+        actor: ActorUUID | TokenDocumentUUID;
+        index: number;
+        name: string;
+    };
 }
 
 /** Possible parameters of a RollFunction */
@@ -112,7 +118,7 @@ export class CheckPF2e {
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
      */
     static async roll(
-        check: StatisticModifier,
+        check: CheckModifier,
         context: CheckRollContext = {},
         event: JQuery.TriggeredEvent | null = null,
         callback?: (
@@ -173,7 +179,40 @@ export class CheckPF2e {
             .join("");
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
+
+        const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
+        const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
+
+        const rollData: RollDataPF2e = (() => {
+            const data: RollDataPF2e = { totalModifier: check.totalModifier };
+
+            const contextItem = context.item;
+            if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
+                const strikes: StrikeData[] = context.actor.data.data.actions;
+                const strike = strikes.find((a) => {
+                    const strikeItem = a.item;
+                    if (!strikeItem) return false;
+                    if (strikeItem.isOfType("melee")) return strikeItem.id === contextItem.id;
+                    if (contextItem.isOfType("weapon")) {
+                        return (["id", "name", "isMelee"] as const).every(
+                            (key) => strikeItem[key] === contextItem[key]
+                        );
+                    }
+                    return false;
+                });
+                if (strike) {
+                    data.strike = {
+                        actor: context.actor.uuid,
+                        index: strikes.indexOf(strike),
+                        name: strike.item!.name,
+                    };
+                }
+            }
+
+            return data;
+        })();
+
+        const roll = await new RollCls(`${dice}${totalModifierPart}`, rollData).evaluate({ async: true });
 
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
 
@@ -340,23 +379,23 @@ export class CheckPF2e {
         context.isReroll = true;
 
         const oldRoll = message.roll;
-        const newRoll: Rolled<Roll<RollDataPF2e>> = await new Roll(oldRoll.formula, oldRoll.data).evaluate({
-            async: true,
-        });
+        const RollCls = message.roll.constructor as typeof Check.Roll;
+        const newRoll = await new RollCls(oldRoll.formula, oldRoll.data).evaluate({ async: true });
 
         // Keep the new roll by default; Old roll is discarded
-        let keepRoll = newRoll;
+        let keptRoll = newRoll;
         let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
 
         // Check if we should keep the old roll instead.
         if ((keep === "best" && oldRoll.total > newRoll.total) || (keep === "worst" && oldRoll.total < newRoll.total)) {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
-            keepRoll = oldRoll;
+            keptRoll = oldRoll;
         }
+
         const renders = {
-            old: await CheckPF2e.renderReroll(oldRoll),
-            new: await CheckPF2e.renderReroll(newRoll),
+            old: await CheckPF2e.renderReroll(oldRoll, { isOld: true }),
+            new: await CheckPF2e.renderReroll(newRoll, { isOld: false }),
         };
 
         const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
@@ -366,14 +405,14 @@ export class CheckPF2e {
         const dc = message.data.flags.pf2e.context?.dc ?? null;
         const oldFlavor = message.data.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
-        const createNewFlavor = keepRoll === newRoll && !!degree;
+        const createNewFlavor = keptRoll === newRoll && !!degree;
 
         const newFlavor = createNewFlavor
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
                   const target = message.data.flags.pf2e.context?.target ?? null;
-                  const newFlavor = await this.createFlavorMarkup({ degree, target });
-                  $parsedFlavor.find(".target-dc-result").replaceWith(newFlavor);
+                  const flavor = await this.createFlavorMarkup({ degree, target });
+                  $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
               })()
             : oldFlavor;
@@ -386,7 +425,7 @@ export class CheckPF2e {
         }
 
         await message.delete({ render: false });
-        await keepRoll.toMessage(
+        await keptRoll.toMessage(
             {
                 content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
@@ -404,18 +443,24 @@ export class CheckPF2e {
 
     /**
      * Renders the reroll, highlighting the old result if it was a critical success or failure
-     * @param roll - The roll that is to be rerendered
+     * @param roll  The roll that is to be rerendered
+     * @param isOld This is the old roll render, so remove damage or other buttons
      */
-    static async renderReroll(roll: Rolled<Roll>): Promise<string> {
+    static async renderReroll(roll: Rolled<Roll>, { isOld }: { isOld: boolean }): Promise<string> {
         const die = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20);
         if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
 
         const html = await roll.render();
-        if (![1, 20].includes(die.total)) return html;
+        const element = parseHTML(`<div>${html}</div>`);
 
-        const element = parseHTML(html);
+        // Remove the buttons if this is the discarded roll
+        if (isOld) element.querySelector(".message-buttons")?.remove();
+
+        if (![1, 20].includes(die.total)) return element.innerHTML;
+
         element.querySelector(".dice-total")?.classList.add(die.total === 20 ? "success" : "failure");
-        return element.outerHTML;
+
+        return element.innerHTML;
     }
 
     private static async createFlavorMarkup({ degree, target }: CreateFlavorMarkupParams): Promise<string> {
