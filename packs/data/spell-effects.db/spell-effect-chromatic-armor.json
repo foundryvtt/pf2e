@@ -1,0 +1,81 @@
+{
+    "_id": "DHYWmMGmKOpRSqza",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Chromatic Armor]{Chromatic Armor}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    }
+                ],
+                "flag": "chromaticArmor",
+                "key": "ChoiceSet",
+                "prompt": "Select a colour"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.chromaticArmor}",
+                "value": "5+5*floor((@item.level - 4) / 3)"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/chromatic-armor.webp",
+    "name": "Spell Effect: Chromatic Armor",
+    "type": "effect"
+}
