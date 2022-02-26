@@ -7,6 +7,7 @@ import { DamageType } from "@module/damage-calculation";
 import { ValuesList, OneToTen } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
+import { DamageDieSize } from "@system/damage/damage";
 
 export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemSource>;
 
@@ -39,6 +40,9 @@ export interface SpellDamageType {
 
 export interface SpellDamage {
     value: string;
+    diceNumber?: number;
+    dieSize?: DamageDieSize;
+    modifier?: number;
     applyMod?: boolean;
     type: SpellDamageType;
 }

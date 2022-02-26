@@ -204,7 +204,17 @@
         {{#each data.damage.value as |damage id|}}
             <div class="formula-section">
                 <div class="details-container-flex-row">
-                    <input type="text" name="data.damage.value.{{id}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                    <input type="number" name="data.damage.value.{{id}}.diceNumber" value="{{damage.diceNumber}}" data-dtype="Number" />
+                    <select name="data.damage.value.{{id}}.dieSize" data-dtype="String">
+                        {{#select damage.dieSize}}
+                        <option value=""></option>
+                        {{#each ../damageDieSizes as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                        {{/each}}
+                        {{/select}}
+                    </select>
+                    <span>+</span>
+                    <input type="number" name="data.damage.value.{{id}}.modifier" value="{{damage.modifier}}" data-dtype="Number" />
                     <label>
                         <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
                         <input type="checkbox" name="data.damage.value.{{id}}.applyMod" value="0" data-dtype="Boolean" {{checked damage.applyMod}}/>

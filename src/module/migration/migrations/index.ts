@@ -119,3 +119,4 @@ export { Migration716StrikeDamageSelector } from "./716-strike-damage-selector";
 export { Migration717TakeFeatLimits } from "./717-take-feat-limits";
 export { Migration718CarryType } from "./718-carry-type";
 export { Migration719ShrugFlanking } from "./719-shrug-flanking";
+export { Migration720SeparateSpellDamage } from "./720-separate-spell-damage";

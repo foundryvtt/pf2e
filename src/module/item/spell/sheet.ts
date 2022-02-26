@@ -30,6 +30,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
             magicTraditions: this.prepareOptions(CONFIG.PF2E.magicTraditions, data.data.traditions),
+            damageDieSizes: CONFIG.PF2E.damageDie,
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
             traits: this.prepareOptions(CONFIG.PF2E.spellTraits, data.data.traits, { selectedOnly: true }),
@@ -63,7 +64,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         $html.find("[data-action='damage-create']").on("click", (event) => {
             event.preventDefault();
-            const emptyDamage: SpellDamage = { value: "", type: { value: "bludgeoning", categories: [] } };
+            const emptyDamage: SpellDamage = {
+                value: "",
+                dieSize: "d4",
+                diceNumber: 0,
+                modifier: 0,
+                type: { value: "bludgeoning", categories: [] },
+            };
             this.item.update({
                 [`data.damage.value.${randomID()}`]: emptyDamage,
             });
