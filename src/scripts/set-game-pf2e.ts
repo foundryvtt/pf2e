@@ -35,6 +35,8 @@ import { sluggify } from "@util";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
+        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
+
         const actions: Record<string, Function> = {
             earnIncome,
             encouragingWords,
@@ -43,9 +45,6 @@ export const SetGamePF2e = {
             steelYourResolve,
             ...ActionsPF2e.actionMacros,
         };
-        console.debug(ActionsPF2e.actionMacros.craft);
-
-        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
 
         const initSafe: Partial<typeof game["pf2e"]> = {
             actions,

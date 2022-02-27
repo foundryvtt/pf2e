@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 3.5.2
+
+### Bugfixes
+* (stwlam) Fix regression with automatic flanking detection
+* (stwlam) Fix display of strike damage tooltips on PC sheet
+* (stwlam) Correct some user-visibility quirks on spell cards
+* (stwlam) Restore craft action macro
+
+### Data Updates
+* (NullWolf) Add Spell Effect: Calm Emotions
+* (stwlam) Restore Ray of Enfeeblement as both an attack and save spell
+
+
 ## Version 3.5.1
 
 ### Core System Improvements
