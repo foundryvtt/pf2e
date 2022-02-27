@@ -30,12 +30,13 @@ export const UserVisibility = {
 
             // Hide DC for explicit save buttons (such as in spell cards)
             const dcSetting = game.settings.get("pf2e", "metagame.showDC");
-            const $saveButtons = $html.find('button[data-action="save"]');
-            if (
-                (dcSetting === "owner" && !hasOwnership) ||
-                (dcSetting === "gm" && !game.user.isGM) ||
-                dcSetting === "none"
-            ) {
+            const $saveButtons = $html.find("button[data-action=save]");
+            const hideDC =
+                !actor.hasPlayerOwner &&
+                ((dcSetting === "owner" && !hasOwnership) ||
+                    (dcSetting === "gm" && !game.user.isGM) ||
+                    dcSetting === "none");
+            if (hideDC) {
                 $saveButtons.each((_idx, elem) => {
                     const saveType = elem.dataset.save;
                     if (objectHasKey(CONFIG.PF2E.saves, saveType)) {
@@ -43,7 +44,7 @@ export const UserVisibility = {
                         elem.innerText = game.i18n.format("PF2E.SavingThrowWithName", { saveName });
                     }
                 });
-            } else if (dcSetting !== "all") {
+            } else if (!actor.hasPlayerOwner && dcSetting !== "all") {
                 $saveButtons.each((_idx, elem) => {
                     $(elem).addClass("hidden-to-others");
                 });
