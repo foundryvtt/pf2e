@@ -16,6 +16,7 @@ import { Migration716StrikeDamageSelector } from "@module/migration/migrations/7
 import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
 import { Migration718CarryType } from "@module/migration/migrations/718-carry-type";
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
+import { Migration721SetReloadValues } from "@module/migration/migrations/721-set-reload-values";
 
 const migrations: MigrationBase[] = [
     new Migration710RarityToString(),
@@ -28,6 +29,7 @@ const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
     new Migration718CarryType(),
     new Migration719ShrugFlanking(),
+    new Migration721SetReloadValues(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

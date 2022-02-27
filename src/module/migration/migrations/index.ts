@@ -120,3 +120,4 @@ export { Migration717TakeFeatLimits } from "./717-take-feat-limits";
 export { Migration718CarryType } from "./718-carry-type";
 export { Migration719ShrugFlanking } from "./719-shrug-flanking";
 export { Migration720UpdateSpellDescriptions } from "./720-update-spell-descriptions";
+export { Migration721SetReloadValues } from "./721-set-reload-values";
