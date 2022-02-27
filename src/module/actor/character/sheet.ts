@@ -693,14 +693,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
             const meleeUsage = Boolean($button.attr("data-melee-usage"));
             const strike = this.getStrikeFromDOM($button[0]);
-            const formula = strike?.[method]?.({ getFormula: true, meleeUsage });
-            if (formula) {
+            strike?.[method]?.({ getFormula: true, meleeUsage }).then((formula) => {
+                if (!formula) return;
                 $button.attr({ title: formula });
                 $button.tooltipster({
                     position: "bottom",
                     theme: "crb-hover",
                 });
-            }
+            });
         }
 
         $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
