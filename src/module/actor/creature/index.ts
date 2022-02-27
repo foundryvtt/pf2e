@@ -8,7 +8,7 @@ import {
     RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
-import { ItemPF2e, ArmorPF2e } from "@item";
+import { ItemPF2e, ArmorPF2e, ConditionPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
@@ -371,13 +371,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Add modifiers from being flanked
         if (this.isFlatFooted({ dueTo: "flanking" })) {
-            const acModifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
-            const flatFooted = game.pf2e.ConditionManager.getCondition("flat-footed");
-            const modifier = (game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? []).pop();
-            if (!modifier) throw ErrorPF2e("Unexpected error retrieving condition");
+            const conditionSource = game.pf2e.ConditionManager.getCondition("flat-footed").toObject();
+            conditionSource.name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const flatFooted = new ConditionPF2e(conditionSource, { parent: this }) as Embedded<ConditionPF2e>;
 
-            modifier.label = game.i18n.localize("PF2E.Item.Condition.Flanked");
-            acModifiers.push(() => modifier);
+            const rule = flatFooted.prepareRuleElements().shift();
+            if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
+            rule.beforePrepareData?.();
 
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
