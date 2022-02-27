@@ -417,7 +417,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
             stat.value = stat.totalModifier;
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, proficiencyRank);
@@ -430,7 +430,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -612,7 +612,7 @@ export class CharacterPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.rank = skill.rank;
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
@@ -627,7 +627,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -668,7 +668,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, rank);
@@ -678,7 +678,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
                     args.event,

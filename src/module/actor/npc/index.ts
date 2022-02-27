@@ -263,9 +263,9 @@ export class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options: args.options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -296,9 +296,9 @@ export class NPCPF2e extends CreaturePF2e {
                     label: name,
                     value: 0,
                     visible: false,
-                    roll: (args: RollParameters) => {
+                    roll: async (args: RollParameters): Promise<void> => {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
-                        CheckPF2e.roll(
+                        await CheckPF2e.roll(
                             new CheckModifier(label, stat),
                             { actor: this, type: "skill-check", options: args.options, dc: args.dc, notes },
                             args.event,
@@ -359,9 +359,9 @@ export class NPCPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (args: RollParameters) => {
+                stat.roll = async (args: RollParameters): Promise<void> => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
-                    CheckPF2e.roll(
+                    await CheckPF2e.roll(
                         new CheckModifier(label, stat),
                         { actor: this, type: "skill-check", options: args.options, dc: args.dc, notes: stat.notes },
                         args.event,
