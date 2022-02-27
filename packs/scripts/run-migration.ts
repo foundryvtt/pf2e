@@ -17,6 +17,7 @@ import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-tak
 import { Migration718CarryType } from "@module/migration/migrations/718-carry-type";
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
 import { Migration721SetReloadValues } from "@module/migration/migrations/721-set-reload-values";
+import { Migration722CraftingSystemData } from "@module/migration/migrations/722-crafting-system-data";
 
 const migrations: MigrationBase[] = [
     new Migration710RarityToString(),
@@ -30,6 +31,7 @@ const migrations: MigrationBase[] = [
     new Migration718CarryType(),
     new Migration719ShrugFlanking(),
     new Migration721SetReloadValues(),
+    new Migration722CraftingSystemData(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
