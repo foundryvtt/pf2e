@@ -739,7 +739,9 @@ export class CharacterPF2e extends CreaturePF2e {
         })();
         synthetics.strikes.unshift(unarmed);
 
-        const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
+        const ammos = itemTypes.consumable.filter(
+            (item) => item.data.data.consumableType.value === "ammo" && !item.isStowed
+        );
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
         const weapons = [itemTypes.weapon, strikes].flat();
