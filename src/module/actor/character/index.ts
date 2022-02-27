@@ -1345,7 +1345,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
-                        ui.notifications.warn(game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name }));
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
+                        );
                         return;
                     }
 
