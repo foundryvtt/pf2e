@@ -133,16 +133,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingEntries(): Promise<CraftingEntry[]> {
         const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntriesData = this.data.data.crafting.entries;
-        const entries: CraftingEntry[] = [];
-
-        for (const key in craftingEntriesData) {
-            if (craftingEntriesData[key]) {
-                entries.push(new CraftingEntry(this, craftingFormulas, craftingEntriesData[key]));
-            }
-        }
-
-        return entries;
+        return Object.values(this.data.data.crafting.entries).map(
+            (entry) => new CraftingEntry(this, craftingFormulas, entry)
+        );
     }
 
     async getCraftingEntry(selector: string): Promise<CraftingEntry | undefined> {
@@ -1345,7 +1338,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
-                        ui.notifications.warn(game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name }));
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
+                        );
                         return;
                     }
 

@@ -147,8 +147,8 @@ export const InlineRollsLinks = {
                         const savingThrow = actor.saves?.[pf2Check ?? ""];
                         if (pf2Check && savingThrow) {
                             const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                                : undefined;
+                                ? { label: pf2Label, value: Number(pf2Dc) }
+                                : null;
                             const options = actor.getRollOptions(["all", "saving-throw", pf2Check]);
                             if (pf2Traits) {
                                 const traits = pf2Traits
@@ -251,29 +251,31 @@ export const InlineRollsLinks = {
 
     repostAction: (target: HTMLElement): void => {
         if (
-            target?.matches(
-                '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *'
-            ) ||
-            target?.matches("[data-pf2-check], [data-pf2-check] *")
+            !(
+                target?.matches("[data-pf2-action], [data-pf2-action] *") ||
+                target?.matches("[data-pf2-check], [data-pf2-check] *")
+            )
         ) {
-            const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-            const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
-
-            // Need to strip out the DC from the inner HTML if it exists before repost.
-            const regexDC = new RegExp(
-                game.i18n
-                    .localize("PF2E.DCWithValue")
-                    .replace(/\{dc\}/g, "\\d+")
-                    .replace(/\{text\}/g, "(.*)")
-            );
-            const newInnerHTML = target.innerHTML
-                .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
-                .replace(regexDC, "$1");
-            const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
-
-            ChatMessagePF2e.create({
-                content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
-            });
+            return;
         }
+
+        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
+        const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
+
+        // Need to strip out the DC from the inner HTML if it exists before repost.
+        const regexDC = new RegExp(
+            game.i18n
+                .localize("PF2E.DCWithValue")
+                .replace(/\{dc\}/g, "\\d+")
+                .replace(/\{text\}/g, "(.*)")
+        );
+        const newInnerHTML = target.innerHTML
+            .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
+            .replace(regexDC, "$1");
+        const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
+
+        ChatMessagePF2e.create({
+            content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
+        });
     },
 };

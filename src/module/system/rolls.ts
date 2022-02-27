@@ -8,7 +8,7 @@ import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { ErrorPF2e, fontAwesomeIcon, parseHTML, sluggify } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "./predication";
 import { StrikeTrait } from "@actor/data/base";
@@ -16,6 +16,7 @@ import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget, StrikeTarget } from "@actor/creature/types";
 import { DamageCategory, DamageRollContext } from "./damage/damage";
+import { LocalizePF2e } from "./localize";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -421,8 +422,8 @@ export class CheckPF2e {
         if (!degree) return "";
 
         const { dc } = degree;
-        const needsDCParam = typeof dc.label === "string" && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
-        if (needsDCParam && dc.label) dc.label &&= `${dc.label.trim()}: {dc}`;
+        const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
+        const customLabel = needsDCParam ? `<dc>${dc.label}: {dc}</dc>` : dc.label ?? null;
 
         const targetActor = await (async (): Promise<ActorPF2e | null> => {
             if (!target?.actor) return null;
@@ -460,20 +461,20 @@ export class CheckPF2e {
             };
         })();
 
+        const translations = LocalizePF2e.translations.PF2E.Check;
+
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): FlavorTemplateData["dc"] => {
-            const targetAC = targetActor?.attributes.ac;
-
-            const dcLabel = ((): string => {
-                const key = dc.slug ? `PF2E.Check.DC.Specific.${dc.slug}` : "PF2E.Check.DC.Unspecific";
-                return dc.slug === "ac" && targetAC
-                    ? game.i18n.format(key, { dc: targetAC.value })
-                    : game.i18n.format(key, { dc: dc.value });
-            })();
+            const dcType = game.i18n.localize(
+                objectHasKey(translations.DC.Specific, dc.slug)
+                    ? translations.DC.Specific[dc.slug]
+                    : translations.DC.Unspecific
+            );
 
             // Get any circumstance penalties or bonuses to the target's DC
+            const targetAC = targetActor?.attributes.ac;
             const circumstances =
-                targetAC instanceof StatisticModifier
+                dc.slug === "ac" && targetAC instanceof StatisticModifier
                     ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
                     : null;
             const preadjustedDC =
@@ -486,10 +487,13 @@ export class CheckPF2e {
                 : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
 
             if (!(preadjustedDC && circumstances) || preadjustedDC === targetAC?.value) {
-                const unadjustedDC = targetData
-                    ? game.i18n.format("PF2E.Check.Target.WithDC", { target: targetData.name, dc: dcLabel })
-                    : dcLabel;
-                return { markup: unadjustedDC, visibility };
+                const labelKey = targetData
+                    ? translations.DC.Label.WithTarget
+                    : customLabel ?? translations.DC.Label.NoTarget;
+                const dcValue = dc.slug === "ac" && targetAC ? targetAC.value : dc.value;
+                const markup = game.i18n.format(labelKey, { dcType, dc: dcValue, target: targetData?.name ?? null });
+
+                return { markup, visibility };
             }
 
             const adjustment = {
@@ -498,8 +502,9 @@ export class CheckPF2e {
                 circumstances: circumstances.map((c) => ({ label: c.label, value: c.modifier })),
             } as const;
 
-            const markup = game.i18n.format("PF2E.Check.Target.AdjustedDC", {
+            const markup = game.i18n.format(translations.DC.Label.AdjustedTarget, {
                 target: targetData?.name ?? game.user.name,
+                dcType,
                 preadjusted: preadjustedDC,
                 adjusted: dc.value,
             });
@@ -537,13 +542,8 @@ export class CheckPF2e {
             const dosKey = DEGREE_OF_SUCCESS_STRINGS[degree.value];
             const degreeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.${checkOrAttack}.${dosKey}`);
 
-            const markup = adjustment
-                ? game.i18n.format("PF2E.Check.Result.Label", { degree: degreeLabel, offset: offset.value })
-                : game.i18n.format("PF2E.Check.Result.Label", {
-                      degree: degreeLabel,
-                      offset: offset.value,
-                      adjustment,
-                  });
+            const resultKey = adjustment ? "PF2E.Check.Result.AdjustedLabel" : "PF2E.Check.Result.Label";
+            const markup = game.i18n.format(resultKey, { degree: degreeLabel, offset: offset.value, adjustment });
             const visibility = game.settings.get("pf2e", "metagame.showResults");
 
             return { markup, visibility };
