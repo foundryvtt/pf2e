@@ -4,6 +4,7 @@ import { ItemSystemData } from "@item/data/base";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { objectHasKey } from "@util";
+import { calculateDC } from "@module/dc";
 
 export const EnrichContent = {
     // Get the different parameters of the @inline command
@@ -142,16 +143,13 @@ export const EnrichContent = {
 
         // Build the inline link
         const html = document.createElement("span");
-        if (params.dc) {
-            // Let the inline roll function handle level base DCs
-            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDc(params, item);
-            html.setAttribute("data-pf2-dc", checkDC);
-        }
+
         html.setAttribute("data-pf2-traits", `${allTraits}`);
         const name = params.name ?? item?.name ?? params.type;
         html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
         html.setAttribute("data-pf2-repost-flavor", name);
-        html.setAttribute("data-pf2-show-dc", params.showDC ?? "gm");
+        const role = params.showDC ?? "owner";
+        html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
         html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
 
         switch (params.type) {
@@ -190,6 +188,14 @@ export const EnrichContent = {
                 html.setAttribute("data-pf2-check", params.type);
             }
         }
+
+        if (params.dc) {
+            // Let the inline roll function handle level base DCs
+            const checkDC = getCheckDc(params, item);
+            html.setAttribute("data-pf2-dc", checkDC);
+            const text = html.innerHTML;
+            html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, checkDC, text });
+        }
         return html.outerHTML;
     },
 };
@@ -198,6 +204,14 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
     const type = params.type!;
     const dc = params.dc ?? "0";
     const base = (() => {
+        if (dc === "@self.level") {
+            params.immutable ||= "true";
+            const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
+            const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
+            const level = item?.actor?.level || 0;
+            const adjustment = Number(params.adjustment) || 0;
+            return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
+        }
         if (dc.startsWith("resolve") && item) {
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);

@@ -18,16 +18,6 @@ export const UserVisibility = {
                 $html.find('[data-visibility="owner"]').remove();
             }
 
-            // Show DC for inline checks if user has sufficient permission
-            $html.find("[data-pf2-dc][data-pf2-show-dc]").each((_idx, elem) => {
-                const dc = elem.dataset.pf2Dc!.trim()!;
-                const role = elem.dataset.pf2ShowDc!.trim();
-                if (role === "all" || (role === "gm" && game.user.isGM) || (role === "owner" && hasOwnership)) {
-                    elem.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text: elem.innerHTML });
-                    elem.removeAttribute("data-pf2-show-dc"); // short-circuit the global DC interpolation
-                }
-            });
-
             // Hide DC for explicit save buttons (such as in spell cards)
             const dcSetting = game.settings.get("pf2e", "metagame.showDC");
             const $saveButtons = $html.find('button[data-action="save"]');
