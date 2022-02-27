@@ -279,7 +279,7 @@ export class NPCPF2e extends CreaturePF2e {
         // default all skills to untrained
         data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
-            const domains = [skill, `${ability}-based`, "skill-check", "all"];
+            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
@@ -333,7 +333,14 @@ export class NPCPF2e extends CreaturePF2e {
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
-                const domains = [skill, `${ability}-based`, "skill-check", "all"];
+                const domains = [
+                    skill,
+                    `${ability}-based`,
+                    "skill-check",
+                    "lore-skill-check",
+                    `${ability}-skill-check`,
+                    "all",
+                ];
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], mod, MODIFIER_TYPE.ABILITY),
