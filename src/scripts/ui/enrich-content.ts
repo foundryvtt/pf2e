@@ -194,7 +194,7 @@ export const EnrichContent = {
             const checkDC = getCheckDc(params, item);
             html.setAttribute("data-pf2-dc", checkDC);
             const text = html.innerHTML;
-            html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, checkDC, text });
+            html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });
         }
         return html.outerHTML;
     },
