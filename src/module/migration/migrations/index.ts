@@ -121,3 +121,4 @@ export { Migration718CarryType } from "./718-carry-type";
 export { Migration719ShrugFlanking } from "./719-shrug-flanking";
 export { Migration720UpdateSpellDescriptions } from "./720-update-spell-descriptions";
 export { Migration721SetReloadValues } from "./721-set-reload-values";
+export { Migration722CraftingSystemData } from "./722-crafting-system-data";
