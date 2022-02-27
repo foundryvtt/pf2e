@@ -149,28 +149,28 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         // strikes
         const $strikesList = $html.find("ol.strikes-list");
 
-        $strikesList.find('button[data-action="strike-damage"]').on("click", (event) => {
+        $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
             if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
+            await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
         });
 
-        $strikesList.find('button[data-action="strike-critical"]').on("click", (event) => {
+        $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
             if (!["character", "npc"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters and NPCs");
             }
-            this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
+            await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
         });
 
-        $html.find(".spell-attack").on("click", (event) => {
+        $html.find(".spell-attack").on("click", async (event) => {
             if (!["character"].includes(this.actor.data.type)) {
                 throw ErrorPF2e("This sheet only works for characters");
             }
             const index = $(event.currentTarget).closest("[data-container-id]").data("containerId");
             const entry = this.actor.spellcasting.get(index);
             if (entry) {
-                entry.statistic.check.roll(eventToRollParams(event));
+                await entry.statistic.check.roll(eventToRollParams(event));
             }
         });
 

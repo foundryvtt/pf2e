@@ -187,8 +187,8 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ...extractModifiers(statisticsModifiers, ["attack", "attack-roll", "all"]),
             ];
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
-                roll: ({ event, options = [], callback }: RollParameters) => {
-                    CheckPF2e.roll(
+                roll: async ({ event, options = [], callback }: RollParameters): Promise<void> => {
+                    await CheckPF2e.roll(
                         new CheckModifier("Attack Roll", stat),
                         { actor: this, type: "attack-roll", options },
                         event,
@@ -223,9 +223,9 @@ export class FamiliarPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options: args.options ?? [], dc: args.dc },
                     args.event,
@@ -259,11 +259,11 @@ export class FamiliarPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier(label, modifiers), {
                 ability,
                 value: 0,
-                roll: (args: RollParameters) => {
+                roll: async (args: RollParameters): Promise<void> => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", {
                         skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                     });
-                    CheckPF2e.roll(
+                    await CheckPF2e.roll(
                         new CheckModifier(label, stat),
                         { actor: this, type: "skill-check", options: args.options ?? [], dc: args.dc },
                         args.event,
