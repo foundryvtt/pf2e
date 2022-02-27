@@ -51,7 +51,7 @@ export interface StatisticCheck {
     label: string;
     modifiers: ModifierPF2e[];
     calculateMap(options: { item: ItemPF2e }): { penalty: number; label: string };
-    roll: (args?: StatisticRollParameters) => void;
+    roll: (args?: StatisticRollParameters) => Promise<void>;
     withOptions: (options?: RollOptionParameters) => {
         value: number;
         breakdown: string;
@@ -181,7 +181,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
                 return { label, penalty };
             },
-            roll: (args: StatisticRollParameters = {}) => {
+            roll: async (args: StatisticRollParameters = {}): Promise<void> => {
                 // Allow use of events for modules and macros but don't allow it for internal system use
                 const { secret, skipDialog } = (() => {
                     if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
@@ -249,7 +249,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                     skipDialog,
                 };
 
-                CheckPF2e.roll(new CheckModifier(label, stat, extraModifiers), context, null, args.callback);
+                await CheckPF2e.roll(new CheckModifier(label, stat, extraModifiers), context, null, args.callback);
             },
             withOptions: (options: RollOptionParameters = {}) => {
                 const check = new CheckModifier(label, stat);
