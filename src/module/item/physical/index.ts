@@ -100,6 +100,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return !!this.container;
     }
 
+    get isStowed(): boolean {
+        return !!this.container?.data.data.stowing;
+    }
+
     /** Get this item's container, returning null if it is not in a container */
     get container(): Embedded<ContainerPF2e> | null {
         if (this.data.data.containerId.value === null) return (this._container = null);
