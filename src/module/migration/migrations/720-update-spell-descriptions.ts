@@ -11,6 +11,7 @@ export class Migration720UpdateSpellDescriptions extends MigrationBase {
     private spellUUIDs: Set<CompendiumUUID> = new Set([
         "Compendium.pf2e.spells-srd.GoKkejPj5yWJPIPK", // Adaptive Ablation
         "Compendium.pf2e.spells-srd.1b55SgYTV65JvmQd", // Blessing of Defiance
+        "Compendium.pf2e.spells-srd.b515AZlB0sridKSq", // Calm Emotions
         "Compendium.pf2e.spells-srd.NBSBFHxBm88qxQUy", // Chromatic Armor
         "Compendium.pf2e.spells-srd.9TauMFkIsmvKJNzZ", // Elemental Absorption
         "Compendium.pf2e.spells-srd.LoBjvguamA12iyW0", // Energy Absorption
