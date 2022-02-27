@@ -811,17 +811,22 @@
         "CharacterTraitsHeader": "Traits & Other Details",
         "Check": {
             "DC": {
-                "Specific": {
-                    "ac": "AC {dc}",
-                    "athletics": "Athletics DC {dc}",
-                    "deception": "Deception DC {dc}",
-                    "fortitude": "Fortitude DC {dc}",
-                    "perception": "Perception DC {dc}",
-                    "reflex": "Reflex DC {dc}",
-                    "stealth": "Stealth DC {dc}",
-                    "will": "Will DC {dc}"
+                "Label": {
+                    "AdjustedTarget": "<target>Target: {target}</target> <dc>({dcType} <preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>",
+                    "NoTarget": "{dcType} {dc}",
+                    "WithTarget": "<target>Target: {target}</target> <dc>({dcType} {dc})</dc>"
                 },
-                "Unspecific": "DC {dc}"
+                "Specific": {
+                    "ac": "AC",
+                    "athletics": "Athletics DC",
+                    "deception": "Deception DC",
+                    "fortitude": "Fortitude DC",
+                    "perception": "Perception DC",
+                    "reflex": "Reflex DC",
+                    "stealth": "Stealth DC",
+                    "will": "Will DC"
+                },
+                "Unspecific": "DC"
             },
             "Label": "Check",
             "Result": {
@@ -848,10 +853,6 @@
                     "Secret": "Perception Check (Secret)"
                 },
                 "Recovery": "Recovery Check"
-            },
-            "Target": {
-                "WithDC": "<target>Target: {target}</target> <dc>({dc})</dc>",
-                "AdjustedDC": "<target>Target: {target}</target> <dc>(<preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>"
             }
         },
         "CircumstanceBonusShortLabel": "Circumstance",
