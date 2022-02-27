@@ -42,7 +42,9 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        const label = this.data.label.includes(":")
+            ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
+            : this.data.label;
         const slug = this.data.slug ?? sluggify(this.label);
 
         if (selector && this.data.value) {
