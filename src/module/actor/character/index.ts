@@ -133,16 +133,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingEntries(): Promise<CraftingEntry[]> {
         const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntriesData = this.data.data.crafting.entries;
-        const entries: CraftingEntry[] = [];
-
-        for (const key in craftingEntriesData) {
-            if (craftingEntriesData[key]) {
-                entries.push(new CraftingEntry(this, craftingFormulas, craftingEntriesData[key]));
-            }
-        }
-
-        return entries;
+        return Object.values(this.data.data.crafting.entries).map(
+            (entry) => new CraftingEntry(this, craftingFormulas, entry)
+        );
     }
 
     async getCraftingEntry(selector: string): Promise<CraftingEntry | undefined> {
