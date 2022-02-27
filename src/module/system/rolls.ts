@@ -372,7 +372,7 @@ export class CheckPF2e {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
                   const target = message.data.flags.pf2e.context?.target ?? null;
                   const newFlavor = await this.createFlavorMarkup({ degree, target });
-                  $parsedFlavor.find(".target-outcome").replaceWith(newFlavor);
+                  $parsedFlavor.find(".target-dc-result").replaceWith(newFlavor);
                   return $parsedFlavor.html();
               })()
             : oldFlavor;

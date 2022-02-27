@@ -240,6 +240,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
                 const context = {
                     actor,
                     item,
+                    target: rollContext?.target ?? null,
                     dc: args.dc ?? rollContext?.target?.dc,
                     notes: data.notes,
                     options,
