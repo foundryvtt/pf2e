@@ -93,7 +93,8 @@ interface CheckTargetFlag {
     token?: TokenDocumentUUID;
 }
 
-export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, "actor" | "token" | "item" | "target">> {
+type ContextFlagOmissions = "actor" | "token" | "item" | "target" | "createMessage";
+export interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmissions>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
@@ -184,6 +185,7 @@ export class CheckPF2e {
         const notes =
             context.notes
                 ?.filter((note) => {
+                    if (!PredicatePF2e.test(note.predicate, context.options ?? [])) return false;
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;
@@ -248,13 +250,12 @@ export class CheckPF2e {
             options: context.options ?? [],
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
             secret,
-            rollMode: context.rollMode ?? (secret ? "blindroll" : game.settings.get("core", "rollMode")),
+            rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
             fate: context.fate ?? "none",
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
             traits: context.traits ?? [],
             dc: context.dc ?? null,
-            createMessage: context.createMessage ?? true,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
@@ -281,7 +282,7 @@ export class CheckPF2e {
 
             const speaker = ChatMessagePF2e.getSpeaker({ actor: context.actor, token: context.token });
             const { rollMode } = contextFlag;
-            const create = contextFlag.createMessage;
+            const create = context.createMessage ?? true;
 
             return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
         })();
@@ -334,7 +335,6 @@ export class CheckPF2e {
         const context = systemFlags.context;
         if (!context) return;
 
-        context.createMessage = false;
         context.skipDialog = true;
         context.isReroll = true;
 

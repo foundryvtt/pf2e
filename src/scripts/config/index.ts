@@ -268,13 +268,18 @@ const rangeDescriptions = RANGE_TRAITS.reduce(
 );
 
 const preciousMaterialDescriptions = {
+    abysium: "PF2E.PreciousMaterialAbysiumDescription",
     adamantine: "PF2E.PreciousMaterialAdamantineDescription",
     coldIron: "PF2E.PreciousMaterialColdIronDescription",
     darkwood: "PF2E.PreciousMaterialDarkwoodDescription",
+    djezet: "PF2E.PreciousMaterialDjezetDescription",
     dragonhide: "PF2E.PreciousMaterialDragonhideDescription",
-    mithral: "PF2E.PreciousMaterialMithralDescription",
     "grisantian-pelt": "PF2E.PreciousMaterialGrisantianPeltDescription",
+    inubrix: "PF2E.PreciousMaterialInubrixDescription",
+    mithral: "PF2E.PreciousMaterialMithralDescription",
+    noqual: "PF2E.PreciousMaterialNoqualDescription",
     orichalcum: "PF2E.PreciousMaterialOrichalcumDescription",
+    siccatite: "PF2E.PreciousMaterialSiccatiteDescription",
     silver: "PF2E.PreciousMaterialSilverDescription",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",

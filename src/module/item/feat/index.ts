@@ -84,9 +84,9 @@ export class FeatPF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getItemRollOptions(prefix = "feat"): string[] {
+    override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        return super.getItemRollOptions(prefix);
+        return super.getRollOptions(prefix);
     }
 
     /* -------------------------------------------- */

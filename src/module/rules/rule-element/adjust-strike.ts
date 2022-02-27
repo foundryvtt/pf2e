@@ -49,7 +49,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 
         const adjustment = {
             adjustStrike: (weapon: Embedded<WeaponPF2e>): void => {
-                if (!this.definition.test(weapon.getItemRollOptions())) return;
+                if (!this.definition.test(weapon.getRollOptions())) return;
 
                 switch (this.property) {
                     case "range-increment": {

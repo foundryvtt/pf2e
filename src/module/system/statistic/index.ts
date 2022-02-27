@@ -131,7 +131,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         }
 
         if (item) {
-            rollOptions.push(...item.getItemRollOptions("item"));
+            rollOptions.push(...item.getRollOptions("item"));
             if (item.actor && item.actor.id !== this.actor.id) {
                 rollOptions.push(...item.actor.getSelfRollOptions("origin"));
             }

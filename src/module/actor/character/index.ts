@@ -47,7 +47,6 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
@@ -58,10 +57,9 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource, SaveType } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
-import { CraftingEntry } from "@module/crafting/crafting-entry";
+import { CraftingEntry, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
@@ -74,6 +72,9 @@ import { CreateAuxiliaryParams } from "./types";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 import { DamageRollContext } from "@system/damage/damage";
+import { RollNotePF2e } from "@module/notes";
+import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -119,7 +120,10 @@ export class CharacterPF2e extends CreaturePF2e {
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        return (await fromUUIDs(formulas.map((data) => data.uuid)))
+        const items: unknown[] = await fromUUIDs(formulas.map((data) => data.uuid));
+        if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
+
+        return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
@@ -212,7 +216,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };
-        attributes.dying = { value: 0, max: 4 };
+        attributes.dying = { value: 0, max: 4, recoveryMod: 0 };
         attributes.wounded = { value: 0, max: 3 };
 
         // Hit points
@@ -307,7 +311,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const { synthetics } = this;
 
         if (!this.getFlag("pf2e", "disableABP")) {
-            AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+            game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
         // Extract as separate variables for easier use in this method.
         const { statisticsModifiers, strikes, rollNotes } = synthetics;
@@ -1015,7 +1019,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments
-        const weaponRollOptions = weapon.getItemRollOptions();
+        const weaponRollOptions = weapon.getRollOptions();
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustStrike(weapon);
         }
@@ -1101,8 +1105,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Extract weapon roll notes
         const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
+        const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
-        if (weapon.group === "bomb") {
+        if (weapon.group === "bomb" && !ABP.isEnabled) {
             const attackBonus = Number(itemData.data.bonus?.value) || 0;
             if (attackBonus !== 0) {
                 modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
@@ -1114,7 +1119,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const potency = selectors
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
-            AutomaticBonusProgression.applyPropertyRunes(potency, weapon);
+            ABP.applyPropertyRunes(potency, weapon);
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
 
             if (potencyRune) {
@@ -1337,6 +1342,11 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
+                    if (weapon.requiresAmmo && !weapon.ammo) {
+                        ui.notifications.warn(game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name }));
+                        return;
+                    }
+
                     const context = this.getAttackRollContext({
                         domains: [],
                         item: weapon,
@@ -1539,6 +1549,45 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         await this.update({ [`data.martial.-=${key}`]: null });
+    }
+
+    /**
+     * Roll a Recovery Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     */
+    rollRecovery(event: JQuery.TriggeredEvent) {
+        const dying = this.data.data.attributes.dying.value;
+        if (!dying) return;
+
+        const translations = LocalizePF2e.translations.PF2E;
+        const { Recovery } = translations;
+
+        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+        const recoveryMod = this.data.data.attributes.dying.recoveryMod;
+
+        const dc: CheckDC = {
+            label: game.i18n.format(translations.Recovery.rollingDescription, {
+                dying,
+                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
+            }),
+            value: 10 + recoveryMod + dying,
+            visibility: "all",
+        };
+
+        const notes = [
+            new RollNotePF2e("all", game.i18n.localize(Recovery.critSuccess), undefined, ["criticalSuccess"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.success), undefined, ["success"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.failure), undefined, ["failure"]),
+            new RollNotePF2e("all", game.i18n.localize(Recovery.critFailure), undefined, ["criticalFailure"]),
+        ];
+
+        const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
+        const token = this.getActiveTokens(false, true).shift();
+
+        CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
+
+        // No automated update yet, not sure if Community wants that.
+        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
     }
 
     /** Remove any features linked to a to-be-deleted ABC item */

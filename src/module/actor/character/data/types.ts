@@ -28,9 +28,9 @@ import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { CraftingFormulaData } from "@module/crafting/formula";
+import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { CraftingEntryData } from "@module/crafting/crafting-entry";
+import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
 import { CHARACTER_SHEET_TABS } from "./values";
@@ -332,7 +332,7 @@ export interface CharacterAttributes extends CreatureAttributes {
     bonusEncumbranceBulk: number;
 
     /** The current dying level (and maximum) for this character. */
-    dying: { value: number; max: number };
+    dying: { value: number; max: number; recoveryMod: number };
     /** The current wounded level (and maximum) for this character. */
     wounded: { value: number; max: number };
     /** The current doomed level (and maximum) for this character. */
