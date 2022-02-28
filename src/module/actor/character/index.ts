@@ -595,7 +595,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", "all"];
+            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -645,7 +645,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const shortForm = sluggify(skill.name) as SkillAbbreviation;
             const rank = skill.data.proficient.value;
 
-            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "all"];
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
                 AbilityModifier.fromScore("int", systemData.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
