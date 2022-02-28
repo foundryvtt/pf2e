@@ -216,7 +216,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
                         direction: isAdded ? 2 : 1,
                         jitter: 0.25,
                         fill: "white",
-                        fontSize: 32,
+                        fontSize: 28,
                         stroke: 0x000000,
                         strokeThickness: 4,
                     },
