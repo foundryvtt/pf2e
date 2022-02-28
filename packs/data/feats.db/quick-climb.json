@@ -30,17 +30,13 @@
         "rules": [
             {
                 "key": "BaseSpeed",
+                "predicate": {
+                    "all": [
+                        "self:skill:ath:rank:4"
+                    ]
+                },
                 "selector": "climb",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "@actor.attributes.speed.value"
-                        }
-                    ],
-                    "field": "actor|data.skills.ath.rank"
-                }
+                "value": "@actor.attributes.speed.value"
             },
             {
                 "key": "Note",
