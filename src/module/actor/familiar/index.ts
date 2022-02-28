@@ -6,8 +6,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item";
 import { FamiliarData, FamiliarSystemData } from "./data";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data";
-import { ActorSizePF2e } from "@actor/data/size";
+import { CreatureSaves } from "@actor/creature/data";
+// import { ActorSizePF2e } from "@actor/data/size";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
 import { extractModifiers } from "@module/rules/util";
@@ -29,15 +29,14 @@ export class FamiliarPF2e extends CreaturePF2e {
         console.log(this.name, "prepareBase1", this.data.data.traits);
         super.prepareBaseData();
 
-        type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
+        // type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
         type PartialSystemData = DeepPartial<FamiliarSystemData> & {
-            attributes: { speed: RawSpeed; flanking: {} };
-            details: {};
+            attributes: { flanking: {} };
         };
 
         const systemData: PartialSystemData = this.data.data;
-        systemData.details.alignment = { value: "N" };
-        systemData.details.level = { value: 0 };
+        // systemData.details.alignment = { value: "N" };
+        // systemData.details.level = { value: 0 };
         // if (systemData.traits.senses === null) {
         //     systemData.traits.senses = [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision" }];
         // }
@@ -47,24 +46,24 @@ export class FamiliarPF2e extends CreaturePF2e {
         //     size: new ActorSizePF2e({ value: "tiny" }),
         //     traits: ({ value: ["minion"], custom: "" }),
         // };
-        systemData.traits ??= {
-            senses: [{}],
-            size: {},
-            traits: {},
-        };
+        // systemData.traits ??= {
+        //     senses: [{}],
+        //     size: {},
+        //     traits: {},
+        // };
         // systemData.traits.senses ??= [new CreatureSensePF2e({ type: "lowLightVision" })];
         // systemData.traits.size ??= new ActorSizePF2e({ value: "tiny" });
         // systemData.traits.traits = ({ value: ["minion"], custom: "" });
 
         systemData.attributes.flanking.canFlank = false;
-        systemData.attributes.perception = {};
-        systemData.attributes.speed ??= {
-            value: "",
-            label: {},
-            otherSpeeds: [],
-        };
+        // systemData.attributes.perception = {};
+        // systemData.attributes.speed ??= {
+        //     value: "",
+        //     label: {},
+        //     otherSpeeds: [],
+        // };
 
-        systemData.skills ??= {};
+        systemData.skills = {};
 
         systemData.saves = {
             fortitude: {},
@@ -80,7 +79,7 @@ export class FamiliarPF2e extends CreaturePF2e {
     }
 
     override prepareDerivedData(): void {
-        console.log(this.name, "prepareDerived1", this.data.data.traits);
+        console.log(this.name, "prepareDerived1", this.data.data.attributes.speed);
         super.prepareDerivedData();
 
         const master = this.master;
@@ -304,7 +303,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         }
-        console.log(this.name, "prepareDerived2", this.data.data.traits);
+        console.log(this.name, "prepareDerived2", this.data.data.attributes.speed);
     }
 
     override async createEmbeddedDocuments(

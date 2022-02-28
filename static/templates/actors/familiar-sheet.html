@@ -168,8 +168,9 @@
                                 <div class="detail-label">{{localize "PF2E.Speed"}}</div>
                                 <ol class="tags speeds">
                                     {{#with data.attributes.speed as |landSpeed|}}
-                                    <li class="tag tag_alt" title="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
-                                        ({{landSpeed.total}})</li>
+                                    <li class="tag tag_alt" title="{{landSpeed.breakdown}}">
+                                        {{localize "PF2E.SpeedTypesLand"}} ({{landSpeed.total}})
+                                    </li>
                                     {{/with}}
                                     {{#each data.attributes.speed.otherSpeeds as |speed k|}}
                                     <li class="tag tag_alt {{k}}" title="{{speed.breakdown}}">
