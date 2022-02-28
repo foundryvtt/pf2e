@@ -23,7 +23,6 @@ export class FamiliarSheetPF2e extends ActorSheetPF2e<FamiliarPF2e> {
     }
 
     override async getData() {
-        console.log(this.actor.name, "getData1", this.actor.data.data.traits);
         const familiar = this.actor;
         // Get all potential masters of the familiar
         const masters = game.actors.filter((a) => a.type === "character" && a.testUserPermission(game.user, "OWNER"));
