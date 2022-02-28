@@ -31,6 +31,11 @@ export class ConditionPF2e extends ItemPF2e {
         return !!this.data.flags.pf2e.condition;
     }
 
+    /** Is this the Clumsy condition and due to wielding an oversized weapon? */
+    get fromOversizedWeapon(): boolean {
+        return this.slug === "clumsy" && !!this.data.flags.pf2e.oversizedId;
+    }
+
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
         return this.data.data.sources.hud;
@@ -61,6 +66,13 @@ export class ConditionPF2e extends ItemPF2e {
         options: ConditionModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // If this is the Clumsy condition and due to wielding an oversized weapon, prevent it from having a value other
+        // than 1.
+        if (this.fromOversizedWeapon && typeof changed.data?.value?.value === "number") {
+            changed.data.value.value = 1;
+        }
+
+        // Inform token floaty text of condition value's delta
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
     }
