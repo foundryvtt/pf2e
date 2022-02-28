@@ -56,7 +56,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     })();
 
     if (isSuccess) {
-        const combatActor = (game.combat?.active && game.combat.combatant?.actor) || null;
+        const combatActor = (game.combat?.started && game.combat.combatant?.actor) || null;
         const [actionType, glyph] =
             combatActor && combatActor !== actor ? (["Reaction", "R"] as const) : (["SingleAction", "1"] as const);
 
