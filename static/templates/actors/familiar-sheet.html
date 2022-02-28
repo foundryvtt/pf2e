@@ -15,7 +15,8 @@
                 <span title={{localize "PF2E.Alignment" }}>{{localize data.details.alignment.value}}</span>
                 <span title={{localize "PF2E.Size" }}>{{localize size}}</span>
                 {{#each traits as |trait|}}
-                <span data-trait="{{trait.value}}" title="{{trait.description}}">{{localize trait.label}}</span>
+                <span data-trait="{{trait.value}}" title="{{localize trait.description}}">{{localize
+                    trait.label}}</span>
                 {{/each}}
                 {{#if @root.owner}}
                 <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits"
