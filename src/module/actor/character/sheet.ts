@@ -73,8 +73,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return proficiency.label ?? key;
             })();
 
-            // proficiency.icon = this.getProficiencyIcon(proficiency.rank);
-            // proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
             proficiency.label = game.i18n.localize(label);
             proficiency.value = ProficiencyModifier.fromLevelAndRank(
                 sheetData.data.details.level.value,
