@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
@@ -70,18 +70,23 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         return sheetData;
     }
 
-    /**
-     * Get the font-awesome icon used to display a certain level of skill proficiency
-     */
+    /** Get the font-awesome icon used to display a certain level of skill proficiency */
     protected getProficiencyIcon(level: ZeroToFour): string {
-        const icons = {
-            0: "",
-            1: '<i class="fas fa-check-circle"></i>',
-            2: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
-            3: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
-            4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
-        };
-        return icons[level];
+        return [...Array(level)].map(() => fontAwesomeIcon("check-circle").outerHTML).join("");
+    }
+
+    /** Preserve browser focus on unnamed input elements when updating */
+    protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        const focused = document.activeElement;
+
+        await super._render(force, options);
+
+        if (focused instanceof HTMLInputElement && focused.name) {
+            const selector = `input[data-property="${focused.name}"]:not([name])`;
+            const sameInput = this.element.get(0)?.querySelector<HTMLInputElement>(selector);
+            sameInput?.focus();
+            sameInput?.select();
+        }
     }
 
     override activateListeners($html: JQuery): void {
