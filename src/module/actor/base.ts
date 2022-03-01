@@ -30,6 +30,7 @@ import { ModifierAdjustment } from "@module/modifiers";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "../item/physical/usage";
 import { ActorDimensions } from "./types";
+import { CombatantPF2e } from "@module/encounter";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -310,6 +311,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Setup the basic structure of pf2e flags with roll options
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
 
@@ -443,6 +445,24 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             flavor.success = "PF2E.Strike.Ranged.Success";
         }
         return flavor;
+    }
+
+    /** If there is an active encounter, set roll options for it and this actor's participant */
+    setEncounterRollOptions(): void {
+        const encounter = game.ready ? game.combat : null;
+        const participants = encounter?.combatants.contents ?? [];
+        if (!(encounter?.started && participants.some((c) => c.actor === this && typeof c.initiative === "number"))) {
+            return;
+        }
+
+        const rollOptionsAll = this.rollOptions.all;
+        rollOptionsAll[`encounter:round:${encounter.round}`] = true;
+        rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
+        rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
+
+        const thisCombatant = participants.find((c): c is Embedded<CombatantPF2e<this>> => c.actor === this)!;
+        const rank = participants.indexOf(thisCombatant) + 1;
+        rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
     getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
