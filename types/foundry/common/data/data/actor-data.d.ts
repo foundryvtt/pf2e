@@ -71,7 +71,7 @@ declare module foundry {
             core?: {
                 sourceId: ActorUUID;
             };
-            [key: string]: Record<string, any> | undefined;
+            [key: string]: Record<string, unknown> | undefined;
         }
     }
 }

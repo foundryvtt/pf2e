@@ -1201,10 +1201,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
         conditionType: ConditionSlug,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
-
-    getFlag(scope: string, key: string): any;
-    getFlag(scope: "core", key: "sourceId"): string | undefined;
-    getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
 }
 
 export interface HitPointsSummary {

@@ -98,7 +98,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
             name: folderName,
             type: metadata.type,
             parent,
-            expanded: game.user.getFlag("pf2e", flagKey),
+            expanded: !!game.user.getFlag("pf2e", flagKey),
         });
         parent?.subfolders?.push(newFolder);
 

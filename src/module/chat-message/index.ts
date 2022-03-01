@@ -1,9 +1,8 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CheckRollContextFlag, RollDataPF2e } from "@system/rolls";
+import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
@@ -230,12 +229,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
-
-    getFlag(scope: "core", key: "RollTable"): unknown;
-    getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
-    getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
-    getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;
-    getFlag(scope: "pf2e", key: "context"): CheckRollContextFlag | undefined;
 }
 
 declare namespace ChatMessagePF2e {

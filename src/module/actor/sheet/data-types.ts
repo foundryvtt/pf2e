@@ -46,7 +46,6 @@ export interface SheetInventory {
 
 export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TActor> {
     isTargetFlatFooted: boolean;
-    isProficiencyLocked: boolean;
     user: { isGM: boolean };
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
