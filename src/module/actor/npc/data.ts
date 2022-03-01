@@ -11,12 +11,21 @@ import {
     SaveData,
     SkillData,
 } from "@actor/creature/data";
-import { AbilityString, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
+import {
+    AbilityString,
+    ActorFlagsPF2e,
+    ArmorClassData,
+    DexterityModifierCapData,
+    PerceptionData,
+    StrikeData,
+} from "@actor/data/base";
 import { MeleePF2e } from "@item";
 import { StatisticModifier } from "@module/modifiers";
 import type { NPCPF2e } from ".";
 
-export type NPCSource = BaseCreatureSource<"npc", NPCSystemData>;
+export interface NPCSource extends BaseCreatureSource<"npc", NPCSystemData> {
+    flags: DeepPartial<NPCFlags>;
+}
 
 export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/npc.svg";
@@ -24,9 +33,17 @@ export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
 
 export interface NPCData extends Omit<NPCSource, "effects" | "flags" | "items" | "token"> {
     readonly type: NPCSource["type"];
+
     data: NPCSource["data"];
+
+    flags: NPCFlags;
+
     readonly _source: NPCSource;
 }
+
+type NPCFlags = ActorFlagsPF2e & {
+    pf2e: { lootable: boolean };
+};
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface NPCSystemData extends CreatureSystemData {

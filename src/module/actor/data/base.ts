@@ -74,7 +74,9 @@ export interface RollOptionFlags {
 export interface ActorFlagsPF2e extends foundry.data.ActorFlags {
     pf2e: {
         rollOptions: RollOptionFlags;
-        [key: string]: any;
+        freeCrafting: boolean;
+        quickAlchemy: boolean;
+        [key: string]: unknown;
     };
 }
 

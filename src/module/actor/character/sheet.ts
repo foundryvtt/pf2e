@@ -150,12 +150,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.prepareSpellcasting(sheetData);
 
         const formulasByLevel = await this.prepareCraftingFormulas();
+        const flags = this.actor.data.flags.pf2e;
+        const hasQuickAlchemy = !!this.actor.rollOptions.all["self:feature:quick-alchemy"];
+        const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
+
         sheetData.crafting = {
-            noCost: this.actor.data.flags.pf2e.freeCrafting || this.actor.data.flags.pf2e.quickAlchemy,
-            hasQuickAlchemy: this.actor.itemTypes.action.some((a) => a.slug === "quick-alchemy"),
+            noCost: flags.freeCrafting || useQuickAlchemy,
+            hasQuickAlchemy,
             knownFormulas: formulasByLevel,
             entries: await this.prepareCraftingEntries(),
         };
+
         this.knownFormulas = new Map(
             Object.values(formulasByLevel)
                 .flat()
@@ -667,11 +672,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // filter strikes
         $actions.find(".toggle-unready-strikes").on("click", () => {
-            this.actor.setFlag(
-                game.system.id,
-                "showUnreadyStrikes",
-                !this.actor.getFlag(game.system.id, "showUnreadyStrikes")
-            );
+            this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.data.flags.pf2e.showUnreadyStrikes);
         });
 
         $actions.find(".actions-list span[data-roll-option]").on("click", (event) => {

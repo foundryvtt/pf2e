@@ -64,7 +64,4 @@ export interface ScenePF2e {
     readonly data: SceneDataPF2e<this>;
 
     get sheet(): SceneConfigPF2e;
-
-    getFlag(scope: "pf2e", key: "syncDarkness"): "enabled" | "disabled" | "default";
-    getFlag(scope: string, key: string): unknown;
 }
