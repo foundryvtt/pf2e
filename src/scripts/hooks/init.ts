@@ -98,6 +98,9 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
+            // Remove fonts available only on Windows 10/11
+            CONFIG.fontFamilies = CONFIG.fontFamilies.filter((f) => !["Courier", "Helvetica", "Times"].includes(f));
+
             // Insert templates into DOM tree so Applications can render into
             if (document.querySelector("#ui-top") !== null) {
                 // Template element for effects-panel
