@@ -75,7 +75,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.data.isEquipped && this.data.isIdentified && this.data.data.invested?.value === true;
+        return this.data.isIdentified && this.data.data.invested?.value === true;
     }
 
     get isCursed(): boolean {
