@@ -42,10 +42,8 @@
                 {{/if}}
             {{/if}}
 
-            {{#if item.canBeEquipped}}
-                {{#if item.isInvestable}}
-                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
-                {{/if}}
+            {{#if item.isInvestable}}
+                <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
             {{/if}}
             {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=this}}
             {{#if user.isGM}}
