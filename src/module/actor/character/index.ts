@@ -483,7 +483,7 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
 
-            if (wornArmor) {
+            if (wornArmor && wornArmor.acBonus > 0) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
