@@ -16,13 +16,13 @@
             },
             "stealth": {
                 "details": "<p>(expert)</p>",
-                "value": 24
+                "value": 14
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>The restless spirits of clergy who once inhabited this now-defiled temple of Aroden remain within the sanctuary and pulpit.</p>",
-            "disable": "<p>DC 26 Occultism (expert) to exorcise the spirits, or Deception or DC 28 Religion (trained) to imitate the Arodenite faith and render the haunt harmless until it resets</p>",
+            "disable": "<p>@Check[type:occultism|dc:26] (expert) to exorcise the spirits, or @Check[type:deception|dc:28] or @Check[type:religion|dc:28] (trained) to imitate the Arodenite faith and render the haunt harmless until it resets</p>",
             "isComplex": false,
             "level": {
                 "value": 6
@@ -55,17 +55,14 @@
                 "selected": {},
                 "value": [
                     "critical-hits",
-                    "object-immunities",
-                    "precision"
+                    "physical"
                 ]
             },
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "rarity": "common",
@@ -97,7 +94,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A non-Arodenite creature approaches within 5 feet of the lectern</p>\n<p><strong>Effect</strong> A spectral minister appears before the pulpit, resembling an ever-shifting amalgamation of several past priests. The spectral minister delivers fervent exhortations about faithlessness. Each creature on the dais must succeed at a @Check[type:will|dc:24] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2}. On a critical failure, the creature is drained 4.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A non-Arodenite creature approaches within 5 feet of the lectern</p>\n<p><strong>Effect</strong> A spectral minister appears before the pulpit, resembling an ever-shifting amalgamation of several past priests. The spectral minister delivers fervent exhortations about faithlessness. Each creature on the dais must succeed at a @Check[type:will|dc:24] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2}. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
                 },
                 "requirements": {
                     "value": ""
