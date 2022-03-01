@@ -26,6 +26,11 @@ export class UserPF2e extends User<ActorPF2e> {
     get settings(): UserSettingsPF2e {
         return deepClone(this.data.flags.pf2e.settings);
     }
+
+    /** Alternative to calling `#updateTokenTargets()` with no argument or an empty array */
+    clearTargets(): void {
+        this.updateTokenTargets();
+    }
 }
 
 export interface UserPF2e extends User<ActorPF2e> {
