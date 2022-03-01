@@ -133,16 +133,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingEntries(): Promise<CraftingEntry[]> {
         const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntriesData = this.data.data.crafting.entries;
-        const entries: CraftingEntry[] = [];
-
-        for (const key in craftingEntriesData) {
-            if (craftingEntriesData[key]) {
-                entries.push(new CraftingEntry(this, craftingFormulas, craftingEntriesData[key]));
-            }
-        }
-
-        return entries;
+        return Object.values(this.data.data.crafting.entries).map(
+            (entry) => new CraftingEntry(this, craftingFormulas, entry)
+        );
     }
 
     async getCraftingEntry(selector: string): Promise<CraftingEntry | undefined> {
@@ -424,7 +417,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
             stat.value = stat.totalModifier;
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, proficiencyRank);
@@ -437,7 +430,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -490,7 +483,7 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
 
-            if (wornArmor) {
+            if (wornArmor && wornArmor.acBonus > 0) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
@@ -602,7 +595,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", "all"];
+            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -619,7 +612,7 @@ export class CharacterPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.rank = skill.rank;
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
@@ -634,7 +627,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -652,7 +645,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const shortForm = sluggify(skill.name) as SkillAbbreviation;
             const rank = skill.data.proficient.value;
 
-            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "all"];
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
                 AbilityModifier.fromScore("int", systemData.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
@@ -675,7 +668,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, rank);
@@ -685,7 +678,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -1345,7 +1338,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
-                        ui.notifications.warn(game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name }));
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
+                        );
                         return;
                     }
 

@@ -1,5 +1,32 @@
 # Changelog
 
+## Version 3.5.2
+
+### Bugfixes
+* (stwlam) Fix regression with automatic flanking detection
+* (stwlam) Fix display of strike damage tooltips on PC sheet
+* (stwlam) Correct some user-visibility quirks on spell cards
+* (stwlam) Restore craft action macro
+
+### Data Updates
+* (NullWolf) Add Spell Effect: Calm Emotions
+* (stwlam) Restore Ray of Enfeeblement as both an attack and save spell
+
+
+## Version 3.5.1
+
+### Core System Improvements
+* (stwlam) Make no-ammo message more helpful for new players
+
+### Bugfixes
+* (stwlam) Fix several edge cases with DC labels on roll chat messages
+* (stwlam) Fix structure of old character crafting data (affects only some PCs)
+
+### Data Updates
+* (JDCalvert) Set reload 0 values for several ranged weapons
+* (NullWolf) Correct a handful of rituals' spell types from attack to utility
+
+
 ## Version 3.5.0
 
 ### Core System Improvements

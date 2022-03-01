@@ -24,6 +24,7 @@ import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActionsPF2e } from "@system/actions/actions";
+import { craft } from "@system/actions/crafting/craft";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
@@ -34,6 +35,8 @@ import { sluggify } from "@util";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
+        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
+
         const actions: Record<string, Function> = {
             earnIncome,
             encouragingWords,
@@ -42,8 +45,6 @@ export const SetGamePF2e = {
             steelYourResolve,
             ...ActionsPF2e.actionMacros,
         };
-
-        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
 
         const initSafe: Partial<typeof game["pf2e"]> = {
             actions,
@@ -72,6 +73,7 @@ export const SetGamePF2e = {
         };
 
         mergeObject(game.pf2e, initSafe);
+        game.pf2e.actions.craft = craft; // Workaround for strange import bug
     },
 
     onSetup: (): void => {

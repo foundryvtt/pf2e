@@ -11,11 +11,14 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     override beforePrepareData(): void {
+        const rollOptions = this.actor.getRollOptions();
+        const { predicate } = this.data;
+        if (predicate && !predicate.test(rollOptions)) return;
+
         const value = this.resolveValue(this.data.value);
         const speedType = this.data.selector?.trim().replace(/-speed$/, "") ?? "land";
         if (!(tupleHasValue(MOVEMENT_TYPES, speedType) && typeof value === "number" && value > 0)) {
-            console.warn("PF2E | Base speed requires a positive value field");
-            return;
+            return this.failValidation("Base speed requires a positive value field");
         }
 
         const speeds = this.actor.data.data.attributes.speed;

@@ -263,9 +263,9 @@ export class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options: args.options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -279,7 +279,7 @@ export class NPCPF2e extends CreaturePF2e {
         // default all skills to untrained
         data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
-            const domains = [skill, `${ability}-based`, "skill-check", "all"];
+            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
@@ -296,9 +296,9 @@ export class NPCPF2e extends CreaturePF2e {
                     label: name,
                     value: 0,
                     visible: false,
-                    roll: (args: RollParameters) => {
+                    roll: async (args: RollParameters): Promise<void> => {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
-                        CheckPF2e.roll(
+                        await CheckPF2e.roll(
                             new CheckModifier(label, stat),
                             { actor: this, type: "skill-check", options: args.options, dc: args.dc, notes },
                             args.event,
@@ -333,7 +333,14 @@ export class NPCPF2e extends CreaturePF2e {
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
-                const domains = [skill, `${ability}-based`, "skill-check", "all"];
+                const domains = [
+                    skill,
+                    `${ability}-based`,
+                    "skill-check",
+                    "lore-skill-check",
+                    `${ability}-skill-check`,
+                    "all",
+                ];
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], mod, MODIFIER_TYPE.ABILITY),
@@ -359,9 +366,9 @@ export class NPCPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
-                stat.roll = (args: RollParameters) => {
+                stat.roll = async (args: RollParameters): Promise<void> => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
-                    CheckPF2e.roll(
+                    await CheckPF2e.roll(
                         new CheckModifier(label, stat),
                         { actor: this, type: "skill-check", options: args.options, dc: args.dc, notes: stat.notes },
                         args.event,
