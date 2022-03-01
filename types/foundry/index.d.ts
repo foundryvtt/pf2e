@@ -17,6 +17,7 @@ import "./client/application/form-application/document-sheet/base";
 import "./client/application/form-application/document-sheet/item-sheet";
 import "./client/application/form-application/document-sheet/scene-config";
 import "./client/application/form-application/macro-config";
+import "./client/application/form-application/image-popout";
 import "./client/application/form-application/other";
 import "./client/application/form-application/permission";
 import "./client/application/form-application/placeables-config";
