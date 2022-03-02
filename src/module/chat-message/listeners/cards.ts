@@ -12,19 +12,20 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/data";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
-        $html.find('.card-buttons button, button[data-action="consume"]').on("click", async (event) => {
+        const selectors = [".card-buttons button", ".message-buttons button", "button[data-action=consume]"].join(",");
+        $html.find(selectors).on("click", async (event) => {
             event.preventDefault();
 
             // Extract card data
-            const button = $(event.currentTarget);
-            const messageId = button.parents(".message").attr("data-message-id") ?? "";
+            const $button = $(event.currentTarget);
+            const messageId = $button.parents(".message").attr("data-message-id") ?? "";
             const message = game.messages.get(messageId);
-            const card = button.parents(".chat-card");
-            const action = button.attr("data-action");
+            const $card = $button.closest(".chat-card, .message-buttons");
+            const action = $button.attr("data-action");
 
             // Get the actor and item from the chat message
             const item = message?.item;
@@ -35,7 +36,7 @@ export const ChatCards = {
             // Confirm roll permission
             if (!game.user.isGM && !actor.isOwner && action !== "save") return;
 
-            if (item) {
+            if (item && !action?.startsWith("strike-")) {
                 const spell =
                     item instanceof SpellPF2e ? item : item instanceof ConsumablePF2e ? item.embeddedSpell : null;
                 const strike: StatisticModifier =
@@ -82,7 +83,7 @@ export const ChatCards = {
                         item.consume();
                     } else if (item instanceof MeleePF2e) {
                         // Button is from an NPC attack effect
-                        const consumable = actor.items.get(button.attr("data-item") ?? "");
+                        const consumable = actor.items.get($button.attr("data-item") ?? "");
                         if (consumable instanceof ConsumablePF2e) {
                             const oldQuant = consumable.data.data.quantity.value;
                             const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
@@ -104,27 +105,40 @@ export const ChatCards = {
                     ChatCards.rollActorSaves(event, item);
                 }
             } else if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
-                const strikeIndex = card.attr("data-strike-index");
-                const strikeName = card.attr("data-strike-name");
+                const strikeIndex = $card.attr("data-strike-index");
+                const strikeName = $card.attr("data-strike-name");
                 const strikeAction = actor.data.data.actions[Number(strikeIndex)];
 
                 if (strikeAction && strikeAction.name === strikeName) {
                     const options = actor.getRollOptions(["all", "attack-roll"]);
-                    if (action === "strikeAttack") strikeAction.variants[0].roll({ event: event, options });
-                    else if (action === "strikeAttack2") strikeAction.variants[1].roll({ event: event, options });
-                    else if (action === "strikeAttack3") strikeAction.variants[2].roll({ event: event, options });
-                    else if (action === "strikeDamage") strikeAction.damage?.({ event: event, options });
-                    else if (action === "strikeCritical") strikeAction.critical?.({ event: event, options });
-                }
-                if (action === "pay-crafting-costs") {
-                    const itemUuid = card.attr("data-item-uuid") || "";
+                    switch (sluggify(action ?? "")) {
+                        case "strike-attack":
+                            strikeAction.variants[0].roll({ event: event, options });
+                            break;
+                        case "strike-attack2":
+                            strikeAction.variants[1].roll({ event: event, options });
+                            break;
+                        case "strike-attack3":
+                            strikeAction.variants[2].roll({ event: event, options });
+                            break;
+                        case "strike-damage":
+                            strikeAction.damage?.({ event: event, options });
+                            break;
+                        case "strike-critical":
+                            strikeAction.critical?.({ event: event, options });
+                            break;
+                    }
+                } else if (action === "pay-crafting-costs") {
+                    const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;
-                    const quantity = Number(card.attr("data-crafting-quantity")) || 1;
+                    const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = extractPriceFromItem({
                         data: { quantity: { value: quantity }, price: item.data.data.price },
                     });
-                    const coinsToRemove = button.hasClass("full") ? craftingCost : multiplyCoinValue(craftingCost, 0.5);
+                    const coinsToRemove = $button.hasClass("full")
+                        ? craftingCost
+                        : multiplyCoinValue(craftingCost, 0.5);
                     if (
                         !(await attemptToRemoveCoinsByValue({
                             actor: actor,
@@ -170,10 +184,10 @@ export const ChatCards = {
                         speaker: { alias: actor.name },
                     });
                 } else if (action === "lose-materials") {
-                    const itemUuid = card.attr("data-item-uuid") || "";
+                    const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;
-                    const quantity = Number(card.attr("data-crafting-quantity")) || 1;
+                    const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = extractPriceFromItem({
                         data: { quantity: { value: quantity }, price: item.data.data.price },
                     });

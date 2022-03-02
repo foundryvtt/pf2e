@@ -60,12 +60,10 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType<T extends ItemType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
-    isOfType<T extends ItemType>(types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
     isOfType<T extends ItemType>(
-        types: T | T[]
+        ...types: T[]
     ): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
-        return Array.isArray(types) ? types.some((t) => this.type === t) : this.type === types;
+        return types.some((t) => this.type === t);
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */

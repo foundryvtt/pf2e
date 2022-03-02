@@ -391,7 +391,7 @@ declare global {
         Dice: {
             types: Array<typeof Die | typeof DiceTerm>;
             rollModes: Record<RollMode, string>;
-            rolls: [typeof Roll];
+            rolls: ConstructorOf<Roll>[];
             termTypes: Record<string, typeof DiceTerm>;
             terms: {
                 c: typeof Coin;
