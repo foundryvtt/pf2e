@@ -12,6 +12,7 @@ import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
+import { UserPF2e } from "@module/user";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -122,6 +123,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const sceneId = this.data.speaker.scene ?? "";
         const tokenId = this.data.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
+    }
+
+    /** As of Foundry 9.251, players are able to delete their own messages, and GMs are unable to restrict it. */
+    protected static override _canDelete(user: UserPF2e): boolean {
+        return user.isGM;
     }
 
     override async getHTML(): Promise<JQuery> {
