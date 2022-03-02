@@ -55,7 +55,7 @@
                     <a class="item-control item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle"></i></a>
                 {{/if}}
             {{/if}}
-            {{#if item.isSellableTreasure}}
+            {{#if (and item.isSellableTreasure (not lootsheet))}}
                 <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
             {{/if}}
             {{#if item.showEdit}}
