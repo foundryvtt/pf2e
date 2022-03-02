@@ -185,7 +185,6 @@ export class NPCPF2e extends CreaturePF2e {
                 }),
             ].flat();
 
-            // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
             const hpData = deepClone(data.attributes.hp);
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
