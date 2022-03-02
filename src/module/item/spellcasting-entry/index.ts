@@ -303,7 +303,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 spellPrepList[level] =
                     spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
                         spell,
-                        chatData: spell.getChatData(),
                         signature: this.isFlexible && signatureSpells.has(spell.id),
                     })) ?? [];
 
