@@ -4,7 +4,6 @@ import { CloseCombatTrackerConfig } from "./close-combat-tracker-config";
 import { CloseWorldClockSettings } from "./close-world-clock-settings";
 import { DropCanvasData } from "./drop-canvas-data";
 import { GetSceneControlButtons } from "./get-scene-control-buttons";
-import { HotbarDrop } from "./hotbar-drop";
 import { Init } from "./init";
 import { LightingRefresh } from "./lighting-refresh";
 import { Ready } from "./ready";
@@ -26,7 +25,6 @@ export const HooksPF2e = {
             DropCanvasData,
             GetSceneControlButtons,
             Init,
-            HotbarDrop,
             LightingRefresh,
             Ready,
             RenderActorDirectory,

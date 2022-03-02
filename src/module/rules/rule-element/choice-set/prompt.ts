@@ -68,7 +68,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
     override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData: DropCanvasDataPF2e | undefined = JSON.parse(dataString ?? "");
+        const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");
         if (dropData?.type !== "Item") {
             ui.notifications.error("Only an item can be dropped here.");
             return;

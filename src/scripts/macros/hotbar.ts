@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { ItemDataPF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data";
 import { EffectPF2e } from "@item/effect";
 import { MacroPF2e } from "@module/macro";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -13,7 +13,7 @@ import { StatisticModifier } from "@module/modifiers";
  * @param item     The item data
  * @param slot     The hotbar slot to use
  */
-export async function createItemMacro(item: ItemDataPF2e, slot: number): Promise<void> {
+export async function createItemMacro(item: ItemSourcePF2e, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
     const macro =
         game.macros.find((macro) => macro.name === item.name && macro.data.command === command) ??

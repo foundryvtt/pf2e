@@ -45,6 +45,7 @@ import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { ActorsPF2e } from "@module/collection/actors";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { HotbarPF2e } from "@module/apps/ui/hotbar";
 
 declare global {
     interface Game {
@@ -170,6 +171,7 @@ type ConfiguredConfig = Config<
     CompendiumDirectoryPF2e,
     FogExplorationPF2e,
     FolderPF2e,
+    HotbarPF2e,
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
