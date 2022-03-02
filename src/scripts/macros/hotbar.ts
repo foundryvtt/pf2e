@@ -5,6 +5,7 @@ import { MacroPF2e } from "@module/macro";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { SkillAbbreviation } from "@actor/creature/data";
+import { StatisticModifier } from "@module/modifiers";
 
 /**
  * Create a Macro from an Item drop.
@@ -67,9 +68,9 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
 
 export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
     const actor = game.actors.get(actorId);
-    if (actor) {
-        const action = (actor as any).data.data.actions[actionIndex];
-        if (action && action.name === actionName) {
+    if (actor && "actions" in actor.data.data) {
+        const action: StatisticModifier | undefined = actor.data.data.actions[actionIndex];
+        if (action?.name === actionName) {
             if (action.type === "strike") {
                 const templateData = {
                     actor,
@@ -78,18 +79,11 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     strikeDescription: game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description)),
                 };
 
-                const messageContent = await renderTemplate(
-                    "systems/pf2e/templates/chat/strike-card.html",
-                    templateData
-                );
+                const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.html", templateData);
+                const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
                 const chatData: Partial<foundry.data.ChatMessageSource> = {
-                    user: game.user.id,
-                    speaker: {
-                        actor: actor.id,
-                        token: actor.token?.id,
-                        alias: actor.name,
-                    },
-                    content: messageContent,
+                    speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
+                    content,
                     type: CONST.CHAT_MESSAGE_TYPES.OTHER,
                     flags: {
                         core: {

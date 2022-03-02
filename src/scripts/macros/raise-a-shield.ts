@@ -29,9 +29,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     const speaker = ChatMessagePF2e.getSpeaker({ actor: actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        const existingEffect = actor.itemTypes.effect.find(
-            (effect) => effect.getFlag("core", "sourceId") === ITEM_UUID
-        );
+        const existingEffect = actor.itemTypes.effect.find((e) => e.data.flags.core?.sourceId === ITEM_UUID);
         if (existingEffect) {
             await existingEffect.delete();
             return false;
@@ -56,7 +54,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     })();
 
     if (isSuccess) {
-        const combatActor = (game.combat?.active && game.combat.combatant?.actor) || null;
+        const combatActor = (game.combat?.started && game.combat.combatant?.actor) || null;
         const [actionType, glyph] =
             combatActor && combatActor !== actor ? (["Reaction", "R"] as const) : (["SingleAction", "1"] as const);
 

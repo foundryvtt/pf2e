@@ -186,6 +186,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Flags
         const { flags } = this.data;
         flags.pf2e.freeCrafting ??= false;
+        flags.pf2e.quickAlchemy ??= false;
         flags.pf2e.sheetTabs = mergeObject(
             CHARACTER_SHEET_TABS.reduce(
                 (tabs, tab) => ({
@@ -303,9 +304,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const systemData = this.data.data;
         const { synthetics } = this;
 
-        if (!this.getFlag("pf2e", "disableABP")) {
+        if (!this.data.flags.pf2e.disableABP) {
             game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
+
         // Extract as separate variables for easier use in this method.
         const { statisticsModifiers, strikes, rollNotes } = synthetics;
 

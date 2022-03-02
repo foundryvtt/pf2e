@@ -73,15 +73,24 @@ export const Ready = {
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
 
-            // Final pass to ensure effects on actors properly consider the initiative of any active combat
-            game.pf2e.effectTracker.refresh();
-
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {
                 return game.i18n
                     .localize(CONFIG.Item.typeLabels[typeA] ?? "")
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
+
+            // Now that all game data is available, reprepare actor data among those actors currently in an encounter
+            const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
+            const fightyActors = new Set(participants.flatMap((c) => c.actor ?? []));
+            for (const actor of fightyActors) {
+                actor.prepareData();
+            }
+
+            // Final pass to ensure effects on actors properly consider the initiative of any active combat
+            if (fightyActors.size > 0) {
+                game.pf2e.effectTracker.refresh();
+            }
 
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");

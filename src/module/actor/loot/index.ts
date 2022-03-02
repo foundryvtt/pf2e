@@ -140,7 +140,4 @@ export interface LootPF2e extends ActorPF2e {
     readonly data: LootData;
 
     get hitPoints(): null;
-
-    getFlag(scope: string, key: string): any;
-    getFlag(scope: "core", key: "sourceId"): string | undefined;
 }

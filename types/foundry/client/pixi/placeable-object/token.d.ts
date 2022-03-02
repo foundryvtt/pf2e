@@ -366,7 +366,7 @@ declare global {
                 user,
                 releaseOthers,
                 groupSelection,
-            }?: { user: User | null; releaseOthers?: boolean; groupSelection?: boolean }
+            }?: { user?: User | null; releaseOthers?: boolean; groupSelection?: boolean }
         ): void;
 
         /**

@@ -249,7 +249,7 @@ export class ActionsPF2e {
                         const dcStat = options.difficultyClassStatistic?.(target.actor);
                         if (dcStat) {
                             const extraRollOptions = finalOptions.concat(targetOptions);
-                            const dc = dcStat.dc({ extraRollOptions });
+                            const { dc } = dcStat.withRollOptions({ extraRollOptions });
                             const dcData: CheckDC = {
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],
