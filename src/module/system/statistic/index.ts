@@ -48,8 +48,8 @@ interface RollOptionParameters {
     item?: ItemPF2e | null;
 }
 
-type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : undefined;
-type DCValue<T extends BaseStatisticData> = T["dc"] extends object ? StatisticDifficultyClass : undefined;
+type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : null;
+type DCValue<T extends BaseStatisticData> = T["dc"] extends object ? StatisticDifficultyClass : null;
 
 function hasCheck(statistic: Statistic<BaseStatisticData>): statistic is Statistic<StatisticDataWithCheck> {
     return !!statistic.data.check;
@@ -154,7 +154,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             return new StatisticCheck(this, this.options) as CheckValue<T>;
         }
 
-        return undefined as CheckValue<T>;
+        return null as CheckValue<T>;
     }
 
     /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
@@ -163,7 +163,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             return new StatisticDifficultyClass(this, this.options) as DCValue<T>;
         }
 
-        return undefined as DCValue<T>;
+        return null as DCValue<T>;
     }
 
     /** Creates view data for sheets and chat messages */
@@ -256,7 +256,7 @@ class StatisticCheck {
         // This is required to determine the AC for attack dialogs
         const rollContext = (() => {
             const isCreature = actor instanceof CreaturePF2e;
-            const isAttackItem = item?.isOfType(["weapon", "melee", "spell"]);
+            const isAttackItem = item?.isOfType("weapon", "melee", "spell");
             if (isCreature && isAttackItem && ["attack-roll", "spell-attack-roll"].includes(data.check.type)) {
                 return actor.getAttackRollContext({ domains, item });
             }
