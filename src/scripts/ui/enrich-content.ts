@@ -228,7 +228,7 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
                         base,
                     },
                 });
-                return stat.dc()!.value.toString();
+                return String(stat.dc.value);
             }
             return base.toString();
         };
