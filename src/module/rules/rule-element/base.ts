@@ -277,6 +277,9 @@ interface RuleElementPF2e {
      */
     beforeRoll?(domains: string[], rollOptions: string[]): void;
 
+    /** Runs before the rule's parent item's owning actor is updated */
+    preUpdateActor?(): Promise<void>;
+
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
