@@ -310,8 +310,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
             actions: [
                 {
                     label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
+                    checked: !!this.rollOptions.all["target:flatFooted"],
                     enabled: true,
                 },
             ],
@@ -549,12 +549,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(domain: string, optionName: string) {
+    async toggleRollOption(domain: string, option: string): Promise<this> {
         if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
-            throw new Error(`${domain} is not a supported roll`);
+            throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
         }
-        const flag = `rollOptions.${domain}.${optionName}`;
-        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
+        const flag = `rollOptions.${domain}.${option}`;
+        return this.setFlag("pf2e", flag, !this.rollOptions["domain"]?.[option]);
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */

@@ -28,7 +28,7 @@ export class ConditionPF2e extends ItemPF2e {
 
     /** Is the condition from the pf2e system or a module? */
     get fromSystem(): boolean {
-        return !!this.getFlag("pf2e", "condition");
+        return !!this.data.flags.pf2e.condition;
     }
 
     /** Is the condition found in the token HUD menu? */
@@ -122,11 +122,6 @@ export interface ConditionPF2e {
     readonly data: ConditionData;
 
     get slug(): ConditionSlug;
-
-    getFlag(scope: "core", key: "sourceId"): string | undefined;
-    getFlag(scope: "pf2e", key: "constructing"): true | undefined;
-    getFlag(scope: "pf2e", key: "condition"): true | undefined;
-    getFlag(scope: string, key: string): any;
 }
 
 export interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {

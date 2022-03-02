@@ -23,24 +23,11 @@ export class UserPF2e extends User<ActorPF2e> {
         );
     }
 
-    get settings(): UserSettingsPF2e {
-        return deepClone(this.data.flags.pf2e.settings);
+    get settings(): Readonly<UserSettingsPF2e> {
+        return this.data.flags.pf2e.settings;
     }
 }
 
 export interface UserPF2e extends User<ActorPF2e> {
     readonly data: UserDataPF2e<this>;
-
-    getFlag(
-        scope: "pf2e",
-        key: "settings"
-    ): {
-        uiTheme: "blue" | "red" | "original" | "ui";
-        showEffectPanel: boolean;
-        showRollDialogs: boolean;
-    };
-    getFlag(scope: "pf2e", key: "settings.uiTheme"): "blue" | "red" | "original" | "ui";
-    getFlag(scope: "pf2e", key: "settings.showEffectPanel"): boolean;
-    getFlag(scope: "pf2e", key: "settings.showRollDialogs"): boolean;
-    getFlag(scope: "pf2e", key: `compendiumFolders.${string}.expanded`): boolean | undefined;
 }

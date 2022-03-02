@@ -59,7 +59,7 @@ export class NPCPF2e extends CreaturePF2e {
 
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return this.isDead && (npcsAreLootable || this.getFlag("pf2e", "lootable"));
+        return this.isDead && (npcsAreLootable || this.data.flags.pf2e.lootable);
     }
 
     /** Grant all users at least limited permission on dead NPCs */
@@ -89,8 +89,10 @@ export class NPCPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData = this.data.data;
 
+        this.data.flags.pf2e.lootable ??= false;
+
+        const systemData = this.data.data;
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
@@ -875,5 +877,8 @@ export class NPCPF2e extends CreaturePF2e {
 
 export interface NPCPF2e {
     readonly data: NPCData;
-    _sheet: NPCSheetPF2e;
+
+    get sheet(): NPCSheetPF2e;
+
+    _sheet: NPCSheetPF2e | null;
 }

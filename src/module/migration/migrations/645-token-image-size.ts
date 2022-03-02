@@ -25,7 +25,7 @@ export class Migration645TokenImageSize extends MigrationBase {
     }
 
     override async updateActor(actorSource: ActorSourcePF2e) {
-        const flags = actorSource.flags;
+        const flags = actorSource.flags as OldTokenFlags;
         const originalImg = flags.pf2e?.token?.img;
         if (this.isTokenImageFlag(originalImg)) {
             this.imageOverrides.set(actorSource._id, originalImg);
@@ -52,3 +52,13 @@ export class Migration645TokenImageSize extends MigrationBase {
         tokenSource.width = sizeOverride?.width ?? tokenSource.width;
     }
 }
+
+type OldTokenFlags = {
+    pf2e?: {
+        token?: {
+            img?: string;
+            size?: string;
+        };
+        "-=token"?: null;
+    };
+};

@@ -4,7 +4,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 export const DegreeOfSuccessHighlights = {
     listen: (message: ChatMessagePF2e, $html: JQuery): void => {
         if ($html.find(".pf2e-reroll-indicator").length > 0) return;
-        if (!message.isRoll || !message.roll || message.getFlag("pf2e", "damageRoll")) return;
+        if (!message.roll || message.data.flags.pf2e.damageRoll) return;
 
         const dice = message.roll.dice[0] ?? {};
         if (!(dice.faces === 20 && message.isContentVisible)) return;
