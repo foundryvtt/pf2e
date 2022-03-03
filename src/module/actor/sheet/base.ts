@@ -660,10 +660,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     private onClickBrowseFeatCompendia(event: JQuery.ClickEvent<HTMLElement>) {
         const maxLevel = Number($(event.currentTarget).attr("data-level")) || this.actor.level;
-        const filter: string[] = [
+        let filter: string[] = [
             $(event.currentTarget).attr("data-filter"),
             $(event.currentTarget).attr("data-secondaryfilter"),
         ].filter((element): element is string => !!element);
+        // skill feats also have the general trait so default to show those also if filter is feattype-general
+        if (filter.includes("feattype-general")) filter = ["feattype-general", "feattype-skill"];
         console.debug(`Filtering on: ${filter}, ${maxLevel}`);
         game.pf2e.compendiumBrowser.openTab("feat", filter, maxLevel);
     }
