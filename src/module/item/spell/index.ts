@@ -34,9 +34,7 @@ export class SpellPF2e extends ItemPF2e {
 
     readonly isFromConsumable: boolean;
 
-    /**
-     * Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later.
-     */
+    /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry?: TrickMagicItemEntry;
 
     get baseLevel(): OneToTen {
