@@ -101,7 +101,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     /** Spellcasting attack and dc data created during actor preparation */
     statistic!: Statistic;
 
-    override prepareData() {
+    override prepareData(): void {
         super.prepareData();
 
         // Wipe the internal spells collection so it can be rebuilt later.
@@ -113,7 +113,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     async cast(
         spell: SpellPF2e,
         options: { slot?: number; level?: number; consume?: boolean; message?: boolean } = {}
-    ) {
+    ): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const level = options.level ?? spell.level;
@@ -123,7 +123,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         }
     }
 
-    async consume(name: string, level: number, slot?: number) {
+    async consume(name: string, level: number, slot?: number): Promise<boolean> {
         const actor = this.actor;
         if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries require an actor");
@@ -198,8 +198,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         if (spell.actor === actor) {
             return spell.update({ "data.location.value": this.id, ...heightenedUpdate });
         } else {
-            const source = spell.clone(heightenedUpdate).toObject();
-            source.data.location.value = this.id;
+            const source = spell.clone({ "data.location.value": this.id, ...heightenedUpdate }).toObject();
             const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
 
             return created instanceof SpellPF2e ? created : null;
@@ -207,10 +206,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number) {
+    async prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number): Promise<this> {
         if (spell.baseLevel > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
             console.warn(`Attempted to add level ${spell.baseLevel} spell to level ${spellLevel} spell slot.`);
-            return;
+            return this;
         }
 
         if (CONFIG.debug.hooks) {
@@ -239,7 +238,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(spellLevel: number, spellSlot: number) {
+    unprepareSpell(spellLevel: number, spellSlot: number): Promise<this> {
         if (CONFIG.debug.hooks === true) {
             console.debug(
                 `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${spellLevel}`
@@ -257,7 +256,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(spellLevel: number, spellSlot: number, isExpended: boolean) {
+    setSlotExpendedState(spellLevel: number, spellSlot: number, isExpended: boolean): Promise<this> {
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}.expended`;
         return this.update({ [key]: isExpended });
     }
