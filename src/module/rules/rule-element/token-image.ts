@@ -5,14 +5,12 @@ import { RuleElementPF2e } from "./";
  * @category RuleElement
  */
 export class TokenImageRuleElement extends RuleElementPF2e {
-    override afterPrepareData() {
-        const value = this.data.value;
+    override afterPrepareData(): void {
+        const img = this.data.value;
+        if (typeof img !== "string") return this.failValidation("Missing value field");
 
-        if (!value) {
-            console.warn("PF2e System | Token Image requires a non-empty value field");
-            return;
-        }
+        if (!this.test()) return;
 
-        mergeObject(this.actor.overrides, { token: { img: value } });
+        mergeObject(this.actor.overrides, { token: { img } });
     }
 }

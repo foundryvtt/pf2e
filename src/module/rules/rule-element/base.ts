@@ -105,6 +105,15 @@ abstract class RuleElementPF2e {
         this.data.ignored = value;
     }
 
+    /** Test this rule element's predicate, if present */
+    test(rollOptions?: string[]): boolean {
+        if (this.data.ignored) return false;
+        if (!this.data.predicate) return true;
+
+        return this.data.predicate.test(rollOptions ?? this.actor.getRollOptions());
+    }
+
+    /** Send a deferred warning to the console indicating that a rule element's validation failed */
     failValidation(...message: string[]): void {
         const fullMessage = message.join(" ");
         const { name, uuid } = this.item;

@@ -4,7 +4,7 @@ import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "./";
 import { RuleElementSource } from "./data";
 
 /**
- * Change the light emitted by a token
+ * Add or change the light emitted by a token
  * @category RuleElement
  */
 class TokenLightRuleElement extends RuleElementPF2e {
@@ -33,8 +33,8 @@ class TokenLightRuleElement extends RuleElementPF2e {
         }
     }
 
-    override afterPrepareData() {
-        if (this.ignored) return;
+    override afterPrepareData(): void {
+        if (!this.test()) return;
 
         const light = new foundry.data.LightData(this.data.value).toObject(false);
         mergeObject(this.actor.overrides, { token: { light } });
