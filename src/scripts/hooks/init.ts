@@ -3,6 +3,7 @@ import { ItemPF2e } from "@item";
 import { MystifiedTraits } from "@item/data/values";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
+import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import {
     AmbientLightPF2e,
     LightingLayerPF2e,
@@ -100,6 +101,7 @@ export const Init = {
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
+            CONFIG.ui.hotbar = HotbarPF2e;
 
             // Remove fonts available only on Windows 10/11
             CONFIG.fontFamilies = CONFIG.fontFamilies.filter((f) => !["Courier", "Helvetica", "Times"].includes(f));

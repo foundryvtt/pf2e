@@ -14,6 +14,7 @@ declare global {
         TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
         TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
+        THotbar extends Hotbar = Hotbar,
         TItem extends Item = Item,
         TMacro extends Macro = Macro,
         TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
@@ -475,7 +476,7 @@ declare global {
             combat: ConstructorOf<TCombatTracker>;
             compendium: ConstructorOf<TCompendiumDirectory>;
             controls: typeof SceneControls;
-            hotbar: typeof Hotbar;
+            hotbar: ConstructorOf<THotbar>;
             items: typeof ItemDirectory;
             // journal: typeof JournalDirectory;
             // macros: typeof MacroDirectory;

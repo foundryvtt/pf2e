@@ -13,7 +13,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
 
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<HeritageSheetData> {
         const sheetData = super.getBaseData(options);
-        const ancestry = await (async () => {
+        const ancestry = await (async (): Promise<AncestryPF2e | null> => {
             const item = this.item.data.data.ancestry ? await fromUuid(this.item.data.data.ancestry.uuid) : null;
             return item instanceof AncestryPF2e ? item : null;
         })();
@@ -40,7 +40,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     }
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {
-        const item: ItemPF2e | null = await (async () => {
+        const item = await (async (): Promise<ItemPF2e | null> => {
             try {
                 const dataString = event.dataTransfer?.getData("text/plain");
                 const dropData = JSON.parse(dataString ?? "");
