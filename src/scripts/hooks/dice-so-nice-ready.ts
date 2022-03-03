@@ -24,7 +24,7 @@ export const DiceSoNiceReady = {
         Hooks.once("diceSoNiceReady", (dice3d: unknown) => {
             if (!isDice3D(dice3d)) return;
 
-            dice3d.addSystem({ id: "basic", name: "☑ Dicefinder Basic" }, "default");
+            dice3d.addSystem({ id: "basic", name: "Dicefinder Basic" }, "preferred");
 
             dice3d.addDicePreset({
                 type: "d20",
@@ -67,7 +67,7 @@ export const DiceSoNiceReady = {
 
             dice3d
                 .addTexture("PFred", {
-                    name: "☑ Dicefinder Basic",
+                    name: "Dicefinder Basic",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/texture.webp",
                 })
@@ -75,19 +75,19 @@ export const DiceSoNiceReady = {
                     dice3d.addColorset(
                         {
                             name: "basic",
-                            description: "☑ Dicefinder Basic",
+                            description: "Dicefinder Basic",
                             category: "Pathfinder 2e",
                             texture: "PFred",
-                            material: "chrome",
-                            foreground: "#c98e45",
+                            material: "metal",
+                            foreground: "#f9b96e",
                             outline: "none",
-                            edge: "#c98e45",
+                            edge: "#f9b96e",
                         },
-                        "default"
+                        "preferred"
                     );
                 });
 
-            dice3d.addSystem({ id: "campaign", name: "☑ Dicefinder Campaign" }, "default");
+            dice3d.addSystem({ id: "campaign", name: "Dicefinder Campaign" }, "default");
 
             dice3d.addDicePreset({
                 type: "dc",
@@ -232,7 +232,7 @@ export const DiceSoNiceReady = {
 
             dice3d
                 .addTexture("d4", {
-                    name: "☑ Dicefinder Campaign",
+                    name: "Dicefinder Campaign",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/d4.webp",
                 })
@@ -240,19 +240,19 @@ export const DiceSoNiceReady = {
                     dice3d.addColorset(
                         {
                             name: "campaign",
-                            description: "☑ Dicefinder Campaign",
+                            description: "Dicefinder Campaign",
                             category: "Pathfinder 2e",
                             texture: "d4",
-                            material: "glass",
-                            foreground: "#c98e45",
+                            material: "metal",
+                            foreground: "#f9b96e",
                             outline: "none",
-                            edge: "#c98e45",
+                            edge: "#f9b96e",
                         },
                         "default"
                     );
                 });
 
-            dice3d.addSystem({ id: "darkmode", name: "☑ Dicefinder Dark Mode" }, "default");
+            dice3d.addSystem({ id: "darkmode", name: "Dicefinder Dark Mode" }, "default");
 
             dice3d.addDicePreset({
                 type: "d20",
@@ -294,7 +294,7 @@ export const DiceSoNiceReady = {
 
             dice3d
                 .addTexture("transparent", {
-                    name: "☑ Dicefinder Dark Mode",
+                    name: "Dicefinder Dark Mode",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/transparent.webp",
                 })
@@ -302,13 +302,13 @@ export const DiceSoNiceReady = {
                     dice3d.addColorset(
                         {
                             name: "darkmode",
-                            description: "☑ Dicefinder Dark Mode",
+                            description: "Dicefinder Dark Mode",
                             category: "Pathfinder 2e",
                             texture: "transparent",
-                            material: "glass",
-                            foreground: "#c98e45",
+                            material: "metal",
+                            foreground: "#f9b96e",
                             outline: "none",
-                            edge: "#c98e45",
+                            edge: "#f9b96e",
                         },
                         "default"
                     );
