@@ -50,7 +50,7 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
     const action = (actor as any).data.data.actions[actionIndex];
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
     const actionName = JSON.stringify(action.name);
-    const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, ${actionName})`;
+    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
         (await MacroPF2e.create(
@@ -110,12 +110,12 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
 export async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
-const a = game.actors.get('${actorId}');
+const a = game.actors.get("${actorId}");
 if (a) {
-    const opts = a.getRollOptions(['all', 'skill-check', '${dictName}']);
-    a.data.data.skills['${skill}']?.roll(event, opts);
+    const opts = a.getRollOptions(["all", "skill-check", "${dictName}"]);
+    a.data.data.skills["${skill}"]?.roll(event, opts);
 } else {
-    ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
+    ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
 }`;
     const macroName = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
     const skillMacro =
@@ -134,12 +134,12 @@ if (a) {
 }
 
 export async function createTogglePropertyMacro(property: string, label: string, actorId: string, slot: number) {
-    const command = `const a = game.actors.get('${actorId}');
+    const command = `const a = game.actors.get("${actorId}");
 if (a) {
-    const value = getProperty(a, 'data.${property}');
-    a.update({'${property}': !value});
+    const value = getProperty(a, "data.${property}");
+    a.update({"${property}": !value});
 } else {
-    ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
+    ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
 }`;
     const macroName = game.i18n.format("PF2E.ToggleWithName", { property: label });
     const toggleMacro =
@@ -161,19 +161,22 @@ export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, 
     const prefix = pack ? `Compendium.${pack}` : "Item";
     const command = `
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
-if (!actors.length && game.user.character) {
-    actors.push(game.user.character);
+if (actors.length === 0 && game.user.character) actors.push(game.user.character);
+if (actors.length === 0) {
+    const message = game.i18n.localize("PF2E.ErrorMessage.NoTokenSelected");
+    return ui.notifications.error(message);
 }
-const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
+
+const ITEM_UUID = "${prefix}.${effect.id}"; // ${effect.data.name}
 const source = (await fromUuid(ITEM_UUID)).toObject();
-source.flags.core ??= {};
-source.flags.core.sourceId = ITEM_UUID;
-for await (const actor of actors) {
-    const existing = actor.itemTypes.effect.find((effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID);
+source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
+
+for (const actor of actors) {
+    const existing = actor.itemTypes.effect.find((e) => e.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
         await existing.delete();
     } else {
-        await actor.createEmbeddedDocuments('Item', [source]);
+        await actor.createEmbeddedDocuments("Item", [source]);
     }
 }
 `;
