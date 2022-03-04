@@ -42,7 +42,7 @@ type CharacterSystemSheetData = CharacterSystemData & {
     };
 };
 
-interface CraftingEntries {
+export interface CraftingEntriesSheetData {
     dailyCrafting: boolean;
     other: CraftingEntry[];
     alchemical: {
@@ -55,11 +55,11 @@ interface CraftingEntries {
     };
 }
 
-interface CraftingData {
+interface CraftingSheetData {
     noCost: boolean;
     hasQuickAlchemy: boolean;
     knownFormulas: Record<number, CraftingFormula[]>;
-    entries: CraftingEntries;
+    entries: CraftingEntriesSheetData;
 }
 
 /** Additional fields added in sheet data preparation */
@@ -71,7 +71,7 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
     class: Embedded<ClassPF2e> | null;
-    crafting: CraftingData;
+    crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
