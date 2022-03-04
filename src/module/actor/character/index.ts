@@ -1339,12 +1339,7 @@ export class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
-                    if (weapon.requiresAmmo && !weapon.ammo) {
-                        ui.notifications.warn(
-                            game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
-                        );
-                        return;
-                    }
+                    if (!this.checkAmmo(weapon)) return;
 
                     const context = this.getAttackRollContext({
                         domains: [],
@@ -1468,6 +1463,16 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         return context;
+    }
+
+    checkAmmo(weapon: WeaponPF2e) {
+        if (weapon.requiresAmmo && !weapon.ammo) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
+            );
+            return false;
+        }
+        return true;
     }
 
     consumeAmmo(weapon: WeaponPF2e, args: RollParameters): boolean {
