@@ -5,20 +5,23 @@ import { sluggify } from "@util";
 import { ChoiceSetRuleElement } from "./choice-set/rule-element";
 import { ChoiceSetSource } from "./choice-set/data";
 import { RuleElementOptions } from "./base";
+import { ActorType } from "@actor/data";
 
 class GrantItemRuleElement extends RuleElementPF2e {
+    static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
+
+    /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
+    reevaluateOnUpdate: boolean;
+
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        if (this.actor.isToken) {
-            console.warn("The GrantItem rules element is not supported on synthetic actors");
-            this.ignored = true;
-        }
+        this.reevaluateOnUpdate = Boolean(data.reevaluateOnUpdate);
         this.data.preselectChoices ??= {};
         this.data.replaceSelf = Boolean(data.replaceSelf ?? false);
     }
 
-    override async preCreate(args: REPreCreateParameters): Promise<void> {
+    override async preCreate(args: Omit<REPreCreateParameters, "ruleSource">): Promise<void> {
         if (this.ignored) return;
 
         if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions())) {
@@ -81,6 +84,31 @@ class GrantItemRuleElement extends RuleElementPF2e {
         await this.runGrantedItemPreCreates(args, tempGranted);
     }
 
+    /** Grant an item if this rule element permits it and the predicate passes */
+    override async preUpdateActor(): Promise<void> {
+        if (!this.reevaluateOnUpdate) return;
+
+        const uuid = this.resolveInjectedProperties(this.data.uuid);
+        const alreadyGranted = this.item.data.flags.pf2e.itemGrants.some(
+            (id) => this.actor.items.get(id)?.sourceId === uuid
+        );
+        if (alreadyGranted) return;
+
+        // A granted item can't replace its granter when done on actor update
+        this.data.replaceSelf = false;
+
+        const itemSource = this.item.toObject();
+        const pendingItems: ItemSourcePF2e[] = [];
+        const context = { parent: this.actor, render: false };
+        await this.preCreate({ itemSource, pendingItems, context });
+
+        if (pendingItems.length > 0) {
+            const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? [];
+            await this.item.update({ "flags.pf2e.itemGrants": updatedGrants }, { render: false });
+            await this.actor.createEmbeddedDocuments("Item", pendingItems, context);
+        }
+    }
+
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
         const grantIds = this.item.data.flags.pf2e.itemGrants ?? [];
         const grantedItems = grantIds.flatMap((id) => {
@@ -108,7 +136,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     /** Run the preCreate callbacks of REs from the granted item */
     private async runGrantedItemPreCreates(
-        originalArgs: REPreCreateParameters,
+        originalArgs: Omit<REPreCreateParameters, "ruleSource">,
         grantedItem: Embedded<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
@@ -134,6 +162,7 @@ interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;
     replaceSelf?: unknown;
     preselectChoices?: unknown;
+    reevaluateOnUpdate?: unknown;
 }
 
 interface GrantItemData extends RuleElementData {
