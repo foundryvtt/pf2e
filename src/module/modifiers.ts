@@ -24,7 +24,7 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
  */
-export const MODIFIER_TYPE = Object.freeze({
+export const MODIFIER_TYPE = {
     ABILITY: "ability",
     PROFICIENCY: "proficiency",
     CIRCUMSTANCE: "circumstance",
@@ -32,7 +32,7 @@ export const MODIFIER_TYPE = Object.freeze({
     POTENCY: "potency",
     STATUS: "status",
     UNTYPED: "untyped",
-} as const);
+} as const;
 
 export const MODIFIER_TYPES = [
     "ability",
@@ -231,13 +231,14 @@ export const AbilityModifier = {
 };
 
 // proficiency ranks
-export const UNTRAINED = Object.freeze({
+export const UNTRAINED = {
     atLevel: (_level: number) => {
         const modifier = (game.settings.get("pf2e", "proficiencyUntrainedModifier") as number | null) ?? 0;
         return new ModifierPF2e("PF2E.ProficiencyLevel0", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
-});
-export const TRAINED = Object.freeze({
+};
+
+export const TRAINED = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyTrainedModifier") ?? 2;
@@ -246,8 +247,9 @@ export const TRAINED = Object.freeze({
         }
         return new ModifierPF2e("PF2E.ProficiencyLevel1", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
-});
-export const EXPERT = Object.freeze({
+};
+
+export const EXPERT = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyExpertModifier") ?? 4;
@@ -256,8 +258,9 @@ export const EXPERT = Object.freeze({
         }
         return new ModifierPF2e("PF2E.ProficiencyLevel2", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
-});
-export const MASTER = Object.freeze({
+};
+
+export const MASTER = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyMasterModifier") ?? 6;
@@ -266,8 +269,9 @@ export const MASTER = Object.freeze({
         }
         return new ModifierPF2e("PF2E.ProficiencyLevel3", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
-});
-export const LEGENDARY = Object.freeze({
+};
+
+export const LEGENDARY = {
     atLevel: (level: number) => {
         const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
         let modifier = game.settings.get("pf2e", "proficiencyLegendaryModifier") ?? 8;
@@ -276,8 +280,9 @@ export const LEGENDARY = Object.freeze({
         }
         return new ModifierPF2e("PF2E.ProficiencyLevel4", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
-});
-export const ProficiencyModifier = Object.freeze({
+};
+
+export const ProficiencyModifier = {
     /**
      * Create a modifier for a given proficiency level of some ability.
      * @param level The level of the character which this modifier is being applied to.
@@ -300,7 +305,7 @@ export const ProficiencyModifier = Object.freeze({
                 return rank >= 5 ? LEGENDARY.atLevel(level) : UNTRAINED.atLevel(level);
         }
     },
-});
+};
 
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
 const HIGHER_BONUS = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier >= b.modifier;
@@ -429,7 +434,7 @@ export class StatisticModifier {
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly ModifierPF2e[] {
-        return Object.freeze([...this._modifiers]);
+        return [...this._modifiers];
     }
 
     /** Add a modifier to the end of this collection. */
