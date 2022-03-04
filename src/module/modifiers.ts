@@ -475,8 +475,8 @@ export class StatisticModifier {
             }
         }
 
-        applyStackingRules(this._modifiers);
         if (rollOptions) this.applyAdjustments(rollOptions);
+        applyStackingRules(this._modifiers);
 
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
     }
