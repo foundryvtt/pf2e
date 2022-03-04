@@ -22,12 +22,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
         // For the purpose of AE-Like predication, this rule element should set its roll option very early
         this.data.priority = 5;
 
-        if (data.name && typeof data.name === "string") {
-            this.name = data.name;
-        } else {
-            this.failValidation("Required name not found");
-            this.name = "";
-        }
+        this.name = String(data.name || this.data.label);
 
         if (data.selector && typeof data.selector === "string") {
             this.selector = data.selector;
