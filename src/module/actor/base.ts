@@ -1093,18 +1093,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Show floaty text when applying damage or healing */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: ActorUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Show floaty text when applying damage or healing
         const changedHP = changed.data?.attributes?.hp;
         const currentHP = this.hitPoints;
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.data?.details && "level" in changed.data.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
+        }
+
+        // Run preUpdateActor rule element callbacks
+        type WithPreUpdateActor = RuleElementPF2e & { preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]> };
+        const rules = this.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
+        if (rules.length > 0) {
+            const clone = this.clone(changed, { keepId: true });
+            this.data.flags.pf2e.rollOptions = clone.data.flags.pf2e.rollOptions;
+            for (const rule of rules) {
+                await rule.preUpdateActor();
+            }
         }
 
         await super._preUpdate(changed, options, user);
