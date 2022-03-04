@@ -664,7 +664,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             $(event.currentTarget).attr("data-filter"),
             $(event.currentTarget).attr("data-secondaryfilter"),
         ].filter((element): element is string => !!element);
-        // skill feats also have the general trait so default to show those also if filter is feattype-general
+        // Skill feats also have the general trait
         if (filter.includes("feattype-general")) filter = ["feattype-general", "feattype-skill"];
         console.debug(`Filtering on: ${filter}, ${maxLevel}`);
         game.pf2e.compendiumBrowser.openTab("feat", filter, maxLevel);
