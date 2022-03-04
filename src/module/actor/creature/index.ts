@@ -637,14 +637,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         );
     }
 
-    // this is needed for type safety
-    override async updateEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
-        options: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        return super.updateEmbeddedDocuments(embeddedName, data, options);
-    }
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */
