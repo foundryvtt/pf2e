@@ -282,10 +282,10 @@ export class CharacterPF2e extends CreaturePF2e {
             };
         }
 
-        // Decorate crafting formulas stored directly on the actor
-        this.data.data.crafting.formulas.forEach((formula) => {
+        // Indicate that crafting formulas stored directly on the actor are deletable
+        for (const formula of this.data.data.crafting.formulas) {
             formula.deletable = true;
-        });
+        }
     }
 
     /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */

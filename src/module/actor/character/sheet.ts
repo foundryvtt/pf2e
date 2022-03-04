@@ -15,11 +15,11 @@ import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./data";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
-import { CraftingEntry, CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
+import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { PhysicalItemType } from "@item/physical/data";
 import { craft } from "@system/actions/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
-import { CharacterSheetData } from "./data/sheet";
+import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
@@ -565,16 +565,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected async prepareCraftingEntries() {
         const actorCraftingEntries = await this.actor.getCraftingEntries();
-        const craftingEntries = {
+        const craftingEntries: CraftingEntriesSheetData = {
             dailyCrafting: false,
-            other: <CraftingEntry[]>[],
+            other: [],
             alchemical: {
-                entries: <CraftingEntry[]>[],
+                entries: [],
                 totalReagentCost: 0,
                 infusedReagents: this.actor.data.data.resources.crafting.infusedReagents,
             },
         };
-        actorCraftingEntries.forEach((entry) => {
+
+        for (const entry of actorCraftingEntries) {
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(entry);
                 craftingEntries.alchemical.totalReagentCost += entry.reagentCost || 0;
@@ -583,7 +584,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 craftingEntries.other.push(entry);
                 if (entry.isDailyPrep) craftingEntries.dailyCrafting = true;
             }
-        });
+        }
+
         return craftingEntries;
     }
 
