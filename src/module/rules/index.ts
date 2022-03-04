@@ -47,7 +47,7 @@ import type { ItemPF2e } from "@item";
  * @category RuleElement
  */
 class RuleElements {
-    static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
+    static readonly builtin: Record<string, RuleElementConstructor | undefined> = {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
@@ -84,7 +84,7 @@ class RuleElements {
         Striking: StrikingRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,
-    });
+    };
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 
