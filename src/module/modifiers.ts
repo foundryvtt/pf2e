@@ -87,6 +87,7 @@ export interface ModifierAdjustment {
     slug: string | null;
     predicate: PredicatePF2e;
     damageType?: DamageType;
+    relabel?: string;
     getNewValue(current: number): number;
     getDamageType(current: DamageType | null): DamageType | null;
 }
@@ -490,7 +491,23 @@ export class StatisticModifier {
         const modifiers = this._modifiers.filter((m) => m.enabled);
         for (const modifier of modifiers) {
             const adjustments = modifier.adjustments.filter((a) => a.predicate.test(rollOptions));
-            modifier.modifier = adjustments.reduce((adjusted, a): number => a.getNewValue(adjusted), modifier.modifier);
+
+            type ResolvedAdjustment = { value: number; relabel: string | null };
+            const resolvedAdjustment = adjustments.reduce(
+                (resolved: ResolvedAdjustment, adjustment) => {
+                    const newValue = adjustment.getNewValue(resolved.value);
+                    if (newValue !== resolved.value) {
+                        resolved.value = newValue;
+                        resolved.relabel = adjustment.relabel ?? null;
+                    }
+                    return resolved;
+                },
+                { value: modifier.modifier, relabel: null }
+            );
+            modifier.modifier = resolvedAdjustment.value;
+            if (resolvedAdjustment.relabel) {
+                modifier.label = game.i18n.localize(resolvedAdjustment.relabel);
+            }
 
             // If applicable, change the damage type of this modifier, using only the final adjustment found
             modifier.damageType = adjustments.reduce(
