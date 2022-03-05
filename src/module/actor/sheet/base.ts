@@ -324,15 +324,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         $html.find(".sell-all-treasure button").on("click", (event) => this.onSellAllTreasure(event));
 
-        // Feat Browser
-        $html.find(".feat-browse").on("click", (event) => this.onClickBrowseFeatCompendia(event));
-
-        // Action Browser
-        $html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
-
-        // Spell Browser
-        $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
-
         // Inventory Browser
         $html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
 
@@ -615,57 +606,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         );
         console.debug(`Filtering on: ${filter}`);
         game.pf2e.compendiumBrowser.openTab("equipment", filter);
-    }
-
-    private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const levelString = $(event.currentTarget).attr("data-level") ?? null;
-
-        const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
-        const entry = this.actor.spellcasting.get(spellcastingIndex);
-        if (!(entry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
-
-        const filter: string[] = [];
-
-        if (entry.isRitual || entry.isFocusPool) {
-            filter.push("category-".concat(entry.data.data.prepared.value));
-        }
-
-        if (levelString) {
-            let level = parseInt(levelString);
-            filter.push(level ? `level-${level}` : "category-cantrip");
-
-            if (level) {
-                if (!entry.isPrepared) {
-                    while (level > 1) {
-                        level -= 1;
-                        filter.push("level-".concat(level.toString()));
-                    }
-                }
-
-                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                    filter.push("category-spell");
-                }
-            }
-        }
-
-        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.push("traditions-".concat(entry.data.data.tradition.value));
-        }
-
-        console.debug(`Filtering on: ${filter}`);
-        game.pf2e.compendiumBrowser.openTab("spell", filter);
-    }
-
-    private onClickBrowseFeatCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const maxLevel = Number($(event.currentTarget).attr("data-level")) || this.actor.level;
-        const filter: string[] = [
-            $(event.currentTarget).attr("data-filter"),
-            $(event.currentTarget).attr("data-secondaryfilter"),
-        ].filter((element): element is string => !!element);
-        console.debug(`Filtering on: ${filter}, ${maxLevel}`);
-        game.pf2e.compendiumBrowser.openTab("feat", filter, maxLevel);
     }
 
     protected override _canDragStart(selector: string): boolean {
@@ -1075,11 +1015,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const data: any = duplicate(header.dataset);
         data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
-        if (data.type === "feat") {
-            const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
-            data.name = `${game.i18n.localize("PF2E.NewLabel")} ${featTypeString}`;
-            mergeObject(data, { "data.featType.value": data.featType });
-        } else if (data.type === "action") {
+        if (data.type === "action") {
             const newLabel = game.i18n.localize("PF2E.NewLabel");
             const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
             data.name = `${newLabel} ${actionTypeLabel}`;
@@ -1251,10 +1187,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     Yes: {
                         icon: '<i class="fa fa-check"></i>',
                         label: "Yes",
-                        callback: async () => {
-                            console.debug("PF2e System | Selling all treasure: ", this.actor);
-                            sellAllTreasure(this.actor);
-                        },
+                        callback: async () => sellAllTreasure(this.actor),
                     },
                     cancel: {
                         icon: '<i class="fas fa-times"></i>',
