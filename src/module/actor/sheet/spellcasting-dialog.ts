@@ -40,10 +40,10 @@ class SpellcastingCreateAndEditDialog extends Application {
     }
 
     override activateListeners($html: JQuery): void {
-        const typeField = $html.find('[name="spellcastingType"]');
-        const traditionField = $html.find('[name="magicTradition"]');
-        const abilityField = $html.find('[name="ability"]');
-        const flexibleField = $html.find('[name="flexible"]');
+        const typeField = $html.find("[name=spellcasting-type]");
+        const traditionField = $html.find("[name=magic-tradition]");
+        const abilityField = $html.find("[name=ability]");
+        const flexibleField = $html.find("[name=flexible]");
 
         const updateData = () => {
             this.result.spellcastingType = String(typeField.val()) as PreparationType;
@@ -76,7 +76,7 @@ class SpellcastingCreateAndEditDialog extends Application {
             this.render(true);
         });
 
-        $html.find("[data-button='finish']").on("click", () => {
+        $html.find("[data-button=finish]").on("click", () => {
             updateData();
             this.dialogOptions.callback(this.result, $html);
             this.close();
