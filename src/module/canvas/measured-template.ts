@@ -1,6 +1,6 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
 import { Rectangle } from "pixi.js";
-import { TemplateLayerPF2e } from "./layer/template-layer";
+import { TemplateLayerPF2e } from ".";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
     get type(): MeasuredTemplateType {

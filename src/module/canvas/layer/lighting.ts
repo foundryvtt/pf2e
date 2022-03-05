@@ -51,9 +51,9 @@ export class LightingLayerPF2e<
         lightConfig.dim = dim;
     }
 
-    // Add a refresh option toSince upstream is what calls the hook, #noRefreshHooks is intercepted in the system listener
-    override refresh(options: { darkness?: number | null; backgroundColor?: string; noHooks?: boolean } = {}): void {
-        this.noRefreshHooks = !!options.noHooks;
+    /** Add a noHook option that can be intercepted by system hook listener */
+    override refresh(options: { darkness?: number | null; backgroundColor?: string; noHook?: boolean } = {}): void {
+        this.noRefreshHooks = !!options.noHook;
         super.refresh(options);
         this.noRefreshHooks = false;
     }
