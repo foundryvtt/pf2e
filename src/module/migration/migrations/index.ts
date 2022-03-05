@@ -124,3 +124,4 @@ export { Migration721SetReloadValues } from "./721-set-reload-values";
 export { Migration722CraftingSystemData } from "./722-crafting-system-data";
 export { Migration723CumulativeItemBonuses } from "./723-cumulative-item-bonuses";
 export { Migration724CraftingMaxItemLevel } from "./724-crafting-max-item-level";
+export { Migration725QuickClimbREs } from "./725-quick-climb-rule-elements";
