@@ -55,6 +55,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -1971,4 +1972,6 @@ export const PF2ECONFIG = {
             weapon: WeaponPF2e,
         },
     },
+
+    JournalEntry: { sheetClass: JournalSheetPF2e },
 };

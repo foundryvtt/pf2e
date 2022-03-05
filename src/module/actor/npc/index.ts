@@ -59,7 +59,7 @@ export class NPCPF2e extends CreaturePF2e {
 
     get isLootable(): boolean {
         const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return this.isDead && (npcsAreLootable || this.getFlag("pf2e", "lootable"));
+        return this.isDead && (npcsAreLootable || this.data.flags.pf2e.lootable);
     }
 
     /** Grant all users at least limited permission on dead NPCs */
@@ -89,8 +89,10 @@ export class NPCPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData = this.data.data;
 
+        this.data.flags.pf2e.lootable ??= false;
+
+        const systemData = this.data.data;
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
@@ -183,7 +185,6 @@ export class NPCPF2e extends CreaturePF2e {
                 }),
             ].flat();
 
-            // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
             const hpData = deepClone(data.attributes.hp);
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
@@ -279,7 +280,7 @@ export class NPCPF2e extends CreaturePF2e {
         // default all skills to untrained
         data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
-            const domains = [skill, `${ability}-based`, "skill-check", "all"];
+            const domains = [skill, `${ability}-based`, "skill-check", `${ability}-skill-check`, "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", 0, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
@@ -333,7 +334,14 @@ export class NPCPF2e extends CreaturePF2e {
 
                 const base = itemData.data.mod.value;
                 const mod = data.abilities[ability].mod;
-                const domains = [skill, `${ability}-based`, "skill-check", "all"];
+                const domains = [
+                    skill,
+                    `${ability}-based`,
+                    "skill-check",
+                    "lore-skill-check",
+                    `${ability}-skill-check`,
+                    "all",
+                ];
                 const modifiers = [
                     new ModifierPF2e("PF2E.BaseModifier", base - mod, MODIFIER_TYPE.UNTYPED),
                     new ModifierPF2e(CONFIG.PF2E.abilities[ability], mod, MODIFIER_TYPE.ABILITY),
@@ -868,5 +876,8 @@ export class NPCPF2e extends CreaturePF2e {
 
 export interface NPCPF2e {
     readonly data: NPCData;
-    _sheet: NPCSheetPF2e;
+
+    get sheet(): NPCSheetPF2e;
+
+    _sheet: NPCSheetPF2e | null;
 }

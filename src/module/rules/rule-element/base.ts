@@ -105,6 +105,15 @@ abstract class RuleElementPF2e {
         this.data.ignored = value;
     }
 
+    /** Test this rule element's predicate, if present */
+    test(rollOptions?: string[]): boolean {
+        if (this.data.ignored) return false;
+        if (!this.data.predicate) return true;
+
+        return this.data.predicate.test(rollOptions ?? this.actor.getRollOptions());
+    }
+
+    /** Send a deferred warning to the console indicating that a rule element's validation failed */
     failValidation(...message: string[]): void {
         const fullMessage = message.join(" ");
         const { name, uuid } = this.item;
@@ -276,6 +285,9 @@ interface RuleElementPF2e {
      * @param rollOptions Currently accumulated roll options for the pending check
      */
     beforeRoll?(domains: string[], rollOptions: string[]): void;
+
+    /** Runs before the rule's parent item's owning actor is updated */
+    preUpdateActor?(): Promise<void>;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can

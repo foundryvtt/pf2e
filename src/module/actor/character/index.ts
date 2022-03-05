@@ -186,6 +186,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Flags
         const { flags } = this.data;
         flags.pf2e.freeCrafting ??= false;
+        flags.pf2e.quickAlchemy ??= false;
         flags.pf2e.sheetTabs = mergeObject(
             CHARACTER_SHEET_TABS.reduce(
                 (tabs, tab) => ({
@@ -281,10 +282,10 @@ export class CharacterPF2e extends CreaturePF2e {
             };
         }
 
-        // Decorate crafting formulas stored directly on the actor
-        this.data.data.crafting.formulas.forEach((formula) => {
+        // Indicate that crafting formulas stored directly on the actor are deletable
+        for (const formula of this.data.data.crafting.formulas) {
             formula.deletable = true;
-        });
+        }
     }
 
     /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
@@ -303,9 +304,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const systemData = this.data.data;
         const { synthetics } = this;
 
-        if (!this.getFlag("pf2e", "disableABP")) {
+        if (!this.data.flags.pf2e.disableABP) {
             game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
+
         // Extract as separate variables for easier use in this method.
         const { statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -483,7 +485,7 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
 
-            if (wornArmor) {
+            if (wornArmor && wornArmor.acBonus > 0) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
@@ -492,7 +494,16 @@ export class CharacterPF2e extends CreaturePF2e {
                     }
                 }
 
-                modifiers.unshift(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
+                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
+                modifiers.unshift(
+                    new ModifierPF2e({
+                        label: wornArmor.name,
+                        type: MODIFIER_TYPE.ITEM,
+                        slug,
+                        modifier: wornArmor.acBonus,
+                        adjustments: this.getModifierAdjustments(["ac"], slug),
+                    })
+                );
             }
 
             // Proficiency bonus
@@ -595,7 +606,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", "all"];
+            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -645,7 +656,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const shortForm = sluggify(skill.name) as SkillAbbreviation;
             const rank = skill.data.proficient.value;
 
-            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "all"];
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
                 AbilityModifier.fromScore("int", systemData.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),

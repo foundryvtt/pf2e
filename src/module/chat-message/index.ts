@@ -1,9 +1,8 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CheckRollContextFlag, RollDataPF2e } from "@system/rolls";
+import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ModifierPF2e } from "@module/modifiers";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
@@ -13,6 +12,7 @@ import { SetAsInitiative } from "./listeners/set-as-initiative";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
+import { UserPF2e } from "@module/user";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -125,6 +125,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
+    /** As of Foundry 9.251, players are able to delete their own messages, and GMs are unable to restrict it. */
+    protected static override _canDelete(user: UserPF2e): boolean {
+        return user.isGM;
+    }
+
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
 
@@ -230,12 +235,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
-
-    getFlag(scope: "core", key: "RollTable"): unknown;
-    getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
-    getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
-    getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;
-    getFlag(scope: "pf2e", key: "context"): CheckRollContextFlag | undefined;
 }
 
 declare namespace ChatMessagePF2e {

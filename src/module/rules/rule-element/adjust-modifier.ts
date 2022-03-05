@@ -10,12 +10,20 @@ import { RuleElementOptions } from "./";
 class AdjustModifierRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    /** An optional relabeling of the adjusted modifier */
+    relabel?: string;
+
     slug: string | null;
 
     selectors: string[];
 
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super({ ...data, phase: "beforeDerived", priority: data.priority ?? 90 }, item, options);
+
+        if (typeof data.relabel === "string") {
+            this.relabel = data.relabel;
+        }
+
         this.slug = this.data.slug ?? null;
         this.data.predicate = new PredicatePF2e(this.data.predicate);
         this.selectors =
@@ -73,6 +81,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
                 return damageType;
             },
         };
+        if (this.relabel) adjustment.relabel = this.relabel;
 
         for (const selector of this.selectors) {
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);
@@ -86,6 +95,7 @@ interface AdjustModifierRuleElement extends AELikeRuleElement {
 }
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
+    relabel?: unknown;
     damageType?: unknown;
     selectors?: unknown;
 }

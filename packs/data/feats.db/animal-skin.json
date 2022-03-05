@@ -30,38 +30,77 @@
         "rules": [
             {
                 "key": "DexterityModifierCap",
-                "label": "Animal Skin",
                 "value": 3
             },
             {
-                "key": "FlatModifier",
-                "label": "Animal Skin",
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.animalSkinBonus",
+                "priority": 19,
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.animalSkinBonus",
                 "predicate": {
                     "all": [
-                        "rage"
+                        "self:feature:greater-juggernaut"
+                    ]
+                },
+                "priority": 19,
+                "value": 3
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:effect:rage"
                     ]
                 },
                 "selector": "ac",
                 "type": "item",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 12,
-                            "value": 2
-                        },
-                        {
-                            "start": 13,
-                            "value": 3
-                        }
-                    ]
-                }
+                "value": "@actor.data.flags.pf2e.animalSkinBonus"
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.animal-skin",
-                "priority": 10,
-                "value": true
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "self:effect:rage"
+                    ]
+                },
+                "relabel": "PF2E.SpecificRule.AnimalSkin.BracersOfArmor",
+                "selector": "ac",
+                "slug": "bracers-of-armor",
+                "value": "@actor.data.flags.pf2e.animalSkinBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "self:effect:rage"
+                    ]
+                },
+                "relabel": "PF2E.SpecificRule.AnimalSkin.ExplorersClothing",
+                "selector": "ac",
+                "slug": "clothing-explorers",
+                "value": "@actor.data.flags.pf2e.animalSkinBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "self:effect:rage"
+                    ]
+                },
+                "relabel": "PF2E.SpecificRule.AnimalSkin.MageArmor",
+                "selector": "ac",
+                "slug": "mage-armor",
+                "value": "@actor.data.flags.pf2e.animalSkinBonus"
             }
         ],
         "source": {

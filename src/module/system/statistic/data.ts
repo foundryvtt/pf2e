@@ -54,7 +54,7 @@ export interface StatisticChatData<T extends BaseStatisticData = StatisticData> 
     check: T["check"] extends object
         ? {
               label: string;
-              value: number;
+              mod: number;
               breakdown: string;
               map1: number;
               map2: number;

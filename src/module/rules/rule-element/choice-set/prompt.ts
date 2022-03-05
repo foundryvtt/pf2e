@@ -68,7 +68,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
     override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData: DropCanvasDataPF2e | undefined = JSON.parse(dataString ?? "");
+        const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");
         if (dropData?.type !== "Item") {
             ui.notifications.error("Only an item can be dropped here.");
             return;
@@ -88,14 +88,14 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
         }
 
         // Drop accepted: create a new button and replace the drop zone with it
-        this.choices.push({ value: droppedItem.uuid, label: droppedItem.name });
+        const choicesLength = this.choices.push({ value: droppedItem.uuid, label: droppedItem.name });
 
         $("#choice-set-prompt").css({ height: "unset" });
         const $dropZone = this.element.find(".drop-zone");
         const $newButton = $("<button>")
             .attr({ type: "button" })
             .addClass("with-image")
-            .val(droppedItem.uuid)
+            .val(choicesLength - 1)
             .append($("<img>").attr({ src: droppedItem.img }), $("<span>").text(droppedItem.name));
 
         $newButton.on("click", (event) => {

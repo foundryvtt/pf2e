@@ -374,10 +374,10 @@ declare global {
 
         /**
          * Render a Roll instance to HTML
-         * @param [chatOptions] An object configuring the behavior of the resulting chat message.
-         * @return The rendered HTML template as a string
+         * @param [options={}] Options which affect how the Roll is rendered
+         * @returns The rendered HTML template as a string
          */
-        render(chatOptions?: DocumentRenderOptions): Promise<string>;
+        render(chatOptions?: RollRenderOptions): Promise<string>;
 
         /**
          * Transform a Roll instance into a ChatMessage, displaying the roll result.
@@ -477,11 +477,21 @@ declare global {
     interface RollJSON {
         class: string;
         options: Record<string, unknown>;
+        data?: RollData;
         dice: DiceTerm[];
         formula: string;
         terms: RollTerm[];
         total?: number;
         evaluated: boolean;
+    }
+
+    interface RollRenderOptions {
+        /** Flavor text to include */
+        flavor?: string;
+        /** A custom HTML template path */
+        template?: string;
+        /** Is the Roll displayed privately? */
+        isPrivate?: boolean;
     }
 
     /** An evaluated Roll instance */

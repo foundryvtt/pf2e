@@ -54,7 +54,7 @@ declare global {
         assignHotbarMacro(
             macro: Macro | null,
             slot?: number | string,
-            { fromSlot }?: { fromSlot: number }
+            { fromSlot }?: { fromSlot?: number | undefined }
         ): Promise<this>;
 
         /**

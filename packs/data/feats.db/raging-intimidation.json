@@ -19,10 +19,37 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:skill:itm:rank",
+                                1
+                            ]
+                        }
+                    ]
+                },
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Intimidating Glare"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": {
+                    "all": [
+                        "self:skill:itm:rank:4"
+                    ]
+                },
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Scare to Death"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

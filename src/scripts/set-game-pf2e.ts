@@ -76,11 +76,10 @@ export const SetGamePF2e = {
         game.pf2e.actions.craft = craft; // Workaround for strange import bug
     },
 
-    onSetup: (): void => {
-        game.pf2e.worldClock = new WorldClock();
-    },
+    onSetup: (): void => {},
 
     onReady: (): void => {
         game.pf2e.compendiumBrowser = new CompendiumBrowser();
+        game.pf2e.worldClock = new WorldClock();
     },
 };

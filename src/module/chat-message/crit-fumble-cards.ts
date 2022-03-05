@@ -7,7 +7,7 @@ export class CriticalHitAndFumbleCards {
 
     static handleDraw(chatMessage: ChatMessagePF2e): void {
         if (chatMessage.isAuthor && chatMessage.isContentVisible) {
-            const type = chatMessage.getFlag("pf2e", "context")?.type ?? "";
+            const type = chatMessage.data.flags.pf2e.context?.type ?? "";
             const firstDie = chatMessage.roll?.dice[0];
             if (firstDie && firstDie.faces === 20 && this.rollTypes.includes(type)) {
                 if (firstDie.total === 20) {
@@ -53,7 +53,7 @@ export class CriticalHitAndFumbleCards {
     static appendButtons(chatMessage: ChatMessagePF2e, $html: JQuery): void {
         this.appendButtonsOption ??= game.settings.get("pf2e", "critFumbleButtons");
         if (this.appendButtonsOption && (chatMessage.isAuthor || game.user.isGM) && chatMessage.isContentVisible) {
-            const type = chatMessage.getFlag("pf2e", "context")?.type ?? "";
+            const type = chatMessage.data.flags.pf2e.context?.type ?? "";
             if (this.rollTypes.includes(type)) {
                 const critButton = $(
                     `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
