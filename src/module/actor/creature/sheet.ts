@@ -227,6 +227,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         $html.find(".toggle-signature-spell").on("click", (event) => {
             this.onToggleSignatureSpell(event);
         });
+
+        // Action Browser
+        $html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+
+        // Spell Browser
+        $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
     }
 
     protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
@@ -266,6 +272,46 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
             spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
         }
+    }
+
+    private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+        const levelString = $(event.currentTarget).attr("data-level") ?? null;
+
+        const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
+        const entry = this.actor.spellcasting.get(spellcastingIndex);
+        if (!(entry instanceof SpellcastingEntryPF2e)) {
+            return;
+        }
+
+        const filter: string[] = [];
+
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.push("category-".concat(entry.data.data.prepared.value));
+        }
+
+        if (levelString) {
+            let level = Number(levelString) || null;
+            filter.push(level ? `level-${level}` : "category-cantrip");
+
+            if (level) {
+                if (!entry.isPrepared) {
+                    while (level > 1) {
+                        level -= 1;
+                        filter.push("level-".concat(level.toString()));
+                    }
+                }
+
+                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
+                    filter.push("category-spell");
+                }
+            }
+        }
+
+        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
+            filter.push("traditions-".concat(entry.data.data.tradition.value));
+        }
+
+        game.pf2e.compendiumBrowser.openTab("spell", filter);
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max

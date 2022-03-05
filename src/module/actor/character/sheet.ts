@@ -1009,6 +1009,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
         PCSheetTabManager.initialize(this.actor, $html.find<HTMLAnchorElement>('a[data-action="manage-tabs"]')[0]);
+
+        // Feat Browser shortcut links
+        $html.find(".feat-browse").on("click", (event) => this.onClickBrowseFeatCompendia(event));
+    }
+
+    /** Contextually search the feats tab of the Compendium Browser */
+    private async onClickBrowseFeatCompendia(event: JQuery.ClickEvent): Promise<void> {
+        const maxLevel = Number($(event.currentTarget).attr("data-level")) || this.actor.level;
+        const button: HTMLElement = event.currentTarget;
+        const filter = button.dataset.filter?.split(",").filter((f) => !!f) ?? [];
+        if (filter.includes("feattype-general")) filter.push("feattype-skill");
+
+        await game.pf2e.compendiumBrowser.openTab("feat", filter, maxLevel);
     }
 
     /** Handle changing of proficiency-rank via dropdown */
