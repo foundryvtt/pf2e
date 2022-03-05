@@ -31,7 +31,7 @@ export abstract class CompendiumBrowserTab {
         // Load the index and populate filter data
         await this.loadData();
         // Set defaultFilterData for resets
-        this.defaultFilterData = duplicate(this.filterData);
+        this.defaultFilterData = deepClone(this.filterData);
         // Initialization complete
         this.isInitialized = true;
     }
