@@ -678,7 +678,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
-        containerId?: string
+        containerId?: string,
+        dontStack = false
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
@@ -731,16 +732,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = item.traits.has("invested") ? false : null;
         }
 
-        return targetActor.addToInventory(newItemData, container);
+        return targetActor.addToInventory(newItemData, container, dontStack);
     }
 
     async addToInventory(
         itemData: PhysicalItemSource,
-        container?: Embedded<ContainerPF2e>
+        container?: Embedded<ContainerPF2e>,
+        dontStack?: boolean
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
-        if (stackItem && stackItem.data.type !== "backpack") {
+        if (!dontStack && stackItem && stackItem.data.type !== "backpack") {
             const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
             await stackItem.update({ "data.quantity.value": stackQuantity });
             return stackItem;

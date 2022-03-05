@@ -55,17 +55,18 @@ export class LootPF2e extends ActorPF2e {
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
-        containerId?: string
+        containerId?: string,
+        dontStack = false
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.isOwner && targetActor.isOwner)) {
-            return super.transferItemToActor(targetActor, item, quantity, containerId);
+            return super.transferItemToActor(targetActor, item, quantity, containerId, dontStack);
         }
         if (this.isMerchant && item instanceof PhysicalItemPF2e) {
             const itemValue = extractPriceFromItem(item.data, quantity);
             if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
                 await addCoins(item.actor, { coins: itemValue, combineStacks: true });
-                return super.transferItemToActor(targetActor, item, quantity, containerId);
+                return super.transferItemToActor(targetActor, item, quantity, containerId, dontStack);
             } else if (this.isLoot) {
                 throw ErrorPF2e("Loot transfer failed");
             } else {
@@ -73,7 +74,7 @@ export class LootPF2e extends ActorPF2e {
             }
         }
 
-        return super.transferItemToActor(targetActor, item, quantity, containerId);
+        return super.transferItemToActor(targetActor, item, quantity, containerId, dontStack);
     }
 
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */
