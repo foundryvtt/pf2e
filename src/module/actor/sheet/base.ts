@@ -986,11 +986,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const container = $(event.target).parents('[data-item-is-container="true"]');
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = Number(item.data.data.quantity.value);
+        const stackable = Boolean(targetActor.findStackableItem(targetActor, item.data._source));
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
-            const popup = new MoveLootPopup(sourceActor, { maxQuantity: sourceItemQuantity }, (quantity, dontStack) => {
-                sourceActor.transferItemToActor(targetActor, item, quantity, containerId, dontStack);
-            });
+            const popup = new MoveLootPopup(
+                sourceActor,
+                { maxQuantity: sourceItemQuantity, lockStack: !stackable },
+                (quantity, dontStack) => {
+                    sourceActor.transferItemToActor(targetActor, item, quantity, containerId, dontStack);
+                }
+            );
 
             popup.render(true);
         } else {

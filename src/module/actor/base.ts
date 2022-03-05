@@ -761,7 +761,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
-    private findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
+    findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         const testItem = new ItemPF2e(itemData);
         const stackCandidates = actor.physicalItems.filter(
             (stackCandidate) =>
