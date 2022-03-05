@@ -494,7 +494,16 @@ export class CharacterPF2e extends CreaturePF2e {
                     }
                 }
 
-                modifiers.unshift(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
+                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
+                modifiers.unshift(
+                    new ModifierPF2e({
+                        label: wornArmor.name,
+                        type: MODIFIER_TYPE.ITEM,
+                        slug,
+                        modifier: wornArmor.acBonus,
+                        adjustments: this.getModifierAdjustments(["ac"], slug),
+                    })
+                );
             }
 
             // Proficiency bonus
