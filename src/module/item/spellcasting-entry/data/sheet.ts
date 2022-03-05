@@ -46,7 +46,6 @@ export interface SpellcastingSlotLevel {
 
 export interface SpellPrepEntry {
     spell: Embedded<SpellPF2e>;
-    chatData: Record<string, unknown>;
     signature?: boolean;
 }
 

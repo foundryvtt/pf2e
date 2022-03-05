@@ -30,17 +30,13 @@
         "rules": [
             {
                 "key": "BaseSpeed",
+                "predicate": {
+                    "all": [
+                        "self:skill:ath:rank:4"
+                    ]
+                },
                 "selector": "climb",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": "@actor.attributes.speed.value"
-                        }
-                    ],
-                    "field": "actor|data.skills.ath.rank"
-                }
+                "value": "@actor.attributes.speed.value"
             },
             {
                 "key": "Note",
@@ -50,7 +46,7 @@
                     ]
                 },
                 "selector": "athletics",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> You move 5 more feet on a success, and 10 more feet on a critical success.</p>"
+                "text": "<p class=\"compact-text\"><strong>{item|name}</strong> You move 5 more feet on a success, and 10 more feet on a critical success.</p>"
             }
         ],
         "source": {

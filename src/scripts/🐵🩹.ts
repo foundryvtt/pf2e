@@ -1,6 +1,3 @@
-/** Patch EntityCollection and Compendium classes to fix Foundry bug causing new compendium entities to be created from
- *  derived data
- */
 export function patchTokenClasses(): void {
     /**
      * Setting a hook on TokenHUD.clear(), which clears the HUD by fading out it's active HTML and recording the new display state.

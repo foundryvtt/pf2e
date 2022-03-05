@@ -1,3 +1,4 @@
+import "./cached-container";
 import "./control-icon";
 import "./door-control";
 import "./grid-highlight";

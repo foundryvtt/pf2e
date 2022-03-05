@@ -13,17 +13,6 @@ declare class FolderConfig extends FormApplication {
 }
 
 /**
- * An Image Popout Application
- * Provides optional support to edit the image path being viewed
- * @params image {String}       The image being viewed
- * @params options {Object}     Standard Application rendering options
- * @params onUpdate {Function}  An optional callback function which should be triggered if the Image path is edited
- */
-declare class ImagePopout extends FormApplication {
-    protected override _updateObject(event: Event, formData: {}): Promise<void>;
-}
-
-/**
  * Template Measurement Config Sheet
  *
  * @param template          The template object being configured

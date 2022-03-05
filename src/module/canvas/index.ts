@@ -1,11 +1,11 @@
 import { ScenePF2e } from "@module/scene";
 import { AmbientLightPF2e } from "./ambient-light";
-import { LightingLayerPF2e } from "./layer/lighting-layer";
+import { LightingLayerPF2e } from "./layer/lighting";
 import { MeasuredTemplatePF2e } from "./measured-template";
-import { SightLayerPF2e } from "./layer/sight-layer";
-import { TemplateLayerPF2e } from "./layer/template-layer";
+import { SightLayerPF2e } from "./layer/sight";
+import { TemplateLayerPF2e } from "./layer/template";
 import { TokenPF2e } from "./token";
-import { TokenLayerPF2e } from "./layer/token-layer";
+import { TokenLayerPF2e } from "./layer/token";
 
 export type CanvasPF2e = Canvas<ScenePF2e, AmbientLightPF2e, MeasuredTemplatePF2e, TokenPF2e, SightLayerPF2e>;
 

@@ -1,5 +1,41 @@
 # Changelog
 
+## Version 3.6.0
+
+### New Features
+* (stwlam) Add damage buttons to strike attack-roll messages
+* (TMun) Add Sasmira's Pathfinder-themed Dice So Nice! textures to the system
+
+### Core System Improvements
+* (stwlam) Show check roll results to everyone by default
+* (stwlam) Clear targets on encounter end, remove as target when a token's actor dies
+* (stwlam) Prevent players from deleting chat messages, undoing surprise change made in Foundry 9.251
+* (stwlam) Add support for GrantItem RE granting on actor update
+* (stwlam) Add predication support to token rule elements
+* (stwlam) Expose `JournalSheetPF2e` class at `CONFIG.PF2E.JournalEntry.sheetClass`
+
+### Bugfixes
+* (Cerapter) Fix handling ChoiceSet rule element's homebrew-item drop zone
+* (Friz) Remove sell-treasure and carry buttons from Loot actor sheet
+* (stwlam) Fix permissions on macros (e.g., Treat Wounds) intended for player use
+* (stwlam) Fix bug causing PC sheets to become unopenable if they have an unexpected combination of crafting feats
+* (stwlam) Fix cumulative item bonuses with Animal Skin and Mountain Stance
+* (Tikael) Add predicate testing to BaseSpeed rule element, fix Quick Climb feat automation
+* (Tikael) Fix simple hazard stealth DC display
+
+### Data Updates
+* (Manfred) Fix description of Petitioner of Axis from Bestiary 2
+* (NullWolf) Fix spell type of multiple spells
+* (NullWolf) Correct Helpful Poppet Rule Elements to Aid
+* (rectulo) Fix level and crafting requirements of Smoke Screen Snare (Greater)
+* (rectulo) Add description to Popdust alchemical item
+* (rectulo) Fix the level of the counteract modifier of the anchoring rune
+* (SpartanCPA) Have Raging Intimidation grant skill feats as the PC qualifies for them
+* (Telekenunes) Automate Deep Vision and Aldori Parry
+* (Telekenunes) Automate Feral Mutagen integration for Bestial Mutagens
+* (Tikael) Remove Mountain Stance macro in favor of a single effect item
+
+
 ## Version 3.5.2
 
 ### Bugfixes

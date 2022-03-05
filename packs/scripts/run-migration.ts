@@ -6,11 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
-import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
-import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
-import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fist-to-strike-re";
-import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-range-increment-res";
 import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
 import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
 import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
@@ -18,13 +13,10 @@ import { Migration718CarryType } from "@module/migration/migrations/718-carry-ty
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
 import { Migration721SetReloadValues } from "@module/migration/migrations/721-set-reload-values";
 import { Migration722CraftingSystemData } from "@module/migration/migrations/722-crafting-system-data";
+import { Migration724CraftingMaxItemLevel } from "@module/migration/migrations/724-crafting-max-item-level";
+import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quick-climb-rule-elements";
 
 const migrations: MigrationBase[] = [
-    new Migration710RarityToString(),
-    new Migration711HeritageItems(),
-    new Migration712ActorShieldStructure(),
-    new Migration713FistToStrikeRE(),
-    new Migration714RangeIncrementREs(),
     new Migration715DangerousSorcery(),
     new Migration716StrikeDamageSelector(),
     new Migration717TakeFeatLimits(),
@@ -32,6 +24,8 @@ const migrations: MigrationBase[] = [
     new Migration719ShrugFlanking(),
     new Migration721SetReloadValues(),
     new Migration722CraftingSystemData(),
+    new Migration724CraftingMaxItemLevel(),
+    new Migration725QuickClimbREs(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any

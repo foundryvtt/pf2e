@@ -6,7 +6,7 @@ import { DamageRollContext } from "./damage/damage";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
-    private static DAMAGE_TYPE_ICONS: Record<string, string | undefined> = Object.freeze({
+    private static DAMAGE_TYPE_ICONS: Record<string, string | undefined> = {
         acid: "vial",
         bludgeoning: "hammer",
         chaotic: "dizzy",
@@ -24,7 +24,7 @@ export class DamageRollModifiersDialog extends Application {
         positive: "sun",
         slashing: "swords",
         sonic: "volume-up",
-    });
+    };
 
     static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function): Promise<void> {
         const outcome = context.outcome ?? "success";

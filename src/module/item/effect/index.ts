@@ -8,12 +8,12 @@ export class EffectPF2e extends ItemPF2e {
         return EffectData;
     }
 
-    static readonly DURATION_UNITS: Record<string, number> = Object.freeze({
+    static DURATION_UNITS: Readonly<Record<string, number>> = {
         rounds: 6,
         minutes: 60,
         hours: 3600,
         days: 86400,
-    });
+    };
 
     get level(): number {
         return this.data.data.level.value;
