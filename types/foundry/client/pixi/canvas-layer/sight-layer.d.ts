@@ -35,6 +35,9 @@ declare class SightLayer<
     /** The canonical line-of-sight polygon which defines current Token visibility. */
     los: PIXI.Graphics;
 
+    /** A cached container which creates a render texture used for the LOS mask. */
+    losCache: CachedContainer;
+
     /** A status flag for whether the layer initialization workflow has succeeded */
     protected _initialized: boolean;
 
