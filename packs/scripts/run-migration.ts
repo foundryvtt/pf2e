@@ -14,6 +14,7 @@ import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shru
 import { Migration721SetReloadValues } from "@module/migration/migrations/721-set-reload-values";
 import { Migration722CraftingSystemData } from "@module/migration/migrations/722-crafting-system-data";
 import { Migration724CraftingMaxItemLevel } from "@module/migration/migrations/724-crafting-max-item-level";
+import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quick-climb-rule-elements";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -24,6 +25,7 @@ const migrations: MigrationBase[] = [
     new Migration721SetReloadValues(),
     new Migration722CraftingSystemData(),
     new Migration724CraftingMaxItemLevel(),
+    new Migration725QuickClimbREs(),
 ];
 
 // eslint-disable @typescript-eslint/no-explicit-any
