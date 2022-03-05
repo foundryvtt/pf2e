@@ -970,10 +970,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const item = sourceActor?.items.get(itemId);
 
         if (!sourceActor || !targetActor) {
-            return Promise.reject(new Error("PF2e System | Unexpected missing actor(s)"));
+            throw ErrorPF2e("Unexpected missing actor(s)");
         }
         if (!(item instanceof PhysicalItemPF2e)) {
-            return Promise.reject(new Error("PF2e System | Missing or invalid item"));
+            throw ErrorPF2e("Missing or invalid item");
         }
 
         const container = $(event.target).parents('[data-item-is-container="true"]');
