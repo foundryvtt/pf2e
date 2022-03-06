@@ -13,6 +13,7 @@ import { HazardSystemData } from "@actor/hazard/data";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -93,7 +94,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         return options;
     }
 
-    override getRollData(): Record<string, unknown> {
+    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
         return { actor: this.actor, item: this };
     }
 
@@ -240,23 +241,22 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Currently renders description text using enrichHTML.
      */
     protected processChatData<T extends { properties?: (string | number | null)[]; [key: string]: unknown }>(
-        htmlOptions: EnrichHTMLOptions = {},
+        htmlOptions: EnrichHTMLOptionsPF2e = {},
         data: T
     ): T {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
-            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
-                ...htmlOptions,
-                rollData: htmlOptions.rollData ?? this.getRollData(),
-            });
+            htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
+            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, htmlOptions);
+
             return chatData;
         }
 
         return data;
     }
 
-    getChatData(htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}): ItemSummaryData {
+    getChatData(htmlOptions: EnrichHTMLOptionsPF2e = {}, _rollOptions: Record<string, unknown> = {}): ItemSummaryData {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
