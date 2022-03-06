@@ -38,11 +38,12 @@ export class TrickMagicItemPopup {
         const skills = TRICK_MAGIC_SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
             value,
             label: game.i18n.localize(`PF2E.Skill${value.capitalize()}`),
+            modifier: this.actor.data.data.skills[value].value,
         }));
         const buttons = skills.reduce((accumulated: Record<string, DialogButton>, skill) => {
             const button: DialogButton = {
                 icon: '<i class="fas fa-dice-d20"></i>',
-                label: skill.label,
+                label: `${skill.label} (${skill.modifier})`,
                 callback: () => this.handleTrickItem(skill.value),
             };
             return { ...accumulated, [skill.value]: button };
