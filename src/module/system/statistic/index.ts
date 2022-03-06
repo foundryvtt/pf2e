@@ -62,30 +62,27 @@ function hasDC(statistic: Statistic<BaseStatisticData>): statistic is Statistic<
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
     abilityModifier?: ModifierPF2e;
+    modifiers: ModifierPF2e[];
 
     get slug() {
         return this.data.slug;
     }
 
-    get modifiers() {
-        return this.data.modifiers ?? [];
-    }
-
     constructor(public actor: ActorPF2e, public readonly data: T, public options?: RollOptionParameters) {
         // Add some base modifiers depending on data values
-        data.modifiers ??= [];
+        this.modifiers = [data.modifiers ?? []].flat();
         if (typeof data.rank !== "undefined") {
-            data.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+            this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
         }
         if (actor instanceof CharacterPF2e && data.ability) {
             this.abilityModifier = AbilityModifier.fromScore(data.ability, actor.abilities[data.ability].value);
-            data.modifiers.unshift(this.abilityModifier);
+            this.modifiers.unshift(this.abilityModifier);
         }
 
-        // Pre-test modifiers so that inspection outside of rolls works correctly
+        // Pre-test modifiers so that inspection outside of rolls (such as modifier popups) works correctly
         if (data.domains) {
             const options = this.createRollOptions(data.domains, {});
-            data.modifiers?.forEach((mod) => mod.test(options));
+            this.modifiers?.forEach((mod) => mod.test(options));
             data.check?.modifiers?.forEach((mod) => mod.test(options));
             data.dc?.modifiers?.forEach((mod) => mod.test(options));
         }
@@ -144,8 +141,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     withRollOptions(options?: RollOptionParameters): Statistic<T> {
-        const newOptions = mergeObject(this.options ?? {}, options);
-        return new Statistic(this.actor, this.data, newOptions);
+        const newOptions = mergeObject(deepClone(this.options) ?? {}, options);
+        return new Statistic(this.actor, deepClone(this.data), newOptions);
     }
 
     /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
@@ -211,8 +208,8 @@ class StatisticCheck {
 
     constructor(private parent: Statistic<StatisticDataWithCheck>, options?: RollOptionParameters) {
         const data = parent.data;
-        this.domains = (this.parent.data.domains ?? []).concat(data.check.domains ?? []);
-        this.modifiers = (data.modifiers ?? []).concat(data.check.modifiers ?? []);
+        this.domains = (parent.data.domains ?? []).concat(data.check.domains ?? []);
+        this.modifiers = parent.modifiers.concat(data.check.modifiers ?? []);
         this.label = game.i18n.localize(data.check.label);
 
         const rollOptions = parent.createRollOptions(this.domains, options);
@@ -323,7 +320,7 @@ class StatisticDifficultyClass {
         const rollOptions = parent.createRollOptions(domains, options);
 
         // toggle modifiers based on the specified options
-        this.modifiers = (data.modifiers ?? [])
+        this.modifiers = (parent.modifiers ?? [])
             .concat(data.dc.modifiers ?? [])
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
