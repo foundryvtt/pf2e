@@ -20,11 +20,11 @@
                 "choices": [
                     {
                         "label": "PF2E.OracleCurses.Label.Minor",
-                        "value": "self:curse:minor"
+                        "value": "minor"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "value": "self:curse:moderate"
+                        "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
@@ -33,7 +33,7 @@
                                 "self:feature:major-curse"
                             ]
                         },
-                        "value": "self:curse:major"
+                        "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
@@ -42,22 +42,18 @@
                                 "self:feature:extreme-curse"
                             ]
                         },
-                        "value": "self:curse:major"
+                        "value": "major"
                     }
                 ],
                 "flag": "oracleCurse",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "oracular-curse"
             },
             {
                 "key": "ToggleProperty",
                 "label": "PF2E.OracleCurses.Battle.MadeAStrike",
                 "property": "flags.pf2e.rollOptions.all.battle-mystery"
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "{item|flags.pf2e.rulesSelections.oracleCurse}"
             },
             {
                 "key": "FlatModifier",
@@ -90,7 +86,7 @@
                         "battle-mystery"
                     ],
                     "not": [
-                        "self:curse:minor"
+                        "oracular-curse:minor"
                     ]
                 },
                 "selector": "ac",
@@ -105,7 +101,7 @@
                         "battle-mystery"
                     ],
                     "not": [
-                        "self:curse:minor"
+                        "oracular-curse:minor"
                     ]
                 },
                 "selector": "saving-throw",
@@ -117,8 +113,8 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "any": [
-                        "self:curse:moderate",
-                        "self:curse:major"
+                        "oracular-curse:moderate",
+                        "oracular-curse:major"
                     ]
                 },
                 "selector": "strike-damage",
@@ -130,7 +126,8 @@
                 "key": "FastHealing",
                 "predicate": {
                     "all": [
-                        "encounter:non-trivial"
+                        "encounter:non-trivial",
+                        "oracular-curse:moderate"
                     ]
                 },
                 "value": "floor(@actor.level/2)"
@@ -140,7 +137,7 @@
                 "predicate": {
                     "all": [
                         "encounter:non-trivial",
-                        "self:curse:major"
+                        "oracular-curse:major"
                     ]
                 },
                 "value": "@actor.level"
@@ -150,8 +147,8 @@
                 "label": "PF2E.OracleCurses.Battle.NonTrivialEncounter",
                 "predicate": {
                     "any": [
-                        "self:curse:moderate",
-                        "self:curse:major"
+                        "oracular-curse:moderate",
+                        "oracular-curse:major"
                     ]
                 },
                 "property": "flags.pf2e.rollOptions.all.encounter:non-trivial"
@@ -161,7 +158,7 @@
                 "mode": "override",
                 "predicate": {
                     "all": [
-                        "self:curse:major"
+                        "oracular-curse:major"
                     ]
                 },
                 "selectors": [
@@ -174,7 +171,7 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "self:curse:major"
+                        "oracular-curse:major"
                     ]
                 },
                 "selector": "attack",
