@@ -1,10 +1,25 @@
 # Changelog
 
+## Version 3.6.2
+
+### Bugfixes
+* (stwlam) Fix styling of proficiency select menus on PC sheet
+* (stwlam) Fix coin transfers between PCs and merchant actors
+
+### Data Updates
+* (NullWolf) Add effects to Goggles of Night
+* (NullWolf) Set usage of Stole of Civility to "worn cloak"
+* (stwlam) Restore "Ranger" trait to Running Reload feat
+* (stwlam) Fix Fast Healing rule element on Battle Curse (Moderate) effect
+
+
 ## Version 3.6.1
+
 ### Bugfixes
 * (stwlam) Remove workaround of bug in Foundry 9.254
 * (stwlam) Fix most styling issues with the vehicle sheet's inventory tab
 * (Supe) Fix issue causing disabled ability bonuses to duplicate several times
+
 
 ## Version 3.6.0
 
