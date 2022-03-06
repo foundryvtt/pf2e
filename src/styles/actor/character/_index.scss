@@ -1,75 +1,7 @@
-aside .sidebar {
-    @import "sidebar";
-}
-
-.tab {
-    @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "bio", "inventory", "pfs", "crafting";
-}
-
 @import "proficiency-ranks";
 
-.directory-list {
-    display: flex;
-    flex-direction: column;
-    @include p-reset;
-    list-style: none;
-    width: 100%;
-
-    > h3, > li > h3 {
-        font-size: 16px;
-        font-weight: 500;
-        font-family: var(--serif);
-        line-height: 1;
-        color: white;
-        @include p-reset;
-        margin-left: 8px;
-    }
-
-    h4 {
-        @include p-reset;
-    }
-
-    .item {
-        ol {
-            list-style: none;
-        }
-    }
-
-    .action-header {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-        margin-top: 8px;
-        margin-left: 0;
-        padding: 0;
-        padding-bottom: 2px;
-        height: 32px;
-        border: none;
-
-        h3 {
-            color: white;
-            flex: 1 1 100%;
-        }
-
-        .item-controls {
-            color: var(--primary);
-            font-size: 12px;
-            flex: 1 0 auto;
-            a + a {
-                margin-left: 4px;
-            }
-        }
-
-        &:first-child {
-            margin-top: 0;
-        }
-
-        & + li {
-            border-top: none;
-        }
-    }
+aside .sidebar {
+    @import "sidebar";
 }
 
 nav.sheet-navigation {
@@ -86,5 +18,75 @@ nav.sheet-navigation {
         color: white;
         margin: 0;
         padding: 0 6px;
+    }
+}
+
+.sheet-body .sheet-content {
+    .tab {
+        @import "character", "actions", "effects", "spellcasting", "proficiencies", "feats", "bio", "inventory", "pfs", "crafting";
+    }
+
+    .directory-list {
+        display: flex;
+        flex-direction: column;
+        @include p-reset;
+        list-style: none;
+        width: 100%;
+
+        > h3, > li > h3 {
+            font-size: 16px;
+            font-weight: 500;
+            font-family: var(--serif);
+            line-height: 1;
+            color: white;
+            @include p-reset;
+            margin-left: 8px;
+        }
+
+        h4 {
+            @include p-reset;
+        }
+
+        .item {
+            ol {
+                list-style: none;
+            }
+        }
+
+        .action-header {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-top: 8px;
+            margin-left: 0;
+            padding: 0;
+            padding-bottom: 2px;
+            height: 32px;
+            border: none;
+
+            h3 {
+                color: white;
+                flex: 1 1 100%;
+            }
+
+            .item-controls {
+                color: var(--primary);
+                font-size: 12px;
+                flex: 1 0 auto;
+                a + a {
+                    margin-left: 4px;
+                }
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            & + li {
+                border-top: none;
+            }
+        }
     }
 }
