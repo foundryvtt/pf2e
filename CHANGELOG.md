@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 3.6.1
+### Bugfixes
+* (stwlam) Remove workaround of bug in Foundry 9.254
+* (stwlam) Fix most styling issues with the vehicle sheet's inventory tab
+* (Supe) Fix issue causing disabled ability bonuses to duplicate several times
+
 ## Version 3.6.0
 
 ### New Features
