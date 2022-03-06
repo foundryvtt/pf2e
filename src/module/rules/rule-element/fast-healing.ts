@@ -49,7 +49,7 @@ class FastHealingRuleElement extends RuleElementPF2e {
 
     /** Refresh the actor's temporary hit points at the start of its turn */
     override async onTurnStart(): Promise<void> {
-        if (this.ignored) return;
+        if (!this.test()) return;
 
         const value = this.resolveValue(this.data.value);
         if (typeof value !== "number") {
