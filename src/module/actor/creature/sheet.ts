@@ -42,7 +42,9 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         // Ability Scores
         if (sheetData.data.abilities) {
             for (const key of ABILITY_ABBREVIATIONS) {
-                sheetData.data.abilities[key].label = CONFIG.PF2E.abilities[key];
+                const ability = sheetData.data.abilities[key];
+                ability.label = CONFIG.PF2E.abilities[key];
+                ability.shortLabel = `PF2E.AbilityId.${key}`;
             }
         }
 

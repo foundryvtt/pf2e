@@ -1,6 +1,5 @@
 import { CreatureSheetPF2e } from "../creature/sheet";
-import { DicePF2e } from "@scripts/dice";
-import { ABILITY_ABBREVIATIONS, ALIGNMENT_TRAITS, SAVE_TYPES } from "@actor/data/values";
+import { ALIGNMENT_TRAITS, SAVE_TYPES } from "@actor/data/values";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor";
 import { NPCPF2e } from "@actor/index";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
@@ -22,8 +21,8 @@ import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "../sheet/data-types";
 import { ValuesList, ZeroToEleven } from "@module/data";
 import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
-import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
+import { CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
+import { HitPointsData, PerceptionData } from "@actor/data/base";
 import { SaveType } from "@actor/data";
 import { BookData } from "@item/book";
 import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
@@ -195,7 +194,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * @param sheetData Data from the actor associated to this sheet.
      */
     protected prepareItems(sheetData: NPCSheetData) {
-        this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
         this.prepareSkills(sheetData.data);
@@ -396,22 +394,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             .concat(customSelections)
             .filter((selection) => selection.label)
             .reduce((selections, selection) => mergeObject(selections, { [selection.value]: selection.label }), {});
-    }
-
-    private prepareAbilities(abilities: Abilities) {
-        for (const key of ABILITY_ABBREVIATIONS) {
-            interface SheetAbilityData extends AbilityData {
-                localizedCode?: string;
-                localizedName?: string;
-            }
-            const data: SheetAbilityData = abilities[key];
-            const localizedCode = game.i18n.localize(`PF2E.AbilityId.${key}`);
-            const nameKey = this.getAbilityNameKey(key);
-            const localizedName = game.i18n.localize(nameKey);
-
-            data.localizedCode = localizedCode;
-            data.localizedName = localizedName;
-        }
     }
 
     private prepareSize(sheetSystemData: NPCSystemSheetData) {
@@ -642,10 +624,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return objectHasKey(actorSizes, size) ? actorSizes[size] : "";
     }
 
-    private getAbilityNameKey(abilityCode: AbilityString): string {
-        return CONFIG.PF2E.abilities[abilityCode];
-    }
-
     // ROLLS
 
     private rollPerception(event: JQuery.ClickEvent) {
@@ -656,40 +634,18 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString) {
-        const bonus = this.actor.data.data.abilities[abilityId].mod;
-        const parts = ["@bonus"];
-        const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
-        const data = { bonus };
-        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data,
-            title,
-            speaker,
-        });
-    }
-
     private onClickRollable(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $label = $(event.currentTarget).closest(".rollable");
 
-        const ability = $label.parent().attr("data-attribute") as "perception" | AbilityString;
+        const attribute = $label.parent().attr("data-attribute");
         const skill = $label.parent().attr("data-skill") as SkillAbbreviation;
         const save = $label.parent().attr("data-save");
 
         const rollParams = eventToRollParams(event);
 
-        if (ability) {
-            switch (ability) {
-                case "perception":
-                    this.rollPerception(event);
-                    break;
-                default:
-                    this.rollAbility(event, ability);
-            }
+        if (attribute === "perception") {
+            this.rollPerception(event);
         } else if (skill) {
             const extraRollOptions = $(event.currentTarget)
                 .attr("data-options")
