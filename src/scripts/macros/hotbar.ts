@@ -6,6 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { StatisticModifier } from "@module/modifiers";
+import { LocalizePF2e } from "@system/localize";
 
 /**
  * Create a Macro from an Item drop.
@@ -157,8 +158,14 @@ if (a) {
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
 }
 
-export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
-    const prefix = pack ? `Compendium.${pack}` : "Item";
+export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) {
+    const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
+    if (!uuid) {
+        const message = LocalizePF2e.translations.PF2E.ErrorMessage.CantCreateEffectMacro;
+        ui.notifications.error(game.i18n.localize(message));
+        return;
+    }
+
     const command = `
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);
@@ -167,7 +174,7 @@ if (actors.length === 0) {
     return ui.notifications.error(message);
 }
 
-const ITEM_UUID = "${prefix}.${effect.id}"; // ${effect.data.name}
+const ITEM_UUID = "${uuid}"; // ${effect.name}
 const source = (await fromUuid(ITEM_UUID)).toObject();
 source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
 

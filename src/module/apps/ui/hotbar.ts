@@ -25,8 +25,8 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
             const prefix = typeof data.pack === "string" ? (`Compendium.${data.pack}` as const) : "Item";
             const item = await fromUuid(`${prefix}.${data.id}`);
 
-            if (item instanceof EffectPF2e && data.pack) {
-                return createToggleEffectMacro(data.pack, item, slot);
+            if (item instanceof EffectPF2e) {
+                return createToggleEffectMacro(item, slot);
             } else if (item instanceof ItemPF2e) {
                 return createItemMacro(item.toObject(), slot);
             }
