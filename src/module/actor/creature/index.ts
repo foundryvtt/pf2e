@@ -554,7 +554,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
         }
         const flag = `rollOptions.${domain}.${option}`;
-        return this.setFlag("pf2e", flag, !this.rollOptions["domain"]?.[option]);
+        return this.setFlag("pf2e", flag, !this.rollOptions[domain]?.[option]);
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */
