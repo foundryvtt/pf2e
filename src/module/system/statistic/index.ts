@@ -141,7 +141,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     withRollOptions(options?: RollOptionParameters): Statistic<T> {
-        const newOptions = mergeObject(deepClone(this.options) ?? {}, options);
+        const newOptions = mergeObject(this.options ?? {}, options ?? {}, { inplace: false });
         return new Statistic(this.actor, deepClone(this.data), newOptions);
     }
 
