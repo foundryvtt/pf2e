@@ -1,16 +1,6 @@
 &.inventory {
     height: calc(100% - 40px);
 
-    ol:not(.currency) {
-        @include p-reset;
-        list-style: none;
-        display: flex;
-
-        &:last-child {
-            margin-bottom: 42px;
-        }
-    }
-
     .wealth {
         display: flex;
         margin-bottom: 10px;
@@ -76,48 +66,6 @@
         };
     }
 
-    .item-name {
-        display: flex;
-        align-items: center;
-        font-weight: 500;
-        flex: 2;
-
-        h3,
-        h4 {
-            margin-right: auto;
-            line-height: 12px;
-            padding: 2px;
-            word-break: break-word;
-            cursor: pointer;
-
-            &:hover {
-                color: var(--primary);
-            }
-        }
-
-        span {
-            margin: 0 4px;
-        }
-
-        .item-image {
-            height: 24px;
-            width: 24px;
-            box-shadow: inset 0 0 0 1px var(--tertiary);
-            background-size: cover;
-            padding: 12px;
-            cursor: pointer;
-            margin-right: 4px;
-        }
-    }
-
-    .item-quantity,
-    .item-weight,
-    .item-controls,
-    .item-sell-value {
-        @include flex-center;
-        border-left: 1px solid var(--alt);
-    }
-
     .item-invested-total {
         flex: none;
     }
@@ -128,31 +76,11 @@
         padding-right: 3px;
     }
 
-    .item-quantity {
-        flex: 0 0 60px;
-        font-family: var(--sans-serif);
-
-        .item-decrease-quantity,
-        .item-increase-quantity {
-            height: 100%;
-            width: 18px;
-            text-align: center;
-            @include flex-center;
-        }
-    }
-
-    .item-weight {
-        flex: 0 0 36px;
-    }
-
     .item-controls {
         flex: 0 0 100px;
         justify-content: flex-end;
 
         .item-control {
-            margin-right: 4px;
-            color: var(--body);
-
             &.item-toggle-invest,
             &.item-toggle-equip,
             &.item-carry-type {
@@ -256,30 +184,8 @@
         overflow-y: scroll;
         height: calc(100% - 60px);
 
-        .item-list {
-            flex-direction: column;
-            width: 100%;
-            border: 1px solid var(--alt);
-            border-top: none;
-
-            & > li:nth-of-type(even) {
-                background-color: rgba($alt-color, 0.1);
-            }
-
-            .item {
-                display: flex;
-                justify-content: flex-end;
-                flex-wrap: wrap;
-                width: 100%;
-                font-size: 12px;
-                padding: 0;
-
-                &:last-child {
-                    .item-summary {
-                        border-bottom: none;
-                    }
-                }
-
+        ol.item-list {
+            li.item {
                 &.temporary-item {
                     background-color: #0005ff1d;
                 }
@@ -353,46 +259,6 @@
                     }
                 }
             }
-        }
-    }
-
-    .inventory-header {
-        @include micro;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 100%;
-        background-color: var(--alt);
-        @include button;
-        margin-top: 8px;
-        padding: 4px;
-        color: white;
-
-        &:first-child {
-            margin-top: 0;
-        }
-
-        h3 {
-            font-size: 14px;
-            text-transform: capitalize;
-            text-shadow: 0 0 2px rgba(black, 0.75);
-            margin: 2px;
-            margin-left: 4px;
-            cursor: default;
-            &:hover {
-                color: white;
-            }
-        }
-
-        .item-sell-value,
-        .item-quantity,
-        .item-weight {
-            @include flex-center;
-            margin-right: -2px;
-        }
-
-        .item-invested-total {
-            margin-right: 3px;
         }
     }
 

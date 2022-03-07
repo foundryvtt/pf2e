@@ -2,7 +2,7 @@ export const UpdateWorldTime = {
     listen: (): void => {
         Hooks.on("updateWorldTime", async (_total, diff) => {
             /** Handle effect-tracking by encounter turns when an encounter is active */
-            if (!game.combat?.active) {
+            if (!game.combat?.started) {
                 await game.pf2e.effectTracker.refresh();
                 game.pf2e.effectPanel.refresh();
             }

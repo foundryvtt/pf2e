@@ -28,13 +28,13 @@ import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { CraftingFormulaData } from "@module/crafting/formula";
+import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-import { CraftingEntryData } from "@module/crafting/crafting-entry";
+import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
-import { CHARACTER_SHEET_TABS } from "./values";
 import { WeaponPF2e } from "@item";
+import { CharacterSheetTabVisibility } from "./sheet";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -51,7 +51,6 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
     readonly _source: CharacterSource;
 }
 
-export type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         freeCrafting: boolean;

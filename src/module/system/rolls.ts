@@ -2,24 +2,31 @@ import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
-import { ModifierPF2e, StatisticModifier } from "../modifiers";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "../modifiers";
 import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
 import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { ErrorPF2e, fontAwesomeIcon, parseHTML, sluggify } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify } from "@util";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "./predication";
-import { StrikeTrait } from "@actor/data/base";
+import { StrikeData, StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget, StrikeTarget } from "@actor/creature/types";
 import { DamageCategory, DamageRollContext } from "./damage/damage";
+import { LocalizePF2e } from "./localize";
+import { Check } from "./check";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
     degreeOfSuccess?: ZeroToThree;
+    strike?: {
+        actor: ActorUUID | TokenDocumentUUID;
+        index: number;
+        name: string;
+    };
 }
 
 /** Possible parameters of a RollFunction */
@@ -111,7 +118,7 @@ export class CheckPF2e {
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
      */
     static async roll(
-        check: StatisticModifier,
+        check: CheckModifier,
         context: CheckRollContext = {},
         event: JQuery.TriggeredEvent | null = null,
         callback?: (
@@ -172,7 +179,40 @@ export class CheckPF2e {
             .join("");
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
+
+        const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
+        const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
+
+        const rollData: RollDataPF2e = (() => {
+            const data: RollDataPF2e = { totalModifier: check.totalModifier };
+
+            const contextItem = context.item;
+            if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
+                const strikes: StrikeData[] = context.actor.data.data.actions;
+                const strike = strikes.find((a) => {
+                    const strikeItem = a.item;
+                    if (!strikeItem) return false;
+                    if (strikeItem.isOfType("melee")) return strikeItem.id === contextItem.id;
+                    if (contextItem.isOfType("weapon")) {
+                        return (["id", "name", "isMelee"] as const).every(
+                            (key) => strikeItem[key] === contextItem[key]
+                        );
+                    }
+                    return false;
+                });
+                if (strike) {
+                    data.strike = {
+                        actor: context.actor.uuid,
+                        index: strikes.indexOf(strike),
+                        name: strike.item!.name,
+                    };
+                }
+            }
+
+            return data;
+        })();
+
+        const roll = await new RollCls(`${dice}${totalModifierPart}`, rollData).evaluate({ async: true });
 
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
 
@@ -339,23 +379,23 @@ export class CheckPF2e {
         context.isReroll = true;
 
         const oldRoll = message.roll;
-        const newRoll: Rolled<Roll<RollDataPF2e>> = await new Roll(oldRoll.formula, oldRoll.data).evaluate({
-            async: true,
-        });
+        const RollCls = message.roll.constructor as typeof Check.Roll;
+        const newRoll = await new RollCls(oldRoll.formula, oldRoll.data).evaluate({ async: true });
 
         // Keep the new roll by default; Old roll is discarded
-        let keepRoll = newRoll;
+        let keptRoll = newRoll;
         let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
 
         // Check if we should keep the old roll instead.
         if ((keep === "best" && oldRoll.total > newRoll.total) || (keep === "worst" && oldRoll.total < newRoll.total)) {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
-            keepRoll = oldRoll;
+            keptRoll = oldRoll;
         }
+
         const renders = {
-            old: await CheckPF2e.renderReroll(oldRoll),
-            new: await CheckPF2e.renderReroll(newRoll),
+            old: await CheckPF2e.renderReroll(oldRoll, { isOld: true }),
+            new: await CheckPF2e.renderReroll(newRoll, { isOld: false }),
         };
 
         const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
@@ -365,14 +405,14 @@ export class CheckPF2e {
         const dc = message.data.flags.pf2e.context?.dc ?? null;
         const oldFlavor = message.data.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
-        const createNewFlavor = keepRoll === newRoll && !!degree;
+        const createNewFlavor = keptRoll === newRoll && !!degree;
 
         const newFlavor = createNewFlavor
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
                   const target = message.data.flags.pf2e.context?.target ?? null;
-                  const newFlavor = await this.createFlavorMarkup({ degree, target });
-                  $parsedFlavor.find(".target-outcome").replaceWith(newFlavor);
+                  const flavor = await this.createFlavorMarkup({ degree, target });
+                  $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
               })()
             : oldFlavor;
@@ -385,7 +425,7 @@ export class CheckPF2e {
         }
 
         await message.delete({ render: false });
-        await keepRoll.toMessage(
+        await keptRoll.toMessage(
             {
                 content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
@@ -403,26 +443,32 @@ export class CheckPF2e {
 
     /**
      * Renders the reroll, highlighting the old result if it was a critical success or failure
-     * @param roll - The roll that is to be rerendered
+     * @param roll  The roll that is to be rerendered
+     * @param isOld This is the old roll render, so remove damage or other buttons
      */
-    static async renderReroll(roll: Rolled<Roll>): Promise<string> {
+    static async renderReroll(roll: Rolled<Roll>, { isOld }: { isOld: boolean }): Promise<string> {
         const die = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20);
         if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
 
         const html = await roll.render();
-        if (![1, 20].includes(die.total)) return html;
+        const element = parseHTML(`<div>${html}</div>`);
 
-        const element = parseHTML(html);
+        // Remove the buttons if this is the discarded roll
+        if (isOld) element.querySelector(".message-buttons")?.remove();
+
+        if (![1, 20].includes(die.total)) return element.innerHTML;
+
         element.querySelector(".dice-total")?.classList.add(die.total === 20 ? "success" : "failure");
-        return element.outerHTML;
+
+        return element.innerHTML;
     }
 
     private static async createFlavorMarkup({ degree, target }: CreateFlavorMarkupParams): Promise<string> {
         if (!degree) return "";
 
         const { dc } = degree;
-        const needsDCParam = typeof dc.label === "string" && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
-        if (needsDCParam && dc.label) dc.label &&= `${dc.label.trim()}: {dc}`;
+        const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
+        const customLabel = needsDCParam ? `<dc>${dc.label}: {dc}</dc>` : dc.label ?? null;
 
         const targetActor = await (async (): Promise<ActorPF2e | null> => {
             if (!target?.actor) return null;
@@ -460,20 +506,20 @@ export class CheckPF2e {
             };
         })();
 
+        const translations = LocalizePF2e.translations.PF2E.Check;
+
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): FlavorTemplateData["dc"] => {
-            const targetAC = targetActor?.attributes.ac;
-
-            const dcLabel = ((): string => {
-                const key = dc.slug ? `PF2E.Check.DC.Specific.${dc.slug}` : "PF2E.Check.DC.Unspecific";
-                return dc.slug === "ac" && targetAC
-                    ? game.i18n.format(key, { dc: targetAC.value })
-                    : game.i18n.format(key, { dc: dc.value });
-            })();
+            const dcType = game.i18n.localize(
+                objectHasKey(translations.DC.Specific, dc.slug)
+                    ? translations.DC.Specific[dc.slug]
+                    : translations.DC.Unspecific
+            );
 
             // Get any circumstance penalties or bonuses to the target's DC
+            const targetAC = targetActor?.attributes.ac;
             const circumstances =
-                targetAC instanceof StatisticModifier
+                dc.slug === "ac" && targetAC instanceof StatisticModifier
                     ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
                     : null;
             const preadjustedDC =
@@ -486,10 +532,13 @@ export class CheckPF2e {
                 : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
 
             if (!(preadjustedDC && circumstances) || preadjustedDC === targetAC?.value) {
-                const unadjustedDC = targetData
-                    ? game.i18n.format("PF2E.Check.Target.WithDC", { target: targetData.name, dc: dcLabel })
-                    : dcLabel;
-                return { markup: unadjustedDC, visibility };
+                const labelKey = targetData
+                    ? translations.DC.Label.WithTarget
+                    : customLabel ?? translations.DC.Label.NoTarget;
+                const dcValue = dc.slug === "ac" && targetAC ? targetAC.value : dc.value;
+                const markup = game.i18n.format(labelKey, { dcType, dc: dcValue, target: targetData?.name ?? null });
+
+                return { markup, visibility };
             }
 
             const adjustment = {
@@ -498,8 +547,9 @@ export class CheckPF2e {
                 circumstances: circumstances.map((c) => ({ label: c.label, value: c.modifier })),
             } as const;
 
-            const markup = game.i18n.format("PF2E.Check.Target.AdjustedDC", {
+            const markup = game.i18n.format(translations.DC.Label.AdjustedTarget, {
                 target: targetData?.name ?? game.user.name,
+                dcType,
                 preadjusted: preadjustedDC,
                 adjusted: dc.value,
             });
@@ -537,13 +587,8 @@ export class CheckPF2e {
             const dosKey = DEGREE_OF_SUCCESS_STRINGS[degree.value];
             const degreeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.${checkOrAttack}.${dosKey}`);
 
-            const markup = adjustment
-                ? game.i18n.format("PF2E.Check.Result.Label", { degree: degreeLabel, offset: offset.value })
-                : game.i18n.format("PF2E.Check.Result.Label", {
-                      degree: degreeLabel,
-                      offset: offset.value,
-                      adjustment,
-                  });
+            const resultKey = adjustment ? "PF2E.Check.Result.AdjustedLabel" : "PF2E.Check.Result.Label";
+            const markup = game.i18n.format(resultKey, { degree: degreeLabel, offset: offset.value, adjustment });
             const visibility = game.settings.get("pf2e", "metagame.showResults");
 
             return { markup, visibility };

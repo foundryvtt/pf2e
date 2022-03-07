@@ -31,7 +31,6 @@ import {
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
     MartialProficiency,
-    CharacterSheetTabVisibility,
     LinkedProficiency,
     AuxiliaryAction,
 } from "./data";
@@ -47,7 +46,6 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
@@ -58,27 +56,26 @@ import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { CharacterSource, SaveType } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CraftingFormula } from "@module/crafting/formula";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
-import { CraftingEntry } from "@module/crafting/crafting-entry";
+import { CraftingEntry, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemCarryType } from "@item/physical/data";
-import { CreateAuxiliaryParams } from "./types";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 import { DamageRollContext } from "@system/damage/damage";
 import { RollNotePF2e } from "@module/notes";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
+import { CharacterSheetTabVisibility } from "./data/sheet";
+import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
 
-export class CharacterPF2e extends CreaturePF2e {
+class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
         return CharacterData;
     }
@@ -122,7 +119,10 @@ export class CharacterPF2e extends CreaturePF2e {
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.data.data.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        return (await fromUUIDs(formulas.map((data) => data.uuid)))
+        const items: unknown[] = await fromUUIDs(formulas.map((data) => data.uuid));
+        if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
+
+        return items
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => {
                 const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
@@ -132,16 +132,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingEntries(): Promise<CraftingEntry[]> {
         const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntriesData = this.data.data.crafting.entries;
-        const entries: CraftingEntry[] = [];
-
-        for (const key in craftingEntriesData) {
-            if (craftingEntriesData[key]) {
-                entries.push(new CraftingEntry(this, craftingFormulas, craftingEntriesData[key]));
-            }
-        }
-
-        return entries;
+        return Object.values(this.data.data.crafting.entries).map(
+            (entry) => new CraftingEntry(this, craftingFormulas, entry)
+        );
     }
 
     async getCraftingEntry(selector: string): Promise<CraftingEntry | undefined> {
@@ -192,6 +185,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Flags
         const { flags } = this.data;
         flags.pf2e.freeCrafting ??= false;
+        flags.pf2e.quickAlchemy ??= false;
         flags.pf2e.sheetTabs = mergeObject(
             CHARACTER_SHEET_TABS.reduce(
                 (tabs, tab) => ({
@@ -287,10 +281,10 @@ export class CharacterPF2e extends CreaturePF2e {
             };
         }
 
-        // Decorate crafting formulas stored directly on the actor
-        this.data.data.crafting.formulas.forEach((formula) => {
+        // Indicate that crafting formulas stored directly on the actor are deletable
+        for (const formula of this.data.data.crafting.formulas) {
             formula.deletable = true;
-        });
+        }
     }
 
     /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
@@ -309,9 +303,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const systemData = this.data.data;
         const { synthetics } = this;
 
-        if (!this.getFlag("pf2e", "disableABP")) {
-            AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+        if (!this.data.flags.pf2e.disableABP) {
+            game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         }
+
         // Extract as separate variables for easier use in this method.
         const { statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -423,7 +418,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
             stat.value = stat.totalModifier;
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, proficiencyRank);
@@ -436,7 +431,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -489,7 +484,7 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             const proficiency = wornArmor?.category ?? "unarmored";
 
-            if (wornArmor) {
+            if (wornArmor && wornArmor.acBonus > 0) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
                 if (wornArmor.checkPenalty) {
                     // armor check penalty
@@ -498,7 +493,16 @@ export class CharacterPF2e extends CreaturePF2e {
                     }
                 }
 
-                modifiers.unshift(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
+                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
+                modifiers.unshift(
+                    new ModifierPF2e({
+                        label: wornArmor.name,
+                        type: MODIFIER_TYPE.ITEM,
+                        slug,
+                        modifier: wornArmor.acBonus,
+                        adjustments: this.getModifierAdjustments(["ac"], slug),
+                    })
+                );
             }
 
             // Proficiency bonus
@@ -601,7 +605,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", "all"];
+            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -618,7 +622,7 @@ export class CharacterPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.rank = skill.rank;
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
@@ -633,7 +637,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -651,7 +655,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const shortForm = sluggify(skill.name) as SkillAbbreviation;
             const rank = skill.data.proficient.value;
 
-            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "all"];
+            const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
                 AbilityModifier.fromScore("int", systemData.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
@@ -674,7 +678,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = (args: RollParameters) => {
+            stat.roll = async (args: RollParameters): Promise<void> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, rank);
@@ -684,7 +688,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                CheckPF2e.roll(
+                await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
                     args.event,
@@ -738,7 +742,9 @@ export class CharacterPF2e extends CreaturePF2e {
         })();
         synthetics.strikes.unshift(unarmed);
 
-        const ammos = itemTypes.consumable.filter((item) => item.data.data.consumableType.value === "ammo");
+        const ammos = itemTypes.consumable.filter(
+            (item) => item.data.data.consumableType.value === "ammo" && !item.isStowed
+        );
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
         const weapons = [itemTypes.weapon, strikes].flat();
@@ -1104,8 +1110,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Extract weapon roll notes
         const notes = selectors.flatMap((key) => duplicate(rollNotes[key] ?? []));
+        const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
-        if (weapon.group === "bomb" && !AutomaticBonusProgression.isEnabled) {
+        if (weapon.group === "bomb" && !ABP.isEnabled) {
             const attackBonus = Number(itemData.data.bonus?.value) || 0;
             if (attackBonus !== 0) {
                 modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
@@ -1117,7 +1124,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const potency = selectors
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
-            AutomaticBonusProgression.applyPropertyRunes(potency, weapon);
+            ABP.applyPropertyRunes(potency, weapon);
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
 
             if (potencyRune) {
@@ -1341,7 +1348,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
-                        ui.notifications.warn(game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name }));
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
+                        );
                         return;
                     }
 
@@ -1654,7 +1663,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 }
 
-export interface CharacterPF2e {
+interface CharacterPF2e {
     readonly data: CharacterData;
 
     deleteEmbeddedDocuments(
@@ -1674,6 +1683,4 @@ export interface CharacterPF2e {
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
 
-interface CharacterHitPointsSummary extends HitPointsSummary {
-    recoveryMultiplier: number;
-}
+export { CharacterPF2e };

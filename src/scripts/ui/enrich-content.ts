@@ -116,7 +116,7 @@ export const EnrichContent = {
             } else {
                 const paramParts = param.split(":");
                 if (paramParts.length !== 2) {
-                    return error(`Error. Expected 'parameter:value' but got: ${param}`);
+                    return error(`Error. Expected "parameter:value" but got: ${param}`);
                 }
                 params[paramParts[0].trim()] = paramParts[1].trim();
             }
@@ -148,11 +148,11 @@ export const EnrichContent = {
             html.setAttribute("data-pf2-dc", checkDC);
         }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
-        const label = params.name ?? item?.name ?? params.type;
-        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { label }));
-        html.setAttribute("data-pf2-repost-flavor", label);
+        const name = params.name ?? item?.name ?? params.type;
+        html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
+        html.setAttribute("data-pf2-repost-flavor", name);
         html.setAttribute("data-pf2-show-dc", params.showDC ?? "gm");
-        html.setAttribute("data-pf2-adjustment", params.adjustment);
+        html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
 
         switch (params.type) {
             case "flat":
@@ -228,7 +228,7 @@ const getCheckDc = (params: Record<string, string | undefined>, item?: ItemPF2e)
                         base,
                     },
                 });
-                return stat.dc()!.value.toString();
+                return String(stat.dc.value);
             }
             return base.toString();
         };

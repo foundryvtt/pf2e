@@ -27,9 +27,8 @@ import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isEquipped } from "../item/physical/usage";
 import { ActorDimensions } from "./types";
+import { CombatantPF2e } from "@module/encounter";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -310,6 +309,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Setup the basic structure of pf2e flags with roll options
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
 
@@ -443,6 +443,24 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             flavor.success = "PF2E.Strike.Ranged.Success";
         }
         return flavor;
+    }
+
+    /** If there is an active encounter, set roll options for it and this actor's participant */
+    setEncounterRollOptions(): void {
+        const encounter = game.ready ? game.combat : null;
+        const participants = encounter?.combatants.contents ?? [];
+        if (!(encounter?.started && participants.some((c) => c.actor === this && typeof c.initiative === "number"))) {
+            return;
+        }
+
+        const rollOptionsAll = this.rollOptions.all;
+        rollOptionsAll[`encounter:round:${encounter.round}`] = true;
+        rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
+        rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
+
+        const thisCombatant = participants.find((c): c is Embedded<CombatantPF2e<this>> => c.actor === this)!;
+        const rank = participants.indexOf(thisCombatant) + 1;
+        rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
     getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
@@ -761,50 +779,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
-     * @param item       The item
-     * @param carryType  Location to be set to
-     * @param handsHeld  Number of hands being held
-     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
-     */
-    async adjustCarryType(item: Embedded<PhysicalItemPF2e>, carryType: ItemCarryType, handsHeld = 0, inSlot = false) {
-        if (carryType === "stowed") {
-            // since there's still an "items need to be in a tree" view, we
-            // need to actually put the item in a container when it's stowed.
-            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
-            await item.update({
-                "data.containerId.value": container?.id ?? "",
-                "data.equipped.carryType": "stowed",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
-            });
-        } else {
-            const equipped: EquippedData = {
-                carryType: carryType,
-                handsHeld: carryType === "held" ? handsHeld : 0,
-                inSlot: item.data.usage.where ? inSlot : undefined,
-            };
-
-            const updates = [];
-
-            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
-                // see if they have another set of armor equipped
-                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
-                for (const armor of wornArmors) {
-                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
-                }
-            }
-
-            updates.push({
-                _id: item.id,
-                "data.containerId.value": null,
-                "data.equipped": equipped,
-            });
-            await this.updateEmbeddedDocuments("Item", updates);
-        }
-    }
-
-    /**
      * Moves an item into the inventory into or out of a container.
      * @param actor       Actor whose inventory should be edited.
      * @param getItem     Lambda returning the item.
@@ -1073,18 +1047,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Show floaty text when applying damage or healing */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: ActorUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Show floaty text when applying damage or healing
         const changedHP = changed.data?.attributes?.hp;
         const currentHP = this.hitPoints;
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.data?.details && "level" in changed.data.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
+        }
+
+        // Run preUpdateActor rule element callbacks
+        type WithPreUpdateActor = RuleElementPF2e & { preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]> };
+        const rules = this.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
+        if (rules.length > 0) {
+            const clone = this.clone(changed, { keepId: true });
+            this.data.flags.pf2e.rollOptions = clone.data.flags.pf2e.rollOptions;
+            for (const rule of rules) {
+                await rule.preUpdateActor();
+            }
         }
 
         await super._preUpdate(changed, options, user);
@@ -1181,10 +1166,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
         conditionType: ConditionSlug,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
-
-    getFlag(scope: string, key: string): any;
-    getFlag(scope: "core", key: "sourceId"): string | undefined;
-    getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
 }
 
 export interface HitPointsSummary {

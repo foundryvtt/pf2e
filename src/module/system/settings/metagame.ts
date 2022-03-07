@@ -31,7 +31,7 @@ export class MetagameSettings extends SettingsMenuPF2e {
             showResults: {
                 name: "PF2E.SETTINGS.Metagame.ShowResults.Name",
                 hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
-                default: "gm",
+                default: "all",
                 type: String,
                 choices: {
                     none: "PF2E.SETTINGS.Metagame.ShowResults.None",

@@ -9,8 +9,14 @@
     }
 }
 
-.chat-message > .message-header {
-    align-items: center;
-}
+.chat-message {
+    @import "action", "check", "damage", "reroll";
 
-@import "action", "conditions", "damage", "reroll", "checks";
+    > .message-header {
+        align-items: center;
+    }
+
+    > .message-content {
+        @import "conditions";
+    }
+}

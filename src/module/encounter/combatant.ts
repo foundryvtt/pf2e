@@ -42,8 +42,14 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
     async toggleDefeated(): Promise<void> {
-        await this.update({ defeated: !this.defeated });
+        const isDead = !this.defeated;
+        await this.update({ defeated: isDead });
         await this.token?.object.toggleEffect(game.settings.get("pf2e", "deathIcon"), { overlay: true });
+
+        /** Remove this combatant's token as a target if it died */
+        if (isDead && this.token?.object?.isTargeted) {
+            this.token.object.setTarget(false, { releaseOthers: false });
+        }
     }
 
     /**

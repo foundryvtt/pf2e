@@ -1,5 +1,149 @@
 # Changelog
 
+## Version 3.6.2
+
+### Bugfixes
+* (stwlam) Fix styling of proficiency select menus on PC sheet
+* (stwlam) Fix coin transfers between PCs and merchant actors
+
+### Data Updates
+* (NullWolf) Add effects to Goggles of Night
+* (NullWolf) Set usage of Stole of Civility to "worn cloak"
+* (stwlam) Restore "Ranger" trait to Running Reload feat
+* (stwlam) Fix Fast Healing rule element on Battle Curse (Moderate) effect
+
+
+## Version 3.6.1
+
+### Bugfixes
+* (stwlam) Remove workaround of bug in Foundry 9.254
+* (stwlam) Fix most styling issues with the vehicle sheet's inventory tab
+* (Supe) Fix issue causing disabled ability bonuses to duplicate several times
+
+
+## Version 3.6.0
+
+### New Features
+* (stwlam) Add damage buttons to strike attack-roll messages
+* (TMun) Add Sasmira's Pathfinder-themed Dice So Nice! textures to the system
+
+### Core System Improvements
+* (stwlam) Show check roll results to everyone by default
+* (stwlam) Clear targets on encounter end, remove as target when a token's actor dies
+* (stwlam) Prevent players from deleting chat messages, undoing surprise change made in Foundry 9.251
+* (stwlam) Add support for GrantItem RE granting on actor update
+* (stwlam) Add predication support to token rule elements
+* (stwlam) Expose `JournalSheetPF2e` class at `CONFIG.PF2E.JournalEntry.sheetClass`
+
+### Bugfixes
+* (Cerapter) Fix handling ChoiceSet rule element's homebrew-item drop zone
+* (Friz) Remove sell-treasure and carry buttons from Loot actor sheet
+* (stwlam) Fix permissions on macros (e.g., Treat Wounds) intended for player use
+* (stwlam) Fix bug causing PC sheets to become unopenable if they have an unexpected combination of crafting feats
+* (stwlam) Fix cumulative item bonuses with Animal Skin and Mountain Stance
+* (Tikael) Add predicate testing to BaseSpeed rule element, fix Quick Climb feat automation
+* (Tikael) Fix simple hazard stealth DC display
+
+### Data Updates
+* (Manfred) Fix description of Petitioner of Axis from Bestiary 2
+* (NullWolf) Fix spell type of multiple spells
+* (NullWolf) Correct Helpful Poppet Rule Elements to Aid
+* (rectulo) Fix level and crafting requirements of Smoke Screen Snare (Greater)
+* (rectulo) Add description to Popdust alchemical item
+* (rectulo) Fix the level of the counteract modifier of the anchoring rune
+* (SpartanCPA) Have Raging Intimidation grant skill feats as the PC qualifies for them
+* (Telekenunes) Automate Deep Vision and Aldori Parry
+* (Telekenunes) Automate Feral Mutagen integration for Bestial Mutagens
+* (Tikael) Remove Mountain Stance macro in favor of a single effect item
+
+
+## Version 3.5.2
+
+### Bugfixes
+* (stwlam) Fix regression with automatic flanking detection
+* (stwlam) Fix display of strike damage tooltips on PC sheet
+* (stwlam) Correct some user-visibility quirks on spell cards
+* (stwlam) Restore craft action macro
+
+### Data Updates
+* (NullWolf) Add Spell Effect: Calm Emotions
+* (stwlam) Restore Ray of Enfeeblement as both an attack and save spell
+
+
+## Version 3.5.1
+
+### Core System Improvements
+* (stwlam) Make no-ammo message more helpful for new players
+
+### Bugfixes
+* (stwlam) Fix several edge cases with DC labels on roll chat messages
+* (stwlam) Fix structure of old character crafting data (affects only some PCs)
+
+### Data Updates
+* (JDCalvert) Set reload 0 values for several ranged weapons
+* (NullWolf) Correct a handful of rituals' spell types from attack to utility
+
+
+## Version 3.5.0
+
+### Core System Improvements
+* (stwlam) On system update, warn GMs for each active module without V9 compatibility
+* (stwlam) Bundle Roboto font variants that include Cyrillic
+* (stwlam) Enforce ammunition usage when necessary to strike
+* (stwlam) Allow modules to change the behavior of Automatic Bonus Progression variant
+* (stwlam) Disable recovery check button when not dying
+* (Supe) Add rest for the night button to the sheet
+* (Telekenunes) Added tooltips to PC sheet's tab navigation
+* (Tikael) Add target roll options to action macros and improve automation of disarm
+
+### Bugfixes
+* (Chup) Fix color of select menu options on NPC sheet
+* (Eddie) Fix Snarecrafter dedication & similar feats getting treated as daily preparation crafting
+* (stwlam) Fix secret rolls when showRollDialogs setting is enabled
+* (stwlam) Remove adding of item bonuses to bomb attack rolls when ABP is enabled
+* (stwlam) Fix familiar statistics when using Proficiency Without Level
+* (stwlam) Fix roll notes being unconditionally included in rolls
+* (stwlam) Add workaround for Foundry not detecting temporary size changes on unlinked tokens
+* (stwlam) Fix crafting-entry quick-add button when there are multiple crafting entries
+* (Tikael) Fix repost leaking DC to players
+
+### Data Updates
+* (Abaddon) Brush up Abomination Vaults book 2, chapter 2
+* (cepvep) Add ChoiceSet to Spell Effects A to E
+* (Dorako) Fix link to Grabbed condition on Giant Pirate Skeleton
+* (Friz) Fix traits on Spike Snare
+* (LebombJames) Fix Dueling Cape effect duration
+* (Mindbane) Add missing rule elements for Lucky Keepsake, Poison Resistance, and Illusion Sense
+* (Monkey Bars) Add missing traits to Redpitch Bombs
+* (Monkey Bars) Standardize sources for many items
+* (NullWolf) Add missing skills to Kobold Trapmaster
+* (NullWolf) Fix level and cost of Extendable Pincer
+* (NullWolf) Add Resistance Rule Element to Resist Ruin ancestry feat
+* (NullWolf) Add Spell effect for Lay on Hands (vs. Undead) and update spell description
+* (NullWolf) Correct Crystal Shards description and damage
+* (NullWolf) Correct typos on Several Creature Family Abilities
+* (NullWolf) Fix predicate on Effect: Overwatch Field
+* (NullWolf) Fix spell type, save type, and damage of multiple spells
+* (NullWolf) Set correct traits for Spirit Strikes AdjustStrike Rule Element
+* (putty) Automate one shot, one kill
+* (rectulo) Fix description in Cold Comfort
+* (rectulo) Fix the splash damage of sulfur bomb (all versions)
+* (Sanderson Tavares) Automate stance on Reth
+* (stwlam) Add a TokenEffectIcon RE to Everburning Torch
+* (stwlam) Fix formula syntax in Reflecion of Life (Fast Healing) effect
+* (TMun) Add One Shot 4 unique NPCs
+* (Tikael) Add GrantItem to cleric doctrines and brushup missing automation
+* (Tikael) Add Improvised tag and automate the penalty
+* (Tikael) Add NPCs and needed items for QftFF 2
+* (Tikael) Add One Shot 4 pre-gen PCs
+* (Tikael) Add Pine Leshy heritage
+* (Tikael) Add missing Skymetals
+* (Tikael) Clean up resolving DCs for inline checks
+* (Tikael) Fix inline button in Wishbound Belker
+* (Tikael) Fix roll formulas containing functions inside braces
+* (Tikael) Fix spacing after bolded text in compendium items
+
+
 ## Version 3.4.4
 
 ### Bugfixes
@@ -379,8 +523,8 @@
 * (Attila) Correct Rarity of Beastkin and Ganzi heritages
 * (Drental) Automate item granted by Pilgrim's Token
 * (MnkyBrs) Brush up Agents of Edgewatch book 5 NPC
-* (Nullwolf) Correct name of Gasping Marsh spell
-* (Nullwolf) Add missing strike effect to Dream Spider
+* (NullWolf) Correct name of Gasping Marsh spell
+* (NullWolf) Add missing strike effect to Dream Spider
 * (Rectulo) Fix formatting error in Oracle mystery
 * (Rectulo) Fix formatting of several spells
 * (Rectulo) Fix formatting of Staff of Providence and Spider Guns

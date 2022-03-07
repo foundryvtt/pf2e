@@ -115,7 +115,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8AyVNI3UW7Fi7lwf",
+            "_id": "BIPYcj54XnRTMVwW",
             "data": {
                 "MAP": {
                     "value": ""
@@ -138,7 +138,7 @@
                     "value": false
                 },
                 "containerId": {
-                    "value": ""
+                    "value": null
                 },
                 "damage": {
                     "damageType": "piercing",
@@ -150,8 +150,8 @@
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "held",
+                    "handsHeld": 1
                 },
                 "equippedBulk": {
                     "value": ""
@@ -192,13 +192,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -218,16 +218,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": {
                     "value": 2
@@ -242,7 +242,7 @@
                 },
                 "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -285,7 +285,7 @@
             "type": "weapon"
         },
         {
-            "_id": "HridaSnYgaxIIhhe",
+            "_id": "p2gclHAd9Ei4IUot",
             "data": {
                 "MAP": {
                     "value": ""
@@ -308,7 +308,7 @@
                     "value": false
                 },
                 "containerId": {
-                    "value": ""
+                    "value": null
                 },
                 "damage": {
                     "damageType": "piercing",
@@ -412,7 +412,7 @@
                 },
                 "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -460,6 +460,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -506,6 +507,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -546,7 +548,7 @@
             "type": "melee"
         },
         {
-            "_id": "hRKki6pHyehsovOW",
+            "_id": "Aq9Qe7xGRm2JMoFA",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -651,7 +653,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.skill-check.chameleonSkin"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "chameleonSkin",
+                                "action:hide"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -676,7 +695,7 @@
             "type": "action"
         },
         {
-            "_id": "Zj5b80r3sG9LGkJK",
+            "_id": "gbsLwd2FBQal3xdZ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -688,7 +707,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A skulk's Strikes deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>A skulk's Strikes deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -841,20 +860,7 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "hiding and not covered in clothing or armor",
-                        "predicate": {
-                            "all": [
-                                "action:hide"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -864,12 +870,7 @@
                     "rarity": "common",
                     "value": []
                 },
-                "variants": {
-                    "0": {
-                        "label": "+10 to hide (Chameleon Skin)",
-                        "options": "action:hide"
-                    }
-                }
+                "variants": {}
             },
             "effects": [],
             "flags": {},

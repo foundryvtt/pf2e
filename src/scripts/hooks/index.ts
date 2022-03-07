@@ -2,9 +2,9 @@ import { CanvasInit } from "./canvas-init";
 import { CanvasReady } from "./canvas-ready";
 import { CloseCombatTrackerConfig } from "./close-combat-tracker-config";
 import { CloseWorldClockSettings } from "./close-world-clock-settings";
+import { DiceSoNiceReady } from "./dice-so-nice-ready";
 import { DropCanvasData } from "./drop-canvas-data";
 import { GetSceneControlButtons } from "./get-scene-control-buttons";
-import { HotbarDrop } from "./hotbar-drop";
 import { Init } from "./init";
 import { LightingRefresh } from "./lighting-refresh";
 import { Ready } from "./ready";
@@ -23,10 +23,10 @@ export const HooksPF2e = {
             CanvasReady,
             CloseCombatTrackerConfig,
             CloseWorldClockSettings,
+            DiceSoNiceReady,
             DropCanvasData,
             GetSceneControlButtons,
             Init,
-            HotbarDrop,
             LightingRefresh,
             Ready,
             RenderActorDirectory,

@@ -35,6 +35,7 @@
             },
             "perception": {},
             "resolve": {
+                "max": 0,
                 "value": 0
             },
             "sp": {
@@ -205,6 +206,7 @@
                 }
             },
             "heroPoints": {
+                "max": 3,
                 "value": 1
             }
         },
@@ -528,7 +530,12 @@
                         "isAlchemical": true,
                         "isDailyPrep": true,
                         "key": "CraftingEntry",
-                        "name": "Alchemist",
+                        "label": "PF2E.TraitAlchemist",
+                        "predicate": {
+                            "all": [
+                                "self:class:alchemist"
+                            ]
+                        },
                         "requiredTraits": [
                             [
                                 "alchemical"
@@ -540,6 +547,12 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "data.crafting.entries.alchemist.maxItemLevel",
+                        "predicate": {
+                            "all": [
+                                "self:class:alchemist",
+                                "crafting:entry:alchemist"
+                            ]
+                        },
                         "value": "@actor.level"
                     }
                 ],

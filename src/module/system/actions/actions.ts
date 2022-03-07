@@ -92,55 +92,55 @@ interface SimpleRollActionCheckOptions {
 }
 
 export class ActionsPF2e {
-    static exposeActions(actions: { [key: string]: Function }) {
-        // basic
-        actions.seek = seek;
-        actions.senseMotive = senseMotive;
+    static actionMacros = {
+        // Basic
+        seek,
+        senseMotive,
 
-        // acrobatics
-        actions.balance = balance;
-        actions.maneuverInFlight = maneuverInFlight;
-        actions.squeeze = squeeze;
-        actions.tumbleThrough = tumbleThrough;
+        // Acrobatics
+        balance,
+        maneuverInFlight,
+        squeeze,
+        tumbleThrough,
 
-        // athletics
-        actions.climb = climb;
-        actions.disarm = disarm;
-        actions.forceOpen = forceOpen;
-        actions.grapple = grapple;
-        actions.highJump = highJump;
-        actions.longJump = longJump;
-        actions.shove = shove;
-        actions.swim = swim;
-        actions.trip = trip;
-        actions.whirlingThrow = whirlingThrow;
+        // Athletics
+        climb,
+        disarm,
+        forceOpen,
+        grapple,
+        highJump,
+        longJump,
+        shove,
+        swim,
+        trip,
+        whirlingThrow,
 
-        // crafting
-        actions.craft = craft;
+        // Crafting
+        craft,
 
-        // deception
-        actions.createADiversion = createADiversion;
-        actions.feint = feint;
-        actions.impersonate = impersonate;
-        actions.lie = lie;
+        // Deception
+        createADiversion,
+        feint,
+        impersonate,
+        lie,
 
-        // diplomacy
-        actions.bonMot = bonMot;
-        actions.gatherInformation = gatherInformation;
-        actions.makeAnImpression = makeAnImpression;
-        actions.request = request;
+        // Diplomacy
+        bonMot,
+        gatherInformation,
+        makeAnImpression,
+        request,
 
-        // intimidation
-        actions.coerce = coerce;
-        actions.demoralize = demoralize;
+        // Intimidation
+        coerce,
+        demoralize,
 
-        // stealth
-        actions.hide = hide;
-        actions.sneak = sneak;
+        // Stealth
+        hide,
+        sneak,
 
-        // thievery
-        actions.pickALock = pickALock;
-    }
+        // Thievery
+        pickALock,
+    };
 
     static resolveStat(stat: string): {
         checkType: CheckType;
@@ -249,7 +249,7 @@ export class ActionsPF2e {
                         const dcStat = options.difficultyClassStatistic?.(target.actor);
                         if (dcStat) {
                             const extraRollOptions = finalOptions.concat(targetOptions);
-                            const dc = dcStat.dc({ extraRollOptions });
+                            const { dc } = dcStat.withRollOptions({ extraRollOptions });
                             const dcData: CheckDC = {
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],

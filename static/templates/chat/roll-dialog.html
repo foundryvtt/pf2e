@@ -1,4 +1,4 @@
-<form>
+<form autocomplete="off" spellcheck="off">
     <div class="form-group">
         <label>{{localize "PF2E.ItemBonusLabel"}}</label>
         <input type="text" name="itemBonus" value="{{data.itemBonus}}" placeholder="{{localize "PF2E.RollBonusPlaceholder"}}"/>
@@ -14,11 +14,11 @@
     <div class="form-group">
         <label>{{localize "PF2E.RollModeLabel"}}</label>
         <select name="rollMode">
-        {{#select rollMode}}
-        {{#each rollModes as |label mode|}}
-            <option value="{{mode}}">{{localize label}}</option>
-        {{/each}}
-        {{/select}}
+            {{#select rollMode}}
+                {{#each rollModes as |label mode|}}
+                    <option value="{{mode}}">{{localize label}}</option>
+                {{/each}}
+            {{/select}}
         </select>
     </div>
 </form>

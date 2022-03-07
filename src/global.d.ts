@@ -44,6 +44,8 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { ActorsPF2e } from "@module/collection/actors";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { HotbarPF2e } from "@module/apps/ui/hotbar";
 
 declare global {
     interface Game {
@@ -67,6 +69,9 @@ declare global {
             };
             importer: {
                 actor: typeof ActorImporter;
+            };
+            variantRules: {
+                AutomaticBonusProgression: typeof AutomaticBonusProgression;
             };
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
@@ -166,6 +171,7 @@ type ConfiguredConfig = Config<
     CompendiumDirectoryPF2e,
     FogExplorationPF2e,
     FolderPF2e,
+    HotbarPF2e,
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,

@@ -139,6 +139,7 @@ declare global {
     }
 
     interface IlluminationContainer extends PIXI.Container {
+        primary: PIXI.Container;
         background: PIXI.Graphics;
         filter: InstanceType<typeof PIXI.filters.AlphaFilter> | InstanceType<typeof PIXI.filters.BlurFilter>;
         lights: PIXI.Container;

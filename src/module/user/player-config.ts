@@ -34,7 +34,7 @@ export class PlayerConfigPF2e extends FormApplication {
 
     static activateColorScheme(): void {
         console.debug("PF2e System | Activating Player Configured color scheme");
-        const color = game.user.getFlag("pf2e", "settings.uiTheme") ?? PlayerConfigPF2e.defaultSettings.uiTheme;
+        const color = game.user.settings.uiTheme;
 
         const cssLink = `<link id="pf2e-color-scheme" href="systems/pf2e/styles/user/color-scheme-${color}.css" rel="stylesheet" type="text/css">`;
         $("head").append(cssLink);

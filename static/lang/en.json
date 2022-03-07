@@ -811,17 +811,22 @@
         "CharacterTraitsHeader": "Traits & Other Details",
         "Check": {
             "DC": {
-                "Specific": {
-                    "ac": "AC {dc}",
-                    "athletics": "Athletics DC {dc}",
-                    "deception": "Deception DC {dc}",
-                    "fortitude": "Fortitude DC {dc}",
-                    "perception": "Perception DC {dc}",
-                    "reflex": "Reflex DC {dc}",
-                    "stealth": "Stealth DC {dc}",
-                    "will": "Will DC {dc}"
+                "Label": {
+                    "AdjustedTarget": "<target>Target: {target}</target> <dc>({dcType} <preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>",
+                    "NoTarget": "{dcType} {dc}",
+                    "WithTarget": "<target>Target: {target}</target> <dc>({dcType} {dc})</dc>"
                 },
-                "Unspecific": "DC {dc}"
+                "Specific": {
+                    "ac": "AC",
+                    "athletics": "Athletics DC",
+                    "deception": "Deception DC",
+                    "fortitude": "Fortitude DC",
+                    "perception": "Perception DC",
+                    "reflex": "Reflex DC",
+                    "stealth": "Stealth DC",
+                    "will": "Will DC"
+                },
+                "Unspecific": "DC"
             },
             "Label": "Check",
             "Result": {
@@ -848,10 +853,6 @@
                     "Secret": "Perception Check (Secret)"
                 },
                 "Recovery": "Recovery Check"
-            },
-            "Target": {
-                "WithDC": "<target>Target: {target}</target> <dc>({dc})</dc>",
-                "AdjustedDC": "<target>Target: {target}</target> <dc>(<preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>"
             }
         },
         "CircumstanceBonusShortLabel": "Circumstance",
@@ -997,11 +998,11 @@
         "CraftingTab": {
             "Alchemical": {
                 "AdvancedAlchemy": "Advanced Alchemy",
-                "AdvancedAlchemyLevel": "Advanced Alchemy Level:",
-                "InfusedReagents": "Infused Reagents:",
-                "ReagentCost": "Reagent Cost:",
+                "AdvancedAlchemyLevel": "Advanced Alchemy Level",
+                "InfusedReagents": "Infused Reagents",
+                "ReagentCost": "Reagent Cost",
                 "ToggleSignatureItem": "Toggle Signature Item",
-                "TotalCost": "Total Cost:"
+                "TotalCost": "Total Cost"
             },
             "Alerts": {
                 "CharacterLevel": "Item level exceeds character level.",
@@ -1014,7 +1015,8 @@
             "ToggleFreeCrafting": "Toggle Free Crafting",
             "ToggleQuickAlchemy": "Quick Alchemy",
             "UndeletableTooltip": "This crafting formula is part of another item and cannot be individually deleted.",
-            "QuickAddTitle": "Quick add this formula to the daily crafting list."
+            "QuickAddTitle": "Add this formula to one or more crafting entries",
+            "NoEligibleEntry": "No eligible crafting entry was found."
         },
         "CraftDCTitle": "DC",
         "CraftItemTitle": "Craft",
@@ -1175,7 +1177,6 @@
         "EquippedBulkLabel": "Worn Bulk",
         "EquippedSameBulkValue": "Same as Carried",
         "ErrorMessage": {
-            "ActorMustHaveToken": "Adding conditions to actors with no tokens is not currently supported.",
             "CantImportTooHighVersion": "Unable to import {sourceName}: its schema version ({sourceSchemaVersion}) is higher than this world's ({worldSchemaVersion}).",
             "CantMoveItemDestination": "You are not allowed to move items to this character.",
             "CantMoveItemSource": "You are not allowed to move items from this character.",
@@ -2586,7 +2587,7 @@
             "Ranged": {
                 "Description": "You attack with a weapon you&apos;re wielding, targeting one creature within range. Roll the attack roll for the weapon you are using, and compare the result to the target creature&apos;s AC to determine the effect.",
                 "Success": "You deal damage according to the weapon, including any modifiers, bonuses, and penalties you have to damage.",
-                "NoAmmo": "No ammunition is assigned to {weapon}."
+                "NoAmmo": "No ammunition is assigned to {weapon}. Check the Actions tab of {actor}'s sheet."
             },
             "Combined": {
                 "Description": "You attack with a weapon you&apos;re wielding, targeting one creature within your reach (for a melee attack) or within range (for a ranged attack). Roll the attack roll for the weapon or unarmed attack you are using, and compare the result to the target creature&apos;s AC to determine the effect.",

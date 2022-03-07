@@ -3,13 +3,10 @@ import { PlayerConfigPF2e } from "@module/user/player-config";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { MigrationRunner } from "@module/migration/runner";
 import { MigrationList } from "@module/migration";
-import { ActionsPF2e } from "@system/actions/actions";
 import { storeInitialWorldVersions } from "@scripts/store-versions";
-import { WorldClock } from "@module/apps/world-clock";
-import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { extendDragData } from "@scripts/system/dragstart-handler";
-import { LicenseViewer } from "@module/apps/license-viewer";
 import { MigrationSummary } from "@module/apps/migration-summary";
+import { SetGamePF2e } from "@scripts/set-game-pf2e";
 
 export const Ready = {
     listen: (): void => {
@@ -17,12 +14,6 @@ export const Ready = {
             /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
             console.log("PF2e System | Readying Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
-
-            // Start up the Compendium Browser
-            game.pf2e.compendiumBrowser = new CompendiumBrowser();
-
-            // Start up the License viewer
-            game.pf2e.licenseViewer = new LicenseViewer();
 
             // Determine whether a system migration is required and feasible
             const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
@@ -70,8 +61,6 @@ export const Ready = {
                 }
             });
 
-            ActionsPF2e.exposeActions(game.pf2e.actions);
-
             PlayerConfigPF2e.activateColorScheme();
 
             // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
@@ -81,11 +70,8 @@ export const Ready = {
             // Extend drag data for things such as condition value
             extendDragData();
 
-            // Final pass to ensure effects on actors properly consider the initiative of any active combat
-            game.pf2e.effectTracker.refresh();
-
-            // Start system sub-applications
-            game.pf2e.worldClock = new WorldClock();
+            // Some of game.pf2e must wait until the ready phase
+            SetGamePF2e.onReady();
 
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {
@@ -93,6 +79,18 @@ export const Ready = {
                     .localize(CONFIG.Item.typeLabels[typeA] ?? "")
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
+
+            // Now that all game data is available, reprepare actor data among those actors currently in an encounter
+            const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
+            const fightyActors = new Set(participants.flatMap((c) => c.actor ?? []));
+            for (const actor of fightyActors) {
+                actor.prepareData();
+            }
+
+            // Final pass to ensure effects on actors properly consider the initiative of any active combat
+            if (fightyActors.size > 0) {
+                game.pf2e.effectTracker.refresh();
+            }
 
             // Announce the system is ready in case any module needs access to an application not available until now
             Hooks.callAll("pf2e.systemReady");

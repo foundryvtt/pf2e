@@ -13,6 +13,26 @@
         white-space: nowrap;
     }
 
+    .details-input {
+        color: var(--text-dark);
+        font-family: var(--body-serif);
+        font-weight: bold;
+        width: calc(100% - 6px);
+        border-bottom: 1px solid #d3ccbc;
+        background-color: rgba($text-dark-color, 0.1);
+
+        &::placeholder {
+            filter: opacity(0.5);
+        }
+        &:focus {
+            border-bottom: 1px solid var(--alt);
+        }
+        &[type="number"] {
+            padding-bottom: 0;
+            padding-left: 4px;
+        }
+    }
+
     input {
         border: none;
         border-radius: 0;
@@ -23,7 +43,7 @@
             }
         }
         &::placeholder {
-            color: var(--text-light);
+            color: inherit;
         }
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {

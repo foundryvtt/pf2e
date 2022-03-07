@@ -8,7 +8,7 @@ import {
     RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
-import { ItemPF2e, ArmorPF2e } from "@item";
+import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
@@ -50,6 +50,9 @@ import {
     StrikeRollContext,
     StrikeRollContextParams,
 } from "./types";
+import { EquippedData, ItemCarryType } from "@item/physical/data";
+import { isCycle } from "@item/container/helpers";
+import { isEquipped } from "@item/physical/usage";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -310,8 +313,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
             actions: [
                 {
                     label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
+                    checked: !!this.rollOptions.all["target:flatFooted"],
                     enabled: true,
                 },
             ],
@@ -371,13 +374,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Add modifiers from being flanked
         if (this.isFlatFooted({ dueTo: "flanking" })) {
-            const acModifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
-            const flatFooted = game.pf2e.ConditionManager.getCondition("flat-footed");
-            const modifier = (game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? []).pop();
-            if (!modifier) throw ErrorPF2e("Unexpected error retrieving condition");
+            const conditionSource = game.pf2e.ConditionManager.getCondition("flat-footed").toObject();
+            conditionSource.name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const flatFooted = new ConditionPF2e(conditionSource, { parent: this }) as Embedded<ConditionPF2e>;
 
-            modifier.label = game.i18n.localize("PF2E.Item.Condition.Flanked");
-            acModifiers.push(() => modifier);
+            const rule = flatFooted.prepareRuleElements().shift();
+            if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
+            rule.beforePrepareData?.();
 
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
@@ -502,6 +505,56 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /**
+     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
+     * @param item       The item
+     * @param carryType  Location to be set to
+     * @param handsHeld  Number of hands being held
+     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
+     */
+    async adjustCarryType(
+        item: Embedded<PhysicalItemPF2e>,
+        carryType: ItemCarryType,
+        handsHeld = 0,
+        inSlot = false
+    ): Promise<void> {
+        if (carryType === "stowed") {
+            // since there's still an "items need to be in a tree" view, we
+            // need to actually put the item in a container when it's stowed.
+            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
+            await item.update({
+                "data.containerId.value": container?.id ?? "",
+                "data.equipped.carryType": "stowed",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
+            });
+        } else {
+            const equipped: EquippedData = {
+                carryType: carryType,
+                handsHeld: carryType === "held" ? handsHeld : 0,
+                inSlot: item.data.usage.type === "worn" && item.data.usage.where ? inSlot : undefined,
+            };
+
+            const updates = [];
+
+            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
+                // see if they have another set of armor equipped
+                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
+                for (const armor of wornArmors) {
+                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
+                }
+            }
+
+            updates.push({
+                _id: item.id,
+                "data.containerId.value": null,
+                "data.equipped": equipped,
+            });
+
+            await this.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
+    /**
      * Adds a custom modifier that will be included when determining the final value of a stat. The slug generated by
      * the name parameter must be unique for the custom modifiers for the specified stat, or it will be ignored.
      */
@@ -513,7 +566,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         predicate?: RawPredicate,
         damageType?: DamageType,
         damageCategory?: string
-    ) {
+    ): Promise<void> {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (!(customModifiers[stat] ?? []).find((m) => m.label === name)) {
             const modifier = new ModifierPF2e({ label: name, modifier: value, type });
@@ -549,12 +602,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(domain: string, optionName: string) {
+    async toggleRollOption(domain: string, option: string): Promise<this> {
         if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
-            throw new Error(`${domain} is not a supported roll`);
+            throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
         }
-        const flag = `rollOptions.${domain}.${optionName}`;
-        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
+        const flag = `rollOptions.${domain}.${option}`;
+        return this.setFlag("pf2e", flag, !this.rollOptions[domain]?.[option]);
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */
@@ -637,14 +690,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         );
     }
 
-    // this is needed for type safety
-    override async updateEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
-        options: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        return super.updateEmbeddedDocuments(embeddedName, data, options);
-    }
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */

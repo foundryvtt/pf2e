@@ -4,7 +4,6 @@ import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -36,14 +35,16 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.data.value ??= `@actor.abilities.${this.data.ability}.mod`;
         }
 
-        this.data.ignored = AutomaticBonusProgression.assessRuleElement(this);
+        this.data.ignored = game.pf2e.variantRules.AutomaticBonusProgression.suppressRuleElement(this);
     }
 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
+        const label = this.data.label.includes(":")
+            ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
+            : this.data.label;
         const slug = this.data.slug ?? sluggify(this.label);
 
         if (selector && this.data.value) {

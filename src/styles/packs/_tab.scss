@@ -109,20 +109,48 @@
             }
 
             > .image {
+                min-width: 32px;
                 max-width: 32px;
                 height: 32px;
             }
 
+            > .tags {
+                margin-left: 0.5em;
+                .common {
+                    background: $rarity-common !important;
+                }
+                .uncommon {
+                    background: $rarity-uncommon !important;
+                }
+                .rare {
+                    background: $rarity-rare !important;
+                }
+                .unique {
+                    background: $rarity-unique !important;
+                }
+            }
+
             > .level {
+                flex-grow: 1;
                 text-align: center;
                 font-weight: 900;
                 max-width: 18px;
                 height: 32px;
             }
 
+            > .price {
+                flex: none;
+                text-align: right;
+                font-weight: 900;
+                height: 32px;
+                margin-right: 10px;
+            }
+
             > .name {
+                flex: none;
                 line-height: 1em;
                 padding-left: 5px;
+                width: max-content;
             }
 
             > .end {

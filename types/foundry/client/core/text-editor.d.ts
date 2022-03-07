@@ -166,6 +166,13 @@ declare global {
          */
         protected static _onDropEditorData(event: ElementDragEvent, editor: TinyMCE.Editor): Promise<void>;
 
+        /**
+         * Extract JSON data from a drag/drop event.
+         * @param event The drag event which contains JSON data.
+         * @returns The extracted JSON data. The object will be empty if the DragEvent did not contain JSON-parseable data.
+         */
+        static getDragEventData(event: ElementDragEvent): object;
+
         /** Given a Drop event, returns a Content link if possible such as @Actor[ABC123], else null */
         static getContentLink(event: ElementDragEvent): Promise<string | null>;
     }
