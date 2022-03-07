@@ -412,9 +412,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (sourceItemQuantity > 1) {
                 const popup = new MoveLootPopup(
                     actor,
-                    { maxQuantity: halfSourceItemQuantity, dontStack: true, lockStack: true },
-                    (quantity, dontStack) => {
-                        actor.transferItemToActor(actor, item, quantity, containerId, dontStack);
+                    { maxQuantity: halfSourceItemQuantity, newStack: true, lockStack: true },
+                    (quantity, newStack) => {
+                        actor.transferItemToActor(actor, item, quantity, containerId, newStack);
                     }
                 );
                 popup.render(true);
