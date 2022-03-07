@@ -5,7 +5,6 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { sluggify } from "@util";
 
@@ -22,19 +21,6 @@ function resolveActors(): ActorPF2e[] {
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollsLinks = {
-    // Conditionally show DCs in the text
-    injectDCText: ($links: JQuery) => {
-        $links.each((_idx, link) => {
-            const dc = Number(link.dataset.pf2Dc?.trim() ?? "");
-            const role = link.dataset.pf2ShowDc?.trim() ?? "";
-            const userCanView = ["all", "owner"].includes(role) || (role === "gm" && game.user.isGM);
-            if (userCanView && dc > 0) {
-                const text = link.innerHTML;
-                link.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text });
-            }
-        });
-    },
-
     injectRepostElement: ($links: JQuery) => {
         $links.each((_idx, link) => {
             if (game.user.isGM) {
@@ -52,7 +38,6 @@ export const InlineRollsLinks = {
 
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
-        InlineRollsLinks.injectDCText($links);
         InlineRollsLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
@@ -78,7 +63,7 @@ export const InlineRollsLinks = {
         });
 
         $links.filter("[data-pf2-check]").on("click", (event) => {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
             const actors = resolveActors();
             if (actors.length === 0) {
                 ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
@@ -170,16 +155,7 @@ export const InlineRollsLinks = {
                     for (const actor of skillActors) {
                         const skillCheck = actor.data.data.skills[skill ?? ""];
                         if (skill && skillCheck) {
-                            const dcValue =
-                                pf2Dc === "@self.level"
-                                    ? ((): number => {
-                                          const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-                                          const proficiencyWithoutLevel = pwlSetting === "ProficiencyWithoutLevel";
-                                          const level = actor.level;
-                                          const adjustment = Number(pf2Adjustment) || 0;
-                                          return calculateDC(level, { proficiencyWithoutLevel }) + adjustment;
-                                      })()
-                                    : Number(pf2Dc);
+                            const dcValue = Number(pf2Dc);
                             const dc = dcValue > 0 ? { label: pf2Label, value: dcValue } : null;
                             const options = actor.getRollOptions(["all", "skill-check", skill]);
                             if (pf2Traits) {
@@ -262,20 +238,8 @@ export const InlineRollsLinks = {
         const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
         const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
 
-        // Need to strip out the DC from the inner HTML if it exists before repost.
-        const regexDC = new RegExp(
-            game.i18n
-                .localize("PF2E.DCWithValue")
-                .replace(/\{dc\}/g, "\\d+")
-                .replace(/\{text\}/g, "(.*)")
-        );
-        const newInnerHTML = target.innerHTML
-            .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
-            .replace(regexDC, "$1");
-        const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
-
         ChatMessagePF2e.create({
-            content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
+            content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
         });
     },
 };
