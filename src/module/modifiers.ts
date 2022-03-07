@@ -14,10 +14,8 @@ export const PROFICIENCY_RANK_OPTION = [
     "proficiency:legendary",
 ] as const;
 
-export function ensureProficiencyOption(options: string[], proficiencyRank: number) {
-    if (proficiencyRank >= 0 && !options.some((option) => option.toLowerCase().startsWith("proficiency:"))) {
-        options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
-    }
+export function ensureProficiencyOption(options: string[], rank: number): void {
+    if (rank >= 0) options.push(`skill:rank:${rank}`, PROFICIENCY_RANK_OPTION[rank]);
 }
 
 /**
