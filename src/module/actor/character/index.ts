@@ -31,7 +31,6 @@ import {
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
     MartialProficiency,
-    CharacterSheetTabVisibility,
     LinkedProficiency,
     AuxiliaryAction,
 } from "./data";
@@ -63,20 +62,20 @@ import { CraftingEntry, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemCarryType } from "@item/physical/data";
-import { CreateAuxiliaryParams } from "./types";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 import { DamageRollContext } from "@system/damage/damage";
 import { RollNotePF2e } from "@module/notes";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
+import { CharacterSheetTabVisibility } from "./data/sheet";
+import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
 
-export class CharacterPF2e extends CreaturePF2e {
+class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
         return CharacterData;
     }
@@ -1664,7 +1663,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 }
 
-export interface CharacterPF2e {
+interface CharacterPF2e {
     readonly data: CharacterData;
 
     deleteEmbeddedDocuments(
@@ -1684,6 +1683,4 @@ export interface CharacterPF2e {
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
 
-interface CharacterHitPointsSummary extends HitPointsSummary {
-    recoveryMultiplier: number;
-}
+export { CharacterPF2e };
