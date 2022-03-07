@@ -24,6 +24,7 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -48,7 +49,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
-        const sheetData: CharacterSheetData = await super.getData(options);
+        const sheetData = (await super.getData(options)) as CharacterSheetData;
 
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
@@ -168,7 +169,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
         // Sort attack/defense proficiencies
-        const combatProficiencies = sheetData.data.martial;
+        const combatProficiencies: MartialProficiencies = sheetData.data.martial;
         const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
         const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
@@ -201,8 +202,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Organize and classify Items for Character sheets */
-    protected prepareItems(sheetData: CharacterSheetData) {
-        const actorData: any = sheetData.actor;
+    protected prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): void {
+        const actorData = sheetData.actor;
 
         // Inventory
         interface InventorySheetData {

@@ -9,16 +9,17 @@ import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { CreatureSheetData } from "./types";
 
 /**
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
+export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
     override itemRenderer = new CreatureSheetItemRenderer(this);
 
-    override getData(options?: ActorSheetOptions) {
-        const sheetData: any = super.getData(options);
+    override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
+        const sheetData = await super.getData(options);
 
         // Update save labels
         if (sheetData.data.saves) {
@@ -58,16 +59,16 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             }
         }
 
-        // Update traits
-        sheetData.abilities = CONFIG.PF2E.abilities;
-        sheetData.skills = CONFIG.PF2E.skills;
-        sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-        sheetData.alignments = CONFIG.PF2E.alignments;
-        sheetData.rarity = CONFIG.PF2E.rarityTraits;
-        sheetData.attitude = CONFIG.PF2E.attitude;
-        sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
-
-        return sheetData;
+        return {
+            ...sheetData,
+            abilities: CONFIG.PF2E.abilities,
+            skills: CONFIG.PF2E.skills,
+            actorSizes: CONFIG.PF2E.actorSizes,
+            alignments: CONFIG.PF2E.alignments,
+            rarity: CONFIG.PF2E.rarityTraits,
+            attitude: CONFIG.PF2E.attitude,
+            pfsFactions: CONFIG.PF2E.pfsFactions,
+        };
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */

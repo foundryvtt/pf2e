@@ -33,7 +33,7 @@ import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { ActorDataPF2e, SaveType } from "@actor/data";
+import { SaveType } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
@@ -66,9 +66,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return false;
     }
 
-    override getData(
-        options: ActorSheetOptions = this.options
-    ): ActorSheetDataPF2e<TActor> | Promise<ActorSheetDataPF2e<TActor>> {
+    override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         // The Actor and its Items
         const actorData = this.actor.toObject(false);
@@ -116,7 +114,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return sheetData;
     }
 
-    protected abstract prepareItems(sheetData: { actor: ActorDataPF2e }): void;
+    protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): void;
 
     protected findActiveList() {
         return (this.element as JQuery).find(".tab.active .directory-list");
