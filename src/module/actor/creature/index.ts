@@ -371,9 +371,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Add modifiers from being flanked
         if (this.isFlatFooted({ dueTo: "flanking" })) {
-            const conditionSource = game.pf2e.ConditionManager.getCondition("flat-footed").toObject();
-            conditionSource.name = game.i18n.localize("PF2E.Item.Condition.Flanked");
-            const flatFooted = new ConditionPF2e(conditionSource, { parent: this }) as Embedded<ConditionPF2e>;
+            const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
+            const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this }) as Embedded<ConditionPF2e>;
 
             const rule = flatFooted.prepareRuleElements().shift();
             if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
