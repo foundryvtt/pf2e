@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
@@ -10,6 +10,7 @@ import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CreatureSheetData } from "./types";
+import { ITEM_CARRY_TYPES } from "@item/data/values";
 
 /**
  * Base class for NPC and character sheets
@@ -107,6 +108,24 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const propertyPath = $input.attr("data-property") ?? "";
             const preparedValue: number = getProperty(this.actor.data, propertyPath);
             $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
+        });
+
+        // Toggle equip
+        $html.find(".tab.inventory a[data-carry-type]").on("click", (event) => {
+            $html.find(".carry-type-hover").tooltipster("close");
+
+            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
+            const item = this.actor.items.get(itemId, { strict: true });
+            if (!(item instanceof PhysicalItemPF2e)) {
+                throw ErrorPF2e("Tried to update carry type of non-physical item");
+            }
+
+            const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
+            const handsHeld = Number($(event.currentTarget).attr("data-hands-held")) ?? 1;
+            const inSlot = $(event.currentTarget).attr("data-in-slot") === "true";
+            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
+                this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
+            }
         });
 
         // General handler for embedded item updates
