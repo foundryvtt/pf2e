@@ -7,13 +7,13 @@
     <div class="form-group">
       {{#if lockStack}}
         {{#if dontStack}}
-          <input type="hidden" name="dontStack" value="{{dontStack}}" data-dtype="Boolean" checked/>
+          <input type="hidden" name="newStack" value="{{newStack}}" data-dtype="Boolean" checked/>
         {{else}}
-        <input type="hidden" name="dontStack" value="{{dontStack}}" data-dtype="Boolean"/>
+        <input type="hidden" name="newStack" value="{{newStack}}" data-dtype="Boolean"/>
         {{/if}}
       {{else}}
-        <label>{{ localize "PF2E.loot.Stack" }}</label>
-        <input type="checkbox" name="dontStack" value="{{dontStack}}" data-dtype="Boolean"/>
+        <label>{{localize "PF2E.loot.Stack"}}</label>
+        <input type="checkbox" name="newStack" value="{{newStack}}" />
       {{/if}}
     </div>
     <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{ localize "PF2E.loot.MoveLoot" }}</button>

@@ -2,14 +2,14 @@ import { ActorPF2e } from "@actor/base";
 
 interface MoveLootOptions extends FormApplicationOptions {
     maxQuantity: number;
-    dontStack: boolean;
+    newStack: boolean;
     lockStack: boolean;
 }
 interface MoveLootFormData extends FormData {
     quantity: number;
-    dontStack: boolean;
+    newStack: boolean;
 }
-type MoveLootCallback = (quantity: number, dontStack: boolean) => void;
+type MoveLootCallback = (quantity: number, newStack: boolean) => void;
 
 export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
     onSubmitCallback: MoveLootCallback;
@@ -24,7 +24,7 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         return {
             ...(await super.getData()),
             maxQuantity: this.options.maxQuantity,
-            dontStack: this.options.dontStack,
+            newStack: this.options.newStack,
             lockStack: this.options.lockStack,
         };
     }
@@ -38,7 +38,7 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
             template: "systems/pf2e/templates/popups/loot/move-loot-popup.html",
             width: "auto",
             maxQuantity: 1,
-            dontStack: false,
+            newStack: false,
             lockStack: false,
         };
     }
@@ -48,7 +48,7 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         formData: Record<string, unknown> & MoveLootFormData
     ): Promise<void> {
         if (this.onSubmitCallback) {
-            this.onSubmitCallback(formData.quantity, formData.dontStack);
+            this.onSubmitCallback(formData.quantity, formData.newStack);
         }
     }
 }
