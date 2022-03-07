@@ -24,7 +24,7 @@ import {
     SELECTABLE_TAG_FIELDS,
     TagSelectorOptions,
 } from "@module/system/trait-selector";
-import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from "./data-types";
@@ -41,7 +41,6 @@ import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { CreaturePF2e } from "@actor/creature";
 
 /**
@@ -293,24 +292,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             side: ["bottom"],
             theme: "crb-hover",
             minWidth: 120,
-        });
-
-        // Toggle equip
-        $html.find("a[data-carry-type]").on("click", (event) => {
-            $html.find(".carry-type-hover").tooltipster("close");
-
-            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId, { strict: true });
-            if (!(item instanceof PhysicalItemPF2e)) {
-                throw ErrorPF2e("Tried to update carry type of non-physical item");
-            }
-
-            const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
-            const handsHeld = Number($(event.currentTarget).attr("data-hands-held")) ?? 1;
-            const inSlot = $(event.currentTarget).attr("data-in-slot") === "true";
-            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
-                item.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
-            }
         });
 
         // Trait Selector

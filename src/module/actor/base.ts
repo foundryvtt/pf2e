@@ -27,8 +27,6 @@ import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isEquipped } from "../item/physical/usage";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 
@@ -777,50 +775,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             return notEquipped.length > 0 ? notEquipped[0] : stackCandidates[0];
         } else {
             return stackCandidates[0];
-        }
-    }
-
-    /**
-     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
-     * @param item       The item
-     * @param carryType  Location to be set to
-     * @param handsHeld  Number of hands being held
-     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
-     */
-    async adjustCarryType(item: Embedded<PhysicalItemPF2e>, carryType: ItemCarryType, handsHeld = 0, inSlot = false) {
-        if (carryType === "stowed") {
-            // since there's still an "items need to be in a tree" view, we
-            // need to actually put the item in a container when it's stowed.
-            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
-            await item.update({
-                "data.containerId.value": container?.id ?? "",
-                "data.equipped.carryType": "stowed",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
-            });
-        } else {
-            const equipped: EquippedData = {
-                carryType: carryType,
-                handsHeld: carryType === "held" ? handsHeld : 0,
-                inSlot: item.data.usage.where ? inSlot : undefined,
-            };
-
-            const updates = [];
-
-            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
-                // see if they have another set of armor equipped
-                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
-                for (const armor of wornArmors) {
-                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
-                }
-            }
-
-            updates.push({
-                _id: item.id,
-                "data.containerId.value": null,
-                "data.equipped": equipped,
-            });
-            await this.updateEmbeddedDocuments("Item", updates);
         }
     }
 
