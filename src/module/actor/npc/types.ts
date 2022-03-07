@@ -68,7 +68,6 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     conditions: FlattenedCondition[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
-    orphanedSpellbook: any;
     identifyCreatureData: IdentifyCreatureData;
     identifySkillDC?: number;
     identifySkillAdjustment?: string;
