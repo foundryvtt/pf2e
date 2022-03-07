@@ -39,7 +39,7 @@ import { HitPointsSummary } from "@actor/base";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageType } from "@system/damage";
 import { StrikeData } from "@actor/data/base";
 import {
     AttackItem,

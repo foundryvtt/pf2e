@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageType } from "@system/damage";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 

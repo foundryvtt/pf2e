@@ -1,11 +1,10 @@
-import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { DamageDiceOverride, DamageDicePF2e } from "@module/modifiers";
 import { ItemPF2e } from "@item";
-import { RuleElementSource } from "./data";
+import { DamageDiceOverride, DamageDicePF2e } from "@module/modifiers";
+import { DamageDieSize, DamageType } from "@system/damage";
 import { isObject } from "@util";
-import { DamageType } from "@module/damage-calculation";
-import { DamageDieSize } from "@system/damage/damage";
+import { RuleElementData, RuleElementPF2e } from "./";
+import { RuleElementSource } from "./data";
 
 /**
  * @category RuleElement

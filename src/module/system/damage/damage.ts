@@ -1,7 +1,7 @@
 import { StrikeSelf, StrikeTarget } from "@actor/creature/types";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
-import { combineObjects } from "../../../util";
+import { combineObjects } from "@util";
 
 /** The possible standard damage die sizes. */
 export type DamageDieSize = "d4" | "d6" | "d8" | "d10" | "d12";
@@ -22,7 +22,7 @@ export function nextDamageDieSize(dieSize: DamageDieSize) {
 }
 
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
-export const DamageCategory = {
+export const DamageCategorization = {
     /**
      * Physical damage; one of bludgeoning, piercing, or slashing, and usually caused by a physical object hitting you.
      */
@@ -65,7 +65,7 @@ export const DamageCategory = {
     /** Get a set of all custom damage categories (exluding the base damage types). */
     customCategories: () => {
         const result = new Set(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES));
-        for (const base of DamageCategory.baseCategories()) result.delete(base);
+        for (const base of DamageCategorization.baseCategories()) result.delete(base);
 
         return result;
     },
@@ -77,7 +77,7 @@ export const DamageCategory = {
     /** Map a damage category to the set of damage types in it. */
     toDamageTypes: (category: string) => {
         // Get all of the types in the current mappings which map to the given category
-        const types = Object.entries(DamageCategory.currentTypeMappings())
+        const types = Object.entries(DamageCategorization.currentTypeMappings())
             .filter(([_key, value]) => value === category)
             .map(([key]) => key);
 
@@ -95,25 +95,25 @@ export const DamageCategory = {
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */
 export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> = {
     // The three default physical damage types.
-    bludgeoning: DamageCategory.PHYSICAL,
-    piercing: DamageCategory.PHYSICAL,
-    slashing: DamageCategory.PHYSICAL,
+    bludgeoning: DamageCategorization.PHYSICAL,
+    piercing: DamageCategorization.PHYSICAL,
+    slashing: DamageCategorization.PHYSICAL,
 
     // The default energy types.
-    acid: DamageCategory.ENERGY,
-    cold: DamageCategory.ENERGY,
-    electricity: DamageCategory.ENERGY,
-    fire: DamageCategory.ENERGY,
-    sonic: DamageCategory.ENERGY,
-    positive: DamageCategory.ENERGY,
-    negative: DamageCategory.ENERGY,
-    force: DamageCategory.ENERGY,
+    acid: DamageCategorization.ENERGY,
+    cold: DamageCategorization.ENERGY,
+    electricity: DamageCategorization.ENERGY,
+    fire: DamageCategorization.ENERGY,
+    sonic: DamageCategorization.ENERGY,
+    positive: DamageCategorization.ENERGY,
+    negative: DamageCategorization.ENERGY,
+    force: DamageCategorization.ENERGY,
 
     // The default alignment types.
-    chaotic: DamageCategory.ALIGNMENT,
-    evil: DamageCategory.ALIGNMENT,
-    good: DamageCategory.ALIGNMENT,
-    lawful: DamageCategory.ALIGNMENT,
+    chaotic: DamageCategorization.ALIGNMENT,
+    evil: DamageCategorization.ALIGNMENT,
+    good: DamageCategorization.ALIGNMENT,
+    lawful: DamageCategorization.ALIGNMENT,
 } as const;
 
 /** Custom damage type mappings; maps damage types to their damage category. */

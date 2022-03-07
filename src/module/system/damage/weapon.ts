@@ -13,13 +13,12 @@ import {
 } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DamageCategory, DamageDieSize, nextDamageDieSize } from "./damage";
+import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
-import { DamageType } from "@module/damage-calculation";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -476,7 +475,7 @@ export class WeaponDamagePF2e {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,
                 modifier: weapon.data.damage.modifier,
-                category: DamageCategory.fromDamageType(baseDamageType),
+                category: DamageCategorization.fromDamageType(baseDamageType),
                 damageType: baseDamageType,
             },
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
@@ -558,14 +557,14 @@ export class WeaponDamagePF2e {
             }
         }
 
-        base.category = DamageCategory.fromDamageType(base.damageType);
+        base.category = DamageCategorization.fromDamageType(base.damageType);
 
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
         dicePool[base.damageType] = {
             base: true,
             categories: {
-                [DamageCategory.fromDamageType(base.damageType)]: {
+                [DamageCategorization.fromDamageType(base.damageType)]: {
                     dice: { [base.dieSize]: base.diceNumber },
                     modifier: base.modifier ?? 0,
                 },
@@ -605,7 +604,7 @@ export class WeaponDamagePF2e {
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
                 .flatMap((nm: ModifierPF2e) => {
                     nm.damageType ??= base.damageType;
-                    nm.damageCategory ??= DamageCategory.fromDamageType(nm.damageType);
+                    nm.damageCategory ??= DamageCategorization.fromDamageType(nm.damageType);
                     if (critical && nm.damageCategory === "splash") {
                         return [];
                     } else if (critical && nm.critical) {
@@ -640,10 +639,12 @@ export class WeaponDamagePF2e {
                         pool = { categories: {} };
                         dicePool[damageType] = pool;
                     }
-                    let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
+                    let category =
+                        pool.categories[nm.damageCategory ?? DamageCategorization.fromDamageType(damageType)];
                     if (!category) {
                         category = {};
-                        pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
+                        pool.categories[nm.damageCategory ?? DamageCategorization.fromDamageType(damageType)] =
+                            category;
                     }
                     category.modifier = (category.modifier ?? 0) + nm.modifier;
                     (nm.traits ?? [])
@@ -700,9 +701,9 @@ export class WeaponDamagePF2e {
         const damagePool = pool[damageType];
 
         // Ensure that the damage category sub-pool for this given damage category exists...
-        damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] =
-            damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] || {};
-        const damageCategory = damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)];
+        damagePool.categories[category ?? DamageCategorization.fromDamageType(damageType)] =
+            damagePool.categories[category ?? DamageCategorization.fromDamageType(damageType)] || {};
+        const damageCategory = damagePool.categories[category ?? DamageCategorization.fromDamageType(damageType)];
 
         // And then add the given number of dice of the given size.
         damageCategory.dice = damageCategory.dice || {};
