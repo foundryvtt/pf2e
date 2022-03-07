@@ -678,7 +678,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
-        containerId?: string
+        containerId?: string,
+        newStack = false
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
@@ -731,16 +732,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             newItemData.data.invested.value = item.traits.has("invested") ? false : null;
         }
 
-        return targetActor.addToInventory(newItemData, container);
+        return targetActor.addToInventory(newItemData, container, newStack);
     }
 
     async addToInventory(
         itemData: PhysicalItemSource,
-        container?: Embedded<ContainerPF2e>
+        container?: Embedded<ContainerPF2e>,
+        newStack?: boolean
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
-        if (stackItem && stackItem.data.type !== "backpack") {
+        if (!newStack && stackItem && stackItem.data.type !== "backpack") {
             const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
             await stackItem.update({ "data.quantity.value": stackQuantity });
             return stackItem;
@@ -759,7 +761,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
-    private findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
+    findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         const testItem = new ItemPF2e(itemData);
         const stackCandidates = actor.physicalItems.filter(
             (stackCandidate) =>

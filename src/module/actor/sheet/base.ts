@@ -393,6 +393,34 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
+        // Split Item Stack
+        $html.find(".inventory .item .item-name").on("click", (event) => {
+            if (!event.shiftKey) {
+                return;
+            }
+            const actor = this.actor;
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const item = actor?.items.get(parent.attr("data-item-id") ?? "");
+            const container = $(event.target).parents('[data-item-is-container="true"]');
+            const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
+            if (!(item instanceof PhysicalItemPF2e)) {
+                throw ErrorPF2e("Missing or invalid item");
+            }
+            const sourceItemQuantity = Number(item.data.data.quantity.value);
+            const halfSourceItemQuantity = Math.floor(sourceItemQuantity / 2);
+            if (sourceItemQuantity > 1) {
+                const popup = new MoveLootPopup(
+                    actor,
+                    { maxQuantity: halfSourceItemQuantity, newStack: true, lockStack: true },
+                    (quantity, newStack) => {
+                        actor.transferItemToActor(actor, item, quantity, containerId, newStack);
+                    }
+                );
+                popup.render(true);
+            }
+        });
+
         // Item Rolling
         $html.find(".item[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
 
@@ -958,11 +986,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const container = $(event.target).parents('[data-item-is-container="true"]');
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = Number(item.data.data.quantity.value);
+        const stackable = !!targetActor.findStackableItem(targetActor, item.data._source);
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
-            const popup = new MoveLootPopup(sourceActor, { maxQuantity: sourceItemQuantity }, (quantity) => {
-                sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
-            });
+            const popup = new MoveLootPopup(
+                sourceActor,
+                { maxQuantity: sourceItemQuantity, lockStack: !stackable },
+                (quantity, newStack) => {
+                    sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
+                }
+            );
 
             popup.render(true);
         } else {
