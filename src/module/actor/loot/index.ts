@@ -56,7 +56,7 @@ export class LootPF2e extends ActorPF2e {
         item: Embedded<ItemPF2e>,
         quantity: number,
         containerId?: string,
-        dontStack = false
+        newStack = false
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.isOwner && targetActor.isOwner)) {
