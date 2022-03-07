@@ -16,6 +16,13 @@
                 <div class="name">
                     <a class="item-link">{{spell.name}}</a>
                 </div>
+                <div class="rarity tags">
+                    {{#unless (eq spell.rarity "common")}}
+                    <span class="tag {{spell.rarity}}">
+                        {{lookup (lookup ../filterData.checkboxes.rarity.options spell.rarity) "label"}}
+                    </span>
+                    {{/unless}}
+                </div>
                 <div class="level">
                     <span title="Spell level">{{spell.level}}</span>
                 </div>
