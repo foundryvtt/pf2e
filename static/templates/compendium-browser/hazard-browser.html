@@ -9,6 +9,13 @@
                 <div class="name">
                     <a class="actor-link">{{actor.name}}</a>
                 </div>
+                <div class="rarity tags">
+                    {{#unless (eq actor.rarity "common")}}
+                    <span class="tag {{actor.rarity}}">
+                        {{lookup (lookup ../filterData.checkboxes.rarity.options actor.rarity) "label"}}
+                    </span>
+                    {{/unless}}
+                </div>
                 <div class="level">
                     <span title="NPC level">{{actor.level}}</span>
                 </div>
