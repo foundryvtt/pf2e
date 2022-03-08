@@ -1,7 +1,6 @@
-import { RuleElementPF2e, RuleElementData } from "./";
+import { RuleElementPF2e } from "./";
 import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
-import { getPropertyRunes, getPropertySlots } from "@item/runes";
 import { PredicatePF2e } from "@system/predication";
 import { MODIFIER_TYPE } from "@module/modifiers";
 
@@ -29,22 +28,11 @@ class WeaponPotencyRuleElement extends RuleElementPF2e {
             if (this.data.predicate) {
                 potency.predicate = this.data.predicate;
             }
-            if (item instanceof WeaponPF2e && this.data.property) {
-                potency.property = getPropertyRunes(item.data, getPropertySlots(item.data));
-            }
             weaponPotency[selector] = (weaponPotency[selector] || []).concat(potency);
         } else {
             this.failValidation("Weapon potency requires at least a selector field and a non-empty value field");
         }
     }
-}
-
-interface WeaponPotencyRuleElement extends RuleElementPF2e {
-    data: WeaponPotencyData;
-}
-
-interface WeaponPotencyData extends RuleElementData {
-    property?: boolean;
 }
 
 interface WeaponPotencyPF2e {

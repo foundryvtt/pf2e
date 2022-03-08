@@ -1,10 +1,20 @@
 import { EquippedData } from "./data";
 
-export interface UsageDetails {
-    type: "held" | "worn" | "";
-    hands?: number;
-    where?: string;
+interface Held {
+    type: "held";
+    hands: number;
 }
+
+interface Worn {
+    type: "worn";
+    where?: string | null;
+    hands?: 0;
+}
+
+type Usage = Held | Worn;
+type NoUsage = { type: null };
+
+export type UsageDetails = Usage | NoUsage;
 
 export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
     if (usage.type !== equipped.carryType) {
@@ -20,7 +30,7 @@ export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean
     return true;
 }
 
-export function getUsageDetails(usage: string): UsageDetails {
+export function getUsageDetails(usage: string | null): UsageDetails {
     switch (usage) {
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
@@ -104,9 +114,10 @@ export function getUsageDetails(usage: string): UsageDetails {
             return { type: "worn" };
 
         case "":
-            return { type: "" };
+        case null:
+            return { type: null };
     }
 
     console.warn(`PF2E System | Unknown usage: [${usage}]`);
-    return { type: "worn" };
+    return { type: "worn", where: null };
 }

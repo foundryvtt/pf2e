@@ -39,8 +39,6 @@ type OneToFive = OneToThree | Extract<ZeroToFive, 4 | 5>;
 type ZeroToTen = ZeroToFive | 6 | 7 | 8 | 9 | 10;
 type OneToTen = Exclude<ZeroToTen, 0>;
 type ZeroToEleven = ZeroToTen | 11;
-type Thirteen = 13; // Lucky number, deserves its own type
-type ZeroToTwentyThree = ZeroToEleven | 12 | Thirteen | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
 // Sorry
 
 interface ValueAndMaybeMax {
@@ -142,5 +140,4 @@ export {
     ZeroToTen,
     OneToTen,
     ZeroToEleven,
-    ZeroToTwentyThree,
 };

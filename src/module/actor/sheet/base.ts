@@ -37,7 +37,7 @@ import { SaveType } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -72,7 +72,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const items = deepClone(
             this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0))
         );
-        (actorData as any).items = items;
+        (actorData as { items: unknown }).items = items;
 
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
@@ -212,7 +212,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (!["character", "npc"].includes(this.actor.type)) InlineRollsLinks.listen($html);
+        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html);
 
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {

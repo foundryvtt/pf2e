@@ -372,7 +372,10 @@ export interface CharacterAttributes extends CreatureAttributes {
     resolve: { value: number; max: number };
 
     /** Whether this actor is under a polymorph effect */
-    polymorphed?: boolean;
+    polymorphed: boolean;
+
+    /** Whether this actor is under a battle form polymorph effect */
+    battleForm: boolean;
 }
 
 interface CharacterHitPoints extends CreatureHitPoints {

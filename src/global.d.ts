@@ -120,6 +120,12 @@ declare global {
         get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
+        get(module: "pf2e", setting: "proficiencyUntrainedModifier"): number;
+        get(module: "pf2e", setting: "proficiencyTrainedModifier"): number;
+        get(module: "pf2e", setting: "proficiencyExpertModifier"): number;
+        get(module: "pf2e", setting: "proficiencyMasterModifier"): number;
+        get(module: "pf2e", setting: "proficiencyLegendaryModifier"): number;
+
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
@@ -130,6 +136,8 @@ declare global {
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
         get(module: "pf2e", setting: "worldClock.dateTheme"): "AR" | "IC" | "AD" | "CE";
+        get(module: "pf2e", setting: "worldClock.playersCanView"): boolean;
+        get(module: "pf2e", setting: "worldClock.showClockButton"): boolean;
         get(module: "pf2e", setting: "worldClock.syncDarkness"): boolean;
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
@@ -137,6 +145,7 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
+        get(module: "pf2e", setting: "compendiumBrowserPacks"): string;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImagePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;

@@ -22,9 +22,7 @@ declare global {
              * @param original Some sort of data
              * @return The clone of that data
              */
-            function deepClone<T>(
-                original: T
-            ): T extends Set<any> | Map<any, any> | foundry.utils.Collection<any> ? never : T;
+            function deepClone<T>(original: T): T;
 
             /**
              * A cheap data duplication trick which is relatively robust.
