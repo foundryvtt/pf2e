@@ -21,44 +21,29 @@ function resolveActors(): ActorPF2e[] {
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
-export const InlineRollLinks = {
-    // Conditionally show DCs in the text
-    injectDCText: ($links: JQuery): void => {
-        for (const link of $links) {
-            const dc = Number(link.dataset.pf2Dc?.trim() ?? "");
-            const role = link.dataset.pf2ShowDc?.trim() ?? "";
-            const userCanView = ["all", "owner"].includes(role) || (role === "gm" && game.user.isGM);
-            if (userCanView && dc > 0) {
-                const text = link.innerHTML;
-                link.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text });
+export const InlineRollsLinks = {
+    injectRepostElement: ($links: JQuery) => {
+        $links.each((_idx, link) => {
+            if (game.user.isGM) {
+                if (!link.querySelector("[data-pf2-repost]")) {
+                    const child = document.createElement("i");
+                    child.classList.add("fas");
+                    child.classList.add("fa-comment-alt");
+                    child.setAttribute("data-pf2-repost", "");
+                    child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
+                    link.appendChild(child);
+                }
             }
-        }
-    },
-
-    injectRepostElement: ($links: JQuery): void => {
-        if (!game.user.isGM) return;
-
-        for (const link of $links) {
-            if (link.querySelector("[data-pf2-repost]")) continue;
-
-            const child = document.createElement("i");
-            child.classList.add("fas");
-            child.classList.add("fa-comment-alt");
-            child.setAttribute("data-pf2-repost", "");
-            child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
-            link.appendChild(child);
-        }
+        });
     },
 
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
-        InlineRollLinks.injectDCText($links);
-        InlineRollLinks.injectRepostElement($links);
+        InlineRollsLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
-            const parent = event.target.parentElement;
-            if (parent) InlineRollLinks.repostAction(parent);
+            InlineRollsLinks.repostAction(event.target.parentElement!);
             event.stopPropagation();
         });
 
@@ -263,20 +248,8 @@ export const InlineRollLinks = {
         const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
         const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
 
-        // Need to strip out the DC from the inner HTML if it exists before repost.
-        const regexDC = new RegExp(
-            game.i18n
-                .localize("PF2E.DCWithValue")
-                .replace(/\{dc\}/g, "\\d+")
-                .replace(/\{text\}/g, "(.*)")
-        );
-        const newInnerHTML = target.innerHTML
-            .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
-            .replace(regexDC, "$1");
-        const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
-
         ChatMessagePF2e.create({
-            content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
+            content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
         });
     },
 };
