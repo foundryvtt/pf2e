@@ -222,6 +222,7 @@ export class CheckPF2e {
             roll.data.degreeOfSuccess = degree.value;
         }
 
+        const noteRollData = context.item?.getRollData();
         const notes =
             context.notes
                 ?.filter((note) => {
@@ -237,7 +238,7 @@ export class CheckPF2e {
                     }
                     return false;
                 })
-                .map((n) => game.pf2e.TextEditor.enrichHTML(n.text))
+                .map((n) => game.pf2e.TextEditor.enrichHTML(n.text, { rollData: noteRollData }))
                 .join("<br />") ?? "";
 
         const item = context.item ?? null;

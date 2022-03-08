@@ -22,6 +22,7 @@ import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
 import { DamageCategory } from "@system/damage/damage";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -118,7 +119,7 @@ export class SpellPF2e extends ItemPF2e {
         return Math.max(this.baseLevel, castLevel ?? this.level);
     }
 
-    override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
+    override getRollData(rollOptions: { spellLvl?: number | string } = {}): NonNullable<EnrichHTMLOptions["rollData"]> {
         const spellLevel = Number(rollOptions?.spellLvl) || null;
         const castLevel = Math.max(this.baseLevel, spellLevel || this.level);
 
@@ -272,14 +273,18 @@ export class SpellPF2e extends ItemPF2e {
 
     override getChatData(
         this: Embedded<SpellPF2e>,
-        htmlOptions: EnrichHTMLOptions = {},
+        htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
         const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
+        rollData.item ??= this;
+
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
-        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
+
+        const options = { ...htmlOptions, rollData };
+        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, options);
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
