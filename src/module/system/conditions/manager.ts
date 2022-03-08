@@ -10,167 +10,144 @@ import { CONDITION_SLUGS } from "@actor/data/values";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
-    static conditions: Map<ConditionSlug, ConditionData> = new Map();
-
-    static _conditionStatusNames: Map<string, ConditionData> = new Map();
+    static conditions: Map<ConditionSlug, ConditionPF2e> = new Map();
 
     /** Gets a list of condition slugs. */
-    static get conditionsNames(): string[] {
+    static get conditionsSlugs(): string[] {
         return [...this.conditions.keys()];
     }
 
-    /** Gets a list of status names. */
-    static get statusNames(): string[] {
-        return [...this._conditionStatusNames.keys()];
-    }
-
-    static async init() {
-        const content =
-            (await game.packs.get<CompendiumCollection<ConditionPF2e>>("pf2e.conditionitems")?.getDocuments()) ?? [];
-
-        for (const condition of content) {
-            this.conditions.set(condition.slug, condition.data);
-            this._conditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
-        }
+    static async init(): Promise<void> {
+        type ConditionCollection = CompendiumCollection<ConditionPF2e>;
+        const content = await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments();
+        const entries = content?.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]) ?? [];
+        this.conditions = new Map(entries);
     }
 
     /**
      * Get a condition using the condition name.
      * @param slug A condition slug
      */
-    static getCondition(slug: string): ConditionData {
+    static getCondition(slug: string, modifications: DeepPartial<ConditionSource> = {}): ConditionPF2e {
         slug = sluggify(slug);
         if (!setHasElement(CONDITION_SLUGS, slug)) {
             throw ErrorPF2e(`"${slug} is not a recognized condition slug`);
         }
 
-        const condition = ConditionManager.conditions.get(slug)?.toObject();
+        const condition = ConditionManager.conditions.get(slug)?.clone(modifications);
         if (!condition) throw ErrorPF2e("Unexpected failure looking up condition");
 
-        return new ConditionData(condition);
-    }
-
-    /**
-     * Get a condition using the status name.
-     * @param statusName A list of conditions
-     */
-    public static getConditionByStatusName(statusName: string): ConditionData | undefined {
-        const conditionData = this._conditionStatusNames.get(statusName);
-        return conditionData && new ConditionData(conditionData.toObject());
+        return condition;
     }
 
     /**
      * Takes a list of valued conditions with the same base and selects the highest value.
-     * @param conditions A filtered list of conditions with the same base name.
+     * @param sources A filtered list of conditions with the same base name.
      * @param updates    A running list of updates to make to embedded items.
      */
     private static processValuedCondition(
-        conditions: ConditionData[],
+        sources: ConditionSource[],
         updates: Map<string, ConditionSource>
-    ): ConditionData {
-        let appliedCondition: ConditionData;
+    ): ConditionSource {
+        let applied: ConditionSource | null = null;
 
-        conditions.forEach((condition) => {
-            if (
-                appliedCondition === undefined ||
-                Number(condition.data.value.value) > Number(appliedCondition.data.value.value)
-            ) {
+        for (const source of sources) {
+            if (!applied || Number(source.data.value.value) > Number(applied.data.value.value)) {
                 // First condition, or new max achieved.
 
-                if (!condition.data.active) {
+                if (!source.data.active) {
                     // New MAX is inactive, neet to make it active.
-                    const update = updates.get(condition._id) ?? condition.toObject();
+                    const update = updates.get(source._id) ?? source;
                     update.data.active = true;
                     updates.set(update._id, update);
                 }
 
-                if (appliedCondition) {
+                if (applied) {
                     // Only fix appliedCondition on n+1 iterations.
 
-                    if (appliedCondition.data.active) {
+                    if (applied.data.active) {
                         // Condition came in active, need to deactivate it.
 
-                        const update = updates.get(appliedCondition._id) ?? condition.toObject();
+                        const update = updates.get(applied._id) ?? source;
                         update.data.active = false;
                         updates.set(update._id, update);
                     } else {
                         // Came in inactive, but became applied for a time,
                         // which means we created an update for it we must delete.
 
-                        updates.delete(appliedCondition._id);
+                        updates.delete(applied._id);
                     }
                 }
 
-                appliedCondition = condition;
-            } else if (condition.data.active) {
+                applied = source;
+            } else if (source.data.active) {
                 // Not new max, but was active.
-                const update = updates.get(condition._id) ?? condition.toObject();
+                const update = updates.get(source._id) ?? source;
                 update.data.active = false;
                 updates.set(update._id, update);
             }
 
-            this.clearOverrides(condition, updates);
-        });
+            this.clearOverrides(source, updates);
+        }
 
-        return appliedCondition!;
+        if (!applied) throw ErrorPF2e("Unexpected error processing condition override");
+
+        return applied;
     }
 
     /**
      * Takes a list of toggle conditions with the same base and selects the first.
      *
-     * @param conditions A filtered list of conditions with the same base name.
-     * @param updates    A running list of updates to make to embedded items.
+     * @param sources A filtered list of conditions with the same base name.
+     * @param updates A running list of updates to make to embedded items.
      */
     private static processToggleCondition(
-        conditions: ConditionData[],
+        sources: ConditionSource[],
         updates: Map<string, ConditionSource>
-    ): ConditionData {
-        let appliedCondition: ConditionData;
+    ): ConditionSource {
+        let applied: ConditionSource | null = null;
 
-        conditions.forEach((condition) => {
+        for (const source of sources) {
             // Set the appliedCondition the first condition we see.
-            if (appliedCondition === undefined) {
-                appliedCondition = condition;
-            }
+            applied ??= source;
 
-            if (condition._id === appliedCondition._id && !condition.data.active) {
+            if (source._id === applied._id && !source.data.active) {
                 // Is the applied condition and not active
-                const update = updates.get(condition._id) ?? condition.toObject();
+                const update = updates.get(source._id) ?? source;
                 update.data.active = true;
                 updates.set(update._id, update);
-            } else if (condition._id !== appliedCondition._id && condition.data.active) {
+            } else if (source._id !== applied._id && source.data.active) {
                 // Is not the applied condition and is active
-                const update = updates.get(condition._id) ?? condition.toObject();
+                const update = updates.get(source._id) ?? source;
                 update.data.active = false;
                 updates.set(update._id, update);
             }
 
-            this.clearOverrides(condition, updates);
-        });
+            this.clearOverrides(source, updates);
+        }
+        if (!applied) throw ErrorPF2e("Unexpected error processing condition toggle");
 
-        return appliedCondition!;
+        return applied;
     }
 
     /**
      * Clears any overrides from a condition.
      *
-     * @param condition The condition to check, and remove, any overrides.
+     * @param source The condition to check, and remove, any overrides.
      * @param updates   A running list of updates to make to embedded items.
      */
-    private static clearOverrides(condition: ConditionData, updates: Map<string, ConditionSource>): void {
-        if (condition.data.references.overrides.length) {
+    private static clearOverrides(source: ConditionSource, updates: Map<string, ConditionSource>): void {
+        if (source.data.references.overrides.length) {
             // Clear any overrides
-            const update = updates.get(condition._id) ?? condition.toObject();
+            const update = updates.get(source._id) ?? source;
             update.data.references.overrides.splice(0, update.data.references.overriddenBy.length);
-
             updates.set(update._id, update);
         }
 
-        if (condition.data.references.overriddenBy.length) {
+        if (source.data.references.overriddenBy.length) {
             // Was previous overridden.  Remove it for now.
-            const update = updates.get(condition._id) ?? condition.toObject();
+            const update = updates.get(source._id) ?? source;
             update.data.references.overriddenBy.splice(0, update.data.references.overriddenBy.length);
-
             updates.set(update._id, update);
         }
     }
@@ -211,15 +188,13 @@ export class ConditionManager {
     private static processConditions(actorOrToken: ActorPF2e | TokenPF2e): Promise<void>;
     private static async processConditions(actorOrToken: ActorPF2e | TokenPF2e): Promise<void> {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
-        const conditions =
-            actor?.itemTypes.condition.filter((condition) => condition.fromSystem).map((condition) => condition.data) ??
-            [];
+        const conditions = actor?.itemTypes.condition.map((condition) => condition.data._source) ?? [];
 
         // Any updates to items go here.
         const updates = new Map<string, ConditionSource>();
 
         // Map of applied conditions.
-        const appliedConditions = new Map<string, ConditionData>();
+        const appliedConditions = new Map<string, ConditionSource>();
 
         // Set of base conditions
         const baseList = new Set<string>();
@@ -236,9 +211,9 @@ export class ConditionManager {
                 // List of conditions with the same base.
                 const list = conditions.filter((c) => c.data.base === base);
 
-                let appliedCondition: ConditionData;
+                let appliedCondition: ConditionSource;
 
-                if (ConditionManager.getCondition(base).data.value.isValued) {
+                if (ConditionManager.getCondition(base).value) {
                     // Condition is normally valued.
                     appliedCondition = this.processValuedCondition(list, updates);
                 } else {
@@ -255,10 +230,9 @@ export class ConditionManager {
         });
 
         // Iterate the overriding bases.
-        overriding.forEach((base) => {
+        for (const base of overriding) {
             // Make sure to get the most recent version of a condition.
-            const overrider =
-                updates.get(appliedConditions.get(base)?._id ?? "") ?? appliedConditions.get(base)?.toObject();
+            const overrider = updates.get(appliedConditions.get(base)?._id ?? "") ?? appliedConditions.get(base);
 
             // Iterate the condition's overrides.
             overrider?.data.overrides.forEach((overriddenBase) => {
@@ -270,16 +244,15 @@ export class ConditionManager {
 
                     // Ensure all copies of overridden base are updated.
                     conditions
-                        .filter((conditionData) => conditionData.data.base === overriddenBase)
+                        .filter((c) => c.data.base === overriddenBase)
                         .forEach((conditionData) => {
                             // List of conditions that have been overridden.
-
-                            const overridden = updates.get(conditionData._id) ?? conditionData.toObject();
+                            const overridden = updates.get(conditionData._id) ?? conditionData;
                             this.processOverride(overridden, overrider, updates);
                         });
                 }
             });
-        });
+        }
 
         // Make sure to update any items that need updating.
         if (updates.size) {
@@ -345,6 +318,7 @@ export class ConditionManager {
             if (condition) this.processConditions(actor);
             return condition;
         }
+
         return null;
     }
 
@@ -372,10 +346,10 @@ export class ConditionManager {
     private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
         const conditionsToCreate: ConditionSource[] = [];
 
-        baseCondition.data.alsoApplies.linked.forEach((linkedCondition) => {
-            const conditionSource = this.getCondition(linkedCondition.condition).toObject();
-            if (linkedCondition.value) {
-                conditionSource.data.value.value = linkedCondition.value;
+        baseCondition.data.alsoApplies.linked.forEach((linked) => {
+            const conditionSource = this.getCondition(linked.condition).toObject();
+            if (linked.value) {
+                conditionSource.data.value.value = linked.value;
             }
             conditionSource._id = randomID(16);
             conditionSource.data.references.parent = { id: baseCondition._id, type: "condition" };
@@ -388,11 +362,11 @@ export class ConditionManager {
             conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
         });
 
-        baseCondition.data.alsoApplies.unlinked.forEach((unlinkedCondition) => {
-            const conditionSource = this.getCondition(unlinkedCondition.condition).toObject();
-            if (unlinkedCondition.value) {
+        baseCondition.data.alsoApplies.unlinked.forEach((unlinked) => {
+            const conditionSource = this.getCondition(unlinked.condition).toObject();
+            if (unlinked.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
-                conditionSource.data.value.value = unlinkedCondition.value;
+                conditionSource.data.value.value = unlinked.value;
             }
             conditionSource._id = randomID(16);
             conditionSource.data.sources.hud = baseCondition.data.sources.hud;

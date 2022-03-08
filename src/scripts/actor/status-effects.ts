@@ -108,13 +108,12 @@ export class StatusEffects {
     /** Updates the core CONFIG.statusEffects with the new icons */
     private static updateStatusIcons(): void {
         CONFIG.statusEffects = Array.from(game.pf2e.ConditionManager.conditions.values())
-            .filter((condition) => !["attitudes", "detection"].includes(condition.data.group))
+            .filter((c) => !["attitudes", "detection"].includes(c.data.data.group))
             .sort((conditionA, conditionB) => conditionA.name.localeCompare(conditionB.name))
             .map((condition) => {
                 const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
-                const slug = condition.data.slug;
                 const extension = CONFIG.PF2E.statusEffects.effectsIconFileType;
-                return `${folder}${slug}.${extension}`;
+                return `${folder}${condition.slug}.${extension}`;
             });
         CONFIG.statusEffects.push(CONFIG.controlIcons.defeated);
     }
@@ -142,15 +141,15 @@ export class StatusEffects {
 
             if (iconPath.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
                 const slug = this.getSlugFromImg(iconPath);
-                const conditionData = game.pf2e.ConditionManager.getCondition(slug);
-                if (!conditionData) continue;
+                const condition = game.pf2e.ConditionManager.getCondition(slug);
+                if (!condition) continue;
 
                 $icon.attr("data-effect", slug);
-                $icon.attr("data-condition", conditionData.name);
+                $icon.attr("data-condition", condition.name);
 
                 const affecting = affectingConditions.find((condition) => condition.slug === slug);
 
-                if (conditionData.data.value.isValued) {
+                if (condition.value) {
                     $icon.removeClass("effect-control").addClass("pf2e-effect-control");
                     // retrieve actor and the current effect value
                     $icon.wrap("<div class='pf2e-effect-img-container'></div>");
@@ -193,7 +192,7 @@ export class StatusEffects {
                 const applied = appliedConditions.find((condition) => condition.slug === conditionSlug);
                 const conditionBase = game.pf2e.ConditionManager.getCondition(conditionSlug);
 
-                if (conditionBase?.data.value.isValued) {
+                if (conditionBase?.value) {
                     // Valued condition
 
                     const $value = $icon.siblings("div.pf2e-effect-value").first();
