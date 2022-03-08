@@ -202,6 +202,8 @@ class CharacterPF2e extends CreaturePF2e {
         attributes.ac = {};
         attributes.classDC = { rank: 0 };
         attributes.dexCap = [{ value: Infinity, source: "" }];
+        attributes.polymorphed = false;
+        attributes.battleForm = false;
 
         const perception = (attributes.perception ??= { ability: "wis", rank: 0 });
         perception.ability = "wis";
@@ -308,7 +310,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Extract as separate variables for easier use in this method.
-        const { statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { statisticsModifiers, rollNotes } = synthetics;
 
         // Update experience percentage from raw experience amounts.
         systemData.details.xp.pct = Math.min(
@@ -711,9 +713,13 @@ class CharacterPF2e extends CreaturePF2e {
         // Automatic Actions
         systemData.actions = [];
 
+        const handwraps = itemTypes.weapon.find(
+            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed" && w.isInvested
+        );
+
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
-        const unarmed = ((): Embedded<WeaponPF2e> => {
-            const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
+        const basicUnarmed = ((): Embedded<WeaponPF2e> => {
+            const source: PreCreate<WeaponSource> & { data: { damage?: Partial<WeaponDamage> } } = {
                 _id: "xxPF2ExUNARMEDxx",
                 name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                 type: "weapon",
@@ -721,33 +727,56 @@ class CharacterPF2e extends CreaturePF2e {
                 data: {
                     slug: "basic-unarmed",
                     baseItem: null,
-                    category: "unarmed",
                     bonus: { value: 0 },
                     damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
-                    group: "brawling",
-                    range: null,
-                    strikingRune: { value: null },
-                    traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     equipped: {
-                        carryType: "held",
-                        handsHeld: 1,
-                    },
-                    usage: {
-                        value: "held-in-one-hand",
+                        carryType: "worn",
+                        inSlot: true,
+                        handsHeld: 0,
                     },
                 },
             };
 
+            if (handwraps) {
+                return handwraps.clone(source, { keepId: true });
+            }
+
+            // No handwraps, so generate straight from source
             return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
-        synthetics.strikes.unshift(unarmed);
+
+        // Regenerate the strikes from the handwraps so that all runes are included
+        if (handwraps && !this.attributes.battleForm) {
+            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
+                handwraps.data._source.data;
+
+            synthetics.strikes = synthetics.strikes.map((weapon) => {
+                if (weapon.category !== "unarmed") return weapon;
+
+                return weapon.clone(
+                    {
+                        data: deepClone({
+                            potencyRune,
+                            strikingRune,
+                            propertyRune1,
+                            propertyRune2,
+                            propertyRune3,
+                            propertyRune4,
+                        }),
+                    },
+                    { keepId: true }
+                );
+            });
+        }
 
         const ammos = itemTypes.consumable.filter(
             (item) => item.data.data.consumableType.value === "ammo" && !item.isStowed
         );
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
-        const weapons = [itemTypes.weapon, strikes].flat();
+
+        // Exclude handwraps as a strike
+        const weapons = [basicUnarmed, itemTypes.weapon.filter((w) => w !== handwraps), synthetics.strikes].flat();
         systemData.actions = weapons.map((weapon) =>
             this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
@@ -1177,7 +1206,8 @@ class CharacterPF2e extends CreaturePF2e {
             const traitsArray = weapon.data.data.traits.value;
             const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
             const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
-            const canWield2H = weapon.data.usage.hands === 2 || hasFatalAimTrait || hasTwoHandTrait;
+            const usage = weapon.data.usage;
+            const canWield2H = (usage.type === "held" && usage.hands === 2) || hasFatalAimTrait || hasTwoHandTrait;
 
             switch (weapon.carryType) {
                 case "held": {

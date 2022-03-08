@@ -55,6 +55,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             "held-in-one-plus-hands": "1+",
             "held-in-two-hands": "2",
         } as const;
+
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 

@@ -133,12 +133,14 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         const { actor } = this;
-        if (actor.attributes.polymorphed) {
+        const { attributes } = actor;
+        if (attributes.polymorphed) {
             actor.synthetics.preparationWarnings.add("PF2e System | You are already under a polymorph effect");
             this.ignored = true;
             return;
         }
-        actor.attributes.polymorphed = true;
+        attributes.polymorphed = true;
+        attributes.battleForm = true;
 
         this.setRollOptions();
         this.prepareSenses();
