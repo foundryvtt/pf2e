@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime, HourNumbers, MinuteNumbers, SecondNumbers } from "luxon";
 
 export enum Mode {
     ADVANCE,
@@ -17,10 +17,9 @@ export interface PointInTime {
 
 export class TimeOfDay implements PointInTime {
     constructor(
-        // no HourNumbers etc because not exported
-        public readonly hour: number,
-        public readonly minute: number,
-        public readonly second: number
+        public readonly hour: HourNumbers,
+        public readonly minute: MinuteNumbers,
+        public readonly second: SecondNumbers
     ) {}
 
     static dawn(): TimeOfDay {
