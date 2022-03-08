@@ -21,7 +21,6 @@ function resolveActors(): ActorPF2e[] {
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
-
 export const InlineRollLinks = {
     injectRepostElement: ($links: JQuery): void => {
         if (!game.user.isGM) return;
