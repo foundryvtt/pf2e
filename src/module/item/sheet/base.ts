@@ -12,7 +12,7 @@ import {
     TAG_SELECTOR_TYPES,
 } from "@module/system/trait-selector";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -341,7 +341,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        InlineRollsLinks.listen($html);
+        InlineRollLinks.listen($html);
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {

@@ -2,7 +2,7 @@ import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -56,10 +56,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             this.renderItemSummary($summary, item, chatData);
             $li.children(".item-name, .item-controls, .action-header").last().after($summary);
             if (options.instant) {
-                InlineRollsLinks.listen($summary);
+                InlineRollLinks.listen($summary);
             } else {
                 $summary.hide().slideDown(200, () => {
-                    InlineRollsLinks.listen($summary);
+                    InlineRollLinks.listen($summary);
                 });
             }
         }
