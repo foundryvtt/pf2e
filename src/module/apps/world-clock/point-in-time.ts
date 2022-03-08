@@ -36,17 +36,16 @@ export class TimeOfDay implements PointInTime {
     }
 
     public calculateSecondsDifference(worldTime: DateTime, mode: Mode): number {
-        const currentSecondsOfDay = TimeOfDay.getSecondsOfDay(worldTime.hour, worldTime.minute, worldTime.second);
-        const changeToSecondsOfDay = TimeOfDay.getSecondsOfDay(this.hour, this.minute, this.second);
-
-        const targetDayDifference = TimeOfDay.getTargetDayDifferenceInDays(
-            currentSecondsOfDay,
-            changeToSecondsOfDay,
-            mode
-        );
-        const targetDay = worldTime.plus({
-            day: targetDayDifference,
+        const targetTime = DateTime.fromObject({
+            year: worldTime.year,
+            month: worldTime.month,
+            day: worldTime.day,
+            hour: this.hour,
+            minute: this.minute,
+            second: this.second,
         });
+        const targetDayDifference = TimeOfDay.getTargetDayDifferenceInDays(worldTime, targetTime, mode);
+        const targetDay = worldTime.plus({ day: targetDayDifference });
         const targetDateTime = targetDay.set({
             hour: this.hour,
             minute: this.minute,
@@ -55,20 +54,16 @@ export class TimeOfDay implements PointInTime {
         return targetDateTime.diff(worldTime, "seconds").seconds;
     }
 
-    private static getTargetDayDifferenceInDays(currentSecondsOfDay: number, changeToSecondsOfDay: number, mode: Mode) {
+    private static getTargetDayDifferenceInDays(currentTime: DateTime, targetTime: DateTime, mode: Mode) {
         // if we have the same point in time, we always want to either skip or rewind a full day
-        if (currentSecondsOfDay >= changeToSecondsOfDay && mode === Mode.ADVANCE) {
+        if (currentTime >= targetTime && mode === Mode.ADVANCE) {
             // case: now: 12:01 and advance to 12:00 -> we need to add 1 day to calculate the difference
             return 1;
-        } else if (currentSecondsOfDay <= changeToSecondsOfDay && mode === Mode.RETRACT) {
+        } else if (currentTime <= targetTime && mode === Mode.RETRACT) {
             // case: now: 12:00 and retract to 12:01 -> we need to subtract 1 day to calculate the difference
             return -1;
         } else {
             return 0;
         }
-    }
-
-    private static getSecondsOfDay(hours: number, minutes: number, seconds: number): number {
-        return hours * 60 * 60 + minutes * 60 + seconds;
     }
 }
