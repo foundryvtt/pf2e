@@ -1,4 +1,4 @@
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import "../../styles/tinymce.scss";
 import type * as TinyMCE from "tinymce";
 import { ErrorPF2e } from "@util";
@@ -25,7 +25,7 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        InlineRollsLinks.listen($html);
+        InlineRollLinks.listen($html);
     }
 
     override activateEditor(name: string, options: Partial<TinyMCE.EditorSettings> = {}, initialContent = ""): void {

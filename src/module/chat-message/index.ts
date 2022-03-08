@@ -3,7 +3,7 @@ import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
@@ -152,7 +152,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         CriticalHitAndFumbleCards.appendButtons(this, $html);
 
         ChatCards.listen($html);
-        InlineRollsLinks.listen($html);
+        InlineRollLinks.listen($html);
         DegreeOfSuccessHighlights.listen(this, $html);
         if (canvas.ready) SetAsInitiative.listen($html);
 
