@@ -2,6 +2,8 @@ import { CharacterPF2e } from "@actor/character";
 import { LocalizePF2e } from "../../module/system/localize";
 import { ActionDefaultOptions } from "../..//module/system/actions/actions";
 import { CharacterSkillData } from "@actor/character/data";
+import { RollDataPF2e } from "@system/rolls";
+import { ChatMessagePF2e } from "@module/chat-message";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;
@@ -26,31 +28,33 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         dip.roll({
             dc: dc,
             options: options,
-            callback: async (roll: any) => {
+            callback: async (roll: Rolled<Roll<RollDataPF2e>>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
+                const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : "";
-                if (roll.data.degreeOfSuccess === 3) {
+                if (degreeOfSuccess === 3) {
                     healFormula = `2d8${bonusString}`;
                     successLabel = translations.CritSuccess;
-                } else if (roll.data.degreeOfSuccess === 2) {
+                } else if (degreeOfSuccess === 2) {
                     healFormula = `1d8${bonusString}`;
                     successLabel = translations.Success;
-                } else if (roll.data.degreeOfSuccess === 1) {
+                } else if (degreeOfSuccess === 1) {
                     successLabel = translations.Failure;
-                } else if (roll.data.degreeOfSuccess === 0) {
+                } else if (degreeOfSuccess === 0) {
                     healFormula = "1d8";
                     successLabel = translations.CritFailure;
                 }
-                if (healFormula !== undefined) {
+                if (healFormula) {
                     const healRoll = await new Roll(healFormula).roll({ async: true });
-                    const rollType = roll.data.degreeOfSuccess > 1 ? translations.Recovery : translations.Damage;
-                    ChatMessage.create({
-                        user: game.user.id,
+                    const rollType = degreeOfSuccess > 1 ? translations.Recovery : translations.Damage;
+                    const token = actor.getActiveTokens().shift()?.document ?? null;
+
+                    ChatMessagePF2e.create({
+                        speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         flavor: `<strong>${rollType} ${translations.Title}</strong> (${successLabel})`,
                         roll: healRoll.toJSON(),
-                        speaker: ChatMessage.getSpeaker(),
                     });
                 }
             },
@@ -60,8 +64,8 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     const applyChanges = ($html: JQuery): void => {
         const { dip } = actor.data.data.skills;
         const { name } = actor;
-        const mod = Number($html.find('[name="modifier"]').val()) || 0;
-        const requestedProf = Number($html.find('[name="dc-type"]').val()) || 1;
+        const mod = Number($html.find("[name=modifier]").val()) || 0;
+        const requestedProf = Number($html.find("[name=dc-type]").val()) || 1;
 
         let usedProf = 0;
         usedProf = requestedProf <= dip.rank ? requestedProf : dip.rank;

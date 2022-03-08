@@ -8,16 +8,17 @@ import { PhysicalItemType } from "@item/physical/data";
 import { VehicleTrait } from "./data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): ActorSheetOptions {
+        return {
+            ...super.defaultOptions,
             classes: ["default", "sheet", "actor", "vehicle"],
             width: 670,
             height: 480,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
-        });
+        };
     }
 
-    override get template() {
+    override get template(): string {
         return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
@@ -65,7 +66,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return sheetData;
     }
 
-    protected prepareItems(sheetData: any) {
+    protected prepareItems(sheetData: any): void {
         const actorData = sheetData.actor;
         // Inventory
         const inventory: Record<Exclude<PhysicalItemType, "book">, { label: string; items: PhysicalItemData[] }> = {
