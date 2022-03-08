@@ -121,9 +121,10 @@ async function applyDamage(
         return;
     }
 
-    for await (const token of tokens) {
-        const damage = message.roll!.total * multiplier + adjustment;
-        await token.actor?.applyDamage(damage, token, CONFIG.PF2E.chatDamageButtonShieldToggle);
+    const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
+    const damage = message.roll!.total * multiplier + adjustment;
+    for (const token of tokens) {
+        await token.actor?.applyDamage(damage, token, shieldBlockRequest);
     }
     toggleOffShieldBlock(message.id);
 }
