@@ -43,7 +43,7 @@ export class TrickMagicItemPopup {
         const buttons = skills.reduce((accumulated: Record<string, DialogButton>, skill) => {
             const button: DialogButton = {
                 icon: '<i class="fas fa-dice-d20"></i>',
-                label: `${skill.label} (${skill.modifier})`,
+                label: `${skill.label} (${skill.modifier < 0 ? "" : "+"}${skill.modifier})`,
                 callback: () => this.handleTrickItem(skill.value),
             };
             return { ...accumulated, [skill.value]: button };
