@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { DateTime, HourNumbers, MinuteNumbers, SecondNumbers } from "luxon";
 
 export enum Mode {
