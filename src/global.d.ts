@@ -46,6 +46,7 @@ import { sluggify } from "@util";
 import { ActorsPF2e } from "@module/collection/actors";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { UserVisibility } from "@scripts/ui/user-visibility";
 
 declare global {
     interface Game {
@@ -129,8 +130,8 @@ declare global {
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
-        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";
-        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showDC"): UserVisibility;
+        get(module: "pf2e", setting: "metagame.showResults"): UserVisibility;
         get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
