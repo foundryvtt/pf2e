@@ -128,7 +128,7 @@ declare global {
         get(module: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
         get(module: "core", key: "defaultToken"): Partial<foundry.data.PrototypeTokenSource>;
         get(module: "core", key: "rollMode"): RollMode;
-        get(module: string, key: string): any;
+        get(module: string, key: string): unknown;
 
         /**
          * Get the value of a game setting for a certain module and setting key

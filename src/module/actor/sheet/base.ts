@@ -72,7 +72,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const items = deepClone(
             this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0))
         );
-        (actorData as any).items = items;
+        (actorData as { items: unknown }).items = items;
 
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
