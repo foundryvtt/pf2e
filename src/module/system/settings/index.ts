@@ -5,7 +5,6 @@ import { StatusEffects } from "@scripts/actor/status-effects";
 import { objectHasKey } from "@util";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { MetagameSettings } from "./metagame";
 
 export function registerSettings() {
@@ -67,28 +66,6 @@ export function registerSettings() {
         scope: "world",
         onChange: () => {
             game.pf2e.compendiumBrowser.loadSettings();
-        },
-    });
-
-    game.settings.register("pf2e", "journalEntryTheme", {
-        name: "PF2E.SETTINGS.JournalEntryTheme.Name",
-        hint: "PF2E.SETTINGS.JournalEntryTheme.Hint",
-        scope: "world",
-        config: true,
-        default: "pf2eTheme",
-        type: String,
-        choices: {
-            pf2eTheme: "PF2E.SETTINGS.JournalEntryTheme.PF2E",
-            foundry: "PF2E.SETTINGS.JournalEntryTheme.Foundry",
-        },
-        onChange: () => {
-            const sheets = Object.values(ui.windows).filter(
-                (app): app is JournalSheetPF2e => app instanceof JournalSheetPF2e
-            );
-            for (const sheet of sheets) {
-                sheet.element.toggleClass("pf2e");
-                sheet.render(false);
-            }
         },
     });
 
