@@ -2,7 +2,7 @@ import { LocalizePF2e } from "@system/localize";
 import { ordinal } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness";
-import { Mode, TimeOfDay } from "@module/apps/world-clock/point-in-time";
+import { TimeChangeMode, TimeOfDay } from "./time-of-day";
 
 interface WorldClockData {
     date: string;
@@ -177,16 +177,20 @@ export class WorldClock extends Application {
     }
 
     private static calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
-        const mode = intervalMode === "+" ? Mode.ADVANCE : Mode.RETRACT;
-        if (interval === "dawn") {
-            return TimeOfDay.dawn().calculateSecondsDifference(wordTime, mode);
-        } else if (interval === "noon") {
-            return TimeOfDay.noon().calculateSecondsDifference(wordTime, mode);
-        } else if (interval === "dusk") {
-            return TimeOfDay.dusk().calculateSecondsDifference(wordTime, mode);
-        } else {
-            const sign = mode === Mode.ADVANCE ? 1 : -1;
-            return Number(interval) * sign;
+        const mode = intervalMode === "+" ? TimeChangeMode.ADVANCE : TimeChangeMode.RETRACT;
+        switch (interval) {
+            case "dawn":
+                return TimeOfDay.DAWN.diffSeconds(wordTime, mode);
+            case "noon":
+                return TimeOfDay.NOON.diffSeconds(wordTime, mode);
+            case "dusk":
+                return TimeOfDay.DUSK.diffSeconds(wordTime, mode);
+            case "midnight":
+                return TimeOfDay.MIDNIGHT.diffSeconds(wordTime, mode);
+            default: {
+                const sign = mode === TimeChangeMode.ADVANCE ? 1 : -1;
+                return Number(interval) * sign;
+            }
         }
     }
 
