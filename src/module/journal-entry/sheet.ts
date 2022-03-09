@@ -5,19 +5,6 @@ import { ErrorPF2e } from "@util";
 import { TextEditorPF2e } from "@system/text-editor";
 
 export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
-    static get theme(): "pf2eTheme" | "foundry" {
-        return game.settings.get("pf2e", "journalEntryTheme");
-    }
-
-    /** Use the system-themed styling only if the setting is enabled (on by default) */
-    static override get defaultOptions(): DocumentSheetOptions {
-        const options = super.defaultOptions;
-        if (this.theme === "pf2eTheme") {
-            options.classes.push("pf2e");
-        }
-        return options;
-    }
-
     override get template(): string {
         if (this._sheetMode === "image") return ImagePopout.defaultOptions.template;
         return "systems/pf2e/templates/journal/sheet.html";
@@ -35,8 +22,9 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
         options = foundry.utils.mergeObject(editor.options, options);
         options.height = options.target?.offsetHeight;
 
+        const defaults = (this.constructor as typeof JournalSheetPF2e).defaultOptions.classes;
         TextEditorPF2e.create(options, initialContent || editor.initial).then((mce) => {
-            if (JournalSheetPF2e.theme === "pf2eTheme") {
+            if (defaults.includes("pf2e")) {
                 mce.getBody().classList.add("pf2e");
             }
 
@@ -46,5 +34,14 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
             mce.focus();
             mce.on("change", () => (editor.changed = true));
         });
+    }
+}
+
+export class JournalSheetStyledPF2e extends JournalSheetPF2e {
+    /** Use the system-themed styling only if the setting is enabled (on by default) */
+    static override get defaultOptions(): DocumentSheetOptions {
+        const options = super.defaultOptions;
+        options.classes.push("pf2e");
+        return options;
     }
 }
