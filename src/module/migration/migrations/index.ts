@@ -126,3 +126,4 @@ export { Migration723CumulativeItemBonuses } from "./723-cumulative-item-bonuses
 export { Migration724CraftingMaxItemLevel } from "./724-crafting-max-item-level";
 export { Migration725QuickClimbREs } from "./725-quick-climb-rule-elements";
 export { Migration726JournalSetting } from "./726-journal-setting";
+export { Migration727RemoveTargetFlatFootedOption } from "./727-unset-flat-footed-toggle";
