@@ -52,7 +52,7 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
                 return;
             }
             case "equipment": {
-                if (source.data.slug.startsWith("bracers-of-armor-")) return;
+                if (!source.data.slug.startsWith("bracers-of-armor-")) return;
 
                 for (const rule of source.data.rules) {
                     if (rule.key === "FlatModifier") rule.slug = "bracers-of-armor";
