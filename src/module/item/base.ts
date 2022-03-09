@@ -202,8 +202,8 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
-            const containerId = currentSource.data.containerId.value ?? null;
-            mergeObject(updates, expandObject({ "data.containerId.value": containerId }));
+            const { containerId, quantity } = currentSource.data;
+            mergeObject(updates, expandObject({ "data.containerId": containerId, "data.quantity": quantity }));
         } else if (currentSource.type === "spell") {
             // Preserve spellcasting entry location
             mergeObject(updates, expandObject({ "data.location.value": currentSource.data.location.value }));
