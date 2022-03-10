@@ -40,7 +40,7 @@ class StrikeWeaponTraits {
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        predicate: new PredicatePF2e({ all: [{ lt: ["self:ability:str:score", 14] }] }),
+                        predicate: new PredicatePF2e({ all: [{ lt: ["ability:str:score", 14] }] }),
                     });
                 }
                 case "volley": {
