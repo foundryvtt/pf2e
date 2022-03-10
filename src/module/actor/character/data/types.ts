@@ -23,7 +23,7 @@ import {
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";

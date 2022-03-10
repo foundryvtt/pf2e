@@ -16,7 +16,7 @@ import {
     ModifierPF2e,
     ProficiencyModifier,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";

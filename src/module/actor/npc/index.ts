@@ -5,7 +5,7 @@ import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
 import { MeleeData } from "@item/data";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";

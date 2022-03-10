@@ -1,5 +1,5 @@
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
-import { DiceModifierPF2e } from "@module/modifiers";
+import { DiceModifierPF2e } from "@actor/modifiers";
 import { isBlank } from "@util";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { DamageDieSize } from "@system/damage/damage";

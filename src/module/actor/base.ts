@@ -26,7 +26,7 @@ import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
-import { ModifierAdjustment } from "@module/modifiers";
+import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 

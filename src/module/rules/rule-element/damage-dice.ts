@@ -1,6 +1,6 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { DamageDiceOverride, DamageDicePF2e } from "@module/modifiers";
+import { DamageDiceOverride, DamageDicePF2e } from "@actor/modifiers";
 import { DamageDieSize, DamageType } from "@system/damage";
 import { isObject } from "@util";
 import { RuleElementData, RuleElementPF2e } from "./";

@@ -7,7 +7,7 @@ import {
     MODIFIER_TYPE,
     RawModifier,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";

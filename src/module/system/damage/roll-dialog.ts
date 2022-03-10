@@ -1,6 +1,6 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { DamageRollFlag } from "@module/chat-message/data";
-import { ModifierPF2e } from "@module/modifiers";
+import { ModifierPF2e } from "@actor/modifiers";
 import { DamageRollContext, DamageTemplate } from ".";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */

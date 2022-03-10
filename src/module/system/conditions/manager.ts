@@ -1,4 +1,4 @@
-import { ModifierPF2e } from "@module/modifiers";
+import { ModifierPF2e } from "@actor/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { ConditionData, ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";

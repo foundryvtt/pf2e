@@ -1,4 +1,4 @@
-import { ModifierPF2e, StatisticModifier } from "../modifiers";
+import { ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { CheckRollContext, FateString } from "./rolls";
 import { LocalizePF2e } from "./localize";
 

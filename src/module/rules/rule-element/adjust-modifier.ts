@@ -1,6 +1,6 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { ModifierAdjustment } from "@module/modifiers";
+import { ModifierAdjustment } from "@actor/modifiers";
 import { DamageType, DAMAGE_TYPES } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, setHasElement } from "@util";

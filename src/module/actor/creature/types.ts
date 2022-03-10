@@ -3,7 +3,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { SpellcastingEntryData } from "@item/data";
 import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
-import { ModifierPF2e } from "@module/modifiers";
+import { ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/degree-of-success";
 import { CreaturePF2e } from ".";

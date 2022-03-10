@@ -5,7 +5,7 @@ import {
     ProficiencyModifier,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { CheckPF2e, CheckType } from "@system/rolls";
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import {

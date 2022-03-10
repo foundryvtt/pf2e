@@ -10,7 +10,7 @@ import {
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
