@@ -29,7 +29,7 @@ export class AncestryBackgroundClassManager {
 
                 /** Add class self roll option in case it is needed by any features' rule elements */
                 const slug = source.data.slug ?? sluggify(source.name);
-                actor.rollOptions.all[`self:class:${slug}`] = true;
+                actor.rollOptions.all[`class:${slug}`] = true;
 
                 source._id = randomID(16);
                 source.flags.pf2e ??= {};

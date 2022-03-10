@@ -54,7 +54,7 @@ export class ClassPF2e extends ABCItemPF2e {
 
         const slug = this.slug ?? sluggify(this.name);
         details.class = { name: this.name, trait: slug };
-        this.actor.rollOptions.all[`self:class:${slug}`] = true;
+        this.actor.rollOptions.all[`class:${slug}`] = true;
     }
 }
 
