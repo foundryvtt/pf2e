@@ -76,7 +76,6 @@ export class AncestryPF2e extends ABCItemPF2e {
         // Set self: roll option for this ancestry and its associated traits
         this.actor.rollOptions.all[`self:ancestry:${slug}`] = true;
         for (const trait of this.traits) {
-            this.actor.rollOptions.all[`self:${trait}`] = true;
             this.actor.rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
