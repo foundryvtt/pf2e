@@ -9,7 +9,7 @@ import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
-import { UserVisibility } from "@scripts/ui/user-visibility";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
@@ -58,6 +58,19 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         })();
 
         return fromItem ?? ChatMessagePF2e.getSpeakerActor(this.data.speaker);
+    }
+
+    /** If this is a check or damage roll, it will have target information */
+    get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
+        const targetUUID = this.data.flags.pf2e.context?.target?.token;
+        if (!targetUUID) return null;
+
+        const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
+        const scene = game.scenes.get(match[1] ?? "");
+        const token = scene?.tokens.get(match[2] ?? "");
+        const actor = token?.actor;
+
+        return actor ? { actor, token } : null;
     }
 
     /** Does this message include a check (1d20 + c) roll? */
@@ -118,7 +131,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the token of the speaker if possible */
-    get token(): TokenDocumentPF2e | null {
+    get token(): Embedded<TokenDocumentPF2e> | null {
         if (!game.scenes) return null;
         const sceneId = this.data.speaker.scene ?? "";
         const tokenId = this.data.speaker.token ?? "";
@@ -134,7 +147,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
 
         // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibility.process($html, { message: this, actor: this.actor });
+        UserVisibilityPF2e.process($html, { message: this, actor: this.actor });
 
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
         const $targetDC = $html.find(".target-dc");
