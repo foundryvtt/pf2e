@@ -221,7 +221,7 @@ export interface StrikeData {
     /** The type of action; currently just 'strike'. */
     type: "strike";
     /** The image URL for this strike (shown on the UI). */
-    imageUrl: string;
+    imageUrl: ImagePath;
     /** The glyph for this strike (how many actions it takes, reaction, etc). */
     glyph: string;
     /** A description of this strike. */

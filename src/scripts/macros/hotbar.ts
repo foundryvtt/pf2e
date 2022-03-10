@@ -46,9 +46,10 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
     return item.toChat();
 }
 
-export async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {
-    const actor = game.actors.get(actorId);
-    const action = (actor as any).data.data.actions[actionIndex];
+export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
+    const actor = game.actors.get(actorId, { strict: true });
+    const action = actor.isOfType("character", "npc") ? actor.data.data.actions[actionIndex] : null;
+    if (!action) return;
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
     const actionName = JSON.stringify(action.name);
     const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
