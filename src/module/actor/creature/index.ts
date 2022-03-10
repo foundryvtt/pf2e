@@ -309,16 +309,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        this.data.data.toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
-                    checked: !!this.rollOptions.all["target:flatFooted"],
-                    enabled: true,
-                },
-            ],
-        };
+        this.data.data.toggles = { actions: [] };
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
