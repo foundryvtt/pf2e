@@ -119,6 +119,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             rollOptions.push(PROFICIENCY_RANK_OPTION[this.data.rank]);
         }
 
+        if (this.data.rollOptions) {
+            rollOptions.push(...this.data.rollOptions);
+        }
+
         if (item) {
             rollOptions.push(...item.getRollOptions("item"));
             if (item.actor && item.actor.id !== this.actor.id) {

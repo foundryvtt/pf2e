@@ -41,6 +41,11 @@ export interface BaseStatisticData {
     notes?: RollNotePF2e[];
     /** Base domains for fetching actor roll options */
     domains?: string[];
+    /**
+     * Any static roll options that should be added to the list of roll options.
+     * This does not include actor, rank, or basic item roll options.
+     */
+    rollOptions?: string[];
 }
 
 export type StatisticDataWithCheck = BaseStatisticData & { check: StatisticCheckData };
