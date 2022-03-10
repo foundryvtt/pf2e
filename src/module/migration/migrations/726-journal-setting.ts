@@ -1,7 +1,7 @@
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
-/** Migrates the journal theme Predicate rule elements related to crafting entries to protect against partial entry data getting created */
+/** Remove the journal theme setting, changing the default sheet according to the stored setting value */
 export class Migration726JournalSetting extends MigrationBase {
     static override version = 0.726;
 
