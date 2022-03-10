@@ -217,6 +217,10 @@ class StatisticCheck {
         this.mod = this.#stat.totalModifier;
     }
 
+    createRollOptions(args: RollOptionParameters = {}): string[] {
+        return this.parent.createRollOptions(this.domains, args);
+    }
+
     calculateMap(options: { item: ItemPF2e }) {
         const baseMap = options.item.calculateMap();
         const penalties = [...(this.parent.data.check.penalties ?? [])];
@@ -311,13 +315,14 @@ class StatisticCheck {
 }
 
 class StatisticDifficultyClass {
+    domains: string[];
     value: number;
     modifiers: ModifierPF2e[];
 
-    constructor(parent: Statistic<StatisticDataWithDC>, options: RollOptionParameters = {}) {
+    constructor(private parent: Statistic<StatisticDataWithDC>, options: RollOptionParameters = {}) {
         const data = parent.data;
-        const domains = (data.domains ?? []).concat(data.dc.domains ?? []);
-        const rollOptions = parent.createRollOptions(domains, options);
+        this.domains = (data.domains ?? []).concat(data.dc.domains ?? []);
+        const rollOptions = parent.createRollOptions(this.domains, options);
 
         // toggle modifiers based on the specified options
         this.modifiers = (parent.modifiers ?? [])
@@ -325,6 +330,10 @@ class StatisticDifficultyClass {
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
         this.value = (data.dc.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
+    }
+
+    createRollOptions(args: RollOptionParameters = {}): string[] {
+        return this.parent.createRollOptions(this.domains, args);
     }
 
     get breakdown() {
