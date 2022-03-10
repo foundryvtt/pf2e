@@ -862,21 +862,21 @@ class CharacterPF2e extends CreaturePF2e {
         const rollOptionsAll = this.rollOptions.all;
 
         const perceptionRank = this.data.data.attributes.perception.rank;
-        rollOptionsAll[`self:perception:rank:${perceptionRank}`] = true;
+        rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
         for (const key of ABILITY_ABBREVIATIONS) {
             const score = this.abilities[key].value;
-            rollOptionsAll[`self:ability:${key}:score:${score}`] = true;
+            rollOptionsAll[`ability:${key}:score:${score}`] = true;
         }
 
         for (const key of SKILL_ABBREVIATIONS) {
             const rank = this.data.data.skills[key].rank;
-            rollOptionsAll[`self:skill:${key}:rank:${rank}`] = true;
+            rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
         for (const key of SAVE_TYPES) {
             const rank = this.data.data.saves[key].rank;
-            rollOptionsAll[`self:save:${key}:rank:${rank}`] = true;
+            rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
     }
 
