@@ -11,8 +11,9 @@ export class LightingLayerPF2e<
         return 1 - this.darknessLevel;
     }
 
-    setPerceivedLightLevel({ hasLowLightVision = false } = {}): void {
+    setPerceivedLightLevel({ hasLowLightVision }: { hasLowLightVision?: boolean } = {}): void {
         if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
+        hasLowLightVision ??= canvas.sight.sources.some((s) => s.object.hasLowLightVision);
 
         const lightEmitters = [
             ...canvas.tokens.placeables.filter((token) => token.emitsLight && !token.light.isDarkness),
