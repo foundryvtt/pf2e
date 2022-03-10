@@ -8,9 +8,20 @@
             <button type="button" data-advance-mode="{{sign}}" data-advance-time="3600"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneHour"}}</button>
             <button type="button" data-advance-mode="{{sign}}" data-advance-time="86400"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneDay"}}</button>
             <button type="button" data-advance-mode="{{sign}}" data-advance-time="604800"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.AddOneWeek"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="dawn"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.Dawn"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="noon"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.Noon"}}</button>
-            <button type="button" data-advance-mode="{{sign}}" data-advance-time="dusk"><span class="sign">{{sign}}</span>{{localize "PF2E.WorldClock.Button.Dusk"}}</button>
+            <section class="time-of-day">
+                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Dawn"}}" data-advance-mode="{{sign}}" data-advance-time="dawn">
+                    <span class="sign">{{sign}}</span><img src="systems/pf2e/icons/mdi/sunrise.svg" />
+                </button>
+                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Noon"}}" data-advance-mode="{{sign}}" data-advance-time="noon">
+                    <span class="sign">{{sign}}</span><img src="systems/pf2e/icons/mdi/sunny.svg" />
+                </button>
+                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Dusk"}}" data-advance-mode="{{sign}}" data-advance-time="dusk">
+                    <span class="sign">{{sign}}</span><img src="systems/pf2e/icons/mdi/sunset.svg" />
+                </button>
+                <button type="button" title="{{localize "PF2E.WorldClock.Button.TimeOfDay.Advance.Midnight"}}" data-advance-mode="{{sign}}" data-advance-time="midnight">
+                    <span class="sign">{{sign}}</span><img class="midnight" src="systems/pf2e/icons/mdi/night.svg" />
+                </button>
+            </section>
         </div>
         <hr>
         <div class="input-grid">
