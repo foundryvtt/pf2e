@@ -18,6 +18,8 @@ import { AttackTarget, StrikeTarget } from "@actor/creature/types";
 import { DamageCategory, DamageRollContext } from "./damage/damage";
 import { LocalizePF2e } from "./localize";
 import { Check } from "./check";
+import { UserVisibility } from "@scripts/ui/user-visibility";
+import { TextEditorPF2e } from "./text-editor";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -485,7 +487,7 @@ export class CheckPF2e {
         })();
 
         // Not actually included in the template, but used for creating other template data
-        const targetData = await (async (): Promise<{ name: string; visibility: string } | null> => {
+        const targetData = await (async (): Promise<{ name: string; visibility: UserVisibility } | null> => {
             if (!target) return null;
 
             const token = await (async (): Promise<TokenDocumentPF2e | null> => {
@@ -604,38 +606,27 @@ export class CheckPF2e {
             });
             const html = parseHTML(rendered);
 
-            const convertXMLNode = (
-                nodeName: string,
-                visibility: string | null,
-                ...cssClasses: string[]
-            ): HTMLElement | null => {
-                const node = html.querySelector(nodeName);
-                if (!node) return null;
-
-                const span = document.createElement("span");
-                if (visibility) span.dataset.visibility = visibility;
-                span.append(...Array.from(node.childNodes));
-                for (const cssClass of cssClasses) {
-                    span.classList.add(cssClass);
-                }
-
-                node.replaceWith(span);
-                return span;
-            };
-
-            if (targetData) convertXMLNode("target", targetData.visibility);
-            convertXMLNode("dc", dcData.visibility);
+            const { convertXMLNode } = TextEditorPF2e;
+            if (targetData) {
+                convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });
+            }
+            convertXMLNode(html, "dc", { visibility: dcData.visibility, whose: "target" });
             if (dcData.adjustment) {
                 const { adjustment } = dcData;
-                convertXMLNode("preadjusted", null, "preadjusted-dc");
+                convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
 
                 // Add circumstance bonuses/penalties for tooltip content
-                const adjustedNode = convertXMLNode("adjusted", null, "adjusted-dc", adjustment.direction);
+                const adjustedNode = convertXMLNode(html, "adjusted", {
+                    classes: ["adjusted-dc", adjustment.direction],
+                });
                 if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
                 adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
             }
-            convertXMLNode("degree", resultData.visibility, DEGREE_OF_SUCCESS_STRINGS[degree.value]);
-            convertXMLNode("offset", dcData.visibility);
+            convertXMLNode(html, "degree", {
+                visibility: resultData.visibility,
+                classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
+            });
+            convertXMLNode(html, "offset", { visibility: dcData.visibility, whose: "target" });
 
             if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
                 // If target and DC are both hidden from view, hide both
@@ -663,7 +654,7 @@ interface CreateFlavorMarkupParams {
 interface FlavorTemplateData {
     dc: {
         markup: string;
-        visibility: string;
+        visibility: UserVisibility;
         adjustment?: {
             preadjusted: number;
             direction: "increased" | "decreased";
@@ -672,7 +663,7 @@ interface FlavorTemplateData {
     };
     result: {
         markup: string;
-        visibility: string;
+        visibility: UserVisibility;
     };
 }
 
