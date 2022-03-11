@@ -2,8 +2,9 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { Rollable } from "@actor/data/base";
 import { SKILL_EXPANDED } from "@actor/data/values";
 import { GhostTemplate } from "@module/ghost-measured-template";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { sluggify } from "@util";
@@ -20,10 +21,10 @@ function resolveActors(): ActorPF2e[] {
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
-export const InlineRollsLinks = {
+export const InlineRollLinks = {
     // Conditionally show DCs in the text
-    injectDCText: ($links: JQuery) => {
-        $links.each((_idx, link) => {
+    injectDCText: ($links: JQuery): void => {
+        for (const link of $links) {
             const dc = Number(link.dataset.pf2Dc?.trim() ?? "");
             const role = link.dataset.pf2ShowDc?.trim() ?? "";
             const userCanView = ["all", "owner"].includes(role) || (role === "gm" && game.user.isGM);
@@ -31,32 +32,33 @@ export const InlineRollsLinks = {
                 const text = link.innerHTML;
                 link.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text });
             }
-        });
+        }
     },
 
-    injectRepostElement: ($links: JQuery) => {
-        $links.each((_idx, link) => {
-            if (game.user.isGM) {
-                if (!link.querySelector("[data-pf2-repost]")) {
-                    const child = document.createElement("i");
-                    child.classList.add("fas");
-                    child.classList.add("fa-comment-alt");
-                    child.setAttribute("data-pf2-repost", "");
-                    child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
-                    link.appendChild(child);
-                }
-            }
-        });
+    injectRepostElement: ($links: JQuery): void => {
+        if (!game.user.isGM) return;
+
+        for (const link of $links) {
+            if (link.querySelector("[data-pf2-repost]")) continue;
+
+            const child = document.createElement("i");
+            child.classList.add("fas");
+            child.classList.add("fa-comment-alt");
+            child.setAttribute("data-pf2-repost", "");
+            child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
+            link.appendChild(child);
+        }
     },
 
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
-        InlineRollsLinks.injectDCText($links);
-        InlineRollsLinks.injectRepostElement($links);
+        InlineRollLinks.injectDCText($links);
+        InlineRollLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
         $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
-            InlineRollsLinks.repostAction(event.target.parentElement!);
+            const parent = event.target.parentElement;
+            if (parent) InlineRollLinks.repostAction(parent);
             event.stopPropagation();
         });
 
@@ -69,12 +71,7 @@ export const InlineRollsLinks = {
                     event,
                     glyph: pf2Glyph,
                     variant: pf2Variant,
-                    difficultyClass: pf2Dc
-                        ? {
-                              scope: "CheckOutcome",
-                              value: parseInt(pf2Dc),
-                          }
-                        : undefined,
+                    difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0 } : undefined,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -151,8 +148,8 @@ export const InlineRollsLinks = {
                         const savingThrow = actor.saves?.[pf2Check ?? ""];
                         if (pf2Check && savingThrow) {
                             const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as CheckDC)
-                                : undefined;
+                                ? { label: pf2Label, value: Number(pf2Dc) }
+                                : null;
                             const options = actor.getRollOptions(["all", "saving-throw", pf2Check]);
                             if (pf2Traits) {
                                 const traits = pf2Traits
@@ -255,28 +252,31 @@ export const InlineRollsLinks = {
 
     repostAction: (target: HTMLElement): void => {
         if (
-            target?.matches(
-                '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *'
-            ) ||
-            target?.matches("[data-pf2-check], [data-pf2-check] *")
+            !(
+                target?.matches("[data-pf2-action], [data-pf2-action] *") ||
+                target?.matches("[data-pf2-check], [data-pf2-check] *")
+            )
         ) {
-            const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-            target.setAttributeNS(
-                null,
-                "data-pf2-show-dc",
-                target.attributes.getNamedItem("data-pf2-repost-show-dc")?.value ?? "gm"
-            );
-            const regexDC = new RegExp(
-                game.i18n
-                    .localize("PF2E.DCWithValue")
-                    .replace(/\{dc\}/g, "\\d+")
-                    .replace(/\{text\}/g, "(.*)")
-            );
-            const newInnerHTML = target.innerHTML
-                .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
-                .replace(regexDC, "$1");
-            const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
-            ChatMessage.create({ content: `${flavor || ""} ${replaced}`.trim() });
+            return;
         }
+
+        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
+        const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
+
+        // Need to strip out the DC from the inner HTML if it exists before repost.
+        const regexDC = new RegExp(
+            game.i18n
+                .localize("PF2E.DCWithValue")
+                .replace(/\{dc\}/g, "\\d+")
+                .replace(/\{text\}/g, "(.*)")
+        );
+        const newInnerHTML = target.innerHTML
+            .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
+            .replace(regexDC, "$1");
+        const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
+
+        ChatMessagePF2e.create({
+            content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
+        });
     },
 };

@@ -19,8 +19,9 @@ export class KitPF2e extends ItemPF2e {
         containerId = null,
     }: { entries?: KitEntryData[]; containerId?: string | null } = {}): Promise<PhysicalItemPF2e[]> {
         const itemUUIDs = entries.map((e): ItemUUID => (e.pack ? `Compendium.${e.pack}.${e.id}` : `Item.${e.id}`));
-        const items = await fromUUIDs(itemUUIDs);
+        const items: unknown[] = await fromUUIDs(itemUUIDs);
         if (entries.length !== items.length) throw ErrorPF2e(`Some items from ${this.name} were not found`);
+        if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
 
         return items.reduce(async (promise: PhysicalItemPF2e[] | Promise<PhysicalItemPF2e[]>, item, index) => {
             const prepared = await promise;
@@ -28,8 +29,8 @@ export class KitPF2e extends ItemPF2e {
             const entry = entries[index];
             if (clone.data.isPhysical) {
                 clone.data.update({
-                    "data.quantity.value": entry.quantity,
-                    "data.containerId.value": containerId,
+                    "data.quantity": entry.quantity,
+                    "data.containerId": containerId,
                 });
             }
 

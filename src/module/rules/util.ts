@@ -6,7 +6,7 @@ import { DeferredModifier } from "./rule-element/data";
 export function extractModifiers(
     modifiers: Record<string, DeferredModifier[]>,
     selectors: string[],
-    options: { test?: string[] } & DeferredValueParams = {}
+    options: DeferredValueParams = {}
 ): ModifierPF2e[] {
     return selectors
         .flatMap((selector) => modifiers[selector] ?? [])

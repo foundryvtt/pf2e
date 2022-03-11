@@ -1,12 +1,16 @@
 import { ActorPF2e } from "@actor";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { SpellcastingEntryData } from "@item/data";
+import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
 import { ModifierPF2e } from "@module/modifiers";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckDC } from "@system/check-degree-of-success";
+import { CheckDC } from "@system/degree-of-success";
+import { CreaturePF2e } from ".";
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
-interface StrikeSelf<A extends ActorPF2e, I extends AttackItem> {
+interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
     actor: A;
     token: TokenDocumentPF2e | null;
     /** The item used for the strike */
@@ -35,8 +39,6 @@ interface StrikeRollContextParams<T extends AttackItem> {
     domains?: string[];
     /** Whether the request is for display in a sheet view. If so, targets are not considered */
     viewOnly?: boolean;
-    /** The strike is to use the melee usage of a combination weapon */
-    meleeUsage?: boolean;
 }
 
 interface AttackTarget extends StrikeTarget {
@@ -59,12 +61,28 @@ interface IsFlatFootedParams {
     dueTo: "flanking" | "surprise" | "hidden" | "undetected";
 }
 
+interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
+    abilities: ConfigPF2e["PF2E"]["abilities"];
+    skills: ConfigPF2e["PF2E"]["skills"];
+    actorSizes: ConfigPF2e["PF2E"]["actorSizes"];
+    alignments: ConfigPF2e["PF2E"]["alignments"];
+    rarity: ConfigPF2e["PF2E"]["rarityTraits"];
+    attitude: ConfigPF2e["PF2E"]["attitude"];
+    pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
+}
+
+type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
+
 export {
     AttackItem,
     AttackRollContext,
     AttackTarget,
+    CreatureSheetData,
+    GetReachParameters,
     IsFlatFootedParams,
+    SpellcastingSheetData,
     StrikeRollContext,
     StrikeRollContextParams,
-    GetReachParameters,
+    StrikeSelf,
+    StrikeTarget,
 };

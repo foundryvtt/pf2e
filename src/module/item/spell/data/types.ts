@@ -108,7 +108,7 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     location: {
         value: string;
     };
-    heightenedLevel: {
+    heightenedLevel?: {
         value: number;
     };
     hasCounteractCheck: {

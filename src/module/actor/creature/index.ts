@@ -8,12 +8,11 @@ import {
     RawModifier,
     StatisticModifier,
 } from "@module/modifiers";
-import { ItemPF2e, ArmorPF2e } from "@item";
+import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
 import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { CheckDC } from "@system/check-degree-of-success";
 import { CheckPF2e } from "@system/rolls";
 import {
     Alignment,
@@ -51,6 +50,10 @@ import {
     StrikeRollContext,
     StrikeRollContextParams,
 } from "./types";
+import { EquippedData, ItemCarryType } from "@item/physical/data";
+import { isCycle } from "@item/container/helpers";
+import { isEquipped } from "@item/physical/usage";
+import { ArmorSource } from "@item/data";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -147,9 +150,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get canAct(): boolean {
+        // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
+        const traits = this.data.data.traits.traits.value;
+        const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
+
         const conditions = this.itemTypes.condition;
-        const cantAct = ["paralyzed", "stunned", "unconscious"];
-        return this.hitPoints.value > 0 && !conditions.some((c) => cantAct.includes(c.slug));
+        const cannotAct = ["paralyzed", "stunned", "unconscious"];
+
+        return aliveOrEidolon && !conditions.some((c) => cannotAct.includes(c.slug));
     }
 
     override get canAttack(): boolean {
@@ -306,8 +314,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
             actions: [
                 {
                     label: "PF2E.TargetFlatFootedLabel",
-                    inputName: `flags.pf2e.rollOptions.all.target:flatFooted`,
-                    checked: this.getFlag("pf2e", "rollOptions.all.target:flatFooted"),
+                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
+                    checked: !!this.rollOptions.all["target:flatFooted"],
                     enabled: true,
                 },
             ],
@@ -367,13 +375,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Add modifiers from being flanked
         if (this.isFlatFooted({ dueTo: "flanking" })) {
-            const acModifiers = (this.synthetics.statisticsModifiers["ac"] ??= []);
-            const flatFooted = game.pf2e.ConditionManager.getCondition("flat-footed");
-            const modifier = (game.pf2e.ConditionManager.getConditionModifiers([flatFooted]).get("ac") ?? []).pop();
-            if (!modifier) throw ErrorPF2e("Unexpected error retrieving condition");
+            const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
+            const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this }) as Embedded<ConditionPF2e>;
 
-            modifier.label = game.i18n.localize("PF2E.Item.Condition.Flanked");
-            acModifiers.push(() => modifier);
+            const rule = flatFooted.prepareRuleElements().shift();
+            if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
+            rule.beforePrepareData?.();
 
             this.rollOptions.all["self:condition:flat-footed"] = true;
             this.rollOptions.all["self:flatFooted"] = true; // legacy support
@@ -381,7 +389,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected setNumericRollOptions(): void {
-        this.rollOptions.all[`self:level:${this.level}`] = true;
+        this.rollOptions.all[`self:level:${this.level}`] = true; // `;
     }
 
     protected prepareInitiative(
@@ -498,6 +506,52 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /**
+     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
+     * @param item       The item
+     * @param carryType  Location to be set to
+     * @param handsHeld  Number of hands being held
+     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
+     */
+    async adjustCarryType(
+        item: Embedded<PhysicalItemPF2e>,
+        carryType: ItemCarryType,
+        handsHeld = 0,
+        inSlot = false
+    ): Promise<void> {
+        if (carryType === "stowed") {
+            // since there's still an "items need to be in a tree" view, we
+            // need to actually put the item in a container when it's stowed.
+            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
+            await item.update({
+                "data.containerId": container?.id ?? "",
+                "data.equipped.carryType": "stowed",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
+            });
+        } else {
+            const equipped: EquippedData = {
+                carryType: carryType,
+                handsHeld: carryType === "held" ? handsHeld : 0,
+                inSlot: item.data.usage.type === "worn" && item.data.usage.where ? inSlot : undefined,
+            };
+
+            const updates: (DeepPartial<ArmorSource> & { _id: string })[] = [];
+
+            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
+                // see if they have another set of armor equipped
+                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
+                for (const armor of wornArmors) {
+                    updates.push({ _id: armor.id, data: { equipped: { inSlot: false } } });
+                }
+            }
+
+            updates.push({ _id: item.id, data: { containerId: null, equipped: equipped } });
+
+            await this.updateEmbeddedDocuments("Item", updates);
+        }
+    }
+
+    /**
      * Adds a custom modifier that will be included when determining the final value of a stat. The slug generated by
      * the name parameter must be unique for the custom modifiers for the specified stat, or it will be ignored.
      */
@@ -509,7 +563,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         predicate?: RawPredicate,
         damageType?: DamageType,
         damageCategory?: string
-    ) {
+    ): Promise<void> {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (!(customModifiers[stat] ?? []).find((m) => m.label === name)) {
             const modifier = new ModifierPF2e({ label: name, modifier: value, type });
@@ -545,12 +599,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(domain: string, optionName: string) {
+    async toggleRollOption(domain: string, option: string): Promise<this> {
         if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
-            throw new Error(`${domain} is not a supported roll`);
+            throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
         }
-        const flag = `rollOptions.${domain}.${optionName}`;
-        return this.setFlag("pf2e", flag, !this.getFlag("pf2e", flag));
+        const flag = `rollOptions.${domain}.${option}`;
+        return this.setFlag("pf2e", flag, !this.rollOptions[domain]?.[option]);
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */
@@ -633,54 +687,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         );
     }
 
-    // this is needed for type safety
-    override async updateEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
-        options: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        return super.updateEmbeddedDocuments(embeddedName, data, options);
-    }
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */
-
-    /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     */
-    rollRecovery(event: JQuery.TriggeredEvent) {
-        if (this.data.type !== "character") {
-            throw Error("Recovery rolls are only applicable to characters");
-        }
-
-        const dying = this.data.data.attributes.dying.value;
-        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-        const recoveryMod = getProperty(this.data.data.attributes, "dying.recoveryMod") || 0;
-
-        const dc: CheckDC = {
-            label: game.i18n.format("PF2E.Recovery.rollingDescription", {
-                dying,
-                dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
-            }),
-            value: 10 + recoveryMod + dying,
-            visibility: "all",
-        };
-
-        const notes: RollNotePF2e[] = [
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critSuccess"), undefined, ["criticalSuccess"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.success"), undefined, ["success"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.failure"), undefined, ["failure"]),
-            new RollNotePF2e("all", game.i18n.localize("PF2E.Recovery.critFailure"), undefined, ["criticalFailure"]),
-        ];
-
-        const modifier = new StatisticModifier(game.i18n.localize("PF2E.FlatCheck"), []);
-
-        CheckPF2e.roll(modifier, { actor: this, dc, notes }, event);
-
-        // No automated update yet, not sure if Community wants that.
-        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
-    }
 
     /**
      * Calculates attack roll target data including the target's DC.
@@ -693,10 +702,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
         const attackTarget: AttackTarget | null = context.target ? { ...context.target, dc: null } : null;
         if (attackTarget && attackTarget.actor.attributes.ac) {
-            const { attributes } = attackTarget.actor;
             attackTarget.dc = {
-                scope: "AttackOutcome",
-                value: attributes.ac.value,
+                scope: "attack",
+                slug: "ac",
+                value: attackTarget.actor.attributes.ac.value,
             };
         }
 
@@ -736,18 +745,26 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
-        const actions: StrikeData[] = selfActor.data.data.actions ?? [];
-        const selfItem = ((): I => {
-            const mainItem = params.viewOnly
-                ? params.item
-                : (actions
-                      .flatMap((a) => a.item ?? [])
-                      .find((w) => w.id === params.item.id && w.name === params.item.name)! as I);
+        const actions: StrikeData[] =
+            selfActor.data.data.actions?.flatMap((a) => (a.meleeUsage ? [a, a.meleeUsage] : a)) ?? [];
 
-            return mainItem.isOfType("weapon") && params.meleeUsage && mainItem.traits.has("combination")
-                ? ((mainItem.toMeleeUsage() ?? mainItem) as I)
-                : mainItem;
-        })();
+        const selfItem =
+            params.viewOnly || params.item.isOfType("spell")
+                ? params.item
+                : ((actions
+                      .flatMap((a) => a.item ?? [])
+                      .find((weapon) => {
+                          // Find the matching weapon or melee item
+                          if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
+                          if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
+
+                          // Discriminate between melee/thrown usages by checking that both are either melee or ranged
+                          return (
+                              params.item.isOfType("weapon") &&
+                              weapon.isOfType("weapon") &&
+                              params.item.isMelee === weapon.isMelee
+                          );
+                      }) ?? params.item) as I);
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
@@ -759,14 +776,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const rollOptions = Array.from(new Set([selfOptions, targetOptions].flat()));
 
         // Calculate distance and set as a roll option
-        const distance =
-            selfToken && targetToken && !!canvas.grid
-                ? ((): number => {
-                      const groundDistance = selfToken.distanceTo(targetToken);
-                      const elevationDiff = Math.abs(selfToken.data.elevation - targetToken.data.elevation);
-                      return Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
-                  })()
-                : null;
+        const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
         rollOptions.push(`target:distance:${distance}`);
 
         const self = {

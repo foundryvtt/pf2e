@@ -13,6 +13,7 @@ import { HazardSystemData } from "@actor/hazard/data";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -60,12 +61,10 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType<T extends ItemType>(type: T): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
-    isOfType<T extends ItemType>(types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
     isOfType<T extends ItemType>(
-        types: T | T[]
+        ...types: T[]
     ): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
-        return Array.isArray(types) ? types.some((t) => this.type === t) : this.type === types;
+        return types.some((t) => this.type === t);
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
@@ -78,7 +77,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Generate a list of strings for use in predication */
-    getItemRollOptions(prefix = this.type): string[] {
+    getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
         const traits = this.data.data.traits?.value.map((t) => `trait:${t}`) ?? [];
         const delimitedPrefix = prefix ? `${prefix}:` : "";
@@ -95,7 +94,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         return options;
     }
 
-    override getRollData(): Record<string, unknown> {
+    override getRollData(): NonNullable<EnrichHTMLOptionsPF2e["rollData"]> {
         return { actor: this.actor, item: this };
     }
 
@@ -203,8 +202,8 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         if (isPhysicalData(currentSource)) {
             // Preserve container ID
-            const containerId = currentSource.data.containerId.value ?? null;
-            mergeObject(updates, expandObject({ "data.containerId.value": containerId }));
+            const { containerId, quantity } = currentSource.data;
+            mergeObject(updates, expandObject({ "data.containerId": containerId, "data.quantity": quantity }));
         } else if (currentSource.type === "spell") {
             // Preserve spellcasting entry location
             mergeObject(updates, expandObject({ "data.location.value": currentSource.data.location.value }));
@@ -242,23 +241,22 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Currently renders description text using enrichHTML.
      */
     protected processChatData<T extends { properties?: (string | number | null)[]; [key: string]: unknown }>(
-        htmlOptions: EnrichHTMLOptions = {},
+        htmlOptions: EnrichHTMLOptionsPF2e = {},
         data: T
     ): T {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
-            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
-                ...htmlOptions,
-                rollData: htmlOptions.rollData ?? this.getRollData(),
-            });
+            htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
+            chatData.description.value = game.pf2e.TextEditor.enrichHTML(chatData.description.value, htmlOptions);
+
             return chatData;
         }
 
         return data;
     }
 
-    getChatData(htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}): ItemSummaryData {
+    getChatData(htmlOptions: EnrichHTMLOptionsPF2e = {}, _rollOptions: Record<string, unknown> = {}): ItemSummaryData {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
@@ -688,10 +686,6 @@ interface ItemPF2e {
     prepareSiblingData?(this: Embedded<ItemPF2e>): void;
 
     prepareActorData?(this: Embedded<ItemPF2e>): void;
-
-    getFlag(scope: "core", key: "sourceId"): string;
-    getFlag(scope: "pf2e", key: "constructing"): true | undefined;
-    getFlag(scope: string, key: string): any;
 }
 
 export { ItemPF2e };

@@ -14,16 +14,8 @@
         "brokenThreshold": {
             "value": 0
         },
-        "bulkCapacity": {
-            "value": ""
-        },
         "category": "martial",
-        "collapsed": {
-            "value": false
-        },
-        "containerId": {
-            "value": ""
-        },
+        "containerId": null,
         "damage": {
             "damageType": "slashing",
             "dice": 1,
@@ -31,19 +23,16 @@
             "value": ""
         },
         "description": {
-            "value": "<p>This +1 striking longsword has a mirror-like blade free of tarnish despite being millennia old. While wielding it, you gain a +2 item bonus to checks to Aid. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
+            "value": "<p>This <em>+1 striking longsword</em> has a mirror-like blade free of tarnish despite being millennia old.</p>\n<p>While wielding it, you gain a +2 item bonus to checks to @Compendium[pf2e.actionspf2e.Aid]{Aid}. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
         },
         "equippedBulk": {
             "value": ""
         },
         "group": "sword",
-        "hands": {
-            "value": ""
-        },
-        "hardness": {
-            "value": 0
-        },
+        "hardness": 0,
         "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
             "value": 0
         },
         "identification": {
@@ -59,14 +48,8 @@
                 "name": ""
             }
         },
-        "invested": {
-            "value": false
-        },
         "level": {
             "value": 6
-        },
-        "maxHp": {
-            "value": 0
         },
         "negateBulk": {
             "value": "0"
@@ -109,17 +92,26 @@
         "propertyRune4": {
             "value": null
         },
-        "quantity": {
-            "value": 1
-        },
+        "quantity": 1,
         "range": null,
         "reload": {
             "value": ""
         },
-        "rules": [],
-        "size": {
-            "value": "med"
-        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.Aid",
+                "predicate": {
+                    "all": [
+                        "action:aid"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
         "source": {
             "value": "Pathfinder #164: Hands of the Devil"
         },
@@ -134,9 +126,7 @@
         "splashDamage": {
             "value": 0
         },
-        "stackGroup": {
-            "value": ""
-        },
+        "stackGroup": null,
         "strikingRune": {
             "value": "striking"
         },
@@ -144,6 +134,7 @@
             "custom": "",
             "rarity": "unique",
             "value": [
+                "divination",
                 "versatile-p"
             ]
         },

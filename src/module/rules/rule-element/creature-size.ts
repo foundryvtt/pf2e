@@ -43,6 +43,9 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
 
     override beforePrepareData(): void {
         if (this.ignored) return;
+        if (!(this.data.predicate?.test(this.actor.getRollOptions()) ?? true)) {
+            return;
+        }
 
         const value = this.resolveValue();
         if (!(typeof value === "string" || typeof value === "number")) {
@@ -86,9 +89,9 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
             const sizeDifference = originalSize.difference(this.actor.data.data.traits.size);
             for (const item of this.actor.physicalItems.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {
-                    item.data.data.size.value = this.incrementSize(item.size, Math.abs(sizeDifference));
+                    item.data.data.size = this.incrementSize(item.size, Math.abs(sizeDifference));
                 } else if (sizeDifference > 0) {
-                    item.data.data.size.value = this.decrementSize(item.size, Math.abs(sizeDifference));
+                    item.data.data.size = this.decrementSize(item.size, Math.abs(sizeDifference));
                 }
             }
         }

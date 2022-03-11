@@ -16,7 +16,6 @@ aside {
         -moz-appearance: textfield;
         color: var(--text-light);
 
-        // color: var(--tertiary-light);
         text-align: center;
         font-size: 26px;
         line-height: 1;
@@ -35,9 +34,6 @@ aside {
         &:read-only {
             pointer-events: none;
             color: var(--tertiary-light);
-        }
-        &::placeholder {
-            color: inherit;
         }
         &:hover {
             @include input-glow;
@@ -66,7 +62,7 @@ aside {
             box-shadow: inset 0 0 0 1px white;
         }
     }
-    
+
     .logo {
         margin: 5px -6px 0 -6px;
         border: none;
@@ -152,11 +148,10 @@ aside {
             i {
                 font-size: 19px;
                 color: var(--text-light);
-                margin-left: 5px;
-                animation-play-state: paused;
+
+                transition: all 0.2s ease-in-out;
                 &:hover {
-                    animation-play-state: running;
-                    @include pulse-size;
+                    transform: scale(1.25);
                 }
             }
 

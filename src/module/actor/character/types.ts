@@ -1,4 +1,9 @@
+import { HitPointsSummary } from "@actor/base";
 import { WeaponPF2e } from "@item";
+
+interface CharacterHitPointsSummary extends HitPointsSummary {
+    recoveryMultiplier: number;
+}
 
 interface CreateAuxiliaryInteractParams {
     weapon: Embedded<WeaponPF2e>;
@@ -16,4 +21,4 @@ interface CreateAuxiliaryReleaseParams {
 
 type CreateAuxiliaryParams = CreateAuxiliaryInteractParams | CreateAuxiliaryReleaseParams;
 
-export { CreateAuxiliaryParams };
+export { CharacterHitPointsSummary, CreateAuxiliaryParams };

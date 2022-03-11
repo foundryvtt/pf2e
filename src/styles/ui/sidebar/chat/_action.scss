@@ -1,24 +1,24 @@
-#chat-log .message.emote  {
-  border: 2px solid #887c5d;
-  
-  p {
-    font-style: italic;
+&.emote {
+    > .message-content {
+        font-style: italic;
 
-    &.action-content {
-      display: flex;
-      align-items: center;
-      font-weight: normal;
+        p {
+            &.action-content {
+                display: flex;
+                align-items: center;
+                font-weight: normal;
 
-      img {
-        height: 2.33em;
-        width: 2.33em;
-        float: left;
-        margin-right: 0.5em;
-      }
+                img {
+                    height: 2.33em;
+                    width: 2.33em;
+                    float: left;
+                    margin-right: 0.5em;
+                }
+            }
+        }
+
+        hr.action-divider {
+            margin: 0;
+        }
     }
-  }
-
-  hr.action-divider {
-    margin: 0;
-  }
 }

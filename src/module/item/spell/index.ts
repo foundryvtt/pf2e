@@ -22,6 +22,7 @@ import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
 import { DamageCategory } from "@system/damage/damage";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -34,9 +35,7 @@ export class SpellPF2e extends ItemPF2e {
 
     readonly isFromConsumable: boolean;
 
-    /**
-     * Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later.
-     */
+    /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry?: TrickMagicItemEntry;
 
     get baseLevel(): OneToTen {
@@ -120,7 +119,7 @@ export class SpellPF2e extends ItemPF2e {
         return Math.max(this.baseLevel, castLevel ?? this.level);
     }
 
-    override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
+    override getRollData(rollOptions: { spellLvl?: number | string } = {}): NonNullable<EnrichHTMLOptions["rollData"]> {
         const spellLevel = Number(rollOptions?.spellLvl) || null;
         const castLevel = Math.max(this.baseLevel, spellLevel || this.level);
 
@@ -149,16 +148,11 @@ export class SpellPF2e extends ItemPF2e {
 
     /** Calculates the full damage formula for a specific spell level */
     getDamageFormula(castLevel?: number, rollData: object = {}) {
-        const experimentalDamageFormat = game.settings.get("pf2e", "automation.experimentalDamageFormatting");
-
         castLevel = this.computeCastLevel(castLevel);
         const formulas: string[] = [];
         for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
-            // Persistent / Splash are currently not supported for regular modes
-            const isPersistentOrSplash = damage.type.subtype === "persistent" || damage.type.subtype === "splash";
-            if (!experimentalDamageFormat && isPersistentOrSplash) {
-                continue;
-            }
+            // Currently unable to handle display of perisistent and splash damage
+            if (damage.type.subtype) continue;
 
             const parts: (string | number)[] = [];
             if (damage.value && damage.value !== "0") parts.push(damage.value);
@@ -202,11 +196,7 @@ export class SpellPF2e extends ItemPF2e {
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
             const formula = DicePF2e.combineTerms(baseFormulaFixed).formula;
-            if (experimentalDamageFormat) {
-                formulas.push(`{${formula}}[${categories.join(",")}]`);
-            } else {
-                formulas.push(formula);
-            }
+            formulas.push(formula);
         }
 
         // Add flat damage increases. Until weapon damage is refactored, we can't get anything fancier than this
@@ -216,7 +206,7 @@ export class SpellPF2e extends ItemPF2e {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "data.heightenedLevel.value": castLevel });
             const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
-            const rollOptions = [...actor.getRollOptions(domains), ...this.getItemRollOptions("item"), ...this.traits];
+            const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
             if (damageModifier.totalModifier) formulas.push(`${damageModifier.totalModifier}`);
         }
@@ -238,7 +228,7 @@ export class SpellPF2e extends ItemPF2e {
         this.data.data.traits.value.push(this.school, ...this.traditions);
     }
 
-    override getItemRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         const options = new Set<string>();
 
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
@@ -260,7 +250,11 @@ export class SpellPF2e extends ItemPF2e {
             options.add("damaging-effect");
         }
 
-        return super.getItemRollOptions(prefix).concat([...options]);
+        for (const trait of this.traits) {
+            options.add(trait);
+        }
+
+        return super.getRollOptions(prefix).concat([...options]);
     }
 
     override async toMessage(
@@ -283,14 +277,18 @@ export class SpellPF2e extends ItemPF2e {
 
     override getChatData(
         this: Embedded<SpellPF2e>,
-        htmlOptions: EnrichHTMLOptions = {},
+        htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
         const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
+        rollData.item ??= this;
+
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
-        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
+
+        const options = { ...htmlOptions, rollData };
+        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, options);
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
@@ -309,8 +307,7 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const extraRollOptions = [...this.traits];
-        const statisticChatData = statistic.getChatData({ item: this, extraRollOptions });
+        const statisticChatData = statistic.getChatData({ item: this });
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -398,8 +395,7 @@ export class SpellPF2e extends ItemPF2e {
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            const extraRollOptions = [...this.traits];
-            statistic.check.roll({ ...eventToRollParams(event), item: this, extraRollOptions, attackNumber });
+            statistic.check.roll({ ...eventToRollParams(event), item: this, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

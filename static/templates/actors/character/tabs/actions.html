@@ -24,7 +24,7 @@
                     <ol class="actions-list item-list directory-list strikes-list">
                         <li class="action-header stroke-header">
                             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                            <h3 class="pf-heading pf-actions">{{localize "PF2E.StrikesLabel"}}</h3>
+                            <h3>{{localize "PF2E.StrikesLabel"}}</h3>
                             <div class="item-controls">
                                 <a class="item-control toggle-unready-strikes" title="{{localize "PF2E.ToggleUnreadyStrikes"}}"><i class="fas fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i></a>
                             </div>
@@ -47,7 +47,7 @@
                                                     {{/with}}
 
                                                     {{#if (eq action.origin.type "weapon")}}
-                                                    {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
+                                                        {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=action.weapon.data}}
                                                     {{/if}}
                                                 </div>
                                             {{/if}}
@@ -58,12 +58,10 @@
                                         {{/if}}
                                     </div>
                                 </div>
-                                {{#if action.meleeUsage}}
+                                {{#if (and action.meleeUsage (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
                                     <div class="melee-usage">
                                         <img class="melee-icon" src="systems/pf2e/icons/mdi/sword.svg" />
-                                        {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
-                                            {{#> attackDamage action.meleeUsage isMeleeUsage=true}}{{/attackDamage}}
-                                        {{/if}}
+                                        {{#> attackDamage action.meleeUsage isMeleeUsage=true}}{{/attackDamage}}
                                     </div>
                                 {{/if}}
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
@@ -98,7 +96,7 @@
                         {{#each actor.actions as |section sid|}}
                             <li class="action-header stroke-header">
                                 {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                                <h3 class="pf-heading pf-actions">{{section.label}}</h3>
+                                <h3>{{section.label}}</h3>
                                 {{#if @root.owner}}
                                     <div class="item-controls">
                                         <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i></a>
@@ -133,7 +131,7 @@
                     <ol class="actions-list item-list directory-list">
                         <li class="action-header stroke-header">
                             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                            <h3 class="pf-heading pf-actions">{{localize "PF2E.ActionsActionsHeader"}}</h3>
+                            <h3>{{localize "PF2E.ActionsActionsHeader"}}</h3>
                             {{#if owner}}
                                 <div class="item-controls" style="display: flex">
                                     <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
@@ -167,7 +165,7 @@
                     <ol class="actions-list item-list directory-list">
                         <li class="action-header stroke-header">
                             {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
-                            <h3 class="pf-heading pf-actions">{{localize "PF2E.ActionsActionsHeader"}}</h3>
+                            <h3>{{localize "PF2E.ActionsActionsHeader"}}</h3>
                             {{#if owner}}
                                 <div class="item-controls" style="display: flex">
                                     <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
@@ -218,7 +216,7 @@
                 {{#select ammunition.selected.id}}
                     <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
                     {{#each ammunition.compatible as |ammo|}}
-                        <option value="{{ammo._id}}" data-compatible="true">{{ammo.name}} ({{ ammo.data.quantity.value }})</option>
+                        <option value="{{ammo._id}}" data-compatible="true">{{ammo.name}} ({{ammo.data.quantity}})</option>
                     {{/each}}
                 {{/select}}
             </select>

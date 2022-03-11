@@ -101,7 +101,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     /** Spellcasting attack and dc data created during actor preparation */
     statistic!: Statistic;
 
-    override prepareData() {
+    override prepareData(): void {
         super.prepareData();
 
         // Wipe the internal spells collection so it can be rebuilt later.
@@ -113,7 +113,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     async cast(
         spell: SpellPF2e,
         options: { slot?: number; level?: number; consume?: boolean; message?: boolean } = {}
-    ) {
+    ): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const level = options.level ?? spell.level;
@@ -123,7 +123,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         }
     }
 
-    async consume(name: string, level: number, slot?: number) {
+    async consume(name: string, level: number, slot?: number): Promise<boolean> {
         const actor = this.actor;
         if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
             throw ErrorPF2e("Spellcasting entries require an actor");
@@ -178,7 +178,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not.
      */
-    async addSpell(spell: SpellPF2e, targetLevel: number) {
+    async addSpell(spell: SpellPF2e, targetLevel: number): Promise<SpellPF2e | null> {
         const actor = this.actor;
         if (!(actor instanceof CreaturePF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
@@ -186,32 +186,30 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
 
         const spellcastingEntryId = spell.data.data.location.value;
         if (spellcastingEntryId === this.id && spell.level === targetLevel) {
-            return [];
+            return null;
         }
 
-        const spellData = spell.toObject(true);
-        spellData.data.location.value = this.id;
+        const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
+        const heightenedUpdate =
+            isStandardSpell && (this.isSpontaneous || this.isInnate)
+                ? { "data.heightenedLevel.value": Math.max(spell.baseLevel, targetLevel) }
+                : {};
 
-        if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
-            if (this.isSpontaneous || this.isInnate) {
-                spellData.data.heightenedLevel = { value: Math.max(spell.baseLevel, targetLevel) };
-            }
-        }
-
-        if (spell.actor?.id === actor.id) {
-            const results = await actor.updateEmbeddedDocuments("Item", [spellData]);
-            return results as ItemPF2e[];
+        if (spell.actor === actor) {
+            return spell.update({ "data.location.value": this.id, ...heightenedUpdate });
         } else {
-            const results = await actor.createEmbeddedDocuments("Item", [spellData]);
-            return results as ItemPF2e[];
+            const source = spell.clone({ "data.location.value": this.id, ...heightenedUpdate }).toObject();
+            const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
+
+            return created instanceof SpellPF2e ? created : null;
         }
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
-    prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number) {
+    async prepareSpell(spell: SpellPF2e, spellLevel: number, spellSlot: number): Promise<this> {
         if (spell.baseLevel > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
             console.warn(`Attempted to add level ${spell.baseLevel} spell to level ${spellLevel} spell slot.`);
-            return;
+            return this;
         }
 
         if (CONFIG.debug.hooks) {
@@ -240,7 +238,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
-    unprepareSpell(spellLevel: number, spellSlot: number) {
+    unprepareSpell(spellLevel: number, spellSlot: number): Promise<this> {
         if (CONFIG.debug.hooks === true) {
             console.debug(
                 `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${spellLevel}`
@@ -258,7 +256,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(spellLevel: number, spellSlot: number, isExpended: boolean) {
+    setSlotExpendedState(spellLevel: number, spellSlot: number, isExpended: boolean): Promise<this> {
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}.expended`;
         return this.update({ [key]: isExpended });
     }
@@ -303,7 +301,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 spellPrepList[level] =
                     spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
                         spell,
-                        chatData: spell.getChatData(),
                         signature: this.isFlexible && signatureSpells.has(spell.id),
                     })) ?? [];
 
@@ -431,6 +428,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             const rank = this.data.data.proficiency.value;
             traditions[tradition].rank = Math.max(0, rank, traditions[tradition].rank) as ZeroToFour;
         }
+    }
+
+    override getRollOptions(prefix = this.type): string[] {
+        const options: string[] = [];
+        options.push(`${prefix}:${this.ability}`);
+        options.push(`${prefix}:${this.tradition}`);
+        options.push(`${prefix}:${this.data.data.prepared.value}`);
+        return options;
     }
 
     protected override async _preUpdate(

@@ -28,7 +28,12 @@
                 "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
-                "name": "Alchemist",
+                "label": "PF2E.TraitAlchemist",
+                "predicate": {
+                    "all": [
+                        "class:alchemist"
+                    ]
+                },
                 "requiredTraits": [
                     [
                         "alchemical"
@@ -40,6 +45,12 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.crafting.entries.alchemist.maxItemLevel",
+                "predicate": {
+                    "all": [
+                        "class:alchemist",
+                        "crafting:entry:alchemist"
+                    ]
+                },
                 "value": "@actor.level"
             }
         ],

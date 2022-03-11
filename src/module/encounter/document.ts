@@ -156,6 +156,9 @@ export class EncounterPF2e extends Combat<CombatantPF2e> {
                 sheet.disableInitiativeButton();
             }
         }
+
+        // Clear targets to prevent unintentional targeting in future encounters
+        game.user.clearTargets();
     }
 
     /** Enable the initiative button on PC sheets */

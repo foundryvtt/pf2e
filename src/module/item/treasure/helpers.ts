@@ -81,20 +81,16 @@ function calculateValueOfTreasure(items: PhysicalItemData[]) {
                 itemData?.data?.denomination?.value !== null
         )
         .map((item) => {
-            const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
+            const value = (item.data?.value?.value ?? 1) * (item.data.quantity ?? 1);
             return toCoins(item.data.denomination.value, value);
         })
         .reduce(combineCoins, noCoins());
 }
 
-/**
- * Converts the price of an item to the Coin structure
- * @param itemData
- * @param quantity
- */
+/** Converts the price of an item to the Coin structure */
 export function extractPriceFromItem(
-    itemData: { data: { price: { value: string }; quantity: { value: number } } },
-    quantity: number = itemData.data.quantity.value
+    itemData: { data: { price: { value: string }; quantity: number } },
+    quantity = itemData.data.quantity
 ): Coins {
     // This requires preprocessing, as large gold values contain , for their value
     const priceTag = String(itemData.data.price.value).trim().replace(/,/g, "");
@@ -174,12 +170,12 @@ export function calculateValueOfCurrency(items: ItemDataPF2e[]) {
         .filter(
             (item): item is TreasureData =>
                 item.type === "treasure" &&
-                item.data.stackGroup?.value === "coins" &&
+                item.data.stackGroup === "coins" &&
                 item.data.denomination?.value !== undefined &&
                 item.data.denomination?.value !== null
         )
         .map((item) => {
-            const value = (Number(item.data.value.value) || 0) * item.data.quantity.value;
+            const value = (Number(item.data.value.value) || 0) * item.data.quantity;
             return toCoins(item.data.denomination.value, value);
         })
         .reduce(combineCoins, noCoins());
@@ -205,8 +201,8 @@ function isTopLevelCoin(itemData: PhysicalItemData, currencies: typeof CURRENCIE
     return (
         itemData.type === "treasure" &&
         itemData.data.value.value === 1 &&
-        itemData.data.stackGroup.value === "coins" &&
-        itemData.data.containerId.value === null &&
+        itemData.data.stackGroup === "coins" &&
+        itemData.data.containerId === null &&
         currencies.has(itemData.data.denomination?.value)
     );
 }
@@ -218,14 +214,14 @@ async function addFromCompendium(actor: ActorPF2e, compendiumId: string, quantit
     }
     const item = await pack.getDocument(compendiumId);
     if (item?.data.type === "treasure") {
-        item.data.update({ "data.quantity.value": quantity });
+        item.data.update({ "data.quantity": quantity });
         await actor.createEmbeddedDocuments("Item", [item.toObject()]);
     }
 }
 
 async function increaseItemQuantity(item: Embedded<PhysicalItemPF2e>, quantity: number) {
     if (item.data.type === "treasure") {
-        await item.update({ "data.quantity.value": item.quantity + quantity });
+        await item.update({ "data.quantity": item.quantity + quantity });
     }
 }
 
@@ -235,7 +231,7 @@ async function decreaseItemQuantity(items: Embedded<PhysicalItemPF2e>[], quantit
         if (quantityToRemove === 0) break;
         const currentQuantity = item.quantity;
         if (item.quantity > quantityToRemove) {
-            await item.update({ "data.quantity.value": currentQuantity - quantityToRemove });
+            await item.update({ "data.quantity": currentQuantity - quantityToRemove });
             break;
         } else {
             itemsToDelete.push(item);
@@ -322,7 +318,7 @@ export async function sellAllTreasure(actor: ActorPF2e): Promise<void> {
             (item) =>
                 item.data.data.denomination.value !== undefined &&
                 item.data.data.denomination.value !== null &&
-                item.data.data.stackGroup.value !== "coins"
+                item.data.data.stackGroup !== "coins"
         )
         .map((item): Coins => {
             treasureIds.push(item.id);
@@ -347,7 +343,7 @@ export async function sellTreasure(actor: ActorPF2e, itemId: string): Promise<vo
         item?.data.type === "treasure" &&
         item.data.data.denomination.value !== undefined &&
         item.data.data.denomination.value !== null &&
-        item.data.data.stackGroup.value !== "coins"
+        item.data.data.stackGroup !== "coins"
     ) {
         const quantity = (item.data.data.value.value ?? 1) * (item.quantity ?? 1);
         const coins = toCoins(item.data.data.denomination.value, quantity);

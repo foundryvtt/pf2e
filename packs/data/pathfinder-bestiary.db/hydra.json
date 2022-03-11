@@ -114,6 +114,111 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "UNKL6y0xQcbsDrvG",
+            "data": {
+                "badge": null,
+                "description": {
+                    "value": "<p>The number of heads the hydra currently has.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 6
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "01",
+                                "value": 0
+                            },
+                            {
+                                "label": "02",
+                                "value": 1
+                            },
+                            {
+                                "label": "03",
+                                "value": 2
+                            },
+                            {
+                                "label": "04",
+                                "value": 3
+                            },
+                            {
+                                "label": "05",
+                                "value": 4
+                            },
+                            {
+                                "label": "06",
+                                "value": 5
+                            },
+                            {
+                                "label": "07",
+                                "value": 6
+                            },
+                            {
+                                "label": "08",
+                                "value": 7
+                            },
+                            {
+                                "label": "09",
+                                "value": 8
+                            },
+                            {
+                                "label": "10",
+                                "value": 9
+                            }
+                        ],
+                        "flag": "headCount",
+                        "key": "ChoiceSet",
+                        "selection": 4
+                    },
+                    {
+                        "diceNumber": "{item|flags.pf2e.rulesSelections.headCount}",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "focusedAssault"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "effect-hydra-heads",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 102
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.uZJOdounIHaFDC1t"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/summon-animal.webp",
+            "name": "Effect: Hydra Heads (05)",
+            "sort": 100000,
+            "type": "effect"
+        },
+        {
             "_id": "hJ1mAKCkNvCy1GY0",
             "data": {
                 "attack": {
@@ -155,7 +260,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
-            "sort": 100000,
+            "sort": 200000,
             "type": "melee"
         },
         {
@@ -201,7 +306,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -247,7 +352,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scent (Imprecise) 30 feet",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -300,7 +405,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -342,7 +447,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hydra Regeneration",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -388,7 +493,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -430,7 +535,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Head Regrowth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -472,7 +577,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Multiple Opportunities",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -519,7 +624,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Focused Assault",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -561,7 +666,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Storm of Jaws",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -591,7 +696,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -639,7 +744,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

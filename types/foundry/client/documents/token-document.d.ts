@@ -6,7 +6,7 @@ declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
-            context: TokenDocumentConstructionContext<TokenDocument>
+            context?: TokenDocumentConstructionContext<TokenDocument>
         );
 
         /**
@@ -157,7 +157,7 @@ declare global {
         ): void;
 
         /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
-        static getTrackedAttributes(data: Record<string, unknown>, _path: string[]): TokenAttributes;
+        static getTrackedAttributes(data?: Record<string, unknown>, _path?: string[]): TokenAttributes;
 
         /** Inspect the Actor data model and identify the set of attributes which could be used for a Token Bar */
         static getTrackedAttributeChoices(attributes: TokenAttributes): TokenAttributes;

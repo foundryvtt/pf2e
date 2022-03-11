@@ -8,12 +8,12 @@ export class EffectPF2e extends ItemPF2e {
         return EffectData;
     }
 
-    static readonly DURATION_UNITS: Record<string, number> = Object.freeze({
+    static DURATION_UNITS: Readonly<Record<string, number>> = {
         rounds: 6,
         minutes: 60,
         hours: 3600,
         days: 86400,
-    });
+    };
 
     get level(): number {
         return this.data.data.level.value;
@@ -84,12 +84,12 @@ export class EffectPF2e extends ItemPF2e {
     }
 
     /** Include a trimmed version of the "slug" roll option (e.g., effect:rage instead of effect:effect-rage) */
-    override getItemRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const trimmedSlug = slug.replace(/^(?:spell-)?(?:effect|stance)-/, "");
 
-        const options = super.getItemRollOptions(prefix);
+        const options = super.getRollOptions(prefix);
         options.findSplice((o) => o === `${delimitedPrefix}${slug}`, `${delimitedPrefix}${trimmedSlug}`);
 
         return options;

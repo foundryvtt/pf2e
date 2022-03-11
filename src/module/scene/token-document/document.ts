@@ -10,6 +10,39 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     /** Has this token gone through at least one cycle of data preparation? */
     private initialized?: true;
 
+    /** Filter trackable attributes for relevance and avoidance of circular references */
+    static override getTrackedAttributes(data: Record<string, unknown> = {}, _path: string[] = []): TokenAttributes {
+        // This method is being called with no associated actor: fill from the models
+        if (_path.length === 0 && Object.keys(data).length === 0) {
+            for (const [type, model] of Object.entries(game.system.model.Actor)) {
+                if (!["character", "npc"].includes(type)) continue;
+                foundry.utils.mergeObject(data, model);
+            }
+        }
+
+        if (_path.length > 0) {
+            return super.getTrackedAttributes(data, _path);
+        }
+
+        const patterns = {
+            positive: /^(?:attributes|resources)\./,
+            negative: /\b(?:rank|_?modifiers|item|classdc|dexcap|familiar|\w+hp\b)|bonus/i,
+        };
+
+        const prunedData = expandObject<Record<string, unknown>>(
+            Object.fromEntries(
+                Object.entries(flattenObject(data)).filter(
+                    ([k, v]) =>
+                        patterns.positive.test(k) &&
+                        !patterns.negative.test(k) &&
+                        !["boolean", "string"].includes(typeof v)
+                )
+            )
+        );
+
+        return super.getTrackedAttributes(prunedData, _path);
+    }
+
     /** This should be in Foundry core, but ... */
     get scene(): ScenePF2e | null {
         return this.parent;
@@ -50,7 +83,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            canvas.lighting.setPerceivedLightLevel(this);
+            canvas.lighting.setPerceivedLightLevel();
         }
     }
 
@@ -156,24 +189,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
                 },
             ]);
         }
-    }
-
-    /** Fix for Foundry bug: https://gitlab.com/foundrynet/foundryvtt/-/issues/6421 */
-    override async updateActorEmbeddedDocuments(
-        embeddedName: "Item" | "ActiveEffect",
-        updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>[],
-        options: DocumentModificationContext<this>
-    ): Promise<ActiveEffect[] | Item[]> {
-        if (embeddedName === "Item") {
-            for (const update of updates) {
-                if (Object.keys(flattenObject(update)).some((key) => key.includes("-="))) {
-                    // Update the ItemData in the local Collection to remove the properties that should be deleted.
-                    // The super update uses the local Collection as base data so the deletion will be persisted in the database
-                    this.actor!.items.get(update._id, { strict: true }).data.update(update);
-                }
-            }
-        }
-        return await super.updateActorEmbeddedDocuments(embeddedName, updates, options);
     }
 
     /* -------------------------------------------- */

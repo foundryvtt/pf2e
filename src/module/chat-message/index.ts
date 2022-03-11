@@ -1,19 +1,18 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { CheckModifiersContext, RollDataPF2e } from "@system/rolls";
+import { RollDataPF2e } from "@system/rolls";
 import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e, SpellPF2e } from "@item";
-import { ModifierPF2e } from "@module/modifiers";
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { DamageButtons } from "./listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
-import { DamageChatCard } from "@system/damage/chat-card";
 import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { SetAsInitiative } from "./listeners/set-as-initiative";
-import { UserVisibility } from "@scripts/ui/user-visibility";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
+import { UserPF2e } from "@module/user";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -59,6 +58,19 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         })();
 
         return fromItem ?? ChatMessagePF2e.getSpeakerActor(this.data.speaker);
+    }
+
+    /** If this is a check or damage roll, it will have target information */
+    get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
+        const targetUUID = this.data.flags.pf2e.context?.target?.token;
+        if (!targetUUID) return null;
+
+        const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
+        const scene = game.scenes.get(match[1] ?? "");
+        const token = scene?.tokens.get(match[2] ?? "");
+        const actor = token?.actor;
+
+        return actor ? { actor, token } : null;
     }
 
     /** Does this message include a check (1d20 + c) roll? */
@@ -119,18 +131,29 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the token of the speaker if possible */
-    get token(): TokenDocumentPF2e | null {
+    get token(): Embedded<TokenDocumentPF2e> | null {
         if (!game.scenes) return null;
         const sceneId = this.data.speaker.scene ?? "";
         const tokenId = this.data.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
+    /** As of Foundry 9.251, players are able to delete their own messages, and GMs are unable to restrict it. */
+    protected static override _canDelete(user: UserPF2e): boolean {
+        return user.isGM;
+    }
+
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
 
         // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibility.process($html, { message: this, actor: this.actor });
+        UserVisibilityPF2e.process($html, { message: this, actor: this.actor });
+
+        // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
+        const $targetDC = $html.find(".target-dc");
+        if ($targetDC.children().length === 0) $targetDC.remove();
+        const $dcResult = $html.find(".dc-result");
+        if ($dcResult.children().length === 0) $dcResult.remove();
 
         if (this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
@@ -142,18 +165,18 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         CriticalHitAndFumbleCards.appendButtons(this, $html);
 
         ChatCards.listen($html);
-        InlineRollsLinks.listen($html);
+        InlineRollLinks.listen($html);
         DegreeOfSuccessHighlights.listen(this, $html);
         if (canvas.ready) SetAsInitiative.listen($html);
 
         // Check DC adjusted by circumstance bonuses or penalties
         try {
-            const $adjustedDC = $html.find(".adjusted-dc[data-adjustments]");
+            const $adjustedDC = $html.find(".adjusted-dc[data-circumstances]");
             if ($adjustedDC.length === 1) {
-                const adjustments = JSON.parse($adjustedDC.attr("data-adjustments") ?? "");
-                if (!Array.isArray(adjustments)) throw ErrorPF2e("Malformed adjustments array");
+                const circumstances = JSON.parse($adjustedDC.attr("data-circumstances") ?? "");
+                if (!Array.isArray(circumstances)) throw ErrorPF2e("Malformed adjustments array");
 
-                const content = adjustments
+                const content = circumstances
                     .map((a: { label: string; value: number }) => {
                         const sign = a.value >= 0 ? "+" : "";
                         return $("<div>").text(`${a.label}: ${sign}${a.value}`);
@@ -207,17 +230,6 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
     }
 
-    protected override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext,
-        user: foundry.documents.BaseUser
-    ): Promise<void> {
-        if (this.isDamageRoll && game.settings.get("pf2e", "automation.experimentalDamageFormatting")) {
-            await DamageChatCard.preformat(this);
-        }
-        return super._preCreate(data, options, user);
-    }
-
     protected override _onCreate(
         data: foundry.data.ChatMessageSource,
         options: DocumentModificationContext,
@@ -236,12 +248,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
-
-    getFlag(scope: "core", key: "RollTable"): unknown;
-    getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
-    getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
-    getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;
-    getFlag(scope: "pf2e", key: "context"): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
 }
 
 declare namespace ChatMessagePF2e {

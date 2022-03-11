@@ -1,4 +1,5 @@
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ABCItemPF2e } from "@item/abc";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { AncestryPF2e } from "@item/ancestry";
 import { BackgroundPF2e } from "@item/background";
@@ -40,8 +41,7 @@ export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends I
     activations: { action: ItemActivation; id: string; base: string }[];
 }
 
-export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e>
-    extends ItemSheetDataPF2e<TItem> {
+export interface ABCSheetData<TItem extends ABCItemPF2e> extends ItemSheetDataPF2e<TItem> {
     hasDetails: true;
 }
 

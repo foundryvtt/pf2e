@@ -68,9 +68,9 @@ export class FeatPF2e extends ItemPF2e {
 
     /** Set a self roll option for this feat(ure) */
     override prepareActorData(this: Embedded<FeatPF2e>): void {
-        const infix = this.isFeature ? "feature" : "feat";
+        const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`self:${infix}:${slug}`] = true;
+        this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
     }
 
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
@@ -84,9 +84,9 @@ export class FeatPF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getItemRollOptions(prefix = "feat"): string[] {
+    override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        return super.getItemRollOptions(prefix);
+        return super.getRollOptions(prefix);
     }
 
     /* -------------------------------------------- */

@@ -15,6 +15,10 @@ export class Migration718CarryType extends MigrationBase {
         const systemData = itemData.data;
 
         // Correct some known past erronous usages
+        if (!(systemData.usage instanceof Object)) {
+            systemData.usage = { value: "held-in-one-hand" };
+        }
+
         if (systemData.usage.value === "worn-gloves") {
             systemData.usage.value = "worngloves";
         } else if (itemData.type === "armor") {
@@ -44,15 +48,18 @@ export class Migration718CarryType extends MigrationBase {
         }
 
         // Remove dangling containerId references
-        const containerId = itemData.data.containerId.value;
-        const inStowingContainer = actor.items.some(
-            (i) => i.type === "backpack" && i.data.stowing && i._id === containerId
-        );
-        if (containerId && !inStowingContainer) {
-            itemData.data.containerId.value = null;
-        } else if (inStowingContainer) {
-            equipped.carryType = "stowed";
-            return;
+        const containerId = itemData.data.containerId ?? { value: null };
+        if (containerId instanceof Object && containerId.value) {
+            const inStowingContainer = actor.items.some(
+                (i) => i.type === "backpack" && i.data.stowing && i._id === containerId.value
+            );
+
+            if (!inStowingContainer) {
+                containerId.value = null;
+            } else if (inStowingContainer) {
+                equipped.carryType = "stowed";
+                return;
+            }
         }
 
         equipped.carryType = "worn";

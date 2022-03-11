@@ -1,10 +1,18 @@
 import { ItemTransfer, ItemTransferData } from "@actor/item-transfer";
+import { ErrorPF2e } from "@util";
+
+interface TransferCallbackMessage {
+    request: "itemTransfer";
+    data: ItemTransferData;
+}
+
+interface RefreshControlsMessage {
+    request: "refreshSceneControls";
+    data: { layer?: string };
+}
 
 export type SocketEventCallback = [
-    message: {
-        request: string;
-        data: { [key: string]: any };
-    },
+    message: TransferCallbackMessage | RefreshControlsMessage | { request?: never },
     userId: string
 ];
 
@@ -15,7 +23,7 @@ export function activateSocketListener() {
             case "itemTransfer":
                 if (game.user.isGM) {
                     console.debug(`PF2e System | Received item-transfer request from ${sender.name}`);
-                    const data = message.data as ItemTransferData;
+                    const { data } = message;
                     const transfer = new ItemTransfer(data.source, data.target, data.quantity, data.containerId);
                     transfer.enact(sender);
                 }
@@ -27,7 +35,7 @@ export function activateSocketListener() {
                 }
                 break;
             default:
-                throw Error(`PF2e System | Received unrecognized socket emission: ${message.request}`);
+                throw ErrorPF2e(`Received unrecognized socket emission: ${message.request}`);
         }
     });
 }

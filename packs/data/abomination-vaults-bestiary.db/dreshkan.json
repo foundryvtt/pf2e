@@ -61,7 +61,7 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Because morlocks are descended from distant human ancestors, clumsily or hastily fleshwarping a morlock simply produces a @Compendium[pf2e.pathfinder-bestiary.Grothlut]{Grothlut}. Skilled fleshwarpers, however, can tease out a morlock's genetic differences to make an entirely different creature. Creating a dreshkan involves replacing the morlock's bones with a metal skeleton. This new skeleton is often heavily augmented, such as with spiderlike limbs protruding from the spine or magazines of tiny, deadly needles. Arcane electricity courses through the dreshkan thereafter, making it jumpy and irritable.</p>\n<p>Morlocks view dreshkans as impressive fusions of flesh and technology and gladly fight alongside these creatures, whom they view as paragons of morlock potential.</p>\n<hr />\n<p>Although twisting victims into horrid shapes is a well-known pastime of evil drow, other subterranean monsters have stolen these practices or developed them independently. The worm-like seugathis sometimes warp other creatures whose territories abut their lightless lands; the fleshwarps below result from morlocks and urdefhans, respectively.</p>",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
@@ -125,6 +125,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -170,6 +171,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -186,7 +188,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(range increment 30 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -212,7 +214,7 @@
             "type": "melee"
         },
         {
-            "_id": "6lznfC8CdcFIQhP1",
+            "_id": "NuYsILwFjvqlwWPp",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -224,13 +226,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -247,10 +249,79 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
+            "name": "Darkvision",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "gkIxUkhYZg4oHj1t",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "inflicts:persistent-damage:bleed",
+                                "death-effects",
+                                "disease",
+                                "inflicts:doomed",
+                                "inflicts:fatigued",
+                                "inflicts:paralyzed",
+                                "poison",
+                                "inflicts:sickened"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs Bleed, Death Effects, Disease, Doomed, Fatigued, Paralyzed, Poison, Sickened",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -292,7 +363,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Defensive Needle",
-            "sort": 400000,
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "ikOLQArHJ3ox5p0j",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Blindness",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -334,7 +451,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Partially Technological",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -350,7 +467,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The dreshkan braces itself on all four limbs and sprays needles at as many creatures as it would like in a @Template[type:cone|distance:30], dealing [[/r {2d4}[piercing]]]{2d4 piercing damage} plus [[/r {2d8}[electricity]]]{2d8 electricity damage}. Each targeted creature in the area must attempt a basic Reflex save.</p>"
+                    "value": "<p>The dreshkan braces itself on all four limbs and sprays needles at as many creatures as it would like in a @Template[type:cone|distance:30], dealing [[/r {2d4}[piercing]+{2d8}[electricity]]]{2d4 piercing damage plus 2d8 electricity damage}. Each targeted creature in the area must attempt a basic Reflex save.</p>\n<p><em>Note: Paizo did not provide a listed DC for this ability. The suggested DC to use per the GMG is @Check[type:reflex|dc:19|basic:true]</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -376,7 +493,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Needle Spray",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -397,7 +514,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.swarmingStance"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "swarmingStance"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -418,7 +551,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swarming Stance",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -448,11 +581,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
-            "_id": "t33UeoiY7LKB4cSt",
+            "_id": "BWdMcnFnD4W0LZpu",
             "data": {
                 "description": {
                     "value": ""
@@ -463,7 +596,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Climb",
+                        "predicate": {
+                            "all": [
+                                "action:climb"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -472,13 +617,19 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+14 to Climb",
+                        "options": "action:climb"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+14 to Climb)",
-            "sort": 900000,
+            "name": "Athletics",
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -508,7 +659,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -538,7 +689,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

@@ -6,58 +6,52 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration707BracketedFormulasAtInstanceLevel } from "@module/migration/migrations/707-bracketed-formulas-at-instance-level";
-import { Migration708SpecificRuleLabel } from "@module/migration/migrations/708-specific-rule-label";
-import { Migration709REFormulasAtInstanceLevelRedux } from "@module/migration/migrations/709-re-formulas-at-instance-level-redux";
-import { Migration710RarityToString } from "@module/migration/migrations/710-rarity-to-string";
-import { Migration711HeritageItems } from "@module/migration/migrations/711-heritage-items";
-import { Migration712ActorShieldStructure } from "@module/migration/migrations/712-actor-shield-structure";
-import { Migration713FistToStrikeRE } from "@module/migration/migrations/713-fist-to-strike-re";
-import { Migration714RangeIncrementREs } from "@module/migration/migrations/714-range-increment-res";
 import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
 import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
 import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
 import { Migration718CarryType } from "@module/migration/migrations/718-carry-type";
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
+import { Migration721SetReloadValues } from "@module/migration/migrations/721-set-reload-values";
+import { Migration722CraftingSystemData } from "@module/migration/migrations/722-crafting-system-data";
+import { Migration724CraftingMaxItemLevel } from "@module/migration/migrations/724-crafting-max-item-level";
+import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quick-climb-rule-elements";
+import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/727-trim-self-roll-options";
+import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
 
 const migrations: MigrationBase[] = [
-    new Migration707BracketedFormulasAtInstanceLevel(),
-    new Migration708SpecificRuleLabel(),
-    new Migration709REFormulasAtInstanceLevelRedux(),
-    new Migration710RarityToString(),
-    new Migration711HeritageItems(),
-    new Migration712ActorShieldStructure(),
-    new Migration713FistToStrikeRE(),
-    new Migration714RangeIncrementREs(),
     new Migration715DangerousSorcery(),
     new Migration716StrikeDamageSelector(),
     new Migration717TakeFeatLimits(),
     new Migration718CarryType(),
     new Migration719ShrugFlanking(),
+    new Migration721SetReloadValues(),
+    new Migration722CraftingSystemData(),
+    new Migration724CraftingMaxItemLevel(),
+    new Migration725QuickClimbREs(),
+    new Migration727TrimSelfRollOptions(),
+    new Migration728FlattenPhysicalProperties(),
 ];
 
-// eslint-disable @typescript-eslint/no-explicit-any
-global.deepClone = function (original: any): any {
+global.deepClone = <T>(original: T): T => {
     // Simple types
     if (typeof original !== "object" || original === null) return original;
 
     // Arrays
-    if (Array.isArray(original)) return original.map(deepClone);
+    if (Array.isArray(original)) return original.map(deepClone) as unknown as T;
 
     // Dates
-    if (original instanceof Date) return new Date(original);
+    if (original instanceof Date) return new Date(original) as T & Date;
 
     // Unsupported advanced objects
-    if ("constructor" in original && original["constructor"] !== Object) return original;
+    if ("constructor" in original && (original as { constructor?: unknown })["constructor"] !== Object) return original;
 
     // Other objects
     const clone: Record<string, unknown> = {};
     for (const k of Object.keys(original)) {
-        clone[k] = deepClone(original[k]);
+        clone[k] = deepClone((original as Record<string, unknown>)[k]);
     }
-    return clone;
+    return clone as T;
 };
-// eslint-enable @typescript-eslint/no-explicit-any
 
 global.randomID = function randomID(length = 16): string {
     const rnd = () => Math.random().toString(36).substring(2);

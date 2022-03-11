@@ -74,7 +74,9 @@ export interface RollOptionFlags {
 export interface ActorFlagsPF2e extends foundry.data.ActorFlags {
     pf2e: {
         rollOptions: RollOptionFlags;
-        [key: string]: any;
+        freeCrafting: boolean;
+        quickAlchemy: boolean;
+        [key: string]: unknown;
     };
 }
 
@@ -166,7 +168,7 @@ export interface AbilityBasedStatistic {
 }
 
 /** A roll function which can be called to roll a given skill. */
-export type RollFunction<T extends RollParameters = RollParameters> = (params: T) => string | void | Promise<void>;
+export type RollFunction<T extends RollParameters = RollParameters> = (params: T) => Promise<string | void>;
 
 /** Basic initiative-relevant data. */
 export interface InitiativeData {
@@ -219,7 +221,7 @@ export interface StrikeData {
     /** The type of action; currently just 'strike'. */
     type: "strike";
     /** The image URL for this strike (shown on the UI). */
-    imageUrl: string;
+    imageUrl: ImagePath;
     /** The glyph for this strike (how many actions it takes, reaction, etc). */
     glyph: string;
     /** A description of this strike. */

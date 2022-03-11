@@ -9,7 +9,7 @@ import { LocalizePF2e } from "@system/localize";
  * @param criterion
  * @return
  */
-export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
+function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     const result = new Map<R, T[]>();
     for (const elem of array) {
         const key = criterion(elem);
@@ -27,7 +27,7 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
  */
-export function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
+function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     const result = [...array];
     for (let i = array.length; i < requiredLength; i += 1) {
         result.push(padWith);
@@ -47,7 +47,7 @@ export function padArray<T>(array: T[], requiredLength: number, padWith: T): T[]
  * are passed into this function to return the result
  * @return
  */
-export function combineObjects<V>(
+function combineObjects<V>(
     first: Record<RecordKey, V>,
     second: Record<RecordKey, V>,
     mergeFunction: (first: V, second: V) => V
@@ -66,52 +66,27 @@ export function combineObjects<V>(
     }
     return combinedObject;
 }
+
 type RecordKey = string | number;
 
-/**
- * Similar to combineObjects, just for maps
- * @param first
- * @param second
- * @param mergeFunction
- */
-export function combineMaps<K, V>(
-    first: Map<K, V>,
-    second: Map<K, V>,
-    mergeFunction: (first: V, second: V) => V
-): Map<K, V> {
-    const combinedKeys = new Set([...first.keys(), ...second.keys()]);
-
-    const combinedMap = new Map();
-    for (const name of combinedKeys) {
-        if (first.has(name) && second.has(name)) {
-            combinedMap.set(name, mergeFunction(first.get(name) as V, second.get(name) as V));
-        } else if (first.has(name)) {
-            combinedMap.set(name, first.get(name) as V);
-        } else if (second.has(name)) {
-            combinedMap.set(name, second.get(name) as V);
-        }
-    }
-    return combinedMap;
-}
-
-export type Optional<T> = T | null | undefined;
+type Optional<T> = T | null | undefined;
 
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
  */
-export function isBlank(text: Optional<string>): text is null | undefined | "" {
+function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
 /** Used as a function reference */
-export function add(x: number, y: number): number {
+function add(x: number, y: number): number {
     return x + y;
 }
 
 /**
  * Adds a + if positive, nothing if 0 or - if negative
  */
-export function addSign(number: number): string {
+function addSign(number: number): string {
     if (number < 0) {
         return `${number}`;
     }
@@ -124,7 +99,7 @@ export function addSign(number: number): string {
 /**
  * No idea why this isn't built in
  */
-export function sum(values: number[]): number {
+function sum(values: number[]): number {
     return values.reduce((a, b) => a + b, 0);
 }
 
@@ -134,7 +109,7 @@ export function sum(values: number[]): number {
  * @param b
  * @param zipFunction
  */
-export function zip<A, B, R>(a: A[], b: B[], zipFunction: (a: A, b: B) => R): R[] {
+function zip<A, B, R>(a: A[], b: B[], zipFunction: (a: A, b: B) => R): R[] {
     if (a.length > b.length) {
         return b.map((elem, index) => zipFunction(a[index], elem));
     } else {
@@ -142,7 +117,7 @@ export function zip<A, B, R>(a: A[], b: B[], zipFunction: (a: A, b: B) => R): R[
     }
 }
 
-export interface Fraction {
+interface Fraction {
     numerator: number;
     denominator: number;
 }
@@ -154,7 +129,7 @@ export interface Fraction {
  * @param times
  * @param start start element, also result if times is 0
  */
-export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T {
+function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T {
     let result = start;
     for (let i = 0; i < times; i += 1) {
         result = func(result);
@@ -168,17 +143,17 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
  * @param obj The object to check
  * @param key The key to check
  */
-export function objectHasKey<O extends object>(obj: O, key: unknown): key is keyof O {
+function objectHasKey<O extends object>(obj: O, key: unknown): key is keyof O {
     return (typeof key === "string" || typeof key === "number") && key in obj;
 }
 
 /** Check if a value is present in the provided array. Especially useful for checking against literal tuples */
-export function tupleHasValue<A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
+function tupleHasValue<A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
     return array.includes(value);
 }
 
 /** Check if an element is present in the provided set. Especially useful for checking against literal sets */
-export function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is SetElement<T> {
+function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is SetElement<T> {
     return set.has(value);
 }
 
@@ -199,7 +174,7 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
  * The system's sluggification algorithm for labels and other terms.
  * @param [camel=null] The sluggification style to use: null is default, and there are otherwise two camel options.
  */
-export function sluggify(str: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+function sluggify(str: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
     switch (camel) {
         case null:
             return str
@@ -226,6 +201,16 @@ export function sluggify(str: string, { camel = null }: { camel?: "dromedary" | 
     }
 }
 
+/** Parse a string containing html */
+function parseHTML(unparsed: string): HTMLElement {
+    const fragment = document.createElement("template");
+    fragment.innerHTML = unparsed;
+    const element = fragment.content.firstElementChild;
+    if (!(element instanceof HTMLElement)) throw ErrorPF2e("Unexpected error parsing HTML");
+
+    return element;
+}
+
 const actionImgMap: Record<string, ImagePath> = {
     1: "systems/pf2e/icons/actions/OneAction.webp",
     2: "systems/pf2e/icons/actions/TwoActions.webp",
@@ -238,10 +223,10 @@ const actionImgMap: Record<string, ImagePath> = {
     passive: "systems/pf2e/icons/actions/Passive.webp",
 };
 
-export function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath): ImagePath;
-export function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath | null): ImagePath | null;
-export function getActionIcon(actionType: string | ActionCost | null): ImagePath;
-export function getActionIcon(
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath): ImagePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath | null): ImagePath | null;
+function getActionIcon(actionType: string | ActionCost | null): ImagePath;
+function getActionIcon(
     action: string | ActionCost | null,
     fallback: ImagePath | null = "systems/pf2e/icons/default-icons/mystery-man.svg"
 ): ImagePath | null {
@@ -269,7 +254,7 @@ const actionGlyphMap: Record<string, string> = {
  * Returns a character that can be used with the Pathfinder action font
  * to display an icon. If null it returns empty string.
  */
-export function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }) {
+function getActionGlyph(action: string | number | null | { type: string; value: string | number | null }) {
     if (!action && action !== 0) return "";
 
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
@@ -280,12 +265,12 @@ export function getActionGlyph(action: string | number | null | { type: string; 
     return actionGlyphMap[sanitized] ?? "";
 }
 
-export function ErrorPF2e(message: string): Error {
+function ErrorPF2e(message: string): Error {
     return Error(`PF2e System | ${message}`);
 }
 
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
-export function ordinal(value: number) {
+function ordinal(value: number) {
     const suffixes = LocalizePF2e.translations.PF2E.OrdinalSuffixes;
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
     const suffix = suffixes[pluralRules.select(value)];
@@ -293,7 +278,7 @@ export function ordinal(value: number) {
 }
 
 /** Localizes a list of strings into a comma delimited list for the current language */
-export function localizeList(items: string[]) {
+function localizeList(items: string[]) {
     const parts = LocalizePF2e.translations.PF2E.ListPartsOr;
 
     if (items.length === 0) return "";
@@ -317,7 +302,7 @@ export function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
-export function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "solid"): HTMLElement {
+function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "solid"): HTMLElement {
     const styleClass = style === "regular" ? "far" : "fas";
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
     const icon = document.createElement("i");
@@ -326,9 +311,9 @@ export function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "sol
 }
 
 /** Short form of type and non-null check */
-export function isObject<T extends object>(value: unknown): value is DeepPartial<T>;
-export function isObject<T extends string>(value: unknown): value is { [K in T]?: unknown };
-export function isObject(value: unknown): boolean {
+function isObject<T extends object>(value: unknown): value is DeepPartial<T>;
+function isObject<T extends string>(value: unknown): value is { [K in T]?: unknown };
+function isObject(value: unknown): boolean {
     return typeof value === "object" && value !== null;
 }
 
@@ -346,6 +331,35 @@ function sortObjByKey(value: unknown): unknown {
                   }, {})
         : value;
 }
-export function sortedStringify(obj: object): string {
+
+function sortedStringify(obj: object): string {
     return JSON.stringify(sortObjByKey(obj));
 }
+
+export {
+    ErrorPF2e,
+    Fraction,
+    add,
+    addSign,
+    applyNTimes,
+    combineObjects,
+    fontAwesomeIcon,
+    getActionGlyph,
+    getActionIcon,
+    groupBy,
+    isBlank,
+    isObject,
+    localizeList,
+    objectHasKey,
+    ordinal,
+    Optional,
+    padArray,
+    parseHTML,
+    setHasElement,
+    sluggify,
+    sortObjByKey,
+    sortedStringify,
+    sum,
+    tupleHasValue,
+    zip,
+};

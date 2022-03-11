@@ -22,7 +22,7 @@ export class MystifiedTraits {
 
 export const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
 
-export const PHYSICAL_ITEM_TYPES = [
+export const PHYSICAL_ITEM_TYPES = new Set([
     "armor",
     "backpack",
     "book",
@@ -30,16 +30,21 @@ export const PHYSICAL_ITEM_TYPES = [
     "equipment",
     "treasure",
     "weapon",
-] as const;
+] as const);
 
 export const PRECIOUS_MATERIAL_TYPES = [
+    "abysium",
     "adamantine",
     "coldIron",
     "darkwood",
+    "djezet",
     "dragonhide",
     "grisantian-pelt",
+    "inubrix",
     "mithral",
+    "noqual",
     "orichalcum",
+    "siccatite",
     "silver",
     "sovereignSteel",
     "warpglass",

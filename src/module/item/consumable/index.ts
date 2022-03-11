@@ -128,13 +128,13 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             });
 
             // If using this consumable creates a roll, we need to show it
-            const cv = this.data.data.consume.value;
-            if (cv) {
-                new Roll(cv).toMessage({
+            const formula = this.data.data.consume.value;
+            if (formula) {
+                new Roll(formula).toMessage({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: content,
                 });
-            } else {
+            } else if (this.consumableType !== "ammo") {
                 ChatMessage.create({
                     user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -152,7 +152,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "data.quantity.value": Math.max(quantity - 1, 0),
+                    "data.quantity": Math.max(quantity - 1, 0),
                     "data.charges.value": max,
                 });
             }

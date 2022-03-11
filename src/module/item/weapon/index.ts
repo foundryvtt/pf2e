@@ -55,6 +55,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             "held-in-one-plus-hands": "1+",
             "held-in-two-hands": "2",
         } as const;
+
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 
@@ -64,7 +65,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get reload(): string | null {
-        return this.data.data.reload.value || null;
+        return this.data.data.reload.value;
     }
 
     get isSpecific(): boolean {
@@ -79,19 +80,24 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.rangeIncrement !== null;
     }
 
+    /** Does this weapon require ammunition in order to make a strike? */
+    get requiresAmmo(): boolean {
+        return this.isRanged && ![null, "-"].includes(this.reload);
+    }
+
     get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
-        return ammo instanceof ConsumablePF2e ? ammo : null;
+        return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
     }
 
     /** Generate a list of strings for use in predication */
-    override getItemRollOptions(prefix = "weapon"): string[] {
+    override getRollOptions(prefix = "weapon"): string[] {
         const actorSize = this.actor?.data.data.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const delimitedPrefix = prefix ? `${prefix}:` : "";
 
         return [
-            super.getItemRollOptions(prefix),
+            super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
@@ -100,6 +106,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`material:${this.material?.type}`]: !!this.material?.type,
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
+                [`damage-dice:${1 + this.data.data.runes.striking}`]: true,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
@@ -123,6 +130,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune2.value ||= null;
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
+        systemData.reload.value ||= null;
         systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         AutomaticBonusProgression.cleanupRunes(this);
@@ -205,7 +213,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const materialValue = toCoins("gp", materialPrice + (bulk * materialPrice) / 10);
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
         const withRunes = extractPriceFromItem({
-            data: { quantity: { value: 1 }, price: { value: `${runeValue} gp` } },
+            data: { quantity: 1, price: { value: `${runeValue} gp` } },
         });
         const modifiedPrice = combineCoins(withRunes, materialValue);
 
@@ -349,7 +357,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 damage: { damageType: meleeUsage.damage.type, dice: 1, die: meleeUsage.damage.die },
                 group: meleeUsage.group,
                 range: null,
-                reload: { value: "" },
+                reload: { value: null },
                 traits: { value: meleeUsage.traits.concat("combination") },
                 selectedAmmoId: null,
             },

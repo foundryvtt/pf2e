@@ -35,6 +35,7 @@
             },
             "perception": {},
             "resolve": {
+                "max": 0,
                 "value": 0
             },
             "sp": {
@@ -180,6 +181,7 @@
                 }
             },
             "heroPoints": {
+                "max": 3,
                 "value": 1
             }
         },
@@ -503,7 +505,12 @@
                         "isAlchemical": true,
                         "isDailyPrep": true,
                         "key": "CraftingEntry",
-                        "name": "Alchemist",
+                        "label": "PF2E.TraitAlchemist",
+                        "predicate": {
+                            "all": [
+                                "class:alchemist"
+                            ]
+                        },
                         "requiredTraits": [
                             [
                                 "alchemical"
@@ -515,6 +522,12 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "data.crafting.entries.alchemist.maxItemLevel",
+                        "predicate": {
+                            "all": [
+                                "class:alchemist",
+                                "crafting:entry:alchemist"
+                            ]
+                        },
                         "value": "@actor.level"
                     }
                 ],
@@ -691,7 +704,7 @@
                         "path": "data.resources.crafting.infusedReagents.max",
                         "predicate": {
                             "all": [
-                                "self:class:alchemist"
+                                "class:alchemist"
                             ]
                         },
                         "value": "@actor.level  + floor((@actor.abilities.int.value - 10) / 2)"
@@ -702,7 +715,7 @@
                         "path": "data.resources.crafting.infusedReagents.max",
                         "predicate": {
                             "not": [
-                                "self:class:alchemist"
+                                "class:alchemist"
                             ]
                         },
                         "value": "@actor.level"
@@ -1407,39 +1420,24 @@
                 "bulkCapacity": {
                     "value": "4"
                 },
-                "capacity": {
-                    "type": "weight",
-                    "value": 0,
-                    "weightless": false
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "currency": {
-                    "cp": 0,
-                    "ep": 0,
-                    "gp": 0,
-                    "pp": 0,
-                    "sp": 0
-                },
+                "collapsed": false,
+                "containerId": null,
                 "description": {
                     "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": true
+                    "inSlot": true,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "0"
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -1455,13 +1453,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -1476,20 +1468,14 @@
                 "price": {
                     "value": "1 sp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "backpack",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "stowing": true,
                 "traits": {
                     "custom": "",
@@ -1521,29 +1507,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -1559,13 +1538,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -1580,20 +1553,14 @@
                 "price": {
                     "value": "5 cp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "waterskin",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -1624,29 +1591,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -1662,13 +1622,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -1683,20 +1637,14 @@
                 "price": {
                     "value": "5 cp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "flint-and-steel",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -1740,16 +1688,10 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 7,
                     "value": 7
-                },
-                "collapsed": {
-                    "value": false
                 },
                 "consumableType": {
                     "value": "other"
@@ -1758,9 +1700,7 @@
                     "_deprecated": true,
                     "value": ""
                 },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": ""
                 },
@@ -1775,10 +1715,10 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -1797,9 +1737,6 @@
                 "level": {
                     "value": 0
                 },
-                "maxHp": {
-                    "value": 0
-                },
                 "negateBulk": {
                     "value": "0"
                 },
@@ -1812,18 +1749,14 @@
                 "price": {
                     "value": "4 sp"
                 },
-                "quantity": {
-                    "value": 3
-                },
+                "quantity": 3,
                 "range": {
                     "long": null,
                     "units": "",
                     "value": null
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "rations",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -1832,9 +1765,7 @@
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "target": {
                     "type": "",
                     "units": "",
@@ -1877,29 +1808,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>A rolled up bed.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -1915,13 +1839,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -1936,20 +1854,14 @@
                 "price": {
                     "value": "2 cp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "bedroll",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -1980,29 +1892,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "description": {
                     "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 2
+                    "handsHeld": 2,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2018,13 +1923,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -2039,20 +1938,14 @@
                 "price": {
                     "value": "3 gp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "alchemists-tools",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -2083,15 +1976,7 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "denomination": {
                     "value": "gp"
                 },
@@ -2105,10 +1990,10 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2127,9 +2012,6 @@
                 "level": {
                     "value": 0
                 },
-                "maxHp": {
-                    "value": 0
-                },
                 "negateBulk": {
                     "value": "0"
                 },
@@ -2142,20 +2024,14 @@
                 "price": {
                     "value": 0
                 },
-                "quantity": {
-                    "value": 2
-                },
+                "quantity": 2,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "gold-pieces",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": "coins"
-                },
+                "stackGroup": "coins",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -2189,15 +2065,7 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "denomination": {
                     "value": "sp"
                 },
@@ -2211,10 +2079,10 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2233,9 +2101,6 @@
                 "level": {
                     "value": 0
                 },
-                "maxHp": {
-                    "value": 0
-                },
                 "negateBulk": {
                     "value": "0"
                 },
@@ -2248,20 +2113,14 @@
                 "price": {
                     "value": 0
                 },
-                "quantity": {
-                    "value": 7
-                },
+                "quantity": 7,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "silver-pieces",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": "coins"
-                },
+                "stackGroup": "coins",
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -2295,29 +2154,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2333,13 +2185,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -2354,20 +2200,14 @@
                 "price": {
                     "value": "1 gp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "formula-book-blank",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -2398,29 +2238,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>A lantern sheds bright light and requires 1 pint of oil to function for 6 hours. A bull's‑eye lantern emits its light in a 60‑foot cone (and dim light in the next 60 feet). A hooded lantern sheds light in a 30‑foot radius (and dim light in the next 30 feet) and is equipped with shutters, which you can close to block the light. Closing or opening the shutters takes an Interact action.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2436,13 +2269,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -2457,20 +2284,14 @@
                 "price": {
                     "value": "7 sp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "lantern-hooded",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -2514,16 +2335,10 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 1,
                     "value": 1
-                },
-                "collapsed": {
-                    "value": false
                 },
                 "consumableType": {
                     "value": "oil"
@@ -2532,9 +2347,7 @@
                     "_deprecated": true,
                     "value": ""
                 },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>You can use oil to fuel lanterns, but you can also set a pint of oil aflame and throw it. You must first spend an Interact action preparing the oil, then throw it with another action as a ranged attack. If you hit, it splatters on the creature or in a single 5‑foot square you target. You must succeed at a DC 10 flat check for the oil to ignite successfully when it hits. If the oil ignites, the target takes 1d6 fire damage.</p>"
                 },
@@ -2549,10 +2362,10 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2571,9 +2384,6 @@
                 "level": {
                     "value": 0
                 },
-                "maxHp": {
-                    "value": 0
-                },
                 "negateBulk": {
                     "value": "0"
                 },
@@ -2586,18 +2396,14 @@
                 "price": {
                     "value": "1 cp"
                 },
-                "quantity": {
-                    "value": 8
-                },
+                "quantity": 8,
                 "range": {
                     "long": null,
                     "units": "",
                     "value": null
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "oil-1-pint",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -2606,9 +2412,7 @@
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "target": {
                     "type": "",
                     "units": "",
@@ -2651,29 +2455,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": "bA6HG8Q7l2mLBgOE"
-                },
+                "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
                     "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
-                    "handsHeld": 0
+                    "handsHeld": 0,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2689,13 +2486,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -2710,20 +2501,14 @@
                 "price": {
                     "value": "2 gp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "repair-kit",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -2757,19 +2542,11 @@
                 "brokenThreshold": {
                     "value": null
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "category": "light",
                 "check": {
                     "value": -1
                 },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "description": {
                     "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
@@ -2779,17 +2556,18 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": true
+                    "inSlot": true,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "1"
                 },
                 "group": "leather",
-                "hardness": {
-                    "value": null
-                },
+                "hardness": 0,
                 "hp": {
-                    "value": null
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
                 },
                 "identification": {
                     "misidentified": {},
@@ -2804,14 +2582,8 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 0
-                },
-                "maxHp": {
-                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
@@ -2841,16 +2613,12 @@
                 "propertyRune4": {
                     "value": ""
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "resiliencyRune": {
                     "value": ""
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "leather-armor",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -2858,9 +2626,7 @@
                 "speed": {
                     "value": 0
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "strength": {
                     "value": 10
                 },
@@ -2903,16 +2669,8 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "category": "martial",
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
@@ -2924,19 +2682,17 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 1,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
                 "group": "sword",
-                "hands": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -2952,13 +2708,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -3002,17 +2752,13 @@
                 "propertyRune4": {
                     "value": ""
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "range": null,
                 "reload": {
                     "value": ""
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "dogslicer",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -3023,9 +2769,7 @@
                 "splashDamage": {
                     "value": null
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "strikingRune": {
                     "value": ""
                 },
@@ -3077,16 +2821,10 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 1,
                     "value": 1
-                },
-                "collapsed": {
-                    "value": false
                 },
                 "consumableType": {
                     "value": "elixir"
@@ -3095,9 +2833,7 @@
                     "_deprecated": true,
                     "value": ""
                 },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +5 foot status bonus to your Speed for 1 minute.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Cheetah's Elixir (Lesser)]{Effect: Cheetah's Elixir (Lesser)}</p>"
                 },
@@ -3112,10 +2848,10 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -3134,9 +2870,6 @@
                 "level": {
                     "value": 1
                 },
-                "maxHp": {
-                    "value": 0
-                },
                 "negateBulk": {
                     "value": "0"
                 },
@@ -3149,18 +2882,14 @@
                 "price": {
                     "value": "3 gp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "range": {
                     "long": null,
                     "units": "",
                     "value": null
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "cheetahs-elixir-lesser",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -3169,9 +2898,7 @@
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "target": {
                     "type": "",
                     "units": "",
@@ -3218,29 +2945,22 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
+                "containerId": null,
                 "description": {
                     "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 1,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -3256,13 +2976,7 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
@@ -3277,20 +2991,14 @@
                 "price": {
                     "value": "3 gp"
                 },
-                "quantity": {
-                    "value": 1
-                },
+                "quantity": 1,
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "thieves-tools",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -3525,16 +3233,8 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "category": "martial",
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": null
-                },
+                "containerId": "null",
                 "damage": {
                     "damageType": "acid",
                     "dice": 1,
@@ -3546,19 +3246,17 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 1,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
                 "group": "bomb",
-                "hands": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -3574,14 +3272,8 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 1
-                },
-                "maxHp": {
-                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -3624,9 +3316,7 @@
                 "propertyRune4": {
                     "value": ""
                 },
-                "quantity": {
-                    "value": 2
-                },
+                "quantity": 2,
                 "range": 20,
                 "reload": {
                     "value": ""
@@ -3649,9 +3339,7 @@
                         "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*(1d6) #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
                     }
                 ],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "acid-flask-lesser",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -3662,15 +3350,11 @@
                 "splashDamage": {
                     "value": 1
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "strikingRune": {
                     "value": ""
                 },
-                "temporary": {
-                    "value": true
-                },
+                "temporary": true,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -3717,16 +3401,8 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "category": "martial",
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": null
-                },
+                "containerId": "null",
                 "damage": {
                     "damageType": "fire",
                     "dice": 1,
@@ -3738,19 +3414,17 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 1,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
                 },
                 "group": "bomb",
-                "hands": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -3766,14 +3440,8 @@
                         "name": ""
                     }
                 },
-                "invested": {
-                    "value": false
-                },
                 "level": {
                     "value": 1
-                },
-                "maxHp": {
-                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -3816,9 +3484,7 @@
                 "propertyRune4": {
                     "value": ""
                 },
-                "quantity": {
-                    "value": 4
-                },
+                "quantity": 4,
                 "range": 20,
                 "reload": {
                     "value": ""
@@ -3841,9 +3507,7 @@
                         "text": "<p class='compact-text'><strong>Effect</strong> The bomb also deals [[/r 2*1 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                     }
                 ],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "alchemists-fire-lesser",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -3854,15 +3518,11 @@
                 "splashDamage": {
                     "value": 1
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "strikingRune": {
                     "value": ""
                 },
-                "temporary": {
-                    "value": true
-                },
+                "temporary": true,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -3913,16 +3573,10 @@
                 "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 1,
                     "value": 1
-                },
-                "collapsed": {
-                    "value": false
                 },
                 "consumableType": {
                     "value": "elixir"
@@ -3931,9 +3585,7 @@
                     "_deprecated": true,
                     "value": "1d6"
                 },
-                "containerId": {
-                    "value": null
-                },
+                "containerId": "null",
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
                 },
@@ -3948,10 +3600,10 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "hardness": {
-                    "value": 0
-                },
+                "hardness": 0,
                 "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
                 "identification": {
@@ -3970,9 +3622,6 @@
                 "level": {
                     "value": 1
                 },
-                "maxHp": {
-                    "value": 0
-                },
                 "negateBulk": {
                     "value": "0"
                 },
@@ -3985,18 +3634,14 @@
                 "price": {
                     "value": "3 gp"
                 },
-                "quantity": {
-                    "value": 2
-                },
+                "quantity": 2,
                 "range": {
                     "long": null,
                     "units": "",
                     "value": null
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
+                "size": "med",
                 "slug": "elixir-of-life-minor",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
@@ -4005,17 +3650,13 @@
                     "data": null,
                     "heightenedLevel": null
                 },
-                "stackGroup": {
-                    "value": ""
-                },
+                "stackGroup": null,
                 "target": {
                     "type": "",
                     "units": "",
                     "value": null
                 },
-                "temporary": {
-                    "value": true
-                },
+                "temporary": true,
                 "traits": {
                     "custom": "",
                     "rarity": "common",

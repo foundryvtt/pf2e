@@ -22,9 +22,7 @@ declare global {
              * @param original Some sort of data
              * @return The clone of that data
              */
-            function deepClone<T>(
-                original: T
-            ): T extends Set<any> | Map<any, any> | foundry.utils.Collection<any> ? never : T;
+            function deepClone<T>(original: T): T;
 
             /**
              * A cheap data duplication trick which is relatively robust.
@@ -126,7 +124,7 @@ declare global {
              * @param _d   Recursion depth, to prevent overflow
              * @return     An expanded object
              */
-            function expandObject(obj: object, _d?: number): object;
+            function expandObject<T extends object>(obj: object, _d?: number): T;
 
             /**
              * A simple function to test whether or not an Object is empty

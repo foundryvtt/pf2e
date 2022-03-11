@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ConsumableSource, EquipmentSource, ItemSourcePF2e } from "@item/data";
 import { KitEntryData } from "@item/kit/data";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, isObject } from "@util";
 import { MigrationBase } from "../base";
 
 /** Convert rations to a consumable with seven uses */
@@ -44,8 +44,16 @@ export class Migration684RationsToConsumable extends MigrationBase {
             const newRation = deepClone(rations);
             newRation.folder = oldRation.folder;
             newRation.sort = oldRation.sort;
-            newRation.data.containerId.value = oldRation.data.containerId.value;
-            newRation.data.quantity.value = Math.ceil(oldRation.data.quantity.value / 7);
+
+            const oldContainerId = oldRation.data.containerId ?? { value: null };
+            if (oldContainerId instanceof Object) {
+                newRation.data.containerId = oldContainerId.value;
+            }
+
+            const oldQuantity: number | { value: number } = oldRation.data.quantity;
+            if (isObject<{ value: number }>(oldQuantity)) {
+                newRation.data.quantity = Math.ceil((oldQuantity.value ?? 1) / 7);
+            }
             actorSource.items.findSplice((item) => item === oldRation, newRation);
         }
     }

@@ -14,8 +14,8 @@ import { AELikeRuleElement } from "./rule-element/ae-like";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element";
-import { CraftingEntryRuleElement } from "./rule-element/crafting/crafting-entry";
-import { CraftingFormulaRuleElement } from "./rule-element/crafting/crafting-formula";
+import { CraftingEntryRuleElement } from "./rule-element/crafting/entry";
+import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap";
@@ -47,7 +47,7 @@ import type { ItemPF2e } from "@item";
  * @category RuleElement
  */
 class RuleElements {
-    static readonly builtin: Record<string, RuleElementConstructor | undefined> = Object.freeze({
+    static readonly builtin: Record<string, RuleElementConstructor | undefined> = {
         ActiveEffectLike: AELikeRuleElement,
         ActorTraits: ActorTraitsRuleElement,
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
@@ -84,7 +84,7 @@ class RuleElements {
         Striking: StrikingRuleElement,
         Weakness: WeaknessRuleElement,
         WeaponPotency: WeaponPotencyRuleElement,
-    });
+    };
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 

@@ -1,8 +1,8 @@
-<div class="dialog-content">
+<div class="dialog-content" autocomplete="off">
     <form>
         <div class="form-group">
             <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
-            <select name="spellcastingType" {{#if entry}}disabled{{/if}}>
+            <select name="spellcasting-type" {{#if entry}}disabled{{/if}}>
             {{#select data.spellcastingType}}
             {{#each spellcastingTypes as |label mode|}}
                 <option value="{{mode}}">{{localize label}}</option>
@@ -13,7 +13,7 @@
         {{#unless (eq data.spellcastingType "ritual")}}
             <div class="form-group tradition-group">
                 <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
-                <select name="magicTradition">
+                <select name="magic-tradition">
                 {{#select data.tradition}}
                 {{#each magicTraditions as |label mode|}}
                     <option value="{{mode}}">{{localize label}}</option>

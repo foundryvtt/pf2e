@@ -1,4 +1,4 @@
-.character {
+&.character {
     h3 {
         margin-top: 0.75em;
         font-family: var(--serif);
@@ -6,27 +6,6 @@
         color: var(--primary);
         line-height: 1;
         border-bottom: 1px solid var(--primary);
-    }
-    input {
-        font-family: var(--body-serif);
-        font-weight: bold;
-        width: calc(100% - 6px);
-        border-bottom: 1px solid #d3ccbc;
-        text-transform: capitalize;
-        &::placeholder {
-            filter: opacity(0.5);
-            color: var(--body);
-        }
-        &:focus {
-            border-bottom: 1px solid #644f33;
-            &::placeholder {
-                color: transparent;
-            }
-        }
-        &[type="number"] {
-          padding-bottom: 0;
-          padding-left: 4px;
-        }
     }
     select {
         width: calc(100% - 6px);
@@ -46,7 +25,7 @@
             grid-area: mod;
             border: none;
             @include p-reset;
-            background-color: rgba($body-color, 0.1);
+            background-color: rgba($text-dark-color, 0.1);
             height: 26px;
             padding: 8px 4px 6px;
             color: var(--body);
@@ -108,6 +87,7 @@
 
             select {
                 all: initial;
+                color: var(--text-dark);
                 display: block;
                 cursor: pointer;
                 font-family: var(--body-serif);
@@ -345,7 +325,7 @@
             .ability-mod {
                 grid-area: mod;
                 border: none;
-                background-color: rgba($body-color, 0.1);
+                background-color: rgba($text-dark-color, 0.1);
                 font-family: var(--serif);
                 font-weight: 700;
                 @include p-reset;

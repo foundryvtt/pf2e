@@ -63,7 +63,7 @@ class ContainerSheetData {
     }
 
     get isCollapsed(): boolean {
-        return this.item?.data?.collapsed?.value ?? false;
+        return this.item.type === "backpack" && this.item.data.collapsed;
     }
 
     get isNotInContainer(): boolean {
@@ -135,7 +135,8 @@ function toContainer({
         bulkConfig,
         actorSize,
     });
-    const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
+    const capacity = item.type === "backpack" ? weightToBulk(item.data.bulkCapacity.value) ?? new Bulk() : new Bulk();
+
     return new ContainerSheetData({
         item,
         heldItems,
@@ -149,13 +150,17 @@ function toContainer({
     });
 }
 
-function detectCycle(itemId: string, containerId = "", idIndexedItems: Map<string, PhysicalItemData>): boolean {
-    const currentItem = idIndexedItems.get(containerId);
+function detectCycle(
+    itemId: string,
+    containerId: string | null = null,
+    idIndexedItems: Map<string, PhysicalItemData>
+): boolean {
+    const currentItem = idIndexedItems.get(containerId ?? "");
     if (currentItem) {
         if (itemId === currentItem?._id) {
             return true;
         }
-        return detectCycle(itemId, currentItem.data.containerId.value!, idIndexedItems);
+        return detectCycle(itemId, currentItem.data.containerId, idIndexedItems);
     }
     return false;
 }
@@ -200,13 +205,13 @@ export function getContainerMap({
     const allIds = groupBy(items, (itemData) => itemData._id);
 
     const containerGroups = groupBy(items, (itemData) => {
-        const containerId = itemData.data.containerId.value ?? "";
+        const containerId = itemData.data.containerId ?? "";
         return allIds.has(containerId) ? containerId : null;
     });
 
     const idIndexedContainerData = new Map();
     for (const item of items) {
-        const isInContainer = item.data.containerId.value !== null && containerGroups.has(item.data.containerId.value);
+        const isInContainer = !!item.data.containerId && containerGroups.has(item.data.containerId);
         const heldItems = containerGroups.get(item._id) || [];
 
         idIndexedContainerData.set(

@@ -27,11 +27,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get quantity(): number {
-        return this.data.data.quantity.value ?? 1;
+        return Number(this.data.data.quantity ?? 1);
     }
 
     get size(): Size {
-        return this.data.data.size.value;
+        return this.data.data.size;
     }
 
     get isEquipped(): boolean {
@@ -39,7 +39,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get carryType(): ItemCarryType {
-        return this.data.data.equipped.carryType ?? (this.data.data.containerId.value ? "worn" : "stowed");
+        return this.data.data.equipped.carryType ?? (this.data.data.containerId ? "worn" : "stowed");
     }
 
     get handsHeld(): number {
@@ -75,7 +75,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.data.isEquipped && this.data.isIdentified && this.data.data.invested?.value === true;
+        return this.data.isEquipped && this.data.isIdentified && this.data.data.equipped.invested === true;
     }
 
     get isCursed(): boolean {
@@ -83,7 +83,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isTemporary(): boolean {
-        return this.data.data.temporary?.value === true;
+        return this.data.data.temporary === true;
     }
 
     get material() {
@@ -100,11 +100,15 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return !!this.container;
     }
 
+    get isStowed(): boolean {
+        return !!this.container?.data.data.stowing;
+    }
+
     /** Get this item's container, returning null if it is not in a container */
     get container(): Embedded<ContainerPF2e> | null {
-        if (this.data.data.containerId.value === null) return (this._container = null);
+        if (this.data.data.containerId === null) return (this._container = null);
 
-        const container = this._container ?? this.actor?.items.get(this.data.data.containerId.value ?? "");
+        const container = this._container ?? this.actor?.items.get(this.data.data.containerId ?? "");
         if (container?.type === "backpack") this._container = container as Embedded<ContainerPF2e>;
 
         return this._container;
@@ -126,8 +130,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getItemRollOptions(prefix = this.type): string[] {
-        const baseOptions = super.getItemRollOptions(prefix);
+    override getRollOptions(prefix = this.type): string[] {
+        const baseOptions = super.getRollOptions(prefix);
         const physicalItemOptions = Object.entries({
             equipped: this.isEquipped,
             magical: this.isMagical,
@@ -151,7 +155,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // null out empty-string values
         systemData.preciousMaterial.value ||= null;
         systemData.preciousMaterialGrade.value ||= null;
-        systemData.containerId.value ||= null;
+        systemData.containerId ||= null;
+        systemData.stackGroup ||= null;
 
         // Normalize price string
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
@@ -165,7 +170,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         this.data.usage = getUsageDetails(systemData.usage.value);
         this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
         if (!systemData.equipped.carryType) {
-            systemData.equipped.carryType = systemData.containerId.value ? "stowed" : "worn";
+            systemData.equipped.carryType = systemData.containerId ? "stowed" : "worn";
         }
 
         // Magic and invested status is determined at the class-instance level since it can be updated later in data
@@ -179,7 +184,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
 
         // Set the _container cache property to null if it no longer matches this item's container ID
-        if (this._container?.id !== this.data.data.containerId.value) {
+        if (this._container?.id !== this.data.data.containerId) {
             this._container = null;
         }
 
@@ -218,9 +223,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.type !== item.type || this.name !== item.name || this.isIdentified !== item.isIdentified) return false;
         const thisData = this.toObject().data;
         const otherData = item.toObject().data;
-        thisData.quantity.value = otherData.quantity.value;
+        thisData.quantity = otherData.quantity;
         thisData.equipped = otherData.equipped;
-        thisData.containerId.value = otherData.containerId.value;
+        thisData.containerId = otherData.containerId;
         thisData.schema = otherData.schema;
         thisData.identification = otherData.identification;
 
@@ -346,7 +351,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         if (typeof changed.data?.hp?.value === "number") {
-            changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.maxHp.value);
+            changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.hp.max);
         }
 
         if (!changed.data) return await super._preUpdate(changed, options, user);

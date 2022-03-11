@@ -11,6 +11,10 @@ class DexterityModifierCapRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
+        const rollOptions = this.actor.getRollOptions();
+        const { predicate } = this.data;
+        if (predicate && !predicate.test(rollOptions)) return;
+
         const value = this.resolveValue(this.data.value);
         if (typeof value === "number") {
             this.actor.data.data.attributes.dexCap.push({

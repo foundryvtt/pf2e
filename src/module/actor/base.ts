@@ -27,8 +27,8 @@ import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@module/modifiers";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isEquipped } from "../item/physical/usage";
+import { ActorDimensions } from "./types";
+import { CombatantPF2e } from "@module/encounter";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -107,6 +107,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get size(): Size {
         return this.data.data.traits.size.value;
+    }
+
+    /**
+     * With the exception of vehicles, actor heights aren't specified. For the purpose of three-dimensional
+     * token-distance measurement, however, the system will generally treat actors as cubes.
+     */
+    get dimensions(): ActorDimensions {
+        const { size } = this.data.data.traits;
+        return {
+            length: size.length,
+            width: size.width,
+            height: Math.min(size.length, size.width),
+        };
     }
 
     /**
@@ -296,6 +309,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Setup the basic structure of pf2e flags with roll options
         const defaultOptions = { [`self:type:${this.type}`]: true };
         this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
 
@@ -431,6 +445,24 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return flavor;
     }
 
+    /** If there is an active encounter, set roll options for it and this actor's participant */
+    setEncounterRollOptions(): void {
+        const encounter = game.ready ? game.combat : null;
+        const participants = encounter?.combatants.contents ?? [];
+        if (!(encounter?.started && participants.some((c) => c.actor === this && typeof c.initiative === "number"))) {
+            return;
+        }
+
+        const rollOptionsAll = this.rollOptions.all;
+        rollOptionsAll[`encounter:round:${encounter.round}`] = true;
+        rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
+        rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
+
+        const thisCombatant = participants.find((c): c is Embedded<CombatantPF2e<this>> => c.actor === this)!;
+        const rank = participants.indexOf(thisCombatant) + 1;
+        rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
+    }
+
     getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
         return Array.from(
             new Set(
@@ -504,32 +536,34 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<void> {
         const { hitPoints } = this;
-        if (!(hitPoints && "shield" in this.attributes)) return;
+        if (!hitPoints) return;
         damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
 
         // Calculate damage to hit points and shield
         const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
-        const actorShield = this.attributes.shield;
-        const shieldBlock = shieldBlockRequest
-            ? ((): boolean => {
-                  if (actorShield.broken) {
-                      const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
-                      ui.notifications.warn(
-                          game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: actorShield.name })
-                      );
-                      return false;
-                  } else if (!actorShield.raised) {
-                      ui.notifications.warn(game.i18n.format(translations.ShieldNotRaised, { actor: token.name }));
-                      return false;
-                  } else {
-                      return true;
-                  }
-              })()
-            : false;
+        const { attributes } = this;
+        const actorShield = "shield" in attributes ? attributes.shield : null;
+        const shieldBlock =
+            actorShield && shieldBlockRequest
+                ? ((): boolean => {
+                      if (actorShield.broken) {
+                          const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
+                          ui.notifications.warn(
+                              game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: actorShield.name })
+                          );
+                          return false;
+                      } else if (!actorShield.raised) {
+                          ui.notifications.warn(game.i18n.format(translations.ShieldNotRaised, { actor: token.name }));
+                          return false;
+                      } else {
+                          return true;
+                      }
+                  })()
+                : false;
 
-        const shieldHardness = shieldBlock ? actorShield.hardness ?? 0 : 0;
+        const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
         const absorbedDamage = Math.min(shieldHardness, Math.abs(damage));
-        const shieldDamage = shieldBlock ? Math.min(actorShield.hp.value, Math.abs(damage) - absorbedDamage) : 0;
+        const shieldDamage = shieldBlock ? Math.min(actorShield?.hp.value ?? 0, Math.abs(damage) - absorbedDamage) : 0;
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
@@ -541,7 +575,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Make updates
         if (shieldDamage > 0) {
             const shield = (() => {
-                const item = this.items.get(actorShield.itemId ?? "");
+                const item = this.items.get(actorShield?.itemId ?? "");
                 return item instanceof ArmorPF2e ? item : null;
             })();
             await shield?.update(
@@ -573,9 +607,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             return hpDamage < 0 ? translations.HealedForN : translations.AtFullHealth;
         })();
 
-        const updatedShield = this.attributes.shield;
+        const updatedShield = "shield" in this.attributes ? this.attributes.shield : null;
         const shieldStatement =
-            shieldDamage > 0
+            updatedShield && shieldDamage > 0
                 ? updatedShield.broken
                     ? translations.ShieldDamagedForNBroken
                     : updatedShield.destroyed
@@ -644,7 +678,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
-        containerId?: string
+        containerId?: string,
+        newStack = false
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
@@ -687,28 +722,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (removeFromSource) {
             await item.delete();
         } else {
-            await item.update({ "data.quantity.value": newQuantity });
+            await item.update({ "data.quantity": newQuantity });
         }
 
         const newItemData = item.toObject();
-        newItemData.data.quantity.value = quantity;
+        newItemData.data.quantity = quantity;
         newItemData.data.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            newItemData.data.invested.value = item.traits.has("invested") ? false : null;
+            newItemData.data.equipped.invested = item.traits.has("invested") ? false : null;
         }
 
-        return targetActor.addToInventory(newItemData, container);
+        return targetActor.addToInventory(newItemData, container, newStack);
     }
 
     async addToInventory(
         itemData: PhysicalItemSource,
-        container?: Embedded<ContainerPF2e>
+        container?: Embedded<ContainerPF2e>,
+        newStack?: boolean
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
-        if (stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
-            await stackItem.update({ "data.quantity.value": stackQuantity });
+        if (!newStack && stackItem && stackItem.data.type !== "backpack") {
+            const stackQuantity = stackItem.quantity + itemData.data.quantity;
+            await stackItem.update({ "data.quantity": stackQuantity });
             return stackItem;
         }
 
@@ -725,7 +761,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
-    private findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
+    findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         const testItem = new ItemPF2e(itemData);
         const stackCandidates = actor.physicalItems.filter(
             (stackCandidate) =>
@@ -745,50 +781,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
-     * @param item       The item
-     * @param carryType  Location to be set to
-     * @param handsHeld  Number of hands being held
-     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
-     */
-    async adjustCarryType(item: Embedded<PhysicalItemPF2e>, carryType: ItemCarryType, handsHeld = 0, inSlot = false) {
-        if (carryType === "stowed") {
-            // since there's still an "items need to be in a tree" view, we
-            // need to actually put the item in a container when it's stowed.
-            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
-            await item.update({
-                "data.containerId.value": container?.id ?? "",
-                "data.equipped.carryType": "stowed",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
-            });
-        } else {
-            const equipped: EquippedData = {
-                carryType: carryType,
-                handsHeld: carryType === "held" ? handsHeld : 0,
-                inSlot: item.data.usage.where ? inSlot : undefined,
-            };
-
-            const updates = [];
-
-            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
-                // see if they have another set of armor equipped
-                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
-                for (const armor of wornArmors) {
-                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
-                }
-            }
-
-            updates.push({
-                _id: item.id,
-                "data.containerId.value": null,
-                "data.equipped": equipped,
-            });
-            await this.updateEmbeddedDocuments("Item", updates);
-        }
-    }
-
-    /**
      * Moves an item into the inventory into or out of a container.
      * @param actor       Actor whose inventory should be edited.
      * @param getItem     Lambda returning the item.
@@ -797,14 +789,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
             await item.update({
-                "data.containerId.value": container.id,
+                "data.containerId": container.id,
                 "data.equipped.carryType": "stowed",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });
         } else {
             await item.update({
-                "data.containerId.value": null,
+                "data.containerId": null,
                 "data.equipped.carryType": "worn",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
@@ -1057,18 +1049,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Show floaty text when applying damage or healing */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: ActorUpdateContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Show floaty text when applying damage or healing
         const changedHP = changed.data?.attributes?.hp;
         const currentHP = this.hitPoints;
         if (typeof changedHP?.value === "number" && currentHP) {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.data?.details && "level" in changed.data.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
+        }
+
+        // Run preUpdateActor rule element callbacks
+        type WithPreUpdateActor = RuleElementPF2e & { preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]> };
+        const rules = this.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
+        if (rules.length > 0) {
+            const clone = this.clone(changed, { keepId: true });
+            this.data.flags.pf2e.rollOptions = clone.data.flags.pf2e.rollOptions;
+            for (const rule of rules) {
+                await rule.preUpdateActor();
+            }
         }
 
         await super._preUpdate(changed, options, user);
@@ -1165,10 +1168,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e> {
         conditionType: ConditionSlug,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
-
-    getFlag(scope: string, key: string): any;
-    getFlag(scope: "core", key: "sourceId"): string | undefined;
-    getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
 }
 
 export interface HitPointsSummary {

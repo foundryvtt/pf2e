@@ -33,11 +33,11 @@ declare type ClientDocumentMixin<T extends typeof foundry.abstract.Document> = {
      *                                    World-level Document reference
      * @return The Document data that should be handled by the drop handler
      */
-    fromDropData<T extends typeof foundry.abstract.Document>(
-        this: T,
-        data: DropCanvasData,
+    fromDropData<TDocument extends ClientDocument>(
+        this: ConstructorOf<TDocument>,
+        data: DropCanvasData<TDocument["documentName"]>,
         { importWorld }?: { importWorld?: boolean }
-    ): Promise<InstanceType<T> | undefined>;
+    ): Promise<TDocument | undefined>;
 } & T;
 
 declare class ClientDocument<TDocument extends foundry.abstract.Document = foundry.abstract.Document> extends foundry

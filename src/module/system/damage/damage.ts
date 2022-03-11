@@ -1,3 +1,6 @@
+import { StrikeSelf, StrikeTarget } from "@actor/creature/types";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { BaseRollContext } from "@system/rolls";
 import { combineObjects } from "../../../util";
 
 /** The possible standard damage die sizes. */
@@ -19,7 +22,7 @@ export function nextDamageDieSize(dieSize: DamageDieSize) {
 }
 
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
-export const DamageCategory = Object.freeze({
+export const DamageCategory = {
     /**
      * Physical damage; one of bludgeoning, piercing, or slashing, and usually caused by a physical object hitting you.
      */
@@ -87,10 +90,10 @@ export const DamageCategory = Object.freeze({
         Object.keys(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES).forEach((key) => {
             delete CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[key];
         }),
-});
+} as const;
 
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */
-export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> = Object.freeze({
+export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> = {
     // The three default physical damage types.
     bludgeoning: DamageCategory.PHYSICAL,
     piercing: DamageCategory.PHYSICAL,
@@ -111,7 +114,18 @@ export const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, string>> =
     evil: DamageCategory.ALIGNMENT,
     good: DamageCategory.ALIGNMENT,
     lawful: DamageCategory.ALIGNMENT,
-});
+} as const;
 
 /** Custom damage type mappings; maps damage types to their damage category. */
 export const CUSTOM_DAMAGE_TYPES_TO_CATEGORIES: Record<string, string> = {};
+
+interface DamageRollContext extends BaseRollContext {
+    type: "damage-roll";
+    outcome?: DegreeOfSuccessString;
+    self?: StrikeSelf | null;
+    target?: StrikeTarget | null;
+    options: string[];
+    secret?: boolean;
+}
+
+export { DamageRollContext };

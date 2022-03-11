@@ -131,7 +131,7 @@ export type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
 /** The full save data for a character; including its modifiers and other details */
 export type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetail?: string };
 
-type CreatureSaves = Record<SaveType, SaveData>;
+export type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 export interface CreatureAttributes extends BaseActorAttributes {

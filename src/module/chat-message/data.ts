@@ -1,8 +1,8 @@
 import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { RawModifier } from "@module/modifiers";
-import { DegreeOfSuccessString } from "@system/check-degree-of-success";
-import { CheckModifiersContext } from "@system/rolls";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { CheckRollContextFlag } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
 
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
@@ -18,14 +18,14 @@ interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
 type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
-        context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
+        context?: CheckRollContextFlag;
         origin?: { type: ItemType; uuid: string } | null;
         casting?: { id: string; tradition: MagicTradition } | null;
         modifierName?: string;
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";
-        [key: string]: unknown;
         isFromConsumable?: boolean;
+        [key: string]: unknown;
     };
     core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
 };

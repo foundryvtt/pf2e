@@ -74,9 +74,9 @@ class PredicatePF2e implements RawPredicate {
 
             const [left, right] = Object.values(statement)[0];
             const domainArray = Array.from(domain);
-            const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(\d+)$/.exec(d)?.[1]) : []));
+            const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
             const rightValues = domainArray.flatMap((d) =>
-                typeof right === "number" ? right : d.startsWith(right) ? Number(/:(\d+)$/.exec(d)?.[1]) : []
+                typeof right === "number" ? right : d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []
             );
 
             switch (operator) {

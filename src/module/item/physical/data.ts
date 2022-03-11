@@ -16,14 +16,14 @@ import { Size, ValuesList } from "@module/data";
 import { ActionTrait } from "@item/action/data";
 import { UsageDetails } from "./usage";
 
-export type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
+type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
-export type BasePhysicalItemSource<
+type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
     TSystemData extends PhysicalSystemData = PhysicalSystemData
 > = BaseItemSourcePF2e<TItemType, TSystemData>;
 
-export class BasePhysicalItemData<
+class BasePhysicalItemData<
     TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
     TSystemData extends PhysicalSystemData = PhysicalSystemData
 > extends BaseItemDataPF2e<TItem> {
@@ -39,7 +39,7 @@ export class BasePhysicalItemData<
     usage!: UsageDetails;
 }
 
-export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
+interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
     extends Omit<BasePhysicalItemSource, "effects" | "flags"> {
     type: PhysicalItemType;
     data: BasePhysicalItemSource["data"];
@@ -48,47 +48,85 @@ export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalI
     readonly _source: BasePhysicalItemSource;
 }
 
-export type PhysicalItemType = typeof PHYSICAL_ITEM_TYPES[number];
+type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
 
-export interface MagicItemSystemData extends PhysicalSystemData {
-    invested: {
-        value: boolean | null;
+type MagicItemSystemData = PhysicalSystemData & {
+    equipped: {
+        invested: boolean | null;
     };
-}
+};
 
-export type PreciousMaterialType = typeof PRECIOUS_MATERIAL_TYPES[number];
-export type PreciousMaterialGrade = "low" | "standard" | "high";
+type PreciousMaterialType = typeof PRECIOUS_MATERIAL_TYPES[number];
+type PreciousMaterialGrade = "low" | "standard" | "high";
 
-export interface ActivatedEffectData {
+interface ActivatedEffectData {
     activation: {
         type: string;
         cost: number;
         condition: string;
     };
     duration: {
-        value: any;
+        value: unknown;
         units: string;
     };
     target: {
-        value: any;
+        value: unknown;
         units: string;
         type: string;
     };
     range: {
-        value: any;
-        long: any;
-        units: any;
+        value: unknown;
+        long: unknown;
+        units: unknown;
     };
     uses: {
         value: number;
         max: number;
-        per: any;
+        per: number;
     };
 }
+interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
+    traits: PhysicalItemTraits;
+    quantity: number;
+    baseItem: string | null;
+    hp: PhysicalItemHitPoints;
+    hardness: number;
+    weight: {
+        value: number;
+    };
+    equippedBulk: {
+        value: string;
+    };
+    unequippedBulk: {
+        value: string;
+    };
+    price: {
+        value: string;
+    };
+    equipped: EquippedData;
+    identification: IdentificationData;
+    stackGroup: string | null;
+    negateBulk: {
+        value: string;
+    };
+    containerId: string | null;
+    preciousMaterial: {
+        value: Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt"> | null;
+    };
+    preciousMaterialGrade: {
+        value: PreciousMaterialGrade | null;
+    };
+    size: Size;
+    usage: {
+        value: string;
+    };
+    activations?: Record<string, ItemActivation>;
+    temporary?: boolean;
+}
 
-export type IdentificationStatus = "identified" | "unidentified";
+type IdentificationStatus = "identified" | "unidentified";
 
-export interface MystifiedData {
+interface MystifiedData {
     name: string;
     img: string;
     data: {
@@ -98,25 +136,26 @@ export interface MystifiedData {
     };
 }
 
-export type IdentifiedData = DeepPartial<MystifiedData>;
+type IdentifiedData = DeepPartial<MystifiedData>;
 
-export interface IdentificationData {
+interface IdentificationData {
     status: IdentificationStatus;
     identified: MystifiedData;
     unidentified: MystifiedData;
     misidentified: {};
 }
 
-export type EquippedData = {
+type EquippedData = {
     carryType: ItemCarryType;
     inSlot?: boolean;
     handsHeld?: number;
+    invested?: boolean | null;
 };
 
-export type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
-export type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
+type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
+type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
 
-export interface ItemActivation {
+interface ItemActivation {
     id: string;
     description: {
         value: string;
@@ -137,70 +176,29 @@ export interface ItemActivation {
     traits: ValuesList<ActionTrait>;
 }
 
-export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
-    traits: PhysicalItemTraits;
-    quantity: {
-        value: number;
-    };
-    baseItem: string | null;
-    hp: {
-        value: number;
-    };
-    maxHp: {
-        value: number;
-    };
-    hardness: {
-        value: number;
-    };
-    brokenThreshold: {
-        value: number;
-    };
-    weight: {
-        value: number;
-    };
-    equippedBulk: {
-        value: string;
-    };
-    unequippedBulk: {
-        value: string;
-    };
-    price: {
-        value: string;
-    };
-    equipped: EquippedData;
-    identification: IdentificationData;
-    stackGroup: {
-        value: string;
-    };
-    bulkCapacity: {
-        value: string;
-    };
-    negateBulk: {
-        value: string;
-    };
-    containerId: {
-        value: string | null;
-    };
-    preciousMaterial: {
-        value: Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt"> | null;
-    };
-    preciousMaterialGrade: {
-        value: PreciousMaterialGrade | null;
-    };
-    collapsed: {
-        value: boolean;
-    };
-    size: {
-        value: Size;
-    };
-    usage: {
-        value: string;
-    };
-    invested?: {
-        value: boolean | null;
-    };
-    activations?: Record<string, ItemActivation>;
-    temporary?: {
-        value: boolean;
-    };
+interface PhysicalItemHitPoints {
+    value: number;
+    max: number;
+    brokenThreshold: number;
 }
+
+export {
+    ActivatedEffectData,
+    BasePhysicalItemData,
+    BasePhysicalItemSource,
+    EquippedData,
+    IdentificationData,
+    IdentificationStatus,
+    IdentifiedData,
+    ItemActivation,
+    ItemCarryType,
+    MagicItemSystemData,
+    MystifiedData,
+    PhysicalItemHitPoints,
+    PhysicalItemTrait,
+    PhysicalItemTraits,
+    PhysicalItemType,
+    PhysicalSystemData,
+    PreciousMaterialGrade,
+    PreciousMaterialType,
+};

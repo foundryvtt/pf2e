@@ -8,16 +8,17 @@ import { PhysicalItemType } from "@item/physical/data";
 import { VehicleTrait } from "./data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): ActorSheetOptions {
+        return {
+            ...super.defaultOptions,
             classes: ["default", "sheet", "actor", "vehicle"],
             width: 670,
             height: 480,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
-        });
+        };
     }
 
-    override get template() {
+    override get template(): string {
         return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
@@ -65,7 +66,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return sheetData;
     }
 
-    protected prepareItems(sheetData: any) {
+    protected prepareItems(sheetData: any): void {
         const actorData = sheetData.actor;
         // Inventory
         const inventory: Record<Exclude<PhysicalItemType, "book">, { label: string; items: PhysicalItemData[] }> = {
@@ -111,7 +112,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity.value = physicalData.data.quantity.value || 0;
+                    itemData.data.quantity = physicalData.data.quantity || 0;
                     itemData.data.weight.value = physicalData.data.weight.value || 0;
                     const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({
@@ -159,20 +160,20 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         super.activateListeners($html);
         {
             // ensure correct tab name is displayed after actor update
-            const title = $(".sheet-navigation .active").data("tabTitle");
+            const title = $(".sheet-navigation .active").attr("title");
             if (title) {
                 $html.find(".navigation-title").text(title);
             }
         }
         $html.find(".sheet-navigation").on("mouseover", ".item", (event) => {
-            const title = event.currentTarget.dataset.tabTitle;
+            const title = event.currentTarget.title;
             if (title) {
                 $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
             }
         });
         $html.find(".sheet-navigation").on("mouseout", ".item", (event) => {
             const parent = $(event.currentTarget).parents(".sheet-navigation");
-            const title = parent.find(".item.active").data("tabTitle");
+            const title = parent.find(".item.active").attr("title");
             if (title) {
                 parent.find(".navigation-title").text(title);
             }

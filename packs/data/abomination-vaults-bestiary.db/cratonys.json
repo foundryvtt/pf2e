@@ -30,7 +30,7 @@
                 "value": "+1 status to all saves vs. magic"
             },
             "hp": {
-                "details": "regeneration 10",
+                "details": "regeneration 10 (deactivated by good or silver)",
                 "max": 90,
                 "temp": 0,
                 "value": 90
@@ -56,7 +56,7 @@
                 "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>Evangelists, the velstracs' unofficial ambassadors, roam the farthest reaches of the planes to spread the word of their kind's abhorrent belief in perfection through pain. They are therefore the most frequently encountered velstracs on the Material Plane, leading covens of hedonistic mortal flesh-sculptors or serving as wardens of horrific dungeons. In regions ruled by infernal powers, evangelists may serve as lieutenants or advisors, whispering secret paths to power in exchange for mortal's souls or choice mortal flesh. Evangelists are the same size as humans, although with the heavy chains that always drape their forms, they often weigh 350 pounds or more.</p>",
+            "publicNotes": "<p>Evangelists, the velstracs' unofficial ambassadors, roam the farthest reaches of the planes to spread the word of their kind's abhorrent belief in perfection through pain. They are therefore the most frequently encountered velstracs on the Material Plane, leading covens of hedonistic mortal flesh-sculptors or serving as wardens of horrific dungeons. In regions ruled by infernal powers, evangelists may serve as lieutenants or advisors, whispering secret paths to power in exchange for mortal's souls or choice mortal flesh. Evangelists are the same size as humans, although with the heavy chains that always drape their forms, they often weigh 350 pounds or more.</p>\n<hr />\n<p>The search for ultimate sensation through self-mutilation is the horrifying preoccupation of the shadow-dwelling fiends known as velstracs. They transcend their stoic detachment only when inflicting pain and terror upon their victims, practicing new forms of torture, or when turning their agonizing practices back on themselves. Velstracs consider themselves enlightened beings, transcending such limitations as morality or mortal taboos, but their victims know them as emotionless tormentors who inflict sadistic suffering. These fiends claim to seek perfection in thought, form, and action, although they don't recognize any refinement that doesn't require the painful excision of the flesh or spirit.</p>\n<p>Velstracs manifest from the souls of the most extreme masochistic or sadistic mortals who are judged and sent on to the Shadow Plane. They take on forms that suit their vile predilections, ranging from the low-ranking augurs to the maestros of suffering and mutilation called eremites. The process of transformation warps the soul step by step, with other velstracs conveying their new members through untold chambers of pain among the dark reaches of the Shadow Plane.</p>",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
@@ -134,23 +134,42 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "impaling-chain"
+                        "impaling-chain",
+                        "rusty-chains"
                     ]
                 },
                 "bonus": {
                     "value": 17
                 },
                 "damageRolls": {
-                    "zayyubjrhom0ijyu2yse": {
+                    "0": {
                         "damage": "2d8+7",
                         "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.regular]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.regular]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.critical]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -176,6 +195,52 @@
             "name": "Chain",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "41jyyqtM7TidzhJx",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "x97vWevUTEMqeOCJ",
@@ -219,11 +284,73 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Painsight",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "46xkWbkl80wFrpJb",
+            "_id": "Ybx41yIdQO59hKjK",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "VH3uvuMCquGbT6Wx",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -241,7 +368,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -258,14 +385,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration",
-            "sort": 300000,
+            "name": "Regeneration 10 (Deactivated by Good or Silver)",
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "qNCvGkR14xqSW7ev",
+            "_id": "78oc41E029XUkMoS",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -277,13 +408,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -300,10 +431,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -319,7 +454,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (frightened 3 on a critical failure).</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a @Check[type:will|dc:21] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -352,7 +487,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unnerving Gaze",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -397,7 +532,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Animate Chains",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -413,7 +548,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The evangelist stares at a creature they can see within 30 feet. The target must immediately attempt a Will save against Unnerving gaze. In addition, if the creature was already @Compendium[pf2e.conditionitems.Frightened]{Frightened}, on a failed save, the evangelist is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from the creature for as long as the creature remains frightened. After attempting this save, the creature is then temporarily immune until the start of the evangelist's next turn.</p>"
+                    "value": "<p>The evangelist stares at a creature they can see within 30 feet. The target must immediately attempt a @Check[type:will|dc:21] save against Unnerving gaze. In addition, if the creature was already @Compendium[pf2e.conditionitems.Frightened]{Frightened}, on a failed save, the evangelist is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from the creature for as long as the creature remains frightened.</p>\n<p>After attempting this save, the creature is then temporarily immune until the start of the evangelist's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -446,7 +581,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Focus Gaze",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -462,7 +597,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the evangelist critically hits with a chain Strike, the target is impaled and anchored in place, becoming @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by the chain. The creature is unable to recover from @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} damage until it gets free (Escape DC 25).</p>"
+                    "value": "<p>When the evangelist critically hits with a chain Strike, the target is impaled and anchored in place, becoming @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the chain. The creature is unable to recover from @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} damage until it gets free (Escape DC 25).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -488,11 +623,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Impaling Chain",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "46bINllyZS6sK0qV",
+            "_id": "qtqSaGbHHzYr1Zvx",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -504,7 +639,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When Cratonys damages a creature with her chains, including persistent bleed damage from being impaled by a chain, the creature must succeed at a @Check[type:fortitude|dc:21] saving throw or contract a severe form of tetanus called velstrac tetanus.</p>"
+                    "value": "<p>When Cratonys damages a creature with her chains, including persistent bleed damage from being impaled by a chain, the creature must succeed at a @Check[type:fortitude|dc:21|traits:disease,virulent] saving throw or contract a severe form of tetanus called velstrac tetanus.</p>\n<hr /><p>Velstracs sometimes intentionally infect their chains with dangerous diseases, such as this aggressive form of tetanus. Tetanus can produce stiffness, muscle spasms strong enough to break bones, and ultimately death.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21|traits:disease,virulent]</p>\n<hr />\n<p><strong>Onset</strong> [[/br 1d4 #Velstrac Tetanus Onset]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 week)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and can't speak (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} (1 day)</p>\n<p><strong>Stage 4</strong> death</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -521,16 +656,13 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rusty Chains",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -560,7 +692,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -590,7 +722,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -620,7 +752,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -650,7 +782,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -680,7 +812,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -710,7 +842,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Torture Lore",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         }
     ],

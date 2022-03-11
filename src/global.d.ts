@@ -44,6 +44,9 @@ import { ActorImporter } from "@system/importer/actor-importer";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { ActorsPF2e } from "@module/collection/actors";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { UserVisibility } from "@scripts/ui/user-visibility";
 
 declare global {
     interface Game {
@@ -67,6 +70,9 @@ declare global {
             };
             importer: {
                 actor: typeof ActorImporter;
+            };
+            variantRules: {
+                AutomaticBonusProgression: typeof AutomaticBonusProgression;
             };
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
@@ -115,16 +121,24 @@ declare global {
         get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
+        get(module: "pf2e", setting: "proficiencyUntrainedModifier"): number;
+        get(module: "pf2e", setting: "proficiencyTrainedModifier"): number;
+        get(module: "pf2e", setting: "proficiencyExpertModifier"): number;
+        get(module: "pf2e", setting: "proficiencyMasterModifier"): number;
+        get(module: "pf2e", setting: "proficiencyLegendaryModifier"): number;
+
         get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
-        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm" | "owner" | "all";
-        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm" | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showDC"): UserVisibility;
+        get(module: "pf2e", setting: "metagame.showResults"): UserVisibility;
         get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
         get(module: "pf2e", setting: "worldClock.dateTheme"): "AR" | "IC" | "AD" | "CE";
+        get(module: "pf2e", setting: "worldClock.playersCanView"): boolean;
+        get(module: "pf2e", setting: "worldClock.showClockButton"): boolean;
         get(module: "pf2e", setting: "worldClock.syncDarkness"): boolean;
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
@@ -132,15 +146,16 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
+        get(module: "pf2e", setting: "compendiumBrowserPacks"): string;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImagePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
-        get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
+        get(module: "pf2e", setting: "worldSystemVersion"): string;
     }
 
     interface ClientSettingsMap {
@@ -149,8 +164,6 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
-
-    const _templateCache: Record<string, unknown>;
 }
 
 type ConfiguredConfig = Config<
@@ -165,6 +178,7 @@ type ConfiguredConfig = Config<
     CompendiumDirectoryPF2e,
     FogExplorationPF2e,
     FolderPF2e,
+    HotbarPF2e,
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,

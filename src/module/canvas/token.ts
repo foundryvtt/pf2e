@@ -216,7 +216,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
                         direction: isAdded ? 2 : 1,
                         jitter: 0.25,
                         fill: "white",
-                        fontSize: 32,
+                        fontSize: 28,
                         stroke: 0x000000,
                         strokeThickness: 4,
                     },
@@ -243,7 +243,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         const gridSize = canvas.dimensions.size;
 
-        const tokenRect = (token: TokenPF2e): PIXI.Rectangle => {
+        const tokenRect = (token: { x: number; y: number; w: number; h: number }): PIXI.Rectangle => {
             return new PIXI.Rectangle(
                 token.x + gridSize / 2,
                 token.y + gridSize / 2,
@@ -252,7 +252,41 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             );
         };
 
-        return MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach });
+        const distance = {
+            horizontal: MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach }),
+            vertical: 0,
+        };
+
+        const selfElevation = this.data.elevation;
+        const targetElevation = target.data.elevation;
+        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.horizontal;
+
+        const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
+        if (!(selfDimensions && targetDimensions)) return distance.horizontal;
+
+        const verticalPlane = {
+            self: {
+                x: this.x,
+                y: (this.data.elevation / 5) * gridSize,
+                w: this.w,
+                h: (selfDimensions.height / 5) * gridSize,
+            },
+            target: {
+                x: target.x,
+                y: (target.data.elevation / 5) * gridSize,
+                w: target.w,
+                h: (targetDimensions.height / 5) * gridSize,
+            },
+        };
+
+        distance.vertical = MeasuredTemplatePF2e.measureDistanceRect(
+            tokenRect(verticalPlane.self),
+            tokenRect(verticalPlane.target),
+            { reach }
+        );
+
+        const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
+        return Math.floor(hypotenuse / 5) * 5;
     }
 
     /* -------------------------------------------- */
@@ -267,11 +301,30 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Refresh vision and the `EffectsPanel` */
-    protected override _onRelease(options?: Record<string, unknown>) {
+    protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
 
-        canvas.lighting.setPerceivedLightLevel();
+        const hasLowLightVision = canvas.sight.sources.some((s) => s.object !== this && s.object.hasLowLightVision);
+        canvas.lighting.setPerceivedLightLevel({ hasLowLightVision });
         super._onRelease(options);
+    }
+
+    /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this["document"]>,
+        userId: string
+    ): void {
+        if (!this.document.isLinked) {
+            const { width, height, scale, img } = this.data;
+            this.document.prepareData();
+            // If any of the following changed, a full redraw should be performed
+            const { data } = this;
+            const postChange = { width: data.width, height: data.height, scale: data.scale, img: data.img };
+            mergeObject(changed, diffObject({ width, height, scale, img }, postChange));
+        }
+
+        super._onUpdate(changed, options, userId);
     }
 }
 

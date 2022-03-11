@@ -49,14 +49,14 @@ class FastHealingRuleElement extends RuleElementPF2e {
 
     /** Refresh the actor's temporary hit points at the start of its turn */
     override async onTurnStart(): Promise<void> {
-        if (this.ignored) return;
+        if (!this.test()) return;
 
         const value = this.resolveValue(this.data.value);
         if (typeof value !== "number") {
             return this.failValidation("Healing requires a non-zero value field or a formula field");
         }
 
-        const roll = await new Roll(`${value}`).evaluate({ async: true });
+        const roll = (await new Roll(`${value}`).evaluate({ async: true })).toJSON();
         const { FastHealingLabel, RegenerationLabel } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing;
         const preFlavor = game.i18n.localize(this.data.type === "fast-healing" ? FastHealingLabel : RegenerationLabel);
         const details = this.details;

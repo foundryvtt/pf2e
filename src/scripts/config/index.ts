@@ -55,6 +55,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -268,13 +269,18 @@ const rangeDescriptions = RANGE_TRAITS.reduce(
 );
 
 const preciousMaterialDescriptions = {
+    abysium: "PF2E.PreciousMaterialAbysiumDescription",
     adamantine: "PF2E.PreciousMaterialAdamantineDescription",
     coldIron: "PF2E.PreciousMaterialColdIronDescription",
     darkwood: "PF2E.PreciousMaterialDarkwoodDescription",
+    djezet: "PF2E.PreciousMaterialDjezetDescription",
     dragonhide: "PF2E.PreciousMaterialDragonhideDescription",
-    mithral: "PF2E.PreciousMaterialMithralDescription",
     "grisantian-pelt": "PF2E.PreciousMaterialGrisantianPeltDescription",
+    inubrix: "PF2E.PreciousMaterialInubrixDescription",
+    mithral: "PF2E.PreciousMaterialMithralDescription",
+    noqual: "PF2E.PreciousMaterialNoqualDescription",
     orichalcum: "PF2E.PreciousMaterialOrichalcumDescription",
+    siccatite: "PF2E.PreciousMaterialSiccatiteDescription",
     silver: "PF2E.PreciousMaterialSilverDescription",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
@@ -1844,10 +1850,6 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.LootableNPCs.Name",
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
             },
-            experimentalDamageFormatting: {
-                name: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Name",
-                hint: "PF2E.SETTINGS.Automation.ExperimentalDamageFormatting.Hint",
-            },
         },
         homebrew: {
             creatureTraits: {
@@ -1970,4 +1972,6 @@ export const PF2ECONFIG = {
             weapon: WeaponPF2e,
         },
     },
+
+    JournalEntry: { sheetClass: JournalSheetPF2e },
 };

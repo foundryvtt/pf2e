@@ -1,4 +1,4 @@
-.actions {
+&.actions {
     .actions-container {
         display: grid;
         padding-bottom: 2rem;
@@ -116,8 +116,11 @@
             $border-color: lighten($alt-color, 40);
             border: solid transparent;
             border-width: 0 0 1px;
-            border-image: linear-gradient(90deg, #f1edea, $border-color) 1
-                repeat;
+            border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
+
+            > * {
+                margin: 1px 0;
+            }
 
             p:empty {
                 display: none;
@@ -199,8 +202,8 @@
             }
 
             .melee-usage {
-                margin-left: calc(3em - 1px);
-                padding-top: 3px;
+                flex-basis: 100%;
+                margin-left: calc(3em - 2px);
                 position: relative;
 
                 img.melee-icon {
@@ -217,7 +220,7 @@
                 display: flex;
                 font-family: var(--sans-serif);
                 font-weight: 600;
-                gap: 3px;
+                gap: 2px;
                 .ammo-icon {
                     display: inline-block;
                     width: 14px;
@@ -327,7 +330,7 @@
             .auxiliary-actions {
                 display: flex;
                 gap: 3px;
-                margin-left: 41px;
+                margin-left: 40px;
 
                 &.weapon-drawn {
                     flex-basis: 100%;
@@ -339,7 +342,7 @@
                     margin: 0;
                     border: none;
                     padding: 3px;
-                    color: var(--black);
+                    color: var(--text-dark);
                     font-weight: 500;
                     border-radius: 2px;
                     flex: 0;
@@ -364,7 +367,7 @@
                         cursor: pointer;
 
                         &:hover {
-                            text-shadow: 0 0 1px var(--black);
+                            text-shadow: 0 0 1px var(--text-dark);
                         }
 
                         &:active {

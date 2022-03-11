@@ -260,50 +260,41 @@ a.inline-roll, a.entity-link {
     padding-left: 5px;
 }
 
-/* ----------------------------------------- */
-/* PF2E GM Visibility Elements               */
-/* ----------------------------------------- */
-[data-visibility="gm"]:is(div, em, h4, p, span, strong) {
+[data-visibility]:is(div, em, h4, p, section, span, strong):not([data-visibility="all"]) {
+    border-radius: 1px;
     box-sizing: border-box;
-    border: 1px dotted;
-    background: #e8e8ef;
-    padding: 0 3px;
-    margin-bottom: 4px;
-
-    em[data-visibility="gm"] {
-        border: none;
-        padding: 0;
-        margin-bottom: 0;
-    }
-
-    &.message-sender {
-        max-width: fit-content;
-    }
-}
-
-em[data-visibility="gm"] {
     display: inline-block;
-}
+    line-height: 1em;
+    outline: 1px dotted rgba(75, 74, 68, 0.5);
+    padding: 2px 1px 1px;
 
-/* ----------------------------------------- */
-/* PF2E Owner Visibility Elements            */
-/* ----------------------------------------- */
-[data-visibility="owner"]:is(div, em, p, span, strong) {
-    box-sizing: border-box;
-    border: 1px dotted;
-    background: #ddebe1;
-    padding: 0 3px;
-    margin-bottom: 4px;
+    /* ----------------------------------------- */
+    /* GM Visibility Elements                    */
+    /* ----------------------------------------- */
+    &[data-visibility="gm"] {
+        background: #e8e8ef;
 
-    em[data-visibility="owner"] {
-        border: none;
-        padding: 0;
-        margin-bottom: 0;
+        &.message-sender {
+            max-width: fit-content;
+        }
+
+        [data-visibility="gm"] {
+            outline: none;
+            padding: initial;
+        }
     }
-}
 
-em[data-visibility="owner"] {
-    display: inline-block;
+    /* ----------------------------------------- */
+    /* Owner Visibility Elements                 */
+    /* ----------------------------------------- */
+    &[data-visibility="owner"] {
+        background: #ddebe1;
+
+        [data-visibility="owner"] {
+            outline: none;
+            padding: initial;
+        }
+    }
 }
 
 /* ----------------------------------------- */

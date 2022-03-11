@@ -28,7 +28,7 @@ import { isPhysicalData } from "@item/data/helpers";
 import { IdentificationData } from "@item/physical/data";
 import { ActorSourcePF2e } from "@actor/data";
 
-// show error message without needless traceback
+// Show error message without needless stack trace
 const PackError = (message: string) => {
     console.error(`Error: ${message}`);
     process.exit(1);
@@ -152,7 +152,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         img: docSource.token.img.replace(
                             "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
                             "systems/pf2e/"
-                        ),
+                        ) as VideoPath,
                         name: docSource.token.name,
                         width: docSource.token.width,
                     };
@@ -400,7 +400,7 @@ async function getAllData(filename: string): Promise<PackEntry[]> {
     return packDB.find({}) as Promise<PackEntry[]>;
 }
 
-function sortDataItems(entityData: PackEntry): any[] {
+function sortDataItems(docSource: PackEntry): ItemSourcePF2e[] {
     const itemTypeList: string[] = [
         "spellcastingEntry",
         "spell",
@@ -417,19 +417,15 @@ function sortDataItems(entityData: PackEntry): any[] {
         "lore",
         "formula",
     ];
-    if (!("items" in entityData)) {
+    if (!("items" in docSource)) {
         return [];
     }
 
-    const entityItems: ItemSourcePF2e[] = entityData.items;
+    const ownedItems = docSource.items;
     const groupedItems: Map<string, Set<ItemSourcePF2e>> = new Map();
 
     // Separate the data items into type collections.
-    entityItems.forEach((item) => {
-        if (!item?.type) {
-            return;
-        }
-
+    for (const item of ownedItems) {
         if (!groupedItems.has(item.type)) {
             groupedItems.set(item.type, new Set<ItemSourcePF2e>());
         }
@@ -438,10 +434,10 @@ function sortDataItems(entityData: PackEntry): any[] {
         if (itemGroup) {
             itemGroup.add(item);
         }
-    });
+    }
 
     // Create new array of items.
-    const sortedItems: any[] = new Array(entityItems.length);
+    const sortedItems: ItemSourcePF2e[] = new Array(ownedItems.length);
     let itemIndex = 0;
     itemTypeList.forEach((itemType) => {
         if (groupedItems.has(itemType) && groupedItems.size > 0) {
@@ -450,48 +446,48 @@ function sortDataItems(entityData: PackEntry): any[] {
                 let items: ItemSourcePF2e[];
                 switch (itemType) {
                     case "spellcastingEntry":
-                        items = sortSpellcastingEntries(entityData.name, itemGroup);
+                        items = sortSpellcastingEntries(docSource.name, itemGroup);
                         break;
                     case "spell":
                         items = sortSpells(itemGroup);
                         break;
                     case "action":
-                        items = sortActions(entityData.name, itemGroup);
+                        items = sortActions(docSource.name, itemGroup);
                         break;
                     case "lore":
                         items = Array.from(itemGroup).sort((a, b) => a.name.localeCompare(b.name));
                         break;
                     case "melee":
-                        items = sortAttacks(entityData.name, itemGroup);
+                        items = sortAttacks(docSource.name, itemGroup);
                         break;
                     default:
                         items = Array.from(itemGroup);
                 }
 
-                items.forEach((item) => {
+                for (const item of items) {
                     sortedItems[itemIndex] = item;
                     itemIndex += 1;
                     item.sort = 100000 * itemIndex;
-                });
+                }
             }
         }
     });
 
     // Make sure to add any items that are of a type not defined in the list.
-    groupedItems.forEach((itemGroup, key) => {
+    for (const [key, itemSet] of groupedItems) {
         if (!itemTypeList.includes(key)) {
             if (args.logWarnings) {
                 console.log(
-                    `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`
+                    `Warning in ${docSource.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`
                 );
             }
-            Array.from(itemGroup).forEach((item) => {
+            for (const item of itemSet) {
                 sortedItems[itemIndex] = item;
                 itemIndex += 1;
                 item.sort = 100000 * itemIndex;
-            });
+            }
         }
-    });
+    }
 
     return sortedItems;
 }
