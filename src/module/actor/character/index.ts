@@ -165,14 +165,15 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Remove infused/temp items
         for (const item of this.physicalItems) {
-            if (item.data.data.temporary?.value) await item.delete();
+            if (item.data.data.temporary) await item.delete();
         }
 
         for (const entry of entries) {
             for (const prepData of entry.preparedFormulas) {
                 const item: PhysicalItemSource = prepData.item.toObject();
-                item.data.quantity.value = prepData.quantity || 1;
-                item.data.temporary = { value: true };
+                item.data.quantity = prepData.quantity || 1;
+                item.data.temporary = true;
+
                 if (
                     entry.isAlchemical &&
                     (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
@@ -1577,7 +1578,7 @@ class CharacterPF2e extends CreaturePF2e {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }
 
-        return !!(await item.update({ "data.invested.value": !item.isInvested }));
+        return !!(await item.update({ "data.equipped.invested": !item.isInvested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */

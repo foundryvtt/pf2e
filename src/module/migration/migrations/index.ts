@@ -127,3 +127,4 @@ export { Migration724CraftingMaxItemLevel } from "./724-crafting-max-item-level"
 export { Migration725QuickClimbREs } from "./725-quick-climb-rule-elements";
 export { Migration726JournalSetting } from "./726-journal-setting";
 export { Migration727TrimSelfRollOptions } from "./727-trim-self-roll-options";
+export { Migration728FlattenPhysicalProperties } from "./728-flatten-physical-properties";

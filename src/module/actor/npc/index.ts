@@ -740,7 +740,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
         const formatItemName = (item: ItemPF2e): string => {
             if (item instanceof ConsumablePF2e) {
-                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.data.data.quantity.value}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.quantity}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
             }
             return item.name;
         };
