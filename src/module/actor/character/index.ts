@@ -10,7 +10,7 @@ import {
     ProficiencyModifier,
 } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import {
     ABILITY_ABBREVIATIONS,
     SAVE_TYPES,
@@ -1426,7 +1426,7 @@ class CharacterPF2e extends CreaturePF2e {
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
 
-                    const checkContext = {
+                    const checkContext: CheckRollContext = {
                         actor: context.self.actor,
                         target: context.target,
                         item,

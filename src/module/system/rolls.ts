@@ -54,6 +54,17 @@ export interface StrikeRollParams extends RollParameters {
 
 export type FateString = "none" | "fortune" | "misfortune";
 
+export type AttackCheck = "attack-roll" | "spell-attack-roll";
+export type CheckType =
+    | "check"
+    | "counteract-check"
+    | "initiative"
+    | "skill-check"
+    | "perception-check"
+    | "saving-throw"
+    | "flat-check"
+    | AttackCheck;
+
 export interface BaseRollContext {
     /** Any options which should be used in the roll. */
     options?: string[];
@@ -65,8 +76,6 @@ export interface BaseRollContext {
     rollMode?: RollMode;
     /** If this is an attack, the target of that attack */
     target?: StrikeTarget | null;
-    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
-    type?: string;
     /** Any traits for the check. */
     traits?: StrikeTrait[];
     /** The outcome a roll (usually relevant only to rerolls) */
@@ -80,6 +89,8 @@ export interface BaseRollContext {
 }
 
 export interface CheckRollContext extends BaseRollContext {
+    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
+    type?: CheckType;
     target?: AttackTarget | null;
     /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
     fate?: FateString;
