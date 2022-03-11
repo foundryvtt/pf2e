@@ -64,7 +64,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     isOfType<T extends ItemType>(
         ...types: T[]
     ): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
-        return types.some((t) => this.type === t);
+        return types.some((t) => this.data.type === t);
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
