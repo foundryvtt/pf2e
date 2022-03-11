@@ -220,7 +220,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** Can the provided item stack with this item? */
     isStackableWith(item: PhysicalItemPF2e): boolean {
-        if (this.type !== item.type || this.name !== item.name || this.isIdentified !== item.isIdentified) return false;
+        const preCheck =
+            this !== item &&
+            this.type === item.type &&
+            this.name === item.name &&
+            this.isIdentified === item.isIdentified &&
+            ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
+        if (!preCheck) return false;
+
         const thisData = this.toObject().data;
         const otherData = item.toObject().data;
         thisData.quantity = otherData.quantity;
