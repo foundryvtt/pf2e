@@ -1,5 +1,5 @@
 import { LocalizePF2e } from "@system/localize";
-import { ordinal } from "@util";
+import { ordinal, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day";
@@ -221,18 +221,28 @@ export class WorldClock extends Application {
                 if (!(event.ctrlKey || this.ctrlKeyDown)) return;
                 const retractTime = event.type === "keydown";
                 this.ctrlKeyDown = retractTime;
-                const $buttons = $html.find("button[data-advance-time]");
-                $buttons.each((_index, button) => {
-                    const $button = $(button);
-                    const currentMode = $button.attr("data-advance-mode");
-                    const nextMode = currentMode === "+" ? "-" : "+";
-                    $button.attr("data-advance-mode", nextMode);
-                });
-                $buttons.find(".sign").text(retractTime ? "-" : "+");
 
-                const { Advance, Retract } = this.translations.Button;
+                const { Advance, Retract, TimeOfDay } = this.translations.Button;
+                const advanceButtons = Array.from(
+                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []
+                );
+
+                for (const button of advanceButtons) {
+                    const { advanceMode, advanceTime } = button.dataset;
+                    const nextMode = advanceMode === "+" ? "-" : "+";
+                    button.dataset.advanceMode = nextMode;
+
+                    const sign = button.querySelector(".sign");
+                    if (sign) sign.innerHTML = nextMode;
+
+                    if (tupleHasValue(["dawn", "noon", "dusk", "midnight"] as const, advanceTime)) {
+                        const timeOfDayKeys = nextMode === "+" ? TimeOfDay.Advance : TimeOfDay.Retract;
+                        button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
+                    }
+                }
+
                 $html
-                    .find('button[name="advance"], button[name="retract"]')
+                    .find("button[name=advance], button[name=retract]")
                     .attr("name", retractTime ? "retract" : "advance")
                     .text(game.i18n.localize(retractTime ? Retract : Advance));
             });
