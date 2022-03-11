@@ -4,9 +4,7 @@ import { ModifierPF2e, RawModifier } from "@module/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-
-export type AttackCheck = "attack-roll" | "spell-attack-roll";
-export type CheckType = "skill-check" | "perception-check" | "saving-throw" | "flat-check" | AttackCheck;
+import { CheckType } from "@system/rolls";
 
 export interface StatisticCheckData {
     type: CheckType;
