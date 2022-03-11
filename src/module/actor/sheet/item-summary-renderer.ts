@@ -85,7 +85,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             : null;
 
         const $priceLabel =
-            itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup.value !== "coins"
+            itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup !== "coins"
                 ? ((): JQuery => {
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: item.price });
                       return $(`<p>${priceLabel}</p>`);

@@ -14,7 +14,7 @@ export class ActorSizePF2e {
     width: number;
 
     /** The default space (in a Pathfinder 2e rules context) of each size */
-    static defaultSpaces: Record<Size, SizeDimensions> = {
+    private static defaultSpaces: Record<Size, SizeDimensions> = {
         tiny: { length: 2.5, width: 2.5 },
         sm: { length: 5, width: 5 },
         med: { length: 5, width: 5 },
@@ -24,7 +24,7 @@ export class ActorSizePF2e {
     };
 
     /** A ranked ordering of sizes */
-    static sizeRanks: Record<Size, ZeroToFive> = {
+    private static sizeRanks: Record<Size, ZeroToFive> = {
         grg: 5,
         huge: 4,
         lg: 3,
@@ -124,10 +124,8 @@ export class ActorSizePF2e {
      * @param [skipSmall] Skip a size if the current size is tiny or small
      */
     decrement({ skipSmall = false } = {}): void {
-        this.value =
-            (this.value === "med" && skipSmall) || this.value === "tiny"
-                ? "tiny"
-                : SIZES[SIZES.indexOf(this.value) + 1];
+        const toTiny = (this.value === "med" && skipSmall) || this.value === "tiny";
+        this.value = toTiny ? "tiny" : SIZES[SIZES.indexOf(this.value) - 1];
 
         const newSpace = ActorSizePF2e.defaultSpaces[this.value];
         this.length = newSpace.length;

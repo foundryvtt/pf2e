@@ -722,14 +722,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (removeFromSource) {
             await item.delete();
         } else {
-            await item.update({ "data.quantity.value": newQuantity });
+            await item.update({ "data.quantity": newQuantity });
         }
 
         const newItemData = item.toObject();
-        newItemData.data.quantity.value = quantity;
+        newItemData.data.quantity = quantity;
         newItemData.data.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            newItemData.data.invested.value = item.traits.has("invested") ? false : null;
+            newItemData.data.equipped.invested = item.traits.has("invested") ? false : null;
         }
 
         return targetActor.addToInventory(newItemData, container, newStack);
@@ -743,8 +743,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
         if (!newStack && stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
-            await stackItem.update({ "data.quantity.value": stackQuantity });
+            const stackQuantity = stackItem.quantity + itemData.data.quantity;
+            await stackItem.update({ "data.quantity": stackQuantity });
             return stackItem;
         }
 
@@ -789,14 +789,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
             await item.update({
-                "data.containerId.value": container.id,
+                "data.containerId": container.id,
                 "data.equipped.carryType": "stowed",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });
         } else {
             await item.update({
-                "data.containerId.value": null,
+                "data.containerId": null,
                 "data.equipped.carryType": "worn",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,

@@ -25,8 +25,8 @@ export function isPhysicalData(
 export function isPhysicalData(
     itemData: ItemSourcePF2e | ItemDataPF2e
 ): itemData is PhysicalItemSource | PhysicalItemData {
-    const physicalItemTypes: readonly string[] = PHYSICAL_ITEM_TYPES;
-    return physicalItemTypes.includes(itemData.type);
+    const physicalItemTypes: Set<string> = PHYSICAL_ITEM_TYPES;
+    return physicalItemTypes.has(itemData.type);
 }
 
 export function hasInvestedProperty(itemData: ItemSourcePF2e): itemData is MagicItemSource;
@@ -37,7 +37,7 @@ export function hasInvestedProperty(
 export function hasInvestedProperty(
     itemData: ItemSourcePF2e | ItemDataPF2e
 ): itemData is MagicItemSource | MagicItemData {
-    return isPhysicalData(itemData) && itemData.data.invested instanceof Object;
+    return isPhysicalData(itemData) && "invested" in itemData.data.equipped;
 }
 
 export function isLevelItem(item: ItemDataPF2e): item is PhysicalItemData | FeatData | SpellData {

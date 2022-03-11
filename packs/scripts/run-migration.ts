@@ -16,6 +16,7 @@ import { Migration722CraftingSystemData } from "@module/migration/migrations/722
 import { Migration724CraftingMaxItemLevel } from "@module/migration/migrations/724-crafting-max-item-level";
 import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quick-climb-rule-elements";
 import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/727-trim-self-roll-options";
+import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -28,6 +29,7 @@ const migrations: MigrationBase[] = [
     new Migration724CraftingMaxItemLevel(),
     new Migration725QuickClimbREs(),
     new Migration727TrimSelfRollOptions(),
+    new Migration728FlattenPhysicalProperties(),
 ];
 
 global.deepClone = <T>(original: T): T => {

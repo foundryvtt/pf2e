@@ -1,5 +1,5 @@
-import { Bulk } from "../../../src/module/item/physical/bulk";
-import { calculateEncumbrance } from "../../../src/module/item/physical/encumbrance";
+import { Bulk } from "@item/physical/bulk";
+import { calculateEncumbrance } from "@item/physical/encumbrance";
 
 describe("should calculate encumbrance", () => {
     test("light bulk is ignored", () => {
