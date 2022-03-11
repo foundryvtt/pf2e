@@ -112,7 +112,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity.value = physicalData.data.quantity.value || 0;
+                    itemData.data.quantity = physicalData.data.quantity || 0;
                     itemData.data.weight.value = physicalData.data.weight.value || 0;
                     const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({

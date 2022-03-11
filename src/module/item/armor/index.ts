@@ -1,3 +1,4 @@
+import { PhysicalItemHitPoints } from "@item/physical/data";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign } from "@util";
@@ -57,24 +58,17 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
     }
 
-    get hitPoints(): { value: number; max: number } {
-        return {
-            value: this.data.data.hp.value,
-            max: this.data.data.maxHp.value,
-        };
+    get hitPoints(): PhysicalItemHitPoints {
+        return deepClone(this.data.data.hp);
     }
 
     get hardness(): number {
-        return this.data.data.hardness.value;
-    }
-
-    get brokenThreshold(): number {
-        return this.data.data.brokenThreshold.value;
+        return this.data.data.hardness;
     }
 
     get isBroken(): boolean {
         const { hitPoints } = this;
-        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= this.brokenThreshold;
+        return hitPoints.max > 0 && !this.isDestroyed && hitPoints.value <= hitPoints.brokenThreshold;
     }
 
     get isDestroyed(): boolean {
@@ -153,13 +147,14 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             }
         } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && this.actor.heldShield === this) {
             // Set actor-shield data from this shield item
+            const { hitPoints } = this;
             actor.data.data.attributes.shield = {
                 itemId: this.id,
                 name: this.name,
                 ac: this.acBonus,
-                hp: this.hitPoints,
+                hp: hitPoints,
                 hardness: this.hardness,
-                brokenThreshold: this.brokenThreshold,
+                brokenThreshold: hitPoints.brokenThreshold,
                 raised: false,
                 broken: this.isBroken,
                 destroyed: this.isDestroyed,

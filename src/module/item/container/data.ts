@@ -24,15 +24,8 @@ type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;
 export interface ContainerSystemData extends MagicItemSystemData {
     traits: ContainerTraits;
     stowing: boolean;
-    capacity: {
-        type: string;
-        value: number;
-        weightless: boolean;
+    bulkCapacity: {
+        value: string | null;
     };
-    currency: {
-        cp: number;
-        sp: number;
-        gp: number;
-        pp: number;
-    };
+    collapsed: boolean;
 }
