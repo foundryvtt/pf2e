@@ -53,6 +53,7 @@ import {
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isCycle } from "@item/container/helpers";
 import { isEquipped } from "@item/physical/usage";
+import { ArmorSource } from "@item/data";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -522,7 +523,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             // need to actually put the item in a container when it's stowed.
             const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
             await item.update({
-                "data.containerId.value": container?.id ?? "",
+                "data.containerId": container?.id ?? "",
                 "data.equipped.carryType": "stowed",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
@@ -534,21 +535,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 inSlot: item.data.usage.type === "worn" && item.data.usage.where ? inSlot : undefined,
             };
 
-            const updates = [];
+            const updates: (DeepPartial<ArmorSource> & { _id: string })[] = [];
 
             if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
                 // see if they have another set of armor equipped
                 const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
                 for (const armor of wornArmors) {
-                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
+                    updates.push({ _id: armor.id, data: { equipped: { inSlot: false } } });
                 }
             }
 
-            updates.push({
-                _id: item.id,
-                "data.containerId.value": null,
-                "data.equipped": equipped,
-            });
+            updates.push({ _id: item.id, data: { containerId: null, equipped: equipped } });
 
             await this.updateEmbeddedDocuments("Item", updates);
         }

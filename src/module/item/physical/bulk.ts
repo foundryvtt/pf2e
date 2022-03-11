@@ -195,7 +195,7 @@ export class Bulk {
  * @param actorSize
  */
 export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): Bulk {
-    const sizes = SIZES.filter((size) => size !== "sm");
+    const sizes = Array.from(SIZES).filter((size) => size !== "sm");
     const itemSizeIndex = sizes.indexOf(itemSize === "sm" ? "med" : itemSize);
     const actorSizeIndex = sizes.indexOf(actorSize === "sm" ? "med" : actorSize);
 
@@ -208,12 +208,7 @@ export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): 
     }
 }
 
-/**
- * Produces strings like: "-", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend
- * bulk comlumn
- * @param bulk
- * @return
- */
+/** Produces strings like: "-", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend bulk column */
 export function formatBulk(bulk: Bulk): string {
     if (bulk.normal === 0 && bulk.light === 0) {
         return "-";
@@ -242,7 +237,7 @@ export class BulkItem {
 
     quantity: number;
 
-    stackGroup?: string;
+    stackGroup: string | null;
 
     isEquipped: boolean;
 
@@ -260,7 +255,7 @@ export class BulkItem {
         id = "",
         bulk = new Bulk(),
         quantity = 1,
-        stackGroup,
+        stackGroup = null,
         isEquipped = false,
         // value to overrides bulk field when unequipped
         unequippedBulk,
@@ -277,7 +272,7 @@ export class BulkItem {
         id?: string;
         bulk?: Bulk;
         quantity?: number;
-        stackGroup?: string;
+        stackGroup?: string | null;
         isEquipped?: boolean;
         unequippedBulk?: Bulk;
         equippedBulk?: Bulk;
@@ -438,12 +433,7 @@ function reduceNestedItemBulk(bulk: Bulk, item: BulkItem, nestedExtraDimensional
     return bulk;
 }
 
-/**
- * Stacks don't overflow if inside extra dimensional containers or overflowing bulk is turned off
- * @param overflow
- * @param item
- * @return {{}|*}
- */
+/** Stacks don't overflow if inside extra dimensional containers or overflowing bulk is turned off */
 function calculateChildOverflow(overflow: StackGroupOverflow, item: BulkItem): StackGroupOverflow {
     if (item.extraDimensionalContainer) {
         return {};
@@ -583,15 +573,15 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
 export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = []): BulkItem {
     const id = item._id;
     const weight = item.data?.weight?.value;
-    const quantity = item.data?.quantity?.value ?? 0;
+    const quantity = item.data?.quantity ?? 0;
     const isEquipped = item.isEquipped;
     const equippedBulk = item.data?.equippedBulk?.value;
     const unequippedBulk = item.data?.unequippedBulk?.value;
-    const stackGroup = item.data?.stackGroup?.value;
+    const stackGroup = item.data.stackGroup;
     const negateBulk = item.data.negateBulk?.value;
     const traits: string[] = item.data.traits.value;
     const extraDimensionalContainer = traits.includes("extradimensional");
-    const size = item.data.size.value || "med";
+    const size = item.data.size || "med";
 
     return new BulkItem({
         id,
@@ -613,7 +603,7 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
  * Recursively build items by checking if groupedItems contains a list
  * under their data._id
  * @param items
- * @param groupedItems items grouped by data.containerId.value
+ * @param groupedItems items grouped by data.containerId
  * @return
  */
 function buildContainerTree(
@@ -645,7 +635,7 @@ export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
         // we want all items in the top level group that are in no container
         // or are never referenced because we don't want the items to
         // disappear if the container is being deleted or doesn't have a reference
-        const ref = item.data?.containerId?.value ?? null;
+        const ref = item.data.containerId ?? null;
         if (ref === null || !allIds.has(ref)) {
             return null;
         }

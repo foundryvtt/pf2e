@@ -338,16 +338,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 itemData.canBeEquipped = !containerData.isInContainer;
                 itemData.isSellableTreasure =
-                    itemData.showEdit &&
-                    physicalData.type === "treasure" &&
-                    physicalData.data.stackGroup.value !== "coins";
+                    itemData.showEdit && physicalData.type === "treasure" && physicalData.data.stackGroup !== "coins";
                 if (physicalData.isInvested) {
                     investedCount += 1;
                 }
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity.value = physicalData.data.quantity.value || 0;
+                    itemData.data.quantity = physicalData.data.quantity || 0;
                     itemData.data.weight.value = physicalData.data.weight.value || 0;
                     const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({

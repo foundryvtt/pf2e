@@ -367,12 +367,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!(item instanceof PhysicalItemPF2e)) {
                 throw new Error("PF2e System | Tried to update quantity on item that does not have quantity");
             }
-            this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId,
-                    "data.quantity.value": Number(item.data.data.quantity.value) + 1,
-                },
-            ]);
+            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.quantity": item.quantity + 1 }]);
         });
 
         // Decrease Item Quantity
@@ -381,15 +376,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const itemId = li.attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId);
             if (!(item instanceof PhysicalItemPF2e)) {
-                throw new Error("Tried to update quantity on item that does not have quantity");
+                throw ErrorPF2e("Tried to update quantity on item that does not have quantity");
             }
-            if (Number(item.data.data.quantity.value) > 0) {
-                this.actor.updateEmbeddedDocuments("Item", [
-                    {
-                        _id: itemId,
-                        "data.quantity.value": Number(item.data.data.quantity.value) - 1,
-                    },
-                ]);
+            if (item.quantity > 0) {
+                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, "data.quantity": item.quantity - 1 }]);
             }
         });
 
@@ -407,7 +397,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!(item instanceof PhysicalItemPF2e)) {
                 throw ErrorPF2e("Missing or invalid item");
             }
-            const sourceItemQuantity = Number(item.data.data.quantity.value);
+            const sourceItemQuantity = item.quantity;
             const halfSourceItemQuantity = Math.floor(sourceItemQuantity / 2);
             if (sourceItemQuantity > 1) {
                 const popup = new MoveLootPopup(
@@ -930,7 +920,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 $(event.target).closest('[data-item-is-container="true"]').attr("data-item-id")?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
-                itemData.data.containerId.value = containerId;
+                itemData.data.containerId = containerId;
                 itemData.data.equipped.carryType = "stowed";
             } else {
                 itemData.data.equipped.carryType = "worn";
@@ -941,7 +931,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 itemData.type !== "treasure" &&
                 !["med", "sm"].includes(actor.size) &&
                 actor instanceof CreaturePF2e;
-            if (resizeItem) itemData.data.size.value = actor.size;
+            if (resizeItem) itemData.data.size = actor.size;
         }
         return this._onDropItemCreate(itemData);
     }
@@ -985,7 +975,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         const container = $(event.target).parents('[data-item-is-container="true"]');
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
-        const sourceItemQuantity = Number(item.data.data.quantity.value);
+        const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item.data._source);
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
@@ -1011,13 +1001,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /** Opens an item container */
-    private toggleContainer(event: JQuery.ClickEvent) {
+    private async toggleContainer(event: JQuery.ClickEvent): Promise<void> {
         const itemId = $(event.currentTarget).parents(".item").data("item-id");
         const item = this.actor.items.get(itemId);
-        if (!(item instanceof ContainerPF2e)) return;
+        if (!item?.isOfType("backpack")) return;
 
-        const isCollapsed = item.data.data.collapsed.value ?? false;
-        item.update({ "data.collapsed.value": !isCollapsed });
+        const isCollapsed = item.data.data.collapsed ?? false;
+        await item.update({ "data.collapsed": !isCollapsed });
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */

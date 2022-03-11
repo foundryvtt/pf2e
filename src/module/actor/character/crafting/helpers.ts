@@ -55,7 +55,7 @@ function calculateCosts(
     degreeOfSuccess: number
 ): Costs | undefined {
     const itemPrice = extractPriceFromItem({
-        data: { quantity: { value: quantity }, price: item.data.data.price },
+        data: { quantity, price: item.data.data.price },
     });
     const materialCosts = multiplyCoinValue(itemPrice, 0.5);
 
@@ -112,12 +112,12 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
 
 export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e, infused?: boolean) {
     const itemSource = item.toObject();
-    itemSource.data.quantity.value = itemQuantity;
+    itemSource.data.quantity = itemQuantity;
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
         const sourceTraits: string[] = itemSource.data.traits.value;
         sourceTraits.push("infused");
-        itemSource.data.temporary = { value: true };
+        itemSource.data.temporary = true;
     }
     const result = await actor.addToInventory(itemSource);
     if (!result) {
@@ -193,7 +193,7 @@ export async function renderCraftingInline(
         daysForZeroCost: daysForZeroCost,
         strings: prepStrings(costs, item),
         item,
-        quantity: quantity,
+        quantity,
         success: degreeOfSuccess > 1,
         criticalFailure: degreeOfSuccess === 0,
     });

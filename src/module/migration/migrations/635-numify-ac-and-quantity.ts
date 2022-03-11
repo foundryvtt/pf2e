@@ -3,6 +3,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationBase } from "../base";
 
+/** Ensure AC and quantity values are numeric */
 export class Migration635NumifyACAndQuantity extends MigrationBase {
     static override version = 0.635;
 
@@ -14,7 +15,10 @@ export class Migration635NumifyACAndQuantity extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (isPhysicalData(itemData)) {
-            itemData.data.quantity.value = Number(itemData.data.quantity.value);
+            const quantity = itemData.data.quantity || { value: 0 };
+            if (quantity instanceof Object) {
+                quantity.value = Number(quantity.value);
+            }
         }
     }
 }

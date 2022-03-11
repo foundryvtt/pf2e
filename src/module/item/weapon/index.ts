@@ -213,7 +213,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const materialValue = toCoins("gp", materialPrice + (bulk * materialPrice) / 10);
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
         const withRunes = extractPriceFromItem({
-            data: { quantity: { value: 1 }, price: { value: `${runeValue} gp` } },
+            data: { quantity: 1, price: { value: `${runeValue} gp` } },
         });
         const modifiedPrice = combineCoins(withRunes, materialValue);
 
