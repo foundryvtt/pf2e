@@ -179,16 +179,12 @@ class TextEditorPF2e extends TextEditor {
 
         // Build the inline link
         const html = document.createElement("span");
-        if (params.type && params.dc) {
-            // Let the inline roll function handle level base DCs
-            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC(params, item);
-            html.setAttribute("data-pf2-dc", checkDC);
-        }
         html.setAttribute("data-pf2-traits", `${allTraits}`);
         const name = params.name ?? item?.name ?? params.type;
         html.setAttribute("data-pf2-label", game.i18n.format("PF2E.InlineCheck.DCWithName", { name }));
         html.setAttribute("data-pf2-repost-flavor", name);
-        html.setAttribute("data-pf2-show-dc", params.showDC ?? "gm");
+        const role = params.showDC ?? "owner";
+        html.setAttribute("data-pf2-show-dc", params.showDC ?? role);
         html.setAttribute("data-pf2-adjustment", params.adjustment ?? "");
 
         switch (params.type) {
@@ -225,6 +221,16 @@ class TextEditorPF2e extends TextEditor {
                 const skillLabel = shortForm ? game.i18n.localize(CONFIG.PF2E.skills[shortForm]) : params.type;
                 html.innerHTML = inlineLabel ?? skillLabel;
                 html.setAttribute("data-pf2-check", params.type);
+            }
+        }
+
+        if (params.type && params.dc) {
+            // Let the inline roll function handle level base DCs
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC(params, item);
+            html.setAttribute("data-pf2-dc", checkDC);
+            const text = html.innerHTML;
+            if (checkDC !== "@self.level") {
+                html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });
             }
         }
         return html.outerHTML;
