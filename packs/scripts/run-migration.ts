@@ -17,6 +17,7 @@ import { Migration724CraftingMaxItemLevel } from "@module/migration/migrations/7
 import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quick-climb-rule-elements";
 import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/727-trim-self-roll-options";
 import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
+import { Migration729CumulativeItemBonusCleanup } from "@module/migration/migrations/729-cumulative-item-bonus-cleanup";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -30,6 +31,7 @@ const migrations: MigrationBase[] = [
     new Migration725QuickClimbREs(),
     new Migration727TrimSelfRollOptions(),
     new Migration728FlattenPhysicalProperties(),
+    new Migration729CumulativeItemBonusCleanup(),
 ];
 
 global.deepClone = <T>(original: T): T => {
