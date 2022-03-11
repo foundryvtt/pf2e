@@ -772,16 +772,22 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         }
 
-        const $container = $(event.target).closest('[data-item-is-container="true"]');
-        const containerId = $container.attr("data-item-id") ?? "";
-        const container = this.actor.physicalItems.get(containerId);
-        if (
-            item instanceof PhysicalItemPF2e &&
-            (!container || container instanceof ContainerPF2e) &&
-            item.container?.id !== container?.id
-        ) {
-            await this.actor.stowOrUnstow(item, container);
-            return [item];
+        if (item instanceof PhysicalItemPF2e) {
+            const $target = $(event.target).closest("[data-item-id]");
+            const targetId = $target.attr("data-item-id") ?? "";
+            const target = this.actor.physicalItems.get(targetId);
+
+            if ((!target || target instanceof ContainerPF2e) && item.container?.id !== target?.id) {
+                await this.actor.stowOrUnstow(item, target);
+                return [item];
+            } else if (target && item.isStackableWith(target)) {
+                const stackQuantity = item.quantity + target.quantity;
+                if (await item.delete({ render: false })) {
+                    await target.update({ "data.quantity": stackQuantity });
+                }
+
+                return [];
+            }
         }
 
         return super._onSortItem(event, itemData);
