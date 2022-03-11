@@ -610,15 +610,14 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const tradition = entry.tradition;
-            const ability = entry.ability;
+            const { ability, tradition } = entry;
             const abilityMod = data.abilities[ability].mod;
 
             // There are still some bestiary entries where these values are strings
             entry.data.data.spelldc.dc = Number(entry.data.data.spelldc.dc);
             entry.data.data.spelldc.value = Number(entry.data.data.spelldc.value);
 
-            const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
+            const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
             const attackSelectors = [
                 `${tradition}-spell-attack`,
                 "spell-attack",
@@ -651,6 +650,7 @@ export class NPCPF2e extends CreaturePF2e {
                 slug: sluggify(entry.name),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
+                rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
                     label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),

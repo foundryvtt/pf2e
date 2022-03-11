@@ -34,7 +34,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
             const skillName = data.skillName ?? game.i18n.localize(CONFIG.PF2E.skills[data.skill]);
             return createSkillMacro(data.skill, skillName, data.actorId, slot);
         } else if (isObject(data.pf2e) && data.actorId) {
-            if (data.pf2e.type === "Action" && data.pf2e.index) {
+            if (data.pf2e.type === "Action" && typeof data.pf2e.index === "number") {
                 return createActionMacro(data.pf2e.index, data.actorId, slot);
             } else if (data.pf2e.type === "Toggle") {
                 return createTogglePropertyMacro(data.pf2e.property, data.pf2e.label, data.actorId, slot);
@@ -52,7 +52,7 @@ interface HotbarDropData extends Partial<DropCanvasData> {
     pf2e?: {
         type: string;
         property: string;
-        index?: string;
+        index?: number;
         label: string;
     };
 }

@@ -10,7 +10,7 @@ import {
     ProficiencyModifier,
 } from "@module/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import {
     ABILITY_ABBREVIATIONS,
     SAVE_TYPES,
@@ -46,7 +46,14 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
+import {
+    WeaponCategory,
+    WeaponDamage,
+    WeaponSource,
+    WeaponSystemSource,
+    WeaponTrait,
+    WEAPON_CATEGORIES,
+} from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
@@ -713,11 +720,26 @@ class CharacterPF2e extends CreaturePF2e {
         // Automatic Actions
         systemData.actions = [];
 
+        // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwraps = itemTypes.weapon.find(
             (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed" && w.isInvested
         );
+        const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
+            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
+                handwraps?.data._source.data ?? {};
+            return handwraps
+                ? deepClone({
+                      potencyRune,
+                      strikingRune,
+                      propertyRune1,
+                      propertyRune2,
+                      propertyRune3,
+                      propertyRune4,
+                  })
+                : null;
+        })();
 
-        // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
+        // Add a basic unarmed strike
         const basicUnarmed = ((): Embedded<WeaponPF2e> => {
             const source: PreCreate<WeaponSource> & { data: { damage?: Partial<WeaponDamage> } } = {
                 _id: "xxPF2ExUNARMEDxx",
@@ -734,39 +756,20 @@ class CharacterPF2e extends CreaturePF2e {
                         inSlot: true,
                         handsHeld: 0,
                     },
+                    usage: { value: "worngloves" },
+                    ...(unarmedRunes ?? {}),
                 },
             };
-
-            if (handwraps) {
-                return handwraps.clone(source, { keepId: true });
-            }
 
             // No handwraps, so generate straight from source
             return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
 
         // Regenerate the strikes from the handwraps so that all runes are included
-        if (handwraps && !this.attributes.battleForm) {
-            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
-                handwraps.data._source.data;
-
-            synthetics.strikes = synthetics.strikes.map((weapon) => {
-                if (weapon.category !== "unarmed") return weapon;
-
-                return weapon.clone(
-                    {
-                        data: deepClone({
-                            potencyRune,
-                            strikingRune,
-                            propertyRune1,
-                            propertyRune2,
-                            propertyRune3,
-                            propertyRune4,
-                        }),
-                    },
-                    { keepId: true }
-                );
-            });
+        if (unarmedRunes && !this.attributes.battleForm) {
+            synthetics.strikes = synthetics.strikes.map((w) =>
+                w.category === "unarmed" ? w.clone({ data: unarmedRunes }, { keepId: true }) : w
+            );
         }
 
         const ammos = itemTypes.consumable.filter(
@@ -788,10 +791,10 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const tradition = entry.tradition;
+            const { ability, tradition } = entry;
             const rank = (entry.data.data.proficiency.value = entry.rank);
 
-            const baseSelectors = [`${entry.ability}-based`, "all", "spell-attack-dc"];
+            const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
             const attackSelectors = [
                 `${tradition}-spell-attack`,
                 "spell-attack",
@@ -809,6 +812,7 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers: extractModifiers(statisticsModifiers, baseSelectors),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
+                rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
                     label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
@@ -858,21 +862,21 @@ class CharacterPF2e extends CreaturePF2e {
         const rollOptionsAll = this.rollOptions.all;
 
         const perceptionRank = this.data.data.attributes.perception.rank;
-        rollOptionsAll[`self:perception:rank:${perceptionRank}`] = true;
+        rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
         for (const key of ABILITY_ABBREVIATIONS) {
             const score = this.abilities[key].value;
-            rollOptionsAll[`self:ability:${key}:score:${score}`] = true;
+            rollOptionsAll[`ability:${key}:score:${score}`] = true;
         }
 
         for (const key of SKILL_ABBREVIATIONS) {
             const rank = this.data.data.skills[key].rank;
-            rollOptionsAll[`self:skill:${key}:rank:${rank}`] = true;
+            rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
         for (const key of SAVE_TYPES) {
             const rank = this.data.data.saves[key].rank;
-            rollOptionsAll[`self:save:${key}:rank:${rank}`] = true;
+            rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
     }
 
@@ -1422,7 +1426,7 @@ class CharacterPF2e extends CreaturePF2e {
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
 
-                    const checkContext = {
+                    const checkContext: CheckRollContext = {
                         actor: context.self.actor,
                         target: context.target,
                         item,

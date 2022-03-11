@@ -7,6 +7,7 @@ import { DropCanvasData } from "./drop-canvas-data";
 import { GetSceneControlButtons } from "./get-scene-control-buttons";
 import { Init } from "./init";
 import { LightingRefresh } from "./lighting-refresh";
+import { Load } from "./load";
 import { Ready } from "./ready";
 import { RenderActorDirectory } from "./render-actor-directory";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
@@ -19,6 +20,7 @@ import { UpdateWorldTime } from "./update-world-time";
 export const HooksPF2e = {
     listen(): void {
         const listeners: { listen(): void }[] = [
+            Load, // Run this first since it's not an actual hook listener
             CanvasInit,
             CanvasReady,
             CloseCombatTrackerConfig,

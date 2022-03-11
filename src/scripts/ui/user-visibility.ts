@@ -2,22 +2,31 @@ import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { objectHasKey } from "@util";
 
-export const UserVisibility = {
+const UserVisibilityPF2e = {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
     process: ($html: JQuery, { message, actor }: { message?: ChatMessagePF2e; actor?: ActorPF2e | null } = {}) => {
-        // Always remove visibility none elements, and remove GM elements if not a GM.
-        $html.find('[data-visibility="none"]').remove();
-        if (!game.user.isGM) {
-            $html.find('[data-visibility="gm"]').remove();
+        const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
+
+        // Remove all visibility=none elements
+        for (const element of visibilityElements.filter((e) => e.dataset.visibility === "none")) {
+            element.remove();
         }
 
         // Handle owner visibility scopes, but only if an actor is supplied
         if (actor) {
-            const hasOwnership = actor?.isOwner || game.user.isGM;
-            if (!hasOwnership) {
-                $html.find('[data-visibility="owner"]').remove();
-            }
+            const elements = visibilityElements.filter((e) => e.dataset.visibility === "owner");
+            for (const element of elements) {
+                const whoseData = element.dataset.whose ?? "self";
+                if (whoseData === "self") {
+                    element.dataset.visibility = actor.hasPlayerOwner ? "all" : "gm";
+                    continue;
+                }
 
+                if (message?.target && whoseData === "target") {
+                    element.dataset.visibility = message.target.actor.hasPlayerOwner ?? true ? "all" : "gm";
+                }
+            }
+            const hasOwnership = actor.isOwner;
             // Hide DC for explicit save buttons (such as in spell cards)
             const dcSetting = game.settings.get("pf2e", "metagame.showDC");
             const $saveButtons = $html.find("button[data-action=save]");
@@ -40,14 +49,21 @@ export const UserVisibility = {
                 });
             }
 
-            $html.find("[data-owner-title]").each((_idx, elem) => {
+            $html.find("[data-owner-title]").each((_idx, element) => {
                 if (hasOwnership) {
-                    const value = elem.dataset.ownerTitle!;
-                    elem.setAttribute("title", value);
+                    const value = element.dataset.ownerTitle!;
+                    element.setAttribute("title", value);
                 } else {
-                    elem.removeAttribute("data-owner-title");
+                    element.removeAttribute("data-owner-title");
                 }
             });
+        }
+
+        // Remove visibility=gm elements if the user is not a GM
+        if (!game.user.isGM) {
+            for (const element of visibilityElements.filter((e) => e.dataset.visibility === "gm")) {
+                element.remove();
+            }
         }
 
         // Hide the sender name from the card if it can't be seen from the canvas
@@ -66,3 +82,7 @@ export const UserVisibility = {
         }
     },
 };
+
+type UserVisibility = "all" | "owner" | "gm" | "none";
+
+export { UserVisibilityPF2e, UserVisibility };

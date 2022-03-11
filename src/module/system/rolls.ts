@@ -18,6 +18,8 @@ import { AttackTarget, StrikeTarget } from "@actor/creature/types";
 import { DamageCategory, DamageRollContext } from "./damage/damage";
 import { LocalizePF2e } from "./localize";
 import { Check } from "./check";
+import { UserVisibility } from "@scripts/ui/user-visibility";
+import { TextEditorPF2e } from "./text-editor";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -52,6 +54,17 @@ export interface StrikeRollParams extends RollParameters {
 
 export type FateString = "none" | "fortune" | "misfortune";
 
+export type AttackCheck = "attack-roll" | "spell-attack-roll";
+export type CheckType =
+    | "check"
+    | "counteract-check"
+    | "initiative"
+    | "skill-check"
+    | "perception-check"
+    | "saving-throw"
+    | "flat-check"
+    | AttackCheck;
+
 export interface BaseRollContext {
     /** Any options which should be used in the roll. */
     options?: string[];
@@ -63,8 +76,6 @@ export interface BaseRollContext {
     rollMode?: RollMode;
     /** If this is an attack, the target of that attack */
     target?: StrikeTarget | null;
-    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
-    type?: string;
     /** Any traits for the check. */
     traits?: StrikeTrait[];
     /** The outcome a roll (usually relevant only to rerolls) */
@@ -78,6 +89,8 @@ export interface BaseRollContext {
 }
 
 export interface CheckRollContext extends BaseRollContext {
+    /** The type of this roll, like 'perception-check' or 'saving-throw'. */
+    type?: CheckType;
     target?: AttackTarget | null;
     /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
     fate?: FateString;
@@ -485,7 +498,7 @@ export class CheckPF2e {
         })();
 
         // Not actually included in the template, but used for creating other template data
-        const targetData = await (async (): Promise<{ name: string; visibility: string } | null> => {
+        const targetData = await (async (): Promise<{ name: string; visibility: UserVisibility } | null> => {
             if (!target) return null;
 
             const token = await (async (): Promise<TokenDocumentPF2e | null> => {
@@ -604,38 +617,27 @@ export class CheckPF2e {
             });
             const html = parseHTML(rendered);
 
-            const convertXMLNode = (
-                nodeName: string,
-                visibility: string | null,
-                ...cssClasses: string[]
-            ): HTMLElement | null => {
-                const node = html.querySelector(nodeName);
-                if (!node) return null;
-
-                const span = document.createElement("span");
-                if (visibility) span.dataset.visibility = visibility;
-                span.append(...Array.from(node.childNodes));
-                for (const cssClass of cssClasses) {
-                    span.classList.add(cssClass);
-                }
-
-                node.replaceWith(span);
-                return span;
-            };
-
-            if (targetData) convertXMLNode("target", targetData.visibility);
-            convertXMLNode("dc", dcData.visibility);
+            const { convertXMLNode } = TextEditorPF2e;
+            if (targetData) {
+                convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });
+            }
+            convertXMLNode(html, "dc", { visibility: dcData.visibility, whose: "target" });
             if (dcData.adjustment) {
                 const { adjustment } = dcData;
-                convertXMLNode("preadjusted", null, "preadjusted-dc");
+                convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
 
                 // Add circumstance bonuses/penalties for tooltip content
-                const adjustedNode = convertXMLNode("adjusted", null, "adjusted-dc", adjustment.direction);
+                const adjustedNode = convertXMLNode(html, "adjusted", {
+                    classes: ["adjusted-dc", adjustment.direction],
+                });
                 if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
                 adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
             }
-            convertXMLNode("degree", resultData.visibility, DEGREE_OF_SUCCESS_STRINGS[degree.value]);
-            convertXMLNode("offset", dcData.visibility);
+            convertXMLNode(html, "degree", {
+                visibility: resultData.visibility,
+                classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
+            });
+            convertXMLNode(html, "offset", { visibility: dcData.visibility, whose: "target" });
 
             if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
                 // If target and DC are both hidden from view, hide both
@@ -663,7 +665,7 @@ interface CreateFlavorMarkupParams {
 interface FlavorTemplateData {
     dc: {
         markup: string;
-        visibility: string;
+        visibility: UserVisibility;
         adjustment?: {
             preadjusted: number;
             direction: "increased" | "decreased";
@@ -672,7 +674,7 @@ interface FlavorTemplateData {
     };
     result: {
         markup: string;
-        visibility: string;
+        visibility: UserVisibility;
     };
 }
 

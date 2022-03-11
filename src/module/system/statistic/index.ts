@@ -6,11 +6,10 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@module/modifiers";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e, CheckType } from "@system/rolls";
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import {
     BaseStatisticData,
-    CheckType,
     StatisticChatData,
     StatisticCompatData,
     StatisticData,
@@ -119,6 +118,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             rollOptions.push(PROFICIENCY_RANK_OPTION[this.data.rank]);
         }
 
+        if (this.data.rollOptions) {
+            rollOptions.push(...this.data.rollOptions);
+        }
+
         if (item) {
             rollOptions.push(...item.getRollOptions("item"));
             if (item.actor && item.actor.id !== this.actor.id) {
@@ -217,6 +220,10 @@ class StatisticCheck {
         this.mod = this.#stat.totalModifier;
     }
 
+    createRollOptions(args: RollOptionParameters = {}): string[] {
+        return this.parent.createRollOptions(this.domains, args);
+    }
+
     calculateMap(options: { item: ItemPF2e }) {
         const baseMap = options.item.calculateMap();
         const penalties = [...(this.parent.data.check.penalties ?? [])];
@@ -311,13 +318,14 @@ class StatisticCheck {
 }
 
 class StatisticDifficultyClass {
+    domains: string[];
     value: number;
     modifiers: ModifierPF2e[];
 
-    constructor(parent: Statistic<StatisticDataWithDC>, options: RollOptionParameters = {}) {
+    constructor(private parent: Statistic<StatisticDataWithDC>, options: RollOptionParameters = {}) {
         const data = parent.data;
-        const domains = (data.domains ?? []).concat(data.dc.domains ?? []);
-        const rollOptions = parent.createRollOptions(domains, options);
+        this.domains = (data.domains ?? []).concat(data.dc.domains ?? []);
+        const rollOptions = parent.createRollOptions(this.domains, options);
 
         // toggle modifiers based on the specified options
         this.modifiers = (parent.modifiers ?? [])
@@ -325,6 +333,10 @@ class StatisticDifficultyClass {
             .map((modifier) => modifier.clone({ test: rollOptions }));
 
         this.value = (data.dc.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
+    }
+
+    createRollOptions(args: RollOptionParameters = {}): string[] {
+        return this.parent.createRollOptions(this.domains, args);
     }
 
     get breakdown() {

@@ -68,9 +68,9 @@ export class FeatPF2e extends ItemPF2e {
 
     /** Set a self roll option for this feat(ure) */
     override prepareActorData(this: Embedded<FeatPF2e>): void {
-        const infix = this.isFeature ? "feature" : "feat";
+        const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
-        this.actor.rollOptions.all[`self:${infix}:${slug}`] = true;
+        this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
     }
 
     override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {

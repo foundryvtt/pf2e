@@ -21,10 +21,26 @@ import { BookSheetPF2e } from "@item/book/sheet";
 import { DeitySheetPF2e } from "@item/deity/sheet";
 import { ArmorSheetPF2e } from "@item/armor/sheet";
 import { HeritageSheetPF2e } from "@item/heritage";
+import { JournalSheetPF2e, JournalSheetStyledPF2e } from "@module/journal-entry/sheet";
+import { SceneConfigPF2e } from "@scene/sheet";
+import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
+
+    DocumentSheetConfig.unregisterSheet(JournalEntry, "core", JournalSheet);
+    DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, {
+        label: game.i18n.localize("PF2E.JournalEntry.FoundryTheme"),
+    });
+
+    DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetStyledPF2e, {
+        label: game.i18n.localize("PF2E.JournalEntry.PF2ETheme"),
+        makeDefault: true,
+    });
+
+    DocumentSheetConfig.registerSheet(Scene, "pf2e", SceneConfigPF2e, { makeDefault: true });
+    DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
     // ACTORS
     Actors.unregisterSheet("core", ActorSheet);

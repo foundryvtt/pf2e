@@ -250,6 +250,10 @@ export class SpellPF2e extends ItemPF2e {
             options.add("damaging-effect");
         }
 
+        for (const trait of this.traits) {
+            options.add(trait);
+        }
+
         return super.getRollOptions(prefix).concat([...options]);
     }
 
@@ -303,8 +307,7 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const extraRollOptions = [...this.traits];
-        const statisticChatData = statistic.getChatData({ item: this, extraRollOptions });
+        const statisticChatData = statistic.getChatData({ item: this });
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -392,8 +395,7 @@ export class SpellPF2e extends ItemPF2e {
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            const extraRollOptions = [...this.traits];
-            statistic.check.roll({ ...eventToRollParams(event), item: this, extraRollOptions, attackNumber });
+            statistic.check.roll({ ...eventToRollParams(event), item: this, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

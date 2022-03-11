@@ -3,7 +3,7 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { UserVisibility } from "@scripts/ui/user-visibility";
+import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { objectHasKey } from "@util";
 import { Statistic } from "./statistic";
 
@@ -12,8 +12,7 @@ class TextEditorPF2e extends TextEditor {
     static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}) {
         const enriched = super.enrichHTML(this.enrichString(content, options), options);
         const $html = $("<div>").html(enriched);
-        UserVisibility.process($html);
-
+        UserVisibilityPF2e.process($html);
         return $html.html();
     }
 
@@ -36,6 +35,36 @@ class TextEditorPF2e extends TextEditor {
             }
             return match;
         });
+    }
+
+    /**
+     * Convert an XML node into an HTML span element with data-visibility, data-whose, and class attributes
+     * @param html    The HTML element containing the XML node: mutated by this method as part of node replacement
+     * @param name    The name of the node to convert
+     * @param options attributes to add to the generated span element
+     * @returns The generated span element, or `null` if no `name` node was found
+     */
+    static convertXMLNode(
+        html: HTMLElement,
+        name: string,
+        { visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
+    ): HTMLElement | null {
+        const node = html.querySelector(name);
+        if (!node) return null;
+
+        const span = document.createElement("span");
+        const { dataset, classList } = span;
+
+        if (visibility) dataset.visibility = visibility;
+        if (whose) dataset.whose = whose;
+        for (const cssClass of classes) {
+            classList.add(cssClass);
+        }
+
+        span.append(...Array.from(node.childNodes));
+        node.replaceWith(span);
+
+        return span;
     }
 
     /** Create inline template button from @template command */
@@ -288,5 +317,17 @@ type EnrichHTMLOptionsPF2e = EnrichHTMLOptions & {
         mod?: number;
     };
 };
+
+interface ConvertXMLNodeOptions {
+    /** The value of the data-visibility attribute to add to the span element */
+    visibility?: UserVisibility | null;
+    /**
+     * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
+     * determine which actor's ownership to check
+     */
+    whose?: "self" | "target";
+    /** Any additional classes to add to the span element */
+    classes?: string[];
+}
 
 export { TextEditorPF2e, EnrichHTMLOptionsPF2e };
