@@ -14,8 +14,9 @@ export class MigrationList {
         return this.list.map((Migration) => new Migration());
     }
 
-    static constructFromVersion(version: number = MigrationRunner.RECOMMENDED_SAFE_VERSION): MigrationBase[] {
-        return this.list.filter((Migration) => Migration.version > version).map((Migration) => new Migration());
+    static constructFromVersion(version: number | null): MigrationBase[] {
+        const minVersion = Number(version) || MigrationRunner.RECOMMENDED_SAFE_VERSION;
+        return this.list.filter((Migration) => Migration.version > minVersion).map((Migration) => new Migration());
     }
 
     static constructRange(min: number, max = Infinity): MigrationBase[] {

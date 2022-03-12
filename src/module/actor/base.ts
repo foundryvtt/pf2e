@@ -20,7 +20,6 @@ import { MigrationRunner, MigrationList } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { Statistic } from "@system/statistic";
 import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
@@ -29,6 +28,7 @@ import { TokenPF2e } from "@module/canvas";
 import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
+import { preImportJSON } from "@module/doc-helpers";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -988,49 +988,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** If necessary, migrate this actor before importing */
+    /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const source: unknown = JSON.parse(json);
-        if (!this.canImportJSON(source)) return this;
-
-        source._id = this.id;
-        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
-        const data = new (this.constructor as typeof ActorPF2e).schema(processed);
-
-        const { folder, sort, permission } = this.data;
-        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
-            recursive: false,
-        });
-
-        await MigrationRunner.ensureSchemaVersion(
-            this,
-            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
-            { preCreate: false }
-        );
-
-        return this.update(this.toObject(), { diff: false, recursive: false });
-    }
-
-    /** Determine whether a requested JSON import can be performed */
-    canImportJSON(source: unknown): source is ActorSourcePF2e {
-        // The import came from
-        if (!(isObject<ActorSourcePF2e>(source) && isObject(source.data))) return false;
-
-        const sourceSchemaVersion = source.data?.schema?.version ?? null;
-        const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
-        if (foundry.utils.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
-            // Refuse to import if the schema version on the document is higher than the system schema verson;
-            ui.notifications.error(
-                game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
-                    sourceName: game.i18n.localize("DOCUMENT.Actor"),
-                    sourceSchemaVersion,
-                    worldSchemaVersion,
-                })
-            );
-            return false;
-        }
-
-        return true;
+        const processed = await preImportJSON(this, json);
+        return processed ? super.importFromJSON(processed) : this;
     }
 
     /* -------------------------------------------- */
@@ -1045,8 +1006,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            const currentVersion = this.schemaVersion || undefined;
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(currentVersion));
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }
     }
 
