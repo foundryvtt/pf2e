@@ -723,12 +723,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwraps = itemTypes.weapon.find(
-            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed" && w.isInvested
+            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed"
         );
         const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
             const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
                 handwraps?.data._source.data ?? {};
-            return handwraps
+            return handwraps?.isInvested
                 ? deepClone({
                       potencyRune,
                       strikingRune,
@@ -757,6 +757,7 @@ class CharacterPF2e extends CreaturePF2e {
                         inSlot: true,
                         handsHeld: 0,
                     },
+                    traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     usage: { value: "worngloves" },
                     ...(unarmedRunes ?? {}),
                 },
