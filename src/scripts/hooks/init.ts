@@ -18,7 +18,6 @@ import { ActorsPF2e } from "@module/collection/actors";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { FogExplorationPF2e } from "@module/fog-exploration";
 import { FolderPF2e } from "@module/folder";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { MacroPF2e } from "@module/macro";
 import {
     AmbientLightDocumentPF2e,
@@ -28,7 +27,6 @@ import {
     TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@module/scene";
-import { SceneConfigPF2e } from "@module/scene/sheet";
 import { UserPF2e } from "@module/user";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
@@ -58,11 +56,9 @@ export const Init = {
             CONFIG.Combatant.documentClass = CombatantPF2e;
             CONFIG.FogExploration.documentClass = FogExplorationPF2e;
             CONFIG.Folder.documentClass = FolderPF2e;
-            DocumentSheetConfig.registerSheet(JournalEntry, "pf2e", JournalSheetPF2e, { makeDefault: true });
             CONFIG.Macro.documentClass = MacroPF2e;
 
             CONFIG.Scene.documentClass = ScenePF2e;
-            DocumentSheetConfig.registerSheet(Scene, "pf2e", SceneConfigPF2e, { makeDefault: true });
 
             CONFIG.User.documentClass = UserPF2e;
 
@@ -80,7 +76,6 @@ export const Init = {
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
             CONFIG.Token.layerClass = TokenLayerPF2e;
-            DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;

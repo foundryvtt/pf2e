@@ -1,8 +1,7 @@
-import { ModifierPF2e } from "@module/modifiers";
-import { DamageTemplate } from "@system/damage/weapon";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { DamageRollFlag } from "@module/chat-message/data";
-import { DamageRollContext } from "./damage/damage";
+import { ModifierPF2e } from "@actor/modifiers";
+import { DamageRollContext, DamageTemplate } from ".";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
@@ -73,9 +72,10 @@ export class DamageRollModifiersDialog extends Application {
             .join("");
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
 
+        const noteRollData = context.self?.item?.getRollData();
         const notes = damage.notes
             .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
-            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text))
+            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData }))
             .join("<br />");
         flavor += `${notes}`;
 

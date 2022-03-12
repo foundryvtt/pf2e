@@ -1,8 +1,7 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemConstructionContextPF2e, ItemPF2e } from "@item/base";
-import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
 import { ordinal, objectHasKey, ErrorPF2e } from "@util";
 import { DicePF2e } from "@scripts/dice";
@@ -17,11 +16,11 @@ import {
     ModifierPF2e,
     ProficiencyModifier,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
-import { DamageCategory } from "@system/damage/damage";
+import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -118,7 +117,7 @@ export class SpellPF2e extends ItemPF2e {
         return Math.max(this.baseLevel, castLevel ?? this.level);
     }
 
-    override getRollData(rollOptions: { spellLvl?: number | string } = {}): Record<string, unknown> {
+    override getRollData(rollOptions: { spellLvl?: number | string } = {}): NonNullable<EnrichHTMLOptions["rollData"]> {
         const spellLevel = Number(rollOptions?.spellLvl) || null;
         const castLevel = Math.max(this.baseLevel, spellLevel || this.level);
 
@@ -240,13 +239,17 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         for (const damage of Object.values(this.data.data.damage.value)) {
-            const category = DamageCategory.fromDamageType(damage.type.value);
+            const category = DamageCategorization.fromDamageType(damage.type.value);
             if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
             if (category) options.add(`${prefix}:damage:${category}`);
         }
 
         if (this.data.data.spellType.value !== "heal") {
             options.add("damaging-effect");
+        }
+
+        for (const trait of this.traits) {
+            options.add(trait);
         }
 
         return super.getRollOptions(prefix).concat([...options]);
@@ -272,14 +275,18 @@ export class SpellPF2e extends ItemPF2e {
 
     override getChatData(
         this: Embedded<SpellPF2e>,
-        htmlOptions: EnrichHTMLOptions = {},
+        htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
         const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
+        rollData.item ??= this;
+
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
-        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, { ...htmlOptions, rollData });
+
+        const options = { ...htmlOptions, rollData };
+        const description = game.pf2e.TextEditor.enrichHTML(systemData.description.value, options);
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;
@@ -298,8 +305,7 @@ export class SpellPF2e extends ItemPF2e {
             return { ...systemData };
         }
 
-        const extraRollOptions = [...this.traits];
-        const statisticChatData = statistic.getChatData({ item: this, extraRollOptions });
+        const statisticChatData = statistic.getChatData({ item: this });
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
@@ -387,8 +393,7 @@ export class SpellPF2e extends ItemPF2e {
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            const extraRollOptions = [...this.traits];
-            statistic.check.roll({ ...eventToRollParams(event), item: this, extraRollOptions, attackNumber });
+            statistic.check.roll({ ...eventToRollParams(event), item: this, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }

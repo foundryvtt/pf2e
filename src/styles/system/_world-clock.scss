@@ -1,25 +1,50 @@
 #world-clock {
     section.window-content {
+        font-size: 1rem;
+
         h1 {
+            font-size: inherit;
             text-align: center;
-            font-size: 1.15em;
         }
 
         .input-grid {
+            align-items: center;
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
+            font-size: 0.8rem;
             justify-content: space-evenly;
+
             > * {
                 flex-basis: 32%;
-                font-size: 13px;
-                height: 24px;
+                height: 1.5rem;
                 line-height: 20px;
             }
-            > button {
+
+            .sign {
+                font-family: monospace;
+                font-size: inherit;
+            }
+
+            button {
+                align-items: center;
+                display: flex;
+                font-size: inherit;
+                justify-content: center;
                 margin: 1px;
-                .sign {
-                    font-family: monospace;
+
+                img {
+                    border: none;
+                    height: 1.5em;
+                }
+            }
+
+            .time-of-day {
+                display: flex;
+                flex-basis: 100%;
+                margin: 0 3px;
+
+                img.midnight {
+                    height: 1.05rem;
                 }
             }
         }

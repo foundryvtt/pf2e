@@ -17,5 +17,6 @@ export class Migration648RemoveInvestedProperty extends MigrationBase {
 }
 
 interface NotInvestableData extends PhysicalSystemData {
+    invested?: unknown;
     "-=invested"?: null;
 }

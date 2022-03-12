@@ -1,13 +1,12 @@
 import { CharacterPF2e } from "@actor";
-import { SpellcastingSheetData } from "@actor/npc/sheet";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, HeritagePF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { CraftingEntry } from "@actor/character/crafting/entry";
 import { CraftingFormula } from "@actor/character/crafting/formula";
 import { FlattenedCondition } from "@system/conditions";
 import { CharacterSystemData } from ".";
-import { CharacterSheetTabVisibility } from "./types";
+import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
+import { CHARACTER_SHEET_TABS } from "./values";
 
 interface CharacterSheetOptions extends ActorSheetOptions {
     showUnpreparedSpells: boolean;
@@ -62,8 +61,9 @@ interface CraftingSheetData {
     entries: CraftingEntriesSheetData;
 }
 
-/** Additional fields added in sheet data preparation */
-export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
+type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
+
+interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     abpEnabled: boolean;
     ancestry: Embedded<AncestryPF2e> | null;
     heritage: Embedded<HeritagePF2e> | null;
@@ -84,3 +84,5 @@ export interface CharacterSheetData extends ActorSheetDataPF2e<CharacterPF2e> {
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
 }
+
+export { CharacterSheetData, CharacterSheetTabVisibility };

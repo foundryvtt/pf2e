@@ -4,24 +4,26 @@ import { PhysicalItemData } from "@item/data";
 
 function createItem({
     id,
+    type = "equipment",
     weight = undefined,
     equippedBulk = undefined,
     negateBulk = "",
     bulkCapacity = "",
-    containerId = "",
+    containerId = null,
     equipped = false,
 }: {
     id: string;
+    type?: "backpack" | "equipment";
     weight?: string;
     equippedBulk?: string;
     negateBulk?: string;
     bulkCapacity?: string;
-    containerId?: string;
+    containerId?: string | null;
     equipped?: boolean;
 }): PhysicalItemData {
     return {
         _id: id,
-        type: "equipment",
+        type,
         data: {
             traits: {
                 value: [],
@@ -32,9 +34,7 @@ function createItem({
             bulkCapacity: {
                 value: bulkCapacity,
             },
-            containerId: {
-                value: containerId,
-            },
+            containerId,
             equipped: {
                 value: equipped,
             },
@@ -44,12 +44,8 @@ function createItem({
             equippedBulk: {
                 value: equippedBulk,
             },
-            quantity: {
-                value: 1,
-            },
-            size: {
-                value: "med",
-            },
+            quantity: 1,
+            size: "med",
         },
     } as unknown as PhysicalItemData;
 }
@@ -60,6 +56,7 @@ describe("should create container data", () => {
             // backpack
             createItem({
                 id: "1",
+                type: "backpack",
                 weight: "L",
                 equippedBulk: "0",
                 negateBulk: "2",
@@ -69,6 +66,7 @@ describe("should create container data", () => {
             // backpack in backpack
             createItem({
                 id: "2",
+                type: "backpack",
                 weight: "L",
                 equippedBulk: "0",
                 negateBulk: "2",
@@ -143,6 +141,7 @@ describe("should create container data", () => {
             // backpack
             createItem({
                 id: "1",
+                type: "backpack",
                 weight: "L",
                 equippedBulk: "0",
                 negateBulk: "2",
@@ -157,6 +156,7 @@ describe("should create container data", () => {
             // belt pouch
             createItem({
                 id: "3",
+                type: "backpack",
                 weight: "L",
                 equippedBulk: "0",
                 bulkCapacity: "4L",
@@ -170,6 +170,7 @@ describe("should create container data", () => {
             // overloaded belt pouch
             createItem({
                 id: "5",
+                type: "backpack",
                 weight: "L",
                 equippedBulk: "0",
                 bulkCapacity: "4L",
@@ -183,6 +184,7 @@ describe("should create container data", () => {
             // overloaded backpack
             createItem({
                 id: "7",
+                type: "backpack",
                 weight: "L",
                 equippedBulk: "0",
                 negateBulk: "2",

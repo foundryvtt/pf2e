@@ -8,7 +8,7 @@ import {
     CreatureTraitsData,
 } from "@actor/creature/data";
 import { AbilityString, Rollable } from "@actor/data/base";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import type { FamiliarPF2e } from ".";
 
 export type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;

@@ -125,3 +125,8 @@ export { Migration722CraftingSystemData } from "./722-crafting-system-data";
 export { Migration723CumulativeItemBonuses } from "./723-cumulative-item-bonuses";
 export { Migration724CraftingMaxItemLevel } from "./724-crafting-max-item-level";
 export { Migration725QuickClimbREs } from "./725-quick-climb-rule-elements";
+export { Migration726JournalSetting } from "./726-journal-setting";
+export { Migration727TrimSelfRollOptions } from "./727-trim-self-roll-options";
+export { Migration728FlattenPhysicalProperties } from "./728-flatten-physical-properties";
+export { Migration729CumulativeItemBonusCleanup } from "./729-cumulative-item-bonus-cleanup";
+export { Migration730DeruneHandwraps } from "./730-derune-handwraps";

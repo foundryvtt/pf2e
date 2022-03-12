@@ -1,6 +1,6 @@
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/data";
-import { ModifierPF2e, MODIFIER_TYPE } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
@@ -40,7 +40,7 @@ class StrikeWeaponTraits {
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        predicate: new PredicatePF2e({ all: [{ lt: ["self:ability:str:score", 14] }] }),
+                        predicate: new PredicatePF2e({ all: [{ lt: ["ability:str:score", 14] }] }),
                     });
                 }
                 case "volley": {

@@ -11,7 +11,7 @@ import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import type { ItemPF2e } from "@item/base";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "./values";
 import { RollParameters, StrikeRollParams } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
@@ -221,7 +221,7 @@ export interface StrikeData {
     /** The type of action; currently just 'strike'. */
     type: "strike";
     /** The image URL for this strike (shown on the UI). */
-    imageUrl: string;
+    imageUrl: ImagePath;
     /** The glyph for this strike (how many actions it takes, reaction, etc). */
     glyph: string;
     /** A description of this strike. */

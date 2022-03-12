@@ -1,11 +1,11 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { DamageType, DAMAGE_TYPES } from "@module/damage-calculation";
-import { ModifierAdjustment } from "@module/modifiers";
+import { ModifierAdjustment } from "@actor/modifiers";
+import { DamageType, DAMAGE_TYPES } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, setHasElement } from "@util";
-import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./";
+import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 
 class AdjustModifierRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];

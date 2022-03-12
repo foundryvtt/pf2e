@@ -10,6 +10,11 @@ export class ContainerPF2e extends PhysicalItemPF2e {
         return ContainerData;
     }
 
+    /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
+    get stowsItems(): boolean {
+        return this.data.data.stowing;
+    }
+
     /** Reload this container's contents following Actor embedded-document preparation */
     override prepareSiblingData(this: Embedded<ContainerPF2e>): void {
         this.contents = new Collection(

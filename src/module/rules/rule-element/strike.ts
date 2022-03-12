@@ -11,7 +11,7 @@ import {
     WeaponSource,
     WeaponTrait,
 } from "@item/weapon/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageType } from "@system/damage";
 import { RuleElementOptions } from "./base";
 
 /**

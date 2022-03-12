@@ -1,3 +1,4 @@
+import { ItemFlagsPF2e } from "@item/data/base";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
@@ -6,14 +7,12 @@ import {
     PreciousMaterialGrade,
     PreciousMaterialType,
 } from "@item/physical/data";
-import { DamageType } from "@module/damage-calculation";
-import type { LocalizePF2e } from "@system/localize";
-import { OneToFour, ZeroToThree } from "@module/data";
-import type { WeaponPF2e } from "..";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
-import { ItemFlagsPF2e } from "@item/data/base";
+import { OneToFour, ZeroToThree } from "@module/data";
+import { DamageDieSize, DamageType } from "@system/damage";
+import type { LocalizePF2e } from "@system/localize";
+import type { WeaponPF2e } from "..";
 import { MELEE_WEAPON_GROUPS, RANGED_WEAPON_GROUPS, WEAPON_CATEGORIES, WEAPON_GROUPS, WEAPON_RANGES } from "./values";
-import { DamageDieSize } from "@system/damage/damage";
 
 export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
     flags: DeepPartial<WeaponFlags>;

@@ -21,7 +21,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
         const kitFields = ["img", "data.price.value", "data.traits"];
-        const baseFields = [...kitFields, "data.stackGroup.value", "data.level.value", "data.source.value"];
+        const baseFields = [...kitFields, "data.stackGroup", "data.level.value", "data.source.value"];
         const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
         const consumableFields = [...baseFields, "data.consumableType.value"];
         const indexFields = [
@@ -38,7 +38,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
-                if (itemData.type === "treasure" && itemData.data.stackGroup.value === "coins") continue;
+                if (itemData.type === "treasure" && itemData.data.stackGroup === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
                     let skip = false;
                     if (itemData.type === "weapon" || itemData.type === "armor") {
@@ -64,9 +64,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                             const total = coinValues
                                 .map((coinValue) =>
                                     coinValueInCopper(
-                                        extractPriceFromItem({
-                                            data: { price: { value: coinValue }, quantity: { value: 1 } },
-                                        })
+                                        extractPriceFromItem({ data: { price: { value: coinValue }, quantity: 1 } })
                                     )
                                 )
                                 .reduce((total, part) => total + part, 0);
@@ -77,20 +75,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                                 value: `${itemData.data.value.value} ${itemData.data.denomination.value}`,
                             };
                             return coinValueInCopper(
-                                extractPriceFromItem({
-                                    data: {
-                                        price: { value: coinValue },
-                                        quantity: { value: 1 },
-                                    },
-                                })
+                                extractPriceFromItem({ data: { price: { value: coinValue }, quantity: 1 } })
                             );
                         }
                         return coinValueInCopper(
                             extractPriceFromItem({
-                                data: {
-                                    price: { value: itemData.data?.price?.value ?? "0 gp" },
-                                    quantity: { value: 1 },
-                                },
+                                data: { price: { value: itemData.data?.price?.value ?? "0 gp" }, quantity: 1 },
                             })
                         );
                     })();

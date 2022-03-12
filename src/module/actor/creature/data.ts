@@ -14,7 +14,7 @@ import {
     BaseActorAttributes,
 } from "@actor/data/base";
 import type { ALIGNMENT_TRAITS, CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
-import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@module/modifiers";
+import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
 import { SaveType } from "@actor/data";

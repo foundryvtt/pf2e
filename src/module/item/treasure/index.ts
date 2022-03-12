@@ -7,7 +7,7 @@ export class TreasurePF2e extends PhysicalItemPF2e {
     }
 
     get isCoinage(): boolean {
-        return this.data.data.stackGroup.value === "coins";
+        return this.data.data.stackGroup === "coins";
     }
 
     /** Set non-coinage treasure price from its numeric value and denomination */
@@ -15,7 +15,7 @@ export class TreasurePF2e extends PhysicalItemPF2e {
         super.prepareBaseData();
         const systemData = this.data.data;
         if (this.isCoinage) {
-            systemData.size.value = "med";
+            systemData.size = "med";
         } else {
             const value = systemData.value.value;
             const denomination = systemData.denomination.value.trim();

@@ -30,7 +30,9 @@ function calculateDaysToNoCost(costs: Costs): number {
     );
 }
 
-function prepStrings(costs: Costs, itemUuid: string) {
+function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
+    const rollData = item.getRollData();
+
     return {
         reductionPerDay: coinsToString(costs.reductionPerDay),
         materialCost: game.i18n.format("PF2E.Actions.Craft.Details.PayMaterials", {
@@ -42,7 +44,7 @@ function prepStrings(costs: Costs, itemUuid: string) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: coinsToString(costs.lostMaterials),
         }),
-        itemLink: game.pf2e.TextEditor.enrichHTML("@" + itemUuid.replace(".", "[") + "]"),
+        itemLink: game.pf2e.TextEditor.enrichHTML(item.link, { rollData }),
     };
 }
 
@@ -53,7 +55,7 @@ function calculateCosts(
     degreeOfSuccess: number
 ): Costs | undefined {
     const itemPrice = extractPriceFromItem({
-        data: { quantity: { value: quantity }, price: item.data.data.price },
+        data: { quantity, price: item.data.data.price },
     });
     const materialCosts = multiplyCoinValue(itemPrice, 0.5);
 
@@ -110,12 +112,12 @@ function skillRankToProficiency(rank: ZeroToFour): TrainedProficiencies | undefi
 
 export async function craftItem(item: PhysicalItemPF2e, itemQuantity: number, actor: ActorPF2e, infused?: boolean) {
     const itemSource = item.toObject();
-    itemSource.data.quantity.value = itemQuantity;
+    itemSource.data.quantity = itemQuantity;
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
         const sourceTraits: string[] = itemSource.data.traits.value;
         sourceTraits.push("infused");
-        itemSource.data.temporary = { value: true };
+        itemSource.data.temporary = true;
     }
     const result = await actor.addToInventory(itemSource);
     if (!result) {
@@ -189,9 +191,9 @@ export async function renderCraftingInline(
 
     return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
         daysForZeroCost: daysForZeroCost,
-        strings: prepStrings(costs, item.uuid),
+        strings: prepStrings(costs, item),
         item,
-        quantity: quantity,
+        quantity,
         success: degreeOfSuccess > 1,
         criticalFailure: degreeOfSuccess === 0,
     });

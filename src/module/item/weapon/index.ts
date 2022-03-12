@@ -55,6 +55,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             "held-in-one-plus-hands": "1+",
             "held-in-two-hands": "2",
         } as const;
+
         return usageToHands[this.data.data.usage.value] ?? "1";
     }
 
@@ -101,7 +102,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`category:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
-                [`hands:${this.hands}`]: this.hands !== "0",
+                [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
+                [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`material:${this.material?.type}`]: !!this.material?.type,
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
@@ -212,7 +214,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const materialValue = toCoins("gp", materialPrice + (bulk * materialPrice) / 10);
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
         const withRunes = extractPriceFromItem({
-            data: { quantity: { value: 1 }, price: { value: `${runeValue} gp` } },
+            data: { quantity: 1, price: { value: `${runeValue} gp` } },
         });
         const modifiedPrice = combineCoins(withRunes, materialValue);
 

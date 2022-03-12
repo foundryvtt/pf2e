@@ -1068,6 +1068,7 @@
         "DCAdjustmentIncrediblyHard": "incredibly hard",
         "DCBase": "Base DC 10",
         "DCWithValue": "DC {dc} {text}",
+        "DCWithValueAndVisibility": "<span data-visibility=\"{role}\">DC {dc}</span> {text}",
         "DecrementEffectTitle": "Decrease Effect Level",
         "DefencesLabel": "Defences",
         "Deity": "Deity",
@@ -1177,6 +1178,7 @@
         "EquippedBulkLabel": "Worn Bulk",
         "EquippedSameBulkValue": "Same as Carried",
         "ErrorMessage": {
+            "CantCreateEffectMacro": "An effect for a toggle macro must come from a compendium or world item.",
             "CantImportTooHighVersion": "Unable to import {sourceName}: its schema version ({sourceSchemaVersion}) is higher than this world's ({worldSchemaVersion}).",
             "CantMoveItemDestination": "You are not allowed to move items to this character.",
             "CantMoveItemSource": "You are not allowed to move items from this character.",
@@ -1525,7 +1527,9 @@
         "ItemTitle": "Item",
         "ItemsLabel": "Items",
         "JournalEntry": {
-            "Plural": "Journal Entries"
+            "Plural": "Journal Entries",
+            "FoundryTheme": "Foundry (Classic) Journal Entry",
+            "PF2ETheme": "PF2e System Journal Entry"
         },
         "KeyAbility": "Key Ability Score",
         "KeyAbilityLabel": "Key Ability",
@@ -1992,12 +1996,6 @@
             "DeathIcon": {
                 "Name": "Death Icon",
                 "Hint": "Set the overlay icon used to mark dead actors."
-            },
-            "JournalEntryTheme": {
-                "Name": "Journal Entry Theme",
-                "Hint": "Set the style theme of journal entries in this world.",
-                "Foundry": "Foundry (Classic)",
-                "PF2E": "PF2e System"
             },
             "statusEffectKeepFoundry": {
                 "hint": "Determines if you want to show the Foundry Icon set below the Pathfinder 2E icon set. This will trigger a reload.",
@@ -4254,7 +4252,21 @@
                 "AddOneDay": "1 Day",
                 "AddOneWeek": "1 Week",
                 "Advance": "Advance",
-                "Retract": "Retract"
+                "Retract": "Retract",
+                "TimeOfDay": {
+                    "Advance": {
+                        "Dawn": "Advance to Dawn",
+                        "Dusk": "Advance to Dusk",
+                        "Noon": "Advance to Noon",
+                        "Midnight": "Advance to Midnight"
+                    },
+                    "Retract": {
+                        "Dawn": "Retract to Dawn",
+                        "Dusk": "Retract to Dusk",
+                        "Noon": "Retract to Noon",
+                        "Midnight": "Retract to Midnight"
+                    }
+                }
             },
             "Placeholder": "Number",
             "Title": "World Clock",
@@ -4609,7 +4621,8 @@
             "Quantity": "Quantity",
             "SheetType": "Sheet Type",
             "SplitCoinsLabel": "Distribute Coins",
-            "SplitCoinsPopupHeader": "Choose actors to receive a share"
+            "SplitCoinsPopupHeader": "Choose actors to receive a share",
+            "Stack": "Create new stack?"
         },
         "vehicle": {
             "ItemTypeError": "Only inventory items and actions are currently supported by vehicles.",

@@ -2,7 +2,7 @@ import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
-import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -56,10 +56,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             this.renderItemSummary($summary, item, chatData);
             $li.children(".item-name, .item-controls, .action-header").last().after($summary);
             if (options.instant) {
-                InlineRollsLinks.listen($summary);
+                InlineRollLinks.listen($summary);
             } else {
                 $summary.hide().slideDown(200, () => {
-                    InlineRollsLinks.listen($summary);
+                    InlineRollLinks.listen($summary);
                 });
             }
         }
@@ -85,7 +85,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             : null;
 
         const $priceLabel =
-            itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup.value !== "coins"
+            itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup !== "coins"
                 ? ((): JQuery => {
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: item.price });
                       return $(`<p>${priceLabel}</p>`);
@@ -126,7 +126,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
-            : game.pf2e.TextEditor.enrichHTML(item.description);
+            : game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData() });
 
         $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
     }

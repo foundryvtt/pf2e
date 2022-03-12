@@ -19,10 +19,23 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "target:condition:frightened",
+                        "weapon:melee"
+                    ]
+                },
+                "selector": "attack",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> {item|data.description.value}</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
