@@ -1,4 +1,4 @@
-import { DeferredValueParams, ModifierPF2e } from "@module/modifiers";
+import { DeferredValueParams, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { DeferredModifier } from "./rule-element/data";
 

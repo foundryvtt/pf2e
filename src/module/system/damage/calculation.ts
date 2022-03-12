@@ -1,7 +1,7 @@
 import { Alignment } from "@actor/creature/data";
 import { ModeOfBeing } from "@actor/data";
-import { isChaotic, isEvil, isGood, isLawful } from "./alignment";
-import { groupBy, sum } from "../util";
+import { isChaotic, isEvil, isGood, isLawful } from "@system/alignment";
+import { groupBy, sum } from "@util";
 
 const physicalDamageTypes = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const lifeEnergyDamageTypes = ["positive", "negative"] as const;
@@ -190,7 +190,7 @@ interface HasValue {
     calculateValue(damage: Damage, damageType: DamageType): number;
 }
 
-class Modifier {
+class IWRAttribute {
     protected exceptions: DamageExceptions;
     protected type: string;
 
@@ -217,13 +217,13 @@ class Modifier {
     }
 }
 
-export class Immunity extends Modifier {
+export class Immunity extends IWRAttribute {
     copy({ type, exceptions }: { type?: string; exceptions?: DamageExceptions }): Immunity {
         return new Immunity({ exceptions: exceptions ?? this.exceptions, type: type ?? this.type });
     }
 }
 
-export class Weakness extends Modifier implements HasValue {
+export class Weakness extends IWRAttribute implements HasValue {
     private readonly value: number;
 
     constructor({ type, value, exceptions = [] }: { type: string; value: number; exceptions?: DamageExceptions }) {
@@ -246,7 +246,7 @@ export class Weakness extends Modifier implements HasValue {
     }
 }
 
-export class Resistance extends Modifier implements HasValue {
+export class Resistance extends IWRAttribute implements HasValue {
     private readonly value: number;
     private readonly doubleResistanceVsNonMagical: boolean;
 
@@ -345,7 +345,7 @@ function getAllAttackTraits(damage: Damage): Set<CombinedTrait> {
  * Given a damage type pool, find out which modifiers are relevant by checking their exceptions
  * @return a list of modifiers filtered by their except blocks
  */
-function filterModifiers<T extends Modifier>(
+function filterModifiers<T extends IWRAttribute>(
     damage: Damage,
     damageType: DamageType,
     modifiersByType: Map<CombinedTrait, T[]>

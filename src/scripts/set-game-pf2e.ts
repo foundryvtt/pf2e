@@ -10,7 +10,7 @@ import {
     MODIFIER_TYPE,
     ProficiencyModifier,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { DicePF2e } from "@scripts/dice";

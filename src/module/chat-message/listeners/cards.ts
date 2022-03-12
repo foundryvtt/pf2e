@@ -1,6 +1,6 @@
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import {
     attemptToRemoveCoinsByValue,
     coinsToString,

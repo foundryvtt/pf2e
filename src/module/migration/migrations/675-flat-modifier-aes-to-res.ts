@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
-import { ModifierType } from "@module/modifiers";
+import { ModifierType } from "@actor/modifiers";
 import { RuleElementSource } from "@module/rules";
 import { MigrationBase } from "../base";
 

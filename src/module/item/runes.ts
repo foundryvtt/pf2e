@@ -1,12 +1,12 @@
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
-import { DiceModifierPF2e } from "@module/modifiers";
+import { DiceModifierPF2e } from "@actor/modifiers";
 import { isBlank } from "@util";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { DamageDieSize } from "@system/damage/damage";
 import { PredicateStatement, RawPredicate } from "@system/predication";
 import type { ResilientRuneType } from "./armor/data";
 import type { ArmorData, WeaponData } from "./data";
-import type { OtherWeaponTag, StrikingRuneType, WeaponSystemData, WeaponTrait } from "./weapon/data";
+import type { OtherWeaponTag, StrikingRuneType, WeaponTrait } from "./weapon/data";
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
     let slots = 0;
@@ -35,19 +35,6 @@ export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number
         }
     }
     return runes;
-}
-
-export function getAttackBonus(itemData: WeaponSystemData): number {
-    if (itemData.group === "bomb") {
-        return Number(itemData?.bonus?.value) || 0;
-    }
-    return itemData.potencyRune.value ?? 0;
-}
-
-export function getArmorBonus(itemData: ArmorData["data"]): number {
-    const potencyRune = itemData.potencyRune.value;
-    const baseArmor = Number(itemData.armor.value) || 0;
-    return baseArmor + potencyRune;
 }
 
 const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> = new Map([

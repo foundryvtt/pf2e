@@ -5,7 +5,7 @@ import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalIt
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
+import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";

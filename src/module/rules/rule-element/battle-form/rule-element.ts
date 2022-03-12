@@ -13,7 +13,7 @@ import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";

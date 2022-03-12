@@ -1,23 +1,23 @@
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { VisionLevel, VisionLevels } from "@actor/creature/data";
+import { SaveType } from "@actor/data";
+import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
-import { WeaponDamagePF2e } from "@module/system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
-import { RollNotePF2e } from "@module/notes";
-import { RollParameters } from "@system/rolls";
-import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
-import { DamageType } from "@module/damage-calculation";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { RollNotePF2e } from "@module/notes";
+import { extractModifiers, extractNotes } from "@module/rules/util";
+import { WeaponDamagePF2e } from "@module/system/damage";
+import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
+import { DamageType } from "@system/damage";
+import { LocalizePF2e } from "@system/localize";
+import { RollParameters } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { NPCData, NPCStrike } from "./data";
-import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
-import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
-import { LocalizePF2e } from "@system/localize";
-import { extractModifiers, extractNotes } from "@module/rules/util";
-import { Statistic } from "@system/statistic";
-import { SaveType } from "@actor/data";
-import { TextEditorPF2e } from "@system/text-editor";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {

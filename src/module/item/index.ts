@@ -1,4 +1,4 @@
-export { ItemPF2e } from "./base";
+export { ItemPF2e, ItemConstructionContextPF2e } from "./base";
 export { PhysicalItemPF2e } from "./physical";
 export { ABCItemPF2e } from "./abc";
 export { ActionPF2e } from "./action";

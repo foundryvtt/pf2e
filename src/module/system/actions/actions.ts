@@ -7,7 +7,7 @@ import {
     StatisticModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { CheckPF2e } from "../rolls";
 import { Statistic, StatisticDataWithDC } from "@system/statistic";
 import { RollNotePF2e } from "@module/notes";
