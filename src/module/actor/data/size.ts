@@ -39,6 +39,8 @@ export class ActorSizePF2e {
      * @param [width]  A width of a Pathfinder "space"
      */
     constructor({ value, length, width }: { value: Size; length?: number; width?: number }) {
+        if (typeof value === "object") value = "med"; // Temporary line for pre-migration 728 size data
+
         this.value = value;
         const spaces = ActorSizePF2e.defaultSpaces[value];
         this.length = length ?? spaces.length;
