@@ -185,18 +185,4 @@ export const SKILL_EXPANDED: Record<string, SkillExpanded> = {
     thievery: { ability: "dex", shortform: "thi" },
 };
 
-export const SUPPORTED_ROLL_OPTIONS = [
-    "all",
-    "attack-roll",
-    "damage-roll",
-    "saving-throw",
-    "fortitude",
-    "reflex",
-    "will",
-    "perception",
-    "initiative",
-    "skill-check",
-    "counteract-check",
-];
-
 export const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;

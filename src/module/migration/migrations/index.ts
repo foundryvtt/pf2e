@@ -130,3 +130,4 @@ export { Migration727TrimSelfRollOptions } from "./727-trim-self-roll-options";
 export { Migration728FlattenPhysicalProperties } from "./728-flatten-physical-properties";
 export { Migration729CumulativeItemBonusCleanup } from "./729-cumulative-item-bonus-cleanup";
 export { Migration730DeruneHandwraps } from "./730-derune-handwraps";
+export { Migration731TogglePropertyToRollOption } from "./731-toggle-property-to-roll-option";

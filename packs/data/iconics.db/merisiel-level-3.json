@@ -664,7 +664,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "class:rogue"
                             ],
                             "any": [
@@ -1209,9 +1209,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Trap Finder (detecting or defending against traps)",
-                        "property": "flags.pf2e.rollOptions.all.trap-finder"
+                        "option": "trap-finder",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

@@ -1,11 +1,11 @@
-<div class="tab main" data-group="primary" data-tab="main">
+<section class="tab main" data-group="primary" data-tab="main">
     <!-- TOGGLES -->
     <div class="toggles section-container headerless">
         <div class="section-body actions-options item-list">
-            {{#each actor.data.toggles.actions as |toggle idx|}}
-                <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            {{#each actor.data.toggles as |toggle idx|}}
+                <div class="actions-option item">
                     <label>
-                        <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+                        <input type="checkbox" data-action="toggle-roll-option" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}}>
                         <span>{{localize toggle.label}}</span>
                     </label>
                 </div>
@@ -179,4 +179,4 @@
             </ol>
         </div>
     </div>
-</div>
+</section>

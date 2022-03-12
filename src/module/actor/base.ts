@@ -302,6 +302,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.data.data.tokenEffects = [];
         this.data.data.autoChanges = {};
         this.data.data.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
+        this.data.data.toggles = [];
 
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
@@ -525,6 +526,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 speaker: ChatMessage.getSpeaker({ actor: this }),
             });
         }
+    }
+
+    /** Toggle the provided roll option (swapping it from true to false or vice versa). */
+    async toggleRollOption(domain: string, option: string, value = !this.rollOptions[domain]?.[option]): Promise<this> {
+        domain = domain.replace(/[^-\w]/g, "");
+        option = option.replace(/[^-:\w]/g, "");
+
+        if (domain && option) {
+            return this.update({ [`flags.pf2e.rollOptions.${domain}.${option}`]: value });
+        }
+        return this;
     }
 
     /**

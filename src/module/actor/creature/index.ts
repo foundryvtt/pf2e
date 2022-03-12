@@ -32,7 +32,7 @@ import { Statistic } from "@system/statistic";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
@@ -294,7 +294,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
 
         // Set base actor-shield data for PCs NPCs
-        if (this.data.type === "character" || this.data.type === "npc") {
+        if (this.isOfType("character", "npc")) {
             this.data.data.attributes.shield = {
                 itemId: null,
                 name: game.i18n.localize("PF2E.ArmorTypeShield"),
@@ -310,16 +310,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        this.data.data.toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
-                    checked: !!this.rollOptions.all["target:flatFooted"],
-                    enabled: true,
-                },
-            ],
-        };
+        const flatFootedOption = "target:condition:flat-footed";
+        this.data.data.toggles = [
+            {
+                label: "PF2E.TargetFlatFootedLabel",
+                domain: "all",
+                option: flatFootedOption,
+                checked: !!this.rollOptions.all[flatFootedOption],
+                enabled: true,
+            },
+        ];
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -596,15 +596,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         } else {
             throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
         }
-    }
-
-    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(domain: string, option: string): Promise<this> {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
-            throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
-        }
-        const flag = `rollOptions.${domain}.${option}`;
-        return this.setFlag("pf2e", flag, !this.rollOptions[domain]?.[option]);
     }
 
     /** Prepare derived creature senses from Rules Element synthetics */

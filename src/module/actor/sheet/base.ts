@@ -100,7 +100,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             effects: actorData.effects,
             items: items,
             user: { isGM: game.user.isGM },
-            isTargetFlatFooted: !!this.actor.rollOptions.all["target:flatFooted"],
+            isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,
             totalWealth,
@@ -233,6 +233,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const { skipDialog, secret } = eventToRollParams(event);
                 const options = secret ? ["secret"] : [];
                 attributes.initiative.roll?.({ skipDialog, options });
+            }
+        });
+
+        const toggleSelector = "input[type=checkbox][data-action=toggle-roll-option]";
+        $html.find<HTMLInputElement>(toggleSelector).on("change", async (event) => {
+            const { domain, option } = event.target.dataset;
+            if (domain && option) {
+                const value = event.target.checked;
+                await this.actor.toggleRollOption(domain.trim(), option.trim(), value);
             }
         });
 
