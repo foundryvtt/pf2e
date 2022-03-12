@@ -788,9 +788,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
+            const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "data.containerId": container.id,
-                "data.equipped.carryType": "stowed",
+                "data.equipped.carryType": carryType,
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });
