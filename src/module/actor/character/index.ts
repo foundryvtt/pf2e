@@ -718,17 +718,14 @@ class CharacterPF2e extends CreaturePF2e {
             otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
-        // Automatic Actions
-        systemData.actions = [];
-
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwraps = itemTypes.weapon.find(
-            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed" && w.isInvested
+            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed"
         );
         const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
             const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
                 handwraps?.data._source.data ?? {};
-            return handwraps
+            return handwraps?.isInvested
                 ? deepClone({
                       potencyRune,
                       strikingRune,
@@ -757,6 +754,7 @@ class CharacterPF2e extends CreaturePF2e {
                         inSlot: true,
                         handsHeld: 0,
                     },
+                    traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     usage: { value: "worngloves" },
                     ...(unarmedRunes ?? {}),
                 },
@@ -1275,6 +1273,7 @@ class CharacterPF2e extends CreaturePF2e {
             slug: weapon.slug,
             ready: weapon.isEquipped,
             glyph: "A",
+            item: weapon,
             type: "strike" as const,
             description: flavor.description,
             criticalSuccess: flavor.criticalSuccess,
@@ -1290,9 +1289,6 @@ class CharacterPF2e extends CreaturePF2e {
         // Define these as getters so that Foundry's TokenDocument#getBarAttribute method doesn't recurse infinitely
         Object.defineProperty(action, "origin", {
             get: () => this.items.get(weapon.id),
-        });
-        Object.defineProperty(action, "item", {
-            get: () => weapon,
         });
 
         // Sets the ammo list if its an ammo using weapon group
