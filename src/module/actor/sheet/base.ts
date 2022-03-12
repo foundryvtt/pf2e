@@ -747,16 +747,23 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const targetId = $target.attr("data-item-id") ?? "";
             const target = this.actor.physicalItems.get(targetId);
 
-            if ((!target || target.isOfType("backpack")) && item.container?.id !== target?.id) {
-                await this.actor.stowOrUnstow(item, target);
-                return [item];
-            } else if (target && item.isStackableWith(target)) {
+            if (target && item.isStackableWith(target)) {
                 const stackQuantity = item.quantity + target.quantity;
                 if (await item.delete({ render: false })) {
                     await target.update({ "data.quantity": stackQuantity });
                 }
 
                 return [];
+            }
+
+            const $container = $(event.target).closest('[data-item-is-container="true"]');
+            const containerId = $container.attr("data-item-id") ?? "";
+            const container = this.actor.physicalItems.get(containerId);
+            const pullingOutOfContainer = item.isInContainer && !container;
+            const puttingIntoContainer = container?.isOfType("backpack") && item.container?.id !== container.id;
+            if (pullingOutOfContainer || puttingIntoContainer) {
+                await this.actor.stowOrUnstow(item, container);
+                return [item];
             }
         }
 
