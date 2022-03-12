@@ -109,7 +109,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.data.data.containerId === null) return (this._container = null);
 
         const container = this._container ?? this.actor?.items.get(this.data.data.containerId ?? "");
-        if (container?.type === "backpack") this._container = container as Embedded<ContainerPF2e>;
+        if (container?.isOfType("backpack")) this._container = container;
 
         return this._container;
     }
@@ -216,6 +216,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Fill gaps in unidentified data with defaults
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
+    }
+
+    override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
+        if (this.isStowed) {
+            this.data.data.equipped.carryType = "stowed";
+            delete this.data.data.equipped.inSlot;
+        }
     }
 
     /** Can the provided item stack with this item? */
