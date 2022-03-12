@@ -36,7 +36,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         const { rollOptions } = this.actor;
         const domain = (rollOptions[this.domain] ??= {});
         const option = this.resolveInjectedProperties(this.option);
-        domain[option] = Boolean(this.resolveValue());
+        domain[option] = !!this.resolveValue(this.value);
     }
 
     /**
@@ -47,7 +47,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         if (!(this.test() && domains.includes(this.domain))) return;
 
         const option = this.resolveInjectedProperties(this.option);
-        const value = this.resolveValue();
+        const value = this.resolveValue(this.value);
         if (value === true) {
             rollOptions.push(option);
         } else if (value === false) {
