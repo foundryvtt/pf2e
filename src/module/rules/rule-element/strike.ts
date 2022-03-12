@@ -55,7 +55,9 @@ class StrikeRuleElement extends RuleElementPF2e {
 
         if (this.data.replaceAll) {
             const systemData = this.actor.data.data;
-            systemData.actions = systemData.actions.filter((action) => action.item === this.weapon);
+            systemData.actions = systemData.actions.filter((a) =>
+                (["id", "name", "group"] as const).every((key) => a.item[key] === this.weapon[key])
+            );
         } else if (this.data.replaceBasicUnarmed) {
             const systemData = this.actor.data.data;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
