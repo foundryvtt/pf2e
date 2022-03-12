@@ -56,6 +56,22 @@ export class ConditionPF2e extends ItemPF2e {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** Drop everything when dying */
+    protected override async _preCreate(
+        data: PreDocumentId<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        if (this.slug === "dying" && this.actor?.isOfType("character")) {
+            const stuffToDrop = this.actor.physicalItems
+                .filter((w) => w.handsHeld > 0)
+                .map((w) => ({ _id: w.id, "data.equipped": { carryType: "dropped", handsHeld: 0 } }));
+            await this.actor.updateEmbeddedDocuments("Item", stuffToDrop, { render: false });
+        }
+
+        await super._preCreate(data, options, user);
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: ConditionModificationContext<this>,
