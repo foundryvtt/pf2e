@@ -71,11 +71,11 @@ declare global {
          * @param sheetClass  A defined Application class used to render the sheet
          * @param types             An Array of types for which this sheet should be removed
          */
-        static unregisterSheet(
-            documentClass: typeof foundry.abstract.Document,
+        static unregisterSheet<T extends ClientDocument>(
+            documentClass: ConstructorOf<T>,
             scope: string,
-            sheetClass: typeof DocumentSheet,
-            options: { types: string[] }
+            sheetClass: ConstructorOf<T["sheet"]>,
+            options?: { types: string[] }
         ): void;
 
         /** Perform the sheet de-registration */

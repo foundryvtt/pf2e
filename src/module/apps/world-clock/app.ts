@@ -1,7 +1,8 @@
 import { LocalizePF2e } from "@system/localize";
-import { ordinal } from "@util";
+import { ordinal, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness";
+import { TimeChangeMode, TimeOfDay } from "./time-of-day";
 
 interface WorldClockData {
     date: string;
@@ -175,13 +176,33 @@ export class WorldClock extends Application {
         return settingsButton.concat(...super._getHeaderButtons());
     }
 
+    private static calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
+        const mode = intervalMode === "+" ? TimeChangeMode.ADVANCE : TimeChangeMode.RETRACT;
+        switch (interval) {
+            case "dawn":
+                return TimeOfDay.DAWN.diffSeconds(wordTime, mode);
+            case "noon":
+                return TimeOfDay.NOON.diffSeconds(wordTime, mode);
+            case "dusk":
+                return TimeOfDay.DUSK.diffSeconds(wordTime, mode);
+            case "midnight":
+                return TimeOfDay.MIDNIGHT.diffSeconds(wordTime, mode);
+            default: {
+                const sign = mode === TimeChangeMode.ADVANCE ? 1 : -1;
+                return Number(interval) * sign;
+            }
+        }
+    }
+
     /** Advance the world time by a static or input value */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         $html.find("button[data-advance-time]").on("click", (event) => {
             const $button = $(event.currentTarget);
-            const increment = Number($button.data("advanceTime") ?? 0);
+            const advanceTime = $button.data("advanceTime") ?? "0";
+            const advanceMode = $button.data("advanceMode") ?? "+";
+            const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
             if (increment !== 0) game.time.advance(increment);
         });
 
@@ -200,16 +221,28 @@ export class WorldClock extends Application {
                 if (!(event.ctrlKey || this.ctrlKeyDown)) return;
                 const retractTime = event.type === "keydown";
                 this.ctrlKeyDown = retractTime;
-                const $buttons = $html.find("button[data-advance-time]");
-                $buttons.each((_index, button) => {
-                    const $button = $(button);
-                    $button.attr("data-advance-time", -1 * Number($button.attr("data-advance-time")));
-                });
-                $buttons.find(".sign").text(retractTime ? "-" : "+");
 
-                const { Advance, Retract } = this.translations.Button;
+                const { Advance, Retract, TimeOfDay } = this.translations.Button;
+                const advanceButtons = Array.from(
+                    $html.get(0)?.querySelectorAll<HTMLButtonElement>("button[data-advance-time]") ?? []
+                );
+
+                for (const button of advanceButtons) {
+                    const { advanceMode, advanceTime } = button.dataset;
+                    const nextMode = advanceMode === "+" ? "-" : "+";
+                    button.dataset.advanceMode = nextMode;
+
+                    const sign = button.querySelector(".sign");
+                    if (sign) sign.innerHTML = nextMode;
+
+                    if (tupleHasValue(["dawn", "noon", "dusk", "midnight"] as const, advanceTime)) {
+                        const timeOfDayKeys = nextMode === "+" ? TimeOfDay.Advance : TimeOfDay.Retract;
+                        button.title = timeOfDayKeys[advanceTime.titleCase() as keyof typeof timeOfDayKeys];
+                    }
+                }
+
                 $html
-                    .find('button[name="advance"], button[name="retract"]')
+                    .find("button[name=advance], button[name=retract]")
                     .attr("name", retractTime ? "retract" : "advance")
                     .text(game.i18n.localize(retractTime ? Retract : Advance));
             });

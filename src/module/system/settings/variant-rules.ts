@@ -1,4 +1,4 @@
-const SETTINGS = {
+const SETTINGS: Record<string, ClientSettingsData> = {
     staminaVariant: {
         name: "PF2E.SETTINGS.Variant.Stamina.Name",
         hint: "PF2E.SETTINGS.Variant.Stamina.Hint",
@@ -100,32 +100,32 @@ const SETTINGS = {
         default: 8,
         type: Number,
     },
-} as const;
+};
 
 export class VariantRulesSettings extends FormApplication {
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): FormApplicationOptions {
+        return {
+            ...super.defaultOptions,
             title: "PF2E.SETTINGS.Variant.Title",
             id: "variant-rules-settings",
             template: "systems/pf2e/templates/system/settings/variant-rules-settings.html",
             width: 550,
             height: "auto",
             closeOnSubmit: true,
-        });
+        };
     }
 
-    override getData() {
-        const data: any = {};
-        for (const [k, v] of Object.entries(SETTINGS)) {
-            data[k] = {
-                value: game.settings.get("pf2e", k),
-                setting: v,
-            };
-        }
-        return data;
+    override async getData(): Promise<Record<string, { value: unknown; setting: ClientSettingsData }>> {
+        return Object.entries(SETTINGS).reduce(
+            (data: Record<string, { value: unknown; setting: ClientSettingsData }>, [key, setting]) => ({
+                ...data,
+                [key]: { value: game.settings.get("pf2e", key), setting },
+            }),
+            {}
+        );
     }
 
-    static registerSettings() {
+    static registerSettings(): void {
         for (const [k, v] of Object.entries(SETTINGS)) {
             game.settings.register("pf2e", k, v);
         }

@@ -12,15 +12,17 @@ import { ItemPF2e } from "@item";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
-    static override get defaultOptions() {
+    static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        return mergeObject(options, {
+
+        return {
+            ...options,
             editable: true,
-            classes: options.classes.concat("loot"),
+            classes: [...options.classes, "loot"],
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "inventory" }],
-        });
+        };
     }
 
     override get template(): string {
@@ -58,8 +60,8 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    prepareItems(sheetData: any) {
-        const actorData: any = sheetData.actor;
+    prepareItems(sheetData: any): void {
+        const actorData = sheetData.actor;
         const inventory: Record<
             Exclude<PhysicalItemType, "book">,
             { label: string; items: (PhysicalItemData & { totalWeight?: string })[] }
@@ -97,10 +99,10 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.isOwner);
             itemData.isInContainer = containerData.isInContainer;
             itemData.isSellableTreasure =
-                itemData.showEdit && itemData.type === "treasure" && itemData.data.stackGroup.value !== "coins";
+                itemData.showEdit && itemData.type === "treasure" && itemData.data.stackGroup !== "coins";
             itemData.canBeEquipped = false;
             // Inventory
-            itemData.data.quantity.value = itemData.data.quantity.value || 0;
+            itemData.data.quantity = itemData.data.quantity || 0;
             itemData.data.weight.value = itemData.data.weight.value || 0;
             const bulkItem = bulkItemsById.get(itemData._id);
             const [approximatedBulk] = calculateBulk({
@@ -120,15 +122,15 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     // Events
 
-    private distributeCoins(event: JQuery.ClickEvent) {
+    private async distributeCoins(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
-        new DistributeCoinsPopup(this.actor, {}).render(true);
+        await new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
-    private lootNPCs(event: JQuery.ClickEvent) {
+    private async lootNPCs(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
         if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
-            new LootNPCsPopup(this.actor).render(true);
+            await new LootNPCsPopup(this.actor).render(true);
         } else {
             ui.notifications.warn("No tokens selected.");
         }

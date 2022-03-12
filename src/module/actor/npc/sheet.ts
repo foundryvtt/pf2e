@@ -8,144 +8,24 @@ import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ConditionPF2e, SpellcastingEntryPF2e } from "@item";
 import {
-    ActionData,
     ArmorData,
     ConsumableData,
     EffectData,
     EquipmentData,
     ItemDataPF2e,
-    SpellcastingEntryData,
     TreasureData,
     WeaponData,
 } from "@item/data";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
-import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "../sheet/data-types";
-import { ValuesList, ZeroToEleven } from "@module/data";
-import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCStrike, NPCSystemData } from "./data";
-import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, HitPointsData, PerceptionData } from "@actor/data/base";
-import { SaveType } from "@actor/data";
+import { InventoryItem, SheetInventory } from "../sheet/data-types";
+import { Size, ValuesList, ZeroToEleven } from "@module/data";
+import { NPCSkillData } from "./data";
+import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
+import { AbilityString } from "@actor/data/base";
 import { BookData } from "@item/book";
-import { SpellcastingEntryListData } from "@item/spellcasting-entry/data";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { FlattenedCondition } from "@system/conditions";
-
-interface ActionsDetails {
-    label: string;
-    actions: SheetItemData<RawObject<ActionData>>[];
-}
-
-interface ActionActions {
-    passive: ActionsDetails;
-    free: ActionsDetails;
-    reaction: ActionsDetails;
-    action: ActionsDetails;
-}
-
-interface Attack {
-    attack: NPCStrike;
-    traits: {
-        label: string;
-        description: string;
-    }[];
-}
-
-type Attacks = Attack[];
-
-/** Highlight such a statistic if adjusted by data preparation */
-interface WithAdjustments {
-    adjustedHigher?: boolean;
-    adjustedLower?: boolean;
-}
-
-interface NPCSystemSheetData extends NPCSystemData {
-    attributes: NPCAttributes & {
-        ac: NPCArmorClass & WithAdjustments;
-        hp: HitPointsData & WithAdjustments;
-        perception: PerceptionData & WithAdjustments;
-    };
-    details: NPCSystemData["details"] & {
-        level: NPCSystemData["details"]["level"] & WithAdjustments;
-        alignment: {
-            localizedName?: string;
-        };
-    };
-    sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
-    saves: Record<SaveType, NPCSaveData & WithAdjustments & { labelShort?: string }>;
-    traits: CreatureTraitsData & {
-        size: {
-            localizedName?: string;
-        };
-    };
-}
-
-/** Additional fields added in sheet data preparation */
-interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
-    actions: ActionActions;
-    attacks: Attacks;
-    data: NPCSystemSheetData;
-    items: SheetItemData[];
-    effectItems: EffectData[];
-    conditions: FlattenedCondition[];
-    spellcastingEntries: SpellcastingSheetData[];
-    orphanedSpells: boolean;
-    orphanedSpellbook: any;
-    identifyCreatureData: IdentifyCreatureData;
-    identifySkillDC?: number;
-    identifySkillAdjustment?: string;
-    identifySkillProgression?: string;
-    identificationSkills?: string[];
-    identificationSkillList?: string;
-    specificLoreDC?: number;
-    specificLoreAdjustment?: string;
-    specificLoreProgression?: string;
-    unspecificLoreDC?: number;
-    unspecificLoreAdjustment?: string;
-    unspecificLoreProgression?: string;
-    isNotCommon?: boolean;
-    actorSize?: string;
-    actorAttitudes?: ConfigPF2e["PF2E"]["attitude"];
-    actorAttitude?: string;
-    traits?: Record<string, string>;
-    immunities?: Record<string, string>;
-    hasImmunities?: boolean;
-    languages?: Record<string, string>;
-    isWeak?: boolean;
-    isElite?: boolean;
-    eliteState: "active" | "inactive";
-    weakState: "active" | "inactive";
-    notAdjusted: boolean;
-    inventory: SheetInventory;
-    hasShield?: boolean;
-    hasHardness?: boolean;
-    configLootableNpc?: boolean;
-    isSpellcaster?: boolean;
-}
-
-type SheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDataPF2e> = T & {
-    glyph: string;
-    imageUrl: string;
-    traits: {
-        label: string;
-        description?: string;
-    }[];
-    chatData?: unknown;
-    data: {
-        bonus?: {
-            value: number;
-            total?: number;
-        };
-        isAgile?: boolean;
-        prepared?: boolean;
-        tradition?: {
-            ritual: boolean;
-            focus: boolean;
-        };
-        weaponType?: string;
-    };
-};
-
-export type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
+import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData } from "./types";
+import { CreatureSheetData } from "@actor/creature/types";
 
 export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
@@ -206,22 +86,24 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.attacks = this.prepareAttacks(sheetData.data);
         sheetData.conditions = game.pf2e.ConditionManager.getFlattenedConditions(this.actor.itemTypes.condition);
         sheetData.effectItems = sheetData.items.filter(
-            (data): data is SheetItemData<EffectData> => data.type === "effect"
+            (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
         this.prepareSpellcasting(sheetData);
     }
 
-    private prepareIWR(sheetData: NPCSheetData) {
-        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+    private prepareIWR(sheetData: Partial<NPCSheetData>) {
+        const immunities = deepClone(this.actor.data.data.traits.di);
+        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, immunities);
         sheetData.hasImmunities = Object.keys(sheetData.immunities).length !== 0;
-        const weaknessTypes: Record<string, string> = CONFIG.PF2E.weaknessTypes;
-        for (const weakness of sheetData.data.traits.dv) {
-            weakness.label = weaknessTypes[weakness.type];
+
+        const weaknesses = deepClone(this.actor.data.data.traits.dv);
+        for (const weakness of weaknesses) {
+            weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
         }
 
-        const resistanceTypes: Record<string, string> = CONFIG.PF2E.resistanceTypes;
-        for (const resistance of sheetData.data.traits.dr) {
-            resistance.label = resistanceTypes[resistance.type] ?? resistance.label;
+        const resistances = deepClone(this.actor.data.data.traits.dr);
+        for (const resistance of resistances) {
+            resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type] ?? resistance.label;
         }
     }
 
@@ -231,7 +113,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     override async getData(): Promise<NPCSheetData> {
-        const sheetData: NPCSheetData = await super.getData();
+        const sheetData: Partial<NPCSheetData> & CreatureSheetData<NPCPF2e> = await super.getData();
 
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {
@@ -241,7 +123,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         // Filter out alignment traits for sheet presentation purposes
         const alignmentTraits: readonly string[] = ALIGNMENT_TRAITS;
         const actorTraits = sheetData.data.traits.traits;
-        actorTraits.value = actorTraits.value.filter((t) => !alignmentTraits.includes(t));
+        actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.includes(t));
 
         // recall knowledge DCs
         const identifyCreatureData = (sheetData.identifyCreatureData = this.getIdentifyCreatureData());
@@ -261,9 +143,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join("/");
 
         sheetData.isNotCommon = sheetData.data.traits.rarity !== "common";
-        sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value];
-        sheetData.actorAttitudes = CONFIG.PF2E.attitude;
-        sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];
+        sheetData.actorSize = CONFIG.PF2E.actorSizes[sheetData.data.traits.size.value as Size];
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.creatureTraits, sheetData.data.traits.traits);
         this.prepareIWR(sheetData);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
@@ -313,7 +193,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
         // Return data for rendering
-        return sheetData;
+        return sheetData as NPCSheetData;
     }
 
     override activateListeners($html: JQuery): void {
@@ -495,8 +375,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the actions list to be accessible from the sheet.
      * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(sheetData: NPCSheetData) {
-        const actions: ActionActions = {
+    private prepareActions(sheetData: NPCSheetData): void {
+        const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
             reaction: { label: game.i18n.localize("PF2E.ActionTypeReaction"), actions: [] },
@@ -548,7 +428,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actions = actions;
     }
 
-    private prepareAttacks(sheetData: NPCSystemSheetData): Attacks {
+    private prepareAttacks(sheetData: NPCSystemSheetData): NPCAttackSheetData {
         const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
@@ -571,7 +451,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Prepare spells and spell entries
      * @param sheetData Data of the actor to show in the sheet.
      */
-    private prepareSpellcasting(sheetData: NPCSheetData) {
+    private prepareSpellcasting(sheetData: NPCSheetData): void {
         sheetData.spellcastingEntries = [];
 
         for (const item of sheetData.items) {

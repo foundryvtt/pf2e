@@ -2,7 +2,7 @@ import { HazardData } from "./data";
 import { ActorPF2e } from "@actor/index";
 import { Rarity } from "@module/data";
 import { SaveType, SAVE_TYPES } from "@actor/data";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 

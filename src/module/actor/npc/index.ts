@@ -1,23 +1,23 @@
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { VisionLevel, VisionLevels } from "@actor/creature/data";
+import { SaveType } from "@actor/data";
+import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
-import { WeaponDamagePF2e } from "@module/system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
-import { RollNotePF2e } from "@module/notes";
-import { RollParameters } from "@system/rolls";
-import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
-import { DamageType } from "@module/damage-calculation";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { RollNotePF2e } from "@module/notes";
+import { extractModifiers, extractNotes } from "@module/rules/util";
+import { WeaponDamagePF2e } from "@module/system/damage";
+import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
+import { DamageType } from "@system/damage";
+import { LocalizePF2e } from "@system/localize";
+import { RollParameters } from "@system/rolls";
+import { Statistic } from "@system/statistic";
+import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { NPCData, NPCStrike } from "./data";
-import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
-import { VisionLevel, VisionLevels } from "@actor/creature/data";
 import { NPCSheetPF2e } from "./sheet";
-import { LocalizePF2e } from "@system/localize";
-import { extractModifiers, extractNotes } from "@module/rules/util";
-import { Statistic } from "@system/statistic";
-import { SaveType } from "@actor/data";
-import { EnrichContent } from "@scripts/ui/enrich-content";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -610,15 +610,14 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const tradition = entry.tradition;
-            const ability = entry.ability;
+            const { ability, tradition } = entry;
             const abilityMod = data.abilities[ability].mod;
 
             // There are still some bestiary entries where these values are strings
             entry.data.data.spelldc.dc = Number(entry.data.data.spelldc.dc);
             entry.data.data.spelldc.value = Number(entry.data.data.spelldc.value);
 
-            const baseSelectors = [`${ability}-based`, "all", "spell-attack-dc"];
+            const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
             const attackSelectors = [
                 `${tradition}-spell-attack`,
                 "spell-attack",
@@ -651,6 +650,7 @@ export class NPCPF2e extends CreaturePF2e {
                 slug: sluggify(entry.name),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
+                rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
                     label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
@@ -740,14 +740,14 @@ export class NPCPF2e extends CreaturePF2e {
         }
         const formatItemName = (item: ItemPF2e): string => {
             if (item instanceof ConsumablePF2e) {
-                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.data.data.quantity.value}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
+                return `${item.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${item.quantity}) <button type="button" style="width: auto; line-height: 14px;" data-action="consume" data-item="${item.id}">${LocalizePF2e.translations.PF2E.ConsumableUseLabel}</button>`;
             }
             return item.name;
         };
         const formatNoteText = (itemName: string, item: ItemPF2e) => {
             // Call enrichString with the correct item context
             const rollData = item.getRollData();
-            const description = EnrichContent.enrichString(item.description, { rollData });
+            const description = TextEditorPF2e.enrichString(item.description, { rollData });
 
             return `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><div><strong>${itemName}</strong></div>${description}</div>`;
         };

@@ -5,7 +5,8 @@ import { MacroPF2e } from "@module/macro";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { SKILL_DICTIONARY } from "@actor/data/values";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
+import { LocalizePF2e } from "@system/localize";
 
 /**
  * Create a Macro from an Item drop.
@@ -45,9 +46,10 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
     return item.toChat();
 }
 
-export async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {
-    const actor = game.actors.get(actorId);
-    const action = (actor as any).data.data.actions[actionIndex];
+export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
+    const actor = game.actors.get(actorId, { strict: true });
+    const action = actor.isOfType("character", "npc") ? actor.data.data.actions[actionIndex] : null;
+    if (!action) return;
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
     const actionName = JSON.stringify(action.name);
     const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
@@ -157,8 +159,14 @@ if (a) {
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
 }
 
-export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
-    const prefix = pack ? `Compendium.${pack}` : "Item";
+export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) {
+    const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
+    if (!uuid) {
+        const message = LocalizePF2e.translations.PF2E.ErrorMessage.CantCreateEffectMacro;
+        ui.notifications.error(game.i18n.localize(message));
+        return;
+    }
+
     const command = `
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (actors.length === 0 && game.user.character) actors.push(game.user.character);
@@ -167,7 +175,7 @@ if (actors.length === 0) {
     return ui.notifications.error(message);
 }
 
-const ITEM_UUID = "${prefix}.${effect.id}"; // ${effect.data.name}
+const ITEM_UUID = "${uuid}"; // ${effect.name}
 const source = (await fromUuid(ITEM_UUID)).toObject();
 source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
 

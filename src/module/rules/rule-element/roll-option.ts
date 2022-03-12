@@ -1,19 +1,25 @@
 import { ItemPF2e } from "@item";
-import { PredicatePF2e } from "@system/predication";
-import { AELikeSource, AELikeRuleElement, AELikeData } from "./ae-like";
-import { RuleElementOptions } from "./base";
+import { RuleElementOptions, RuleElementPF2e } from "./base";
+import { RuleElementSource } from "./data";
 
 /**
- * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
+ * Set a roll option at a specificed domain
  * @category RuleElement
  */
-class RollOptionRuleElement extends AELikeRuleElement {
+class RollOptionRuleElement extends RuleElementPF2e {
+    domain: string;
+
+    option: string;
+
+    value: string | boolean;
+
     constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data = deepClone(data);
-        data.mode = "override";
-        data.path = `flags.pf2e.rollOptions.${data.domain}.${data.option}`;
-        data.value = Boolean(data.value ?? true);
-        super(data, item, options);
+        super({ key: "RollOption" }, item, options);
+
+        this.value = typeof data.value === "string" ? data.value : Boolean(data.value ?? true);
+
+        this.domain = String(data.domain);
+        this.option = String(data.option);
 
         if (!(typeof data.domain === "string" && /^[-:a-z0-9]+$/.test(data.domain) && /[a-z]/.test(data.domain))) {
             const item = this.item;
@@ -24,37 +30,35 @@ class RollOptionRuleElement extends AELikeRuleElement {
         }
     }
 
+    override onApplyActiveEffects(): void {
+        if (!this.test()) return;
+
+        const { rollOptions } = this.actor;
+        const domain = (rollOptions[this.domain] ??= {});
+        const option = this.resolveInjectedProperties(this.option);
+        domain[option] = Boolean(this.resolveValue());
+    }
+
     /**
      * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
      * (re-)called here.
      */
     override beforeRoll(domains: string[], rollOptions: string[]): void {
-        if (!domains.includes(this.data.domain)) return;
-        const predicate = this.data.predicate ?? new PredicatePF2e();
-        if (!predicate.test(rollOptions)) return;
+        if (!(this.test() && domains.includes(this.domain))) return;
 
+        const option = this.resolveInjectedProperties(this.option);
         const value = this.resolveValue();
         if (value === true) {
-            rollOptions.push(this.data.option);
+            rollOptions.push(option);
         } else if (value === false) {
-            rollOptions.findSplice((o) => o === this.data.option);
+            rollOptions.findSplice((o) => o === option);
         } else {
             this.failValidation("Unrecognized roll option value");
         }
     }
 }
 
-interface RollOptionRuleElement extends AELikeRuleElement {
-    data: RollOptionData;
-}
-
-interface RollOptionData extends AELikeData {
-    domain: string;
-    option: string;
-    value: boolean | string;
-}
-
-interface RollOptionSource extends AELikeSource {
+interface RollOptionSource extends RuleElementSource {
     domain?: unknown;
     option?: unknown;
 }

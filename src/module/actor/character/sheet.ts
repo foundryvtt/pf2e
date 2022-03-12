@@ -5,7 +5,7 @@ import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalIt
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { MODIFIER_TYPE, ProficiencyModifier } from "@module/modifiers";
+import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
@@ -24,6 +24,7 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -48,7 +49,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
-        const sheetData: CharacterSheetData = await super.getData(options);
+        const sheetData = (await super.getData(options)) as CharacterSheetData;
 
         // Martial Proficiencies
         const proficiencies = Object.entries(sheetData.data.martial);
@@ -149,7 +150,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.data.flags.pf2e;
-        const hasQuickAlchemy = !!this.actor.rollOptions.all["self:feature:quick-alchemy"];
+        const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
         const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
         sheetData.crafting = {
@@ -168,7 +169,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
         // Sort attack/defense proficiencies
-        const combatProficiencies = sheetData.data.martial;
+        const combatProficiencies: MartialProficiencies = sheetData.data.martial;
         const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
         const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
@@ -201,8 +202,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Organize and classify Items for Character sheets */
-    protected prepareItems(sheetData: CharacterSheetData) {
-        const actorData: any = sheetData.actor;
+    protected prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): void {
+        const actorData = sheetData.actor;
 
         // Inventory
         interface InventorySheetData {
@@ -337,16 +338,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 itemData.canBeEquipped = !containerData.isInContainer;
                 itemData.isSellableTreasure =
-                    itemData.showEdit &&
-                    physicalData.type === "treasure" &&
-                    physicalData.data.stackGroup.value !== "coins";
+                    itemData.showEdit && physicalData.type === "treasure" && physicalData.data.stackGroup !== "coins";
                 if (physicalData.isInvested) {
                     investedCount += 1;
                 }
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
-                    itemData.data.quantity.value = physicalData.data.quantity.value || 0;
+                    itemData.data.quantity = physicalData.data.quantity || 0;
                     itemData.data.weight.value = physicalData.data.weight.value || 0;
                     const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({

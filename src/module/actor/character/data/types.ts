@@ -23,7 +23,7 @@ import {
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
@@ -33,8 +33,8 @@ import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
-import { CHARACTER_SHEET_TABS } from "./values";
 import { WeaponPF2e } from "@item";
+import { CharacterSheetTabVisibility } from "./sheet";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -51,7 +51,6 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "flags"
     readonly _source: CharacterSource;
 }
 
-export type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
         freeCrafting: boolean;
@@ -373,7 +372,10 @@ export interface CharacterAttributes extends CreatureAttributes {
     resolve: { value: number; max: number };
 
     /** Whether this actor is under a polymorph effect */
-    polymorphed?: boolean;
+    polymorphed: boolean;
+
+    /** Whether this actor is under a battle form polymorph effect */
+    battleForm: boolean;
 }
 
 interface CharacterHitPoints extends CreatureHitPoints {

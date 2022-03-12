@@ -1,12 +1,10 @@
 import { AbilityString } from "@actor/data";
 import { ZeroToFour } from "@module/data";
-import { ModifierPF2e, RawModifier } from "@module/modifiers";
+import { ModifierPF2e, RawModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
-
-export type AttackCheck = "attack-roll" | "spell-attack-roll";
-export type CheckType = "skill-check" | "perception-check" | "saving-throw" | "flat-check" | AttackCheck;
+import { CheckType } from "@system/rolls";
 
 export interface StatisticCheckData {
     type: CheckType;
@@ -41,6 +39,11 @@ export interface BaseStatisticData {
     notes?: RollNotePF2e[];
     /** Base domains for fetching actor roll options */
     domains?: string[];
+    /**
+     * Any static roll options that should be added to the list of roll options.
+     * This does not include actor, rank, or basic item roll options.
+     */
+    rollOptions?: string[];
 }
 
 export type StatisticDataWithCheck = BaseStatisticData & { check: StatisticCheckData };

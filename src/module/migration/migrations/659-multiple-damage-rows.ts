@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { SpellDamage, SpellSystemData } from "@item/spell/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageType } from "@system/damage";
 import { tupleHasValue } from "@util";
 import { MigrationBase } from "../base";
 

@@ -83,7 +83,7 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
         if (fromActor && this.initialized && this.rendered) {
-            canvas.lighting.setPerceivedLightLevel(this);
+            canvas.lighting.setPerceivedLightLevel();
         }
     }
 

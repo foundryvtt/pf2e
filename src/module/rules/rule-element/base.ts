@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type { ActorType } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
-import { BaseRawModifier } from "@module/modifiers";
+import { BaseRawModifier } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
 import {

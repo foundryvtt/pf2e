@@ -15,6 +15,10 @@ import { Migration721SetReloadValues } from "@module/migration/migrations/721-se
 import { Migration722CraftingSystemData } from "@module/migration/migrations/722-crafting-system-data";
 import { Migration724CraftingMaxItemLevel } from "@module/migration/migrations/724-crafting-max-item-level";
 import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quick-climb-rule-elements";
+import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/727-trim-self-roll-options";
+import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
+import { Migration729CumulativeItemBonusCleanup } from "@module/migration/migrations/729-cumulative-item-bonus-cleanup";
+import { Migration730DeruneHandwraps } from "@module/migration/migrations/730-derune-handwraps";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -26,30 +30,32 @@ const migrations: MigrationBase[] = [
     new Migration722CraftingSystemData(),
     new Migration724CraftingMaxItemLevel(),
     new Migration725QuickClimbREs(),
+    new Migration727TrimSelfRollOptions(),
+    new Migration728FlattenPhysicalProperties(),
+    new Migration729CumulativeItemBonusCleanup(),
+    new Migration730DeruneHandwraps(),
 ];
 
-// eslint-disable @typescript-eslint/no-explicit-any
-global.deepClone = function (original: any): any {
+global.deepClone = <T>(original: T): T => {
     // Simple types
     if (typeof original !== "object" || original === null) return original;
 
     // Arrays
-    if (Array.isArray(original)) return original.map(deepClone);
+    if (Array.isArray(original)) return original.map(deepClone) as unknown as T;
 
     // Dates
-    if (original instanceof Date) return new Date(original);
+    if (original instanceof Date) return new Date(original) as T & Date;
 
     // Unsupported advanced objects
-    if ("constructor" in original && original["constructor"] !== Object) return original;
+    if ("constructor" in original && (original as { constructor?: unknown })["constructor"] !== Object) return original;
 
     // Other objects
     const clone: Record<string, unknown> = {};
     for (const k of Object.keys(original)) {
-        clone[k] = deepClone(original[k]);
+        clone[k] = deepClone((original as Record<string, unknown>)[k]);
     }
-    return clone;
+    return clone as T;
 };
-// eslint-enable @typescript-eslint/no-explicit-any
 
 global.randomID = function randomID(length = 16): string {
     const rnd = () => Math.random().toString(36).substring(2);

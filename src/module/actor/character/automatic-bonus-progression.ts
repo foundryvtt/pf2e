@@ -1,5 +1,5 @@
 import { WeaponPF2e } from "@item";
-import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@actor/modifiers";
 import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 

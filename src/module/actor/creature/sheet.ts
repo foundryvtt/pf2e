@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { SpellPF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
@@ -9,16 +9,18 @@ import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { CharacterStrike } from "@actor/character/data";
 import { NPCStrike } from "@actor/npc/data";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { CreatureSheetData } from "./types";
+import { ITEM_CARRY_TYPES } from "@item/data/values";
 
 /**
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
+export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheetPF2e<TActor> {
     override itemRenderer = new CreatureSheetItemRenderer(this);
 
-    override getData(options?: ActorSheetOptions) {
-        const sheetData: any = super.getData(options);
+    override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
+        const sheetData = await super.getData(options);
 
         // Update save labels
         if (sheetData.data.saves) {
@@ -58,16 +60,16 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             }
         }
 
-        // Update traits
-        sheetData.abilities = CONFIG.PF2E.abilities;
-        sheetData.skills = CONFIG.PF2E.skills;
-        sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-        sheetData.alignments = CONFIG.PF2E.alignments;
-        sheetData.rarity = CONFIG.PF2E.rarityTraits;
-        sheetData.attitude = CONFIG.PF2E.attitude;
-        sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
-
-        return sheetData;
+        return {
+            ...sheetData,
+            abilities: CONFIG.PF2E.abilities,
+            skills: CONFIG.PF2E.skills,
+            actorSizes: CONFIG.PF2E.actorSizes,
+            alignments: CONFIG.PF2E.alignments,
+            rarity: CONFIG.PF2E.rarityTraits,
+            attitude: CONFIG.PF2E.attitude,
+            pfsFactions: CONFIG.PF2E.pfsFactions,
+        };
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
@@ -106,6 +108,24 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const propertyPath = $input.attr("data-property") ?? "";
             const preparedValue: number = getProperty(this.actor.data, propertyPath);
             $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
+        });
+
+        // Toggle equip
+        $html.find(".tab.inventory a[data-carry-type]").on("click", (event) => {
+            $html.find(".carry-type-hover").tooltipster("close");
+
+            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
+            const item = this.actor.items.get(itemId, { strict: true });
+            if (!(item instanceof PhysicalItemPF2e)) {
+                throw ErrorPF2e("Tried to update carry type of non-physical item");
+            }
+
+            const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
+            const handsHeld = Number($(event.currentTarget).attr("data-hands-held")) ?? 1;
+            const inSlot = $(event.currentTarget).attr("data-in-slot") === "true";
+            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
+                this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
+            }
         });
 
         // General handler for embedded item updates

@@ -8,9 +8,9 @@ import {
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import {
     ABILITY_ABBREVIATIONS,
     SAVE_TYPES,
@@ -31,7 +31,6 @@ import {
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
     MartialProficiency,
-    CharacterSheetTabVisibility,
     LinkedProficiency,
     AuxiliaryAction,
 } from "./data";
@@ -47,7 +46,14 @@ import {
     WeaponPF2e,
 } from "@item";
 import { CreaturePF2e } from "../";
-import { WeaponCategory, WeaponDamage, WeaponSource, WeaponTrait, WEAPON_CATEGORIES } from "@item/weapon/data";
+import {
+    WeaponCategory,
+    WeaponDamage,
+    WeaponSource,
+    WeaponSystemSource,
+    WeaponTrait,
+    WEAPON_CATEGORIES,
+} from "@item/weapon/data";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { AbilityString, StrikeTrait } from "@actor/data/base";
 import { CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
@@ -63,20 +69,20 @@ import { CraftingEntry, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
-import { HitPointsSummary } from "@actor/base";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemCarryType } from "@item/physical/data";
-import { CreateAuxiliaryParams } from "./types";
 import { StrikeWeaponTraits } from "./strike-weapon-traits";
 import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/creature/types";
 import { DamageRollContext } from "@system/damage/damage";
 import { RollNotePF2e } from "@module/notes";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
+import { CharacterSheetTabVisibility } from "./data/sheet";
+import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
 
-export class CharacterPF2e extends CreaturePF2e {
+class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
         return CharacterData;
     }
@@ -159,14 +165,15 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Remove infused/temp items
         for (const item of this.physicalItems) {
-            if (item.data.data.temporary?.value) await item.delete();
+            if (item.data.data.temporary) await item.delete();
         }
 
         for (const entry of entries) {
             for (const prepData of entry.preparedFormulas) {
                 const item: PhysicalItemSource = prepData.item.toObject();
-                item.data.quantity.value = prepData.quantity || 1;
-                item.data.temporary = { value: true };
+                item.data.quantity = prepData.quantity || 1;
+                item.data.temporary = true;
+
                 if (
                     entry.isAlchemical &&
                     (item.type === "consumable" || item.type === "weapon" || item.type === "equipment")
@@ -203,6 +210,8 @@ export class CharacterPF2e extends CreaturePF2e {
         attributes.ac = {};
         attributes.classDC = { rank: 0 };
         attributes.dexCap = [{ value: Infinity, source: "" }];
+        attributes.polymorphed = false;
+        attributes.battleForm = false;
 
         const perception = (attributes.perception ??= { ability: "wis", rank: 0 });
         perception.ability = "wis";
@@ -309,7 +318,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Extract as separate variables for easier use in this method.
-        const { statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { statisticsModifiers, rollNotes } = synthetics;
 
         // Update experience percentage from raw experience amounts.
         systemData.details.xp.pct = Math.min(
@@ -712,9 +721,28 @@ export class CharacterPF2e extends CreaturePF2e {
         // Automatic Actions
         systemData.actions = [];
 
-        // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
-        const unarmed = ((): Embedded<WeaponPF2e> => {
-            const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
+        // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
+        const handwraps = itemTypes.weapon.find(
+            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed" && w.isInvested
+        );
+        const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
+            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
+                handwraps?.data._source.data ?? {};
+            return handwraps
+                ? deepClone({
+                      potencyRune,
+                      strikingRune,
+                      propertyRune1,
+                      propertyRune2,
+                      propertyRune3,
+                      propertyRune4,
+                  })
+                : null;
+        })();
+
+        // Add a basic unarmed strike
+        const basicUnarmed = ((): Embedded<WeaponPF2e> => {
+            const source: PreCreate<WeaponSource> & { data: { damage?: Partial<WeaponDamage> } } = {
                 _id: "xxPF2ExUNARMEDxx",
                 name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                 type: "weapon",
@@ -722,33 +750,37 @@ export class CharacterPF2e extends CreaturePF2e {
                 data: {
                     slug: "basic-unarmed",
                     baseItem: null,
-                    category: "unarmed",
                     bonus: { value: 0 },
                     damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
-                    group: "brawling",
-                    range: null,
-                    strikingRune: { value: null },
-                    traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                     equipped: {
-                        carryType: "held",
-                        handsHeld: 1,
+                        carryType: "worn",
+                        inSlot: true,
+                        handsHeld: 0,
                     },
-                    usage: {
-                        value: "held-in-one-hand",
-                    },
+                    usage: { value: "worngloves" },
+                    ...(unarmedRunes ?? {}),
                 },
             };
 
+            // No handwraps, so generate straight from source
             return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
         })();
-        synthetics.strikes.unshift(unarmed);
+
+        // Regenerate the strikes from the handwraps so that all runes are included
+        if (unarmedRunes && !this.attributes.battleForm) {
+            synthetics.strikes = synthetics.strikes.map((w) =>
+                w.category === "unarmed" ? w.clone({ data: unarmedRunes }, { keepId: true }) : w
+            );
+        }
 
         const ammos = itemTypes.consumable.filter(
             (item) => item.data.data.consumableType.value === "ammo" && !item.isStowed
         );
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
-        const weapons = [itemTypes.weapon, strikes].flat();
+
+        // Exclude handwraps as a strike
+        const weapons = [basicUnarmed, itemTypes.weapon.filter((w) => w !== handwraps), synthetics.strikes].flat();
         systemData.actions = weapons.map((weapon) =>
             this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
@@ -760,10 +792,10 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
-            const tradition = entry.tradition;
+            const { ability, tradition } = entry;
             const rank = (entry.data.data.proficiency.value = entry.rank);
 
-            const baseSelectors = [`${entry.ability}-based`, "all", "spell-attack-dc"];
+            const baseSelectors = ["all", `${ability}-based`, "spell-attack-dc"];
             const attackSelectors = [
                 `${tradition}-spell-attack`,
                 "spell-attack",
@@ -781,6 +813,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers: extractModifiers(statisticsModifiers, baseSelectors),
                 notes: extractNotes(rollNotes, [...baseSelectors, ...attackSelectors]),
                 domains: baseSelectors,
+                rollOptions: entry.getRollOptions("spellcasting"),
                 check: {
                     type: "spell-attack-roll",
                     label: game.i18n.format(`PF2E.SpellAttack.${tradition}`),
@@ -830,21 +863,21 @@ export class CharacterPF2e extends CreaturePF2e {
         const rollOptionsAll = this.rollOptions.all;
 
         const perceptionRank = this.data.data.attributes.perception.rank;
-        rollOptionsAll[`self:perception:rank:${perceptionRank}`] = true;
+        rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
         for (const key of ABILITY_ABBREVIATIONS) {
             const score = this.abilities[key].value;
-            rollOptionsAll[`self:ability:${key}:score:${score}`] = true;
+            rollOptionsAll[`ability:${key}:score:${score}`] = true;
         }
 
         for (const key of SKILL_ABBREVIATIONS) {
             const rank = this.data.data.skills[key].rank;
-            rollOptionsAll[`self:skill:${key}:rank:${rank}`] = true;
+            rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
         for (const key of SAVE_TYPES) {
             const rank = this.data.data.saves[key].rank;
-            rollOptionsAll[`self:save:${key}:rank:${rank}`] = true;
+            rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
     }
 
@@ -1178,7 +1211,8 @@ export class CharacterPF2e extends CreaturePF2e {
             const traitsArray = weapon.data.data.traits.value;
             const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
             const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
-            const canWield2H = weapon.data.usage.hands === 2 || hasFatalAimTrait || hasTwoHandTrait;
+            const usage = weapon.data.usage;
+            const canWield2H = (usage.type === "held" && usage.hands === 2) || hasFatalAimTrait || hasTwoHandTrait;
 
             switch (weapon.carryType) {
                 case "held": {
@@ -1393,7 +1427,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
 
-                    const checkContext = {
+                    const checkContext: CheckRollContext = {
                         actor: context.self.actor,
                         target: context.target,
                         item,
@@ -1544,7 +1578,7 @@ export class CharacterPF2e extends CreaturePF2e {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }
 
-        return !!(await item.update({ "data.invested.value": !item.isInvested }));
+        return !!(await item.update({ "data.equipped.invested": !item.isInvested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */
@@ -1664,7 +1698,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 }
 
-export interface CharacterPF2e {
+interface CharacterPF2e {
     readonly data: CharacterData;
 
     deleteEmbeddedDocuments(
@@ -1684,6 +1718,4 @@ export interface CharacterPF2e {
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
 
-interface CharacterHitPointsSummary extends HitPointsSummary {
-    recoveryMultiplier: number;
-}
+export { CharacterPF2e };

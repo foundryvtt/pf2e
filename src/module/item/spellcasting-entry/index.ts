@@ -430,6 +430,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         }
     }
 
+    override getRollOptions(prefix = this.type): string[] {
+        const options: string[] = [];
+        options.push(`${prefix}:${this.ability}`);
+        options.push(`${prefix}:${this.tradition}`);
+        options.push(`${prefix}:${this.data.data.prepared.value}`);
+        return options;
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,

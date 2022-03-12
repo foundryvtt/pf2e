@@ -43,9 +43,7 @@ function createItem({
         type: type,
         isEquipped: equipped,
         data: {
-            size: {
-                value: size,
-            },
+            size,
             traits: {
                 value: traits,
             },
@@ -55,9 +53,7 @@ function createItem({
             bulkCapacity: {
                 value: bulkCapacity,
             },
-            containerId: {
-                value: containerId,
-            },
+            containerId,
             weight: {
                 value: weight,
             },
@@ -67,12 +63,8 @@ function createItem({
             unequippedBulk: {
                 value: unequippedBulk,
             },
-            quantity: {
-                value: quantity,
-            },
-            stackGroup: {
-                value: stackGroup,
-            },
+            quantity,
+            stackGroup,
         },
     } as unknown as PhysicalItemData;
 }

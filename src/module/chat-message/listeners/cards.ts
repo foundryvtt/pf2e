@@ -1,6 +1,6 @@
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import {
     attemptToRemoveCoinsByValue,
     coinsToString,
@@ -13,6 +13,7 @@ import { craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
+import { ChatMessagePF2e } from "..";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -85,10 +86,10 @@ export const ChatCards = {
                         // Button is from an NPC attack effect
                         const consumable = actor.items.get($button.attr("data-item") ?? "");
                         if (consumable instanceof ConsumablePF2e) {
-                            const oldQuant = consumable.data.data.quantity.value;
+                            const oldQuant = consumable.quantity;
                             const toReplace = `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${oldQuant})`;
                             await consumable.consume();
-                            const currentQuant = oldQuant === 1 ? 0 : consumable.data.data.quantity.value;
+                            const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
                             let flavor = message.data.flavor?.replace(
                                 toReplace,
                                 `${consumable.name} - ${LocalizePF2e.translations.ITEM.TypeConsumable} (${currentQuant})`
@@ -131,11 +132,9 @@ export const ChatCards = {
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
-                    if (item === null || !(item instanceof PhysicalItemPF2e)) return;
+                    if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = extractPriceFromItem({
-                        data: { quantity: { value: quantity }, price: item.data.data.price },
-                    });
+                    const craftingCost = extractPriceFromItem({ data: { quantity, price: item.data.data.price } });
                     const coinsToRemove = $button.hasClass("full")
                         ? craftingCost
                         : multiplyCoinValue(craftingCost, 0.5);
@@ -151,7 +150,7 @@ export const ChatCards = {
 
                     if (isSpellConsumable(item.id)) {
                         craftSpellConsumable(item, quantity, actor);
-                        ChatMessage.create({
+                        ChatMessagePF2e.create({
                             user: game.user.id,
                             content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                                 actorName: actor.name,
@@ -165,7 +164,7 @@ export const ChatCards = {
                     }
 
                     const itemObject = item.toObject();
-                    itemObject.data.quantity.value = quantity;
+                    itemObject.data.quantity = quantity;
 
                     const result = await actor.addToInventory(itemObject, undefined);
                     if (!result) {
@@ -173,7 +172,7 @@ export const ChatCards = {
                         return;
                     }
 
-                    ChatMessage.create({
+                    ChatMessagePF2e.create({
                         user: game.user.id,
                         content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
@@ -189,7 +188,7 @@ export const ChatCards = {
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = extractPriceFromItem({
-                        data: { quantity: { value: quantity }, price: item.data.data.price },
+                        data: { quantity, price: item.data.data.price },
                     });
                     const materialCosts = multiplyCoinValue(craftingCost, 0.5);
                     const coinsToRemove = multiplyCoinValue(materialCosts, 0.1);
@@ -201,7 +200,7 @@ export const ChatCards = {
                     ) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     } else {
-                        ChatMessage.create({
+                        ChatMessagePF2e.create({
                             user: game.user.id,
                             content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                                 actorName: actor.name,

@@ -26,9 +26,7 @@ import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
-import { ModifierAdjustment } from "@module/modifiers";
-import { EquippedData, ItemCarryType } from "@item/physical/data";
-import { isEquipped } from "../item/physical/usage";
+import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 
@@ -680,7 +678,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
-        containerId?: string
+        containerId?: string,
+        newStack = false
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
@@ -723,28 +722,29 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (removeFromSource) {
             await item.delete();
         } else {
-            await item.update({ "data.quantity.value": newQuantity });
+            await item.update({ "data.quantity": newQuantity });
         }
 
         const newItemData = item.toObject();
-        newItemData.data.quantity.value = quantity;
+        newItemData.data.quantity = quantity;
         newItemData.data.equipped.carryType = "worn";
         if (hasInvestedProperty(newItemData)) {
-            newItemData.data.invested.value = item.traits.has("invested") ? false : null;
+            newItemData.data.equipped.invested = item.traits.has("invested") ? false : null;
         }
 
-        return targetActor.addToInventory(newItemData, container);
+        return targetActor.addToInventory(newItemData, container, newStack);
     }
 
     async addToInventory(
         itemData: PhysicalItemSource,
-        container?: Embedded<ContainerPF2e>
+        container?: Embedded<ContainerPF2e>,
+        newStack?: boolean
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // Stack with an existing item if possible
         const stackItem = this.findStackableItem(this, itemData);
-        if (stackItem && stackItem.data.type !== "backpack") {
-            const stackQuantity = stackItem.quantity + itemData.data.quantity.value;
-            await stackItem.update({ "data.quantity.value": stackQuantity });
+        if (!newStack && stackItem && stackItem.data.type !== "backpack") {
+            const stackQuantity = stackItem.quantity + itemData.data.quantity;
+            await stackItem.update({ "data.quantity": stackQuantity });
             return stackItem;
         }
 
@@ -761,7 +761,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
-    private findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
+    findStackableItem(actor: ActorPF2e, itemData: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         const testItem = new ItemPF2e(itemData);
         const stackCandidates = actor.physicalItems.filter(
             (stackCandidate) =>
@@ -781,50 +781,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
-     * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
-     * @param item       The item
-     * @param carryType  Location to be set to
-     * @param handsHeld  Number of hands being held
-     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
-     */
-    async adjustCarryType(item: Embedded<PhysicalItemPF2e>, carryType: ItemCarryType, handsHeld = 0, inSlot = false) {
-        if (carryType === "stowed") {
-            // since there's still an "items need to be in a tree" view, we
-            // need to actually put the item in a container when it's stowed.
-            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
-            await item.update({
-                "data.containerId.value": container?.id ?? "",
-                "data.equipped.carryType": "stowed",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
-            });
-        } else {
-            const equipped: EquippedData = {
-                carryType: carryType,
-                handsHeld: carryType === "held" ? handsHeld : 0,
-                inSlot: item.data.usage.where ? inSlot : undefined,
-            };
-
-            const updates = [];
-
-            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
-                // see if they have another set of armor equipped
-                const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
-                for (const armor of wornArmors) {
-                    updates.push({ _id: armor.id, "data.equipped.inSlot": false });
-                }
-            }
-
-            updates.push({
-                _id: item.id,
-                "data.containerId.value": null,
-                "data.equipped": equipped,
-            });
-            await this.updateEmbeddedDocuments("Item", updates);
-        }
-    }
-
-    /**
      * Moves an item into the inventory into or out of a container.
      * @param actor       Actor whose inventory should be edited.
      * @param getItem     Lambda returning the item.
@@ -832,15 +788,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
+            const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
-                "data.containerId.value": container.id,
-                "data.equipped.carryType": "stowed",
+                "data.containerId": container.id,
+                "data.equipped.carryType": carryType,
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });
         } else {
             await item.update({
-                "data.containerId.value": null,
+                "data.containerId": null,
                 "data.equipped.carryType": "worn",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
