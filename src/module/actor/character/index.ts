@@ -8,7 +8,7 @@ import {
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { WeaponDamagePF2e } from "@system/damage/weapon";
 import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import {

@@ -9,7 +9,7 @@ import {
     reduceResistances,
     Resistance,
     Weakness,
-} from "@module/damage-calculation";
+} from "@system/damage/calculation";
 
 describe("test damage calculation", () => {
     test("simple damage", () => {

@@ -1,5 +1,5 @@
 import { ActionsPF2e, SkillActionOptions } from "../actions";
-import { MODIFIER_TYPE, ModifierPF2e } from "@module/modifiers";
+import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
 import { CreaturePF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base";
 import { ActorSizePF2e } from "@actor/data/size";

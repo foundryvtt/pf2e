@@ -1,6 +1,6 @@
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/data";
-import { ModifierPF2e, MODIFIER_TYPE } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */

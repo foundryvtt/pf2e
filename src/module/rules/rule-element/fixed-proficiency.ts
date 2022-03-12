@@ -2,7 +2,7 @@ import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString, ActorType } from "@actor/data";
 import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { objectHasKey, tupleHasValue } from "@util";
 
 const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: "ac" }> = {

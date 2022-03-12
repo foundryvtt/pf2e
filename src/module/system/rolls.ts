@@ -1,10 +1,9 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "../modifiers";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
-import { DamageTemplate } from "@system/damage/weapon";
+import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
@@ -15,7 +14,6 @@ import { StrikeData, StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { AttackTarget, StrikeTarget } from "@actor/creature/types";
-import { DamageCategory, DamageRollContext } from "./damage/damage";
 import { LocalizePF2e } from "./localize";
 import { Check } from "./check";
 import { UserVisibility } from "@scripts/ui/user-visibility";
@@ -686,7 +684,7 @@ export class DamageRollPF2e {
         // Change the base damage type in case it was overridden
         const baseDamageType = damage.formula[context.outcome ?? "success"]?.data.baseDamageType;
         damage.base.damageType = baseDamageType ?? damage.base.damageType;
-        damage.base.category = DamageCategory.fromDamageType(damage.base.damageType);
+        damage.base.category = DamageCategorization.fromDamageType(damage.base.damageType);
 
         // Change default roll mode to blind GM roll if the "secret" option is specified
         if (context.options && context.options?.length > 0) {

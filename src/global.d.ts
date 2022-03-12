@@ -25,7 +25,7 @@ import {
     MODIFIER_TYPE,
     ProficiencyModifier,
     StatisticModifier,
-} from "./module/modifiers";
+} from "@actor/modifiers";
 import { UserPF2e } from "@module/user";
 import {
     AmbientLightDocumentPF2e,

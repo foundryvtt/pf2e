@@ -2,7 +2,7 @@ import { RuleElementPF2e } from "./";
 import { WeaponPF2e } from "@item";
 import { ActorType } from "@actor/data";
 import { PredicatePF2e } from "@system/predication";
-import { MODIFIER_TYPE } from "@module/modifiers";
+import { MODIFIER_TYPE } from "@actor/modifiers";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.

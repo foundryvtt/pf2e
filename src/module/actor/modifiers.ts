@@ -1,10 +1,9 @@
 import { AbilityString } from "@actor/data/base";
-import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e, setHasElement, sluggify } from "../util";
-import { DamageType, DAMAGE_TYPES } from "./damage-calculation";
-import { RollNotePF2e } from "./notes";
+import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { RollNotePF2e } from "../notes";
+import { DamageCategorization, DamageDieSize, DamageType, DAMAGE_TYPES } from "../system/damage";
 
 export const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -589,7 +588,7 @@ export class DiceModifierPF2e implements BaseRawModifier {
         this.custom = param.custom ?? false;
 
         if (this.damageType) {
-            this.category ??= DamageCategory.fromDamageType(this.damageType);
+            this.category ??= DamageCategorization.fromDamageType(this.damageType);
         }
 
         this.predicate = new PredicatePF2e(param.predicate);

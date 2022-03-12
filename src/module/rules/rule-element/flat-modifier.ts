@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
-import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@module/modifiers";
+import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@actor/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { sluggify, tupleHasValue } from "@util";

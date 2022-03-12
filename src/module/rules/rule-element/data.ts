@@ -1,4 +1,4 @@
-import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@module/modifiers";
+import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CreatureSensePF2e } from "@actor/creature/sense";
