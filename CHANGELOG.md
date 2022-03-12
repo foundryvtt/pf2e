@@ -1,5 +1,47 @@
 # Changelog
 
+## Version 3.7.0
+
+### New Features
+* (SkepticRobot) Add support for combining stacks of alike items via drag & drop
+* (putty) Add world clock buttons to advance to dawn, noon, dusk, and midnight
+
+### Core System Improvements
+* (Friz) Remove sell and equip buttons from loot actor sheets
+* (Friz) Show skill modifier next to skill when displaying dialog for trick magic item check
+* (fryguy) Show rarities in compendium browser lists
+* (Supe) Separate unstyled and styled journals as separate configurable sheets
+
+### Bugfixes
+* (Drental) Fix processing of roll option toggles from modules
+* (stwlam) Fix partially migrated data affecting use of Mountain Stance while wearing explorer's clothing
+* (stwlam) Fix creating effect toggle macros from world items and strike toggle macros from PC sheets
+* (stwlam) Ensure presence of property runes on unarmed strikes
+* (stwlam) Fix hands-held predication on Arcane Cascade stance effect
+* (stwlam) Fix shield-block toggle when using damage-adjustment dialog
+* (stwlam) Fix "owner" user visibility of data on check roll messages
+
+### Data Updates
+* (AntsInMyEyesJ) Fix description of Confident Finisher action
+* (dooplan) Add Separate Divine Font features
+* (Friz) Add Note RE to Remorseless Lash feat
+* (Friz) Fix description of Pernicious Poltergeist spell
+* (InfamousSky) Correct Zinba's Slither action cost
+* (LebombJames) Fix details of Quench spell
+* (NullWolf) Correct Flame Tongue (Greater) Description
+* (NullWolf) Correct Water Bomb and Mud Bomb Notes
+* (NullWolf) Fix Mountain Stance / Animal Skin Rule Element for Explorer's Clothing
+* (rectulo) Dedication feats with a wrong featType
+* (redeux) Create effect for Potency Crystal
+* (ricothebold) Add many equipment effect icons
+* (stwlam) Fix typos in Boots of Bounding RE labels
+* (stwlam) Predicate Enlarge's status bonus to damage on the weapon being melee
+* (stwlam) Tone down light effect of the Light spell effect and Everburning Torch
+* (Tikael) Add note RE to Stunning Fist
+* (Tikael) Refresh Beginner Box pregens
+* (TMun) Correct Flaming Star Major resistance and damage bonus; had values for flaming star greater.
+
+
 ## Version 3.6.2
 
 ### Bugfixes
