@@ -18,6 +18,7 @@ import { Migration725QuickClimbREs } from "@module/migration/migrations/725-quic
 import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/727-trim-self-roll-options";
 import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
 import { Migration729CumulativeItemBonusCleanup } from "@module/migration/migrations/729-cumulative-item-bonus-cleanup";
+import { Migration730DeruneHandwraps } from "@module/migration/migrations/730-derune-handwraps";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -32,6 +33,7 @@ const migrations: MigrationBase[] = [
     new Migration727TrimSelfRollOptions(),
     new Migration728FlattenPhysicalProperties(),
     new Migration729CumulativeItemBonusCleanup(),
+    new Migration730DeruneHandwraps(),
 ];
 
 global.deepClone = <T>(original: T): T => {
