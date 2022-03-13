@@ -1,12 +1,13 @@
 import { Alignment, SkillAbbreviation } from "@actor/creature/data";
 import { ItemSheetPF2e } from "@item/sheet/base";
-import { ItemSheetDataPF2e, SheetOptions } from "@item/sheet/data-types";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { DeityPF2e } from "./document";
 import type * as TinyMCE from "tinymce";
 import { ErrorPF2e } from "@util";
 import { SpellPF2e } from "@item/spell";
 import { ItemPF2e } from "@item";
 import { fromUUIDs } from "@util/from-uuids";
+import { createSheetOptions, createSheetTags, SheetOptions } from "@module/sheet/helpers";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];
@@ -37,15 +38,11 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             detailsTemplate: () => "systems/pf2e/templates/items/deity-details.html",
             sidebarTemplate: () => `systems/pf2e/templates/items/deity-sidebar.html`,
             alignments: CONFIG.PF2E.alignments,
-            followerAlignments: this.prepareOptions(CONFIG.PF2E.alignments, sheetData.data.alignment.follower, {
-                selectedOnly: true,
-            }),
-            abilities: this.prepareOptions(CONFIG.PF2E.abilities, sheetData.data.ability, { selectedOnly: true }),
+            followerAlignments: createSheetTags(CONFIG.PF2E.alignments, sheetData.data.alignment.follower),
+            abilities: createSheetTags(CONFIG.PF2E.abilities, sheetData.data.ability),
             skills: CONFIG.PF2E.skills,
-            favoredWeapons: this.prepareOptions(CONFIG.PF2E.baseWeaponTypes, sheetData.data.weapon, {
-                selectedOnly: true,
-            }),
-            divineFonts: this.prepareOptions(
+            favoredWeapons: createSheetTags(CONFIG.PF2E.baseWeaponTypes, sheetData.data.weapon),
+            divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
                 sheetData.data.font
             ),

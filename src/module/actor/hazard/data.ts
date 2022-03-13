@@ -44,6 +44,7 @@ interface HazardAttributes extends BaseActorAttributes {
 
 interface HazardHitPoints extends Required<BaseHitPointsData> {
     negativeHealing: boolean;
+    brokenThreshold: number;
 }
 
 /** The raw information contained within the actor data object for hazards. */

@@ -1,5 +1,6 @@
 import { KitPF2e } from "@item/kit";
 import { PhysicalItemPF2e } from "@item/physical";
+import { createSheetTags } from "@module/sheet/helpers";
 import { ItemSheetPF2e } from "../sheet/base";
 
 /**
@@ -15,10 +16,11 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     }
 
     override async getData(options: Partial<DocumentSheetOptions> = {}) {
-        const data = super.getBaseData(options);
-        const traits = this.prepareOptions(CONFIG.PF2E.classTraits, data.data.traits, { selectedOnly: true });
+        const sheetData = super.getBaseData(options);
+        const traits = createSheetTags(CONFIG.PF2E.classTraits, sheetData.data.traits);
+
         return {
-            ...data,
+            ...sheetData,
             type: "kit",
             hasSidebar: true,
             sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",

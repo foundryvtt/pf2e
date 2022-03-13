@@ -55,16 +55,16 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             stealthDC: (systemData.attributes.stealth?.value ?? 0) + 10,
             hasStealthDescription: systemData.attributes.stealth?.details || false,
-            hasImmunities: systemData.traits.di.value.length ? systemData.traits.di.value : false,
+            hasImmunities: systemData.traits.di.value.length > 0,
             hasResistances: systemData.traits.dr.length > 0,
             hasWeaknesses: systemData.traits.dv.length > 0,
-            hasDescription: systemData.details.description || false,
-            hasDisable: systemData.details.disable || false,
-            hasRoutineDetails: systemData.details.routine || false,
-            hasResetDetails: systemData.details.reset || false,
-            hasHPDetails: systemData.attributes.hp.details || false,
+            hasDescription: systemData.details.description.trim() || false,
+            hasDisable: systemData.details.disable.trim() || false,
+            hasRoutineDetails: systemData.details.routine.trim() || false,
+            hasResetDetails: systemData.details.reset.trim() || false,
+            hasHPDetails: systemData.attributes.hp.details.trim() || false,
             hasWillSave: !!systemData.saves.will,
-            brokenThreshold: Math.floor(systemData.attributes.hp.max / 2),
+            brokenThreshold: systemData.attributes.hp.brokenThreshold,
         };
     }
 

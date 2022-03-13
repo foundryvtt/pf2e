@@ -2,6 +2,7 @@ import { ItemSheetPF2e } from "../sheet/base";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
+import { createSheetTags } from "@module/sheet/helpers";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -11,6 +12,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         // Set the source item data for editing
         const identifiedData = this.item.getMystifiedData("identified", { source: true });
         mergeObject(sheetData.item, identifiedData, { insertKeys: false, insertValues: false });
+        const { actionTraits } = CONFIG.PF2E;
 
         return {
             ...sheetData,
@@ -22,9 +24,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
                 action,
                 id: action.id,
                 base: `data.activations.${action.id}`,
-                traits: this.prepareOptions(CONFIG.PF2E.actionTraits, action.traits ?? { value: [] }, {
-                    selectedOnly: true,
-                }),
+                traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
             })),
         };
     }
