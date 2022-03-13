@@ -217,7 +217,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
         } else if (["_modifiers", "_sheetTab"].includes(key)) {
             delete docSource[key as DocumentKey];
         } else if (docSource[key as DocumentKey] instanceof Object) {
-            pruneTree(docSource[key as DocumentKey] as PackEntry, topLevel);
+            pruneTree(docSource[key as DocumentKey] as unknown as PackEntry, topLevel);
         }
     }
 }
