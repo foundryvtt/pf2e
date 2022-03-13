@@ -28,7 +28,7 @@ declare global {
             /** The schema of a Document */
             type DocumentSchema = Record<string, DocumentField>;
 
-            type DocumentSource = object;
+            type DocumentSource = { _id?: string | null };
 
             /**
              * An abstract pattern for a data object which is contained within every type of Document.
