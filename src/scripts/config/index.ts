@@ -496,7 +496,7 @@ const traitsDescriptions = {
     oath: "PF2E.TraitDescriptionOath",
     occult: "PF2E.TraitDescriptionOccult",
     oil: "PF2E.TraitDescriptionOil",
-    olfactory: "PF2E.TraitDescrpitionOlfactory",
+    olfactory: "PF2E.TraitDescriptionOlfactory",
     open: "PF2E.TraitDescriptionOpen",
     oracle: "PF2E.TraitDescriptionOracle",
     orc: "PF2E.TraitDescriptionOrc",
