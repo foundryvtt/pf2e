@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 3.7.1
+
+### Bugfixes
+* (stwlam) Fix dropping of physical items and spells onto hotbar
+* (stwlam) Fix display of NPC weaknesses and resistances
+* (Tikael) Fix reference to Olfactory trait description
+
+### Data Updates
+* (cepvep) Update Rule Element on Laughing Shadow
+* (NullWolf) Correct Emerald Grasshopper skill Requirement
+* (rectulo) Fix level of pact bound pistol
+* (SpartanCPA) Add Ammunition Variants for Feather Tokens
+* (SpartanCPA) Fix Persistent Bleed notes on Evangelist and Shanrigol
+* (stwlam) Add rule elements to Golden Body feat
+* (TMun) Update iconics Droogami, Korakai, Lini, Merisiel, Quinn, Sajan, Seoni, and Valeros
+
 ## Version 3.7.0
 
 ### New Features

@@ -1,5 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data";
-import { ConsumableSource, EquipmentSource, ItemSourcePF2e } from "@item/data";
+import { ConsumablePF2e } from "@item";
+import { EquipmentSource, ItemSourcePF2e } from "@item/data";
 import { KitEntryData } from "@item/kit/data";
 import { ErrorPF2e, isObject } from "@util";
 import { MigrationBase } from "../base";
@@ -11,10 +12,6 @@ export class Migration684RationsToConsumable extends MigrationBase {
     private rationsSourceId = "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB";
 
     private rationsPromise = fromUuid(this.rationsSourceId);
-
-    private isConsumable(obj: { type?: unknown; data?: unknown } | null): obj is ConsumableSource {
-        return !!obj && obj.type === "consumable" && obj.data instanceof Object;
-    }
 
     private isOldRations(itemSource: ItemSourcePF2e | null): itemSource is EquipmentSource {
         return itemSource?.type === "equipment" && itemSource.flags.core?.sourceId === this.rationsSourceId;
@@ -35,13 +32,13 @@ export class Migration684RationsToConsumable extends MigrationBase {
     /** Swap "equipment" rations for new consumable */
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         const oldRations = actorSource.items.filter((item): item is EquipmentSource => this.isOldRations(item));
-        const rations = (await this.rationsPromise)?.toObject();
-        if (!(rations && this.isConsumable(rations))) {
+        const rations = await this.rationsPromise;
+        if (!(rations instanceof ConsumablePF2e)) {
             throw ErrorPF2e("Unexpected error acquiring compendium item");
         }
 
         for (const oldRation of oldRations) {
-            const newRation = deepClone(rations);
+            const newRation = rations.toObject();
             newRation.folder = oldRation.folder;
             newRation.sort = oldRation.sort;
 
