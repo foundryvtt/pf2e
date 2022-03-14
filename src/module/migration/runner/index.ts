@@ -14,22 +14,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     /** Ensure that an actor or item reflects the current data schema before it is created */
-    static async ensureSchemaVersion(
-        document: ActorPF2e | ItemPF2e,
-        migrations: MigrationBase[],
-        { preCreate = true } = {}
-    ): Promise<void> {
+    static async ensureSchemaVersion(document: ActorPF2e | ItemPF2e, migrations: MigrationBase[]): Promise<void> {
         const currentVersion = this.LATEST_SCHEMA_VERSION;
-        if (!document.sourceId && preCreate) {
-            document.data.update({ "data.schema.version": currentVersion });
-            if ("items" in document) {
-                for (const item of document.items) {
-                    if (item.schemaVersion === null) {
-                        item.data.update({ "data.schema.version": currentVersion });
-                    }
-                }
-            }
-        }
 
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
@@ -44,6 +30,16 @@ export class MigrationRunner extends MigrationRunnerBase {
                 }
             })();
             if (updated) document.data.update(updated);
+        }
+
+        document.data.update({ "data.schema.version": currentVersion });
+        // Discriminate between item and actor without importing, which would throw errors on the migration test
+        if ("items" in document && "token" in document) {
+            for (const item of document.items) {
+                if (!item.schemaVersion) {
+                    item.data.update({ "data.schema.version": currentVersion });
+                }
+            }
         }
     }
 
