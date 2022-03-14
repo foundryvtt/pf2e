@@ -4,7 +4,8 @@ import { BaseRollContext } from "@system/rolls";
 import { combineObjects } from "@util";
 
 /** The possible standard damage die sizes. */
-export type DamageDieSize = "d4" | "d6" | "d8" | "d10" | "d12";
+export const DAMAGE_DIE_FACES = new Set(["d4", "d6", "d8", "d10", "d12"] as const);
+export type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 
 export function nextDamageDieSize(dieSize: DamageDieSize) {
     switch (dieSize) {
