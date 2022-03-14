@@ -5,7 +5,7 @@ export const CanvasReady = {
     listen: (): void => {
         Hooks.once("canvasReady", async () => {
             // Requires ConditionManager to be fully loaded.
-            await game.pf2e.ConditionManager.init();
+            await game.pf2e.ConditionManager.initialize();
             game.pf2e.StatusEffects.init();
             for (const li of $("#chat-log").children("li")) {
                 SetAsInitiative.listen($(li));

@@ -673,7 +673,6 @@ export const PF2ECONFIG = {
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
     statusEffects: {
-        overruledByModule: false,
         lastIconType: "default" as StatusEffectIconTheme,
         effectsIconFolder: "systems/pf2e/icons/conditions/",
         effectsIconFileType: "webp",
