@@ -91,7 +91,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSpellcasting(sheetData);
     }
 
-    private prepareIWR(sheetData: Partial<NPCSheetData>) {
+    private prepareIWR(sheetData: PrePrepSheetData) {
         const immunities = deepClone(this.actor.data.data.traits.di);
         sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, immunities);
         sheetData.hasImmunities = Object.keys(sheetData.immunities).length !== 0;
@@ -100,11 +100,13 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         for (const weakness of weaknesses) {
             weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
         }
+        sheetData.data.traits.dv = weaknesses;
 
         const resistances = deepClone(this.actor.data.data.traits.dr);
         for (const resistance of resistances) {
             resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type] ?? resistance.label;
         }
+        sheetData.data.traits.dr = resistances;
     }
 
     private getIdentifyCreatureData(): IdentifyCreatureData {
@@ -113,7 +115,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     override async getData(): Promise<NPCSheetData> {
-        const sheetData: Partial<NPCSheetData> & CreatureSheetData<NPCPF2e> = await super.getData();
+        const sheetData: PrePrepSheetData = await super.getData();
 
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {
@@ -676,3 +678,5 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         await super._updateObject(event, formData);
     }
 }
+
+type PrePrepSheetData = Partial<NPCSheetData> & CreatureSheetData<NPCPF2e>;
