@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "CE"
             },
-            "blurb": "",
+            "blurb": "Male greater barghest",
             "creatureType": "Fiend",
             "level": {
                 "value": 7
@@ -89,27 +89,24 @@
             },
             "dr": [
                 {
-                    "label": "Fire",
+                    "exceptions": "",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "exceptions": "magical",
-                    "label": "Physical",
+                    "exceptions": "except magical",
                     "type": "physical",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Lawful",
                     "type": "lawful",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -237,7 +234,7 @@
                 "spelldc": {
                     "dc": 25,
                     "mod": 0,
-                    "value": 15
+                    "value": 17
                 },
                 "tradition": {
                     "value": "divine"
@@ -256,14 +253,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "W06756rdTtnNdeYH",
+            "_id": "PqvaZ3DvfcX3DqQD",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -284,13 +284,16 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<hr />\n<p><strong>Heightened</strong> The resistance increases by 3.</p>"
+                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Blink]{Spell Effect: Blink}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 3.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
                 },
                 "level": {
                     "value": 4
@@ -304,6 +307,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -315,9 +321,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blink",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=27"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -346,14 +358,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zR67Rt3UMHKC5evy"
+                }
+            },
             "img": "systems/pf2e/icons/spells/blink.webp",
-            "name": "Blink",
+            "name": "Blink (At Will)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "qLddTn1OiLQ5VUxj",
+            "_id": "IHTae8HbGujthnd9",
             "data": {
                 "ability": {
                     "value": ""
@@ -361,6 +377,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -381,13 +400,16 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute, with no save to end early.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
                 },
                 "level": {
                     "value": 4
@@ -401,20 +423,29 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "confusion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=48"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -444,14 +475,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.LiGbewa9pO0yjbsY"
+                }
+            },
             "img": "systems/pf2e/icons/spells/confusion.webp",
             "name": "Confusion",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "jQRL9fyPwx4qJr2X",
+            "_id": "4O95T3lRN7aq8EaA",
             "data": {
                 "ability": {
                     "value": ""
@@ -459,6 +494,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -479,13 +517,16 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
                 },
                 "level": {
                     "value": 4
@@ -499,6 +540,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -510,9 +554,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -541,21 +591,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "DS57JPlLeuMKw7Z7",
+            "_id": "KDeAmqNZ8NGjjpMZ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -576,7 +633,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<hr />\n<p><strong>Heightened</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature.</p>\n<p><strong>Heightened</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
+                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Levitate]{Spell Effect: Levitate}</p>"
                 },
                 "duration": {
                     "value": "5 minutes"
@@ -584,8 +641,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightenedLevel": {
+                    "value": 3
+                },
                 "level": {
-                    "value": 4
+                    "value": 3
                 },
                 "location": {
                     "value": "LURnplPbJOwNAozj"
@@ -594,6 +654,123 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "levitate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 unattended object or willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fI20AVwOzJMHXRdo"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/levitate.webp",
+            "name": "Levitate (At Will)",
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "seS7cW7GI4jZB0Ro",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Enlarge]{Spell Effect: Enlarge}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @Compendium[pf2e.spell-effects.Spell Effect: Enlarge (Heightened 4th)]{Spell Effect: Enlarge (Heightened 4th)}</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
+                },
+                "duration": {
+                    "value": "5 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightenedLevel": {
+                    "value": 4
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "LURnplPbJOwNAozj"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -607,9 +784,15 @@
                 "school": {
                     "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "enlarge",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=102"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -638,116 +821,28 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/enlarge.webp",
-            "name": "Enlarge",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "qzYOB5MEiks4jYHL",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>"
-                },
-                "duration": {
-                    "value": "5 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "LURnplPbJOwNAozj"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "slug": null,
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=170"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 unatteded object or willing creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wzctak6BxOW8xvFV"
                 }
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/levitate.webp",
-            "name": "Levitate",
+            "img": "systems/pf2e/icons/spells/enlarge.webp",
+            "name": "Enlarge",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "LBVoE1bLZ3Uc3gsg",
+            "_id": "ClFUTI0Jfb1az69J",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -768,13 +863,16 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 2
                 },
                 "level": {
                     "value": 2
@@ -788,6 +886,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -799,9 +900,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -828,14 +935,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.webp",
-            "name": "Invisibility",
+            "name": "Invisibility (At Will)",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "I4Yuwd8briktQDIV",
+            "_id": "1QA46EpsY69FCZ5K",
             "data": {
                 "ability": {
                     "value": ""
@@ -843,6 +954,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -863,13 +977,16 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "level": {
                     "value": 1
@@ -883,6 +1000,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -894,9 +1014,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -928,7 +1054,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
             "sort": 800000,
@@ -953,9 +1083,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1021,6 +1168,98 @@
             "type": "melee"
         },
         {
+            "_id": "RBTICSCn9OcPSsfb",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "aJky1rLHdCQPoA58",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
             "_id": "h0hJAD32OkrXK3lx",
             "data": {
                 "actionCategory": {
@@ -1038,7 +1277,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.wolfEmpathy"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "wolfEmpathy"
+                            ]
+                        },
+                        "selector": "intimidation",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1062,29 +1317,29 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wolf Empathy",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "ICb92ZDeKO1IgnKT",
+            "_id": "nTRfMlXAqXK1i2VK",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "at-will-spells",
                 "source": {
                     "value": ""
                 },
@@ -1101,10 +1356,60 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "rVwshWQjLtgO0x1Z",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1151,7 +1456,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1193,7 +1498,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mutations",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1223,7 +1528,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1253,7 +1558,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1283,7 +1588,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1313,7 +1618,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1343,7 +1648,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1373,7 +1678,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1403,7 +1708,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2100000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],
