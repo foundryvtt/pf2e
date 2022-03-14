@@ -587,7 +587,7 @@ export class NPCPF2e extends CreaturePF2e {
                             context.self.item.data,
                             context.self.actor,
                             action.traits,
-                            statisticsModifiers,
+                            deepClone(statisticsModifiers),
                             this.cloneSyntheticsRecord(damageDice),
                             1,
                             options,
