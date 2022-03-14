@@ -37,6 +37,9 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/character/tabs/spellcasting.html",
         "systems/pf2e/templates/actors/character/tabs/crafting.html",
 
+        // Actor Sheets Partials (Hazards)
+        "systems/pf2e/templates/actors/hazard/partials/header.html",
+
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
