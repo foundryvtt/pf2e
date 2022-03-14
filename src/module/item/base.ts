@@ -14,6 +14,7 @@ import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { preImportJSON } from "@module/doc-helpers";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -499,25 +500,10 @@ class ItemPF2e extends Item<ActorPF2e> {
         return newItem;
     }
 
-    /** If necessary, migrate this item before importing */
+    /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const source = JSON.parse(json);
-        source._id = this.id;
-        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
-        const data = new (this.constructor as typeof ItemPF2e).schema(processed);
-
-        const { folder, sort, permission } = this.data;
-        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
-            recursive: false,
-        });
-
-        await MigrationRunner.ensureSchemaVersion(
-            this,
-            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
-            { preCreate: false }
-        );
-
-        return this.update(this.toObject(), { diff: false, recursive: false });
+        const processed = await preImportJSON(this, json);
+        return processed ? super.importFromJSON(processed) : this;
     }
 
     static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
@@ -588,9 +574,9 @@ class ItemPF2e extends Item<ActorPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
 
-        if (!this.actor) {
+        if (!options.parent) {
             // Ensure imported items are current on their schema version
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }
 
         // Remove any rule elements that request their own removal upon item creation
