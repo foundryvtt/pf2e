@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 3.7.2
+
+### Bugfixes
+* (stwlam) Prevent numeric modifiers from NPC attack items applying to other attacks
+* (stwlam) Migrate items from GrantItem rule elements in case they come from non-system compendiums
+* (stwlam) Fix issue preventing conditions from being added to actors in a sceneless world
+
+## Data Updates
+* (NullWolf) Add effect link to Rage action's description
+* (NullWolf) Fix spell type and damage of multiple spells
+* (Roxim) Brushup Extinction Curse Book 2 NPCs (part 1)
+* (Roxim) Add Concussive trait to Shobhad Longrifle
+* (Roxim) Add an effect for Mountain Stronghold
+
+
 ## Version 3.7.1
 
 ### Bugfixes
@@ -19,8 +34,8 @@
 ## Version 3.7.0
 
 ### New Features
-* (SkepticRobot) Add support for combining stacks of alike items via drag & drop
 * (putty) Add world clock buttons to advance to dawn, noon, dusk, and midnight
+* (SkepticRobot) Add support for combining stacks of alike items via drag & drop
 
 ### Core System Improvements
 * (Friz) Remove sell and equip buttons from loot actor sheets
