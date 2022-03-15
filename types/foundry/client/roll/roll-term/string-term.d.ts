@@ -7,17 +7,13 @@ declare global {
 
         term: string;
 
-        /** @override */
-        static SERIALIZE_ATTRIBUTES: ["term"];
+        static override SERIALIZE_ATTRIBUTES: ["term"];
 
-        /** @override */
-        get expression(): string;
+        override get expression(): string;
 
-        /** @override */
-        get total(): string;
+        override get total(): string;
 
-        /** @override */
-        evaluate(options?: Record<string, unknown>): never;
+        override evaluate(options?: Record<string, unknown>): never;
     }
 
     interface StringTermData extends RollTermData {
