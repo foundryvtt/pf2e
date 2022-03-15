@@ -10,8 +10,8 @@
 ## Data Updates
 * (NullWolf) Add effect link to Rage action's description
 * (NullWolf) Fix spell type and damage of multiple spells
+* (NullWolf) Add Concussive trait to Shobhad Longrifle
 * (Roxim) Brushup Extinction Curse Book 2 NPCs (part 1)
-* (Roxim) Add Concussive trait to Shobhad Longrifle
 * (Roxim) Add an effect for Mountain Stronghold
 
 
