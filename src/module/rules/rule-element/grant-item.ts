@@ -1,4 +1,4 @@
-import { ClassPF2e, FeatPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e, REPreCreateParameters, REPreDeleteParameters, RuleElementData, RuleElementSource } from "./";
 import { sluggify } from "@util";
@@ -6,6 +6,7 @@ import { ChoiceSetRuleElement } from "./choice-set/rule-element";
 import { ChoiceSetSource } from "./choice-set/data";
 import { RuleElementOptions } from "./base";
 import { ActorType } from "@actor/data";
+import { MigrationList, MigrationRunner } from "@module/migration";
 
 class GrantItemRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
@@ -41,6 +42,12 @@ class GrantItemRuleElement extends RuleElementPF2e {
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
 
+        // The grant may have come from a non-system compendium, so make sure it's fully migrated
+        await MigrationRunner.ensureSchemaVersion(
+            grantedItem,
+            MigrationList.constructFromVersion(grantedItem.schemaVersion)
+        );
+
         // Set ids and flags on the granting and granted items
         itemSource._id ??= randomID();
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
@@ -52,8 +59,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
         for (const item of [this.item, tempGranted]) {
-            if (item instanceof ClassPF2e || item instanceof FeatPF2e) {
-                const prefix = item instanceof ClassPF2e || !item.isFeature ? item.type : "feature";
+            if (item.isOfType("class", "feat")) {
+                const prefix = item.isOfType("class") || !item.isFeature ? item.type : "feature";
                 const slug = item.slug ?? sluggify(item.name);
                 this.actor.rollOptions.all[`self:${prefix}:${slug}`] = true;
             }

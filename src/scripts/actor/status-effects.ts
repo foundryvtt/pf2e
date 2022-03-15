@@ -20,7 +20,7 @@ export class StatusEffects {
 
     /** Link status effect icons to conditions */
     static init() {
-        if (CONFIG.PF2E.statusEffects.overruledByModule) return;
+        if (!canvas.ready) return;
 
         console.log("PF2e System | Initializing Status Effects Module");
         this.hookIntoFoundry();
@@ -436,14 +436,6 @@ export class StatusEffects {
      * And migrate all statusEffect URLs of all Tokens
      */
     static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme) {
-        if (CONFIG.PF2E.statusEffects.overruledByModule) {
-            console.log("PF2e System | The PF2eStatusEffect icons are overruled by a module");
-            ui.notifications.error(
-                "Changing this setting has no effect, as the icon types are overruled by a module.",
-                { permanent: true }
-            );
-            return;
-        }
         console.debug("PF2e System | Changing status effect icon types");
         const iconType = StatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
         const lastIconType = StatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];

@@ -73,6 +73,9 @@ export const Ready = {
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
 
+            // In case there's no canvas, run Condition Manager initialization from this hook as well
+            game.pf2e.ConditionManager.initialize();
+
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {
                 return game.i18n
