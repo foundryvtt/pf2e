@@ -120,7 +120,7 @@ declare global {
          * @param data The de-serialized term data
          * @returns The re-constructed RollTerm object
          */
-        protected static _fromData<T extends RollTerm>(this: ConstructorOf<T>, data: RollTermData): T;
+        protected static _fromData<D extends RollTermData, T extends RollTerm<D>>(this: ConstructorOf<T>, data: D): T;
 
         /**
          * Reconstruct a RollTerm instance from a provided JSON string

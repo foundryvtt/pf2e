@@ -77,29 +77,13 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             const [centerA, centerB] = [flankerA.center, flankerB.center];
             const { bounds } = flankee;
 
-            const leftSide = (): [Point, Point] => [
-                { x: bounds.left, y: bounds.top },
-                { x: bounds.left, y: bounds.bottom },
-            ];
-            const rightSide = (): [Point, Point] => [
-                { x: bounds.right, y: bounds.top },
-                { x: bounds.right, y: bounds.bottom },
-            ];
-            const topSide = (): [Point, Point] => [
-                { x: bounds.left, y: bounds.top },
-                { x: bounds.right, y: bounds.top },
-            ];
-            const bottomSide = (): [Point, Point] => [
-                { x: bounds.left, y: bounds.bottom },
-                { x: bounds.right, y: bounds.bottom },
-            ];
+            const left = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.left, y: bounds.bottom });
+            const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
+            const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
+            const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
+            const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
 
-            return (
-                (lineSegmentIntersects(centerA, centerB, ...leftSide()) &&
-                    lineSegmentIntersects(centerA, centerB, ...rightSide())) ||
-                (lineSegmentIntersects(centerA, centerB, ...topSide()) &&
-                    lineSegmentIntersects(centerA, centerB, ...bottomSide()))
-            );
+            return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
         };
 
         const { flanking } = this.actor.attributes;
