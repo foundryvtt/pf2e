@@ -54,7 +54,11 @@ export class NPCPF2e extends CreaturePF2e {
 
     /** A user can see an NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        const limitedIsVisible = game.settings.get("pf2e", "Metagame.NPCSheetVisibility");
+        const permissionLevel = limitedIsVisible
+            ? CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED
+            : CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        return this.permission >= permissionLevel;
     }
 
     get isLootable(): boolean {

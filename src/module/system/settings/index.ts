@@ -21,6 +21,15 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register("pf2e", "Metagame.NPCSheetVisibility", {
+        name: "PF2E.SETTINGS.Metagame.NPCSheetVisibility.Name",
+        hint: "PF2E.SETTINGS.Metagame.NPCSheetVisibility.Hint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean,
+    });
+
     game.settings.register("pf2e", "ignoreCoinBulk", {
         name: "PF2E.SETTINGS.IgnoreCoinBulk.Name",
         hint: "PF2E.SETTINGS.IgnoreCoinBulk.Hint",
