@@ -18,6 +18,7 @@ import { LocalizePF2e } from "./localize";
 import { Check } from "./check";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TextEditorPF2e } from "./text-editor";
+import { CheckRoll } from "./check/roll";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -137,7 +138,7 @@ export class CheckPF2e {
             outcome: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null | undefined,
             message: ChatMessagePF2e
         ) => Promise<void> | void
-    ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
+    ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));

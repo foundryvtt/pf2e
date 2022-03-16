@@ -20,6 +20,7 @@ import { ItemPF2e } from "@item";
 import { CheckDC } from "@system/degree-of-success";
 import { isObject } from "@util";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { CheckRoll } from "@system/check/roll";
 
 export * from "./data";
 
@@ -239,7 +240,7 @@ class StatisticCheck {
         return { label, penalty };
     }
 
-    async roll(args: StatisticRollParameters = {}) {
+    async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Allow use of events for modules and macros but don't allow it for internal system use
         const { secret, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
@@ -306,7 +307,7 @@ class StatisticCheck {
             skipDialog,
         };
 
-        await CheckPF2e.roll(new CheckModifier(this.label, this.#stat, extraModifiers), context, null, args.callback);
+        return CheckPF2e.roll(new CheckModifier(this.label, this.#stat, extraModifiers), context, null, args.callback);
     }
 
     get breakdown() {
