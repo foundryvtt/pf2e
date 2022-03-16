@@ -7,26 +7,46 @@
         display: flex;
         flex-direction: row;
 
-        input {
+        form input[type=text]{
             border: none;
-            border-radius: 0;
-            background-color: rgba(#1c1c1c, 0.1);
+            background-color: rgba(0, 0, 0, 0.05);
+            
+            &:hover {
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                box-shadow: none;
+            }
 
             &:focus {
+                border: none;
                 box-shadow: none;
             }
         }
 
-        select {
+        form select {
             border: 1px solid transparent;
             background: rgba(0, 0, 0, 0.05);
             font-family: var(--body-serif);
             font-size: 14px;
             font-weight: normal;
+            height: var(--form-field-height);
 
             &:hover {
                 border: 1px solid black;
             }
+        }
+        
+        form.editable .rollable {
+            cursor: pointer;
+            margin-bottom: 1px;
+
+            &:hover {
+                text-shadow: none;
+                margin-bottom: 0px;
+                border-bottom: 1px solid #323232;
+            }
+
         }
 
         .familiar-sheet-header {
@@ -75,6 +95,7 @@
                             color: #1c1c1c;
                         }
                         &:focus {
+                            border: none;
                             border-bottom: 1px solid #644f33;
                             &::placeholder {
                                 color: transparent;
@@ -163,25 +184,20 @@
                                     flex-grow: 1;
                                 }
                             }
-
-
-                            
-                            &.rollable {
-                                cursor: pointer;
-                                margin-bottom: 1px;
-
-                                &:hover {
-                                    margin-bottom: 0px;
-                                    border-bottom: 1px solid #323232;
-                                }
-
-                            }
                         }
                     }
 
                     .master-section {
                         display: flex;
                         flex-direction: column;
+
+                        label {
+                            display: initial;
+                        }
+
+                        input {
+                            font-weight: normal;
+                        }
 
                         .saves-list {
                             display: flex;
@@ -197,7 +213,7 @@
                                 margin-bottom: 1px;
                                 cursor: pointer;
                     
-                                .save-name {
+                                .save-type {
                                     font-weight: bold;
                                     text-transform: capitalize;
                                 }
@@ -268,6 +284,7 @@
                         color: #1c1c1c;
                     }
                     &:focus {
+                        border: none;
                         border-bottom: 1px solid #644f33;
                         &::placeholder {
                             color: transparent;
@@ -287,96 +304,12 @@
                 border-radius: 0;
                 &[type="text"] {
                     background-color: rgba(0, 0, 0, 0.05);
+                    height: var(--form-field-height);
                 }
     
                 &:focus {
                     box-shadow: none;
                 }
-            }
-
-            h3 {
-                background-color: rgba(0, 0, 0, 0.05);
-                height: 26px;
-                font-family: var(--body-serif);
-                font-size: 14px;
-                padding: 8px 4px 6px;
-                line-height: 1;
-            }
-
-            .familiar-species {
-                flex-basis: 30%;
-            }
-
-            .familiar-size {
-                flex-basis: 30%;
-            }
-
-            .familiar-modifier {
-                flex-basis: 30%;
-            }
-
-            .familiar-senses {
-                flex-basis: 30%;
-                height: min-content;
-                
-                .tags {
-                    margin: 0;
-                    padding: 0;
-                    flex-wrap: nowrap;
-
-                    ol {
-                        margin: 0;
-                    }
-                }
-            }
-
-            .familiar-speed {
-                flex-basis: 30%;
-            }
-        }
-        
-        .detail{
-            display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
-            margin-top: 3px;
-        
-            .detail-label {
-                font-size: 10px;
-                font-weight: 800;
-                line-height: 1;
-                text-transform: uppercase;
-                font-family: var(--sans-serif);
-                color: var(--primary);
-                white-space: nowrap;
-                margin-bottom: 3px;
-            }
-        }
-
-        .familiar-content {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 5px;
-            column-gap: 15px;
-            input {
-                border: none;
-                border-radius: 0;
-                &[type="text"] {
-                    background-color: rgba(0, 0, 0, 0.05);
-                }
-    
-                &:focus {
-                    box-shadow: none;
-                }
-            }
-
-            h3 {
-                background-color: rgba(0, 0, 0, 0.05);
-                height: 26px;
-                font-family: var(--body-serif);
-                font-size: 14px;
-                padding: 8px 4px 6px;
-                line-height: 1;
             }
 
             .familiar-species {
@@ -403,16 +336,12 @@
                 .tags {
                     margin: 0;
                     padding: 0;
-                    flex-wrap: nowrap;
+                    flex-wrap: wrap;
 
                     ol {
                         margin: 0;
                     }
                 }
-            }
-
-            .familiar-speed {
-                flex-basis: 30%;
             }
         }
         
@@ -439,7 +368,7 @@
                 font-weight: bold;
                 background-color: rgba(0, 0, 0, 0.05);
                 padding-left: 2px;
-                margin: none;
+                margin: 0;
             }
         }
 

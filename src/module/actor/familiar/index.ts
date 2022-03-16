@@ -6,8 +6,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemPF2e } from "@item";
 import { FamiliarData, FamiliarSystemData } from "./data";
-import { CreatureSaves, LabeledSpeed } from "@actor/creature/data";
-import { ActorSizePF2e } from "@actor/data/size";
+import { CreatureSaves } from "@actor/creature/data";
 import { Statistic } from "@system/statistic";
 import { SaveType } from "@actor/data";
 import { extractModifiers } from "@module/rules/util";
@@ -27,28 +26,13 @@ export class FamiliarPF2e extends CreaturePF2e {
     override prepareBaseData() {
         super.prepareBaseData();
 
-        type RawSpeed = { value: string; otherSpeeds: LabeledSpeed[] };
         type PartialSystemData = DeepPartial<FamiliarSystemData> & {
-            attributes: { speed: RawSpeed; flanking: {} };
-            details: {};
+            attributes: { flanking: {} };
         };
 
         const systemData: PartialSystemData = this.data.data;
-        systemData.details.alignment = { value: "N" };
-        systemData.details.level = { value: 0 };
-        systemData.traits = {
-            senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
-            size: new ActorSizePF2e({ value: "tiny" }),
-            traits: { value: ["minion"], custom: "" },
-        };
 
         systemData.attributes.flanking.canFlank = false;
-        systemData.attributes.perception = {};
-        systemData.attributes.speed = {
-            value: "25",
-            label: game.i18n.localize("PF2E.SpeedTypesLand"),
-            otherSpeeds: [],
-        };
 
         systemData.skills = {};
 
