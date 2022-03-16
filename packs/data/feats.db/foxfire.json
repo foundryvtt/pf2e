@@ -29,17 +29,52 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": {
+                            "not": [
+                                "self:heritage:frozen-wind-kitsune"
+                            ]
+                        },
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": {
+                            "not": [
+                                "self:heritage:frozen-wind-kitsune"
+                            ]
+                        },
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": {
+                            "all": [
+                                "self:heritage:frozen-wind-kitsune"
+                            ]
+                        },
+                        "value": "cold"
+                    }
+                ],
+                "flag": "damageChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
                 "category": "unarmed",
                 "damage": {
                     "base": {
-                        "damageType": "cold",
+                        "damageType": "{item|flags.pf2e.rulesSelections.damageChoice}",
                         "dice": 1,
                         "die": "d4"
                     }
                 },
                 "group": "sling",
+                "img": "systems/pf2e/icons/spells/diamond-dust.webp",
                 "key": "Strike",
-                "label": "Foxfire",
                 "range": null,
                 "traits": [
                     "range-20",
@@ -62,6 +97,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Foxfire (Cold)",
+    "name": "Foxfire",
     "type": "feat"
 }
