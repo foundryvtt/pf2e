@@ -202,7 +202,6 @@ function isTopLevelCoin(itemData: PhysicalItemData, currencies: typeof CURRENCIE
         itemData.type === "treasure" &&
         itemData.data.value.value === 1 &&
         itemData.data.stackGroup === "coins" &&
-        itemData.data.containerId === null &&
         currencies.has(itemData.data.denomination?.value)
     );
 }
