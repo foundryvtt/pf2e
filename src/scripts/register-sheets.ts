@@ -24,6 +24,7 @@ import { HeritageSheetPF2e } from "@item/heritage";
 import { JournalSheetPF2e, JournalSheetStyledPF2e } from "@module/journal-entry/sheet";
 import { SceneConfigPF2e } from "@scene/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
+import { HazardSheetGreenPF2e } from "@actor/hazard/sheet-new";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -70,6 +71,13 @@ export function registerSheets() {
         label: game.i18n.format(sheetLabel, { type: localizeType("hazard") }),
         makeDefault: true,
     });
+
+    if (BUILD_MODE === "development") {
+        Actors.registerSheet("pf2e", HazardSheetGreenPF2e, {
+            types: ["hazard"],
+            label: "Dev Hazard Sheet",
+        });
+    }
 
     // Register Loot Sheet
     Actors.registerSheet("pf2e", LootSheetPF2e, {

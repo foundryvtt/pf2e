@@ -1,0 +1,72 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 220px;
+    padding: 10px 8px 8px 8px;
+    gap: 8px;
+
+    border-right: 1px solid #888;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+    .sidebar_label {
+        font-weight: initial;
+        text-transform: capitalize;
+        font-size: 12px;
+        border: none;
+        margin-bottom: 2px;
+    }
+
+    .sidebar-title {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid black;
+        margin-bottom: 4px;
+        h2 {
+            font-size: 12px;
+        }
+    }
+
+    .valued-icon {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .health {
+        i {
+            margin-right: 2px;
+        }
+        input {
+            width: 34px;
+            &.current {
+                text-align: end;
+            }
+        }
+    }
+
+    .armor-class input {
+        width: 25px;
+        text-align: right;
+    }
+
+    .health-line {
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+    }
+
+    .sidebar-saves {
+        display: flex;
+        justify-content: space-between;
+        .roll-data {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            font-size: 18px;
+        }
+        input {
+            width: 25px;
+        }
+    }
+}
