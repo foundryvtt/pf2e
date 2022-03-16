@@ -42,9 +42,21 @@ export const InlineRollLinks = {
         InlineRollLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
+        const actorFromDOM = (html: HTMLElement): ActorPF2e | null => {
+            const sheet: { id?: string; actor?: unknown } | null =
+                ui.windows[Number(html.closest<HTMLElement>(".actor.sheet")?.dataset.appid)];
+            const sheetOrMessage =
+                sheet ?? game.messages.get(html.closest<HTMLElement>("li.chat-message")?.dataset.messageId ?? "") ?? {};
+            const { actor } = sheetOrMessage;
+
+            return actor instanceof ActorPF2e ? actor : null;
+        };
+
         $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
-            const parent = event.target.parentElement;
-            if (parent) InlineRollLinks.repostAction(parent);
+            const target = event.currentTarget;
+            const parent = target.parentElement;
+            const actor = actorFromDOM(target);
+            if (parent) InlineRollLinks.repostAction(parent, actor instanceof ActorPF2e ? actor : null);
             event.stopPropagation();
         });
 
@@ -236,20 +248,20 @@ export const InlineRollLinks = {
         });
     },
 
-    repostAction: (target: HTMLElement): void => {
-        if (
-            !(
-                target?.matches("[data-pf2-action], [data-pf2-action] *") ||
-                target?.matches("[data-pf2-check], [data-pf2-check] *")
-            )
-        ) {
+    repostAction: (target: HTMLElement, actor: ActorPF2e | null = null): void => {
+        if (!target?.matches("[data-pf2-action], [data-pf2-action] *, [data-pf2-check], [data-pf2-check] *")) {
             return;
         }
 
         const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
         const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
+        const speaker = ChatMessagePF2e.getSpeaker({
+            actor,
+            token: actor?.token ?? actor?.getActiveTokens(false, true).shift(),
+        });
 
         ChatMessagePF2e.create({
+            speaker,
             content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
         });
     },

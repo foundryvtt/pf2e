@@ -746,6 +746,7 @@ class CharacterPF2e extends CreaturePF2e {
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 data: {
                     slug: "basic-unarmed",
+                    category: "unarmed",
                     baseItem: null,
                     bonus: { value: 0 },
                     damage: { dice: 1, die: "d4", damageType: "bludgeoning" },

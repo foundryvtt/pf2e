@@ -4,7 +4,7 @@ import { objectHasKey } from "@util";
 
 const UserVisibilityPF2e = {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    process: ($html: JQuery, { message, actor }: { message?: ChatMessagePF2e; actor?: ActorPF2e | null } = {}) => {
+    process: ($html: JQuery, { message, actor = message?.actor ?? null }: ProcessOptions = {}) => {
         const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
 
         // Remove all visibility=none elements
@@ -85,5 +85,10 @@ const UserVisibilityPF2e = {
 };
 
 type UserVisibility = "all" | "owner" | "gm" | "none";
+
+interface ProcessOptions {
+    message?: ChatMessagePF2e;
+    actor?: ActorPF2e | null;
+}
 
 export { UserVisibilityPF2e, UserVisibility };
