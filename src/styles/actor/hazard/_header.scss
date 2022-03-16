@@ -1,0 +1,101 @@
+form > header {
+    background: url("../assets/sheet/header-bw.webp"), url("../assets/sheet/background.webp");
+    background-repeat: repeat-x, no-repeat;
+    background-size: cover;
+    background-color: #238580;
+    background-blend-mode: multiply;
+    color: white;
+
+    width: 100%;
+    font-family: var(--sans-serif);
+    text-transform: uppercase;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    margin-bottom: 0.1em;
+    gap: 8px;
+
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+
+    .frame-container {
+        flex: 0 0 60px;
+        padding: 4px; // frames use shadows to create the border, so we need to offset it
+        margin: 16px 0;
+
+        .frame {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .player-image {
+            object-fit: cover;
+            object-position: top;
+            border: none;
+            border-radius: 0;
+            max-height: 178px;
+            width: 100%;
+            cursor: pointer;
+            @include brown-border;
+        }
+
+        .edit-button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            bottom: -10px;
+            left: -10px;
+            border-radius: 10px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            @include brown-border;
+
+            // center the icon
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.05em;
+        }
+    }
+
+    .details {
+        margin: 4px 0;
+        flex: 1;
+    }
+
+    input[type="text"], input[type="number"] {
+        color: white;
+        border: none;
+        border-bottom: 1px solid transparent;
+        &:hover, &:focus {
+            border: none;
+            border-bottom: 1px solid var(--text-light);
+            box-shadow: none;
+        }
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 4px;
+
+        font-size: 28px;
+        font-family: var(--serif-condensed);
+        font-weight: 700;
+
+        .name {
+            flex: 1;
+            font-size: 32px;
+        }
+
+        .level {
+            width: 32px;
+            text-align: center;
+        }
+    }
+}
