@@ -219,9 +219,12 @@ export class ActionsPF2e {
                 ].flat();
 
                 // modifier from roller's equipped weapon
-                const weapon = (
-                    options.weaponTrait ? this.getApplicableEquippedWeapons(actor, options.weaponTrait) : []
-                ).shift();
+                const weapon = [
+                    ...(options.weaponTrait ? this.getApplicableEquippedWeapons(actor, options.weaponTrait) : []),
+                    ...(options.weaponTraitWithPenalty
+                        ? this.getApplicableEquippedWeapons(actor, options.weaponTraitWithPenalty)
+                        : []),
+                ].shift();
                 if (weapon) {
                     check.push(this.getWeaponPotencyModifier(weapon, actor));
                 }
