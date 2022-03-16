@@ -52,9 +52,9 @@ export class NPCPF2e extends CreaturePF2e {
         return super.canUserModify(user, action);
     }
 
-    /** A user can see an NPC in the actor directory only if they have at least Observer permission */
+    /** A user can see a synthetic NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        return this.data.token.actorLink ? super.visible : this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
     }
 
     get isLootable(): boolean {
