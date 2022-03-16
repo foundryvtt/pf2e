@@ -11,7 +11,7 @@ import {
     SpellPrepEntry,
 } from "./data";
 import { SpellPF2e } from "@item/spell";
-import { goesToEleven, OneToTen, ZeroToFour, ZeroToTen } from "@module/data";
+import { goesToEleven, OneToFour, OneToTen, ZeroToTen } from "@module/data";
 import { groupBy, ErrorPF2e } from "@util";
 import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
@@ -53,15 +53,15 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
      * Returns the proficiency used for calculations.
      * For innate spells, this is the highest spell proficiency (min trained)
      */
-    get rank(): ZeroToFour {
+    get rank(): OneToFour {
         const actor = this.actor;
         if (actor instanceof CharacterPF2e) {
             const traditions = actor.data.data.proficiencies.traditions;
             if (this.isInnate) {
                 const allRanks = MAGIC_TRADITIONS.map((tradition) => traditions[tradition].rank);
-                return Math.max(1, this.data.data.proficiency.value ?? 0, ...allRanks) as ZeroToFour;
+                return Math.max(1, this.data.data.proficiency.value ?? 1, ...allRanks) as OneToFour;
             } else {
-                return Math.max(this.data.data.proficiency.value, traditions[this.tradition].rank) as ZeroToFour;
+                return Math.max(this.data.data.proficiency.value, traditions[this.tradition].rank) as OneToFour;
             }
         }
 
@@ -101,12 +101,31 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     /** Spellcasting attack and dc data created during actor preparation */
     statistic!: Statistic;
 
-    override prepareData(): void {
-        super.prepareData();
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        // Spellcasting abilities are always at least trained
+        this.data.data.proficiency.value = Math.max(1, this.data.data.proficiency.value) as OneToFour;
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
 
         // Wipe the internal spells collection so it can be rebuilt later.
         // We can't build the spells collection here since actor.items might not be populated
         this._spells = null;
+    }
+
+    override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
+        // Upgrade the actor proficiency using the internal ones
+        const actor = this.actor;
+        // Innate spellcasting will always be elevated by other spellcasting proficiencies but never do
+        // the elevating itself
+        if (actor instanceof CharacterPF2e && !this.isInnate) {
+            const { traditions } = actor.data.data.proficiencies;
+            const tradition = traditions[this.tradition];
+            const rank = this.data.data.proficiency.value;
+            tradition.rank = Math.max(rank, tradition.rank) as OneToFour;
+        }
     }
 
     /** Casts the given spell as if it was part of this spellcasting entry */
@@ -419,17 +438,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         };
     }
 
-    override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
-        // Upgrade the actor proficiency using the internal ones
-        const actor = this.actor;
-        if (actor instanceof CharacterPF2e) {
-            const { traditions } = actor.data.data.proficiencies;
-            const tradition = this.tradition;
-            const rank = this.data.data.proficiency.value;
-            traditions[tradition].rank = Math.max(0, rank, traditions[tradition].rank) as ZeroToFour;
-        }
-    }
-
     override getRollOptions(prefix = this.type): string[] {
         const options: string[] = [];
         options.push(`${prefix}:${this.ability}`);
@@ -437,6 +445,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         options.push(`${prefix}:${this.data.data.prepared.value}`);
         return options;
     }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
