@@ -19,6 +19,7 @@ import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/72
 import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
 import { Migration729CumulativeItemBonusCleanup } from "@module/migration/migrations/729-cumulative-item-bonus-cleanup";
 import { Migration730DeruneHandwraps } from "@module/migration/migrations/730-derune-handwraps";
+import { Migration731TogglePropertyToRollOption } from "@module/migration/migrations/731-toggle-property-to-roll-option";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -34,6 +35,7 @@ const migrations: MigrationBase[] = [
     new Migration728FlattenPhysicalProperties(),
     new Migration729CumulativeItemBonusCleanup(),
     new Migration730DeruneHandwraps(),
+    new Migration731TogglePropertyToRollOption(),
 ];
 
 global.deepClone = <T>(original: T): T => {

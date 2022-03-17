@@ -933,7 +933,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -964,9 +964,11 @@
                         "selector": "strike-damage"
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is prone",
-                        "property": "flags.pf2e.rollOptions.all.target:prone"
+                        "option": "target:prone",
+                        "toggleable": true
                     }
                 ],
                 "slug": "sneak-attack",

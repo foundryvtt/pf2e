@@ -899,8 +899,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.saving-throw.reapersProtection"
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "reapersProtection",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1001,7 +1003,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -1012,9 +1014,11 @@
                         "selector": "strike-damage"
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "Two allies are within reach of the target",
-                        "property": "flags.pf2e.rollOptions.damage-roll.inReachOfAllies"
+                        "option": "inReachOfAllies",
+                        "toggleable": true
                     },
                     {
                         "category": "precision",
@@ -1031,7 +1035,7 @@
                                 "ranged"
                             ],
                             "not": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"

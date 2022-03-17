@@ -7,13 +7,15 @@ import { MigrationBase } from "../base";
 export class Migration727TrimSelfRollOptions extends MigrationBase {
     static override version = 0.727;
 
-    #optionPattern = /^self:(ability|class|feat(?:ure)?|perception|skill):/;
+    protected optionPattern = /^self:(ability|class|feat(?:ure)?|perception|skill):/;
 
-    private trimRollOption(option: string): string {
-        return option.replace(this.#optionPattern, "$1:");
+    protected optionReplacement = "$1:";
+
+    protected trimRollOption(option: string): string {
+        return option.replace(this.optionPattern, this.optionReplacement);
     }
 
-    private trimPredicates(obj: Record<string, unknown>): Record<string, unknown> {
+    protected trimPredicates(obj: Record<string, unknown>): Record<string, unknown> {
         for (const [key, value] of Object.entries(obj)) {
             if (typeof value === "string") {
                 obj[key] = this.trimRollOption(value);

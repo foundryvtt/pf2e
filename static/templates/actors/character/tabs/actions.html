@@ -11,10 +11,10 @@
             <section class="actions-panels">
                 <div class="actions-panel" data-tab="encounter" data-group="actions-tabs">
                     <div class="actions-options item-list">
-                        {{#each data.toggles.actions as |toggle idx|}}
-                            <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+                        {{#each data.toggles as |toggle idx|}}
+                            <div class="actions-option item">
                                 <label>
-                                    <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}} {{disabled (not toggle.enabled)}} />
+                                    <input type="checkbox" data-action="toggle-roll-option" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
                                     <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
                                 </label>
                             </div>

@@ -1163,8 +1163,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.ac.nimbleDodge"
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimbleDodge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1272,7 +1274,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
