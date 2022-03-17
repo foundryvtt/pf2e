@@ -1215,6 +1215,7 @@ export const PF2ECONFIG = {
         90: "PF2E.AreaSize90",
         100: "PF2E.AreaSize100",
         120: "PF2E.AreaSize120",
+        5280: "PF2E.AreaSize1Mile",
     },
 
     alignments: {
