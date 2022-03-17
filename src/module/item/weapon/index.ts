@@ -137,8 +137,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
-        const traitArray = this.data.data.traits.value;
-        if (traitArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+        const traitsArray = this.data.data.traits.value;
+        if (traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
             this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
         }
 
@@ -157,8 +157,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
+        // Allow jousting weapons to be usable when held in one hand
+        this.data.isEquipped ||= this.handsHeld === 1 && traitsArray.some((t) => /^jousting-d\d{1,2}$/.test(t));
+
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
-        const mandatoryMelee = !mandatoryRanged && traitArray.some((trait) => /^thrown-\d+$/.test(trait));
+        const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
         if (mandatoryMelee) this.data.data.range = null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
