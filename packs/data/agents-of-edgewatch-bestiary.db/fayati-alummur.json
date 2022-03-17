@@ -1251,8 +1251,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.deepen-the-wound"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "deepen-the-wound",
+                        "toggleable": true
                     },
                     {
                         "category": "precision",
@@ -1358,7 +1360,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

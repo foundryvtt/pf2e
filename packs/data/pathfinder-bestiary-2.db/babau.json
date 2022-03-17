@@ -1526,8 +1526,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.grevious-strike"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "grevious-strike",
+                        "toggleable": true
                     },
                     {
                         "diceNumber": 2,
@@ -1590,7 +1592,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

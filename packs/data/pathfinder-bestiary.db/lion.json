@@ -310,8 +310,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.packAttack"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "packAttack",
+                        "toggleable": true
                     },
                     {
                         "diceNumber": 1,
@@ -416,7 +418,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

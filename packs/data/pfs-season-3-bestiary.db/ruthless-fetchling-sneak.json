@@ -1008,8 +1008,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.nimble-dodge"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1063,9 +1065,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Shadow Slink (stride at full speed)",
-                        "property": "flags.pf2e.rollOptions.all.shadowSlink"
+                        "option": "shadowSlink",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1124,7 +1128,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"

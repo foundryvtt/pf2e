@@ -1088,9 +1088,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is afflicted by a poison",
-                        "property": "flags.pf2e.rollOptions.all.target-poisoned"
+                        "option": "target-poisoned",
+                        "toggleable": true
                     },
                     {
                         "category": "precision",
@@ -1100,7 +1102,7 @@
                         "predicate": {
                             "any": [
                                 "target-poisoned",
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"

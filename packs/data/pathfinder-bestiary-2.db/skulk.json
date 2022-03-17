@@ -611,8 +611,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.skill-check.chameleonSkin"
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "chameleonSkin",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -676,7 +678,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

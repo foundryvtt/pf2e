@@ -771,7 +771,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -829,8 +829,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.attack-roll.swarming-stance"
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "swarming-stance",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

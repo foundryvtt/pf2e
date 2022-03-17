@@ -801,9 +801,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Use Guarded Movement",
-                        "property": "flags.pf2e.rollOptions.all.guarded-movement"
+                        "option": "guarded-movement",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -904,7 +906,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
