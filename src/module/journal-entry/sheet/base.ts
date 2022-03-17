@@ -1,8 +1,8 @@
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import "../../styles/tinymce.scss";
-import type * as TinyMCE from "tinymce";
-import { ErrorPF2e } from "@util";
 import { TextEditorPF2e } from "@system/text-editor";
+import { ErrorPF2e } from "@util";
+import type * as TinyMCE from "tinymce";
+import "../../../styles/tinymce.scss";
 
 export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
     override get template(): string {
@@ -34,14 +34,5 @@ export class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry>
             mce.focus();
             mce.on("change", () => (editor.changed = true));
         });
-    }
-}
-
-export class JournalSheetStyledPF2e extends JournalSheetPF2e {
-    /** Use the system-themed styling only if the setting is enabled (on by default) */
-    static override get defaultOptions(): DocumentSheetOptions {
-        const options = super.defaultOptions;
-        options.classes.push("pf2e");
-        return options;
     }
 }
