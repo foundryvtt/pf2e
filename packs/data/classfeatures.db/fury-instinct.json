@@ -25,39 +25,19 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": {
                     "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
+                        "class:barbarian"
                     ]
                 },
-                "selector": "ac",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
-                "selector": "strike-damage",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
                 "value": {
                     "brackets": [
-                        {
-                            "end": 6,
-                            "value": 2
-                        },
                         {
                             "end": 14,
                             "start": 7,
@@ -69,73 +49,6 @@
                         }
                     ]
                 }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "dedication-instinct-rage",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "dedication-instinct-rage-agile",
-                "value": 1
             },
             {
                 "adjustName": false,
