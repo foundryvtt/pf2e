@@ -1492,7 +1492,7 @@ class CharacterPF2e extends CreaturePF2e {
     ): StrikeRollContext<this, I> {
         const context = super.getStrikeRollContext(params);
         if (context.self.item.isOfType("weapon")) {
-            StrikeWeaponTraits.modifyWeapon(context.self.item);
+            StrikeWeaponTraits.adjustWeapon(context.self.item);
         }
 
         return context;
