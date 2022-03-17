@@ -2,7 +2,6 @@
     <div class="actions-container">
         <div class="actions-tabs-wrapper">
             <div class="actions-panels">
-
                 <ol class="actions-list directory-list strikes-list">
                     {{#each actor.actions as |section sid|}}
                         <li class="action-header stroke-header">
@@ -16,7 +15,7 @@
                             {{/if}}
                         </li>
                         {{#each section.actions as |action aid|}}
-                        <li class="item" data-item-id="{{action._id}}">
+                        <li class="action item" data-item-id="{{action._id}}">
                             <div class="item-name rollable">
                                 <div class="item-image" style="background-image: url({{action.img}})">
                                     <i class="fas fa-comment-alt"></i>
