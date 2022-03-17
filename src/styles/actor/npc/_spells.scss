@@ -35,12 +35,17 @@
                 flex-wrap: nowrap;
                 align-items: baseline;
 
-                .name {
-                    width: max-content;
-                    h4 {
-                        margin: 0 4px 0 0;
+                span.spanedit {
+                    flex: 1;
+                    color: #f5efe0;
+                    font-weight: 500;
+                    padding: 2px;
+                    margin-right: 4px;
+                    border-radius: 3px;
+                    border: 1px solid transparent;
+                    &:hover {
+                        border: 1px solid #f5efe0;
                     }
-                    padding-right: 6px;
                 }
 
                 .inline-field {
@@ -50,6 +55,7 @@
                     flex-wrap: nowrap;
                     justify-content: flex-start;
                     align-items: baseline;
+                    padding-right: 6px;
 
                     label {
                         flex: 1;
@@ -76,7 +82,8 @@
             }
         }
 
-        .dc-input, .spell-level-header input {
+        .dc-input,
+        .spell-level-header input {
             flex: 1 0 32px;
             text-align: center;
             background-color: $light-text;
@@ -108,7 +115,7 @@
                     display: flex;
                     flex-direction: row;
                     align-items: baseline;
-                    grid-column: 1/span 2;
+                    grid-column: 1 / span 2;
 
                     .focus-points {
                         text-align: center;

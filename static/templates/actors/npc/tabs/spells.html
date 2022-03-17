@@ -14,9 +14,7 @@
                 {{/if}}
 
                     <div class="values">
-                        <div class="name">
-                            <h4>{{entry.name}}</h4>
-                        </div>
+                        <span class="spellcasting-name spanedit" id="{{entry.id}}">{{entry.name}}</span>
                         <div class="spellDC inline-field">
                             <label title="{{entry.statistic.dc.breakdown}}">{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
                             <input type="number" class="dc-input modifier" data-display-value="{{entry.statistic.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.statistic.dc.value}}" data-dtype="Number" placeholder="0"/>
