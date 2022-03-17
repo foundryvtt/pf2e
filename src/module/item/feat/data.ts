@@ -2,6 +2,7 @@ import { ActionType, ItemLevelData, ItemSystemData, ItemTraits } from "@item/dat
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { OneToThree } from "@module/data";
 import { FeatPF2e } from ".";
+import { FEAT_TYPES } from "./values";
 
 export type FeatSource = BaseNonPhysicalItemSource<"feat", FeatSystemSource>;
 
@@ -17,7 +18,7 @@ export interface FeatData extends Omit<FeatSource, "effects" | "flags"> {
 
 export type FeatTrait = keyof ConfigPF2e["PF2E"]["featTraits"];
 export type FeatTraits = ItemTraits<FeatTrait>;
-export type FeatType = keyof ConfigPF2e["PF2E"]["featTypes"];
+export type FeatType = SetElement<typeof FEAT_TYPES>;
 
 export interface PrerequisiteTagData {
     value: string;
