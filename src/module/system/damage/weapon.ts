@@ -363,7 +363,7 @@ export class WeaponDamagePF2e {
         }
 
         // Backstabber trait
-        if (traits.some((t) => t.name === "backstabber") && options.includes("target:flatFooted")) {
+        if (traits.some((t) => t.name === "backstabber") && options.includes("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 modifier: potency > 2 ? 2 : 1,

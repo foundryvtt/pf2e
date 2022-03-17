@@ -834,9 +834,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Use Nimble Dodge",
-                        "property": "flags.pf2e.rollOptions.all.nimbleDodge"
+                        "option": "nimbleDodge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -890,9 +892,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is your Hunted Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                        "option": "hunted-prey",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -921,9 +925,11 @@
                         "value": 2
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "First attack on hunted prey this round",
-                        "property": "flags.pf2e.rollOptions.all.firstAttack"
+                        "option": "firstAttack",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",
@@ -986,7 +992,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

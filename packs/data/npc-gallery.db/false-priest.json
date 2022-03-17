@@ -1273,9 +1273,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is Flat Footed due to a Feint or Deceiver's Surprise",
-                        "property": "flags.pf2e.rollOptions.all.deceivers-surprise"
+                        "option": "deceivers-surprise",
+                        "toggleable": true
                     },
                     {
                         "category": "precision",
@@ -1284,7 +1286,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -1304,7 +1306,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "deceivers-surprise"
                             ],
                             "any": [

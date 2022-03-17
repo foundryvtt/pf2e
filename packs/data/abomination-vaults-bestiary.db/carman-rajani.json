@@ -877,8 +877,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.ac.skillfulCatch"
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "skillfulCatch",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -941,7 +943,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

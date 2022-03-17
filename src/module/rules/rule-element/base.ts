@@ -24,6 +24,8 @@ abstract class RuleElementPF2e {
 
     key: string;
 
+    slug: string | null;
+
     protected suppressWarnings: boolean;
 
     /** A list of actor types on which this rule element can operate (all unless overridden) */
@@ -60,6 +62,8 @@ abstract class RuleElementPF2e {
             ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
+
+        this.slug = this.data.slug ?? null;
     }
 
     get actor(): ActorPF2e {

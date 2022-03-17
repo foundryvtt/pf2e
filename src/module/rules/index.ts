@@ -36,7 +36,6 @@ import { SenseRuleElement } from "./rule-element/sense";
 import { StrikeRuleElement } from "./rule-element/strike";
 import { StrikingRuleElement } from "./rule-element/striking";
 import { TempHPRuleElement } from "./rule-element/temp-hp";
-import { TogglePropertyRuleElement } from "./rule-element/toggle-property";
 import { TokenEffectIconRuleElement } from "./rule-element/token-effect-icon";
 import { TokenImageRuleElement } from "./rule-element/token-image";
 import { TokenLightRuleElement } from "./rule-element/token-light";
@@ -75,7 +74,6 @@ class RuleElements {
         Resistance: ResistanceRuleElement,
         RollOption: RollOptionRuleElement,
         TempHP: TempHPRuleElement,
-        ToggleProperty: TogglePropertyRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
         TokenLight: TokenLightRuleElement,

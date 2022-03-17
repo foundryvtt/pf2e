@@ -64,6 +64,7 @@ export interface ActorSystemData extends ActorSystemSource {
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
     autoChanges: Record<string, AutoChangeEntry[] | undefined>;
+    toggles: RollToggle[];
 }
 
 export interface RollOptionFlags {
@@ -266,7 +267,8 @@ export interface StrikeData {
 
 export interface RollToggle {
     label: string;
-    inputName: string;
+    domain: string;
+    option: string;
     checked: boolean;
     enabled: boolean;
 }

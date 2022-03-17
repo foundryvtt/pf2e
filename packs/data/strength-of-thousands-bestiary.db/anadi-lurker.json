@@ -1814,7 +1814,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"
@@ -1904,9 +1904,11 @@
                         "value": 2
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Creature is in spider or hybrid form",
-                        "property": "flags.pf2e.rollOptions.all.in-spider-or-hybrid-form"
+                        "option": "in-spider-or-hybrid-form",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,

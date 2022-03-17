@@ -890,8 +890,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.nobles-ally"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "nobles-ally",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1011,7 +1013,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

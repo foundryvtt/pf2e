@@ -901,8 +901,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.ac.hurriedRetreat"
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "hurriedRetreat",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -965,7 +967,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

@@ -10,7 +10,6 @@ import {
     Rollable,
     StrikeData,
     InitiativeData,
-    RollToggle,
     BaseActorAttributes,
 } from "@actor/data/base";
 import type { ALIGNMENT_TRAITS, CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
@@ -54,10 +53,6 @@ export interface CreatureSystemSource extends ActorSystemSource {
 
     /** Saving throw data */
     saves?: Record<SaveType, { value?: number; mod?: number }>;
-
-    toggles?: {
-        actions: RollToggle[];
-    };
 }
 
 export interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
@@ -80,10 +75,6 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
     saves: CreatureSaves;
 
     actions?: StrikeData[];
-
-    toggles: {
-        actions: RollToggle[];
-    };
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];

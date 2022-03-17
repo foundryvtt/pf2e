@@ -1405,9 +1405,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",
@@ -1606,7 +1608,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

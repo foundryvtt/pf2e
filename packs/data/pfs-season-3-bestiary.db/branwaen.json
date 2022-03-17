@@ -1625,8 +1625,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.target:trap"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "target:trap",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1705,7 +1707,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"

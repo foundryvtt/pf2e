@@ -664,7 +664,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "class:rogue"
                             ],
                             "any": [
@@ -1209,9 +1209,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Trap Finder (detecting or defending against traps)",
-                        "property": "flags.pf2e.rollOptions.all.trap-finder"
+                        "option": "trap-finder",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -3997,7 +3999,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4015,7 +4017,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4033,7 +4035,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "shortbow-damage",
@@ -4046,7 +4048,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4064,7 +4066,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4082,7 +4084,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "sap-damage",
@@ -4095,7 +4097,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4113,7 +4115,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4131,7 +4133,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4149,7 +4151,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4167,7 +4169,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4185,7 +4187,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4203,7 +4205,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4221,7 +4223,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4239,7 +4241,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4257,7 +4259,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4275,7 +4277,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "rapier-damage",
@@ -4288,7 +4290,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "shortsword-damage",
@@ -4337,7 +4339,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "unarmed-damage",
@@ -4350,7 +4352,7 @@
                         ],
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "weapon:category:simple"
                             ],
                             "any": [
@@ -4754,8 +4756,10 @@
                         "value": 2
                     },
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.agelessPatience"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "agelessPatience",
+                        "toggleable": true
                     },
                     {
                         "key": "Note",
