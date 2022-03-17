@@ -1,204 +1,12 @@
 &.actions {
-    .actions-container {
-        display: grid;
-        padding-bottom: 2rem;
-
-        .actions-tabs-wrapper {
-            display: grid;
-            justify-items: center;
-
-            .action-radio {
-                display: none;
-            }
-
-            .actions-nav {
-                @include p-reset;
-                display: flex;
-                flex-wrap: nowrap;
-                justify-content: center;
-                align-items: flex-start;
-                list-style: none;
-                border-radius: 3px;
-                margin-bottom: 1rem;
-
-                .tab {
-                    display: block;
-                    padding: 0.5rem 2rem 0.4rem;
-                    color: white;
-                    text-decoration: none;
-                    background-color: var(--alt);
-                    cursor: pointer;
-                    border-right: 1px solid rgba(0, 0, 0, 0.2);
-                    border-left: 1px solid rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 1px 0 1px darken($alt-color, 10);
-
-                    &.active {
-                        background-color: var(--primary);
-                        box-shadow: 0 1px 0 1px darken($primary-color, 10),
-                            inset 0 0 3px rgba(255, 255, 255, 0.2);
-                    }
-
-                    &:first-child {
-                        border-radius: 3px 0 0 3px;
-                        border-left: none;
-                    }
-
-                    &:last-child {
-                        border-radius: 0 3px 3px 0;
-                        border-right: none;
-                    }
-
-                    &:hover {
-                        text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
-                    }
-                }
-            }
-
-            .actions-panels {
-                min-height: min-content;
-                width: 100%;
-                .actions-panel {
-                    display: none;
-
-                    &.active {
-                        display: flex;
-                        flex-direction: column;
-                    }
-                }
-
-                .actions-options {
-                    @include frame-elegant;
-                    display: flex;
-                    flex-wrap: wrap;
-                    margin: 0 1rem 1rem;
-                    padding: 0.5rem 1rem;
-
-                    .actions-option {
-                        align-items: center;
-                        display: flex;
-                        width: 100%;
-                        margin: 1px 0;
-
-                        label {
-                            * {
-                                vertical-align: middle;
-                            }
-
-                            input {
-                                @include p-reset;
-                            }
-
-                            .unchecked-disabled {
-                                color: var(--color-text-dark-inactive);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .strikes-list {
+    .actions-container .actions-tabs-wrapper .actions-panels ol.actions-list.strikes-list {
         & + .actions-list {
             margin-top: 8px;
         }
-    }
 
-    .actions-list {
-        li.item {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            padding: 4px;
-            width: 100%;
-
-            border-top: 1px solid lighten($alt-color, 40);
-            $border-color: lighten($alt-color, 40);
-            border: solid transparent;
-            border-width: 0 0 1px;
-            border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
-
-            > * {
-                margin: 1px 0;
-            }
-
-            p:empty {
-                display: none;
-            }
-
-            .item-carry-type {
-                color: rgba(0, 0, 0, 0.4);
-                &.active {
-                    color: var(--primary);
-                }
-            }
-
+        li.strike {
             .item-name {
-                display: flex;
                 align-items: flex-start;
-                margin-right: auto;
-                flex: 1;
-
-                h4 {
-                    cursor: pointer;
-                    &:hover {
-                        color: var(--primary);
-                    }
-                }
-
-                .item-image {
-                    height: 22px;
-                    width: 22px;
-                    color: transparent;
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    margin-right: 8px;
-                    font-size: 18px;
-                    @include flex-center;
-                    cursor: pointer;
-
-                    &.variant-strike {
-                        @include frame-icon;
-                        height: 32px;
-                        width: 32px;
-                        padding: 11px;
-                    }
-
-                    &:hover {
-                        background: none !important;
-                        color: var(--primary);
-                    }
-                }
-
-                .actions-title {
-                    flex: 1;
-                    .action-name {
-                        display: flex;
-                        flex-direction: row;
-                    }
-                    .action-name h4 {
-                        cursor: pointer;
-                        &:hover {
-                            color: var(--primary);
-
-                            .activity-icon {
-                                color: var(--body);
-                            }
-                        }
-                    }
-                }
-
-                .action-options {
-                    display: flex;
-                    margin-left: auto;
-
-                    .item-toggle-equip {
-                        color: rgba(black, 0.5);
-                        &.active {
-                            color: var(--secondary);
-                        }
-                    }
-                }
             }
 
             .melee-usage {
@@ -221,6 +29,7 @@
                 font-family: var(--sans-serif);
                 font-weight: 600;
                 gap: 2px;
+
                 .ammo-icon {
                     display: inline-block;
                     width: 14px;
@@ -229,99 +38,63 @@
                 }
             }
 
-            .item-controls {
-                white-space: nowrap;
-                font-size: 10px;
-
-                a + a {
-                    margin-left: 4px;
-                }
-            }
-
-            .item-summary {
-                flex-basis: 100%;
-                margin-bottom: 8px;
-
-                .title,
-                .framing {
-                    color: var(--primary);
-                    @include p-reset;
-                    margin-top: 1em;
+            .item-name {
+                .item-image {
+                    @include frame-icon;
+                    height: 32px;
+                    width: 32px;
+                    padding: 11px;
                 }
 
-                .framing {
-                    color: var(--secondary);
-                    margin: 1em 0 0.25em;
-                    strong {
-                        font-weight: 500;
-                    }
-                    & + p {
-                        margin-top: 0;
-                    }
-                }
+                .button-group {
+                    flex-wrap: nowrap;
+                    font-size: 14px;
 
-                img {
-                    border: none;
-                    vertical-align: middle;
-
-                    &.actionlight {
-                        background: var(--alt);
-                        vertical-align: middle;
-                        border: 1px solid var(--body);
-                    }
-                }
-
-                .item-properties {
-                    .tag {
-                        &.toggled-on:hover,
-                        &.toggled-off:hover {
-                            box-shadow: none;
-                            text-shadow: 0 0 2px white;
-                        }
-
-                        &.toggled-on,
-                        &.toggled-off {
-                            cursor: pointer;
-                        }
-
-                        &.toggled-on {
-                            background-color: rgba(23, 31, 105, 0.5);
-                            color: black;
-                            text-shadow: 0 0 2px white;
-                        }
-                    }
-                }
-            }
-
-            &.expandable {
-                .item-summary {
-                    display: none;
-                }
-            }
-
-            &.expanded {
-                h4 {
-                    color: var(--primary);
-                    font-weight: 700;
-                }
-
-                .item-summary {
-                    display: block;
-                    @include frame-elegant;
-                    padding: 0.5rem 1rem 1rem;
-                    margin-top: 0.75rem;
-                    animation: fadein 0.8s;
-
-                    dd {
+                    button {
+                        @include button;
+                        @include micro;
                         margin: 0;
-                        margin-bottom: 0.5rem;
+                        border: none;
+                        padding: 3px 5px;
+                        color: white;
+                        font-weight: 500;
+                        border-radius: 2px;
+                        flex: 0;
+                        white-space: nowrap;
+                        width: auto;
+                        line-height: 14px;
+                        vertical-align: middle;
+
+                        span.activity-icon {
+                            line-height: 14px;
+                            font-size: 14px;
+                            margin: 0;
+                        }
+
+                        &:not(:disabled) {
+                            background: var(--secondary);
+                            cursor: pointer;
+
+                            &.damage {
+                                background: var(--primary);
+                            }
+
+                            &:hover {
+                                box-shadow: none;
+                                text-shadow: 0 0 2px white;
+                            }
+                        }
                     }
+                }
 
-                    .tag {
-                        box-shadow: none;
+                .action-options {
+                    display: flex;
+                    margin-left: auto;
 
-                        &.tag_secondary {
-                            background-color: rgba(0, 0, 0, 0.8);
+                    .item-toggle-equip {
+                        color: rgba(black, 0.5);
+                        &.active {
+                            color: var(--secondary);
                         }
                     }
                 }
@@ -330,7 +103,7 @@
             .auxiliary-actions {
                 display: flex;
                 gap: 3px;
-                margin-left: 40px;
+                margin-left: 2.5rem;
 
                 &.weapon-drawn {
                     flex-basis: 100%;
@@ -350,7 +123,7 @@
                     line-height: 14px;
 
                     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-                        inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+                                inset 0 0 0 2px rgba(0, 0, 0, 0.2);
 
                     span.activity-icon {
                         line-height: 14px;
@@ -377,43 +150,11 @@
                 }
             }
 
-            .button-group {
-                flex-wrap: nowrap;
-                font-size: 14px;
-
-                button {
-                    @include button;
-                    @include micro;
-                    margin: 0;
-                    border: none;
-                    padding: 3px 5px;
-                    color: white;
-                    font-weight: 500;
-                    border-radius: 2px;
-                    flex: 0;
-                    white-space: nowrap;
-                    width: auto;
-                    line-height: 14px;
-                    vertical-align: middle;
-
-                    span.activity-icon {
-                        line-height: 14px;
-                        font-size: 14px;
-                        margin: 0;
-                    }
-
-                    &:not(:disabled) {
-                        background: var(--secondary);
-                        cursor: pointer;
-
-                        &.damage {
-                            background: var(--primary);
-                        }
-
-                        &:hover {
-                            box-shadow: none;
-                            text-shadow: 0 0 2px white;
-                        }
+            .action-name {
+                .item-carry-type {
+                    color: rgba(0, 0, 0, 0.4);
+                    &.active {
+                        color: var(--primary);
                     }
                 }
             }
