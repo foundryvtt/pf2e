@@ -131,3 +131,4 @@ export { Migration728FlattenPhysicalProperties } from "./728-flatten-physical-pr
 export { Migration729CumulativeItemBonusCleanup } from "./729-cumulative-item-bonus-cleanup";
 export { Migration730DeruneHandwraps } from "./730-derune-handwraps";
 export { Migration731TogglePropertyToRollOption } from "./731-toggle-property-to-roll-option";
+export { Migration732FixDedicationFeatTypes } from "./732-fix-dedication-feat-types";
