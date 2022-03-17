@@ -14,7 +14,7 @@
             "value": "<p>As a Spellmaster, you are adept at identifying magic. You gain a +2 circumstance bonus when you Identify Magic with a skill in which you are trained or better. If you have the Wayfinder Resonance Tinkerer feat, you can change the cantrip you chose for that feat each day during your daily preparations.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the Spellmaster archetype.</p>"
         },
         "featType": {
-            "value": "class"
+            "value": "archetype"
         },
         "level": {
             "value": 6
@@ -32,7 +32,56 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Spellmaster (Identify Magic)",
+                "predicate": {
+                    "all": [
+                        "action:identify-magic"
+                    ]
+                },
+                "selector": "arcana",
+                "type": "circumstance",
+                "value": 2
+            },
+			{
+                "key": "FlatModifier",
+                "label": "Spellmaster (Identify Magic)",
+                "predicate": {
+                    "all": [
+                        "action:identify-magic"
+                    ]
+                },
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 2
+            },
+			{
+                "key": "FlatModifier",
+                "label": "Spellmaster (Identify Magic)",
+                "predicate": {
+                    "all": [
+                        "action:identify-magic"
+                    ]
+                },
+                "selector": "occultism",
+                "type": "circumstance",
+                "value": 2
+            },
+			{
+                "key": "FlatModifier",
+                "label": "Spellmaster (Identify Magic)",
+                "predicate": {
+                    "all": [
+                        "action:identify-magic"
+                    ]
+                },
+                "selector": "religion",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
