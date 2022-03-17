@@ -32,76 +32,72 @@ header.char-header {
 }
 
 .sheet-content {
-    .details {
-        .vehicle-details {
-            display: grid;
-            grid: "img details" 150px/120px 1fr;
-            min-width: 330px;
+    .tab {
+        @import "details", "actions", "inventory", "description";
+    }
 
-            .frame {
-                margin-left: 5px;
+    .directory-list {
+        display: flex;
+        flex-direction: column;
+        @include p-reset;
+        list-style: none;
+        width: 100%;
 
-                .actor-image {
-                    margin-top: 8px;
-                    max-height: 90%;
-                    object-fit: contain;
-                    border-radius: 0;
-                    cursor: pointer;
-                    border: none;
-                    box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+        > h3, > li > h3 {
+            font-size: 16px;
+            font-weight: 500;
+            font-family: var(--serif);
+            line-height: 1;
+            color: white;
+            @include p-reset;
+            margin-left: 8px;
+        }
+
+        h4 {
+            @include p-reset;
+        }
+
+        .item {
+            ol {
+                list-style: none;
+            }
+        }
+
+        .action-header {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-top: 8px;
+            margin-left: 0;
+            padding: 0;
+            padding-bottom: 2px;
+            height: 32px;
+            border: none;
+
+            h3 {
+                color: white;
+                flex: 1 1 100%;
+            }
+
+            .item-controls {
+                color: var(--primary);
+                font-size: 12px;
+                flex: 1 0 auto;
+                a + a {
+                    margin-left: 4px;
                 }
             }
 
-            .detail-sheet {
-                display: grid;
-                grid: repeat(3,42px) / 3fr 2fr;
-                grid-row-gap: 8px;
-                padding-left: 12px;
+            &:first-child {
+                margin-top: 0;
             }
 
-            .detail-small {
-                display: flex;
+            & + li {
+                border-top: none;
             }
         }
-
-        .vehicle-properties {
-            display: flex;
-            flex-wrap: wrap;
-            padding-top: 8px;
-        }
-        .vehicle-properties > div {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            margin-bottom: 8px;
-        }
-        .vehicle-properties > div > span {
-            width: 100%;
-        }
-
-        .detailsInput {
-            margin-bottom: 8px;
-        }
-    }
-
-    .inventory {
-        padding-bottom: 5px;
-    }
-    .inventory,
-    .inventory .inventory-list {
-        height: 100%;
-    }
-    .inventory .item-controls a.item-toggle-equip,
-    .inventory .item-controls a.item-toggle-invest {
-        display: none;
-    }
-    .inventory .item-controls {
-        flex: 0 0 55px;
-        justify-content: flex-end;
-    }
-    .inventory ol:last-child {
-        margin-bottom: 0px;
     }
 }
 
