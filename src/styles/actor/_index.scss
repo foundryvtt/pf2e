@@ -95,6 +95,42 @@ $header-height: 89px;   /* Adjust height of the header */
                         @include p-reset;
                         margin-left: 8px;
                     }
+
+                    .action-header {
+                        align-items: center;
+                        border: none;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        height: 32px;
+                        justify-content: space-between;
+                        margin-left: 0;
+                        margin-top: 8px;
+                        padding-bottom: 2px;
+                        padding: 0;
+                        position: relative;
+
+                        h3 {
+                            color: white;
+                            flex: 1 1 100%;
+                        }
+
+                        .item-controls {
+                            color: var(--primary);
+                            font-size: 12px;
+                            flex: 1 0 auto;
+                            a + a {
+                                margin-left: 4px;
+                            }
+                        }
+
+                        &:first-child {
+                            margin-top: 0;
+                        }
+
+                        & + li {
+                            border-top: none;
+                        }
+                    }
                 }
 
                 .tab.actions {
