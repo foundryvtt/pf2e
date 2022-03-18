@@ -1067,7 +1067,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Unregister all effects possessed by this actor */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.unregister(effect);
         }

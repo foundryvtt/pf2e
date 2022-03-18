@@ -81,8 +81,12 @@ import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
+import { FamiliarPF2e } from "@actor/familiar";
 
 class CharacterPF2e extends CreaturePF2e {
+    /** A cached reference to this PC's familiar */
+    familiar: FamiliarPF2e | null = null;
+
     static override get schema(): typeof CharacterData {
         return CharacterData;
     }
@@ -182,6 +186,15 @@ class CharacterPF2e extends CreaturePF2e {
                 }
                 await this.addToInventory(item);
             }
+        }
+    }
+
+    /** If one exists, prepare this character's familiar */
+    override prepareData(): void {
+        super.prepareData();
+
+        if (game.ready && this.familiar && game.actors.has(this.familiar.id)) {
+            this.familiar.prepareData({ fromMaster: true });
         }
     }
 
