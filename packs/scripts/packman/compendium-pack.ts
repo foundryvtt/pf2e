@@ -1,11 +1,12 @@
 import * as fs from "fs";
 import * as path from "path";
-import { isObject, sluggify } from "@util";
+import { isObject, setHasElement, sluggify } from "@util";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { ActorSourcePF2e } from "@actor/data";
 import { RuleElementSource } from "@module/rules";
+import { FEAT_TYPES } from "@item/feat/values";
 
 export interface PackMetadata {
     system: string;
@@ -173,18 +174,22 @@ export class CompendiumPack {
                 item.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             }
         }
+
         if (isItemSource(docSource)) {
             docSource.data.slug = sluggify(docSource.name);
             docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
 
             if (isPhysicalData(docSource)) {
                 docSource.data.equipped = { carryType: "worn" };
+            } else if (docSource.type === "feat") {
+                const featType = docSource.data.featType.value;
+                if (!setHasElement(FEAT_TYPES, featType)) {
+                    throw PackError(`${docSource.name} has an unrecognized feat type: ${featType}`);
+                }
             }
 
             // Convert uuids with names in GrantItem REs to well-formedness
-            if (isItemSource(docSource)) {
-                CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.namesToIds });
-            }
+            CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.namesToIds });
         }
 
         return JSON.stringify(docSource).replace(

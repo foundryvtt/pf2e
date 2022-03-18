@@ -56,6 +56,8 @@ import {
     weaponTraits,
 } from "./traits";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { Size } from "@module/data";
+import { FeatType } from "@item/feat/data";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -659,13 +661,27 @@ const weaponPropertyRunes: Record<string, string> = {
 };
 
 // Creature and Equipment Sizes
-const sizeTypes = {
+const sizeTypes: Record<Size, string> = {
     tiny: "PF2E.ActorSizeTiny",
     sm: "PF2E.ActorSizeSmall",
     med: "PF2E.ActorSizeMedium",
     lg: "PF2E.ActorSizeLarge",
     huge: "PF2E.ActorSizeHuge",
     grg: "PF2E.ActorSizeGargantuan",
+};
+
+const featTypes: Record<FeatType, string> = {
+    ancestry: "PF2E.FeatTypeAncestry",
+    ancestryfeature: "PF2E.FeatTypeAncestryfeature",
+    class: "PF2E.FeatTypeClass",
+    classfeature: "PF2E.FeatTypeClassfeature",
+    skill: "PF2E.FeatTypeSkill",
+    general: "PF2E.FeatTypeGeneral",
+    archetype: "PF2E.FeatTypeArchetype",
+    bonus: "PF2E.FeatTypeBonus",
+    pfsboon: "PF2E.FeatPFSBoonHeader",
+    deityboon: "PF2E.FeatDeityBoonHeader",
+    curse: "PF2E.FeatCurseHeader",
 };
 
 export const PF2ECONFIG = {
@@ -1293,19 +1309,7 @@ export const PF2ECONFIG = {
         10: "PF2E.SpellLevel10",
     }, // TODO: Compute levels!
 
-    featTypes: {
-        ancestry: "PF2E.FeatTypeAncestry",
-        ancestryfeature: "PF2E.FeatTypeAncestryfeature",
-        class: "PF2E.FeatTypeClass",
-        classfeature: "PF2E.FeatTypeClassfeature",
-        skill: "PF2E.FeatTypeSkill",
-        general: "PF2E.FeatTypeGeneral",
-        archetype: "PF2E.FeatTypeArchetype",
-        bonus: "PF2E.FeatTypeBonus",
-        pfsboon: "PF2E.FeatPFSBoonHeader",
-        deityboon: "PF2E.FeatDeityBoonHeader",
-        curse: "PF2E.FeatCurseHeader",
-    },
+    featTypes,
 
     actionTypes: {
         action: "PF2E.ActionTypeAction",
