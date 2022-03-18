@@ -11,6 +11,7 @@ import { NPCStrike } from "@actor/npc/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CreatureSheetData } from "./types";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
+import { createSheetTags } from "@module/sheet/helpers";
 
 /**
  * Base class for NPC and character sheets
@@ -62,6 +63,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         return {
             ...sheetData,
+            languages: createSheetTags(CONFIG.PF2E.languages, this.actor.data.data.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,

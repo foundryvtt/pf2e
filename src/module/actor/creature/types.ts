@@ -7,6 +7,7 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/degree-of-success";
 import { CreaturePF2e } from ".";
+import { SheetOptions } from "@module/sheet/helpers";
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
@@ -62,6 +63,7 @@ interface IsFlatFootedParams {
 }
 
 interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
+    languages: SheetOptions;
     abilities: ConfigPF2e["PF2E"]["abilities"];
     skills: ConfigPF2e["PF2E"]["skills"];
     actorSizes: ConfigPF2e["PF2E"]["actorSizes"];

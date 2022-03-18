@@ -10,7 +10,7 @@ declare global {
         data: any;
         items: any;
         cssClass: "editable" | "locked";
-        effects: RawObject<A["data"]>["effects"];
+        effects: RawObject<foundry.data.ActiveEffectData>[];
         limited: boolean;
         options: ActorSheetOptions;
     }
