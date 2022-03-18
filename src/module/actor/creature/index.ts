@@ -9,7 +9,6 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
-import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -792,16 +791,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
-
-    /** Re-prepare familiars when their masters are updated */
-    protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentUpdateContext<this>,
-        userId: string
-    ): void {
-        super._onUpdate(changed, options, userId);
-        prepareMinions(this);
-    }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
