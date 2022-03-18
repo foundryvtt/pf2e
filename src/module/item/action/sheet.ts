@@ -1,5 +1,6 @@
 import { ActionPF2e } from "@item/action";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { createSheetOptions } from "@module/sheet/helpers";
 import { getActionIcon } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
 
@@ -20,7 +21,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
             actionTraits: CONFIG.PF2E.actionTraits,
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
-            traits: this.prepareOptions(CONFIG.PF2E.actionTraits, data.data.traits),
+            traits: createSheetOptions(CONFIG.PF2E.actionTraits, data.data.traits),
         };
     }
 }

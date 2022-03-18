@@ -3,6 +3,7 @@ import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e, SpellSheetData } from "../sheet/data-types";
 import { SpellDamage, SpellSystemData } from "./data";
 import { objectHasKey } from "@util";
+import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 
 const DEFAULT_INTERVAL_SCALING: SpellSystemData["scaling"] = {
     interval: 1,
@@ -29,11 +30,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellTypes: CONFIG.PF2E.spellTypes,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
-            magicTraditions: this.prepareOptions(CONFIG.PF2E.magicTraditions, data.data.traditions),
+            magicTraditions: createSheetOptions(CONFIG.PF2E.magicTraditions, data.data.traditions),
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
-            traits: this.prepareOptions(CONFIG.PF2E.spellTraits, data.data.traits, { selectedOnly: true }),
-            rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity] }),
+            traits: createSheetTags(CONFIG.PF2E.spellTraits, data.data.traits),
+            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity] }),
             spellComponents: this.formatSpellComponents(data.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,

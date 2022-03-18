@@ -8,19 +8,7 @@ import { FeatPF2e } from "@item/feat";
 import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
 import { SpellPF2e } from "@item/spell";
-
-export interface SheetOption {
-    value: string;
-    label: string;
-    selected: boolean;
-}
-
-export type SheetOptions = Record<string, SheetOption>;
-
-export interface SheetSelections {
-    value: (string | number)[];
-    custom?: string;
-}
+import { SheetOptions } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     itemType: string | null;

@@ -1,12 +1,4 @@
-import {
-    DocumentSchemaRecord,
-    LabeledNumber,
-    LabeledValue,
-    Rarity,
-    Size,
-    ValueAndMaybeMax,
-    ValuesList,
-} from "@module/data";
+import { DocumentSchemaRecord, LabeledNumber, Rarity, Size, ValueAndMaybeMax, ValuesList } from "@module/data";
 import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -142,8 +134,6 @@ export interface BaseTraitsSource {
     size: { value: Size };
     /** Actual Pathfinder traits */
     traits: ValuesList;
-    /** Condition immunities */
-    ci: LabeledValue[];
     /** Damage immunities this actor has. */
     di: ValuesList<ImmunityType>;
     /** Damage resistances that this actor has. */

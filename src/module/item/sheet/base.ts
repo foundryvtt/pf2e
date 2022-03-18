@@ -1,6 +1,6 @@
 import { ItemDataPF2e } from "@item/data";
 import { LocalizePF2e } from "@system/localize";
-import { ItemSheetDataPF2e, SheetOptions, SheetSelections } from "./data-types";
+import { ItemSheetDataPF2e } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
 import { RuleElementSource } from "@module/rules";
 import Tagify from "@yaireo/tagify";
@@ -13,6 +13,7 @@ import {
 } from "@module/system/trait-selector";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
+import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -83,9 +84,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "consumable") {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
-            data.traits = this.prepareOptions(CONFIG.PF2E.consumableTraits, itemData.data.traits, {
-                selectedOnly: true,
-            });
+            data.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.data.traits);
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
@@ -96,26 +95,22 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.detailsActive = true;
             data.damageTypes = CONFIG.PF2E.damageTypes;
 
-            data.attackEffects = this.prepareOptions(this.getAttackEffectOptions(), data.data.attackEffects);
-            data.traits = this.prepareOptions(CONFIG.PF2E.npcAttackTraits, data.data.traits, { selectedOnly: true });
+            data.attackEffects = createSheetOptions(this.getAttackEffectOptions(), data.data.attackEffects);
+            data.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, data.data.traits);
         } else if (itemData.type === "condition") {
             // Condition types
 
             data.conditions = [];
         } else if (itemData.type === "equipment") {
             // Equipment data
-            data.traits = this.prepareOptions(CONFIG.PF2E.equipmentTraits, itemData.data.traits, {
-                selectedOnly: true,
-            });
+            data.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "backpack") {
             // Backpack data
-            data.traits = this.prepareOptions(CONFIG.PF2E.equipmentTraits, itemData.data.traits, {
-                selectedOnly: true,
-            });
+            data.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
@@ -162,37 +157,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
         };
-    }
-
-    /** Prepare form options on the item sheet */
-    protected prepareOptions(
-        options: Record<string, string>,
-        selections: SheetSelections | (string[] & { custom?: never }),
-        { selectedOnly = false } = {}
-    ): SheetOptions {
-        const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
-            const selectionList = Array.isArray(selections) ? selections : selections.value;
-            const key = typeof selectionList[0] === "number" ? Number(stringKey) : stringKey;
-            const isSelected = selectionList.includes(key);
-            if (isSelected || !selectedOnly) {
-                compiledOptions[key] = {
-                    label,
-                    value: stringKey,
-                    selected: isSelected,
-                };
-            }
-            return compiledOptions;
-        }, {});
-
-        if (selections.custom) {
-            sheetOptions.custom = {
-                label: selections.custom,
-                value: "",
-                selected: true,
-            };
-        }
-
-        return sheetOptions;
     }
 
     protected onTagSelector(event: JQuery.TriggeredEvent): void {

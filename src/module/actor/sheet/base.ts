@@ -8,6 +8,7 @@ import {
     calculateValueOfCurrency,
     Coins,
     coinValueInCopper,
+    DENOMINATIONS,
     sellAllTreasure,
     sellTreasure,
 } from "@item/treasure/helpers";
@@ -42,6 +43,7 @@ import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CreaturePF2e } from "@actor/creature";
+import { createSheetTags } from "@module/sheet/helpers";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -68,7 +70,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     override async getData(options: ActorSheetOptions = this.options): Promise<ActorSheetDataPF2e<TActor>> {
         options.id ||= this.id;
         // The Actor and its Items
-        const actorData = this.actor.toObject(false);
+        const actorData = this.actor.data.toObject(false);
+
         const items = deepClone(
             this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0))
         );
@@ -87,6 +90,26 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const totalWealth = calculateTotalWealth(inventoryItems);
         const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
 
+        // IWR
+        for (const weakness of actorData.data.traits.dv) {
+            weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
+        }
+        for (const resistance of actorData.data.traits.dr) {
+            resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
+        }
+        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.data.traits.di);
+
+        const traitsMap = ((): Record<string, string> => {
+            switch (this.actor.type) {
+                case "hazard":
+                    return CONFIG.PF2E.hazardTraits;
+                case "vehicle":
+                    return CONFIG.PF2E.vehicleTraits;
+                default:
+                    return CONFIG.PF2E.creatureTraits;
+            }
+        })();
+
         const sheetData: ActorSheetDataPF2e<TActor> = {
             cssClass: this.actor.isOwner ? "editable" : "locked",
             editable: this.isEditable,
@@ -100,6 +123,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             effects: actorData.effects,
             items: items,
             user: { isGM: game.user.isGM },
+            traits: createSheetTags(traitsMap, actorData.data.traits.traits),
+            immunities,
+            hasImmunities: Object.keys(immunities).length > 0,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,
@@ -107,7 +133,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             totalWealthGold,
         };
 
-        this.prepareTraits(sheetData.data.traits);
         this.prepareItems(sheetData);
 
         return sheetData;
@@ -120,8 +145,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     protected static coinsToSheetData(coins: Coins): CoinageSummary {
-        const denominations = ["cp", "sp", "gp", "pp"] as const;
-        return denominations.reduce(
+        return DENOMINATIONS.reduce(
             (accumulated, denomination) => ({
                 ...accumulated,
                 [denomination]: {
@@ -131,52 +155,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }),
             {} as CoinageSummary
         );
-    }
-
-    protected prepareTraits(traits: any): void {
-        if (traits === undefined) return;
-
-        const map: Record<string, Record<string, string | undefined>> = {
-            languages: CONFIG.PF2E.languages,
-            dr: CONFIG.PF2E.resistanceTypes,
-            di: CONFIG.PF2E.immunityTypes,
-            dv: CONFIG.PF2E.weaknessTypes,
-            ci: CONFIG.PF2E.immunityTypes,
-            traits: { ...CONFIG.PF2E.creatureTraits, ...CONFIG.PF2E.alignmentTraits },
-        };
-
-        for (const [t, choices] of Object.entries(map)) {
-            const trait = traits[t] || { value: [], selected: [] };
-
-            if (Array.isArray(trait)) {
-                // todo this is so wrong...
-                (trait as any).selected = {};
-                for (const entry of trait) {
-                    if (typeof entry === "object") {
-                        const entryType = game.i18n.localize(choices[entry.type] ?? "");
-                        if (entry.exceptions) {
-                            const exceptions = entry.exceptions;
-                            (trait as any).selected[entry.type] = `${entryType} (${entry.value}) [${exceptions}]`;
-                        } else {
-                            let text = entryType;
-                            if (entry.value !== "") text = `${text} (${entry.value})`;
-                            (trait as any).selected[entry.type] = text;
-                        }
-                    } else {
-                        (trait as any).selected[entry] = choices[entry] || String(entry);
-                    }
-                }
-            } else if (trait.value) {
-                trait.selected = Object.fromEntries(
-                    (trait.value as string[])
-                        .filter((key): key is keyof typeof choices => objectHasKey(choices, key))
-                        .map((key) => [key, choices[key]])
-                );
-            }
-
-            // Add custom entry
-            if (trait.custom) trait.selected.custom = trait.custom;
-        }
     }
 
     /** Save any open tinyMCE editor before closing */
