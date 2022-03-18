@@ -1,0 +1,52 @@
+&.details {
+    .vehicle-details {
+        display: grid;
+        grid: "img details" 150px/120px 1fr;
+        min-width: 330px;
+
+        .frame {
+            margin-left: 5px;
+
+            .actor-image {
+                margin-top: 8px;
+                max-height: 90%;
+                object-fit: contain;
+                border-radius: 0;
+                cursor: pointer;
+                border: none;
+                box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, inset 0 0 8px rgba(0, 0, 0, 0.5), 0 0 8px black;
+            }
+        }
+
+        .detail-sheet {
+            display: grid;
+            grid: repeat(3,42px) / 3fr 2fr;
+            grid-row-gap: 8px;
+            padding-left: 12px;
+        }
+
+        .detail-small {
+            display: flex;
+        }
+    }
+
+    .vehicle-properties {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 8px;
+    }
+    .vehicle-properties > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 8px;
+    }
+    .vehicle-properties > div > span {
+        width: 100%;
+    }
+
+    .detailsInput {
+        margin-bottom: 8px;
+    }
+}
