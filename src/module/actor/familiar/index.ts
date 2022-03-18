@@ -19,8 +19,21 @@ export class FamiliarPF2e extends CreaturePF2e {
 
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | null {
-        const actor = game.actors?.get(this.data.data.master.id ?? "");
-        return actor instanceof CharacterPF2e ? actor : null;
+        // The Actors world collection needs to be initialized for data preparation
+        if (!game.ready || !this.data.data.master.id) return null;
+
+        const master = game.actors.get(this.data.data.master.id ?? "");
+        if (master instanceof CharacterPF2e) {
+            master.familiar ??= this;
+            return master;
+        }
+
+        return null;
+    }
+
+    override prepareData({ fromMaster = false } = {}): void {
+        super.prepareData();
+        if (fromMaster) this.sheet.render(false);
     }
 
     /** Set base emphemeral data for later updating by derived-data preparation */
@@ -305,6 +318,16 @@ export class FamiliarPF2e extends CreaturePF2e {
         }
 
         return super.createEmbeddedDocuments(embeddedName, createData, context);
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Remove the master's reference to this familiar */
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+        if (this.master) this.master.familiar = null;
+        super._onDelete(options, userId);
     }
 }
 
