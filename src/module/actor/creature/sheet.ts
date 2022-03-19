@@ -267,33 +267,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
-        const { containerId } = event.target.closest(".item-container").dataset;
         const { itemId } = event.target.closest(".item").dataset;
-
-        if (!containerId || !itemId) {
-            return;
-        }
-
-        const spellcastingEntry = this.actor.items.get(containerId);
         const spell = this.actor.items.get(itemId);
-
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
+        if (!(spell instanceof SpellPF2e)) {
             return;
         }
 
-        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
-
-        if (!signatureSpells.includes(spell.id)) {
-            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
-                return;
-            }
-
-            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
-            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
-        } else {
-            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
-            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
-        }
+        spell.update({ "data.location.signature": !spell.data.data.location.signature });
     }
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
