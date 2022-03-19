@@ -3,7 +3,7 @@ import { AbilityString } from "./base";
 import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage";
 import { MAGIC_SCHOOLS } from "@module/item/spell/data/values";
 
-export const ABILITY_ABBREVIATIONS = ["str", "dex", "con", "int", "wis", "cha"] as const;
+export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
 export const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 

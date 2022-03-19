@@ -3,7 +3,7 @@ import { CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString, ActorType } from "@actor/data";
 import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { objectHasKey, tupleHasValue } from "@util";
+import { objectHasKey, setHasElement } from "@util";
 
 const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: "ac" }> = {
     ac: { ability: "dex" as const, shortform: "ac" },
@@ -27,7 +27,7 @@ export class FixedProficiencyRuleElement extends RuleElementPF2e {
             (this.data.ability && String(this.data.ability).trim()) ||
             (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
 
-        if (!tupleHasValue(ABILITY_ABBREVIATIONS, ability)) {
+        if (!setHasElement(ABILITY_ABBREVIATIONS, ability)) {
             console.warn("PF2E | Fixed modifier requires an ability field, or a known selector.");
         } else if (!value) {
             console.warn("PF2E | Fixed modifier requires at least a non-zero value or formula field.");
