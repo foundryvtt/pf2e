@@ -65,8 +65,8 @@
                         <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}" data-property="data.attributes.perception.value" data-dtype="Number" placeholder="0" />
                     {{/with}}
                 </div>
-                {{# if options.editable }}
-                    <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize 'PF2E.SpecialSensesLabel'}}" />
+                {{# if options.editable}}
+                    <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize "PF2E.SpecialSensesLabel"}}" />
                 {{else}}
                     <span>{{data.traits.senses.value}}</span>
                 {{/if}}
@@ -84,8 +84,8 @@
             {{/if}}
         </div>
         <div class="section-body">
-            {{#each languages as |slug language|}}
-                <div class="tag-legacy language {{slug}}">{{localize language.label}}</div>
+            {{#each languages as |language slug|}}
+                <div class="tag-legacy language" data-slug="{{slug}}">{{localize language.label}}</div>
             {{/each}}
         </div>
     </div>
@@ -122,8 +122,8 @@
             <h4>{{localize "PF2E.NPC.Attacks"}}</h4>
             {{#if options.editable}}
                 <div class="attacks-controls controls">
-                    <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize 'PF2E.NPCAttackMelee'}}</a>
-                    <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize 'PF2E.NPCAttackRanged'}}</a>
+                    <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
+                    <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
                 </div>
             {{/if}}
         </div>
@@ -138,7 +138,7 @@
     <!-- ACTIONS -->
     <div class="actions section-container">
         <div class="section-header">
-            <h4>{{ localize 'PF2E.ActionActionsLabel'}}</h4>
+            <h4>{{ localize "PF2E.ActionActionsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="actions-controls controls">
                     <a class="action-add item-create" title="{{localize "PF2E.NPC.AddAction"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>
@@ -148,7 +148,7 @@
         <div class="section-body">
             <ol class="actions-list item-list">
                 {{#each actions as |section sectionId|}}
-                    {{#unless (eq sectionId 'passive')}}
+                    {{#unless (eq sectionId "passive")}}
                         {{#each section.actions as |action actionId|}}
                             {{> "systems/pf2e/templates/actors/npc/partials/action.html" action=action isEditable=../../options.editable}}
                         {{/each}}
