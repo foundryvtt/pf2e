@@ -2,7 +2,7 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@actor/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { sluggify, tupleHasValue } from "@util";
+import { setHasElement, sluggify } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 
 /**
@@ -12,30 +12,48 @@ import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 class FlatModifierRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    type: ModifierType = MODIFIER_TYPE.UNTYPED;
+
+    /** If this is an ability modifier, the ability score it modifies */
+    ability: AbilityString | null = null;
+
+    /** Hide this modifier from breakdown tooltips if it is disabled */
+    hideIfDisabled: boolean;
+
+    /** Whether this modifier comes from equipment or an equipment effect */
+    fromEquipment: boolean;
+
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
+        data.type ??= MODIFIER_TYPE.UNTYPED;
 
-        const modifierTypes: readonly unknown[] = MODIFIER_TYPES;
-        this.data.type ??= MODIFIER_TYPE.UNTYPED;
-        if (!modifierTypes.includes(this.data.type)) {
-            this.failValidation(`A flat modifier must have one of the following types: ${MODIFIER_TYPES.join(", ")}`);
-            return;
+        this.hideIfDisabled = !!data.hideIfDisabled;
+
+        if (setHasElement(MODIFIER_TYPES, data.type)) {
+            this.type = data.type;
+        } else {
+            const validTypes = Array.from(MODIFIER_TYPES).join(", ");
+            this.failValidation(`A flat modifier must have one of the following types: ${validTypes}`);
         }
 
-        this.data.hideIfDisabled = Boolean(data.hideIfDisabled ?? false);
+        this.fromEquipment = this.item.data.isPhysical
+            ? true
+            : this.type === "item"
+            ? !!(data.fromEquipment ?? true)
+            : false;
 
-        if (this.data.type === "ability") {
-            if (!tupleHasValue(ABILITY_ABBREVIATIONS, data.ability)) {
+        if (this.type === "ability") {
+            if (setHasElement(ABILITY_ABBREVIATIONS, data.ability)) {
+                this.ability = data.ability;
+                this.data.label = data.label ?? CONFIG.PF2E.abilities[this.ability];
+                this.data.value ??= `@actor.abilities.${this.ability}.mod`;
+            } else {
                 this.failValidation(
                     'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
                 );
                 return;
             }
-            this.data.label = data.label ?? CONFIG.PF2E.abilities[this.data.ability];
-            this.data.value ??= `@actor.abilities.${this.data.ability}.mod`;
         }
-
-        this.data.ignored = game.pf2e.variantRules.AutomaticBonusProgression.suppressRuleElement(this);
     }
 
     override beforePrepareData(): void {
@@ -58,22 +76,28 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     this.data.min ?? resolvedValue,
                     this.data.max ?? resolvedValue
                 );
+
+                if (game.pf2e.variantRules.AutomaticBonusProgression.suppressRuleElement(this, finalValue)) {
+                    return null;
+                }
+
                 const modifier = new ModifierPF2e({
                     slug,
                     label,
                     modifier: finalValue,
                     adjustments: this.actor.getModifierAdjustments([selector], slug),
-                    type: this.data.type,
-                    ability: this.data.type === "ability" ? this.data.ability : null,
+                    type: this.type,
+                    ability: this.type === "ability" ? this.ability : null,
                     predicate: this.data.predicate,
                     damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                     damageCategory: this.data.damageCategory || undefined,
-                    hideIfDisabled: this.data.hideIfDisabled,
+                    hideIfDisabled: this.hideIfDisabled,
                 });
                 if (options.test) modifier.test(options.test);
 
                 return modifier;
             };
+
             const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
             modifiers.push(construct);
         } else {
@@ -88,6 +112,14 @@ interface FlatModifierRuleElement {
     data: FlatModifierData;
 }
 
+interface FlatModifierData extends RuleElementData {
+    min?: number;
+    max?: number;
+    damageType?: string;
+    damageCategory?: string;
+    phase: ModifierPhase;
+}
+
 interface FlatModifierSource extends RuleElementSource {
     min?: unknown;
     max?: unknown;
@@ -96,28 +128,7 @@ interface FlatModifierSource extends RuleElementSource {
     damageType?: unknown;
     damageCategory?: unknown;
     hideIfDisabled?: unknown;
-}
-
-type FlatModifierData = FlatAbilityModifierData | FlatOtherModifierData;
-
-interface BaseFlatModifierData extends RuleElementData {
-    slug?: string;
-    min?: number;
-    max?: number;
-    type: ModifierType;
-    damageType?: string;
-    damageCategory?: string;
-    hideIfDisabled: boolean;
-    phase: ModifierPhase;
-}
-
-interface FlatAbilityModifierData extends BaseFlatModifierData {
-    type: "ability";
-    ability: AbilityString;
-}
-
-interface FlatOtherModifierData extends Exclude<BaseFlatModifierData, "type"> {
-    type: Exclude<ModifierType, "ability">;
+    fromEquipment?: unknown;
 }
 
 export { FlatModifierRuleElement };
