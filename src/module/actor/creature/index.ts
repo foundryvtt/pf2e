@@ -43,7 +43,6 @@ import { StrikeData } from "@actor/data/base";
 import {
     AttackItem,
     AttackRollContext,
-    AttackTarget,
     GetReachParameters,
     IsFlatFootedParams,
     StrikeRollContext,
@@ -690,19 +689,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         params.domains ??= [];
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
-        const attackTarget: AttackTarget | null = context.target ? { ...context.target, dc: null } : null;
-        if (attackTarget && attackTarget.actor.attributes.ac) {
-            attackTarget.dc = {
-                scope: "attack",
-                slug: "ac",
-                value: attackTarget.actor.attributes.ac.value,
-            };
-        }
-
+        const targetActor = context.target?.actor;
         return {
-            options: Array.from(new Set(context.options)),
-            self: context.self,
-            target: attackTarget,
+            ...context,
+            dc: targetActor?.attributes.ac
+                ? {
+                      scope: "attack",
+                      slug: "ac",
+                      value: targetActor.attributes.ac.value,
+                  }
+                : null,
         };
     }
 
@@ -782,7 +778,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : null;
 
         return {
-            options: rollOptions,
+            options: Array.from(new Set(rollOptions)),
             self,
             target,
         };

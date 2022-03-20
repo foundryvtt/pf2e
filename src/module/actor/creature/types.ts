@@ -20,7 +20,7 @@ interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = Att
     modifiers: ModifierPF2e[];
 }
 
-interface StrikeTarget {
+interface AttackTarget {
     actor: ActorPF2e;
     token: TokenDocumentPF2e;
     distance: number;
@@ -31,7 +31,7 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
     /** Roll options */
     options: string[];
     self: StrikeSelf<A, I>;
-    target: StrikeTarget | null;
+    target: AttackTarget | null;
 }
 
 interface StrikeRollContextParams<T extends AttackItem> {
@@ -42,14 +42,11 @@ interface StrikeRollContextParams<T extends AttackItem> {
     viewOnly?: boolean;
 }
 
-interface AttackTarget extends StrikeTarget {
-    dc: CheckDC | null;
-}
-
 interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> {
     options: string[];
     self: StrikeSelf<A, I>;
     target: AttackTarget | null;
+    dc: CheckDC | null;
 }
 
 interface GetReachParameters {
@@ -86,5 +83,4 @@ export {
     StrikeRollContext,
     StrikeRollContextParams,
     StrikeSelf,
-    StrikeTarget,
 };

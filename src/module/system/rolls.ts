@@ -13,7 +13,7 @@ import { PredicatePF2e } from "./predication";
 import { StrikeData, StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { AttackTarget, StrikeTarget } from "@actor/creature/types";
+import { AttackTarget } from "@actor/creature/types";
 import { LocalizePF2e } from "./localize";
 import { Check } from "./check";
 import { UserVisibility } from "@scripts/ui/user-visibility";
@@ -74,7 +74,7 @@ export interface BaseRollContext {
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
     /** If this is an attack, the target of that attack */
-    target?: StrikeTarget | null;
+    target?: AttackTarget | null;
     /** Any traits for the check. */
     traits?: StrikeTrait[];
     /** The outcome a roll (usually relevant only to rerolls) */
