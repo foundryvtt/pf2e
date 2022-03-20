@@ -300,7 +300,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Adding/Editing/Removing Spellcasting entries
         $spellcasting
-            .find("button[data-action=spellcasting-create]")
+            .find("a[data-action=spellcasting-create]")
             .on("click", (event) => this.createSpellcastingEntry(event));
         $spellControls
             .filter("a[data-action=spellcasting-edit]")
