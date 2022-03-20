@@ -3,8 +3,8 @@ import { ActorPF2e } from "@actor/index";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemPF2e } from "@item/index";
 import { ValuesList } from "@module/data";
-import { TagSelectorBase, TagSelectorOptions } from "./base";
-import { SelectableTagField } from "./index";
+import { TagSelectorBase } from "./base";
+import { SelectableTagField, TagSelectorOptions } from ".";
 
 /* Basic trait selector options */
 export interface BasicSelectorOptions extends TagSelectorOptions {

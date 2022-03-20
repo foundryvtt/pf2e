@@ -1,7 +1,7 @@
 import { ActorPF2e, NPCPF2e } from "@actor";
 import { LabeledString } from "@module/data";
-import { TagSelectorBase, TagSelectorOptions } from "./base";
-import { SelectableTagField } from "./index";
+import { SelectableTagField, TagSelectorOptions } from ".";
+import { TagSelectorBase } from "./base";
 
 export class SpeedSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.attributes.speed.otherSpeeds";

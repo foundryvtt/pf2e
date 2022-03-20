@@ -24,7 +24,7 @@ import {
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     TagSelectorOptions,
-} from "@module/system/trait-selector";
+} from "@system/tag-selector";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import type { ActorPF2e } from "../base";
