@@ -565,7 +565,7 @@ export class NPCPF2e extends CreaturePF2e {
                                     type: "attack-roll",
                                     options,
                                     notes: rollNotes,
-                                    dc: args.dc ?? context.target?.dc ?? null,
+                                    dc: args.dc ?? context.dc,
                                     traits: action.traits,
                                 },
                                 args.event
