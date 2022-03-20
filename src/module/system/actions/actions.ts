@@ -287,7 +287,7 @@ export class ActionsPF2e {
                         actor,
                         token: selfToken,
                         createMessage: options.createMessage,
-                        target: hasTarget ? { actor: targetActor, token: target, dc, distance } : null,
+                        target: hasTarget ? { actor: targetActor, token: target, distance } : null,
                         dc,
                         type: options.checkType,
                         options: finalOptions,

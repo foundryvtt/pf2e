@@ -299,7 +299,7 @@ class StatisticCheck {
             actor,
             item,
             target: rollContext?.target ?? null,
-            dc: args.dc ?? rollContext?.target?.dc,
+            dc: args.dc ?? rollContext?.dc,
             notes: data.notes,
             options,
             type: data.check.type,
