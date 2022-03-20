@@ -1,7 +1,7 @@
 import { SenseData } from "@actor/creature/data";
 import { ActorPF2e, NPCPF2e } from "@actor/index";
 import { TagSelectorBase } from "./base";
-import { SelectableTagField } from "./index";
+import { SelectableTagField } from ".";
 
 export class SenseSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.senses";

@@ -1,19 +1,19 @@
-import { ItemDataPF2e } from "@item/data";
-import { LocalizePF2e } from "@system/localize";
-import { ItemSheetDataPF2e } from "./data-types";
 import { ItemPF2e, LorePF2e } from "@item";
+import { ItemDataPF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import Tagify from "@yaireo/tagify";
+import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
+import { LocalizePF2e } from "@system/localize";
 import {
     BasicConstructorOptions,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
-} from "@module/system/trait-selector";
+} from "@system/tag-selector";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
+import { ItemSheetDataPF2e } from "./data-types";
+import Tagify from "@yaireo/tagify";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {

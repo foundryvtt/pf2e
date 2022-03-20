@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
-import { TagSelectorBase } from "./base";
 import { SelectableTagField } from ".";
+import { TagSelectorBase } from "./base";
 
 export class ResistanceSelector extends TagSelectorBase<ActorPF2e> {
     override objectProperty = "data.traits.dr";
