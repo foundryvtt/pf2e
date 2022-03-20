@@ -21,6 +21,7 @@ import { Migration729CumulativeItemBonusCleanup } from "@module/migration/migrat
 import { Migration730DeruneHandwraps } from "@module/migration/migrations/730-derune-handwraps";
 import { Migration731TogglePropertyToRollOption } from "@module/migration/migrations/731-toggle-property-to-roll-option";
 import { Migration732FixDedicationFeatTypes } from "@module/migration/migrations/732-fix-dedication-feat-types";
+import { Migration733ItemBonusFromEquipment } from "@module/migration/migrations/733-item-bonus-from-equipment";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -38,6 +39,7 @@ const migrations: MigrationBase[] = [
     new Migration730DeruneHandwraps(),
     new Migration731TogglePropertyToRollOption(),
     new Migration732FixDedicationFeatTypes(),
+    new Migration733ItemBonusFromEquipment(),
 ];
 
 global.deepClone = <T>(original: T): T => {
