@@ -14,9 +14,6 @@ interface CharacterSheetOptions extends ActorSheetOptions {
 
 type CharacterSystemSheetData = CharacterSystemData & {
     attributes: {
-        doomed: {
-            icon: string;
-        };
         dying: {
             icon: string;
         };
