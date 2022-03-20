@@ -1429,7 +1429,7 @@ class CharacterPF2e extends CreaturePF2e {
                     }
                     const finalRollOptions = Array.from(new Set(options));
 
-                    const dc = args.dc ?? context.target?.dc;
+                    const dc = args.dc ?? context.dc;
                     if (dc && action.adjustments) {
                         dc.adjustments = action.adjustments;
                     }
