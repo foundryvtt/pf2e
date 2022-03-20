@@ -2,7 +2,7 @@ import { AbilityString } from "@actor/data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import { sluggify, tupleHasValue } from "@util";
+import { setHasElement, sluggify } from "@util";
 import { MigrationBase } from "../base";
 
 /** Set the "ability" property on ability FlatModifier REs */
@@ -12,7 +12,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
     private abilityModPattern = /@abilities\.([a-z]{3})\.mod\b/;
 
     private abbreviationMap = new Map(
-        ABILITY_ABBREVIATIONS.map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a])
+        Array.from(ABILITY_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a])
     );
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
@@ -21,7 +21,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
             if (
                 rule.key.endsWith("FlatModifier") &&
                 rule.type === "ability" &&
-                !tupleHasValue(ABILITY_ABBREVIATIONS, rule.ability)
+                !setHasElement(ABILITY_ABBREVIATIONS, rule.ability)
             ) {
                 const abilityFromValue = (this.abilityModPattern.exec(String(rule.value))?.[1] ??
                     null) as AbilityString | null;

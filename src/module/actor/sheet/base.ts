@@ -293,13 +293,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Inventory Browser
         $html.find(".inventory-browse").on("click", (event) => this.onClickBrowseEquipmentCompendia(event));
 
+        const $spellcasting = $html.find(".tab.spellcasting, .tab.spells");
+        const $spellControls = $spellcasting.find(".item-control");
         // Spell Create
-        $html.find(".spell-create").on("click", (event) => this.onClickCreateItem(event));
+        $spellControls.filter(".spell-create").on("click", (event) => this.onClickCreateItem(event));
 
         // Adding/Editing/Removing Spellcasting entries
-        $html.find(".spellcasting-create").on("click", (event) => this.createSpellcastingEntry(event));
-        $html.find(".spellcasting-edit").on("click", (event) => this.editSpellcastingEntry(event));
-        $html.find(".spellcasting-remove").on("click", (event) => this.removeSpellcastingEntry(event));
+        $spellcasting
+            .find("button[data-action=spellcasting-create]")
+            .on("click", (event) => this.createSpellcastingEntry(event));
+        $spellControls
+            .filter("a[data-action=spellcasting-edit]")
+            .on("click", (event) => this.editSpellcastingEntry(event));
+        $spellControls
+            .filter("a[data-action=spellcasting-remove]")
+            .on("click", (event) => this.removeSpellcastingEntry(event));
 
         /* -------------------------------------------- */
         /*  Inventory                                   */

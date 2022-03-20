@@ -146,7 +146,7 @@ export interface BaseTraitsData extends BaseTraitsSource {
     size: ActorSizePF2e;
 }
 
-export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
+export type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
 /** Basic skill and save data (not including custom modifiers). */
 export interface AbilityBasedStatistic {

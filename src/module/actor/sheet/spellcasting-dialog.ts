@@ -84,7 +84,9 @@ class SpellcastingCreateAndEditDialog extends Application {
     }
 
     override getData() {
-        const abilities = Object.fromEntries(ABILITY_ABBREVIATIONS.map((key) => [key, CONFIG.PF2E.abilities[key]]));
+        const abilities = Object.fromEntries(
+            Array.from(ABILITY_ABBREVIATIONS).map((key) => [key, CONFIG.PF2E.abilities[key]])
+        );
 
         return {
             magicTraditions: CONFIG.PF2E.magicTraditions,
