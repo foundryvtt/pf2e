@@ -9,14 +9,14 @@ ol.spell-list {
     li {
         @include p-reset;
         align-items: center;
+        background: none;
+        cursor: default;
         display: grid;
         grid: "name range components cast-spell controls" auto
               "content content content content content" auto
               / 8fr 3fr 3fr 2fr 2fr;
-        background: none;
-        cursor: default;
         justify-content: center;
-        padding: 0 0.3em 0 0.35em;
+        padding: 0 0.3em 1px 0.35em;
 
         &[data-expended-state="true"] {
             h4 {
@@ -49,7 +49,8 @@ ol.spell-list {
         &.spell-level-header {
             @include p-reset;
             background: rgba($sub-color, 0.25);
-            border: 1px solid var(--sub);
+            border: 1px solid var(--color-border-light-2);
+            border-radius: 2px;
             color: var(--body);
             font: 700 0.6rem var(--sans-serif);
             letter-spacing: 0.25px;
