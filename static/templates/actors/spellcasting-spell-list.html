@@ -3,7 +3,7 @@
         {{!-- Add section for each level --}}
         {{#each entry.levels as |section|}}
             {{#if (or (gt section.active.length 0) entry.data.showSlotlessLevels.value)}}
-                <li class="spell-level-header spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
+                <li class="spell-level-header spellbook-header item" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{section.level}}">
                     <div class="item-name flexrow">
                         {{#if (and entry.isPrepared entry.data.showUnpreparedSpells.value)}}
                             <a class="skill-name level-prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityLevelTitle"}}">
