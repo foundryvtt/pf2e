@@ -106,11 +106,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Update dying icon and container width
         sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
 
-        // Update wounded, maximum wounded, and doomed.
+        // Update wounded
         sheetData.data.attributes.wounded.icon = this.getWoundedIcon(sheetData.data.attributes.wounded.value);
         sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
-        sheetData.data.attributes.doomed.icon = this.getDoomedIcon(sheetData.data.attributes.doomed.value);
-        sheetData.data.attributes.doomed.max = sheetData.data.attributes.dying.max - 1;
 
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
@@ -786,14 +784,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Toggle Dying, Wounded, or Doomed
         $html
             .find("aside > .sidebar > .hitpoints")
-            .find(".dots.dying, .dots.wounded, .dots.doomed")
+            .find(".dots.dying, .dots.wounded")
             .on("click contextmenu", (event) => {
-                type ConditionName = "dying" | "wounded" | "doomed";
+                type ConditionName = "dying" | "wounded";
                 const condition = Array.from(event.delegateTarget.classList).find(
-                    (className): className is ConditionName => ["dying", "wounded", "doomed"].includes(className)
+                    (className): className is ConditionName => ["dying", "wounded"].includes(className)
                 );
                 if (condition) {
-                    this.onClickDyingWoundedDoomed(condition, event);
+                    this.onClickDyingWounded(condition, event);
                 }
             });
 
@@ -1197,7 +1195,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle cycling of dying, wounded, or doomed */
-    private onClickDyingWoundedDoomed(condition: "dying" | "wounded" | "doomed", event: JQuery.TriggeredEvent) {
+    private onClickDyingWounded(condition: "dying" | "wounded", event: JQuery.TriggeredEvent) {
         if (event.type === "click") {
             this.actor.increaseCondition(condition, { max: this.actor.data.data.attributes[condition].max });
         } else if (event.type === "contextmenu") {
@@ -1357,26 +1355,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return icons[level];
-    }
-
-    /**
-     * Get the font-awesome icon used to display a certain level of doomed
-     */
-    private getDoomedIcon(level: number): string {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-skull"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
-
-        for (let i = 0; i < maxDying; i++) {
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
-        }
-
-        return icons[level] ?? icons[0];
     }
 
     /** Get the font-awesome icon used to display hero points */
