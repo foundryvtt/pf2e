@@ -15,6 +15,7 @@
         @import "abc-sheet";
         @import "activations";
         @import "identify-item";
+        @import "tagify";
 
         display: flex;
         flex-direction: column;
@@ -22,6 +23,11 @@
 
         > * {
             flex: 1;
+        }
+
+        p.hint {
+            font-family: var(--font-primary);
+            font-weight: normal;
         }
 
         .item-controls {
@@ -112,7 +118,7 @@
 
                     /** Details */
                     &.item-details {
-                        padding: 8px 8px 0;
+                        padding: 0.5rem 0.5rem 0;
                         overflow-y: auto;
 
                         label {
@@ -121,8 +127,10 @@
                         }
 
                         select {
-                            font-size: 12px;
-                            height: 24px;
+                            font-size: 0.75rem;
+                            height: 1.5rem;
+                            padding-right: 1em;
+                            max-width: fit-content;
                         }
                     }
 
@@ -182,7 +190,6 @@
         }
 
         .form-group {
-            height: 24px;
             margin: 2px 0;
             font-weight: 500;
 

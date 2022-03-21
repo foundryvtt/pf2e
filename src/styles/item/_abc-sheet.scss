@@ -1,11 +1,19 @@
-.abc-list, .item-ref-list {
-    ul.abc-items, ul.item-refs {
+.item-ref-group {
+    ul.item-refs {
+        border: 1px solid var(--color-border-light-2);
+        border-radius: 3px;
         padding: 0;
 
+        &.empty {
+            background-color: rgba(120, 100, 82, 0.1);
+            height: 28px;
+        }
+
         > li {
+            align-items: center;
             display: grid;
             grid-template-columns: 26px auto 2em 1em;
-            align-items: center;
+            padding: 1px;
 
             &:nth-of-type(even) {
                 background-color: rgba(120, 100, 82, 0.1);
@@ -31,9 +39,10 @@
         }
 
         ul {
-            padding-left: 0.5em;
-            margin-top: 0;
             grid-column: 1 / 5;
+            margin-top: 0;
+            padding-left: 0.5em;
+
             &:empty {
                 display: none;
             }

@@ -314,14 +314,14 @@
 {{~/inline~}}
 
 {{~#*inline "abcItems"~}}
-<ul class="abc-items">
+<ul class="item-refs">
     {{#each items}}
         {{#> abcItem item=this.item i=this.key}}{{@partial-block}}{{/abcItem}}
     {{/each}}
 </ul>
 {{~/inline~}}
 
-<div class="form-group-stacked abc-list" data-valid-drops="classfeature">
+<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
     <label for="data.traits">
         {{localize "PF2E.ClassFeatures"}}
     </label>
