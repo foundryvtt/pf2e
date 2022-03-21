@@ -211,7 +211,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
         const heightenedUpdate =
             isStandardSpell && (this.isSpontaneous || this.isInnate)
-                ? { "data.heightenedLevel.value": Math.max(spell.baseLevel, targetLevel) }
+                ? { "data.location.heightenedLevel": Math.max(spell.baseLevel, targetLevel) }
                 : {};
 
         if (spell.actor === actor) {
@@ -290,7 +290,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
         const results: SpellcastingSlotLevel[] = [];
         const spellPrepList: Record<number, SpellPrepEntry[]> = {};
         const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
-        const signatureSpells = new Set(this.data.data.signatureSpells?.value ?? []);
+        const signatureSpells = spells.filter((s) => s.data.data.location.signature);
 
         if (this.isPrepared) {
             // Prepared Spells. Start by fetch the prep list. Active spells are what's been prepped.
@@ -320,7 +320,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 spellPrepList[level] =
                     spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
                         spell,
-                        signature: this.isFlexible && signatureSpells.has(spell.id),
+                        signature: this.isFlexible && spell.data.data.location.signature,
                     })) ?? [];
 
                 results.push({
@@ -389,17 +389,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             }
         }
 
-        // Handle signature spells
+        // Handle signature spells, we need to add signature spells to each spell level
         if (this.isSpontaneous || this.isFlexible) {
-            for (const spellId of signatureSpells) {
-                const spell = this.spells.get(spellId);
-                if (!spell) continue;
-
+            for (const spell of signatureSpells) {
                 for (const result of results) {
                     if (spell.baseLevel > result.level) continue;
                     if (!this.data.data.showSlotlessLevels.value && result.uses?.max === 0) continue;
 
-                    const existing = result.active.find((a) => a?.spell.id === spellId);
+                    const existing = result.active.find((a) => a?.spell.id === spell.id);
                     if (existing) {
                         existing.signature = true;
                     } else {
@@ -417,7 +414,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 .filter((result) => !result.isCantrip)
                 .map((level) => level.uses?.max || 0)
                 .reduce((first, second) => first + second, 0);
-            return { value: signatureSpells.size, max: totalSlots };
+            return { value: signatureSpells.length, max: totalSlots };
         })();
 
         return {

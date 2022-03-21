@@ -86,9 +86,6 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     };
     displayLevels: Record<number, boolean>;
     slots: Record<SlotKey, SpellSlotData>;
-    signatureSpells: {
-        value: string[];
-    };
     autoHeightenLevel: {
         value: OneToTen | null;
     };
