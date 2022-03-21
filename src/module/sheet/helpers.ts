@@ -1,7 +1,7 @@
 /** Prepare form options on an item or actor sheet */
 function createSheetOptions(
     options: Record<string, string>,
-    selections: SheetSelections,
+    selections: SheetSelections = [],
     { selected = false } = {}
 ): SheetOptions {
     const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
@@ -40,4 +40,4 @@ type SheetOptions = Record<string, SheetOption>;
 
 type SheetSelections = { value: (string | number)[]; custom?: string } | (string[] & { custom?: never });
 
-export { createSheetOptions, createSheetTags, SheetOptions };
+export { createSheetOptions, createSheetTags, SheetOption, SheetOptions };
