@@ -107,6 +107,10 @@ declare global {
         var game: Game<ActorPF2e, ChatMessagePF2e, EncounterPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
+    interface Window {
+        AutomaticBonusProgression: typeof AutomaticBonusProgression;
+    }
+
     interface ClientSettings {
         get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
