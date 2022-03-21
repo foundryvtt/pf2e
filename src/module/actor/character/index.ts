@@ -732,9 +732,8 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
-        const handwraps = itemTypes.weapon.find(
-            (w) => w.slug === "handwraps-of-mighty-blows" && w.category === "unarmed"
-        );
+        const handwrapsSlug = "handwraps-of-mighty-blows";
+        const handwraps = itemTypes.weapon.find((w) => w.slug === handwrapsSlug && w.category === "unarmed");
         const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
             const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
                 handwraps?.data._source.data ?? {};
@@ -792,7 +791,11 @@ class CharacterPF2e extends CreaturePF2e {
         const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
 
         // Exclude handwraps as a strike
-        const weapons = [basicUnarmed, itemTypes.weapon.filter((w) => w !== handwraps), synthetics.strikes].flat();
+        const weapons = [
+            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
+            synthetics.strikes,
+            basicUnarmed,
+        ].flat();
         systemData.actions = weapons.map((weapon) =>
             this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
         );
