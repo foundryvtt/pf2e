@@ -256,7 +256,7 @@ declare global {
          * @param _formula The raw formula to split
          * @returns An array of terms, split on parenthetical terms
          */
-        protected static _splitPools(_formula: string): [PoolTerm];
+        protected static _splitPools(_formula: string): PoolTerm[];
 
         /**
          * Split a formula by identifying its outer-most groups using a certain group symbol like parentheses or brackets.
