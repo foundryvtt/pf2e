@@ -39,7 +39,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
         const heightenedLevel = this.data.data.spell.heightenedLevel;
         if (typeof heightenedLevel === "number") {
-            spellData.data.heightenedLevel = { value: heightenedLevel };
+            spellData.data.location.heightenedLevel = heightenedLevel;
         }
 
         return new SpellPF2e(spellData, {

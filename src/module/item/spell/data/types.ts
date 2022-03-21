@@ -105,17 +105,16 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     ability: {
         value: AbilityString;
     };
-    location: {
-        value: string;
-    };
-    heightenedLevel?: {
-        value: number;
-    };
     hasCounteractCheck: {
         value: boolean;
     };
-    autoHeightenLevel: {
-        value: OneToTen | null;
+    location: {
+        value: string;
+        signature?: boolean;
+        heightenedLevel?: number;
+
+        /** The level to heighten this spell to if it's a cantrip or focus spell */
+        autoHeightenLevel?: OneToTen | null;
     };
 }
 
