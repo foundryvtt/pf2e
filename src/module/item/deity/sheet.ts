@@ -1,13 +1,13 @@
 import { Alignment, SkillAbbreviation } from "@actor/creature/data";
+import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { createSheetOptions, createSheetTags, SheetOptions } from "@module/sheet/helpers";
+import { ErrorPF2e } from "@util";
 import { DeityPF2e } from "./document";
 import type * as TinyMCE from "tinymce";
-import { ErrorPF2e } from "@util";
-import { SpellPF2e } from "@item/spell";
-import { ItemPF2e } from "@item";
+import Tagify from "@yaireo/tagify";
 import { fromUUIDs } from "@util/from-uuids";
-import { createSheetOptions, createSheetTags, SheetOptions } from "@module/sheet/helpers";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];
@@ -20,8 +20,8 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         };
     }
 
-    override async getData(): Promise<DeitySheetData> {
-        const sheetData = super.getBaseData();
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<DeitySheetData> {
+        const sheetData = super.getBaseData(options);
         const spells = (await fromUUIDs(Object.values(sheetData.data.spells)))
             .map((spell) => {
                 if (!(spell instanceof SpellPF2e)) {
@@ -34,14 +34,10 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         return {
             ...sheetData,
             hasDetails: true,
-            hasSidebar: true,
             detailsTemplate: () => "systems/pf2e/templates/items/deity-details.html",
-            sidebarTemplate: () => `systems/pf2e/templates/items/deity-sidebar.html`,
             alignments: CONFIG.PF2E.alignments,
             followerAlignments: createSheetTags(CONFIG.PF2E.alignments, sheetData.data.alignment.follower),
-            abilities: createSheetTags(CONFIG.PF2E.abilities, sheetData.data.ability),
             skills: CONFIG.PF2E.skills,
-            favoredWeapons: createSheetTags(CONFIG.PF2E.baseWeaponTypes, sheetData.data.weapon),
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
                 sheetData.data.font
@@ -50,27 +46,45 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         };
     }
 
-    /** Close the sidebar editors when clicking outside of it */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        // Close the sidebar editors when the user clicks outside of them
-        $html.find(".sheet-header, .sheet-content").on("click", (event) => {
-            const openSidebarEditors = Object.entries(this.editors)
-                .filter(([key, editor]) => this.#sidebarText.includes(key) && editor.active)
-                .map(([_key, editor]) => editor);
-            const $target = $(event.target);
+        // Create whitelist-enforced tagify selection inputs
+        interface SheetTagifyOptions {
+            whitelist: Record<string, string | { label: string }>;
+            maxTags: number;
+            dropdownSize: number;
+        }
 
-            if (!($target.is("a") || $target.parents().is("a"))) {
-                for (const editor of openSidebarEditors) {
-                    editor.options.save_onsavecallback?.();
-                }
-            }
-        });
+        const tagify = (inputName: string, { whitelist, maxTags, dropdownSize }: SheetTagifyOptions): void => {
+            const input = $html[0].querySelector<HTMLInputElement>(`input[name="${inputName}"]`);
+            if (!input) throw ErrorPF2e("Unexpected error looking up form element");
+            new Tagify(input, {
+                enforceWhitelist: true,
+                skipInvalid: true,
+                maxTags,
+                dropdown: {
+                    closeOnSelect: false,
+                    enabled: 0,
+                    maxItems: dropdownSize,
+                    searchKeys: ["id", "value"],
+                },
+                whitelist: Object.entries(whitelist).map(([key, locPath]) => ({
+                    id: key,
+                    value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
+                })),
+            });
+        };
+
+        tagify("data.ability", { whitelist: CONFIG.PF2E.abilities, maxTags: 2, dropdownSize: 6 });
+        tagify("data.alignment.follower", { whitelist: CONFIG.PF2E.alignments, maxTags: 9, dropdownSize: 9 });
+        tagify("data.weapons", { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2, dropdownSize: 10 });
+        tagify("data.domains.primary", { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4, dropdownSize: 16 });
+        tagify("data.domains.alternate", { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4, dropdownSize: 16 });
 
         const $clericSpells = $html.find(".cleric-spells");
         // View one of the spells
-        $clericSpells.find('a[data-action="view-spell"]').on("click", async (event) => {
+        $clericSpells.find("a[data-action=view-spell]").on("click", async (event) => {
             const $target = $(event.currentTarget);
             const uuid = $target.closest("li").attr("data-uuid") ?? "";
             const spell = await fromUuid(uuid);
@@ -81,13 +95,13 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         });
 
         // Remove a stored spell reference
-        $clericSpells.find('a[data-action="remove-spell"]').on("click", (event) => {
+        $clericSpells.find("a[data-action=remove-spell]").on("click", (event) => {
             const $target = $(event.currentTarget);
             const uuidToRemove = $target.closest("li").attr("data-uuid") ?? "";
-            const [keyToRemove] =
+            const [levelToRemove] =
                 Object.entries(this.item.data.data.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
-            if (!keyToRemove) return;
-            this.item.update({ [`data.spells.-=${keyToRemove}`]: null });
+            if (!levelToRemove) return;
+            this.item.update({ [`data.spells.-=${levelToRemove}`]: null });
         });
     }
 
@@ -108,7 +122,9 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     /* -------------------------------------------- */
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {
-        const item: ItemPF2e | null = await (async () => {
+        if (!this.isEditable) return;
+
+        const item = await (async (): Promise<ItemPF2e | null> => {
             try {
                 const dataString = event.dataTransfer?.getData("text/plain");
                 const dropData = JSON.parse(dataString ?? "");
@@ -117,14 +133,14 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 return null;
             }
         })();
-        if (!(item instanceof SpellPF2e)) {
-            throw ErrorPF2e("Invalid item drop on deity sheet");
-        }
+        if (!(item instanceof SpellPF2e)) throw ErrorPF2e("Invalid item drop on deity sheet");
+
         if (item.isCantrip || item.isFocusSpell || item.isRitual) {
             console.warn("PF2e System | A deity's cleric spells cannot be a cantrip, focus spell, or ritual.");
             return;
         }
-        this.item.update({ [`data.spells.${item.level}`]: item.uuid });
+
+        await this.item.update({ [`data.spells.${item.level}`]: item.uuid });
     }
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
@@ -135,6 +151,22 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 formData["data.font"][1] ? "heal" : [],
             ].flat();
         }
+
+        // Process Tagify outputs
+        const inputNames = [
+            "data.ability",
+            "data.alignment.follower",
+            "data.weapons",
+            "data.domains.primary",
+            "data.domains.alternate",
+        ] as const;
+        for (const path of inputNames) {
+            const selections = formData[path];
+            if (Array.isArray(selections)) {
+                formData[path] = selections.map((w: { id: string }) => w.id);
+            }
+        }
+
         await super._updateObject(event, formData);
     }
 }
@@ -142,9 +174,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     alignments: Record<Alignment, string>;
     followerAlignments: SheetOptions;
-    abilities: SheetOptions;
     skills: Record<SkillAbbreviation, string>;
-    favoredWeapons: SheetOptions;
     divineFonts: SheetOptions;
     spells: SpellPF2e[];
 }

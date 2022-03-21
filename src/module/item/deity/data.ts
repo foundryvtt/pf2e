@@ -29,7 +29,7 @@ export interface DeitySystemSource extends ItemSystemData {
     font: DivineFonts;
     ability: AbilityString[];
     skill: SkillAbbreviation;
-    weapon: BaseWeaponType[];
+    weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
     edicts: string;
     anathema: string;
