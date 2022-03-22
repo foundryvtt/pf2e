@@ -1437,7 +1437,7 @@ class CharacterPF2e extends CreaturePF2e {
                         dc.adjustments = action.adjustments;
                     }
 
-                    const item = context.self.item;
+                    const item = context.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
 
                     const checkContext: CheckRollContext = {
@@ -1473,10 +1473,10 @@ class CharacterPF2e extends CreaturePF2e {
                 const options = Array.from(
                     new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
                 );
-                const traits = [attackTrait, [...context.self.item.traits].map((t) => toStrikeTrait(t))].flat();
+                const traits = [attackTrait, [...context.item.traits].map((t) => toStrikeTrait(t))].flat();
 
                 const damage = WeaponDamagePF2e.calculate(
-                    context.self.item.data,
+                    context.item.data,
                     context.self.actor,
                     traits,
                     statisticsModifiers,
@@ -1491,9 +1491,9 @@ class CharacterPF2e extends CreaturePF2e {
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
-                    const { self, target, options } = context;
-                    const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
-
+                    const type = "damage-roll";
+                    const { self, target, item, options } = context;
+                    const damageContext: DamageRollContext = { type, self, target, item, outcome, options };
                     await DamageRollPF2e.roll(damage, damageContext, args.callback);
                 }
             };
@@ -1507,8 +1507,8 @@ class CharacterPF2e extends CreaturePF2e {
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
         const context = super.getStrikeRollContext(params);
-        if (context.self.item.isOfType("weapon")) {
-            StrikeWeaponTraits.adjustWeapon(context.self.item);
+        if (context.item.isOfType("weapon")) {
+            StrikeWeaponTraits.adjustWeapon(context.item);
         }
 
         return context;
@@ -1519,8 +1519,8 @@ class CharacterPF2e extends CreaturePF2e {
         params: StrikeRollContextParams<I>
     ): AttackRollContext<this, I> {
         const context = super.getAttackRollContext(params);
-        if (context.self.item.isOfType("weapon")) {
-            context.self.modifiers.push(...StrikeWeaponTraits.createAttackModifiers(context.self.item));
+        if (context.item.isOfType("weapon")) {
+            context.self.modifiers.push(...StrikeWeaponTraits.createAttackModifiers(context.item));
         }
 
         return context;

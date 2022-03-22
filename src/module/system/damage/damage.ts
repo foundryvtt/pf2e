@@ -1,4 +1,4 @@
-import { StrikeSelf, AttackTarget } from "@actor/creature/types";
+import { StrikeSelf, AttackTarget, AttackItem } from "@actor/creature/types";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
 import { combineObjects } from "@util";
@@ -125,6 +125,8 @@ interface DamageRollContext extends BaseRollContext {
     outcome?: DegreeOfSuccessString;
     self?: StrikeSelf | null;
     target?: AttackTarget | null;
+    /** The item used for the strike */
+    item: AttackItem;
     options: string[];
     secret?: boolean;
 }

@@ -72,7 +72,7 @@ export class DamageRollModifiersDialog extends Application {
             .join("");
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
 
-        const noteRollData = context.self?.item?.getRollData();
+        const noteRollData = context.item?.getRollData();
         const notes = damage.notes
             .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
             .map((note) => game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData }))
@@ -147,8 +147,7 @@ export class DamageRollModifiersDialog extends Application {
             return Roll.fromTerms([pool]);
         })();
 
-        const { self, target } = context;
-        const item = self?.item ?? null;
+        const { self, target, item } = context;
         const origin = item ? { uuid: item.uuid, type: item.data.type } : null;
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 

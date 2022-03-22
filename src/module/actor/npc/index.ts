@@ -560,7 +560,7 @@ export class NPCPF2e extends CreaturePF2e {
                                 new CheckModifier(`Strike: ${action.name}`, action, otherModifiers),
                                 {
                                     actor: context.self.actor,
-                                    item: context.self.item,
+                                    item: context.item,
                                     target: context.target,
                                     type: "attack-roll",
                                     options,
@@ -584,7 +584,7 @@ export class NPCPF2e extends CreaturePF2e {
                             .concat(context.options)
                             .concat(meleeData.data.traits.value);
                         const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                            context.self.item.data,
+                            context.item.data,
                             context.self.actor,
                             action.traits,
                             deepClone(statisticsModifiers),
@@ -594,10 +594,9 @@ export class NPCPF2e extends CreaturePF2e {
                             rollNotes
                         );
                         const { self, target } = context;
-
                         await DamageRollPF2e.roll(
                             damage,
-                            { type: "damage-roll", self, target, outcome, options },
+                            { type: "damage-roll", self, target, item, outcome, options },
                             args.callback
                         );
                     };
