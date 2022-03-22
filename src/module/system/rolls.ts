@@ -49,6 +49,8 @@ export interface StrikeRollParams extends RollParameters {
     getFormula?: true;
     /** The strike is to use the melee usage of a combination weapon */
     meleeUsage?: boolean;
+	/** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
+    fate?: FateString;
 }
 
 export type FateString = "none" | "fortune" | "misfortune";
