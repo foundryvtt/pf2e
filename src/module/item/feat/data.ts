@@ -45,7 +45,7 @@ export interface FeatSystemSource extends ItemSystemData, ItemLevelData {
     prerequisites: {
         value: PrerequisiteTagData[];
     };
-    location: string;
+    location: string | null;
 }
 
 export interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
