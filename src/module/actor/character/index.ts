@@ -1439,6 +1439,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
+                    const rollTwice = args.rollTwice ?? "no";
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
@@ -1449,6 +1450,7 @@ class CharacterPF2e extends CreaturePF2e {
                         notes,
                         dc,
                         traits,
+                        rollTwice,
                     };
 
                     if (!this.consumeAmmo(item, args)) return;
