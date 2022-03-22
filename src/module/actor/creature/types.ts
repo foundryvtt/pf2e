@@ -11,11 +11,9 @@ import { SheetOptions } from "@module/sheet/helpers";
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
-interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
+interface StrikeSelf<A extends ActorPF2e = ActorPF2e> {
     actor: A;
     token: TokenDocumentPF2e | null;
-    /** The item used for the strike */
-    item: I;
     /** Bonuses and penalties added at the time of a strike */
     modifiers: ModifierPF2e[];
 }
@@ -30,8 +28,10 @@ interface AttackTarget {
 interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
     /** Roll options */
     options: string[];
-    self: StrikeSelf<A, I>;
+    self: StrikeSelf<A>;
     target: AttackTarget | null;
+    /** The item used for the attack */
+    item: I;
 }
 
 interface StrikeRollContextParams<T extends AttackItem> {
@@ -44,8 +44,10 @@ interface StrikeRollContextParams<T extends AttackItem> {
 
 interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> {
     options: string[];
-    self: StrikeSelf<A, I>;
+    self: StrikeSelf<A>;
     target: AttackTarget | null;
+    /** The item used for the attack */
+    item: I;
     dc: CheckDC | null;
 }
 

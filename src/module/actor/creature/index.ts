@@ -710,6 +710,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             options: Array.from(new Set(context.options)),
             self: context.self,
             target: context.target,
+            item: context.item,
         };
     }
 
@@ -768,7 +769,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const self = {
             actor: selfActor,
             token: selfToken?.document ?? null,
-            item: selfItem,
             modifiers: [],
         };
 
@@ -781,6 +781,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             options: Array.from(new Set(rollOptions)),
             self,
             target,
+            item: selfItem,
         };
     }
 
