@@ -1,5 +1,5 @@
 import { ModifierPF2e, StatisticModifier } from "../actor/modifiers";
-import { CheckRollContext, TwiceString } from "./rolls";
+import { CheckRollContext, RollTwiceOption } from "./rolls";
 import { LocalizePF2e } from "./localize";
 
 /**
@@ -55,7 +55,7 @@ export class CheckModifiersDialog extends Application {
 
     override activateListeners($html: JQuery): void {
         $html.find(".roll").on("click", () => {
-            this.context.rollTwice = $html.find("input[type=radio][name=rollTwice]:checked").val() as TwiceString;
+            this.context.rollTwice = $html.find("input[type=radio][name=rollTwice]:checked").val() as RollTwiceOption;
             this.resolve(true);
             this.isResolved = true;
             this.close();

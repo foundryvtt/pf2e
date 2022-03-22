@@ -50,10 +50,10 @@ export interface StrikeRollParams extends RollParameters {
     /** The strike is to use the melee usage of a combination weapon */
     meleeUsage?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
-    rollTwice?: TwiceString;
+    rollTwice?: RollTwiceOption;
 }
 
-export type TwiceString = "no" | "keep-higher" | "keep-lower";
+export type RollTwiceOption = "no" | "keep-higher" | "keep-lower";
 
 export type AttackCheck = "attack-roll" | "spell-attack-roll";
 export type CheckType =
@@ -94,7 +94,7 @@ export interface CheckRollContext extends BaseRollContext {
     type?: CheckType;
     target?: AttackTarget | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
-    rollTwice?: TwiceString;
+    rollTwice?: RollTwiceOption;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
