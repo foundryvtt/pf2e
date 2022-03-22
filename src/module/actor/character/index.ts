@@ -1449,7 +1449,7 @@ class CharacterPF2e extends CreaturePF2e {
                         notes,
                         dc,
                         traits,
-                        fate
+                        fate,
                     };
 
                     if (!this.consumeAmmo(item, args)) return;
