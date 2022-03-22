@@ -19,7 +19,7 @@ export interface DeityData extends Omit<DeitySource, "effects" | "flags"> {
 
 export interface DeitySystemSource extends ItemSystemData {
     alignment: {
-        own: Alignment;
+        own: Alignment | null;
         follower: Alignment[];
     };
     domains: {
@@ -28,7 +28,7 @@ export interface DeitySystemSource extends ItemSystemData {
     };
     font: DivineFonts;
     ability: AbilityString[];
-    skill: SkillAbbreviation;
+    skill: SkillAbbreviation | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
     edicts: string;

@@ -3,9 +3,8 @@
     <label>{{localize "PF2E.Item.Deity.Alignment"}}</label>
     <select name="data.alignment.own">
         {{#select data.alignment.own}}
-            {{#each alignments as |label slug|}}
-                <option value="{{slug}}">{{localize label}}</option>
-            {{/each}}
+            <option value=""></option>
+            {{#each alignments as |label slug|}}<option value="{{slug}}">{{localize label}}</option>{{/each}}
         {{/select}}
     </select>
 </div>
@@ -25,6 +24,7 @@
     <label>{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
     <select name="data.skill">
         {{#select data.skill}}
+            <option value=""></option>
             {{#each skills as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
             {{/each}}
