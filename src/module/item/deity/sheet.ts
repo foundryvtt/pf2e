@@ -145,6 +145,11 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
     override async _updateObject(event: Event, formData: Record<string, unknown>) {
+        // Null out empty strings for some properties
+        for (const property of ["data.alignment.own", "data.skill"]) {
+            if (typeof formData[property] === "string") formData[property] ||= null;
+        }
+
         // Process Tagify outputs
         const inputNames = [
             "data.ability",
