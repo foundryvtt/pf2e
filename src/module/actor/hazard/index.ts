@@ -32,6 +32,7 @@ export class HazardPF2e extends ActorPF2e {
 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
+        attributes.hasHealth = attributes.hp.max > 0;
     }
 
     override prepareDerivedData(): void {

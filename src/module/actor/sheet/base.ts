@@ -91,13 +91,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
 
         // IWR
+        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.data.traits.di);
         for (const weakness of actorData.data.traits.dv) {
             weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
         }
         for (const resistance of actorData.data.traits.dr) {
             resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
         }
-        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.data.traits.di);
 
         const traitsMap = ((): Record<string, string> => {
             switch (this.actor.type) {
