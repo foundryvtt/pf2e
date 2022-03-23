@@ -26,7 +26,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
     enabledIf?: PredicatePF2e;
 
     constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super({ key: "RollOption", label: data.label ?? item.name }, item, options);
+        super({ key: "RollOption", label: data.label ?? item.name, predicate: data.predicate }, item, options);
 
         this.domain = String(data.domain).trim();
         this.option = String(data.option).trim();
