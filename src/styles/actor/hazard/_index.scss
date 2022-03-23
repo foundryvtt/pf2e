@@ -41,6 +41,7 @@
 
     .top-section {
         display: flex;
+        flex-wrap: wrap;
         margin: 0.5rem 0;
     }
 
@@ -467,39 +468,29 @@
 
     .top-section {
         display: flex;
-        margin: 0.5rem 0;
 
         .top-stats-container {
             flex: 2;
-            order: 1;
         }
 
         .top-quick-container {
             flex: 1;
-            order: 2;
-            padding-right: 0.2em;
             display: flex;
             flex-direction: column;
-            min-width: 160px;
 
-            * {
-                text-align: right;
+            &.no-health {
+                flex-basis: 100%;
             }
 
             .hp-current {
-                height: 24px;
-                font-size: 20px;
-                display: inline-flex;
-                flex-direction: row;
-
-                label {
-                    width: auto;
-                    flex: 5;
-                }
+                align-items: center;
+                display: flex;
+                font-size: 1.25rem;
+                justify-content: end;
 
                 input {
-                    width: auto;
-                    flex: 1;
+                    flex-basis: 2em;
+                    margin-left: 0.25em;
                 }
             }
 
