@@ -49,7 +49,7 @@ export interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     pf2e: {
         rulesSelections: Record<string, string | number | object>;
         itemGrants: string[];
-        grantedBy: string | null;
+        grantedBy: string[] | null;
         [key: string]: unknown;
     };
 }
