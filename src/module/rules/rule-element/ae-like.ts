@@ -176,7 +176,7 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 
     protected warn(property: string): void {
-        this.failValidation(`"${property}" property is invalid`);
+        this.failValidation(`"${property}" property is missing or invalid`);
     }
 }
 
