@@ -30,7 +30,7 @@
                 </div>
                 <div>
                     <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
-                    <h4 class="attribute-name rollable">{{localize 'PF2E.StealthLabel'}}</h4>
+                    <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
                 </div>
             </div>
 
@@ -62,32 +62,30 @@
                     <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
                 </div>
                 <div class="tags">
-                    {{#each data.traits.di.selected as |v k|}}
-                        <span class="tag {{k}}">{{localize v}}</span>
+                    {{#each immunities as |immunity slug|}}
+                        <span class="tag" data-slug="{{slug}}">{{localize immunity.label}}</span>
                     {{/each}}
                 </div>
             </div>
-
             <div>
                 <div class="sidebar-title">
-                    <h2>{{localize 'PF2E.ResistancesLabel'}}</h2>
-                    <a class="trait-selector" data-trait-selector="resistances"><i class="fas fa-edit"></i></a>
-                </div>
-                <div class="tags">
-                    {{#each data.traits.dr.selected as |v k|}}
-                        <span class="tag {{k}}">{{v}}</span>
-                    {{/each}}
-                </div>
-            </div>
-
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize 'PF2E.WeaknessesLabel'}}</h2>
+                    <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
                     <a class="trait-selector" data-trait-selector="weaknesses"><i class="fas fa-edit"></i></a>
                 </div>
                 <div class="tags">
-                    {{#each data.traits.dv.selected as |v k|}}
-                        <span class="tag {{k}}">{{v}}</span>
+                    {{#each data.traits.dv as |weakness|}}
+                        <span class="tag" data-slug="weakness.type">{{localize weakness.label}} {{weakness.value}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            <div>
+                <div class="sidebar-title">
+                    <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
+                    <a class="trait-selector" data-trait-selector="resistances"><i class="fas fa-edit"></i></a>
+                </div>
+                <div class="tags">
+                    {{#each data.traits.dr as |resistance|}}
+                        <span class="tag" data-slug="resistance.type">{{localize resistance.label}} {{resistance.value}}</span>
                     {{/each}}
                 </div>
             </div>
@@ -98,7 +96,7 @@
 
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize 'PF2E.StealthLabel'}}</h3>
+                    <h3>{{localize "PF2E.StealthLabel"}}</h3>
                 </div>
                 <div class="section-body hazard-editor">
                     {{editor content=(enrichHTML data.attributes.stealth.details) target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
@@ -107,7 +105,7 @@
 
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize 'PF2E.HazardDescriptionLabel'}}</h3>
+                    <h3>{{localize "PF2E.HazardDescriptionLabel"}}</h3>
                 </div>
                 <div class="section-body hazard-editor">
                     {{editor content=(enrichHTML data.details.description) target="data.details.description" button=true owner=owner editable=editable}}
@@ -116,7 +114,7 @@
 
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize 'PF2E.HazardDisableLabel'}}</h3>
+                    <h3>{{localize "PF2E.HazardDisableLabel"}}</h3>
                 </div>
                 <div class="section-body hazard-editor">
                     {{editor content=(enrichHTML data.details.disable) target="data.details.disable" button=true owner=owner editable=editable}}
@@ -125,7 +123,7 @@
 
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize 'PF2E.HazardRoutineLabel'}}</h3>
+                    <h3>{{localize "PF2E.HazardRoutineLabel"}}</h3>
                 </div>
                 <div class="section-body hazard-editor">
                     {{editor content=(enrichHTML data.details.routine) target="data.details.routine" button=true owner=owner editable=editable}}
@@ -134,7 +132,7 @@
 
             <div class="section-container">
                 <div class="section-header">
-                    <h3>{{localize 'PF2E.HazardResetLabel'}}</h3>
+                    <h3>{{localize "PF2E.HazardResetLabel"}}</h3>
                 </div>
                 <div class="section-body hazard-editor">
                     {{editor content=(enrichHTML data.details.reset) target="data.details.reset" button=true owner=owner editable=editable}}
@@ -146,7 +144,7 @@
                     <h3>Actions</h3>
                     {{#if owner}}
                     <div class="controls">
-                        <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i>{{localize "ITEM.TypeAction"}}</a>
+                        <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i>{{localize "ITEM.TypeAction"}}</a>
                         <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
                         <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
                     </div>
@@ -165,8 +163,8 @@
                                 </div>
                                 {{#if ../../owner}}
                                 <div class="item-controls">
-                                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
+                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                                 </div>
                                 {{/if}}
                             </div>
