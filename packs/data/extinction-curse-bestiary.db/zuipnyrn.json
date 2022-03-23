@@ -61,7 +61,7 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>This spectacularly odd creature appears every now and again in various traveling circuses around the Inner Sea. Although carnival barkers make any number of claims about this strange being's origins, the so-called \"moon mole\" is in fact an alien creature called a zuipnyrn, hailing from a distant planet beyond Golarion's star system.</p>\n<p>In their infancy, zuipnyrns are spherical and furry, with few features other than a single eye stalk and a round, toothless feeding hole. A zuipnyrn's body is particularly soft and malleable, allowing it to withstand falls and other hazards. Its eye stalk has the ability to produce a blinding burst of light as a defensive measure, which allows a zuipnyrn just enough time to escape in times of danger. Even more incredibly, a zuipnyrn can emit a hypnotic aura from its eye to entrance those around it-an ability it uses to avoid conflict and to persuade bystanders into helping it escape perilous situations. As they age and grow, zuipnyrns adapt to their environment by growing additional limbs, sprouting additional sensory organs, developing gills, or otherwise altering their anatomy to suit the area.</p>",
             "source": {
                 "value": "Pathfinder #152: Legacy of the Lost God"
             }
@@ -89,14 +89,14 @@
             },
             "dr": [
                 {
-                    "label": "Bludgeoning",
+                    "exceptions": "",
                     "type": "bludgeoning",
-                    "value": "3"
+                    "value": 3
                 }
             ],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(can't speak any language)",
                 "selected": [],
                 "value": [
                     "common"
@@ -150,7 +150,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -162,6 +164,52 @@
             "name": "Eye Stalk",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "cca2HxwcLz1pklgq",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Greater Darkvision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "AYL0s7HCCgpgbmtO",
@@ -176,7 +224,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:22] save. On a failure, it becomes fascinated with the zuipnyrn for 1 minute. Once the fascination ends, the creature is temporarily immune to this ability for 1 hour. The zuipnyrn can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:22] save. On a failure, it becomes @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} with the zuipnyrn for 1 minute. Once the fascination ends, the creature is temporarily immune to this ability for 1 hour.</p>\n<p>The zuipnyrn can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -206,7 +254,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Alluring Aspect",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -222,7 +270,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The zuipnyrn attempts to charm a creature within 30 feet that is currently fascinated by the zuipnyrn. The target must attempt a @Check[type:will|dc:22] save. Whether it succeeds or fails the save, the target is temporarily immune for 1 hour.</p>\n<p>Critical Success The creature is unaffected and is no longer fascinated.</p>\n<p>Success The creature is unaffected.</p>\n<p>Failure The creature is helpful toward the zuipnyrn for 1 hour.</p>\n<p>Critical Failure The creature is helpful toward the zuipnyrn for 1 day and will actively attempt to defend the zuipnyrn and even risk its life for it.</p>"
+                    "value": "<p>The zuipnyrn attempts to charm a creature within 30 feet that is currently @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the zuipnyrn. The target must attempt a @Check[type:will|dc:22] save. Whether it succeeds or fails the save, the target is temporarily immune for 1 hour.</p>\n<p><strong>Critical Success</strong> The creature is unaffected and is no longer fascinated.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward the zuipnyrn for 1 hour.</p>\n<p><strong>Critical Failure</strong> The creature is helpful toward the zuipnyrn for 1 day and will actively attempt to defend the zuipnyrn and even risk its life for it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -251,7 +299,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Beguiling Gaze",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -267,7 +315,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The zuipnyrn's eye produces a bright flash of light. Each creature in a @Template[type:cone|distance:30] must attempt a @Check[type:fortitude|dc:22] save. The zuipnyrn can't use Blinding Flare again for 1 minute.</p>\n<p>Critical Success The creature is unaffected.</p>\n<p>Success The creature is dazzled for 1 round.</p>\n<p>Failure The creature is blinded for 1 round and dazzled for 1 minute.</p>\n<p>Critical Failure The creature is blinded for 1 minute.</p>"
+                    "value": "<p>The zuipnyrn's eye produces a bright flash of light. Each creature in a @Template[type:cone|distance:30] must attempt a @Check[type:fortitude|dc:22] save. The zuipnyrn can't use Blinding Flare again for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is blinded for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -296,7 +344,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Blinding Flare",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -326,7 +374,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],
