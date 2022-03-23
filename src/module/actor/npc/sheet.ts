@@ -18,7 +18,7 @@ import {
 } from "@item/data";
 import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey } from "@util";
 import { InventoryItem, SheetInventory } from "../sheet/data-types";
-import { Size, ZeroToEleven } from "@module/data";
+import { Size } from "@module/data";
 import { NPCSkillData } from "./data";
 import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/data/base";
@@ -208,9 +208,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             .find(".spellcasting-entry")
             .find<HTMLInputElement | HTMLSelectElement>(".attack-input, .dc-input, .ability-score select")
             .on("change", (event) => this.onChangeSpellcastingEntry(event));
-
-        // Spontaneous Spell slot reset handler:
-        $html.find(".spell-slots-increment-reset").on("click", (event) => this.onSpellSlotIncrementReset(event));
 
         $html.find(".effects-list > .effect > .item-image").on("contextmenu", (event) => this.onClickDeleteItem(event));
 
@@ -596,28 +593,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 [key]: value,
             },
         ]);
-    }
-
-    private async onSpellSlotIncrementReset(event: JQuery.ClickEvent) {
-        const $target = $(event.currentTarget);
-        const itemId = $target.attr("data-item-id");
-        const itemLevel =
-            typeof $target.attr("data-level") === "string"
-                ? (Number($target.attr("data-level") || 0) as ZeroToEleven)
-                : null;
-        const actor = this.actor;
-        const item = actor.items.get(itemId ?? "");
-
-        if (itemLevel === null || item?.data.type !== "spellcastingEntry") {
-            return;
-        }
-
-        const systemData = item.data.toObject().data;
-        if (!systemData.slots) return;
-        const slot = `slot${itemLevel}` as const;
-        systemData.slots[slot].value = systemData.slots[slot].max;
-
-        await item.update({ "data.slots": systemData.slots });
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

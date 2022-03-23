@@ -4,7 +4,7 @@ import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@system/damage";
-import { ValuesList, OneToTen } from "@module/data";
+import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
 
@@ -115,6 +115,9 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
 
         /** The level to heighten this spell to if it's a cantrip or focus spell */
         autoHeightenLevel?: OneToTen | null;
+
+        /** Number of uses if this is an innate spell */
+        uses?: ValueAndMax;
     };
 }
 
