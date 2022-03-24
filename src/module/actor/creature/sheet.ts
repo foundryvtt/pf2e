@@ -67,7 +67,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
-            alignments: CONFIG.PF2E.alignments,
+            alignments: deepClone(CONFIG.PF2E.alignments),
             rarity: CONFIG.PF2E.rarityTraits,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,

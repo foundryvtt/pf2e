@@ -1,4 +1,4 @@
-import { Alignment } from "@actor/creature/data";
+import { Alignment } from "@actor/creature/types";
 
 export function isEvil(alignment: Alignment): boolean {
     return alignment === "LE" || alignment === "CE" || alignment === "NE";

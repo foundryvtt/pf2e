@@ -38,6 +38,7 @@ export class AncestryPF2e extends ABCItemPF2e {
             return;
         }
 
+        this.actor.ancestry = this;
         const actorData = this.actor.data;
         const systemData = actorData.data;
 
