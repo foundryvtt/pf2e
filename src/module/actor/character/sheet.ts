@@ -89,14 +89,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.class = this.actor.class;
         sheetData.deity = this.actor.deity;
 
-        // Restrict alignment options if the character has a patron deity
-        if (this.actor.deity) {
-            sheetData.alignments = this.actor.deity.data.data.alignment.follower.reduce(
-                (alignments: { [K in Alignment]?: string }, a) => ({ ...alignments, [a]: CONFIG.PF2E.alignments[a] }),
-                {}
-            );
-        }
-
         // Update hero points label
         sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
         sheetData.data.resources.heroPoints.hover = game.i18n.format(
