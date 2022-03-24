@@ -25,7 +25,6 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { Alignment } from "@actor/creature/types";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -88,14 +87,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.background = this.actor.background;
         sheetData.class = this.actor.class;
         sheetData.deity = this.actor.deity;
-
-        // Restrict alignment options if the character has a patron deity
-        if (this.actor.deity) {
-            sheetData.alignments = this.actor.deity.data.data.alignment.follower.reduce(
-                (alignments: { [K in Alignment]?: string }, a) => ({ ...alignments, [a]: CONFIG.PF2E.alignments[a] }),
-                {}
-            );
-        }
 
         // Update hero points label
         sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
