@@ -6,7 +6,6 @@ import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
-import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -842,23 +841,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     await actor.increaseCondition(effect);
                 }
             }
-        });
-
-        // Spontaneous Spell slot reset handler:
-        $html.find(".spell-slots-increment-reset").on("click", (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
-            const actor = this.actor;
-            const item = actor.items.get(itemId);
-            if (item?.data.type !== "spellcastingEntry") return;
-
-            const data = item.data.toObject();
-            if (!data.data.slots) return;
-            const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-            data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
-
-            item.update(data);
         });
 
         const $craftingTab = $html.find(".tab.crafting");

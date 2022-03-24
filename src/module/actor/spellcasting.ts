@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ErrorPF2e, tupleHasValue } from "@util";
 
 export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
@@ -49,32 +49,43 @@ export class ActorSpellcasting extends Collection<SpellcastingEntryPF2e> {
     /** Recharges all spellcasting entries based on the type of entry it is */
     recharge() {
         // todo: support a timespan property of some sort and handle 1/hour innate spells
-        const itemUpdates = this.contents.flatMap((entry) => {
-            if (!(entry instanceof SpellcastingEntryPF2e)) return [];
-            if (entry.isFocusPool) return [];
+        const itemUpdates = this.contents.flatMap(
+            (entry): EmbeddedDocumentUpdateData<ItemPF2e> | EmbeddedDocumentUpdateData<ItemPF2e>[] => {
+                if (!(entry instanceof SpellcastingEntryPF2e)) return [];
+                if (entry.isFocusPool) return [];
 
-            // Innate, Spontaneous, and Prepared spells
-            const slots = entry.data.data.slots;
-            let updated = false;
-            for (const slot of Object.values(slots)) {
-                if (entry.isPrepared && !entry.isFlexible) {
-                    for (const preparedSpell of Object.values(slot.prepared)) {
-                        if (preparedSpell.expended) {
-                            preparedSpell.expended = false;
-                            updated = true;
-                        }
-                    }
-                } else if (slot.value < slot.max) {
-                    slot.value = slot.max;
-                    updated = true;
+                // Innate spells should refresh uses instead
+                if (entry.isInnate) {
+                    return entry.spells.map((spell) => {
+                        const value = spell.data.data.location.uses?.max ?? 1;
+                        return { _id: spell.id, "data.location.uses.value": value };
+                    });
                 }
-            }
 
-            if (updated) {
-                return { _id: entry.id, "data.slots": slots };
+                // Spontaneous, and Prepared spells
+                const slots = entry.data.data.slots;
+                let updated = false;
+                for (const slot of Object.values(slots)) {
+                    if (entry.isPrepared && !entry.isFlexible) {
+                        for (const preparedSpell of Object.values(slot.prepared)) {
+                            if (preparedSpell.expended) {
+                                preparedSpell.expended = false;
+                                updated = true;
+                            }
+                        }
+                    } else if (slot.value < slot.max) {
+                        slot.value = slot.max;
+                        updated = true;
+                    }
+                }
+
+                if (updated) {
+                    return { _id: entry.id, "data.slots": slots };
+                }
+
+                return [];
             }
-            return [];
-        });
+        );
 
         const actorUpdates = this.refocus({ all: true });
         return { itemUpdates, actorUpdates };

@@ -51,7 +51,13 @@
                         {{/if}}
                     </div>
 
-                    <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
+                    <div class="spell-range">
+                        {{#if entry.isInnate}}
+                            {{localize "PF2E.SpellUsesLabel"}}
+                        {{else}}
+                            {{localize "PF2E.SpellRangeLabel"}}
+                        {{/if}}
+                    </div>
                     <div class="spell-components">{{localize "PF2E.SpellComponentsLabel"}}</div>
 
                     {{#if @root.options.editable}}
@@ -84,7 +90,24 @@
                                 <h4>{{spell.name}}{{{actionGlyph spell.data.data.time.value}}}</h4>
                             </div>
 
-                            <div class="spell-range">{{spell.data.data.range.value}}</div>
+                            <div class="spell-range">
+                                {{!-- Innate spells replace range for uses --}}
+                                {{#if entry.isInnate}}
+                                    <div class="uses">
+                                        <span class="spell-slots-input">
+                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.value" value="{{spell.data.data.location.uses.value}}" placeholder="0" />
+                                        </span>
+                                        <span class="slash"> / </span>
+                                        <span class="spell-max-input">
+                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.max" value="{{spell.data.data.location.uses.max}}" placeholder="0" />
+                                        </span>
+                                        <a class="spell-slots-increment-reset" data-item-id="{{spell.id}}"><i class="fas fa-redo"></i></a>
+                                    </div>
+                                {{else}}
+                                    {{spell.data.data.range.value}}
+                                {{/if}}
+                            </div>
+
                             <div class="spell-components tags">
                                 {{#if spell.data.data.components.focus}}
                                     <span class="tag tag_transparent">{{localize "PF2E.SpellComponentShortF"}}</span>
