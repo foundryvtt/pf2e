@@ -23,6 +23,7 @@ export class ClassPF2e extends ABCItemPF2e {
             return;
         }
 
+        this.actor.class = this;
         const classDetails = this.data.data;
         const { attributes, details, martial, saves } = this.actor.data.data;
         attributes.classhp = this.hpPerLevel;

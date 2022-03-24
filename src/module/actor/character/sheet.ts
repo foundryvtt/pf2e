@@ -25,6 +25,7 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { Alignment } from "@actor/creature/types";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -81,11 +82,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             ).modifier;
         }
 
-        // ABC
+        // A(H)BCD
         sheetData.ancestry = this.actor.ancestry;
         sheetData.heritage = this.actor.heritage;
         sheetData.background = this.actor.background;
         sheetData.class = this.actor.class;
+        sheetData.deity = this.actor.deity;
+
+        // Restrict alignment options if the character has a patron deity
+        if (this.actor.deity) {
+            sheetData.alignments = this.actor.deity.data.data.alignment.follower.reduce(
+                (alignments: { [K in Alignment]?: string }, a) => ({ ...alignments, [a]: CONFIG.PF2E.alignments[a] }),
+                {}
+            );
+        }
 
         // Update hero points label
         sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
@@ -1217,37 +1227,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     ): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
-        if (isSameActor) {
-            return super._onDropItem(event, data);
-        }
-
-        event.preventDefault();
+        if (isSameActor) return super._onDropItem(event, data);
 
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
-        const itemData = item.toObject();
+        const source = item.toObject();
 
         const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
-        if (itemData.type === "feat") {
-            if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                itemData.data.location = slotId;
-                const items = await Promise.all([
-                    this.actor.createEmbeddedDocuments("Item", [itemData]),
-                    this.actor.updateEmbeddedDocuments(
-                        "Item",
-                        this.actor.items
-                            .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
-                            .map((x) => ({ _id: x.id, "data.location": "" }))
-                    ),
-                ]);
-                return items.flatMap((item) => item);
+        switch (source.type) {
+            case "feat": {
+                if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, source)) {
+                    source.data.location = slotId;
+                    const items = await Promise.all([
+                        this.actor.createEmbeddedDocuments("Item", [source]),
+                        this.actor.updateEmbeddedDocuments(
+                            "Item",
+                            this.actor.items
+                                .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
+                                .map((x) => ({ _id: x.id, "data.location": "" }))
+                        ),
+                    ]);
+                    return items.flatMap((item) => item);
+                }
+                return [];
             }
-        } else if (itemData.type === "ancestry" || itemData.type === "background" || itemData.type === "class") {
-            return AncestryBackgroundClassManager.addABCItem(itemData, actor);
+            case "ancestry":
+            case "background":
+            case "class":
+                return AncestryBackgroundClassManager.addABCItem(source, actor);
+            default:
+                return super._onDropItem(event, data);
         }
-
-        return super._onDropItem(event, data);
     }
 
     protected override async _onDrop(event: ElementDragEvent) {

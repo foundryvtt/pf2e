@@ -1,13 +1,7 @@
 <div class="tab character" data-group="primary" data-tab="character">
     <section class="character-details">
         <div class="frame">
-            <img
-                class="player-image"
-                alt="{{actor.name}}"
-                src="{{actor.img}}"
-                title="{{actor.name}}"
-                data-edit="img"
-            />
+            <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
         </div>
         <div class="alignment">
             <span class="bio-alignment" title="{{localize "PF2E.AlignmentTitle"}}">
@@ -20,22 +14,33 @@
                 </select>
             </span>
         </div>
-        <div class="deity">
-            <div class="dropdown">
-                <label class="details-label" for="{{options.id}}-pc-deity">
-                    {{localize "PF2E.Deity"}}
-                </label>
-                <input class="details-input" id="{{options.id}}-pc-deity" name="data.details.deity.value" type="text" value="{{data.details.deity.value}}" />
+        <div class="pc pc_deity" data-item-id="{{deity.id}}">
+            <div class="input">
+                <label class="details-label">{{localize "ITEM.TypeDeity"}}</label>
+                <h3>
+                    <span class="value">{{deity.name}}</span>
+                    {{#if @root.options.editable}}
+                        {{#if deity}}
+                            <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                            <a class="open-compendium" data-compendium="pf2e.deities"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
+                    {{/if}}
+                </h3>
             </div>
-            <img src="{{data.details.deity.image}}" alt="{{data.details.deity.value}}" title="{{localize "PF2E.DeityTitle"}}" data-edit="data.details.deity.image" />
+            {{#if deity}}
+                <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
+            {{else}}
+                <img class="symbol" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
+            {{/if}}
         </div>
         <div class="detail-sheet">
             <div class="pc pc_ancestry item" data-item-id="{{ancestry.id}}">
-                <span class="details-label">{{localize "PF2E.Ancestry"}}</span>
+                <span class="details-label">{{localize "ITEM.TypeAncestry"}}</span>
                 <span title="{{localize "PF2E.AncestryTitle"}}">
                     <h3>
                         <span class="value">{{ancestry.name}}</span>
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             {{#if ancestry}}
                                 <a class="item-edit"><i class="fas fa-edit"></i></a>
                             {{else}}
@@ -50,7 +55,7 @@
                 <span title="{{localize "PF2E.HeritageTitle"}}">
                     <h3>
                         <span class="value">{{heritage.name}}</span>
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             {{#if heritage}}
                                 <a class="item-edit"><i class="fas fa-edit"></i></a>
                             {{else}}
@@ -65,7 +70,7 @@
                 <span title="{{localize "PF2E.ClassTitle"}}">
                     <h3>
                         <span class="value">{{class.name}}</span>
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             {{#if class}}
                                 <a class="item-edit"><i class="fas fa-edit"></i></a>
                             {{else}}
@@ -82,7 +87,7 @@
                 <span title="{{localize "PF2E.BackgroundTitle"}}">
                     <h3>
                         <span class="value">{{background.name}}</span>
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             {{#if background}}
                                 <a class="item-edit"><i class="fas fa-edit"></i></a>
                             {{else}}

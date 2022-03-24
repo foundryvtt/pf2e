@@ -1,4 +1,4 @@
-import { AlignmentTrait } from "@actor/creature/data";
+import { AlignmentTrait } from "@actor/creature/types";
 import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
 import { PreciousMaterialType } from "@item/physical/data";

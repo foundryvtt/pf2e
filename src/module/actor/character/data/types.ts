@@ -1,6 +1,5 @@
 import {
     Abilities,
-    Alignment,
     CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
@@ -35,6 +34,8 @@ import { PredicatePF2e } from "@system/predication";
 import { ProficiencyRank } from "@item/data";
 import { WeaponPF2e } from "@item";
 import { CharacterSheetTabVisibility } from "./sheet";
+import { DeitySystemData } from "@item/deity/data";
+import { Alignment } from "@actor/creature/types";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -303,9 +304,19 @@ export type CharacterDetails = {
     };
 
     /** Convenience information for easy access when the item class instance isn't available */
-    ancestry: { name: string; trait: string };
-    heritage: { name: string; trait: string | null };
-    class: { name: string; trait: string };
+    ancestry: { name: string; trait: string } | null;
+    heritage: { name: string; trait: string | null } | null;
+    class: { name: string; trait: string } | null;
+    deities: CharacterDeities;
+};
+
+interface CharacterDeities {
+    primary: DeityDetails | null;
+    secondary: null;
+}
+
+type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
+    weapons: { option: string; label: string }[];
 };
 
 export interface CharacterAttributes extends CreatureAttributes {
