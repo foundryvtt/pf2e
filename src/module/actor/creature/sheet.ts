@@ -2,7 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
-import { ZeroToFour } from "@module/data";
+import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
@@ -218,6 +218,26 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
 
             entry.cast(spell, { slot: slotId, level: spellLvl });
+        });
+
+        // Regenerating spell slots and spell uses
+        $html.find(".spell-slots-increment-reset").on("click", (event) => {
+            const target = $(event.currentTarget);
+            const itemId = target.data().itemId;
+            const itemLevel = target.data().level;
+            const actor = this.actor;
+            const item = actor.items.get(itemId);
+            if (item instanceof SpellcastingEntryPF2e) {
+                const data = item.data.toObject();
+                if (!data.data.slots) return;
+                const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
+                data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
+                item.update(data);
+            } else if (item instanceof SpellPF2e) {
+                const max = item.data.data.location.uses?.max;
+                if (!max) return;
+                item.update({ "data.location.uses.value": max });
+            }
         });
 
         const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
