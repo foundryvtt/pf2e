@@ -25,7 +25,6 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { Alignment } from "@actor/creature/types";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
