@@ -1,15 +1,10 @@
 &.spellcasting {
     .spellcasting-entry {
         align-items: center;
-        background: none;
-        border: none;
+        border-bottom: 1px solid var(--color-border-light-2);
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
-
-        &.item-container {
-            margin-bottom: 0.25em;
-        }
+        margin-bottom: 1em;
 
         &:first-child {
             .action-header {
@@ -38,8 +33,7 @@
             .item-controls {
                 color: white;
                 flex: 1 0 auto;
-                font-family: var(--sans-serif);
-                font-size: 0.7em;
+                font: 0.7em var(--sans-serif);
                 letter-spacing: 0.05em;
                 margin-left: auto;
                 max-width: fit-content;
@@ -68,7 +62,7 @@
             align-items: center;
             flex: 1;
             justify-content: space-between;
-            margin: 0.5em 0;
+            margin: 0.25em 0;
 
             .skill-grid {
                 @include flex-center;
