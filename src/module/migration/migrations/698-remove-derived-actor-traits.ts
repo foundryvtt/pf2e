@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data";
-import { ALIGNMENT_TRAITS } from "@actor/data/values";
+import { ALIGNMENT_TRAITS } from "@actor/creature/values";
 import { AncestrySource } from "@item/data";
 import { MigrationBase } from "../base";
 

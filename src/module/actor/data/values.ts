@@ -9,8 +9,6 @@ export const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
 export const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
 
-export const ALIGNMENT_TRAITS = ["chaotic", "evil", "good", "lawful"] as const;
-
 export const CONDITION_SLUGS = new Set([
     "blinded",
     "broken",

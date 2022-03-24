@@ -21,6 +21,7 @@ class HeritagePF2e extends ItemPF2e {
 
     /** Prepare a character's data derived from their heritage */
     override prepareActorData(this: Embedded<HeritagePF2e>): void {
+        this.actor.heritage = this;
         const systemData = this.actor.data.data;
         // Add and remove traits as specified
         systemData.traits.traits.value.push(...this.traits);

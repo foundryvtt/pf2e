@@ -1,4 +1,4 @@
-import { Alignment } from "@actor/creature/data";
+import { Alignment } from "@actor/creature/types";
 import { ModeOfBeing } from "@actor/data";
 import { isChaotic, isEvil, isGood, isLawful } from "@system/alignment";
 import { groupBy, sum } from "@util";

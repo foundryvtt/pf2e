@@ -1,5 +1,5 @@
 import { CharacterPF2e } from "@actor";
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, HeritagePF2e } from "@item";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, HeritagePF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { CraftingEntry } from "@actor/character/crafting/entry";
 import { CraftingFormula } from "@actor/character/crafting/formula";
@@ -70,6 +70,7 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     class: Embedded<ClassPF2e> | null;
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
+    deity: Embedded<DeityPF2e> | null;
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;

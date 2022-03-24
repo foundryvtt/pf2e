@@ -1,4 +1,4 @@
-import { Alignment, SkillAbbreviation } from "@actor/creature/data";
+import { SkillAbbreviation } from "@actor/creature/data";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
@@ -8,6 +8,7 @@ import { DeityPF2e } from "./document";
 import type * as TinyMCE from "tinymce";
 import Tagify from "@yaireo/tagify";
 import { fromUUIDs } from "@util/from-uuids";
+import { Alignment } from "@actor/creature/types";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];

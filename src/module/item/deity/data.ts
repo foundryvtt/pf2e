@@ -1,4 +1,5 @@
-import { Alignment, SkillAbbreviation } from "@actor/creature/data";
+import { SkillAbbreviation } from "@actor/creature/data";
+import { Alignment } from "@actor/creature/types";
 import { AbilityString } from "@actor/data";
 import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
@@ -31,9 +32,6 @@ export interface DeitySystemSource extends ItemSystemData {
     skill: SkillAbbreviation | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
-    edicts: string;
-    anathema: string;
-    areasOfConcern: string;
     traits?: never;
 }
 
