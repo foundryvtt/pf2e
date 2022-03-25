@@ -49,9 +49,11 @@ export interface StrikeRollParams extends RollParameters {
     getFormula?: true;
     /** The strike is to use the melee usage of a combination weapon */
     meleeUsage?: boolean;
+    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
+    rollTwice?: RollTwiceOption;
 }
 
-export type FateString = "none" | "fortune" | "misfortune";
+export type RollTwiceOption = "no" | "keep-higher" | "keep-lower";
 
 export type AttackCheck = "attack-roll" | "spell-attack-roll";
 export type CheckType =
@@ -91,8 +93,8 @@ export interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
     target?: AttackTarget | null;
-    /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
-    fate?: FateString;
+    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
+    rollTwice?: RollTwiceOption;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
@@ -173,10 +175,10 @@ export class CheckPF2e {
 
         const options: string[] = [];
         let dice = "1d20";
-        if (context.fate === "misfortune") {
+        if (context.rollTwice === "keep-lower") {
             dice = "2d20kl";
             options.push("PF2E.TraitMisfortune");
-        } else if (context.fate === "fortune") {
+        } else if (context.rollTwice === "keep-higher") {
             dice = "2d20kh";
             options.push("PF2E.TraitFortune");
         }
@@ -304,7 +306,7 @@ export class CheckPF2e {
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
-            fate: context.fate ?? "none",
+            rollTwice: context.rollTwice ?? "no",
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
             traits: context.traits ?? [],
@@ -324,7 +326,7 @@ export class CheckPF2e {
             const flags = {
                 core: coreFlags,
                 pf2e: {
-                    canReroll: !["fortune", "misfortune"].includes(context.fate ?? ""),
+                    canReroll: !["keep-higher", "keep-lower"].includes(context.rollTwice ?? ""),
                     context: contextFlag,
                     unsafe: flavor,
                     modifierName: check.name,

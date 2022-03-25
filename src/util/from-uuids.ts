@@ -10,8 +10,8 @@ type IDLookups = Record<"actor" | "item" | "scene", DocumentUUID[]> & {
 /** Retrieve multiple documents by UUID */
 export async function fromUUIDs(uuids: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>[]): Promise<ActorPF2e[]>;
 export async function fromUUIDs(uuids: Exclude<ItemUUID, CompendiumUUID>[]): Promise<ItemPF2e[]>;
-export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ActorPF2e[] | ItemPF2e[]>;
-export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ActorPF2e[] | ItemPF2e[]> {
+export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ClientDocument[]>;
+export async function fromUUIDs(uuids: DocumentUUID[]): Promise<ClientDocument[]> {
     const lookups = uuids.reduce(
         (partialLookups: IDLookups, uuid) => {
             const parts = uuid.split(".");

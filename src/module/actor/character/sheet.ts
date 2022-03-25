@@ -6,7 +6,6 @@ import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
-import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
@@ -81,11 +80,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             ).modifier;
         }
 
-        // ABC
+        // A(H)BCD
         sheetData.ancestry = this.actor.ancestry;
         sheetData.heritage = this.actor.heritage;
         sheetData.background = this.actor.background;
         sheetData.class = this.actor.class;
+        sheetData.deity = this.actor.deity;
 
         // Update hero points label
         sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
@@ -843,23 +843,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        // Spontaneous Spell slot reset handler:
-        $html.find(".spell-slots-increment-reset").on("click", (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
-            const actor = this.actor;
-            const item = actor.items.get(itemId);
-            if (item?.data.type !== "spellcastingEntry") return;
-
-            const data = item.data.toObject();
-            if (!data.data.slots) return;
-            const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-            data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
-
-            item.update(data);
-        });
-
         const $craftingTab = $html.find(".tab.crafting");
 
         const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");
@@ -1217,37 +1200,38 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     ): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
-        if (isSameActor) {
-            return super._onDropItem(event, data);
-        }
-
-        event.preventDefault();
+        if (isSameActor) return super._onDropItem(event, data);
 
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
-        const itemData = item.toObject();
+        const source = item.toObject();
 
         const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
-        if (itemData.type === "feat") {
-            if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                itemData.data.location = slotId;
-                const items = await Promise.all([
-                    this.actor.createEmbeddedDocuments("Item", [itemData]),
-                    this.actor.updateEmbeddedDocuments(
-                        "Item",
-                        this.actor.items
-                            .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
-                            .map((x) => ({ _id: x.id, "data.location": "" }))
-                    ),
-                ]);
-                return items.flatMap((item) => item);
+        switch (source.type) {
+            case "feat": {
+                if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, source)) {
+                    source.data.location = slotId;
+                    const items = await Promise.all([
+                        this.actor.createEmbeddedDocuments("Item", [source]),
+                        this.actor.updateEmbeddedDocuments(
+                            "Item",
+                            this.actor.items
+                                .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
+                                .map((x) => ({ _id: x.id, "data.location": "" }))
+                        ),
+                    ]);
+                    return items.flatMap((item) => item);
+                }
+                return [];
             }
-        } else if (itemData.type === "ancestry" || itemData.type === "background" || itemData.type === "class") {
-            return AncestryBackgroundClassManager.addABCItem(itemData, actor);
+            case "ancestry":
+            case "background":
+            case "class":
+                return AncestryBackgroundClassManager.addABCItem(source, actor);
+            default:
+                return super._onDropItem(event, data);
         }
-
-        return super._onDropItem(event, data);
     }
 
     protected override async _onDrop(event: ElementDragEvent) {

@@ -14,8 +14,6 @@ import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { CheckPF2e } from "@system/rolls";
 import {
-    Alignment,
-    AlignmentTrait,
     CreatureSkills,
     CreatureSpeeds,
     InitiativeRollParams,
@@ -41,6 +39,8 @@ import { DeferredModifier } from "@module/rules/rule-element/data";
 import { DamageType } from "@system/damage";
 import { StrikeData } from "@actor/data/base";
 import {
+    Alignment,
+    AlignmentTrait,
     AttackItem,
     AttackRollContext,
     GetReachParameters,

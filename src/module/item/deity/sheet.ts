@@ -1,4 +1,4 @@
-import { Alignment, SkillAbbreviation } from "@actor/creature/data";
+import { SkillAbbreviation } from "@actor/creature/data";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
@@ -8,6 +8,7 @@ import { DeityPF2e } from "./document";
 import type * as TinyMCE from "tinymce";
 import Tagify from "@yaireo/tagify";
 import { fromUUIDs } from "@util/from-uuids";
+import { Alignment } from "@actor/creature/types";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];
@@ -22,12 +23,13 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<DeitySheetData> {
         const sheetData = super.getBaseData(options);
+
+        const spellEntries = Object.entries(sheetData.data.spells);
         const spells = (await fromUUIDs(Object.values(sheetData.data.spells)))
+            .filter((i): i is SpellPF2e => i instanceof SpellPF2e)
             .map((spell) => {
-                if (!(spell instanceof SpellPF2e)) {
-                    throw ErrorPF2e(`Unexpected item referenced on deity ${this.item.name} (${this.item.uuid})`);
-                }
-                return spell;
+                const level = Number(spellEntries.find(([, uuid]) => uuid === spell.uuid)?.at(0));
+                return { uuid: spell.uuid, level, name: spell.name, img: spell.img };
             })
             .sort((spellA, spellB) => spellA.level - spellB.level);
 
@@ -84,25 +86,49 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         const $clericSpells = $html.find(".cleric-spells");
         // View one of the spells
-        $clericSpells.find("a[data-action=view-spell]").on("click", async (event) => {
+        $clericSpells.find("a[data-action=view-spell]").on("click", async (event): Promise<void> => {
             const $target = $(event.currentTarget);
             const uuid = $target.closest("li").attr("data-uuid") ?? "";
             const spell = await fromUuid(uuid);
             if (!(spell instanceof SpellPF2e)) {
-                throw ErrorPF2e(`A spell with the UUID "${uuid}" no longer exists`);
+                this.render(false);
+                return ui.notifications.error(`A spell with the UUID "${uuid}" no longer exists`);
             }
+
             spell.sheet.render(true);
         });
 
         // Remove a stored spell reference
-        $clericSpells.find("a[data-action=remove-spell]").on("click", (event) => {
+        $clericSpells.find("a[data-action=remove-spell]").on("click", async (event): Promise<void> => {
             const $target = $(event.currentTarget);
             const uuidToRemove = $target.closest("li").attr("data-uuid") ?? "";
             const [levelToRemove] =
                 Object.entries(this.item.data.data.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
-            if (!levelToRemove) return;
-            this.item.update({ [`data.spells.-=${levelToRemove}`]: null });
+            if (!levelToRemove) {
+                this.render(false);
+                return;
+            }
+
+            await this.item.update({ [`data.spells.-=${levelToRemove}`]: null });
         });
+
+        // Update the level of a spell
+        $clericSpells
+            .find<HTMLInputElement>("input[data-action=update-spell-level]")
+            .on("change", async (event): Promise<void> => {
+                const oldLevel = Number(event.target.dataset.level);
+                const uuid = this.item.data.data.spells[oldLevel];
+                // Shouldn't happen unless the sheet falls out of sync
+                if (!uuid) {
+                    this.render(false);
+                    return;
+                }
+
+                const newLevel = Math.clamped(Number(event.target.value) || 1, 1, 10);
+                if (oldLevel !== newLevel) {
+                    await this.item.update({ [`data.spells.-=${oldLevel}`]: null, [`data.spells.${newLevel}`]: uuid });
+                }
+            });
     }
 
     /** Hide the toolbar for the smaller sidebar editors */
@@ -174,5 +200,12 @@ interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     followerAlignments: SheetOptions;
     skills: Record<SkillAbbreviation, string>;
     divineFonts: SheetOptions;
-    spells: SpellPF2e[];
+    spells: SpellBrief[];
+}
+
+interface SpellBrief {
+    uuid: ItemUUID;
+    level: number;
+    name: string;
+    img: ImagePath;
 }

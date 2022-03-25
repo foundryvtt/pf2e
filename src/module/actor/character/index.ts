@@ -41,6 +41,7 @@ import {
     BackgroundPF2e,
     ClassPF2e,
     ConsumablePF2e,
+    DeityPF2e,
     HeritagePF2e,
     PhysicalItemPF2e,
     WeaponPF2e,
@@ -84,27 +85,18 @@ import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
 import { FamiliarPF2e } from "@actor/familiar";
 
 class CharacterPF2e extends CreaturePF2e {
+    /** Core singular embeds for PCs */
+    ancestry: Embedded<AncestryPF2e> | null = null;
+    heritage: Embedded<HeritagePF2e> | null = null;
+    background: Embedded<BackgroundPF2e> | null = null;
+    class: Embedded<ClassPF2e> | null = null;
+    deity: Embedded<DeityPF2e> | null = null;
+
     /** A cached reference to this PC's familiar */
     familiar: FamiliarPF2e | null = null;
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
-    }
-
-    get ancestry(): Embedded<AncestryPF2e> | null {
-        return this.itemTypes.ancestry[0] ?? null;
-    }
-
-    get background(): Embedded<BackgroundPF2e> | null {
-        return this.itemTypes.background[0] ?? null;
-    }
-
-    get class(): Embedded<ClassPF2e> | null {
-        return this.itemTypes.class[0] ?? null;
-    }
-
-    get heritage(): Embedded<HeritagePF2e> | null {
-        return this.itemTypes.heritage[0] ?? null;
     }
 
     get keyAbility(): AbilityString {
@@ -308,6 +300,13 @@ class CharacterPF2e extends CreaturePF2e {
         for (const formula of this.data.data.crafting.formulas) {
             formula.deletable = true;
         }
+
+        // Actor data from items
+        const { details } = this.data.data;
+        details.ancestry = null;
+        details.heritage = null;
+        details.class = null;
+        details.deities = { primary: null, secondary: null };
     }
 
     /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
@@ -1439,6 +1438,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
+                    const rollTwice = args.rollTwice ?? "no";
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
@@ -1449,6 +1449,7 @@ class CharacterPF2e extends CreaturePF2e {
                         notes,
                         dc,
                         traits,
+                        rollTwice,
                     };
 
                     if (!this.consumeAmmo(item, args)) return;

@@ -225,6 +225,9 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.data.data.traits.value.push(this.school, ...this.traditions);
+        if (this.spellcasting?.isInnate) {
+            mergeObject(this.data.data.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
+        }
     }
 
     override getRollOptions(prefix = this.type): string[] {
@@ -519,6 +522,13 @@ export class SpellPF2e extends ItemPF2e {
         user: UserPF2e
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
+
+        const uses = changed.data?.location?.uses;
+        if (uses) {
+            const currentUses = uses.value ?? this.data.data.location.uses?.value ?? 1;
+            const currentMax = uses.max ?? this.data.data.location.uses?.max;
+            uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
+        }
 
         // If dragged to outside an actor, location properties should be cleaned up
         mergeObject(changed, { data: {} });

@@ -1,14 +1,13 @@
 <div class="sidebar_title">
-    <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
+    <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
 </div>
-
-<ol class="resistances tags">
-    {{#each data.traits.dr as |resistance|}}
-        <li class="tag tag_secondary {{resistance.type}}">{{localize resistance.label}}</li>
+<ol class="immunities tags">
+    {{#each immunities as |immunity type|}}
+        <li class="tag tag_secondary {{type}}">{{localize immunity.label}}</li>
     {{/each}}
     {{#if editable}}
         <li class="tag edit-btn">
-            <a class="crb-trait-selector" data-trait-selector="resistances">
+            <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di">
                 {{> systems/pf2e/templates/actors/character/icons/plus.html}}
             </a>
         </li>
@@ -18,10 +17,9 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
 </div>
-
 <ol class="weaknesses tags">
     {{#each data.traits.dv as |weakness|}}
-        <li class="tag tag_secondary {{weakness.type}}">{{localize weakness.label}}</li>
+        <li class="tag tag_secondary {{weakness.type}}">{{localize weakness.label}} {{weakness.value}}</li>
     {{/each}}
     {{#if editable}}
         <li class="tag edit-btn">
@@ -33,16 +31,15 @@
 </ol>
 
 <div class="sidebar_title">
-    <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
+    <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
 </div>
-
-<ol class="immunities tags">
-    {{#each immunities as |immunity type|}}
-        <li class="tag tag_secondary {{type}}">{{localize immunity.label}}</li>
+<ol class="resistances tags">
+    {{#each data.traits.dr as |resistance|}}
+        <li class="tag tag_secondary {{resistance.type}}">{{localize resistance.label}} {{resistance.value}}</li>
     {{/each}}
     {{#if editable}}
         <li class="tag edit-btn">
-            <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di">
+            <a class="crb-trait-selector" data-trait-selector="resistances">
                 {{> systems/pf2e/templates/actors/character/icons/plus.html}}
             </a>
         </li>

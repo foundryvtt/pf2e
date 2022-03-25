@@ -60,6 +60,7 @@ import { Size } from "@module/data";
 import { FeatType } from "@item/feat/data";
 import { DeityDomain } from "@item/deity/types";
 import { sluggify } from "@util";
+import { Alignment } from "@actor/creature/types";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -686,6 +687,18 @@ const featTypes: Record<FeatType, string> = {
     curse: "PF2E.FeatCurseHeader",
 };
 
+const alignments: Record<Alignment, string> = {
+    LG: "PF2E.AlignmentLG",
+    NG: "PF2E.AlignmentNG",
+    CG: "PF2E.AlignmentCG",
+    LN: "PF2E.AlignmentLN",
+    N: "PF2E.AlignmentN",
+    CN: "PF2E.AlignmentCN",
+    LE: "PF2E.AlignmentLE",
+    NE: "PF2E.AlignmentNE",
+    CE: "PF2E.AlignmentCE",
+};
+
 const deityDomains = Object.keys(enJSON.PF2E.Item.Deity.Domain).reduce((domains, key) => {
     const slug = sluggify(key);
     const casedKey = sluggify(key, { camel: "bactrian" });
@@ -1249,18 +1262,7 @@ export const PF2ECONFIG = {
         5280: "PF2E.AreaSize1Mile",
     },
 
-    alignments: {
-        LG: "PF2E.AlignmentLG",
-        NG: "PF2E.AlignmentNG",
-        CG: "PF2E.AlignmentCG",
-        LN: "PF2E.AlignmentLN",
-        N: "PF2E.AlignmentN",
-        CN: "PF2E.AlignmentCN",
-        LE: "PF2E.AlignmentLE",
-        NE: "PF2E.AlignmentNE",
-        CE: "PF2E.AlignmentCE",
-    },
-
+    alignments,
     alignmentTraits,
 
     attitude: {

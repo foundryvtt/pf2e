@@ -19,8 +19,8 @@ export class ConditionManager {
         return [...this.conditions.keys()];
     }
 
-    static async initialize(): Promise<void> {
-        if (this.#initialized) return;
+    static async initialize(force = false): Promise<void> {
+        if (this.#initialized && !force) return;
 
         type ConditionCollection = CompendiumCollection<ConditionPF2e>;
         const content = await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments();

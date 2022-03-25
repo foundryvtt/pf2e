@@ -8,6 +8,10 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/degree-of-success";
 import { CreaturePF2e } from ".";
 import { SheetOptions } from "@module/sheet/helpers";
+import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
+
+type Alignment = SetElement<typeof ALIGNMENTS>;
+type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
@@ -64,7 +68,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
     abilities: ConfigPF2e["PF2E"]["abilities"];
     skills: ConfigPF2e["PF2E"]["skills"];
     actorSizes: ConfigPF2e["PF2E"]["actorSizes"];
-    alignments: ConfigPF2e["PF2E"]["alignments"];
+    alignments: { [K in Alignment]?: string };
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
@@ -73,6 +77,8 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
 type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
 
 export {
+    Alignment,
+    AlignmentTrait,
     AttackItem,
     AttackRollContext,
     AttackTarget,
