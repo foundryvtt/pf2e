@@ -50,7 +50,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     ): Promise<void> {
         const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
         const updateGroup: TDocument["data"]["_source"][] = [];
-        for await (const document of collection) {
+        for (const document of collection) {
             if (updateGroup.length === 50) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true });
@@ -159,7 +159,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
 
         // Delete embedded ActiveEffects on embedded Items
-        for await (const updated of updatedItems) {
+        for (const updated of updatedItems) {
             const original = baseActor.items.find((item) => item._id === updated._id);
             if (!original) continue;
             const itemAEDiff = this.diffCollection(original.effects, updated.effects);
@@ -265,9 +265,6 @@ export class MigrationRunner extends MigrationRunnerBase {
             promises.push(this.migrateWorldTable(migrations, table));
         }
 
-        // Run migrations of world compendia
-        const packsToRelock = await this.runPackMigrations(migrations, promises);
-
         for (const user of game.users) {
             promises.push(this.migrateUser(migrations, user));
         }
@@ -282,14 +279,9 @@ export class MigrationRunner extends MigrationRunnerBase {
         // base their data on global actors
         await Promise.allSettled(promises);
 
-        // Relock unlocked world compendia
-        for await (const pack of packsToRelock) {
-            await pack.configure({ locked: true });
-        }
-
         // Migrate tokens and synthetic actors
-        for await (const scene of game.scenes.contents) {
-            for await (const token of scene.tokens) {
+        for (const scene of game.scenes) {
+            for (const token of scene.tokens) {
                 const actor = token.actor;
                 if (actor) {
                     const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
@@ -308,61 +300,6 @@ export class MigrationRunner extends MigrationRunnerBase {
                 }
             }
         }
-    }
-
-    /** Migrate actors and items in world compendia */
-    private async runPackMigrations(
-        migrations: MigrationBase[],
-        promises: Promise<unknown>[]
-    ): Promise<CompendiumCollection[]> {
-        const worldPacks = game.packs.filter((pack) => pack.metadata.package === "world");
-        // Packs need to be unlocked in order for their content to be updated
-        const packsToRelock = worldPacks.filter((pack) => pack.locked);
-        for await (const pack of packsToRelock) {
-            await pack.configure({ locked: false });
-        }
-
-        // Migrate Compendium Actors
-        const actorPacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<ActorPF2e> => pack.documentName === "Actor"
-        );
-        for await (const pack of actorPacks) {
-            for (const actor of await pack.getDocuments()) {
-                promises.push(this.migrateWorldActor(migrations, actor));
-            }
-        }
-
-        // Migrate Compendium Items
-        const itemPacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<ItemPF2e> => pack.documentName === "Item"
-        );
-        for await (const pack of itemPacks) {
-            for (const item of await pack.getDocuments()) {
-                promises.push(this.migrateWorldItem(migrations, item));
-            }
-        }
-
-        // Migrate Compendium Macros
-        const macroPacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<Macro> => pack.documentName === "Macro"
-        );
-        for await (const pack of macroPacks) {
-            for (const macro of await pack.getDocuments()) {
-                promises.push(this.migrateWorldMacro(migrations, macro));
-            }
-        }
-
-        // Migrate Compendium RollTables
-        const tablePacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<RollTable> => pack.documentName === "RollTable"
-        );
-        for await (const pack of tablePacks) {
-            for (const table of await pack.getDocuments()) {
-                promises.push(this.migrateWorldTable(migrations, table));
-            }
-        }
-
-        return packsToRelock;
     }
 
     async runMigration(force = false) {
@@ -393,7 +330,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
-        for await (const migrationPhase of migrationPhases) {
+        for (const migrationPhase of migrationPhases) {
             if (migrationPhase.length > 0) {
                 await this.runMigrations(migrationPhase);
             }
