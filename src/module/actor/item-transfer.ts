@@ -325,9 +325,9 @@ export class ItemTransfer implements ItemTransferData {
     private async messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {
         return await renderTemplate(this.templatePaths.flavor, {
             action: {
-                title: CONFIG.PF2E.featTraits.interact,
+                title: "PF2E.TraitInteract",
                 subtitle: subtitle,
-                tooltip: CONFIG.PF2E.featTraits.interact,
+                tooltip: "PF2E.TraitInteract",
                 typeNumber: sourceActor.data.type === "loot" && targetActor.data.type === "loot" ? 2 : 1,
             },
             traits: [

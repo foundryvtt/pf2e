@@ -2,8 +2,10 @@ import { ItemFlagsPF2e } from "@item/data/base";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
-    MagicItemSystemData,
+    Investable,
     PhysicalItemTraits,
+    PhysicalSystemData,
+    PhysicalSystemSource,
     PreciousMaterialGrade,
     PreciousMaterialType,
 } from "@item/physical/data";
@@ -84,7 +86,7 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-export interface WeaponSystemSource extends MagicItemSystemData {
+export interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     traits: WeaponSourceTraits;
     category: WeaponCategory;
     group: WeaponGroup | null;
@@ -141,16 +143,18 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     selectedAmmoId: string | null;
 }
 
-export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
-
-export interface WeaponSystemData extends WeaponSystemSource {
+export interface WeaponSystemData extends WeaponSystemSource, Investable<PhysicalSystemData> {
+    baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     runes: {
         potency: number;
         striking: ZeroToThree;
         property: WeaponPropertyRuneType[];
     };
+    usage: WeaponSystemSource["usage"];
 }
+
+export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
 
 export interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };

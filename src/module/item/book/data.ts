@@ -1,8 +1,8 @@
-import { EquipmentTraits } from "@item/equipment/data";
-import { BasePhysicalItemData, BasePhysicalItemSource, MagicItemSystemData } from "@item/physical/data";
+import { EquipmentSystemData, EquipmentSystemSource } from "@item/equipment/data";
+import { BasePhysicalItemData, BasePhysicalItemSource } from "@item/physical/data";
 import type { BookPF2e } from "./document";
 
-export type BookSource = BasePhysicalItemSource<"book", BookSystemData>;
+export type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 
 export class BookData extends BasePhysicalItemData<BookPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/book.svg";
@@ -10,21 +10,22 @@ export class BookData extends BasePhysicalItemData<BookPF2e> {
 
 export interface BookData extends Omit<BookSource, "effects" | "flags"> {
     type: BookSource["type"];
-    data: BookSource["data"];
+    data: BookSystemData;
     readonly _source: BookSource;
 }
 
-type BookSystemData = {
-    traits: EquipmentTraits;
+type BookSystemSource = EquipmentSystemSource & {
     capacity: number;
-} & (FormulaBookSystemData | SpellBookSystemData);
+} & (FormulaBookData | SpellBookData);
 
-interface FormulaBookSystemData extends MagicItemSystemData {
+type BookSystemData = BookSystemSource & EquipmentSystemData;
+
+interface FormulaBookData {
     subtype: "formula";
     item: ItemUUID[];
 }
 
-interface SpellBookSystemData extends MagicItemSystemData {
+interface SpellBookData {
     subtype: "spell";
     item: object[];
 }
