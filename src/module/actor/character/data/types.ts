@@ -243,8 +243,6 @@ export type CharacterDetails = {
 
     /** Character alignment (LN, N, NG, etc.) */
     alignment: { value: Alignment };
-    /** The diety that the character worships (and an image of the diety symbol). */
-    deity: { value: string; image: ImagePath };
     /** How old the character is (user-provided field). */
     age: { value: string };
     /** Character height (user-provided field). */

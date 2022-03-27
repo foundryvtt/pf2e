@@ -1,3 +1,4 @@
+import { CharacterDetails } from "@actor/character/data";
 import { ActorSourcePF2e } from "@actor/data";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/data";
@@ -37,7 +38,10 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
 
         if (actorData.type === "character") {
-            actorData.data.details.deity.image = this.renameToWebP(actorData.data.details.deity.image);
+            const details: CharacterDetails & { deity?: { image: string } } = actorData.data.details;
+            if (details.deity) {
+                details.deity.image = this.renameToWebP(details.deity.image);
+            }
         }
     }
 
