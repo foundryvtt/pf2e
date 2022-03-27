@@ -3,21 +3,21 @@ import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
 
-/** Prompt the user for the target of the effect they just added to an actor */
-abstract class RulesElementPrompt<T> extends Application {
+/** Prompt the user to pick from a number of options */
+abstract class PickAThingPrompt<T> extends Application {
     protected item: Embedded<ItemPF2e>;
 
-    private resolve?: (value: PromptChoice<T> | null) => void;
+    private resolve?: (value: PickableThing<T> | null) => void;
 
-    protected selection: PromptChoice<T> | null = null;
+    protected selection: PickableThing<T> | null = null;
 
-    protected choices: PromptChoice<T>[] = [];
+    protected choices: PickableThing<T>[] = [];
 
     protected predicate: PredicatePF2e;
 
     protected allowNoSelection: boolean;
 
-    constructor(data: RulesElementPromptData<T>) {
+    constructor(data: PickAThingConstructorArgs<T>) {
         super();
         this.item = data.item;
         this.predicate = data.predicate ?? new PredicatePF2e();
@@ -32,7 +32,7 @@ abstract class RulesElementPrompt<T> extends Application {
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            classes: ["choice-set-prompt"],
+            classes: ["pick-a-thing-prompt"],
             resizable: false,
             height: "auto",
             width: "auto",
@@ -40,18 +40,18 @@ abstract class RulesElementPrompt<T> extends Application {
     }
 
     /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
-    protected getChoices(): PromptChoice<T>[] {
+    protected getChoices(): PickableThing<T>[] {
         return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
     }
 
-    protected getSelection(event: JQuery.ClickEvent): PromptChoice<T> | null {
+    protected getSelection(event: JQuery.ClickEvent): PickableThing<T> | null {
         return event.currentTarget.value === "" ? null : this.choices[Number(event.currentTarget.value)] ?? null;
     }
 
     abstract override get template(): string;
 
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
-    async resolveSelection(): Promise<PromptChoice<T> | null> {
+    async resolveSelection(): Promise<PickableThing<T> | null> {
         this.choices = this.getChoices();
 
         // Exit early if there are no valid choices
@@ -66,8 +66,8 @@ abstract class RulesElementPrompt<T> extends Application {
         });
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PromptChoice[] }> {
-        options.id = `choice-set-${this.item.slug ?? sluggify(this.item.name)}`;
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PickableThing[] }> {
+        options.id = `pick-a-thing-${this.item.slug ?? sluggify(this.item.name)}`;
         return {
             // Sort by the `sort` property, if set, and otherwise `label`
             choices: this.choices
@@ -105,16 +105,16 @@ abstract class RulesElementPrompt<T> extends Application {
     }
 }
 
-interface RulesElementPromptData<T> {
+interface PickAThingConstructorArgs<T> {
     title?: string;
     prompt?: string;
-    choices?: PromptChoice<T>[];
+    choices?: PickableThing<T>[];
     item: Embedded<ItemPF2e>;
     predicate?: PredicatePF2e;
     allowNoSelection?: boolean;
 }
 
-interface PromptChoice<T = string | number | object> {
+interface PickableThing<T = string | number | object> {
     value: T;
     label: string;
     img?: string;
@@ -124,4 +124,4 @@ interface PromptChoice<T = string | number | object> {
     sort?: number;
 }
 
-export { RulesElementPrompt, RulesElementPromptData, PromptChoice };
+export { PickAThingPrompt, PickAThingConstructorArgs, PickableThing };
