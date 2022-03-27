@@ -23,6 +23,8 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { eventToRollParams } from "@scripts/sheet-util";
+import { StatisticRollParameters } from "@system/statistic";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -685,6 +687,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     await actor.increaseCondition(effect);
                 }
             }
+        });
+
+        // Recall Knowledge
+        $html.find(".tab.proficiencies .skill .recall").on("click", (event) => {
+            const key = event.currentTarget.closest(".skill")?.getAttribute("data-skill") ?? "";
+            const options = eventToRollParams(event) as StatisticRollParameters;
+            options.extraRollOptions = ["action:recall-knowledge"];
+            options.secret = true;
+            this.actor.skills[key]?.check.roll(options);
         });
 
         const $craftingTab = $html.find(".tab.crafting");
