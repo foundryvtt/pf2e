@@ -66,11 +66,6 @@
         height: 100%;
         overflow: hidden;
 
-        /* Form Elements */
-        /* Select Fields */
-        /* Sheet Tabs */
-        /* Tags */
-
         input {
             &[type="text"], &[type="number"] {
                 width: calc(100% - 2px);
@@ -81,7 +76,7 @@
                 color: #333;
                 border: 1px solid transparent;
 
-                &:hover, &:focus {
+                &:hover:not(:disabled), &:focus {
                     border: 1px solid black;
                     box-shadow: 0 0 10px #00005a;
                 }
@@ -92,16 +87,6 @@
             font-size: 10px;
             height: 18px;
             background: rgba(255, 255, 255, 0.5);
-        }
-
-        input:disabled, select:disabled, textarea:disabled {
-            color: #444;
-            border: none;
-        }
-
-        input:disabled:hover, select:disabled:hover, textarea:disabled:hover, input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
-            border: none;
-            box-shadow: none;
         }
 
         label {
