@@ -25,52 +25,56 @@
             align-items: baseline;
             padding: 4px 0.5em;
             border-radius: 3px 3px 0px 0px;
+            gap: 0.25em;
 
-            a.slotless-level-toggle {
-                margin-right: 0.5em;
+            h4.name {
+                flex: 1;
+                margin: 0 4px 0 0;
+                padding-right: 6px;
+                width: max-content;
+
+                input {
+                    color: white;
+                    max-width: 100%;
+                    font-weight: 500;
+                    border: none;
+
+                    &:focus, &:hover {
+                        box-shadow: none;
+                    }
+                }
             }
 
-            .values {
-                align-items: baseline;
+            .inline-field {
+                flex: 0;
                 display: flex;
-                flex-flow: row nowrap;
-                flex: 1;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-items: baseline;
 
-                h4.name {
-                    margin: 0 4px 0 0;
-                    padding-right: 6px;
-                    width: max-content;
+                label {
+                    margin-left: 2px;
+                    flex: 1;
                 }
 
-                .inline-field {
-                    flex: 0;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: nowrap;
-                    justify-content: flex-start;
-                    align-items: baseline;
-
-                    label {
-                        flex: 1;
-                    }
-
-                    .attack-input {
-                        flex: 1 0 32px;
-                        text-align: center;
-                        background-color: $light-text;
-                        font-weight: bold;
-                        margin-left: 4px;
-                        margin-right: 8px;
-                        width: 32px;
-                    }
+                input {
+                    margin-left: 4px;
                 }
 
-                .ability-score {
-                    select {
-                        margin-left: 4px;
-                        max-width: 55px;
-                        padding: 2px !important;
-                    }
+                .attack-input {
+                    flex: 1 0 32px;
+                    text-align: center;
+                    background-color: $light-text;
+                    font-weight: bold;
+                    width: 32px;
+                }
+            }
+
+            .ability-score {
+                select {
+                    max-width: 55px;
+                    padding: 2px !important;
                 }
             }
 
@@ -86,7 +90,6 @@
             text-align: center;
             background-color: $light-text;
             font-weight: 700;
-            margin: 0 4px;
             width: 2rem;
             height: 18px;
             background: #f5efe0;
