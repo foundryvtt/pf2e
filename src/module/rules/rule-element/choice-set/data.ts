@@ -1,6 +1,7 @@
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { RuleElementData, RuleElementSource } from "../";
 import { PredicatePF2e } from "@system/predication";
+import { ItemType } from "@item/data";
 
 export interface ChoiceSetData extends RuleElementData {
     key: "OptionSet";
@@ -15,7 +16,7 @@ export interface ChoiceSetData extends RuleElementData {
      * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
      * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
      */
-    choices: string | PickableThing<string | number>[] | ChoiceSetFeatQuery;
+    choices: string | PickableThing<string | number>[] | ChoiceSetItemQuery;
     /** The user's selection from among the options in `choices` */
     selection?: string | number;
     /** Should the parent item's name be adjusted to reflect the choice made? */
@@ -43,8 +44,10 @@ export interface ChoiceSetSource extends RuleElementSource {
     rollOption?: unknown;
 }
 
-export interface ChoiceSetFeatQuery {
+export interface ChoiceSetItemQuery {
     postFilter?: PredicatePF2e;
     pack?: string;
+    /** A system item type: if omitted, "feat" is used */
+    itemType?: ItemType;
     query: string;
 }

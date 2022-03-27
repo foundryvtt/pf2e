@@ -2,10 +2,11 @@ import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../"
 import { FeatPF2e, ItemPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
-import { isObject, sluggify } from "@util";
+import { isObject, objectHasKey, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
-import { ChoiceSetData, ChoiceSetFeatQuery, ChoiceSetSource } from "./data";
+import { ChoiceSetData, ChoiceSetItemQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
+import { ItemType } from "@item/data";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -113,7 +114,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         const choices: PickableThing<string | number>[] = Array.isArray(this.data.choices)
             ? this.data.choices
             : typeof this.data.choices === "object"
-            ? await this.queryFeats(this.data.choices)
+            ? await this.queryCompendium(this.data.choices)
             : Object.entries(getProperty(CONFIG.PF2E, this.data.choices)).map(([value, label]) => ({
                   value,
                   label: typeof label === "string" ? label : "",
@@ -154,7 +155,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     }
 
     /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
-    private async queryFeats(choices: ChoiceSetFeatQuery): Promise<PickableThing<ItemUUID>[]> {
+    private async queryCompendium(choices: ChoiceSetItemQuery): Promise<PickableThing<ItemUUID>[]> {
         const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
         if (choices.postFilter) choices.postFilter = new PredicatePF2e(choices.postFilter);
 
@@ -179,16 +180,24 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 return obj;
             };
 
-            // Get the query return and ensure they're all feats
-            const query: Record<string, unknown> = resolveProperties(JSON.parse(choices.query));
-            query.type = "feat";
-            const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
+            // Get the query return and ensure they're all of the appropriate item type
+            const itemType = objectHasKey(CONFIG.PF2E.Item.documentClasses, choices.itemType)
+                ? choices.itemType
+                : "feat";
+            const query: Record<string, unknown> & { type: ItemType } = {
+                ...resolveProperties(JSON.parse(choices.query)),
+                type: itemType,
+            };
+            const items = (await pack?.getDocuments(query)) ?? [];
+            if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) {
+                return [];
+            }
 
             // Apply the followup predication filter if there is one
             const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
-                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getRollOptions("item")]))
-                : feats;
+                ? items.filter((i) => choices.postFilter!.test([...actorRollOptions, ...i.getRollOptions("item")]))
+                : items;
 
             // Exclude any feat of which the character already has its maximum number and return final list
             const existing: Map<string, number> = new Map();
@@ -198,7 +207,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             }
 
             return filtered
-                .filter((f) => (existing.get(f.slug ?? sluggify(f.name)) ?? 0) < f.maxTakeable)
+                .filter((i) =>
+                    i instanceof FeatPF2e ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakeable : true
+                )
                 .map((f) => ({ value: f.uuid, label: f.name, img: f.img }));
         } catch (error) {
             // Send warning even if suppressWarnings option is true

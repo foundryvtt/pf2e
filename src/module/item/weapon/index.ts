@@ -14,7 +14,7 @@ import {
     WeaponTrait,
 } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -92,9 +92,12 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "weapon"): string[] {
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const damageDieFaces = Number(this.data.data.damage.die.replace(/^d/, ""));
         const actorSize = this.actor?.data.data.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const isDeityFavored =
+            !!this.actor?.isOfType("character") && tupleHasValue(this.actor.deity?.favoredWeapons ?? [], this.baseType);
 
         return [
             super.getRollOptions(prefix),
@@ -107,7 +110,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`material:${this.material?.type}`]: !!this.material?.type,
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
+                [`damage:die:faces:${damageDieFaces}`]: true,
                 [`damage-dice:${1 + this.data.data.runes.striking}`]: true,
+                ["deity-favored"]: isDeityFavored,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
