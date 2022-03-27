@@ -1,9 +1,11 @@
 import { CONDITION_SLUGS } from "@actor/data/values";
-import { ItemSystemData } from "@item/data/base";
+import { ItemFlagsPF2e, ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { ConditionPF2e } from ".";
 
-export type ConditionSource = BaseNonPhysicalItemSource<"condition", ConditionSystemData>;
+export interface ConditionSource extends BaseNonPhysicalItemSource<"condition", ConditionSystemData> {
+    flags: DeepPartial<ConditionFlags>;
+}
 
 export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/condition.svg";
@@ -11,8 +13,12 @@ export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
 
 export interface ConditionData extends Omit<ConditionSource, "effects" | "flags"> {
     type: ConditionSource["type"];
+
     data: ConditionSource["data"];
+
     readonly _source: ConditionSource;
+
+    flags: ConditionFlags;
 }
 
 export interface ConditionSystemData extends ItemSystemData {
@@ -105,3 +111,8 @@ type ConditionValueData =
       };
 
 export type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
+
+/** Special flag for the clumsy condition: the item ID of a wielded oversized weapon */
+type ConditionFlags = ItemFlagsPF2e & {
+    pf2e: { oversizedId?: string };
+};

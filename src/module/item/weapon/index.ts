@@ -21,9 +21,10 @@ import { IdentificationStatus, MystifiedData } from "@item/physical/data";
 import { MeleePF2e } from "@item/melee";
 import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { NPCPF2e } from "@actor";
+import { CreaturePF2e, NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { UserPF2e } from "@module/user";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -88,6 +89,13 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;
+    }
+
+    /** Is this weapon larger than its wielder? */
+    get isOversized(): boolean {
+        if (!(this.actor instanceof CreaturePF2e)) return false;
+
+        return this.actor.data.data.traits.size.isSmallerThan(this.size, { smallIsMedium: true });
     }
 
     /** Generate a list of strings for use in predication */
@@ -411,6 +419,27 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         };
 
         return new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+    }
+
+    /** Impose Clumsy 1 if this is a PC wielding an oversized weapon */
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        await super._preUpdate(changed, options, user);
+        if (!(this.actor?.isOfType("character") && this.isOversized)) return;
+
+        if (this.isHeld && ["worn", "stowed", "dropped"].includes(String(changed.data?.equipped?.carryType))) {
+            const clumsy = this.actor.itemTypes.condition.find(
+                (c) => c.slug === "clumsy" && c.data.flags.pf2e.oversizedId === this.id
+            );
+            await clumsy?.delete({ render: false });
+        } else if (!this.isHeld && changed.data?.equipped?.carryType === "held") {
+            const clumsySource = game.pf2e.ConditionManager.getCondition("clumsy").toObject();
+            clumsySource.flags = mergeObject(clumsySource.flags, { pf2e: { oversizedId: this.id } });
+            await this.actor.createEmbeddedDocuments("Item", [clumsySource], { render: false });
+        }
     }
 }
 
