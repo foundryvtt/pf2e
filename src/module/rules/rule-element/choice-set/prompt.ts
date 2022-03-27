@@ -26,6 +26,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
+            classes: ["choice-set-prompt"],
             dragDrop: [{ dropSelector: ".drop-zone" }],
         };
     }
