@@ -49,7 +49,10 @@ type Optimization = Configuration["optimization"];
 const optimization: Optimization = isProductionBuild
     ? {
           minimize: true,
-          minimizer: [new TerserPlugin({ terserOptions: { mangle: false, module: true } }), new CssMinimizerPlugin()],
+          minimizer: [
+              new TerserPlugin({ terserOptions: { mangle: false, module: true, keep_classnames: true } }),
+              new CssMinimizerPlugin(),
+          ],
           splitChunks: {
               chunks: "all",
               cacheGroups: {
