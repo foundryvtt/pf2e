@@ -1,4 +1,4 @@
-import { PromptChoice } from "@module/rules/apps/prompt";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { RuleElementData, RuleElementSource } from "../";
 import { PredicatePF2e } from "@system/predication";
 
@@ -15,7 +15,7 @@ export interface ChoiceSetData extends RuleElementData {
      * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
      * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
      */
-    choices: string | PromptChoice<string | number>[] | ChoiceSetFeatQuery;
+    choices: string | PickableThing<string | number>[] | ChoiceSetFeatQuery;
     /** The user's selection from among the options in `choices` */
     selection?: string | number;
     /** Should the parent item's name be adjusted to reflect the choice made? */

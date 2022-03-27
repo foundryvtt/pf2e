@@ -1,6 +1,6 @@
 import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { PromptChoice } from "@module/rules/apps/prompt";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
@@ -109,8 +109,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
-    private async inflateChoices(): Promise<PromptChoice<string | number | object>[]> {
-        const choices: PromptChoice<string | number>[] = Array.isArray(this.data.choices)
+    private async inflateChoices(): Promise<PickableThing<string | number | object>[]> {
+        const choices: PickableThing<string | number>[] = Array.isArray(this.data.choices)
             ? this.data.choices
             : typeof this.data.choices === "object"
             ? await this.queryFeats(this.data.choices)
@@ -119,7 +119,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                   label: typeof label === "string" ? label : "",
               }));
 
-        interface ItemChoice extends PromptChoice<string> {
+        interface ItemChoice extends PickableThing<string> {
             value: ItemUUID;
         }
 
@@ -154,7 +154,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     }
 
     /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
-    private async queryFeats(choices: ChoiceSetFeatQuery): Promise<PromptChoice<ItemUUID>[]> {
+    private async queryFeats(choices: ChoiceSetFeatQuery): Promise<PickableThing<ItemUUID>[]> {
         const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
         if (choices.postFilter) choices.postFilter = new PredicatePF2e(choices.postFilter);
 
@@ -208,7 +208,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     }
 
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
-    private getPreselection(): PromptChoice<string | number | object> | null {
+    private getPreselection(): PickableThing<string | number | object> | null {
         const { selection } = this.data;
         const choice = Array.isArray(this.data.choices) ? this.data.choices.find((c) => c.value === selection) : null;
         return choice ?? null;

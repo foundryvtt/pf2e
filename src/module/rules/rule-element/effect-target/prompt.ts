@@ -1,8 +1,8 @@
 import { ItemPF2e } from "@item";
-import { RulesElementPromptData, PromptChoice, RulesElementPrompt } from "@module/rules/apps/prompt";
+import { PickAThingConstructorArgs, PickableThing, PickAThingPrompt } from "@module/apps/pick-a-thing-prompt";
 
 /** Prompt the user for the target of the effect they just added to an actor */
-export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
+export class EffectTargetPrompt extends PickAThingPrompt<Embedded<ItemPF2e>> {
     private scope: "armor" | "weapon";
 
     constructor(data: TargetPromptData) {
@@ -21,8 +21,8 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
     }
 
     /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
-    protected override getChoices(): PromptChoice<Embedded<ItemPF2e>>[] {
-        return ((): PromptChoice<Embedded<ItemPF2e>>[] => {
+    protected override getChoices(): PickableThing<Embedded<ItemPF2e>>[] {
+        return ((): PickableThing<Embedded<ItemPF2e>>[] => {
             const { itemTypes } = this.actor;
             switch (this.scope) {
                 case "armor": {
@@ -49,6 +49,6 @@ export class EffectTargetPrompt extends RulesElementPrompt<Embedded<ItemPF2e>> {
     }
 }
 
-interface TargetPromptData extends RulesElementPromptData<Embedded<ItemPF2e>> {
+interface TargetPromptData extends PickAThingConstructorArgs<Embedded<ItemPF2e>> {
     scope: string;
 }
