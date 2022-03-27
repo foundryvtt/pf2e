@@ -1,6 +1,6 @@
 import { SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
-import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
+import { ItemLevelData, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@system/damage";
@@ -43,7 +43,7 @@ export interface SpellDamage {
     type: SpellDamageType;
 }
 
-export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
+export interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     traits: SpellTraits;
     level: {
         value: OneToTen;
@@ -121,4 +121,4 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     };
 }
 
-export type SpellSystemData = SpellSystemSource;
+export type SpellSystemData = SpellSystemSource & ItemSystemData;
