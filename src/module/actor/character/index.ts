@@ -197,6 +197,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Flags
         const { flags } = this.data;
+        flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
         flags.pf2e.sheetTabs = mergeObject(
@@ -317,6 +318,7 @@ class CharacterPF2e extends CreaturePF2e {
             ability.mod = Math.floor((ability.value - 10) / 2);
         }
         this.setNumericRollOptions();
+        this.deity?.setFavoredWeaponRank();
     }
 
     override prepareDerivedData(): void {
