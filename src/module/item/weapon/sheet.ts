@@ -124,10 +124,10 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }),
             {}
         );
-        const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
         const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
         const mandatoryRanged =
-            rangedWeaponGroups.includes(this.item.group ?? "") || rangedOnlyTraits.some((trait) => traitSet.has(trait));
+            rangedWeaponGroups.has(this.item.group ?? "") || rangedOnlyTraits.some((trait) => traitSet.has(trait));
         const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
 
         const meleeUsage = sheetData.data.meleeUsage ?? {

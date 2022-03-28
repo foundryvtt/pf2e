@@ -168,8 +168,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;
-        const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
-        const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
+        const weaponCategories: Set<string> = WEAPON_CATEGORIES;
+        const isWeaponProficiency = (key: string): boolean => weaponCategories.has(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
             .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)

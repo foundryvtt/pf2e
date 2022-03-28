@@ -10,9 +10,12 @@ import {
     WeaponRangeIncrement,
     WeaponSource,
     WeaponTrait,
+    WEAPON_CATEGORIES,
+    WEAPON_GROUPS,
 } from "@item/weapon/data";
 import { DamageType } from "@system/damage";
 import { RuleElementOptions } from "./base";
+import { objectHasKey, setHasElement, sluggify } from "@util";
 
 /**
  * Create an ephemeral strike on an actor
@@ -21,32 +24,37 @@ import { RuleElementOptions } from "./base";
 class StrikeRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
-    weapon: Embedded<WeaponPF2e>;
+    override slug: string;
+
+    category: WeaponCategory;
+
+    group: WeaponGroup;
+
+    baseType: BaseWeaponType | null;
 
     constructor(data: StrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.range = Number(data.range) || null;
         super(data, item, options);
 
-        this.data.category ??= "unarmed";
-        this.data.group ??= "brawling";
-        this.data.baseType ??= null;
+        this.category = setHasElement(WEAPON_CATEGORIES, data.category) ? data.category : "unarmed";
+        this.group = setHasElement(WEAPON_GROUPS, data.group) ? data.group : "brawling";
+        this.baseType = objectHasKey(CONFIG.PF2E.baseWeaponTypes, data.baseType) ? data.baseType : null;
         this.data.range ??= null;
         this.data.traits ??= [];
         this.data.replaceAll = !!(this.data.replaceAll ?? false);
         this.data.replaceBasicUnarmed = !!(this.data.replaceBasicUnarmed ?? false);
-
-        this.weapon = this.constructWeapon();
+        this.slug ??= sluggify(this.label);
     }
 
     override beforePrepareData(): void {
         const predicatePassed =
             !this.data.predicate ||
             ((): boolean => {
-                const rollOptions = this.actor.getRollOptions(["all", "attack", "attack-roll"]);
+                const rollOptions = this.actor.getRollOptions(["attack", "attack-roll", "strike-attack-roll"]);
                 return this.data.predicate.test(rollOptions);
             })();
 
-        if (predicatePassed) this.actor.synthetics.strikes.push(this.weapon);
+        if (predicatePassed) this.actor.synthetics.strikes.push(this.constructWeapon());
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
@@ -55,8 +63,8 @@ class StrikeRuleElement extends RuleElementPF2e {
 
         if (this.data.replaceAll) {
             const systemData = this.actor.data.data;
-            systemData.actions = systemData.actions.filter((a) =>
-                (["id", "name", "group"] as const).every((key) => a.item[key] === this.weapon[key])
+            systemData.actions = systemData.actions.filter(
+                (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group
             );
         } else if (this.data.replaceBasicUnarmed) {
             const systemData = this.actor.data.data;
@@ -78,11 +86,11 @@ class StrikeRuleElement extends RuleElementPF2e {
             type: "weapon",
             img: this.data.img ?? this.item.img,
             data: {
-                slug: this.data.slug ?? null,
+                slug: this.slug,
                 description: { value: "" },
-                category: this.data.category,
-                group: this.data.group,
-                baseItem: this.data.baseType,
+                category: this.category,
+                group: this.group,
+                baseItem: this.baseType,
                 damage,
                 range: this.data.range,
                 traits: { value: this.data.traits, rarity: "common", custom: "" },
@@ -121,9 +129,6 @@ interface StrikeSource extends RuleElementSource {
 interface StrikeData extends RuleElementData {
     slug?: string;
     img?: ImagePath;
-    category: WeaponCategory;
-    group: WeaponGroup;
-    baseType: BaseWeaponType | null;
     damage?: { base?: WeaponDamage };
     range: WeaponRangeIncrement | null;
     traits: WeaponTrait[];

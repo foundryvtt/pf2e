@@ -794,7 +794,7 @@ class CharacterPF2e extends CreaturePF2e {
             (item) => item.data.data.consumableType.value === "ammo" && !item.isStowed
         );
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
-        const offensiveCategories = WEAPON_CATEGORIES.concat(homebrewCategoryTags.map((tag) => tag.id));
+        const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
 
         // Exclude handwraps as a strike
         const weapons = [
