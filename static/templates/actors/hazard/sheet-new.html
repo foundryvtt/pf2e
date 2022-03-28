@@ -144,7 +144,7 @@
                     <h3>Actions</h3>
                     {{#if owner}}
                     <div class="controls">
-                        <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i>{{localize "ITEM.TypeAction"}}</a>
+                        <a class="item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i> {{localize "ITEM.TypeAction"}}</a>
                         <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
                         <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
                     </div>
@@ -152,34 +152,37 @@
                 </div>
 
                 <div class="section-body">
-                    <ol class="actions-list item-list">
+                    <ol class="actions-list attacks-list item-list">
                         <!-- List Actions -->
-                        {{#each actor.actions as |section sid|}}
+                        {{#each actions as |section sid|}}
                             {{#each section.actions as |action aid|}}
-                            <div class="list-row item" data-item-id="{{action._id}}">
-                                <div class="item-name rollable">
-                                    <div class="item-image" style="background-image: url({{action.img}})"></div>
-                                    <h4>{{action.name}}</h4>
-                                </div>
-                                {{#if ../../owner}}
-                                <div class="item-controls">
-                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                            <li class="item action flexrow" data-item-id="{{action.id}}">
+                                <div class="action-header">
+                                    <div class="action-name rollable">
+                                        {{log action}}
+                                        <h4>{{action.name}}</h4> {{{actionGlyph action.actionCost}}}
+                                    </div>
+                                    {{#if ../../owner}}
+                                    <div class="item-controls">
+                                        {{#if @root.editing}}
+                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                        {{/if}}
+                                    </div>
                                 </div>
                                 {{/if}}
-                            </div>
+                            </li>
                             {{/each}}
                         {{/each}}
-
                         <!-- List Attacks -->
                         {{#each actor.attacks as |section sid|}}
                             {{#each section.items as |action actionId|}}
-                                <li class="item attack flexrow" data-action-index="{{actionId}}" data-item-name="{{action.name}}" data-item-id="{{action.sourceId}}">
+                                <li class="item attack flexrow" data-action-index="{{actionId}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
                                     <div class="attack-header">
                                         <h4 class="attack-name tags">
                                             <span>
                                                 <strong>{{localize action.attackRollType}}</strong>
-                                                <span class="activity-icon">{{action.glyph}}</span>
+                                                <span class="activity-icon">{{{actionGlyph 1}}}</span>
                                                 {{action.name}}
                                             </span>
                                             {{#each traits as |trait|}}
@@ -190,8 +193,7 @@
                                             {{/each}}
                                         </h4>
                                         <div class="attack-controls controls">
-                                            <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fas fa-comment-alt"></i></a>
-                                            {{#if editing}}
+                                            {{#if @root.editing}}
                                                 <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fas fa-edit"></i></a>
                                                 <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fas fa-trash"></i></a>
                                             {{/if}}
@@ -200,13 +202,21 @@
                                     <div class="attack-body">
                                         <div class="flexrow">
                                             <div class="attacks sub-section">
-                                                {{#each action.variants as |variant vi|}}
-                                                    <button type="button" class="btn attack-button" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
-                                                {{/each}}
+                                                <button type="button" class="btn attack-button" data-action="npcAttack" >Strike (+{{action.data.bonus.total}})</button>
+                                                <button type="button" class="btn attack-button" data-action="npcAttack2" >{{#unless action.data.isAgile}}-5{{else}}-4{{/unless}}</button>
+                                                <button type="button" class="btn attack-button" data-action="npcAttack3" >{{#unless action.data.isAgile}}-10{{else}}-8{{/unless}}</button>
                                             </div>
                                             <div class="damage sub-section">
-                                                <button type="button" class="damage-button" data-action="strike-damage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
-                                                <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+                                                <button type="button" class="damage-button" data-action="npcDamage">
+                                                    {{localize "PF2E.DamageLabel"}} (
+                                                        {{#if action.data.damageRolls}}
+                                                            {{#each action.data.damageRolls as |dmg index|}}
+                                                                {{dmg.damage}} {{dmg.damageType}}
+                                                            {{/each}}
+                                                        {{/if}}
+                                                        )
+                                                </button>
+                                                <button class="critical-button" data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button>
                                             </div>
                                         </div>
                                         <div class="attack-detail sub-section expandable expanded">

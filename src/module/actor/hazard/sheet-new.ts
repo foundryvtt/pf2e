@@ -1,11 +1,12 @@
 import { ActorSheetPF2e } from "../sheet/base";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { HazardPF2e } from ".";
 import { ConsumablePF2e, SpellPF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
 import { SAVE_TYPES } from "@actor/data";
 import { HazardSystemData } from "./data";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { HazardActionSheetData } from "./types";
 
 /** In development version of the hazard sheet. */
 export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
@@ -40,6 +41,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         return {
             ...sheetData,
+            actions: this.prepareActions(),
             editing: this.editing,
             flags: sheetData.actor.flags,
             hazardTraits: CONFIG.PF2E.hazardTraits,
@@ -61,6 +63,24 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
     }
 
+    private prepareActions() {
+        const actions: HazardActionSheetData = {
+            action: { label: "Actions", actions: [] },
+            reaction: { label: "Reactions", actions: [] },
+            free: { label: "Free Actions", actions: [] },
+            passive: { label: "Passive Actions", actions: [] },
+        };
+
+        for (const item of this.actor.itemTypes.action) {
+            const actionType = item.actionCost?.type || "passive";
+            if (objectHasKey(actions, actionType)) {
+                actions[actionType].actions.push(item);
+            }
+        }
+
+        return actions;
+    }
+
     override prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): void {
         const actorData = sheetData.actor;
         // Actions
@@ -68,15 +88,6 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         const attacks: Record<"melee" | "ranged", AttackData> = {
             melee: { label: "NPC Melee Attack", items: [], type: "melee" },
             ranged: { label: "NPC Ranged Attack", items: [], type: "melee" },
-        };
-
-        // Actions
-        type ActionData = { label: string; actions: ItemDataPF2e[] };
-        const actions: Record<string, ActionData> = {
-            action: { label: "Actions", actions: [] },
-            reaction: { label: "Reactions", actions: [] },
-            free: { label: "Free Actions", actions: [] },
-            passive: { label: "Passive Actions", actions: [] },
         };
 
         // Iterate through items, allocating to containers
@@ -100,36 +111,9 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
                 }));
                 attacks[weaponType].items.push(itemData);
             }
-
-            // Actions
-            else if (itemData.type === "action") {
-                const actionType = itemData.data.actionType.value || "action";
-                itemData.img = HazardPF2e.getActionGraphics(
-                    actionType,
-                    Number(itemData.data.actions.value) || 1
-                ).imageUrl;
-
-                // get formated traits for read-only npc sheet
-                const traits: string[] = itemData.data.traits.value;
-                const traitObjects = traits.map((trait) => ({
-                    label: weaponTraits[trait] || trait.charAt(0).toUpperCase() + trait.slice(1),
-                    description: traitsDescriptions[trait] ?? "",
-                }));
-                if (itemData.data.actionType.value) {
-                    const actionType: string = itemData.data.actionType.value;
-                    traitObjects.push({
-                        label: weaponTraits[actionType] || actionType.charAt(0).toUpperCase() + actionType.slice(1),
-                        description: traitsDescriptions[actionType] ?? "",
-                    });
-                }
-                itemData.traits = traitObjects;
-
-                actions[actionType].actions.push(itemData);
-            }
         }
 
-        // Assign and return
-        actorData.actions = actions;
+        // Assign
         actorData.attacks = attacks;
     }
 
