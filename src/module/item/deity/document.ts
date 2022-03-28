@@ -1,6 +1,7 @@
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/data";
 import { UserPF2e } from "@module/user";
+import { sluggify } from "@util";
 import { DeityData } from "./data";
 import { DeitySheetPF2e } from "./sheet";
 
@@ -31,6 +32,17 @@ class DeityPF2e extends ItemPF2e {
                 w in CONFIG.PF2E.baseWeaponTypes ? { option: w, label: CONFIG.PF2E.baseWeaponTypes[w] } : []
             ),
         };
+
+        // Set some character roll options
+        const slug = this.slug ?? sluggify(this.name);
+        const prefix = "deity:primary";
+        mergeObject(this.actor.rollOptions.all, {
+            // Used for feat(ure) automation
+            [`${prefix}:${slug}`]: true,
+            // Used for targeting by creatures with hatred for the followers of specific deities
+            [`self:deity:${slug}`]: true,
+            ...this.favoredWeapons.map((w) => ({ [`${prefix}:favored-weapon:${w}`]: true })),
+        });
     }
 
     /** If applicable, set a trained proficiency with this deity's favored weapon */
