@@ -23,7 +23,33 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "all": [
+                        "item:type:deity"
+                    ]
+                },
+                "choices": {
+                    "itemType": "deity",
+                    "pack": "pf2e.deities",
+                    "query": "{}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.favoredWeaponRank",
+                "predicate": {
+                    "all": [
+                        "class:cleric"
+                    ]
+                },
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
