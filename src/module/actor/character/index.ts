@@ -86,11 +86,11 @@ import { FamiliarPF2e } from "@actor/familiar";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
-    ancestry: Embedded<AncestryPF2e> | null = null;
-    heritage: Embedded<HeritagePF2e> | null = null;
-    background: Embedded<BackgroundPF2e> | null = null;
-    class: Embedded<ClassPF2e> | null = null;
-    deity: Embedded<DeityPF2e> | null = null;
+    ancestry!: Embedded<AncestryPF2e> | null;
+    heritage!: Embedded<HeritagePF2e> | null;
+    background!: Embedded<BackgroundPF2e> | null;
+    class!: Embedded<ClassPF2e> | null;
+    deity!: Embedded<DeityPF2e> | null;
 
     /** A cached reference to this PC's familiar */
     familiar: FamiliarPF2e | null = null;
@@ -211,6 +211,18 @@ class CharacterPF2e extends CreaturePF2e {
             flags.pf2e.sheetTabs ?? {}
         );
 
+        // Actor document and data properties from items
+        const { details } = this.data.data;
+        for (const property of ["ancestry", "heritage", "background", "class", "deity"] as const) {
+            this[property] = null;
+
+            if (property === "deity") {
+                details.deities = { primary: null, secondary: null };
+            } else if (property !== "background") {
+                details[property] = null;
+            }
+        }
+
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
         attributes.ac = {};
@@ -301,13 +313,6 @@ class CharacterPF2e extends CreaturePF2e {
         for (const formula of this.data.data.crafting.formulas) {
             formula.deletable = true;
         }
-
-        // Actor data from items
-        const { details } = this.data.data;
-        details.ancestry = null;
-        details.heritage = null;
-        details.class = null;
-        details.deities = { primary: null, secondary: null };
     }
 
     /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
