@@ -356,7 +356,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         // PFS Level Bump - check and DC modifiers
-        if (systemData.pfs?.levelBump) {
+        if (systemData.pfs.levelBump) {
             const modifiersAll = (statisticsModifiers.all ??= []);
             modifiersAll.push(() => new ModifierPF2e("PF2E.PFS.LevelBump", 1, MODIFIER_TYPE.UNTYPED));
         }
@@ -406,7 +406,7 @@ class CharacterPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier("hp", modifiers), hitPoints, { overwrite: false });
 
             // PFS Level Bump - hit points
-            if (systemData.pfs?.levelBump) {
+            if (systemData.pfs.levelBump) {
                 const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
                 stat.push(new ModifierPF2e("PF2E.PFS.LevelBump", hitPointsBump, MODIFIER_TYPE.UNTYPED));
             }
@@ -1713,6 +1713,16 @@ class CharacterPF2e extends CreaturePF2e {
         const newLevel = changed.data?.details?.level?.value ?? this.level;
         if (newLevel !== this.level) {
             await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
+        }
+
+        // Constrain PFS player and character numbers
+        for (const property of ["playerNumber", "characterNumber"] as const) {
+            if (typeof changed.data?.pfs?.[property] === "number") {
+                const [min, max] = property === "playerNumber" ? [10000, 99999] : [2001, 9999];
+                changed.data.pfs[property] = Math.clamped(changed.data.pfs[property] || 0, min, max);
+            } else if (changed.data?.pfs && changed.data.pfs[property] !== null) {
+                changed.data.pfs[property] = null;
+            }
         }
 
         await super._preUpdate(changed, options, user);
