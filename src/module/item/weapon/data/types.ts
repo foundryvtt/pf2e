@@ -43,10 +43,10 @@ interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
 }
 type WeaponTraits = Required<WeaponSourceTraits>;
 
-export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
-export type WeaponGroup = typeof WEAPON_GROUPS[number];
-export type MeleeWeaponGroup = typeof MELEE_WEAPON_GROUPS[number];
-export type RangedWeaponGroup = typeof RANGED_WEAPON_GROUPS[number];
+export type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;
+export type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;
+export type MeleeWeaponGroup = SetElement<typeof MELEE_WEAPON_GROUPS>;
+export type RangedWeaponGroup = SetElement<typeof RANGED_WEAPON_GROUPS>;
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 export interface WeaponDamage {

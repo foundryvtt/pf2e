@@ -2,7 +2,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { WeaponCategory, WeaponGroup, WeaponRangeIncrement, WeaponSystemSource } from "@item/weapon/data";
 import { RANGED_WEAPON_GROUPS } from "@item/weapon/data/values";
 import { RuleElementSource } from "@module/rules";
-import { tupleHasValue } from "@util";
+import { setHasElement } from "@util";
 import { MigrationBase } from "../base";
 
 /** Normalize weapon range to numeric or null, remove ability property, and let's do category and group too! */
@@ -44,7 +44,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
                 : systemData.range;
 
             if (hasOldRangeData && systemData.ability) {
-                if (systemData.ability.value === "str" && !tupleHasValue(RANGED_WEAPON_GROUPS, systemData.group)) {
+                if (systemData.ability.value === "str" && !setHasElement(RANGED_WEAPON_GROUPS, systemData.group)) {
                     // The range thrown melee weapons are set by a thrown trait
                     systemData.range = null;
                 }
@@ -53,7 +53,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
             }
 
             // Correct thrown trait on ranged (rather than melee) thrown weapons
-            if (tupleHasValue(RANGED_WEAPON_GROUPS, systemData.group)) {
+            if (setHasElement(RANGED_WEAPON_GROUPS, systemData.group)) {
                 const thrownIndex = systemData.traits.value.findIndex((trait) => /^thrown-\d+/.test(trait));
                 if (thrownIndex !== -1) {
                     systemData.traits.value[thrownIndex] = "thrown";

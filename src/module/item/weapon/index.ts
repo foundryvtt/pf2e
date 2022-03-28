@@ -147,9 +147,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
         }
 
-        const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
         const traitSet = this.traits;
-        const mandatoryRanged = rangedWeaponGroups.includes(this.group ?? "") || traitSet.has("thrown");
+        const mandatoryRanged = rangedWeaponGroups.has(this.group ?? "") || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
 
