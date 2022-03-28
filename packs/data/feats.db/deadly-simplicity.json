@@ -29,7 +29,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "upgrade"
+                },
+                "predicate": {
+                    "all": [
+                        "weapon:deity-favored"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        {
+                            "and": [
+                                "weapon:category:unarmed",
+                                "weapon:damage:die:faces:4"
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
