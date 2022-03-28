@@ -1121,11 +1121,21 @@ class CharacterPF2e extends CreaturePF2e {
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
+        const slug = weapon.slug ?? sluggify(weapon.name);
+
+        const weaponSpecificSelectors = [
+            weapon.baseType ? `${weapon.baseType}-base-attack-roll` : [],
+            weapon.group ? `${weapon.group}-group-attack-roll` : [],
+            weapon.data.data.traits.otherTags.map((t) => `${t}-tag-attack-roll`),
+        ].flat();
+
         const baseSelectors = [
+            ...weaponSpecificSelectors,
             "attack",
             "mundane-attack",
             `${weapon.id}-attack`,
-            `${sluggify(weapon.name)}-attack`,
+            `${slug}-attack`,
+            `${slug}-attack-roll`,
             "strike-attack-roll",
             `${unarmedOrWeapon}-attack-roll`,
             `${meleeOrRanged}-attack-roll`,
