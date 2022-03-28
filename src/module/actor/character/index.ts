@@ -38,7 +38,7 @@ import {
     SlottedFeat,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify } from "@util";
+import { ErrorPF2e, getActionGlyph, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -1007,57 +1007,59 @@ class CharacterPF2e extends CreaturePF2e {
             ancestryfeature: {
                 label: "PF2E.FeaturesAncestryHeader",
                 feats: [],
-                fluid: true,
                 supported: ["ancestryfeature"],
             },
             classfeature: {
                 label: "PF2E.FeaturesClassHeader",
                 feats: [],
-                fluid: true,
                 supported: ["classfeature"],
             },
             ancestry: {
                 label: "PF2E.FeatAncestryHeader",
                 feats: [],
+                slotted: true,
                 featFilter: "ancestry-" + this.ancestry?.slug,
                 supported: ["ancestry"],
             },
             class: {
                 label: "PF2E.FeatClassHeader",
                 feats: [],
+                slotted: true,
                 featFilter: "classes-" + this.class?.slug,
                 supported: ["class"],
             },
             dualclass: {
                 label: "PF2E.FeatDualClassHeader",
                 feats: [],
+                slotted: true,
                 supported: ["class"],
             },
             archetype: {
                 label: "PF2E.FeatArchetypeHeader",
                 feats: [],
+                slotted: true,
                 supported: ["class"],
             },
             skill: {
                 label: "PF2E.FeatSkillHeader",
                 feats: [],
+                slotted: true,
                 supported: ["skill"],
             },
             general: {
                 label: "PF2E.FeatGeneralHeader",
                 feats: [],
+                slotted: true,
                 supported: ["general", "skill"],
             },
             campaign: {
                 label: "PF2E.FeatCampaignHeader",
                 feats: [],
-                fluid: true,
                 supported: "all",
             },
             bonus: {
                 label: "PF2E.FeatBonusHeader",
                 feats: [],
-                fluid: true,
                 supported: "all",
             },
         };
@@ -1170,14 +1172,11 @@ class CharacterPF2e extends CreaturePF2e {
                 continue;
             }
 
-            // Perhaps this belongs to a fluid group. If so,
-            const group = objectHasKey(this.featGroups, location)
-                ? this.featGroups[location]
-                : objectHasKey(this.featGroups, featType)
-                ? this.featGroups[featType]
-                : this.featGroups.bonus;
-
-            if (group && group.fluid) {
+            // Perhaps this belongs to a un-slotted group matched on the location or
+            // on the feat type. Failing that, it gets dumped into bonuses.
+            const lookedUpGroup = this.featGroups[location ?? ""] ?? this.featGroups[featType];
+            const group = lookedUpGroup && !lookedUpGroup.slotted ? lookedUpGroup : this.featGroups.bonus;
+            if (group && !group.slotted) {
                 const grants = getGrants(featData.flags.pf2e.itemGrants);
                 group.feats.push({ feat: featData, grants });
             }

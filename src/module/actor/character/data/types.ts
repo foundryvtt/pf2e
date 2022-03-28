@@ -413,7 +413,7 @@ export interface FeatSlot {
     label: string;
     feats: (SlottedFeat | BonusFeat)[];
     /** Whether the feats are slotted by level or free-form */
-    fluid?: boolean;
+    slotted?: boolean;
     featFilter?: string;
     supported: FeatType[] | "all";
 }

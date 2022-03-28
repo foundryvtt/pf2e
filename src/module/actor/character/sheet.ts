@@ -1100,15 +1100,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (itemData.type === "feat") {
             const { slotId, featType } = this.getNearestSlotId(event);
             const group = this.actor.featGroups[featType];
-            const resorting = group.fluid && itemData.data.location === featType;
+            const resorting = group && !group.slotted && itemData.data.location === featType;
             if (slotId && featType && !resorting) {
                 if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                     const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === slotId);
                     const itemUpdate = { _id: itemData._id, "data.location": slotId };
                     return this.actor.updateEmbeddedDocuments("Item", [
                         itemUpdate,
-                        // If this is a "fluid group", then do not replace existing entries
-                        ...(group.fluid ? [] : existing.map((x) => ({ _id: x.id, "data.location": "" }))),
+                        // If this is a slotted group, replace existing entries in that slot
+                        ...(group.slotted ? existing.map((x) => ({ _id: x.id, "data.location": "" })) : []),
                     ]);
                 } else {
                     // if they're dragging it away from a slot
