@@ -1,6 +1,6 @@
-export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
+export const WEAPON_CATEGORIES = new Set(["unarmed", "simple", "martial", "advanced"] as const);
 
-export const MELEE_WEAPON_GROUPS = [
+export const MELEE_WEAPON_GROUPS = new Set([
     "axe",
     "brawling",
     "club",
@@ -12,11 +12,11 @@ export const MELEE_WEAPON_GROUPS = [
     "shield",
     "spear",
     "sword",
-] as const;
+] as const);
 
-export const RANGED_WEAPON_GROUPS = ["bomb", "bow", "dart", "firearm", "sling"] as const;
+export const RANGED_WEAPON_GROUPS = new Set(["bomb", "bow", "dart", "firearm", "sling"] as const);
 
-export const WEAPON_GROUPS = [...MELEE_WEAPON_GROUPS, ...RANGED_WEAPON_GROUPS] as const;
+export const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...RANGED_WEAPON_GROUPS] as const);
 
 export const WEAPON_RANGES = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 150, 180, 240, 300] as const;
 
