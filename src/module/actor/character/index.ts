@@ -1007,64 +1007,56 @@ class CharacterPF2e extends CreaturePF2e {
             ancestryfeature: {
                 label: "PF2E.FeaturesAncestryHeader",
                 feats: [],
-                bonusFeats: [],
+                fluid: true,
                 supported: ["ancestryfeature"],
             },
             classfeature: {
                 label: "PF2E.FeaturesClassHeader",
                 feats: [],
-                bonusFeats: [],
+                fluid: true,
                 supported: ["classfeature"],
             },
             ancestry: {
                 label: "PF2E.FeatAncestryHeader",
                 feats: [],
-                bonusFeats: [],
                 featFilter: "ancestry-" + this.ancestry?.slug,
                 supported: ["ancestry"],
             },
             class: {
                 label: "PF2E.FeatClassHeader",
                 feats: [],
-                bonusFeats: [],
                 featFilter: "classes-" + this.class?.slug,
                 supported: ["class"],
             },
             dualclass: {
                 label: "PF2E.FeatDualClassHeader",
                 feats: [],
-                bonusFeats: [],
                 supported: ["class"],
             },
             archetype: {
                 label: "PF2E.FeatArchetypeHeader",
                 feats: [],
-                bonusFeats: [],
                 supported: ["class"],
             },
             skill: {
                 label: "PF2E.FeatSkillHeader",
                 feats: [],
-                bonusFeats: [],
                 supported: ["skill"],
             },
             general: {
                 label: "PF2E.FeatGeneralHeader",
                 feats: [],
-                bonusFeats: [],
                 supported: ["general", "skill"],
             },
             campaign: {
                 label: "PF2E.FeatCampaignHeader",
                 feats: [],
-                bonusFeats: [],
                 fluid: true,
                 supported: "all",
             },
             bonus: {
                 label: "PF2E.FeatBonusHeader",
                 feats: [],
-                bonusFeats: [],
                 fluid: true,
                 supported: "all",
             },
@@ -1143,7 +1135,9 @@ class CharacterPF2e extends CreaturePF2e {
                 if (granter instanceof FeatPF2e) continue;
             }
 
-            let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === featData.data.location);
+            const location = featData.data.location;
+            const featType = featData.data.featType.value;
+            let slotIndex = allFeatSlots.findIndex((slotted) => "id" in slotted && slotted.id === location);
             const existing = allFeatSlots[slotIndex]?.feat;
             if (slotIndex !== -1 && existing) {
                 console.debug(`Foundry VTT | Multiple feats with same index: ${featData.name}, ${existing.name}`);
@@ -1159,41 +1153,38 @@ class CharacterPF2e extends CreaturePF2e {
                 });
             };
 
+            // If we know the slot, place directly into the slot
             if (slotIndex !== -1) {
                 const slot = allFeatSlots[slotIndex];
                 slot.feat = featData;
                 slot.grants = getGrants(featData.flags.pf2e.itemGrants);
-            } else if (objectHasKey(this.featGroups, featData.data.location)) {
-                this.featGroups[featData.data.location].bonusFeats.push({
-                    feat: featData,
-                    grants: getGrants(featData.flags.pf2e.itemGrants),
-                });
-            } else {
-                let featType = featData.data.featType.value || "bonus";
+                continue;
+            }
 
-                if (featType === "pfsboon") {
-                    this.pfsBoons.push(featData);
-                } else if (["deityboon", "curse"].includes(featType)) {
-                    this.deityBoonsCurses.push(featData);
-                } else {
-                    if (!["ancestryfeature", "classfeature"].includes(featType)) {
-                        featType = "bonus";
-                    }
+            // Handle PFS and Deity boons and curses
+            if (featType === "pfsboon") {
+                this.pfsBoons.push(featData);
+                continue;
+            } else if (["deityboon", "curse"].includes(featType)) {
+                this.deityBoonsCurses.push(featData);
+                continue;
+            }
 
-                    if (objectHasKey(this.featGroups, featType)) {
-                        const slots = this.featGroups[featType];
-                        const bonusFeat = {
-                            feat: featData,
-                            grants: getGrants(featData.flags.pf2e.itemGrants),
-                        };
-                        slots.bonusFeats.push(bonusFeat);
-                    }
-                }
+            // Perhaps this belongs to a fluid group. If so,
+            const group = objectHasKey(this.featGroups, location)
+                ? this.featGroups[location]
+                : objectHasKey(this.featGroups, featType)
+                ? this.featGroups[featType]
+                : this.featGroups.bonus;
+
+            if (group && group.fluid) {
+                const grants = getGrants(featData.flags.pf2e.itemGrants);
+                group.feats.push({ feat: featData, grants });
             }
         }
 
-        this.featGroups.classfeature.bonusFeats.sort((a, b) =>
-            a.feat.data.level.value > b.feat.data.level.value ? 1 : -1
+        this.featGroups.classfeature.feats.sort(
+            (a, b) => (a.feat?.data.level.value || 0) - (b.feat?.data.level.value || 0)
         );
     }
 

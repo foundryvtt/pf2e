@@ -14,7 +14,13 @@
                 {{#if featSlot.feat}}
                     <li class="item feat-item" data-item-id="{{featSlot.feat._id}}" data-slot-id="{{featSlot.id}}" data-feat-type="{{sid}}">
                         <div class="item-name rollable">
-                            <div class="feat-slot-title">{{featSlot.level}}</div>
+                            <div class="feat-slot-title">
+                                {{#if section.fluid}}
+                                    {{#if featSlot.feat.data.level.value}}{{featSlot.feat.data.level.value}}{{/if}}
+                                {{else}}
+                                    {{featSlot.level}}
+                                {{/if}}
+                            </div>
                             <img class="item-image" src="{{featSlot.feat.img}}" alt="{{featSlot.feat.name}}">
                             <h4>{{featSlot.feat.name}}</h4>
                         </div>
@@ -39,22 +45,6 @@
                         </div>
                     </li>
                 {{/if}}
-            {{/each}}
-            {{#each section.bonusFeats as |entry fid|}}
-                <li class="item feat-item" data-item-id="{{entry.feat._id}}" {{#if section.fluid}}data-slot-id="{{sid}}" data-feat-type="{{sid}}"{{/if}}>
-                    <div class="item-name rollable">
-                        <div class="feat-slot-title">{{#if entry.feat.data.level.value}}{{entry.feat.data.level.value}}{{/if}}</div>
-                        <img class="item-image" src="{{entry.feat.img}}" alt="{{entry.feat.name}}">
-                        <h4>{{entry.feat.name}}</h4>
-                    </div>
-                    <div class="item-controls">
-                        {{#if @root.editable}}
-                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
-                        {{/if}}
-                    </div>
-                    {{> "systems/pf2e/templates/actors/character/partials/granted-feat.html" feat=feat}}
-                </li>
             {{/each}}
         {{/each}}
     </ol>

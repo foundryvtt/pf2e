@@ -411,9 +411,9 @@ export interface BonusFeat {
 
 export interface FeatSlot {
     label: string;
-    feats: SlottedFeat[];
+    feats: (SlottedFeat | BonusFeat)[];
+    /** Whether the feats are slotted by level or free-form */
     fluid?: boolean;
-    bonusFeats: BonusFeat[];
     featFilter?: string;
     supported: FeatType[] | "all";
 }
