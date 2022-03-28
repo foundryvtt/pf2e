@@ -36,13 +36,14 @@ class DeityPF2e extends ItemPF2e {
         // Set some character roll options
         const slug = this.slug ?? sluggify(this.name);
         const prefix = "deity:primary";
-        mergeObject(this.actor.rollOptions.all, {
-            // Used for feat(ure) automation
-            [`${prefix}:${slug}`]: true,
-            // Used for targeting by creatures with hatred for the followers of specific deities
-            [`self:deity:${slug}`]: true,
-            ...this.favoredWeapons.map((w) => ({ [`${prefix}:favored-weapon:${w}`]: true })),
-        });
+        // Used for feat(ure) automation
+        this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
+        // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
+        this.actor.rollOptions.all[`self:deity:${slug}`] = true;
+
+        for (const baseType of this.favoredWeapons) {
+            this.actor.rollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
+        }
     }
 
     /** If applicable, set a trained proficiency with this deity's favored weapon */

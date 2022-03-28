@@ -1,8 +1,8 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { DamageDiceOverride, DamageDicePF2e } from "@actor/modifiers";
-import { DamageDieSize, DamageType } from "@system/damage";
-import { isObject } from "@util";
+import { DamageDieSize, DamageType, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage";
+import { isObject, setHasElement } from "@util";
 import { RuleElementData, RuleElementPF2e } from "./";
 import { RuleElementSource } from "./data";
 
@@ -16,8 +16,20 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         if (typeof data.selector !== "string" || data.selector.length === 0) {
             this.failValidation("Missing selector property");
         }
-        if ("override" in data && !isObject(data.override)) {
-            this.failValidation("The override property must be an object");
+
+        const isValidOverride = (override: unknown): override is DamageDiceOverride => {
+            return (
+                isObject<DamageDiceOverride>(override) &&
+                (typeof override.upgrade === "boolean" ||
+                    setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
+                    setHasElement(DAMAGE_TYPES, override.damageType))
+            );
+        };
+        if ("override" in data && !isValidOverride(data.override)) {
+            this.failValidation(
+                "The override property must be an object with one property of `upgrade` (boolean), `dieSize` (d6-d12),",
+                "or `damageType` (recognized damage type)"
+            );
         }
     }
 
