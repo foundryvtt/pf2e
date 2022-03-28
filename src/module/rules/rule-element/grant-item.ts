@@ -13,11 +13,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
     reevaluateOnUpdate: boolean;
+    allowDuplicate: boolean;
 
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.reevaluateOnUpdate = Boolean(data.reevaluateOnUpdate);
+        this.allowDuplicate = Boolean(data.allowDuplicate ?? true);
         this.data.preselectChoices ??= {};
         this.data.replaceSelf = Boolean(data.replaceSelf ?? false);
     }
@@ -29,10 +31,42 @@ class GrantItemRuleElement extends RuleElementPF2e {
             return;
         }
 
+        const uuid = this.resolveInjectedProperties(this.data.uuid);
         const { itemSource, pendingItems, context } = args;
 
+        // If we shouldn't allow duplicates, check for an existing item with this source ID
+        if (!this.allowDuplicate) {
+            const existing = this.actor.items.find((item) => item.sourceId === uuid);
+            if (existing) {
+                if (this.data.replaceSelf) {
+                    // Remove this item, and we don't need to do anything else because the granted item
+                    // already exists
+                    pendingItems.findSplice((i) => i === itemSource);
+                } else {
+                    // If this item was granted by another item, then add this item to the list
+                    // of items that granted it. If the item was not granted by another item, then
+                    // treat it as though this item didn't grant anything.
+                    const existingGrantedBy = existing.data.flags.pf2e.grantedBy;
+                    if (existingGrantedBy) {
+                        itemSource._id ??= randomID();
+
+                        context.keepId = true;
+
+                        // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
+                        itemSource.flags ??= {};
+                        const flags = mergeObject(itemSource.flags, { pf2e: {} });
+                        flags.pf2e.itemGrants ??= [];
+                        flags.pf2e.itemGrants.push(existing.id);
+
+                        existingGrantedBy.push(itemSource._id);
+                        await existing.update({ "flags.pf2e.grantedBy": existingGrantedBy }, { render: false });
+                    }
+                }
+                return;
+            }
+        }
+
         const grantedItem: ClientDocument | null = await (async () => {
-            const uuid = this.resolveInjectedProperties(this.data.uuid);
             try {
                 return await fromUuid(uuid);
             } catch (error) {
@@ -83,7 +117,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
         const grantedFlags = mergeObject(grantedSource.flags ?? {}, { pf2e: {} });
-        grantedFlags.pf2e.grantedBy = itemSource._id;
+        grantedFlags.pf2e.grantedBy ??= [];
+        grantedFlags.pf2e.grantedBy.push(itemSource._id);
 
         pendingItems.push(grantedSource);
 
@@ -118,12 +153,20 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     override async preDelete({ pendingItems }: REPreDeleteParameters): Promise<void> {
         const grantIds = this.item.data.flags.pf2e.itemGrants ?? [];
-        const grantedItems = grantIds.flatMap((id) => {
+        for (const id of grantIds) {
             const item = this.actor.items.get(id);
-            // Skip deleting granted physical items
-            return item && !(item instanceof PhysicalItemPF2e) ? item : [];
-        });
-        pendingItems.push(...grantedItems);
+            if (item) {
+                const newGrantedBy = (item.data.flags.pf2e.grantedBy ?? []).filter((id) => id !== this.item.id);
+
+                // If we've run out of things this item was granted by, and it's not a physical item, delete it.
+                // Otherwise, update the grantedBy field on the item
+                if (!newGrantedBy.length && !(item instanceof PhysicalItemPF2e)) {
+                    pendingItems.push(item);
+                } else {
+                    await item?.update({ "flags.pf2e.grantedBy": newGrantedBy }, { render: false });
+                }
+            }
+        }
     }
 
     private applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
@@ -170,6 +213,7 @@ interface GrantItemSource extends RuleElementSource {
     replaceSelf?: unknown;
     preselectChoices?: unknown;
     reevaluateOnUpdate?: unknown;
+    allowDuplicate?: unknown;
 }
 
 interface GrantItemData extends RuleElementData {
