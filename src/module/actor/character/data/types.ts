@@ -187,28 +187,19 @@ export interface AuxiliaryAction {
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 
 /** A Pathfinder Society School */
-type PFSSchool = "none" | "scrolls" | "spells" | "swords";
+type PFSSchool = "scrolls" | "spells" | "swords" | null;
 
 /** PFS faction reputation values */
-interface PathfinderSocietyReputation {
-    EA: number;
-    GA: number;
-    HH: number;
-    VS: number;
-    RO: number;
-    VW: number;
-}
+type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
 
 /** Pathfinder Society Organized Play data fields */
 interface PathfinderSocietyData {
     /** Number assigned to the player. */
-    playerNumber: string;
+    playerNumber: number | null;
     /** Number assigned to the character. */
-    characterNumber: string;
+    characterNumber: number | null;
     /** Is the character currently affected by a level bump? */
     levelBump: boolean;
-    /** Character's current fame */
-    fame: number;
     /** Character's currently slotted faction */
     currentFaction: PFSFaction;
 
