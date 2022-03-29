@@ -87,7 +87,11 @@ export class FeatPF2e extends ItemPF2e {
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
         const options = super.getRollOptions(prefix);
-        options.push(`item:featType:${this.featType}`);
+        if (this.isFeature) {
+            options.push(`${prefix}:type:${this.featType.replace("feature", "")}`);
+        } else {
+            options.push(`${prefix}:type:${this.featType}`);
+        }
         return options;
     }
 
