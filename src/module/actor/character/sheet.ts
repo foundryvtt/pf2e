@@ -1044,20 +1044,22 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         switch (source.type) {
             case "feat": {
-                if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, source)) {
-                    source.data.location = slotId;
-                    const items = await Promise.all([
-                        this.actor.createEmbeddedDocuments("Item", [source]),
-                        this.actor.updateEmbeddedDocuments(
-                            "Item",
-                            this.actor.items
-                                .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
-                                .map((x) => ({ _id: x.id, "data.location": "" }))
-                        ),
-                    ]);
-                    return items.flatMap((item) => item);
+                if (!(slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, source))) {
+                    return super._onDropItem(event, data);
                 }
-                return [];
+
+                source.data.location = slotId;
+                const items = await Promise.all([
+                    this.actor.createEmbeddedDocuments("Item", [source]),
+                    this.actor.updateEmbeddedDocuments(
+                        "Item",
+                        this.actor.itemTypes.feat
+                            .filter((i) => i.data.data.location === slotId)
+                            .map((i) => ({ _id: i.id, "data.location": null }))
+                    ),
+                ]);
+
+                return items.flat();
             }
             case "ancestry":
             case "background":
