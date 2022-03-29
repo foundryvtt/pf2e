@@ -1,7 +1,6 @@
 import { ALIGNMENTS } from "@actor/creature/values";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/data";
-import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 import { DeityData } from "./data";
 import { DeitySheetPF2e } from "./sheet";
@@ -71,20 +70,6 @@ class DeityPF2e extends ItemPF2e {
                 });
             }
         }
-    }
-
-    /** For now there is support for PCs having a single patron deity */
-    override async _preCreate(
-        data: PreDocumentId<this["data"]["_source"]>,
-        options: DocumentModificationContext<this>,
-        user: UserPF2e
-    ): Promise<void> {
-        const existing = this.actor?.itemTypes.deity ?? [];
-        if (existing.length > 0) {
-            const ids = existing.map((h) => h.id);
-            await this.actor?.deleteEmbeddedDocuments("Item", ids, { render: false });
-        }
-        await super._preCreate(data, options, user);
     }
 }
 
