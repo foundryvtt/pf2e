@@ -513,6 +513,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             const kits = data.filter((d) => d.type === "kit");
             const nonKits = data.filter((d) => !kits.includes(d));
 
+            // Perform character pre-create deletions
+            if (context.parent.isOfType("character")) {
+                await context.parent.preCreateDelete(nonKits);
+            }
+
             for (const itemSource of [...nonKits]) {
                 if (!itemSource.data?.rules) continue;
                 if (!(context.keepId || context.keepEmbeddedIds)) {
@@ -533,6 +538,20 @@ class ItemPF2e extends Item<ActorPF2e> {
             for (const kitSource of kits) {
                 const item = new ItemPF2e(kitSource);
                 if (item.isOfType("kit")) await item.dumpContents({ actor: context.parent });
+            }
+
+            // Pre-sort unnested, class features according to their sorting from the class
+            if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
+                const classFeatures = nonKits.filter(
+                    (i): i is PreCreate<InstanceType<T>["data"]["_source"]> & { data: { level: { value: number } } } =>
+                        i.type === "feat" &&
+                        typeof i.data?.level?.value === "number" &&
+                        i.data.featType?.value === "classfeature" &&
+                        !i.flags?.pf2e?.grantedBy
+                );
+                for (const feature of classFeatures) {
+                    feature.sort = classFeatures.indexOf(feature) * 100 * feature.data.level.value;
+                }
             }
 
             return super.createDocuments(nonKits, context) as Promise<InstanceType<T>[]>;
