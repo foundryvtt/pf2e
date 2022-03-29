@@ -1956,6 +1956,10 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.WorldClock.WorldCreatedOn.Hint",
             },
         },
+        CampaignFeats: {
+            name: "PF2E.SETTINGS.CampaignFeats.Name",
+            hint: "PF2E.SETTINGS.CampaignFeats.Hint",
+        },
     },
 
     Actor: {
