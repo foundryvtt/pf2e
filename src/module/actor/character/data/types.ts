@@ -31,11 +31,12 @@ import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
-import { ProficiencyRank } from "@item/data";
-import { WeaponPF2e } from "@item";
+import { FeatData, ProficiencyRank } from "@item/data";
+import { FeatPF2e, WeaponPF2e } from "@item";
 import { CharacterSheetTabVisibility } from "./sheet";
 import { DeitySystemData } from "@item/deity/data";
 import { Alignment } from "@actor/creature/types";
+import { FeatType } from "@item/feat/data";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -380,4 +381,30 @@ export interface CharacterAttributes extends CreatureAttributes {
 
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
+}
+
+export interface GrantedFeat {
+    feat: FeatPF2e;
+    grants: GrantedFeat[];
+}
+
+export interface SlottedFeat {
+    id: string;
+    level: number | string;
+    feat?: FeatData;
+    grants: GrantedFeat[];
+}
+
+export interface BonusFeat {
+    feat: FeatData;
+    grants: GrantedFeat[];
+}
+
+export interface FeatSlot {
+    label: string;
+    feats: (SlottedFeat | BonusFeat)[];
+    /** Whether the feats are slotted by level or free-form */
+    slotted?: boolean;
+    featFilter?: string;
+    supported: FeatType[] | "all";
 }
