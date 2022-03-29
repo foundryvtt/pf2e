@@ -208,7 +208,17 @@ export function registerSettings() {
     });
     WorldClockSettings.registerSettings();
 
+    game.settings.register("pf2e", "campaignFeats", {
+        name: CONFIG.PF2E.SETTINGS.CampaignFeats.name,
+        hint: CONFIG.PF2E.SETTINGS.CampaignFeats.hint,
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean,
+    });
+
     // this section starts questionable rule settings, all of them should have a 'RAI.' at the start of their name
+    // will be removed soon, it has been confirmed that the answer is "yes".
     game.settings.register("pf2e", "RAI.TreatWoundsAltSkills", {
         name: "PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name",
         hint: "PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint",

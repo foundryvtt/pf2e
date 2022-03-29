@@ -33,6 +33,9 @@ import {
     MartialProficiency,
     LinkedProficiency,
     AuxiliaryAction,
+    GrantedFeat,
+    FeatSlot,
+    SlottedFeat,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { ErrorPF2e, getActionGlyph, sluggify, sortedStringify } from "@util";
@@ -42,6 +45,7 @@ import {
     ClassPF2e,
     ConsumablePF2e,
     DeityPF2e,
+    FeatPF2e,
     HeritagePF2e,
     PhysicalItemPF2e,
     WeaponPF2e,
@@ -68,7 +72,7 @@ import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
 import { CraftingEntry, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
-import { PhysicalItemSource } from "@item/data";
+import { FeatData, PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
@@ -94,6 +98,10 @@ class CharacterPF2e extends CreaturePF2e {
 
     /** A cached reference to this PC's familiar */
     familiar: FamiliarPF2e | null = null;
+
+    featGroups!: Record<string, FeatSlot>;
+    pfsBoons!: FeatData[];
+    deityBoonsCurses!: FeatData[];
 
     static override get schema(): typeof CharacterData {
         return CharacterData;
@@ -421,8 +429,8 @@ class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.hp = stat;
         }
 
+        this.prepareFeats();
         this.prepareSaves();
-
         this.prepareMartialProficiencies();
 
         // Perception
@@ -992,6 +1000,191 @@ class CharacterPF2e extends CreaturePF2e {
             speedModifiers.push(() => armorPenalty);
         }
         return super.prepareSpeed(movementType);
+    }
+
+    prepareFeats(): void {
+        this.featGroups = {
+            ancestryfeature: {
+                label: "PF2E.FeaturesAncestryHeader",
+                feats: [],
+                supported: ["ancestryfeature"],
+            },
+            classfeature: {
+                label: "PF2E.FeaturesClassHeader",
+                feats: [],
+                supported: ["classfeature"],
+            },
+            ancestry: {
+                label: "PF2E.FeatAncestryHeader",
+                feats: [],
+                slotted: true,
+                featFilter: "ancestry-" + this.ancestry?.slug,
+                supported: ["ancestry"],
+            },
+            class: {
+                label: "PF2E.FeatClassHeader",
+                feats: [],
+                slotted: true,
+                featFilter: "classes-" + this.class?.slug,
+                supported: ["class"],
+            },
+            dualclass: {
+                label: "PF2E.FeatDualClassHeader",
+                feats: [],
+                slotted: true,
+                supported: ["class"],
+            },
+            archetype: {
+                label: "PF2E.FeatArchetypeHeader",
+                feats: [],
+                slotted: true,
+                supported: ["class"],
+            },
+            skill: {
+                label: "PF2E.FeatSkillHeader",
+                feats: [],
+                slotted: true,
+                supported: ["skill"],
+            },
+            general: {
+                label: "PF2E.FeatGeneralHeader",
+                feats: [],
+                slotted: true,
+                supported: ["general", "skill"],
+            },
+            campaign: {
+                label: "PF2E.FeatCampaignHeader",
+                feats: [],
+                supported: "all",
+            },
+            bonus: {
+                label: "PF2E.FeatBonusHeader",
+                feats: [],
+                supported: "all",
+            },
+        };
+
+        this.pfsBoons = [];
+        this.deityBoonsCurses = [];
+
+        if (game.settings.get("pf2e", "dualClassVariant")) {
+            this.featGroups.dualclass.feats.push({ id: "dualclass-1", level: 1, grants: [] });
+            for (let level = 2; level <= this.level; level += 2) {
+                this.featGroups.dualclass.feats.push({ id: `dualclass-${level}`, level, grants: [] });
+            }
+        } else {
+            // Use delete so it is in the right place on the sheet
+            delete this.featGroups.dualclass;
+        }
+        if (game.settings.get("pf2e", "freeArchetypeVariant")) {
+            for (let level = 2; level <= this.level; level += 2) {
+                this.featGroups.archetype.feats.push({ id: `archetype-${level}`, level, grants: [] });
+            }
+        } else {
+            // Use delete so it is in the right place on the sheet
+            delete this.featGroups.archetype;
+        }
+        if (!game.settings.get("pf2e", "campaignFeats")) {
+            // Use delete so it is in the right place on the sheet
+            delete this.featGroups.campaign;
+        }
+
+        // Add feat slots from class
+        if (this.class) {
+            const classItem = this.class.data;
+            const mapFeatLevels = (featLevels: number[], prefix: string): SlottedFeat[] => {
+                if (!featLevels) {
+                    return [];
+                }
+                return featLevels
+                    .filter((featSlotLevel: number) => this.level >= featSlotLevel)
+                    .map((level) => ({ id: `${prefix}-${level}`, level, grants: [] }));
+            };
+            this.featGroups.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, "ancestry");
+            this.featGroups.class.feats = mapFeatLevels(classItem.data.classFeatLevels?.value, "class");
+            this.featGroups.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, "skill");
+            this.featGroups.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, "general");
+        }
+
+        if (game.settings.get("pf2e", "ancestryParagonVariant")) {
+            this.featGroups.ancestry.feats.unshift({
+                id: "ancestry-bonus",
+                level: 1,
+                grants: [],
+            });
+            for (let level = 3; level <= this.level; level += 4) {
+                const index = (level + 1) / 2;
+                this.featGroups.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level, grants: [] });
+            }
+        }
+
+        const background = this.background;
+        if (background && Object.keys(background.data.data.items).length > 0) {
+            this.featGroups.skill.feats.unshift({
+                id: background.id,
+                level: game.i18n.localize("PF2E.FeatBackgroundShort"),
+                grants: [],
+            });
+        }
+
+        // put the feats in their feat slots
+        const allFeatSlots = Object.values(this.featGroups).flatMap((slot) => slot.feats);
+        const feats = this.itemTypes.feat.sort((f1, f2) => f1.data.sort - f2.data.sort);
+        for (const feat of feats) {
+            const featData = feat.data;
+            if (featData.flags.pf2e.grantedBy && !featData.data.location) {
+                const granter = this.items.get(featData.flags.pf2e.grantedBy);
+                if (granter instanceof FeatPF2e) continue;
+            }
+
+            const location = featData.data.location;
+            const featType = featData.data.featType.value;
+            let slotIndex = allFeatSlots.findIndex((slotted) => "id" in slotted && slotted.id === location);
+            const existing = allFeatSlots[slotIndex]?.feat;
+            if (slotIndex !== -1 && existing) {
+                console.debug(`Foundry VTT | Multiple feats with same index: ${featData.name}, ${existing.name}`);
+                slotIndex = -1;
+            }
+
+            const getGrants = (grantedIds: string[]): GrantedFeat[] => {
+                return grantedIds.flatMap((grantedId: string) => {
+                    const item = this.items.get(grantedId);
+                    return item instanceof FeatPF2e && !item.data.data.location
+                        ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
+                        : [];
+                });
+            };
+
+            // If we know the slot, place directly into the slot
+            if (slotIndex !== -1) {
+                const slot = allFeatSlots[slotIndex];
+                slot.feat = featData;
+                slot.grants = getGrants(featData.flags.pf2e.itemGrants);
+                continue;
+            }
+
+            // Handle PFS and Deity boons and curses
+            if (featType === "pfsboon") {
+                this.pfsBoons.push(featData);
+                continue;
+            } else if (["deityboon", "curse"].includes(featType)) {
+                this.deityBoonsCurses.push(featData);
+                continue;
+            }
+
+            // Perhaps this belongs to a un-slotted group matched on the location or
+            // on the feat type. Failing that, it gets dumped into bonuses.
+            const lookedUpGroup = this.featGroups[location ?? ""] ?? this.featGroups[featType];
+            const group = lookedUpGroup && !lookedUpGroup.slotted ? lookedUpGroup : this.featGroups.bonus;
+            if (group && !group.slotted) {
+                const grants = getGrants(featData.flags.pf2e.itemGrants);
+                group.feats.push({ feat: featData, grants });
+            }
+        }
+
+        this.featGroups.classfeature.feats.sort(
+            (a, b) => (a.feat?.data.level.value || 0) - (b.feat?.data.level.value || 0)
+        );
     }
 
     /** Create an "auxiliary" action, an Interact or Release action using a weapon */

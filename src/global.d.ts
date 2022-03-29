@@ -147,6 +147,8 @@ declare global {
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
+        get(module: "pf2e", setting: "campaignFeats"): boolean;
+
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
