@@ -1931,10 +1931,10 @@ class CharacterPF2e extends CreaturePF2e {
         await super._preUpdate(changed, options, user);
     }
 
-    /** Perform A(H)BCD deletions prior to the creation of embedded items */
+    /** Perform heritage and deity deletions prior to the creation of new ones */
     async preCreateDelete(toCreate: PreCreate<ItemSourcePF2e>[]): Promise<void> {
         const { itemTypes } = this;
-        const singularTypes = ["ancestry", "heritage", "background", "class", "deity"] as const;
+        const singularTypes = ["heritage", "deity"] as const;
         const deletionTypes = singularTypes.filter((t) => toCreate.some((i) => i.type === t));
         const preCreateDeletions = deletionTypes.flatMap((t): ItemPF2e[] => itemTypes[t]).map((i) => i.id);
         if (preCreateDeletions.length > 0) {
