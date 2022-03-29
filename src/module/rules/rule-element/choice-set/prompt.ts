@@ -45,8 +45,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     }
 
     protected override getChoices(): PickableThing[] {
-        const rollOptions = this.actor.getRollOptions();
-        return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
+        return this.choices;
     }
 
     override activateListeners($html: JQuery): void {
@@ -58,7 +57,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             $submit.val(String($select.val()));
         });
 
-        $html.find('button[data-action="close"]').on("click", () => {
+        $html.find("button[data-action=close]").on("click", () => {
             this.close();
         });
 

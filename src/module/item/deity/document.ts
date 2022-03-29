@@ -1,3 +1,4 @@
+import { ALIGNMENTS } from "@actor/creature/values";
 import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/data";
 import { UserPF2e } from "@module/user";
@@ -36,14 +37,22 @@ class DeityPF2e extends ItemPF2e {
         // Set some character roll options
         const slug = this.slug ?? sluggify(this.name);
         const prefix = "deity:primary";
-        // Used for feat(ure) automation
-        this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
-        // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
-        this.actor.rollOptions.all[`self:deity:${slug}`] = true;
+        const actorRollOptions = this.actor.rollOptions;
+        actorRollOptions.all[`${prefix}:${slug}`] = true;
 
         for (const baseType of this.favoredWeapons) {
-            this.actor.rollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
+            actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
         }
+
+        const alignments = (
+            this.data.data.alignment.follower.length > 0 ? this.data.data.alignment.follower : Array.from(ALIGNMENTS)
+        ).map((a) => a.toLowerCase());
+        for (const alignment of alignments) {
+            actorRollOptions.all[`${prefix}:alignment:follower:${alignment}`] = true;
+        }
+
+        // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
+        actorRollOptions.all[`self:deity:${slug}`] = true;
     }
 
     /** If applicable, set a trained proficiency with this deity's favored weapon */
