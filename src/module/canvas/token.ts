@@ -238,25 +238,26 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!(selfDimensions && targetDimensions)) return distance.horizontal;
 
         const gridSize = canvas.dimensions.size;
+        const gridDistance = canvas.dimensions.distance;
         const vertical = {
-            self: new PIXI.Rectangle(
+            self: new NormalizedRectangle(
                 this.bounds.x,
-                (this.data.elevation / 5) * gridSize,
+                (this.data.elevation / gridDistance) * gridSize,
                 this.bounds.width,
-                (selfDimensions.height / 5) * gridSize
+                (selfDimensions.height / gridDistance) * gridSize
             ),
-            target: new PIXI.Rectangle(
+            target: new NormalizedRectangle(
                 target.bounds.x,
-                (target.data.elevation / 5) * gridSize,
+                (target.data.elevation / gridDistance) * gridSize,
                 target.bounds.width,
-                (targetDimensions.height / 5) * gridSize
+                (targetDimensions.height / gridDistance) * gridSize
             ),
         };
 
         distance.vertical = MeasuredTemplatePF2e.measureDistanceRect(vertical.self, vertical.target, { reach });
         const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
 
-        return Math.floor(hypotenuse / 5) * 5;
+        return Math.floor(hypotenuse / gridDistance) * gridDistance;
     }
 
     /* -------------------------------------------- */

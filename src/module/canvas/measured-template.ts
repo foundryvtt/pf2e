@@ -1,6 +1,7 @@
 import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
-import { Rectangle } from "pixi.js";
 import { TemplateLayerPF2e } from ".";
+
+type Rectangle = NormalizedRectangle;
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
     get type(): MeasuredTemplateType {
@@ -116,9 +117,33 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
             return canvas.grid.measureDistance(r0, r1);
         }
 
+        const gridWidth = canvas.grid.grid.w;
+
+        // Return early if the rectangles overlap
+        const rectanglesOverlap = [
+            [r0, r1],
+            [r1, r0],
+        ].some(([rA, rB]) => rB.right > rA.left && rB.left < rA.right && rB.bottom > rA.top && rB.top < rA.bottom);
+        if (rectanglesOverlap) return 0;
+
+        // Snap the dimensions and position of the rectangle to grid square units
+        const snapBounds = (rectangle: Rectangle, { toward }: { toward: Rectangle }): Rectangle => {
+            const roundLeft = rectangle.left < toward.left ? Math.ceil : Math.floor;
+            const roundTop = rectangle.top < toward.top ? Math.ceil : Math.floor;
+
+            const left = roundLeft(rectangle.left / gridWidth) * gridWidth;
+            const top = roundTop(rectangle.top / gridWidth) * gridWidth;
+            const width = Math.ceil(rectangle.width / gridWidth) * gridWidth;
+            const height = Math.ceil(rectangle.height / gridWidth) * gridWidth;
+
+            return new NormalizedRectangle(left, top, width, height);
+        };
+
         // Find the minimum distance between the rectangles for each dimension
-        const dx = Math.max(0, r0.left - r1.right, r1.left - r0.right);
-        const dy = Math.max(0, r0.top - r1.bottom, r1.top - r0.bottom);
+        const r0Snapped = snapBounds(r0, { toward: r1 });
+        const r1Snapped = snapBounds(r1, { toward: r0 });
+        const dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
+        const dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
 
         return MeasuredTemplatePF2e.measureDistanceOnGrid({ dx, dy }, { reach });
     }
@@ -150,6 +175,7 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
         if (!canvas.dimensions) return NaN;
 
         const gridSize = canvas.dimensions.size;
+        const gridDistance = canvas.dimensions.distance;
 
         const nx = Math.ceil(Math.abs(segment.dx / gridSize));
         const ny = Math.ceil(Math.abs(segment.dy / gridSize));
@@ -162,9 +188,8 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
 
         // Diagonals in PF pretty much count as 1.5 times a straight
         const distance = Math.floor(squares.diagonal * 1.5 + squares.straight) - reduction;
-        const distanceOnGrid = distance * canvas.dimensions.distance;
 
-        return distanceOnGrid;
+        return distance * gridDistance;
     }
 
     private measureDistance(p0: Point, p1: Point): number {
