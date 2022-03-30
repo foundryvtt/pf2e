@@ -1,0 +1,315 @@
+{
+    "_id": "yfh8wibKauDIh6Dj",
+    "data": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": -3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 10
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "initiative": {
+                "ability": "perception"
+            },
+            "perception": {
+                "value": 4
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": "10"
+                    }
+                ],
+                "value": "10"
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "",
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder Society Scenario #3-10: Delve the Pallid Depths"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "value": [
+                    "acid",
+                    "critical-hits",
+                    "mental",
+                    "precision",
+                    "visual"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "uncommon",
+            "senses": {
+                "value": "motion sense 60 feet, no vision"
+            },
+            "size": {
+                "value": "med"
+            },
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mindless",
+                    "ooze"
+                ]
+            }
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Pq15orhyKDc2xuUB",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "orrhwyii7n5pbt3q6bvt": {
+                        "damage": "1d4",
+                        "damageType": "bludgeoning"
+                    },
+                    "r90en3y9thmomdn3lwjn": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "range-increment-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sulfur Spout",
+            "sort": 100000,
+            "type": "melee"
+        },
+        {
+            "_id": "KLD35gEpW1Fw8D9G",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A sulfuric slime can sense nearby motion through vibration and air movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "tyVcBApYe4ZMohxU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The slime takes piercing or slashing damage while touching water or mud</p>\n<p><strong>Effect</strong> The slime temporarily shrinks in size as part of its body seeps out through its wounds. It thrashes in the nearby sludge, making it more difficult to determine where the boundaries of its body end. It becomes @Compendium[pf2e.conditionitems.Concealed] and gains a +2 circumstance bonus to its AC until the beginning of its next turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "One With the Mud (Bonus to AC)",
+                        "option": "OneWithTheMud",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "One With the Mud",
+                        "predicate": {
+                            "all": [
+                                "OneWithTheMud"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "One With the Mud",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "Jw3i09wiHrXsCR60",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 2
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+5 in water or mud",
+                        "options": ""
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 400000,
+            "type": "lore"
+        }
+    ],
+    "name": "Sulfuric Slime",
+    "token": {
+        "disposition": -1,
+        "height": 1,
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
+        "name": "Sulfuric Slime",
+        "width": 1
+    },
+    "type": "npc"
+}
