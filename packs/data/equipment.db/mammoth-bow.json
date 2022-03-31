@@ -70,9 +70,9 @@
             "critDie": "",
             "criticalConditionType": "",
             "criticalConditionValue": null,
-            "damageType": "piercing",
-            "dice": 2,
-            "die": "d6",
+            "damageType": "",
+            "dice": null,
+            "die": "",
             "strikeConditionType": "",
             "strikeConditionValue": null,
             "value": ""
@@ -94,13 +94,26 @@
         "reload": {
             "value": "0"
         },
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "piercing",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            }
+        ],
         "size": "lg",
         "source": {
             "value": "Pathfinder #177: Burning Tundra"
         },
         "specific": {
-            "value": false
+            "material": null,
+            "runes": {
+                "potency": 2,
+                "striking": "striking"
+            },
+            "value": true
         },
         "splashDamage": {
             "value": 0
