@@ -10,6 +10,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "effectExpiration",
         "removeExpiredEffects",
         "flankingDetection",
+        "mandatoryAmmo",
         "lootableNPCs",
     ] as const;
 
@@ -48,6 +49,17 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 hint: CONFIG.PF2E.SETTINGS.automation.flankingDetection.hint,
                 default: true,
                 type: Boolean,
+            },
+            mandatoryAmmo: {
+                name: CONFIG.PF2E.SETTINGS.automation.mandatoryAmmo.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.mandatoryAmmo.hint,
+                default: "yes",
+                type: String,
+                choices: {
+                    yes: CONFIG.PF2E.SETTINGS.automation.mandatoryAmmo.yes,
+                    magazinesOnly: CONFIG.PF2E.SETTINGS.automation.mandatoryAmmo.magazinesOnly,
+                    no: CONFIG.PF2E.SETTINGS.automation.mandatoryAmmo.no,
+                },
             },
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,

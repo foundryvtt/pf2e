@@ -1864,6 +1864,13 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.FlankingDetection.Name",
                 hint: "PF2E.SETTINGS.Automation.FlankingDetection.Hint",
             },
+            mandatoryAmmo: {
+                name: "PF2E.SETTINGS.Automation.MandatoryAmmo.Name",
+                hint: "PF2E.SETTINGS.Automation.MandatoryAmmo.Hint",
+                yes: "PF2E.SETTINGS.Automation.MandatoryAmmo.Yes",
+                magazinesOnly: "PF2E.SETTINGS.Automation.MandatoryAmmo.MagazinesOnly",
+                no: "PF2E.SETTINGS.Automation.MandatoryAmmo.No",
+            },
             actorsDeadAtZero: {
                 name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
                 hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
