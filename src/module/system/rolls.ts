@@ -546,7 +546,7 @@ export class CheckPF2e {
                 ? "all"
                 : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
 
-            if (!(preadjustedDC && circumstances) || preadjustedDC === targetAC?.value) {
+            if (!(typeof preadjustedDC === "number" && circumstances)) {
                 const labelKey = targetData
                     ? translations.DC.Label.WithTarget
                     : customLabel ?? translations.DC.Label.NoTarget;
@@ -558,11 +558,18 @@ export class CheckPF2e {
 
             const adjustment = {
                 preadjusted: preadjustedDC,
-                direction: preadjustedDC < dc.value ? "increased" : "decreased",
+                direction:
+                    preadjustedDC < dc.value ? "increased" : preadjustedDC > dc.value ? "decreased" : "no-change",
                 circumstances: circumstances.map((c) => ({ label: c.label, value: c.modifier })),
             } as const;
 
-            const markup = game.i18n.format(translations.DC.Label.AdjustedTarget, {
+            // If the adjustment direction is "no-change", the bonuses and penalties summed to zero
+            const translation =
+                adjustment.direction === "no-change"
+                    ? translations.DC.Label.NoChangeTarget
+                    : translations.DC.Label.AdjustedTarget;
+
+            const markup = game.i18n.format(translation, {
                 target: targetData?.name ?? game.user.name,
                 dcType,
                 preadjusted: preadjustedDC,
@@ -669,7 +676,7 @@ interface FlavorTemplateData {
         visibility: UserVisibility;
         adjustment?: {
             preadjusted: number;
-            direction: "increased" | "decreased";
+            direction: "increased" | "decreased" | "no-change";
             circumstances: { label: string; value: number }[];
         };
     };
