@@ -65,7 +65,7 @@ class DeityPF2e extends ItemPF2e {
                 mergeObject(proficiencies, {
                     [`weapon-base-${baseType}`]: {
                         label: CONFIG.PF2E.baseWeaponTypes[baseType],
-                        rank: Math.max(Number(proficiencies[`weapon-base-${baseType}`]?.rank || 0), favoredWeaponRank),
+                        rank: Math.max(Number(proficiencies[`weapon-base-${baseType}`]?.rank) || 0, favoredWeaponRank),
                     },
                 });
             }
