@@ -23,6 +23,7 @@ import { Migration731TogglePropertyToRollOption } from "@module/migration/migrat
 import { Migration732FixDedicationFeatTypes } from "@module/migration/migrations/732-fix-dedication-feat-types";
 import { Migration733ItemBonusFromEquipment } from "@module/migration/migrations/733-item-bonus-from-equipment";
 import { Migration734SpellLocationPropsAndSignature } from "@module/migration/migrations/734-spell-location-props-and-signature";
+import { Migration735FirearmAmmoAlchemical } from "@module/migration/migrations/735-firearm-ammo-alchemical";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -42,6 +43,7 @@ const migrations: MigrationBase[] = [
     new Migration732FixDedicationFeatTypes(),
     new Migration733ItemBonusFromEquipment(),
     new Migration734SpellLocationPropsAndSignature(),
+    new Migration735FirearmAmmoAlchemical(),
 ];
 
 global.deepClone = <T>(original: T): T => {
