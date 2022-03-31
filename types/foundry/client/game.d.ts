@@ -3,18 +3,6 @@ import * as io from "socket.io";
 declare global {
     const socket: io.Socket | null;
     const keyboard: KeyboardManager;
-    const ui: {
-        actors: ActorDirectory;
-        chat: ChatLog;
-        combat: CombatTracker<Combat>;
-        compendium: CompendiumDirectory;
-        controls: SceneControls;
-        items: ItemDirectory;
-        notifications: Notifications;
-        settings: Settings;
-        tables: RollTableDirectory;
-        windows: Record<number, Application>;
-    };
 
     /**
      * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
@@ -27,6 +15,7 @@ declare global {
      */
     class Game<
         TActor extends Actor = Actor,
+        TActors extends Actors<TActor> = Actors<TActor>,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
         TCombat extends Combat = Combat,
         TFolder extends Folder = Folder,
@@ -116,7 +105,7 @@ declare global {
         users: Users<TUser>;
         messages: Messages<TChatMessage>;
         scenes: Scenes<TScene>;
-        actors: Actors<TActor>;
+        actors: TActors;
         items: Items<TItem>;
         journal: Journal;
         macros: Macros<TMacro>;
