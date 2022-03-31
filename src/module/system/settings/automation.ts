@@ -9,6 +9,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
         "rulesBasedVision",
         "effectExpiration",
         "removeExpiredEffects",
+        "flankingDetection",
         "lootableNPCs",
     ] as const;
 
@@ -40,6 +41,12 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 name: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.hint,
                 default: false,
+                type: Boolean,
+            },
+            flankingDetection: {
+                name: CONFIG.PF2E.SETTINGS.automation.flankingDetection.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.flankingDetection.hint,
+                default: true,
                 type: Boolean,
             },
             lootableNPCs: {
