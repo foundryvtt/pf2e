@@ -111,6 +111,7 @@ import "./client/pixi/placeables-layer/walls-layer";
 import "./client/pixi/shader";
 import "./client/roll";
 import "./client/roll/roll-term";
+import "./client/ui";
 import "./client/ui/context";
 import "./client/ui/dialog";
 import "./client/ui/dragdrop";
