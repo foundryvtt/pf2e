@@ -127,6 +127,9 @@
                     {{#each data.traits.traits.value as |v k|}}
                         <span class="tag {{k}}">{{v}}</span>
                     {{/each}}
+                    {{#if data.traits.traits.custom}}
+                    <span class="tag {{data.traits.traits.custom}}">{{data.traits.traits.custom}}</span>
+                    {{/if}}
                 </ul>
             </div>
             <div class="flexrow" style="flex: auto;">
