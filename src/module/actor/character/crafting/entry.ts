@@ -86,6 +86,10 @@ export class CraftingEntry implements CraftingEntryData {
         );
     }
 
+    static isValid(data?: Partial<CraftingEntry>): data is CraftingEntry {
+        return !!data && !!data.name && !!data.selector && !!data.actorPreparedFormulas;
+    }
+
     async prepareFormula(formula: CraftingFormula) {
         this.checkEntryRequirements(formula);
 

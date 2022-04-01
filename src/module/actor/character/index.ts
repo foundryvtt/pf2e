@@ -70,7 +70,7 @@ import { PredicatePF2e } from "@system/predication";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { fromUUIDs } from "@util/from-uuids";
 import { UserPF2e } from "@module/user";
-import { CraftingEntry, CraftingFormula } from "./crafting";
+import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
 import { extractModifiers, extractNotes } from "@module/rules/util";
@@ -143,16 +143,19 @@ class CharacterPF2e extends CreaturePF2e {
 
     async getCraftingEntries(): Promise<CraftingEntry[]> {
         const craftingFormulas = await this.getCraftingFormulas();
-        return Object.values(this.data.data.crafting.entries).map(
-            (entry) => new CraftingEntry(this, craftingFormulas, entry)
-        );
+        return Object.values(this.data.data.crafting.entries)
+            .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
+            .map((entry) => new CraftingEntry(this, craftingFormulas, entry));
     }
 
-    async getCraftingEntry(selector: string): Promise<CraftingEntry | undefined> {
+    async getCraftingEntry(selector: string): Promise<CraftingEntry | null> {
         const craftingFormulas = await this.getCraftingFormulas();
         const craftingEntryData = this.data.data.crafting.entries[selector];
-        if (!craftingEntryData) return;
-        return new CraftingEntry(this, craftingFormulas, craftingEntryData);
+        if (CraftingEntry.isValid(craftingEntryData)) {
+            return new CraftingEntry(this, craftingFormulas, craftingEntryData);
+        }
+
+        return null;
     }
 
     async performDailyCrafting() {
