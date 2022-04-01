@@ -106,7 +106,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** Crafting-related data, including known formulas */
     crafting: {
         formulas: CraftingFormulaData[];
-        entries: Record<string, CraftingEntryData>;
+        entries: Record<string, Partial<CraftingEntryData>>;
     };
 }
 
