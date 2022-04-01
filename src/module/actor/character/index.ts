@@ -1607,7 +1607,11 @@ class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: async (args: StrikeRollParams): Promise<void> => {
-                    if (weapon.requiresAmmo && !weapon.ammo) {
+                    const rule = game.settings.get("pf2e", "automation.mandatoryAmmo") ?? "yes";
+                    const noSingleAmmo = !weapon.requiresMagazine && rule === "yes";
+                    const noMagazineAmmo = weapon.requiresMagazine && rule !== "no";
+
+                    if (weapon.requiresAmmo && !weapon.ammo && (noSingleAmmo || noMagazineAmmo)) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
                         );

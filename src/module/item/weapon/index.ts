@@ -85,6 +85,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.isRanged && ![null, "-"].includes(this.reload);
     }
 
+    /**
+     * Does the weapon use magazine-like ammunition, or single ammo per shot?
+     *
+     * Does not determine if the weapon actually needs ammo -- use requiresAmmo() for that.
+     */
+    get requiresMagazine(): boolean {
+        return this.traits.has("repeating");
+    }
+
     get ammo(): Embedded<ConsumablePF2e> | null {
         const ammo = this.actor?.items.get(this.data.data.selectedAmmoId ?? "");
         return ammo instanceof ConsumablePF2e && ammo.quantity > 0 ? ammo : null;

@@ -98,7 +98,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         }
 
         const { max } = this.charges;
-        return weapon.traits.has("repeating") ? max > 1 : max <= 1;
+        return weapon.requiresMagazine ? max > 1 : max <= 1;
     }
 
     /** Use a consumable item, sending the result to chat */
