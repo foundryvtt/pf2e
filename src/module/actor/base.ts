@@ -556,7 +556,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<this> {
         const tokens = this.getActiveTokens();
         if (attribute === "attributes.hp" && isDelta && tokens.length) {
-            return this.applyDamage(-value, tokens[0]);
+            await this.applyDamage(-value, tokens[0]);
+            return this;
         }
 
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
@@ -569,9 +570,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param token The applicable token for this actor
      * @param shieldBlockRequest Whether the user has toggled the Shield Block button
      */
-    async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<this> {
+    async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<void> {
         const { hitPoints } = this;
-        if (!hitPoints) return this;
+        if (!hitPoints) return;
         damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
 
         // Calculate damage to hit points and shield
@@ -667,7 +668,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
-        return this;
     }
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
