@@ -540,15 +540,38 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /**
+     * Handle how changes to a Token attribute bar are applied to the Actor.
+     *
+     * If the attribute bar is for hp and the change is in delta form, defer to the applyDamage method. Otherwise, do nothing special
+     * @param attribute The attribute path
+     * @param value     The target attribute value
+     * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
+     */
+    override async modifyTokenAttribute(
+        attribute: string,
+        value: number,
+        isDelta = false,
+        isBar = true
+    ): Promise<this> {
+        const tokens = this.getActiveTokens();
+        if (attribute === "attributes.hp" && isDelta && tokens.length) {
+            return this.applyDamage(-value, tokens[0]);
+        }
+
+        return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+    }
+
+    /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      * @param damage The amount of damage inflicted
      * @param token The applicable token for this actor
      * @param shieldBlockRequest Whether the user has toggled the Shield Block button
      */
-    async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<void> {
+    async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<this> {
         const { hitPoints } = this;
-        if (!hitPoints) return;
+        if (!hitPoints) return this;
         damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
 
         // Calculate damage to hit points and shield
@@ -644,6 +667,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
+        return this;
     }
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
