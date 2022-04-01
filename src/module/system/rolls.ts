@@ -144,6 +144,7 @@ export class CheckPF2e {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
+        context.skipDialog ??= !game.user.settings.showRollDialogs;
 
         if (context.options?.length && !context.isReroll) {
             check.calculateTotal(context.options);
