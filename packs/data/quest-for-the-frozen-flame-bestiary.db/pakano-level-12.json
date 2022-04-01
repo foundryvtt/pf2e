@@ -143,9 +143,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
+                    "value": "<p>Plus [[/r {2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.PersistentDamage.Cold2d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.PersistentDamage.Cold2d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -523,7 +540,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.IceAndSnow",
+                        "predicate": {
+                            "any": [
+                                "terrain:ice",
+                                "terrain:snow"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -536,7 +566,7 @@
                 "variants": {
                     "0": {
                         "label": "+24 in ice and snow",
-                        "options": "terrain:icy,terrain:snow"
+                        "options": "terrain:ice,terrain:snow"
                     }
                 }
             },
@@ -548,7 +578,7 @@
             "type": "lore"
         }
     ],
-    "name": "Pakano (12)",
+    "name": "Pakano (Level 12)",
     "token": {
         "disposition": -1,
         "height": 1,
