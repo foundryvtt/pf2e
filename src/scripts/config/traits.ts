@@ -647,6 +647,7 @@ const hazardTraits = {
     kaiju: "PF2E.TraitKaiju",
     magical: "PF2E.TraitMagical",
     mechanical: "PF2E.TraitMechanical",
+    poison: "PF2E.TraitPoison",
     steam: "PF2E.TraitSteam",
     summoned: "PF2E.TraitSummoned",
     technological: "PF2E.TraitTechnological",
