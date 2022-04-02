@@ -33,6 +33,12 @@ class DeityPF2e extends ItemPF2e {
             ),
         };
 
+        // Set available domains from this deity
+        for (const domain of [...this.data.data.domains.primary, ...this.data.data.domains.alternate]) {
+            const label = CONFIG.PF2E.deityDomains[domain]?.label;
+            if (label) deities.domains[domain] = label;
+        }
+
         // Set some character roll options
         const slug = this.slug ?? sluggify(this.name);
         const prefix = "deity:primary";

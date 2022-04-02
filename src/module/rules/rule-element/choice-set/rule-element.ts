@@ -115,10 +115,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             ? this.data.choices
             : typeof this.data.choices === "object"
             ? await this.queryCompendium(this.data.choices)
-            : Object.entries(getProperty(CONFIG.PF2E, this.data.choices)).map(([value, label]) => ({
-                  value,
-                  label: typeof label === "string" ? label : "",
-              }));
+            : this.getChoicesFromPath(this.data.choices);
 
         interface ItemChoice extends PickableThing<string> {
             value: ItemUUID;
@@ -152,6 +149,18 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         } catch {
             return [];
         }
+    }
+
+    private getChoicesFromPath(path: string): PickableThing<string>[] {
+        const choiceObject: unknown = getProperty(CONFIG.PF2E, path) ?? getProperty(this.actor, path) ?? {};
+        if (isObject<string>(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
+            return Object.entries(choiceObject).map(([value, label]) => ({
+                value,
+                label: String(label),
+            }));
+        }
+
+        return [];
     }
 
     /** Perform an NeDB query against the system feats compendium (or a different one if specified) */

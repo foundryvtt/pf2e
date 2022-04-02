@@ -37,6 +37,7 @@ import { CharacterSheetTabVisibility } from "./sheet";
 import { DeitySystemData } from "@item/deity/data";
 import { Alignment } from "@actor/creature/types";
 import { FeatType } from "@item/feat/data";
+import { DeityDomain } from "@item/deity/types";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -303,6 +304,7 @@ export type CharacterDetails = {
 interface CharacterDeities {
     primary: DeityDetails | null;
     secondary: null;
+    domains: { [K in DeityDomain]?: string };
 }
 
 type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {

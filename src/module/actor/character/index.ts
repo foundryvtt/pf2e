@@ -228,7 +228,7 @@ class CharacterPF2e extends CreaturePF2e {
             this[property] = null;
 
             if (property === "deity") {
-                details.deities = { primary: null, secondary: null };
+                details.deities = { primary: null, secondary: null, domains: {} };
             } else if (property !== "background") {
                 details[property] = null;
             }
