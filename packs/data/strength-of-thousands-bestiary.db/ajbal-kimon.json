@@ -130,9 +130,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -278,9 +275,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -417,9 +411,6 @@
                     "value": 3
                 },
                 "baseItem": "scale-mail",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -834,9 +825,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Use Nimble Dodge",
-                        "property": "flags.pf2e.rollOptions.all.nimbleDodge"
+                        "option": "nimbleDodge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -890,9 +883,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is your Hunted Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                        "option": "hunted-prey",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -921,9 +916,11 @@
                         "value": 2
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "First attack on hunted prey this round",
-                        "property": "flags.pf2e.rollOptions.all.firstAttack"
+                        "option": "firstAttack",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",
@@ -986,7 +983,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

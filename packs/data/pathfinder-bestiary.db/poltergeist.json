@@ -159,9 +159,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -262,9 +259,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -289,13 +283,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 3
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "6ptXWWAwrafuOZ7Z"
                 },
                 "materials": {
@@ -378,9 +370,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -906,14 +895,18 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "attack-roll",
+                        "key": "RollOption",
                         "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.MultiAttackLabel",
-                        "property": "flags.pf2e.rollOptions.attack-roll.telekineticStormMulti"
+                        "option": "telekineticStormMulti",
+                        "toggleable": true
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "PF2E.NPCAbility.PoltergeistTelekineticStorm.SingleAttackLabel",
-                        "property": "flags.pf2e.rollOptions.all.telekineticStormSingle"
+                        "option": "telekineticStormSingle",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

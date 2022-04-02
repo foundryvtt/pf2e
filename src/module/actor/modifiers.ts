@@ -31,7 +31,7 @@ export const MODIFIER_TYPE = {
     UNTYPED: "untyped",
 } as const;
 
-export const MODIFIER_TYPES = [
+export const MODIFIER_TYPES = new Set([
     "ability",
     "circumstance",
     "item",
@@ -39,9 +39,9 @@ export const MODIFIER_TYPES = [
     "proficiency",
     "status",
     "untyped",
-] as const;
+] as const);
 
-export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
+export type ModifierType = SetElement<typeof MODIFIER_TYPES>;
 
 export interface BaseRawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */

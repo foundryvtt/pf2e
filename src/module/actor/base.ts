@@ -302,6 +302,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.data.data.tokenEffects = [];
         this.data.data.autoChanges = {};
         this.data.data.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
+        this.data.data.toggles = [];
 
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
@@ -525,6 +526,41 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 speaker: ChatMessage.getSpeaker({ actor: this }),
             });
         }
+    }
+
+    /** Toggle the provided roll option (swapping it from true to false or vice versa). */
+    async toggleRollOption(domain: string, option: string, value = !this.rollOptions[domain]?.[option]): Promise<this> {
+        domain = domain.replace(/[^-\w]/g, "");
+        option = option.replace(/[^-:\w]/g, "");
+
+        if (domain && option) {
+            return this.update({ [`flags.pf2e.rollOptions.${domain}.${option}`]: value });
+        }
+        return this;
+    }
+
+    /**
+     * Handle how changes to a Token attribute bar are applied to the Actor.
+     *
+     * If the attribute bar is for hp and the change is in delta form, defer to the applyDamage method. Otherwise, do nothing special
+     * @param attribute The attribute path
+     * @param value     The target attribute value
+     * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
+     */
+    override async modifyTokenAttribute(
+        attribute: string,
+        value: number,
+        isDelta = false,
+        isBar = true
+    ): Promise<this> {
+        const tokens = this.getActiveTokens();
+        if (attribute === "attributes.hp" && isDelta && tokens.length) {
+            await this.applyDamage(-value, tokens[0]);
+            return this;
+        }
+
+        return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
     /**
@@ -1055,7 +1091,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Unregister all effects possessed by this actor */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.unregister(effect);
         }

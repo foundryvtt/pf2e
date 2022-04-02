@@ -130,9 +130,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "unarmed",
                 "containerId": null,
                 "damage": {
@@ -279,9 +276,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -532,8 +526,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.nimble-dodge"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "nimble-dodge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -722,7 +718,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

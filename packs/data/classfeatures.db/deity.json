@@ -23,7 +23,65 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowedDrops": {
+                    "all": [
+                        "item:type:deity"
+                    ]
+                },
+                "choices": {
+                    "itemType": "deity",
+                    "pack": "pf2e.deities",
+                    "query": "{}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
+                "baseType": "fist",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.fist",
+                "predicate": {
+                    "all": [
+                        "deity:primary:favored-weapon:fist"
+                    ]
+                },
+                "range": null,
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "nonlethal",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.favoredWeaponRank",
+                "predicate": {
+                    "all": [
+                        "class:cleric"
+                    ]
+                },
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -37,7 +95,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/features/classes/deity.webp",
     "name": "Deity",
     "type": "feat"
 }

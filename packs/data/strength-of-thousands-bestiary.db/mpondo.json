@@ -142,9 +142,6 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 5,
@@ -293,9 +290,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -407,9 +401,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -509,9 +500,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -623,9 +611,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -749,9 +734,6 @@
                     "areaType": "",
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "ritual"
                 },
@@ -855,9 +837,6 @@
                 },
                 "areasize": {
                     "value": "60-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -965,9 +944,6 @@
                     "areaType": "",
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "focus"
                 },
@@ -1062,9 +1038,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1172,9 +1145,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1285,9 +1255,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1415,9 +1382,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1547,9 +1511,6 @@
                 "areasize": {
                     "value": "30-foot emanation"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1661,9 +1622,6 @@
                     "areaType": "",
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "focus"
                 },
@@ -1759,9 +1717,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1889,9 +1844,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2021,9 +1973,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -2132,9 +2081,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -2279,9 +2225,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -2418,9 +2361,6 @@
                     "value": 1
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 10
-                },
                 "category": "shield",
                 "check": {
                     "value": 0
@@ -2537,9 +2477,6 @@
                     "value": 2
                 },
                 "baseItem": "chain-shirt",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -2657,9 +2594,6 @@
             "_id": "QSIWlBBGbqY7Nco9",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>When sounded, a signal horn can be heard clearly up to half a mile away across open terrain.</p>"
@@ -2761,9 +2695,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",

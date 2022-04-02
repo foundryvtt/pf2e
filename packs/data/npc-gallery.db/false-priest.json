@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -267,9 +264,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -408,9 +402,6 @@
                     "value": 2
                 },
                 "baseItem": "studded-leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -525,9 +516,6 @@
             "_id": "11lHNwFvX3hxSXQ3",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
@@ -610,9 +598,6 @@
             "_id": "64r9RgELkr6OXrX7",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks.</p>"
@@ -694,9 +679,6 @@
             "_id": "q7PNw0PeVpAbdvGg",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
@@ -778,9 +760,6 @@
             "_id": "K5ctIW4y45e7yzcF",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
@@ -875,9 +854,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -995,9 +971,6 @@
             "_id": "zEyJJyZtRmrTwf2n",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "denomination": {
                     "value": "gp"
@@ -1273,9 +1246,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is Flat Footed due to a Feint or Deceiver's Surprise",
-                        "property": "flags.pf2e.rollOptions.all.deceivers-surprise"
+                        "option": "deceivers-surprise",
+                        "toggleable": true
                     },
                     {
                         "category": "precision",
@@ -1284,7 +1259,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -1304,7 +1279,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted",
+                                "target:condition:flat-footed",
                                 "deceivers-surprise"
                             ],
                             "any": [

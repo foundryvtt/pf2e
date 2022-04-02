@@ -140,9 +140,6 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 5,
@@ -272,9 +269,6 @@
                 "areasize": {
                     "value": "30-foot emanation"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -389,9 +383,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -499,9 +490,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -613,9 +601,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -725,9 +710,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -843,9 +825,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -959,9 +938,6 @@
                 "areasize": {
                     "value": "5-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1073,9 +1049,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1203,9 +1176,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1314,9 +1284,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -1452,9 +1419,6 @@
             "_id": "uYklkDltD5DuFVB7",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -1532,9 +1496,6 @@
             "_id": "EozEU2EXtYF3roQx",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>A spellbook holds the written knowledge necessary to learn and prepare various spells, a necessity for wizards (who typically get one for free) and a useful luxury for other spellcasters looking to learn additional spells. Each spellbook can hold up to 100 spells. The Price listed is for a blank spellbook.</p>"
@@ -1616,9 +1577,6 @@
             "_id": "TyYuupAf39PFsWJO",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This pouch contains material components for those spells that require them. Though the components are used up over time, you can refill spent components during your daily preparations.</p>"
@@ -1719,9 +1677,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",

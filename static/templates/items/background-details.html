@@ -45,7 +45,7 @@
 </div>
 
 {{~#*inline "abcItems"~}}
-    <ul class="abc-items">
+    <ul class="item-refs">
         {{~#each items as |item i|}}
             <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
                 <img src="{{item.img}}">
@@ -62,7 +62,7 @@
     </ul>
 {{~/inline~}}
 
-<div class="form-group-stacked abc-list" data-valid-drops="skill">
+<div class="form-group-stacked item-ref-group" data-valid-drops="skill">
     <label for="data.traits">
         {{localize "PF2E.BackgroundSkillFeats"}}
     </label>

@@ -125,9 +125,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -270,9 +267,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -410,9 +404,6 @@
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -689,8 +680,10 @@
                         "value": 1
                     },
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.formation"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "formation",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -757,9 +750,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is your Hunted Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                        "option": "hunted-prey",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -788,9 +783,11 @@
                         "value": 2
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "First attack on hunted prey this round",
-                        "property": "flags.pf2e.rollOptions.all.first-attack"
+                        "option": "first-attack",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",

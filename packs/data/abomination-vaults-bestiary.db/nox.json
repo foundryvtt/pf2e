@@ -142,9 +142,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -245,9 +242,6 @@
                 "areasize": {
                     "value": "20-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -272,13 +266,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "vTyv5W3SkeNgrprr"
                 },
                 "materials": {
@@ -363,9 +355,6 @@
                 "areasize": {
                     "value": "10-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -400,13 +389,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "vTyv5W3SkeNgrprr"
                 },
                 "materials": {
@@ -494,9 +481,6 @@
                 },
                 "areasize": {
                     "value": "30-foot emanation"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -612,9 +596,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -724,9 +705,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -869,9 +847,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -1010,9 +985,6 @@
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -1127,9 +1099,6 @@
             "_id": "kqpPg4HkBr9iLaWM",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played. A virtuoso instrument gives a +1 item bonus to Performance checks using that instrument.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Performance checks using that instrument.</li>\n</ul>"
@@ -1237,9 +1206,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -1695,7 +1661,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

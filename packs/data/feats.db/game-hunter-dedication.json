@@ -38,9 +38,11 @@
                 "uuid": "Compendium.pf2e.actionspf2e.Hunt Prey"
             },
             {
-                "key": "ToggleProperty",
+                "domain": "all",
+                "key": "RollOption",
                 "label": "Target is your Hunted Prey (Animal Beast, or Dragon Only)",
-                "property": "flags.pf2e.rollOptions.all.huntedPreyGameHunter"
+                "option": "huntedPreyGameHunter",
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
@@ -77,7 +79,7 @@
                 "predicate": {
                     "all": [
                         "huntedPreyGameHunter",
-                        "target:flatFooted"
+                        "target:condition:flat-footed"
                     ]
                 },
                 "selector": "attack",

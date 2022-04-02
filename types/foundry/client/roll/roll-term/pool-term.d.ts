@@ -13,7 +13,7 @@ declare global {
      * });
      * pool.evaluate();
      */
-    class PoolTerm<TData extends PoolTermData> extends RollTerm<TData> {
+    class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTerm<TData> {
         constructor({ terms, modifiers, rolls, results, options }?: TData);
 
         /** The original provided terms to the Dice Pool */

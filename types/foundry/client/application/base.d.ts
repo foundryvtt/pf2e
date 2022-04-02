@@ -1,83 +1,6 @@
 export {};
 
 declare global {
-    interface ApplicationOptions {
-        /** A named "base application" which generates an additional hook */
-        baseApplication: string | null;
-        /** The default pixel width for the rendered HTML */
-        width: number | string | null;
-        /** The default pixel height for the rendered HTML */
-        height: number | string | null;
-        /** The default offset-top position for the rendered HTML */
-        top: number | null;
-        /** The default offset-left position for the rendered HTML */
-        left: number | null;
-        /** Whether to display the application as a pop-out container */
-        popOut: boolean;
-        /** Whether the rendered application can be minimized (popOut only) */
-        minimizable: boolean;
-        /** Whether the rendered application can be drag-resized (popOut only) */
-        resizable: boolean | null;
-        /** The default CSS id to assign to the rendered HTML */
-        id: string;
-        /** An array of CSS string classes to apply to the rendered HTML */
-        classes: string[];
-        /** Track Tab navigation handlers which are active for this Application */
-        tabs: TabsOptions[];
-        dragDrop: {
-            callbacks?: {
-                dragover?: Function;
-                dragstart?: Function;
-                drop?: Function;
-            };
-            dragSelector?: string;
-            dropSelector?: string;
-        }[];
-        /** A default window title string (popOut only) */
-        title: string;
-        /** The default HTML template path to render for this Application */
-        template: string | null;
-        /**
-         * A list of unique CSS selectors which target containers that should
-         * have their vertical scroll positions preserved during a re-render.
-         */
-        scrollY: string[];
-    }
-
-    interface ApplicationHeaderButton {
-        label: string;
-        class: string;
-        icon: string;
-        onclick: ((event: Event) => void) | null;
-    }
-
-    interface RenderOptions {
-        /** The left positioning attribute */
-        left?: number;
-        /** The top positioning attribute */
-        top?: number;
-        /** The rendered width */
-        width?: number;
-        /** The rendered height */
-        height?: number;
-        /** The rendered transformation scale */
-        scale?: number;
-        /** Whether to display a log message that the Application was rendered */
-        log?: boolean;
-        /** A context-providing string which suggests what event triggered the render */
-        renderContext?: string;
-        /** The data change which motivated the render request */
-        renderData?: any;
-    }
-
-    interface ApplicationPosition {
-        width?: number;
-        height?: number;
-        left?: number;
-        top?: number;
-        scale?: number;
-    }
-
     /** The standard application window that is rendered for a large variety of UI elements in Foundry VTT */
     class Application<TOptions extends ApplicationOptions = ApplicationOptions> {
         constructor(options?: Partial<TOptions>);
@@ -354,6 +277,83 @@ declare global {
          * Additional actions to take when the application window is resized
          */
         protected _onResize(event: Event | JQuery.Event): void;
+    }
+
+    interface ApplicationOptions {
+        /** A named "base application" which generates an additional hook */
+        baseApplication: string | null;
+        /** The default pixel width for the rendered HTML */
+        width: number | string | null;
+        /** The default pixel height for the rendered HTML */
+        height: number | string | null;
+        /** The default offset-top position for the rendered HTML */
+        top: number | null;
+        /** The default offset-left position for the rendered HTML */
+        left: number | null;
+        /** Whether to display the application as a pop-out container */
+        popOut: boolean;
+        /** Whether the rendered application can be minimized (popOut only) */
+        minimizable: boolean;
+        /** Whether the rendered application can be drag-resized (popOut only) */
+        resizable: boolean | null;
+        /** The default CSS id to assign to the rendered HTML */
+        id: string;
+        /** An array of CSS string classes to apply to the rendered HTML */
+        classes: string[];
+        /** Track Tab navigation handlers which are active for this Application */
+        tabs: TabsOptions[];
+        dragDrop: {
+            callbacks?: {
+                dragover?: Function;
+                dragstart?: Function;
+                drop?: Function;
+            };
+            dragSelector?: string;
+            dropSelector?: string;
+        }[];
+        /** A default window title string (popOut only) */
+        title: string;
+        /** The default HTML template path to render for this Application */
+        template: string | null;
+        /**
+         * A list of unique CSS selectors which target containers that should
+         * have their vertical scroll positions preserved during a re-render.
+         */
+        scrollY: string[];
+    }
+
+    interface ApplicationHeaderButton {
+        label: string;
+        class: string;
+        icon: string;
+        onclick: ((event: Event) => void) | null;
+    }
+
+    interface RenderOptions {
+        /** The left positioning attribute */
+        left?: number;
+        /** The top positioning attribute */
+        top?: number;
+        /** The rendered width */
+        width?: number;
+        /** The rendered height */
+        height?: number;
+        /** The rendered transformation scale */
+        scale?: number;
+        /** Whether to display a log message that the Application was rendered */
+        log?: boolean;
+        /** A context-providing string which suggests what event triggered the render */
+        renderContext?: string;
+        /** The data change which motivated the render request */
+        renderData?: any;
+    }
+
+    interface ApplicationPosition {
+        width?: number;
+        height?: number;
+        left?: number;
+        top?: number;
+        scale?: number;
     }
 
     type ApplicationRenderState = typeof Application["RENDER_STATES"][keyof typeof Application["RENDER_STATES"]];

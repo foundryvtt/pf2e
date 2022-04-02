@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -263,9 +260,6 @@
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -380,9 +374,6 @@
             "_id": "hHCP08kAOR4XgVJL",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
@@ -614,9 +605,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "First attack on marked target this round",
-                        "property": "flags.pf2e.rollOptions.all.first-attack"
+                        "option": "first-attack",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",

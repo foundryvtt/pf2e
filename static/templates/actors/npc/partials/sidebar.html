@@ -110,7 +110,7 @@
         {{/if}}
     </div>
     <div class="side-bar-section-content">
-        {{#each data.traits.dv as |weakness key|}}
+        {{#each data.traits.dv as |weakness|}}
             <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{localize weakness.label}} {{weakness.value}}</div>
         {{/each}}
     </div>
@@ -128,7 +128,7 @@
         {{/if}}
     </div>
     <div class="side-bar-section-content">
-        {{#each data.traits.dr as |resistance key|}}
+        {{#each data.traits.dr as |resistance|}}
             <div class="tag-legacy resistance" data-weakness="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
@@ -147,8 +147,8 @@
     </div>
 
     <div class="side-bar-section-content">
-        {{#each immunities as |immunity key|}}
-            <div class="tag-legacy immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
+        {{#each immunities as |immunity type|}}
+            <div class="tag-legacy immunity" data-weakness="{{type}}">{{localize immunity.label}}</div>
         {{/each}}
     </div>
 </div>

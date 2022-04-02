@@ -19,6 +19,12 @@ import { Migration727TrimSelfRollOptions } from "@module/migration/migrations/72
 import { Migration728FlattenPhysicalProperties } from "@module/migration/migrations/728-flatten-physical-properties";
 import { Migration729CumulativeItemBonusCleanup } from "@module/migration/migrations/729-cumulative-item-bonus-cleanup";
 import { Migration730DeruneHandwraps } from "@module/migration/migrations/730-derune-handwraps";
+import { Migration731TogglePropertyToRollOption } from "@module/migration/migrations/731-toggle-property-to-roll-option";
+import { Migration732FixDedicationFeatTypes } from "@module/migration/migrations/732-fix-dedication-feat-types";
+import { Migration733ItemBonusFromEquipment } from "@module/migration/migrations/733-item-bonus-from-equipment";
+import { Migration734SpellLocationPropsAndSignature } from "@module/migration/migrations/734-spell-location-props-and-signature";
+import { Migration735FirearmAmmoAlchemical } from "@module/migration/migrations/735-firearm-ammo-alchemical";
+import { Migration736RemoveBrokenThreshold } from "@module/migration/migrations/736-remove-broken-threshold";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -34,6 +40,12 @@ const migrations: MigrationBase[] = [
     new Migration728FlattenPhysicalProperties(),
     new Migration729CumulativeItemBonusCleanup(),
     new Migration730DeruneHandwraps(),
+    new Migration731TogglePropertyToRollOption(),
+    new Migration732FixDedicationFeatTypes(),
+    new Migration733ItemBonusFromEquipment(),
+    new Migration734SpellLocationPropsAndSignature(),
+    new Migration735FirearmAmmoAlchemical(),
+    new Migration736RemoveBrokenThreshold(),
 ];
 
 global.deepClone = <T>(original: T): T => {

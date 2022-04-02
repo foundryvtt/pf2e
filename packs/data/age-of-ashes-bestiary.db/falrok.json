@@ -319,9 +319,11 @@
                         "value": 3
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "In lazurite infused terrain",
-                        "property": "flags.pf2e.rollOptions.all.terrain:lazurite"
+                        "option": "terrain:lazurite",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -706,7 +708,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

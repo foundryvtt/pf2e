@@ -29,6 +29,24 @@
         },
         "rules": [
             {
+                "allowedDrops": {
+                    "all": [
+                        "item:type:deity"
+                    ]
+                },
+                "choices": {
+                    "itemType": "deity",
+                    "pack": "pf2e.deities",
+                    "query": "{}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Deity"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.deity}"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.skills.rel.rank",

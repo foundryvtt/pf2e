@@ -1,10 +1,10 @@
 import { SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
-import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
+import { ItemLevelData, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@system/damage";
-import { ValuesList, OneToTen } from "@module/data";
+import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
 
@@ -43,7 +43,7 @@ export interface SpellDamage {
     type: SpellDamageType;
 }
 
-export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
+export interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     traits: SpellTraits;
     level: {
         value: OneToTen;
@@ -105,18 +105,20 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     ability: {
         value: AbilityString;
     };
-    location: {
-        value: string;
-    };
-    heightenedLevel?: {
-        value: number;
-    };
     hasCounteractCheck: {
         value: boolean;
     };
-    autoHeightenLevel: {
-        value: OneToTen | null;
+    location: {
+        value: string;
+        signature?: boolean;
+        heightenedLevel?: number;
+
+        /** The level to heighten this spell to if it's a cantrip or focus spell */
+        autoHeightenLevel?: OneToTen | null;
+
+        /** Number of uses if this is an innate spell */
+        uses?: ValueAndMax;
     };
 }
 
-export type SpellSystemData = SpellSystemSource;
+export type SpellSystemData = SpellSystemSource & ItemSystemData;

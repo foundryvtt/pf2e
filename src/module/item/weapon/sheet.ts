@@ -9,6 +9,7 @@ import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import { WeaponPF2e } from ".";
 import { RANGED_WEAPON_GROUPS, WeaponPropertyRuneSlot, WEAPON_RANGES } from "./data";
+import { createSheetTags } from "@module/sheet/helpers";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData() {
@@ -123,10 +124,10 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             }),
             {}
         );
-        const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
         const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
         const mandatoryRanged =
-            rangedWeaponGroups.includes(this.item.group ?? "") || rangedOnlyTraits.some((trait) => traitSet.has(trait));
+            rangedWeaponGroups.has(this.item.group ?? "") || rangedOnlyTraits.some((trait) => traitSet.has(trait));
         const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
 
         const meleeUsage = sheetData.data.meleeUsage ?? {
@@ -142,10 +143,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
-            traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
-            otherTags: this.prepareOptions(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags, {
-                selectedOnly: true,
-            }),
+            traits: createSheetTags(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits),
+            otherTags: createSheetTags(CONFIG.PF2E.otherWeaponTags, sheetData.item.data.traits.otherTags),
             adjustedLevelHint,
             adjustedPriceHint,
             abpEnabled,
@@ -171,9 +170,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             isComboWeapon,
             meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
             meleeUsage,
-            meleeUsageTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? [], {
-                selectedOnly: true,
-            }),
+            meleeUsageTraits: createSheetTags(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? []),
         };
     }
 

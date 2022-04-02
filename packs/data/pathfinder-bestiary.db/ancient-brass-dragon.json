@@ -162,9 +162,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -265,9 +262,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -292,13 +286,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "pqQTzMV3UX2rq1M9"
                 },
                 "materials": {
@@ -839,8 +831,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.ac.wingDeflection"
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "wingDeflection",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

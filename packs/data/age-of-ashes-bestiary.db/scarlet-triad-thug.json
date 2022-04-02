@@ -125,9 +125,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -272,9 +269,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -411,9 +405,6 @@
                     "value": 4
                 },
                 "baseItem": "chain-mail",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -531,9 +522,6 @@
             "_id": "9FXyozNfJ4cDMvMy",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two‑legged creature with its legs bound takes a -15‑foot circumstance penalty to its Speeds, and a two‑handed creature with its wrists bound has to succeed at a DC 5 flat check any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any.Freeing a creature from average manacles requires four successful DC 27 Thievery checks.</p>"
@@ -615,9 +603,6 @@
             "_id": "S16umnQkXhv237qK",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -1028,9 +1013,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "Target is Within Range of At Least Two Allies",
-                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
+                        "option": "pack-attack",
+                        "toggleable": true
                     },
                     {
                         "diceNumber": 1,

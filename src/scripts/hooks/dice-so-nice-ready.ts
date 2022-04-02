@@ -28,7 +28,7 @@ export const DiceSoNiceReady = {
         Hooks.once("diceSoNiceReady", (dice3d: unknown) => {
             if (!isDice3D(dice3d)) return;
 
-            dice3d.addSystem({ id: "basic", name: "Dicefinder Basic", colorset: "basic" }, "preferred");
+            dice3d.addSystem({ id: "basic", name: "Dicefinder Basic", colorset: "basic" });
 
             for (const faces of [4, 6, 8, 10, 12]) {
                 dice3d.addDicePreset({

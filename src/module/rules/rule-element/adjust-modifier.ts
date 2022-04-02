@@ -13,8 +13,6 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
     /** An optional relabeling of the adjusted modifier */
     relabel?: string;
 
-    slug: string | null;
-
     selectors: string[];
 
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
@@ -24,7 +22,6 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
             this.relabel = data.relabel;
         }
 
-        this.slug = this.data.slug ?? null;
         this.data.predicate = new PredicatePF2e(this.data.predicate);
         this.selectors =
             typeof this.data.selector === "string"

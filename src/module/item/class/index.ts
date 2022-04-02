@@ -1,10 +1,10 @@
 import { CharacterPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/data/values";
 import { ARMOR_CATEGORIES } from "@item/armor/data";
+import { ABCItemPF2e, FeatPF2e } from "@item";
 import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { sluggify } from "@util";
-import { ABCItemPF2e } from "../abc";
 import { ClassData, ClassTrait } from "./data";
 
 export class ClassPF2e extends ABCItemPF2e {
@@ -16,6 +16,18 @@ export class ClassPF2e extends ABCItemPF2e {
         return this.data.data.hp;
     }
 
+    /** Include all class features in addition to any with the expected location ID */
+    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+        if (!this.actor) return [];
+
+        return Array.from(
+            new Set([
+                ...super.getLinkedFeatures(),
+                ...this.actor.itemTypes.feat.filter((f) => f.featType === "classfeature"),
+            ])
+        );
+    }
+
     /** Prepare a character's data derived from their class */
     override prepareActorData(this: Embedded<ClassPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
@@ -23,6 +35,7 @@ export class ClassPF2e extends ABCItemPF2e {
             return;
         }
 
+        this.actor.class = this;
         const classDetails = this.data.data;
         const { attributes, details, martial, saves } = this.actor.data.data;
         attributes.classhp = this.hpPerLevel;

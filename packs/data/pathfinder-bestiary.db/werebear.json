@@ -131,9 +131,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -276,9 +273,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -417,9 +411,6 @@
                     "value": 2
                 },
                 "baseItem": "chain-shirt",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -1029,8 +1020,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.huntPrey"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "huntPrey",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1206,8 +1199,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.precisionEdge"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "precisionEdge",
+                        "toggleable": true
                     },
                     {
                         "category": "precision",

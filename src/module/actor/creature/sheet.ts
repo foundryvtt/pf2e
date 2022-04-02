@@ -2,7 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { SpellPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from "@item";
 import { CreaturePF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
-import { ZeroToFour } from "@module/data";
+import { goesToEleven, ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
@@ -11,6 +11,7 @@ import { NPCStrike } from "@actor/npc/data";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CreatureSheetData } from "./types";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
+import { createSheetTags } from "@module/sheet/helpers";
 
 /**
  * Base class for NPC and character sheets
@@ -62,10 +63,11 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         return {
             ...sheetData,
+            languages: createSheetTags(CONFIG.PF2E.languages, this.actor.data.data.traits.languages),
             abilities: CONFIG.PF2E.abilities,
             skills: CONFIG.PF2E.skills,
             actorSizes: CONFIG.PF2E.actorSizes,
-            alignments: CONFIG.PF2E.alignments,
+            alignments: deepClone(CONFIG.PF2E.alignments),
             rarity: CONFIG.PF2E.rarityTraits,
             attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
@@ -200,7 +202,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         });
 
         // Casting spells and consuming slots
-        $html.find(".cast-spell-button").on("click", (event) => {
+        $html.find("button[data-action=cast-spell]").on("click", (event) => {
             const $spellEl = $(event.currentTarget).closest(".item");
             const { itemId, spellLvl, slotId, entryId } = $spellEl.data();
             const entry = this.actor.spellcasting.get(entryId);
@@ -216,6 +218,26 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
 
             entry.cast(spell, { slot: slotId, level: spellLvl });
+        });
+
+        // Regenerating spell slots and spell uses
+        $html.find(".spell-slots-increment-reset").on("click", (event) => {
+            const target = $(event.currentTarget);
+            const itemId = target.data().itemId;
+            const itemLevel = target.data().level;
+            const actor = this.actor;
+            const item = actor.items.get(itemId);
+            if (item instanceof SpellcastingEntryPF2e) {
+                const data = item.data.toObject();
+                if (!data.data.slots) return;
+                const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
+                data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
+                item.update(data);
+            } else if (item instanceof SpellPF2e) {
+                const max = item.data.data.location.uses?.max;
+                if (!max) return;
+                item.update({ "data.location.uses.value": max });
+            }
         });
 
         const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
@@ -265,33 +287,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
-        const { containerId } = event.target.closest(".item-container").dataset;
         const { itemId } = event.target.closest(".item").dataset;
-
-        if (!containerId || !itemId) {
-            return;
-        }
-
-        const spellcastingEntry = this.actor.items.get(containerId);
         const spell = this.actor.items.get(itemId);
-
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
+        if (!(spell instanceof SpellPF2e)) {
             return;
         }
 
-        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
-
-        if (!signatureSpells.includes(spell.id)) {
-            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
-                return;
-            }
-
-            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
-            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
-        } else {
-            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
-            spellcastingEntry.update({ "data.signatureSpells.value": updatedSignatureSpells });
-        }
+        spell.update({ "data.location.signature": !spell.data.data.location.signature });
     }
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {

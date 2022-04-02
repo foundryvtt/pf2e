@@ -154,9 +154,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -268,9 +265,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -371,9 +365,6 @@
                 "areasize": {
                     "value": "5-foot emanation"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -398,13 +389,11 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "RSjHu4e8K4hrZFHY"
                 },
                 "materials": {
@@ -487,9 +476,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -514,13 +500,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "RSjHu4e8K4hrZFHY"
                 },
                 "materials": {
@@ -606,9 +590,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -633,13 +614,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "RSjHu4e8K4hrZFHY"
                 },
                 "materials": {
@@ -724,9 +703,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -856,9 +832,6 @@
                 "areasize": {
                     "value": "30-foot emanation"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -973,9 +946,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "focus"
                 },
@@ -1082,9 +1052,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1212,9 +1179,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1344,9 +1308,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1371,13 +1332,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "RSjHu4e8K4hrZFHY"
                 },
                 "materials": {
@@ -1460,9 +1419,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1574,9 +1530,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -1712,9 +1665,6 @@
             "_id": "I05XhRoBKsDLX3B1",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
@@ -1815,9 +1765,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",

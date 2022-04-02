@@ -9,14 +9,11 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
-import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { CheckPF2e } from "@system/rolls";
 import {
-    Alignment,
-    AlignmentTrait,
     CreatureSkills,
     CreatureSpeeds,
     InitiativeRollParams,
@@ -32,7 +29,7 @@ import { Statistic } from "@system/statistic";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
@@ -42,9 +39,10 @@ import { DeferredModifier } from "@module/rules/rule-element/data";
 import { DamageType } from "@system/damage";
 import { StrikeData } from "@actor/data/base";
 import {
+    Alignment,
+    AlignmentTrait,
     AttackItem,
     AttackRollContext,
-    AttackTarget,
     GetReachParameters,
     IsFlatFootedParams,
     StrikeRollContext,
@@ -294,7 +292,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
 
         // Set base actor-shield data for PCs NPCs
-        if (this.data.type === "character" || this.data.type === "npc") {
+        if (this.isOfType("character", "npc")) {
             this.data.data.attributes.shield = {
                 itemId: null,
                 name: game.i18n.localize("PF2E.ArmorTypeShield"),
@@ -310,16 +308,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        this.data.data.toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
-                    checked: !!this.rollOptions.all["target:flatFooted"],
-                    enabled: true,
-                },
-            ],
-        };
+        const flatFootedOption = "target:condition:flat-footed";
+        this.data.data.toggles = [
+            {
+                label: "PF2E.TargetFlatFootedLabel",
+                domain: "all",
+                option: flatFootedOption,
+                checked: !!this.rollOptions.all[flatFootedOption],
+                enabled: true,
+            },
+        ];
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -598,15 +596,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(domain: string, option: string): Promise<this> {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
-            throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
-        }
-        const flag = `rollOptions.${domain}.${option}`;
-        return this.setFlag("pf2e", flag, !this.rollOptions[domain]?.[option]);
-    }
-
     /** Prepare derived creature senses from Rules Element synthetics */
     prepareSenses(data: SenseData[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
         const preparedSenses = data.map((datum) => new CreatureSensePF2e(datum));
@@ -700,19 +689,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         params.domains ??= [];
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
-        const attackTarget: AttackTarget | null = context.target ? { ...context.target, dc: null } : null;
-        if (attackTarget && attackTarget.actor.attributes.ac) {
-            attackTarget.dc = {
-                scope: "attack",
-                slug: "ac",
-                value: attackTarget.actor.attributes.ac.value,
-            };
-        }
-
+        const targetActor = context.target?.actor;
         return {
-            options: Array.from(new Set(context.options)),
-            self: context.self,
-            target: attackTarget,
+            ...context,
+            dc: targetActor?.attributes.ac
+                ? {
+                      scope: "attack",
+                      slug: "ac",
+                      value: targetActor.attributes.ac.value,
+                  }
+                : null,
         };
     }
 
@@ -792,7 +778,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : null;
 
         return {
-            options: rollOptions,
+            options: Array.from(new Set(rollOptions)),
             self,
             target,
         };
@@ -801,16 +787,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
-
-    /** Re-prepare familiars when their masters are updated */
-    protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentUpdateContext<this>,
-        userId: string
-    ): void {
-        super._onUpdate(changed, options, userId);
-        prepareMinions(this);
-    }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,

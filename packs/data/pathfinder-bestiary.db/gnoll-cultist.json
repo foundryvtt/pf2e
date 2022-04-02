@@ -146,9 +146,6 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 5,
@@ -294,9 +291,6 @@
                 "areasize": {
                     "value": "20-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -408,9 +402,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -537,9 +528,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -652,9 +640,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -784,9 +769,6 @@
                 "areasize": {
                     "value": "30-foot emanation"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -901,9 +883,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1017,9 +996,6 @@
                 },
                 "areasize": {
                     "value": "varies"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1146,9 +1122,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1263,9 +1236,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1374,9 +1344,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1492,9 +1459,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1606,9 +1570,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -1748,9 +1709,6 @@
                     "value": 3
                 },
                 "baseItem": "hide-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -1865,9 +1823,6 @@
             "_id": "4QfhDXthVkk5BnkW",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
@@ -2102,8 +2057,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.packAttack"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "packAttack",
+                        "toggleable": true
                     },
                     {
                         "diceNumber": 1,

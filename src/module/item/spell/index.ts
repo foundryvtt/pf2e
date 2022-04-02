@@ -3,7 +3,7 @@ import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@i
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
-import { ordinal, objectHasKey, ErrorPF2e } from "@util";
+import { ordinal, objectHasKey, ErrorPF2e, isObject } from "@util";
 import { DicePF2e } from "@scripts/dice";
 import { MagicSchool, SpellData, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
@@ -21,6 +21,7 @@ import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { UserPF2e } from "@module/user";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -45,7 +46,7 @@ export class SpellPF2e extends ItemPF2e {
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
     get level() {
-        return this.data.data.heightenedLevel?.value ?? this.baseLevel;
+        return this.data.data.location.heightenedLevel ?? this.baseLevel;
     }
 
     get traits(): Set<SpellTrait> {
@@ -107,7 +108,7 @@ export class SpellPF2e extends ItemPF2e {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) {
             return (
-                this.data.data.autoHeightenLevel.value ||
+                this.data.data.location.autoHeightenLevel ||
                 this.spellcasting?.data.data.autoHeightenLevel.value ||
                 Math.ceil(this.actor.level / 2)
             );
@@ -123,7 +124,7 @@ export class SpellPF2e extends ItemPF2e {
 
         // If we need to heighten it, clone it and return its roll data instead
         if (spellLevel && castLevel !== this.level) {
-            const heightenedSpell = this.clone({ "data.heightenedLevel.value": castLevel });
+            const heightenedSpell = this.clone({ "data.location.heightenedLevel": castLevel });
             return heightenedSpell.getRollData();
         }
 
@@ -202,7 +203,7 @@ export class SpellPF2e extends ItemPF2e {
         if (actor) {
             const statisticsModifiers = actor.synthetics.statisticsModifiers;
             const domains = ["damage", "spell-damage"];
-            const heightened = this.clone({ "data.heightenedLevel.value": castLevel });
+            const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
@@ -224,6 +225,9 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.data.data.traits.value.push(this.school, ...this.traditions);
+        if (this.spellcasting?.isInnate) {
+            mergeObject(this.data.data.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
+        }
     }
 
     override getRollOptions(prefix = this.type): string[] {
@@ -510,6 +514,39 @@ export class SpellPF2e extends ItemPF2e {
             },
             event
         );
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        await super._preUpdate(changed, options, user);
+
+        const uses = changed.data?.location?.uses;
+        if (uses) {
+            const currentUses = uses.value ?? this.data.data.location.uses?.value ?? 1;
+            const currentMax = uses.max ?? this.data.data.location.uses?.max;
+            uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
+        }
+
+        // If dragged to outside an actor, location properties should be cleaned up
+        mergeObject(changed, { data: {} });
+        const newLocation = changed.data?.location?.value;
+        const locationChanged = newLocation && newLocation !== this.data.data.location.value;
+        if ((!this.actor || locationChanged) && isObject<Record<string, unknown>>(changed.data)) {
+            const data: Record<string, unknown> = changed.data;
+            data["-=location"] = null;
+
+            if (!this.actor) {
+                data.location = { value: "" };
+            } else {
+                // If moving between spellcasting entries, make sure location updates are done last
+                const locationUpdates = changed.data?.location;
+                delete data.location;
+                data.location = locationUpdates;
+            }
+        }
     }
 }
 

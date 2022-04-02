@@ -50,7 +50,6 @@ import { UserVisibility } from "@scripts/ui/user-visibility";
 
 declare global {
     interface Game {
-        actors: ActorsPF2e;
         pf2e: {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
@@ -104,12 +103,27 @@ declare global {
     const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, EncounterPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<
+            ActorPF2e,
+            ActorsPF2e,
+            ChatMessagePF2e,
+            EncounterPF2e,
+            FolderPF2e,
+            ItemPF2e,
+            MacroPF2e,
+            ScenePF2e,
+            UserPF2e
+        >;
+    }
+
+    interface Window {
+        AutomaticBonusProgression: typeof AutomaticBonusProgression;
     }
 
     interface ClientSettings {
         get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
+        get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
         get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
@@ -142,6 +156,8 @@ declare global {
         get(module: "pf2e", setting: "worldClock.syncDarkness"): boolean;
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
+
+        get(module: "pf2e", setting: "campaignFeats"): boolean;
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];

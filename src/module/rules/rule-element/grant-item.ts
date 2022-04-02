@@ -53,8 +53,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
 
+        // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
-        tempGranted.prepareRuleElements({ suppressWarnings: true });
+        tempGranted.prepareActorData?.();
+        for (const rule of tempGranted.prepareRuleElements({ suppressWarnings: true })) {
+            rule.onApplyActiveEffects?.();
+        }
+
         this.applyChoiceSelections(tempGranted);
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items

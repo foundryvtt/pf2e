@@ -51,9 +51,11 @@
                 "rollOption": "oracular-curse"
             },
             {
-                "key": "ToggleProperty",
+                "domain": "all",
+                "key": "RollOption",
                 "label": "PF2E.OracleCurses.Battle.MadeAStrike",
-                "property": "flags.pf2e.rollOptions.all.battle-mystery"
+                "option": "battle-mystery",
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
@@ -143,15 +145,17 @@
                 "value": "@actor.level"
             },
             {
-                "key": "ToggleProperty",
+                "domain": "all",
+                "key": "RollOption",
                 "label": "PF2E.OracleCurses.Battle.NonTrivialEncounter",
+                "option": "encounter:non-trivial",
                 "predicate": {
                     "any": [
                         "oracular-curse:moderate",
                         "oracular-curse:major"
                     ]
                 },
-                "property": "flags.pf2e.rollOptions.all.encounter:non-trivial"
+                "toggleable": true
             },
             {
                 "key": "AdjustModifier",

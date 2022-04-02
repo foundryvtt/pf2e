@@ -159,9 +159,6 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -261,9 +258,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -377,9 +371,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -490,9 +481,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -600,9 +588,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -713,9 +698,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -862,9 +844,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "advanced",
                 "containerId": null,
                 "damage": {
@@ -1002,9 +981,6 @@
                     "value": 2
                 },
                 "baseItem": "studded-leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -1132,9 +1108,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -1271,9 +1244,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.RhokaSword",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",
@@ -1797,8 +1772,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.rage"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rage",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1869,8 +1846,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.reckless-abandon"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "reckless-abandon",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

@@ -45,7 +45,7 @@ declare global {
         static override REGEXP: RegExp;
 
         /** System note: contents are ["number", "faces", "modifiers", "results"] */
-        static override SERIALIZE_ATTRIBUTES: ReadonlyArray<string>;
+        static override SERIALIZE_ATTRIBUTES: string[];
 
         /* -------------------------------------------- */
         /*  Dice Term Attributes                        */

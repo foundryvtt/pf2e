@@ -36,5 +36,6 @@ export class Migration609LootActorTraits extends MigrationBase {
 type MaybeWithNoTraits = Omit<LootSystemSource, "traits"> & {
     traits?: Omit<BaseTraitsSource, "rarity"> & {
         rarity: string | { value: string };
+        ci?: unknown[];
     };
 };

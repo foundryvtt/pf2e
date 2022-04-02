@@ -132,9 +132,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -275,9 +272,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -416,9 +410,6 @@
                     "value": 2
                 },
                 "baseItem": "studded-leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -533,9 +524,6 @@
             "_id": "9n2qy19bjladuf36",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -626,9 +614,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -759,9 +744,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 1,
@@ -1189,9 +1171,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Current Target is Marked for Death",
-                        "property": "flags.pf2e.rollOptions.all.marked-for-death"
+                        "option": "marked-for-death",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1344,7 +1328,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

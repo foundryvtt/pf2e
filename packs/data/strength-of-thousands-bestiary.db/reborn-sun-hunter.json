@@ -160,9 +160,6 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 4,
@@ -280,9 +277,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -315,13 +309,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 5
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "AvzW6ZV34RIp90V7"
                 },
                 "materials": {
@@ -414,9 +406,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -544,9 +533,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -666,9 +652,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -786,9 +769,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -905,9 +885,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -1046,9 +1023,6 @@
             "_id": "IgxbUF7KM3R2U5pt",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
@@ -1444,9 +1418,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Use Nimble Dodge",
-                        "property": "flags.pf2e.rollOptions.all.nimble-dodge"
+                        "option": "nimble-dodge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1506,7 +1482,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

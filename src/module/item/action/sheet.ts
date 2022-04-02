@@ -1,12 +1,12 @@
 import { ActionPF2e } from "@item/action";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { getActionIcon } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
-    override async getData() {
+    override async getData(): Promise<ActionSheetData> {
         const data: ItemSheetDataPF2e<ActionPF2e> = await super.getData();
-        const actorWeapons = this.actor?.itemTypes.weapon.map((weapon) => weapon.data) ?? [];
 
         // Update icon based on the action cost
         data.item.img = getActionIcon(this.item.actionCost);
@@ -14,13 +14,22 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
         return {
             ...data,
             categories: CONFIG.PF2E.actionCategories,
-            weapons: actorWeapons,
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             actionTraits: CONFIG.PF2E.actionTraits,
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
-            traits: this.prepareOptions(CONFIG.PF2E.actionTraits, data.data.traits),
+            traits: createSheetTags(CONFIG.PF2E.actionTraits, data.data.traits),
         };
     }
+}
+
+interface ActionSheetData extends ItemSheetDataPF2e<ActionPF2e> {
+    categories: ConfigPF2e["PF2E"]["actionCategories"];
+    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
+    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
+    actionTraits: ConfigPF2e["PF2E"]["actionTraits"];
+    skills: ConfigPF2e["PF2E"]["skillList"];
+    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+    traits: SheetOptions;
 }

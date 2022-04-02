@@ -137,9 +137,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -274,9 +271,6 @@
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -391,9 +385,6 @@
             "_id": "7u1lbtthzbfzy533",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -471,9 +462,6 @@
             "_id": "7oD6cpZhlES7vFT3",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
@@ -568,9 +556,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -852,8 +837,10 @@
                         "selector": "hand-crossbow-damage"
                     },
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.deadly-bolts"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "deadly-bolts",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,

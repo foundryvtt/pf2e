@@ -9,7 +9,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
     getLinkedFeatures(): Embedded<FeatPF2e>[] {
         if (!this.actor) return [];
         const existingABCIds = this.actor.itemTypes[this.data.type].map((item: Embedded<ABCItemPF2e>) => item.id);
-        return this.actor.itemTypes.feat.filter((feat) => existingABCIds.includes(feat.data.data.location));
+        return this.actor.itemTypes.feat.filter((feat) => existingABCIds.includes(feat.data.data.location ?? ""));
     }
 
     protected logAutoChange(this: Embedded<ABCItemPF2e>, path: string, value: string | number): void {

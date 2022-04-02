@@ -2,33 +2,34 @@ import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponRangeIncrement } from "@item/weapon/data";
 import { PredicatePF2e } from "@system/predication";
-import { objectHasKey } from "@util";
+import { objectHasKey, setHasElement } from "@util";
 import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
 
 class AdjustStrikeRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    private static VALID_PROPERTIES = new Set(["range-increment", "traits"] as const);
+
+    /** The property of the strike to adjust */
+    private property: SetElement<typeof AdjustStrikeRuleElement["VALID_PROPERTIES"]> | null;
+
+    /** The definition of the strike in terms of its item (weapon) roll options */
+    private definition: PredicatePF2e;
+
     constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super({ ...data, predicate: data.predicate ?? {}, phase: "beforeDerived", priority: 110 }, item, options);
-    }
 
-    get definition(): PredicatePF2e {
-        return this.data.definition;
-    }
-
-    get property(): "range-increment" | "traits" {
-        return this.data.property;
+        this.property = setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, data.property) ? data.property : null;
+        this.definition = new PredicatePF2e(data.definition instanceof Object ? data.definition : {});
     }
 
     protected override validateData(): void {
-        // Assign here since AELikeRuleElement calls this method in its constructor
-        this.data.definition = new PredicatePF2e(this.data.definition);
-
+        const predicateQuantifiers = ["all", "any", "not"] as const;
         const tests = {
-            property: ["range-increment", "traits"].includes(this.data.property),
+            property: ["range-increment", "traits"].includes(this.property ?? ""),
             predicate: this.predicate.isValid,
-            definition: this.definition.isValid,
+            definition: this.definition.isValid && predicateQuantifiers.some((q) => this.definition[q].length > 0),
             mode: AELikeRuleElement.CHANGE_MODES.includes(String(this.mode)),
             value: ["string", "number"].includes(typeof this.value),
         };
@@ -92,9 +93,6 @@ interface AdjustStrikeRuleElement extends AELikeRuleElement {
 interface AdjustStrikeData extends Exclude<AELikeData, "path"> {
     /** Whether the actor is eligible to receive the strike adjustment */
     predicate: PredicatePF2e;
-    property: "range-increment" | "traits";
-    /** The definition of the strike in terms of its item (weapon) roll options */
-    definition: PredicatePF2e;
 }
 
 interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {

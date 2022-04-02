@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -263,9 +260,6 @@
             "_id": "s5e6CueENejAHsP7",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds.</p>"
@@ -512,13 +506,17 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.medical-malpractice"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "medical-malpractice",
+                        "toggleable": true
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Medical Malpractice (Critical Success)",
-                        "property": "flags.pf2e.rollOptions.all.medical-malpractice-crit"
+                        "option": "medical-malpractice-crit",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",

@@ -142,9 +142,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -245,9 +242,6 @@
                 "areasize": {
                     "value": "20-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -272,13 +266,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 4
-                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "SC5giI24l8gEnx5E"
                 },
                 "materials": {
@@ -361,9 +353,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -388,13 +377,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 3
-                },
                 "level": {
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "SC5giI24l8gEnx5E"
                 },
                 "materials": {
@@ -475,9 +462,6 @@
                 "areasize": {
                     "value": "20-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -502,13 +486,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "SC5giI24l8gEnx5E"
                 },
                 "materials": {
@@ -589,9 +571,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -728,9 +707,6 @@
             "_id": "dknkWfjE6V1wz9bK",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -821,9 +797,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -1370,8 +1343,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.wind-strike"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "wind-strike",
+                        "toggleable": true
                     },
                     {
                         "damageType": "bludgeoning",

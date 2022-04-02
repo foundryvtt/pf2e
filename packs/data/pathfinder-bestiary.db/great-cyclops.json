@@ -127,9 +127,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -267,9 +264,6 @@
                     "value": 3
                 },
                 "baseItem": "hide-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -764,8 +758,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.powerfulCharge"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "powerfulCharge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

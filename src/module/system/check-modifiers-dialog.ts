@@ -1,5 +1,5 @@
 import { ModifierPF2e, StatisticModifier } from "../actor/modifiers";
-import { CheckRollContext, FateString } from "./rolls";
+import { CheckRollContext, RollTwiceOption } from "./rolls";
 import { LocalizePF2e } from "./localize";
 
 /**
@@ -37,8 +37,8 @@ export class CheckModifiersDialog extends Application {
     }
 
     override getData() {
-        const fortune = this.context.fate === "fortune";
-        const misfortune = this.context.fate === "misfortune";
+        const fortune = this.context.rollTwice === "keep-higher";
+        const misfortune = this.context.rollTwice === "keep-lower";
         const none = fortune === misfortune;
         return {
             appId: this.id,
@@ -55,7 +55,7 @@ export class CheckModifiersDialog extends Application {
 
     override activateListeners($html: JQuery): void {
         $html.find(".roll").on("click", () => {
-            this.context.fate = $html.find("input[type=radio][name=fate]:checked").val() as FateString;
+            this.context.rollTwice = $html.find("input[type=radio][name=rollTwice]:checked").val() as RollTwiceOption;
             this.resolve(true);
             this.isResolved = true;
             this.close();

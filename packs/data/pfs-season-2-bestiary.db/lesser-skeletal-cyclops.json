@@ -156,9 +156,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -298,9 +295,6 @@
                     "value": 5
                 },
                 "baseItem": "half-plate",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "heavy",
                 "check": {
                     "value": -3
@@ -719,8 +713,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.terrifying-charge"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "terrifying-charge",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
