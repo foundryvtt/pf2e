@@ -5,6 +5,7 @@ import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { BaseWeaponType } from "@item/weapon/data";
 import type { DeityPF2e } from "./document";
+import { DeityDomain } from "./types";
 
 export type DeitySource = BaseNonPhysicalItemSource<"deity", DeitySystemSource>;
 
@@ -24,8 +25,8 @@ export interface DeitySystemSource extends ItemSystemData {
         follower: Alignment[];
     };
     domains: {
-        primary: ItemUUID[];
-        alternate: ItemUUID[];
+        primary: DeityDomain[];
+        alternate: DeityDomain[];
     };
     font: DivineFonts;
     ability: AbilityString[];
