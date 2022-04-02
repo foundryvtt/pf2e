@@ -892,7 +892,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    /** Set roll operations for ability scores and proficiency ranks */
+    /** Set roll operations for ability scores, proficiency ranks, and number of hands free */
     protected override setNumericRollOptions(): void {
         super.setNumericRollOptions();
 
@@ -915,6 +915,17 @@ class CharacterPF2e extends CreaturePF2e {
             const rank = this.data.data.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
+
+        const heldItems = this.physicalItems.filter((i) => i.isHeld);
+        const handsFree = heldItems.reduce((count, item) => {
+            const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
+            return Math.max(count - handsOccupied, 0);
+        }, 2);
+        rollOptionsAll[`hands-free:${handsFree}`] = true;
+
+        // Some rules specify ignoring the Free Hand trait
+        const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
+        rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
     prepareSaves(): void {
