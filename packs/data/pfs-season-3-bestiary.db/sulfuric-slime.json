@@ -230,16 +230,14 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "One With the Mud (Bonus to AC)",
-                        "option": "OneWithTheMud",
+                        "option": "one-with-the-mud",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "One With the Mud",
                         "predicate": {
                             "all": [
-                                "OneWithTheMud"
+                                "one-with-the-mud"
                             ]
                         },
                         "selector": "ac",
@@ -279,7 +277,22 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.WaterOrMud",
+                        "predicate": {
+                            "any": [
+                                "terrain:underwater",
+                                "terrain:water",
+                                "terrain:aquatic",
+                                "terrain:mud"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -292,7 +305,7 @@
                 "variants": {
                     "0": {
                         "label": "+5 in water or mud",
-                        "options": ""
+                        "options": "terrain:water,terrain:mud"
                     }
                 }
             },
