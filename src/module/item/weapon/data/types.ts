@@ -2,8 +2,10 @@ import { ItemFlagsPF2e } from "@item/data/base";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
-    MagicItemSystemData,
+    Investable,
     PhysicalItemTraits,
+    PhysicalSystemData,
+    PhysicalSystemSource,
     PreciousMaterialGrade,
     PreciousMaterialType,
 } from "@item/physical/data";
@@ -41,10 +43,10 @@ interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
 }
 type WeaponTraits = Required<WeaponSourceTraits>;
 
-export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
-export type WeaponGroup = typeof WEAPON_GROUPS[number];
-export type MeleeWeaponGroup = typeof MELEE_WEAPON_GROUPS[number];
-export type RangedWeaponGroup = typeof RANGED_WEAPON_GROUPS[number];
+export type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;
+export type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;
+export type MeleeWeaponGroup = SetElement<typeof MELEE_WEAPON_GROUPS>;
+export type RangedWeaponGroup = SetElement<typeof RANGED_WEAPON_GROUPS>;
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 export interface WeaponDamage {
@@ -84,7 +86,7 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-export interface WeaponSystemSource extends MagicItemSystemData {
+export interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     traits: WeaponSourceTraits;
     category: WeaponCategory;
     group: WeaponGroup | null;
@@ -141,16 +143,18 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     selectedAmmoId: string | null;
 }
 
-export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
-
-export interface WeaponSystemData extends WeaponSystemSource {
+export interface WeaponSystemData extends WeaponSystemSource, Investable<PhysicalSystemData> {
+    baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     runes: {
         potency: number;
         striking: ZeroToThree;
         property: WeaponPropertyRuneType[];
     };
+    usage: WeaponSystemSource["usage"];
 }
+
+export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
 
 export interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };

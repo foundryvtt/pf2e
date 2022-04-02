@@ -56,8 +56,13 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
             systemSource.size = size;
         }
 
-        if (systemSource.brokenThreshold instanceof Object) {
-            systemSource.hp.brokenThreshold = Number(systemSource.brokenThreshold.value);
+        if ("brokenThreshold" in systemSource) {
+            if (systemSource.brokenThreshold instanceof Object) {
+                systemSource.hp.brokenThreshold = Number(systemSource.brokenThreshold.value);
+            }
+
+            delete systemSource.brokenThreshold;
+            systemSource["-=brokenThreshold"] = null;
         }
 
         systemSource.hp.value = Number(systemSource.hp.value);
@@ -98,11 +103,13 @@ type MaybeOldSystemSource = {
     hp: ValueAndMax & { brokenThreshold: number };
     quantity: number | { value: number };
     hardness: number | { value: number };
-    brokenThreshold?: { value: number };
     stackGroup: string | null | { value: string | null };
     containerId: string | null | { value: string | null };
     size: Size | { value: Size };
     temporary?: boolean | { value: boolean };
+
+    brokenThreshold?: { value: number };
+    "-=brokenThreshold"?: null;
 
     invested?: { value: boolean | null };
     "-=invested"?: null;

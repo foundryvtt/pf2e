@@ -10,10 +10,9 @@ import {
     Rollable,
     StrikeData,
     InitiativeData,
-    RollToggle,
     BaseActorAttributes,
 } from "@actor/data/base";
-import type { ALIGNMENT_TRAITS, CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
+import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import type { CreaturePF2e } from ".";
@@ -23,6 +22,7 @@ import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { CombatantPF2e } from "@module/encounter";
 import { Statistic, StatisticCompatData } from "@system/statistic";
 import { CreatureTraits } from "@item/ancestry/data";
+import { Alignment, AlignmentTrait } from "./types";
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -54,10 +54,6 @@ export interface CreatureSystemSource extends ActorSystemSource {
 
     /** Saving throw data */
     saves?: Record<SaveType, { value?: number; mod?: number }>;
-
-    toggles?: {
-        actions: RollToggle[];
-    };
 }
 
 export interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
@@ -80,10 +76,6 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
     saves: CreatureSaves;
 
     actions?: StrikeData[];
-
-    toggles: {
-        actions: RollToggle[];
-    };
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -111,7 +103,6 @@ export type Abilities = Record<AbilityString, AbilityData>;
 export type Language = keyof ConfigPF2e["PF2E"]["languages"];
 export type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
 export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
-export type AlignmentTrait = typeof ALIGNMENT_TRAITS[number];
 
 export interface CreatureTraitsData extends BaseTraitsData {
     traits: BaseTraitsData["traits"] & {
@@ -182,8 +173,6 @@ export type CreatureInitiative = InitiativeData &
          */
         tiebreakPriority: ZeroToTwo;
     };
-
-export type Alignment = "LG" | "NG" | "CG" | "LN" | "N" | "CN" | "LE" | "NE" | "CE";
 
 export enum VisionLevels {
     BLINDED,

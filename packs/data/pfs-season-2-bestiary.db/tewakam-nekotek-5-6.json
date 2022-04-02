@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -270,9 +267,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -409,9 +403,6 @@
                     "value": 3
                 },
                 "baseItem": "scale-mail",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -539,9 +530,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -808,8 +796,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.guiding-words"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "guiding-words",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",

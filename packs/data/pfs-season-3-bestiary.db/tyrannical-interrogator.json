@@ -140,9 +140,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -241,9 +238,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "focus"
@@ -362,9 +356,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -532,9 +523,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -671,9 +659,6 @@
                     "value": 5
                 },
                 "baseItem": "half-plate",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "heavy",
                 "check": {
                     "value": -3
@@ -801,9 +786,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 1,
@@ -1029,9 +1011,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "Target triggered Iron Command reaction (negative damage)",
-                        "property": "flags.pf2e.rollOptions.damage-roll.iron-command-negative"
+                        "option": "iron-command-negative",
+                        "toggleable": true
                     },
                     {
                         "damageType": "negative",
@@ -1045,9 +1029,11 @@
                         "value": 1
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "Target triggered Iron Command reaction (evil damage)",
-                        "property": "flags.pf2e.rollOptions.damage-roll.iron-command-evil"
+                        "option": "iron-command-evil",
+                        "toggleable": true
                     },
                     {
                         "damageType": "evil",

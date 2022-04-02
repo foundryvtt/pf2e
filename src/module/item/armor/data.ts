@@ -1,8 +1,10 @@
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
-    MagicItemSystemData,
+    Investable,
     PhysicalItemTraits,
+    PhysicalSystemData,
+    PhysicalSystemSource,
 } from "@item/physical/data";
 import { ZeroToFour, ZeroToThree } from "@module/data";
 import type { LocalizePF2e } from "@module/system/localize";
@@ -28,7 +30,7 @@ export type ArmorGroup = keyof ConfigPF2e["PF2E"]["armorGroups"];
 export type BaseArmorType = keyof typeof LocalizePF2e.translations.PF2E.Item.Armor.Base;
 export type ResilientRuneType = "" | "resilient" | "greaterResilient" | "majorResilient";
 
-export interface ArmorSystemSource extends MagicItemSystemData {
+export interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     traits: ArmorTraits;
     armor: {
         value: number;
@@ -69,7 +71,9 @@ export interface ArmorSystemSource extends MagicItemSystemData {
     };
 }
 
-interface ArmorSystemData extends ArmorSystemSource {
+interface ArmorSystemData extends ArmorSystemSource, Investable<PhysicalSystemData> {
+    baseItem: BaseArmorType;
+    traits: ArmorTraits;
     runes: {
         potency: number;
         resilient: ZeroToThree;

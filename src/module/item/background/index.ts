@@ -33,6 +33,7 @@ export class BackgroundPF2e extends ABCItemPF2e {
             return;
         }
 
+        this.actor.background = this;
         const { trainedSkills } = this.data.data;
         if (trainedSkills.value.length === 1) {
             const key = trainedSkills.value[0];

@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "unarmed",
                 "containerId": null,
                 "damage": {
@@ -275,9 +272,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -413,9 +407,6 @@
             "_id": "OewrUS45ZeMl38BQ",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -562,9 +553,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "Meelika is using Blazing-Talon Surge",
-                        "property": "flags.pf2e.rollOptions.damage-roll.blazing-talon-surge"
+                        "option": "blazing-talon-surge",
+                        "toggleable": true
                     },
                     {
                         "damageType": "fire",
@@ -766,14 +759,18 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Meleeka is in Mastered Rain of Embers Stance (Full HP)",
-                        "property": "flags.pf2e.rollOptions.all.rain-of-embers-max-hp"
+                        "option": "rain-of-embers-max-hp",
+                        "toggleable": true
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Meleeka is in Mastered Rain of Embers Stance (Below Full HP)",
-                        "property": "flags.pf2e.rollOptions.all.rain-of-embers-not-max-hp"
+                        "option": "rain-of-embers-not-max-hp",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

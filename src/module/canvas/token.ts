@@ -48,7 +48,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
      * @param flankee       The potentially flanked token
      * @param context.reach An optional reach distance specific to this measurement */
     canFlank(flankee: TokenPF2e, context: { reach?: number } = {}): boolean {
-        if (this === flankee) return false;
+        if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
+            return false;
+        }
 
         if (!(this.actor?.attributes.flanking.canFlank && flankee.actor?.attributes.flanking.flankable)) {
             return false;
@@ -225,19 +227,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             return canvas.grid.measureDistance(this.position, target.position);
         }
 
-        const gridSize = canvas.dimensions.size;
-
-        const tokenRect = (token: { x: number; y: number; w: number; h: number }): PIXI.Rectangle => {
-            return new PIXI.Rectangle(
-                token.x + gridSize / 2,
-                token.y + gridSize / 2,
-                token.w - gridSize,
-                token.h - gridSize
-            );
-        };
-
         const distance = {
-            horizontal: MeasuredTemplatePF2e.measureDistanceRect(tokenRect(this), tokenRect(target), { reach }),
+            horizontal: MeasuredTemplatePF2e.measureDistanceRect(this.bounds, target.bounds, { reach }),
             vertical: 0,
         };
 
@@ -248,29 +239,27 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
         if (!(selfDimensions && targetDimensions)) return distance.horizontal;
 
-        const verticalPlane = {
-            self: {
-                x: this.x,
-                y: (this.data.elevation / 5) * gridSize,
-                w: this.w,
-                h: (selfDimensions.height / 5) * gridSize,
-            },
-            target: {
-                x: target.x,
-                y: (target.data.elevation / 5) * gridSize,
-                w: target.w,
-                h: (targetDimensions.height / 5) * gridSize,
-            },
+        const gridSize = canvas.dimensions.size;
+        const gridDistance = canvas.dimensions.distance;
+        const vertical = {
+            self: new NormalizedRectangle(
+                this.bounds.x,
+                (this.data.elevation / gridDistance) * gridSize,
+                this.bounds.width,
+                (selfDimensions.height / gridDistance) * gridSize
+            ),
+            target: new NormalizedRectangle(
+                target.bounds.x,
+                (target.data.elevation / gridDistance) * gridSize,
+                target.bounds.width,
+                (targetDimensions.height / gridDistance) * gridSize
+            ),
         };
 
-        distance.vertical = MeasuredTemplatePF2e.measureDistanceRect(
-            tokenRect(verticalPlane.self),
-            tokenRect(verticalPlane.target),
-            { reach }
-        );
-
+        distance.vertical = MeasuredTemplatePF2e.measureDistanceRect(vertical.self, vertical.target, { reach });
         const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
-        return Math.floor(hypotenuse / 5) * 5;
+
+        return Math.floor(hypotenuse / gridDistance) * gridDistance;
     }
 
     /* -------------------------------------------- */

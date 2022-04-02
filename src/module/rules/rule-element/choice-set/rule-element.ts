@@ -1,11 +1,12 @@
 import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../";
 import { FeatPF2e, ItemPF2e } from "@item";
-import { PromptChoice } from "@module/rules/apps/prompt";
+import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
-import { isObject, sluggify } from "@util";
+import { isObject, objectHasKey, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
-import { ChoiceSetData, ChoiceSetFeatQuery, ChoiceSetSource } from "./data";
+import { ChoiceSetData, ChoiceSetItemQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
+import { ItemType } from "@item/data";
 
 /**
  * Present a set of options to the user and assign their selection to an injectable property
@@ -109,17 +110,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * If an array was passed, localize & sort the labels and return. If a string, look it up in CONFIG.PF2E and
      * create an array of choices.
      */
-    private async inflateChoices(): Promise<PromptChoice<string | number | object>[]> {
-        const choices: PromptChoice<string | number>[] = Array.isArray(this.data.choices)
+    private async inflateChoices(): Promise<PickableThing<string | number | object>[]> {
+        const choices: PickableThing<string | number>[] = Array.isArray(this.data.choices)
             ? this.data.choices
             : typeof this.data.choices === "object"
-            ? await this.queryFeats(this.data.choices)
-            : Object.entries(getProperty(CONFIG.PF2E, this.data.choices)).map(([value, label]) => ({
-                  value,
-                  label: typeof label === "string" ? label : "",
-              }));
+            ? await this.queryCompendium(this.data.choices)
+            : this.getChoicesFromPath(this.data.choices);
 
-        interface ItemChoice extends PromptChoice<string> {
+        interface ItemChoice extends PickableThing<string> {
             value: ItemUUID;
         }
 
@@ -153,8 +151,20 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
     }
 
+    private getChoicesFromPath(path: string): PickableThing<string>[] {
+        const choiceObject: unknown = getProperty(CONFIG.PF2E, path) ?? getProperty(this.actor, path) ?? {};
+        if (isObject<string>(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
+            return Object.entries(choiceObject).map(([value, label]) => ({
+                value,
+                label: String(label),
+            }));
+        }
+
+        return [];
+    }
+
     /** Perform an NeDB query against the system feats compendium (or a different one if specified) */
-    private async queryFeats(choices: ChoiceSetFeatQuery): Promise<PromptChoice<ItemUUID>[]> {
+    private async queryCompendium(choices: ChoiceSetItemQuery): Promise<PickableThing<ItemUUID>[]> {
         const pack = game.packs.get(choices.pack ?? "pf2e.feats-srd");
         if (choices.postFilter) choices.postFilter = new PredicatePF2e(choices.postFilter);
 
@@ -179,16 +189,24 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 return obj;
             };
 
-            // Get the query return and ensure they're all feats
-            const query: Record<string, unknown> = resolveProperties(JSON.parse(choices.query));
-            query.type = "feat";
-            const feats = ((await pack?.getDocuments(query)) ?? []) as FeatPF2e[];
+            // Get the query return and ensure they're all of the appropriate item type
+            const itemType = objectHasKey(CONFIG.PF2E.Item.documentClasses, choices.itemType)
+                ? choices.itemType
+                : "feat";
+            const query: Record<string, unknown> & { type: ItemType } = {
+                ...resolveProperties(JSON.parse(choices.query)),
+                type: itemType,
+            };
+            const items = (await pack?.getDocuments(query)) ?? [];
+            if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) {
+                return [];
+            }
 
             // Apply the followup predication filter if there is one
             const actorRollOptions = this.actor.getRollOptions();
             const filtered = choices.postFilter
-                ? feats.filter((f) => choices.postFilter!.test([...actorRollOptions, ...f.getRollOptions("item")]))
-                : feats;
+                ? items.filter((i) => choices.postFilter!.test([...actorRollOptions, ...i.getRollOptions("item")]))
+                : items;
 
             // Exclude any feat of which the character already has its maximum number and return final list
             const existing: Map<string, number> = new Map();
@@ -198,7 +216,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             }
 
             return filtered
-                .filter((f) => (existing.get(f.slug ?? sluggify(f.name)) ?? 0) < f.maxTakeable)
+                .filter((i) =>
+                    i instanceof FeatPF2e ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakeable : true
+                )
                 .map((f) => ({ value: f.uuid, label: f.name, img: f.img }));
         } catch (error) {
             // Send warning even if suppressWarnings option is true
@@ -208,7 +228,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     }
 
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
-    private getPreselection(): PromptChoice<string | number | object> | null {
+    private getPreselection(): PickableThing<string | number | object> | null {
         const { selection } = this.data;
         const choice = Array.isArray(this.data.choices) ? this.data.choices.find((c) => c.value === selection) : null;
         return choice ?? null;

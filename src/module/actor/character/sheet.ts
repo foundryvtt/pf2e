@@ -1,17 +1,15 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
+import { FeatSource, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
-import { FeatSource } from "@item/feat/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
-import { goesToEleven } from "@module/data";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
+import { ConditionPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./data";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
@@ -81,11 +79,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             ).modifier;
         }
 
-        // ABC
+        // A(H)BCD
         sheetData.ancestry = this.actor.ancestry;
         sheetData.heritage = this.actor.heritage;
         sheetData.background = this.actor.background;
         sheetData.class = this.actor.class;
+        sheetData.deity = this.actor.deity;
 
         // Update hero points label
         sheetData.data.resources.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.resources.heroPoints.value);
@@ -106,11 +105,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Update dying icon and container width
         sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
 
-        // Update wounded, maximum wounded, and doomed.
+        // Update wounded
         sheetData.data.attributes.wounded.icon = this.getWoundedIcon(sheetData.data.attributes.wounded.value);
         sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
-        sheetData.data.attributes.doomed.icon = this.getDoomedIcon(sheetData.data.attributes.doomed.value);
-        sheetData.data.attributes.doomed.max = sheetData.data.attributes.dying.max - 1;
 
         // preparing the name of the rank, as this is displayed on the sheet
         sheetData.data.attributes.perception.rankName = game.i18n.format(
@@ -170,8 +167,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;
-        const weaponCategories: readonly string[] = WEAPON_CATEGORIES;
-        const isWeaponProficiency = (key: string): boolean => weaponCategories.includes(key) || /\bweapon\b/.test(key);
+        const weaponCategories: Set<string> = WEAPON_CATEGORIES;
+        const isWeaponProficiency = (key: string): boolean => weaponCategories.has(key) || /\bweapon\b/.test(key);
         sheetData.data.martial = Object.entries(combatProficiencies)
             .sort(([keyA, valueA], [keyB, valueB]) =>
                 isWeaponProficiency(keyA) && !isWeaponProficiency(keyB)
@@ -222,66 +219,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
         };
-
-        // Feats
-        interface GrantedFeat {
-            feat: FeatPF2e;
-            grants: GrantedFeat[];
-        }
-        interface SlottedFeat {
-            feat?: FeatData;
-            id: string;
-            level: number | string;
-            grants: GrantedFeat[];
-        }
-        interface FeatSlot {
-            label: string;
-            feats: SlottedFeat[];
-            bonusFeats: { data: FeatData; grants: GrantedFeat[] }[];
-            featFilter?: string;
-        }
-
-        const tempFeats: FeatData[] = [];
-        const featSlots: Record<string, FeatSlot> = {
-            ancestryfeature: { label: "PF2E.FeaturesAncestryHeader", feats: [], bonusFeats: [] },
-            classfeature: { label: "PF2E.FeaturesClassHeader", feats: [], bonusFeats: [] },
-            ancestry: {
-                label: "PF2E.FeatAncestryHeader",
-                feats: [],
-                bonusFeats: [],
-                featFilter: "ancestry-" + this.actor.ancestry?.slug,
-            },
-            class: {
-                label: "PF2E.FeatClassHeader",
-                feats: [],
-                bonusFeats: [],
-                featFilter: "classes-" + this.actor.class?.slug,
-            },
-            dualclass: { label: "PF2E.FeatDualClassHeader", feats: [], bonusFeats: [] },
-            archetype: { label: "PF2E.FeatArchetypeHeader", feats: [], bonusFeats: [] },
-            skill: { label: "PF2E.FeatSkillHeader", feats: [], bonusFeats: [] },
-            general: { label: "PF2E.FeatGeneralHeader", feats: [], bonusFeats: [] },
-            bonus: { label: "PF2E.FeatBonusHeader", feats: [], bonusFeats: [] },
-        };
-        if (game.settings.get("pf2e", "dualClassVariant")) {
-            featSlots.dualclass.feats.push({ id: "dualclass-1", level: 1, grants: [] });
-            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
-                featSlots.dualclass.feats.push({ id: `dualclass-${level}`, level, grants: [] });
-            }
-        } else {
-            // Use delete so it is in the right place on the sheet
-            delete featSlots.dualclass;
-        }
-        if (game.settings.get("pf2e", "freeArchetypeVariant")) {
-            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
-                featSlots.archetype.feats.push({ id: `archetype-${level}`, level, grants: [] });
-            }
-        } else {
-            // Use delete so it is in the right place on the sheet
-            delete featSlots.archetype;
-        }
-        const pfsBoons: FeatData[] = [];
-        const deityBoonsCurses: FeatData[] = [];
 
         // Actions
         const actions: Record<string, { label: string; actions: any[] }> = {
@@ -366,9 +303,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             // Feats
             else if (itemData.type === "feat") {
                 const actionType = itemData.data.actionType.value || "passive";
-
-                tempFeats.push(itemData);
-
                 if (Object.keys(actions).includes(actionType)) {
                     itemData.feat = true;
                     itemData.img = CharacterPF2e.getActionGraphics(
@@ -410,103 +344,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 if (actionType === "passive") actions.free.actions.push(itemData);
                 else actions[actionType].actions.push(itemData);
             }
-
-            // class
-            else if (itemData.type === "class") {
-                const classItem: ClassData = itemData;
-                const mapFeatLevels = (featLevels: number[], prefix: string): SlottedFeat[] => {
-                    if (!featLevels) {
-                        return [];
-                    }
-                    return featLevels
-                        .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level, grants: [] }));
-                };
-
-                featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, "ancestry");
-                featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels?.value, "class");
-                featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, "skill");
-                featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, "general");
-            }
-        }
-
-        if (game.settings.get("pf2e", "ancestryParagonVariant")) {
-            featSlots.ancestry.feats.unshift({
-                id: "ancestry-bonus",
-                level: 1,
-                grants: [],
-            });
-            for (let level = 3; level <= actorData.data.details.level.value; level += 4) {
-                const index = (level + 1) / 2;
-                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level, grants: [] });
-            }
-        }
-
-        const background = this.actor.background;
-        if (background && Object.keys(background.data.data.items).length > 0) {
-            featSlots.skill.feats.unshift({
-                id: background.id,
-                level: game.i18n.localize("PF2E.FeatBackgroundShort"),
-                grants: [],
-            });
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
         inventory.equipment.investedMax = investedMax;
         inventory.equipment.overInvested = investedMax < investedCount;
-
-        // put the feats in their feat slots
-        const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
-        for (const featData of tempFeats) {
-            if (featData.flags.pf2e.grantedBy && !featData.data.location) {
-                const granter = this.actor.items.get(featData.flags.pf2e.grantedBy);
-                if (granter instanceof FeatPF2e) continue;
-            }
-
-            let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === featData.data.location);
-            const existing = allFeatSlots[slotIndex]?.feat;
-            if (slotIndex !== -1 && existing) {
-                console.debug(`Foundry VTT | Multiple feats with same index: ${featData.name}, ${existing.name}`);
-                slotIndex = -1;
-            }
-
-            const getGrants = (grantedIds: string[]): GrantedFeat[] => {
-                return grantedIds.flatMap((grantedId: string) => {
-                    const item = this.actor.items.get(grantedId);
-                    return item instanceof FeatPF2e && !item.data.data.location
-                        ? { feat: item, grants: getGrants(item.data.flags.pf2e.itemGrants) }
-                        : [];
-                });
-            };
-
-            if (slotIndex !== -1) {
-                const slot = allFeatSlots[slotIndex];
-                slot.feat = featData;
-                slot.grants = getGrants(featData.flags.pf2e.itemGrants);
-            } else {
-                let featType = featData.data.featType.value || "bonus";
-
-                if (featType === "pfsboon") {
-                    pfsBoons.push(featData);
-                } else if (["deityboon", "curse"].includes(featType)) {
-                    deityBoonsCurses.push(featData);
-                } else {
-                    if (!["ancestryfeature", "classfeature"].includes(featType)) {
-                        featType = "bonus";
-                    }
-
-                    if (objectHasKey(featSlots, featType)) {
-                        const slots = featSlots[featType];
-                        const bonusFeat = {
-                            data: featData,
-                            grants: getGrants(featData.flags.pf2e.itemGrants),
-                        };
-                        slots.bonusFeats.push(bonusFeat);
-                    }
-                }
-            }
-        }
-        featSlots.classfeature.bonusFeats.sort((a, b) => (a.data.data.level.value > b.data.data.level.value ? 1 : -1));
 
         // assign mode to actions
         Object.values(actions)
@@ -520,9 +362,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Assign and return
         actorData.inventory = inventory;
 
-        actorData.featSlots = featSlots;
-        actorData.pfsBoons = pfsBoons;
-        actorData.deityBoonsCurses = deityBoonsCurses;
+        actorData.featSlots = this.actor.featGroups;
+        actorData.pfsBoons = this.actor.pfsBoons;
+        actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
         actorData.actions = actions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
@@ -786,14 +628,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Toggle Dying, Wounded, or Doomed
         $html
             .find("aside > .sidebar > .hitpoints")
-            .find(".dots.dying, .dots.wounded, .dots.doomed")
+            .find(".dots.dying, .dots.wounded")
             .on("click contextmenu", (event) => {
-                type ConditionName = "dying" | "wounded" | "doomed";
+                type ConditionName = "dying" | "wounded";
                 const condition = Array.from(event.delegateTarget.classList).find(
-                    (className): className is ConditionName => ["dying", "wounded", "doomed"].includes(className)
+                    (className): className is ConditionName => ["dying", "wounded"].includes(className)
                 );
                 if (condition) {
-                    this.onClickDyingWoundedDoomed(condition, event);
+                    this.onClickDyingWounded(condition, event);
                 }
             });
 
@@ -843,23 +685,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     await actor.increaseCondition(effect);
                 }
             }
-        });
-
-        // Spontaneous Spell slot reset handler:
-        $html.find(".spell-slots-increment-reset").on("click", (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
-            const actor = this.actor;
-            const item = actor.items.get(itemId);
-            if (item?.data.type !== "spellcastingEntry") return;
-
-            const data = item.data.toObject();
-            if (!data.data.slots) return;
-            const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-            data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
-
-            item.update(data);
         });
 
         const $craftingTab = $html.find(".tab.crafting");
@@ -1180,24 +1005,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (featSlotType === "archetype" || featSlotType === "dualclass") {
-            // Archetype feat slots are class feat slots
-            featSlotType = "class";
-        }
+        const group = this.actor.featGroups[featSlotType];
+        if (!group) return false;
 
-        if (featSlotType === "ancestryfeature") {
-            featType = "ancestryfeature";
-        }
-
-        if (featSlotType === "general") {
-            return ["general", "skill"].includes(featType);
-        }
-
-        return featSlotType === featType;
+        return group.supported === "all" || group.supported.includes(featType);
     }
 
     /** Handle cycling of dying, wounded, or doomed */
-    private onClickDyingWoundedDoomed(condition: "dying" | "wounded" | "doomed", event: JQuery.TriggeredEvent) {
+    private onClickDyingWounded(condition: "dying" | "wounded", event: JQuery.TriggeredEvent) {
         if (event.type === "click") {
             this.actor.increaseCondition(condition, { max: this.actor.data.data.attributes[condition].max });
         } else if (event.type === "contextmenu") {
@@ -1206,7 +1021,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     private getNearestSlotId(event: ElementDragEvent): JQuery.PlainObject {
-        const data = $(event.target).closest(".item").data();
+        const data = $(event.target).closest("[data-slot-id]").data();
         if (!data) {
             return { slotId: undefined, featType: undefined };
         }
@@ -1219,37 +1034,40 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     ): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
-        if (isSameActor) {
-            return super._onDropItem(event, data);
-        }
-
-        event.preventDefault();
+        if (isSameActor) return super._onDropItem(event, data);
 
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
-        const itemData = item.toObject();
+        const source = item.toObject();
 
         const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
-        if (itemData.type === "feat") {
-            if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                itemData.data.location = slotId;
+        switch (source.type) {
+            case "feat": {
+                if (!(slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, source))) {
+                    return super._onDropItem(event, data);
+                }
+
+                source.data.location = slotId;
                 const items = await Promise.all([
-                    this.actor.createEmbeddedDocuments("Item", [itemData]),
+                    this.actor.createEmbeddedDocuments("Item", [source]),
                     this.actor.updateEmbeddedDocuments(
                         "Item",
-                        this.actor.items
-                            .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
-                            .map((x) => ({ _id: x.id, "data.location": "" }))
+                        this.actor.itemTypes.feat
+                            .filter((i) => i.data.data.location === slotId)
+                            .map((i) => ({ _id: i.id, "data.location": null }))
                     ),
                 ]);
-                return items.flatMap((item) => item);
-            }
-        } else if (itemData.type === "ancestry" || itemData.type === "background" || itemData.type === "class") {
-            return AncestryBackgroundClassManager.addABCItem(itemData, actor);
-        }
 
-        return super._onDropItem(event, data);
+                return items.flat();
+            }
+            case "ancestry":
+            case "background":
+            case "class":
+                return AncestryBackgroundClassManager.addABCItem(source, actor);
+            default:
+                return super._onDropItem(event, data);
+        }
     }
 
     protected override async _onDrop(event: ElementDragEvent) {
@@ -1283,16 +1101,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         if (itemData.type === "feat") {
             const { slotId, featType } = this.getNearestSlotId(event);
-            if (slotId && featType) {
+            const group = this.actor.featGroups[featType];
+            const resorting = group && !group.slotted && itemData.data.location === featType;
+            if (slotId && featType && !resorting) {
                 if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
+                    const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === slotId);
+                    const itemUpdate = { _id: itemData._id, "data.location": slotId };
                     return this.actor.updateEmbeddedDocuments("Item", [
-                        {
-                            _id: itemData._id,
-                            "data.location": slotId,
-                        },
-                        ...this.actor.items
-                            .filter((x) => x.data.type === "feat" && x.data.data.location === slotId)
-                            .map((x) => ({ _id: x.id, "data.location": "" })),
+                        itemUpdate,
+                        // If this is a slotted group, replace existing entries in that slot
+                        ...(group.slotted ? existing.map((x) => ({ _id: x.id, "data.location": "" })) : []),
                     ]);
                 } else {
                     // if they're dragging it away from a slot
@@ -1357,26 +1175,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         return icons[level];
-    }
-
-    /**
-     * Get the font-awesome icon used to display a certain level of doomed
-     */
-    private getDoomedIcon(level: number): string {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-skull"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
-
-        for (let i = 0; i < maxDying; i++) {
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
-        }
-
-        return icons[level] ?? icons[0];
     }
 
     /** Get the font-awesome icon used to display hero points */

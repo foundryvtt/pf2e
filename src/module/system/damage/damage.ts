@@ -1,10 +1,11 @@
-import { StrikeSelf, StrikeTarget } from "@actor/creature/types";
+import { StrikeSelf, AttackTarget } from "@actor/creature/types";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
 import { combineObjects } from "@util";
 
 /** The possible standard damage die sizes. */
-export type DamageDieSize = "d4" | "d6" | "d8" | "d10" | "d12";
+export const DAMAGE_DIE_FACES = new Set(["d4", "d6", "d8", "d10", "d12"] as const);
+export type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 
 export function nextDamageDieSize(dieSize: DamageDieSize) {
     switch (dieSize) {
@@ -123,7 +124,7 @@ interface DamageRollContext extends BaseRollContext {
     type: "damage-roll";
     outcome?: DegreeOfSuccessString;
     self?: StrikeSelf | null;
-    target?: StrikeTarget | null;
+    target?: AttackTarget | null;
     options: string[];
     secret?: boolean;
 }

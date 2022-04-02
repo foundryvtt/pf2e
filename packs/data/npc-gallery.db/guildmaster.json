@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -264,9 +261,6 @@
                     "value": 3
                 },
                 "baseItem": "hide-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -381,9 +375,6 @@
             "_id": "5k5GzulFg2JiC4hd",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You need these tools to create items from raw materials with the Craft skill. Different sets are needed for different work, as determined by the GM; for example, blacksmith's tools differ from woodworker's tools.</p>"
@@ -465,9 +456,6 @@
             "_id": "Bk9v9oLDZmh7ITsB",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -545,9 +533,6 @@
             "_id": "SHCWDZKcHBeqUqMh",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": ""
@@ -783,8 +768,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.sworn-duty"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sworn-duty",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

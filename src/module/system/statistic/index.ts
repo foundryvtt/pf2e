@@ -27,6 +27,8 @@ export * from "./data";
 export interface StatisticRollParameters {
     /** Which attack this is (for the purposes of multiple attack penalty) */
     attackNumber?: number;
+    /** Optional target for the roll */
+    target?: ActorPF2e | null;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Any additional options which should be used in the roll. */
@@ -46,6 +48,7 @@ export interface StatisticRollParameters {
 interface RollOptionParameters {
     extraRollOptions?: string[];
     item?: ItemPF2e | null;
+    target?: ActorPF2e | null;
 }
 
 type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : null;
@@ -108,7 +111,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     createRollOptions(domains: string[], args: RollOptionParameters = {}): string[] {
-        const { item, extraRollOptions } = args;
+        const { item, extraRollOptions, target } = args;
 
         const rollOptions: string[] = [];
         if (domains && domains.length) {
@@ -135,6 +138,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             if (traits.includes("attack")) {
                 rollOptions.push("trait:attack");
             }
+        }
+
+        if (target) {
+            rollOptions.push(...target.getSelfRollOptions("target"));
         }
 
         if (extraRollOptions) {
@@ -274,8 +281,15 @@ class StatisticCheck {
             args.dc.adjustments.push(...data.check.adjustments);
         }
 
+        const target =
+            args.target ??
+            rollContext?.target?.actor ??
+            Array.from(game.user.targets)
+                .filter((t) => t.actor instanceof CreaturePF2e)
+                .shift()?.document?.actor;
+
         const extraModifiers = [...(args?.modifiers ?? [])];
-        const options = this.parent.createRollOptions(domains, args);
+        const options = this.createRollOptions({ ...args, target });
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -299,7 +313,7 @@ class StatisticCheck {
             actor,
             item,
             target: rollContext?.target ?? null,
-            dc: args.dc ?? rollContext?.target?.dc,
+            dc: args.dc ?? rollContext?.dc,
             notes: data.notes,
             options,
             type: data.check.type,

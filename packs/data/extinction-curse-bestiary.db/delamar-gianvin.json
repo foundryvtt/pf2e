@@ -125,9 +125,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -268,9 +265,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -409,9 +403,6 @@
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -539,9 +530,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -815,8 +803,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.attack-roll.nimbleOpportunist"
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "nimbleOpportunist",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -850,6 +840,45 @@
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Opportunist",
             "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "tRUwzQREvBkvCsOz",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>On the first round of combat, if Delamar rolled Deception or Stealth for initiative, creatures that haven't acted are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Surprise Attack",
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -891,7 +920,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Draw",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -920,7 +949,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -958,45 +987,6 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "tRUwzQREvBkvCsOz",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>On the first round of combat, if Delamar rolled Deception or Stealth for initiative, creatures that haven't acted are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Surprise Attack",
             "sort": 1100000,
             "type": "action"
         },

@@ -129,9 +129,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -274,9 +271,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -414,9 +408,6 @@
                     "value": 6
                 },
                 "baseItem": "full-plate",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "heavy",
                 "check": {
                     "value": -3
@@ -536,9 +527,6 @@
                     "value": 2
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 10
-                },
                 "category": "shield",
                 "check": {
                     "value": 0
@@ -672,9 +660,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",
@@ -869,8 +859,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.power-attack"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "power-attack",
+                        "toggleable": true
                     },
                     {
                         "diceNumber": 1,

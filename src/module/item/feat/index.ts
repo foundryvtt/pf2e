@@ -86,7 +86,12 @@ export class FeatPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        return super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const baseOptions = super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0"));
+        const featTypeInfix = this.isFeature ? "feature-type" : "feat-type";
+        const featTypeSuffix = this.featType.replace("feature", "");
+
+        return [...baseOptions, `${delimitedPrefix}${featTypeInfix}:${featTypeSuffix}`];
     }
 
     /* -------------------------------------------- */
@@ -98,6 +103,12 @@ export class FeatPF2e extends ItemPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Ensure an empty-string `location` property is null
+        if (typeof changed.data?.location === "string") {
+            changed.data.location ||= null;
+        }
+
+        // Normalize action counts
         const actionCount = changed.data?.actions;
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;

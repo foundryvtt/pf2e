@@ -35,13 +35,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         sheetData.actor.flags.editHazard ??= { value: false };
         const systemData: HazardSystemData = sheetData.data;
 
-        for (const weakness of systemData.traits.dv) {
-            weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
-        }
-        for (const resistance of systemData.traits.dr) {
-            resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
-        }
-
         return {
             ...sheetData,
             flags: sheetData.actor.flags,
@@ -51,7 +44,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             actorRarity: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             stealthDC: (systemData.attributes.stealth?.value ?? 0) + 10,
             hasStealthDescription: systemData.attributes.stealth?.details || false,
-            hasImmunities: systemData.traits.di.value.length ? systemData.traits.di.value : false,
             hasResistances: systemData.traits.dr.length > 0,
             hasWeaknesses: systemData.traits.dv.length > 0,
             hasDescription: systemData.details.description || false,

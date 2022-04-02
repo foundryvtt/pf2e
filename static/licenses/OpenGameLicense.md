@@ -136,14 +136,18 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #166: Despair on Danger Island © 2021, Paizo Inc.; Authors: Luis Loza
     *  Pathfinder Adventure Path #167: Ready? Fight! © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
     *  Pathfinder Adventure Path #168: King of the Mountain © 2021, Paizo Inc.; Authors: Vanessa Hoskins
+    *  Strength of Thousands Player's Guide © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure Path #169: Kindled Magic © 2021, Paizo Inc.; Authors: Alexandria Bustion, Eleanor Ferron
     *  Pathfinder Adventure Path #170: Spoken on the Song Wind © 2021, Paizo Inc.; Authors: Quinn Murphy
     *  Pathfinder Adventure Path #171: Hurricane's Howl © 2021, Paizo Inc.; Authors: Michelle Jones
     *  Pathfinder Adventure Path #172: Secrets of the Temple-City © 2021, Paizo Inc.; Authors: Luis Loza
     *  Pathfinder Adventure Path #173: Doorway to the Red Star © 2021, Paizo Inc.; Authors: Michael Sayre
     *  Pathfinder Adventure Path #174: Shadows of the Ancients © 2021, Paizo Inc.; Authors: Saif Ansari
-    *  Strength of Thousands Player's Guide © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Quest for the Frozen Flame Player's Guide © 2021, Paizo Inc.; Author: Patrick Renie.
+    *  Pathfinder Adventure Path #175: Broken Tusk Moon © 2022, Paizo Inc.; Authors: Ron Lundeen and Stephanie Lundeen.
+    *  Pathfinder Adventure Path #176: Lost Mammoth Valley © 2022, Paizo Inc.; Author: Jessica Catalan.
+    *  Pathfinder Adventure Path #177: Burning Tundra © 2022, Paizo Inc.; Author: Jason Tondro.
+    *  Outlaws of Alkenstar Player's Guide © 2022, Paizo Inc.; Author: Patrick Renie.
 
 * Society
     * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.

@@ -1,3 +1,4 @@
+import { BabeleReady } from "./babele-ready";
 import { CanvasInit } from "./canvas-init";
 import { CanvasReady } from "./canvas-ready";
 import { CloseCombatTrackerConfig } from "./close-combat-tracker-config";
@@ -21,6 +22,7 @@ export const HooksPF2e = {
     listen(): void {
         const listeners: { listen(): void }[] = [
             Load, // Run this first since it's not an actual hook listener
+            BabeleReady,
             CanvasInit,
             CanvasReady,
             CloseCombatTrackerConfig,

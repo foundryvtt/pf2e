@@ -328,9 +328,11 @@
                         "value": 3
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Target is grabbed",
-                        "property": "flags.pf2e.rollOptions.all.target:grabbed"
+                        "option": "target:grabbed",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -382,7 +384,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

@@ -1,6 +1,5 @@
 import {
     Abilities,
-    Alignment,
     CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
@@ -32,9 +31,13 @@ import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
-import { ProficiencyRank } from "@item/data";
-import { WeaponPF2e } from "@item";
+import { FeatData, ProficiencyRank } from "@item/data";
+import { FeatPF2e, WeaponPF2e } from "@item";
 import { CharacterSheetTabVisibility } from "./sheet";
+import { DeitySystemData } from "@item/deity/data";
+import { Alignment } from "@actor/creature/types";
+import { FeatType } from "@item/feat/data";
+import { DeityDomain } from "@item/deity/types";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -104,7 +107,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** Crafting-related data, including known formulas */
     crafting: {
         formulas: CraftingFormulaData[];
-        entries: Record<string, CraftingEntryData>;
+        entries: Record<string, Partial<CraftingEntryData>>;
     };
 }
 
@@ -186,28 +189,19 @@ export interface AuxiliaryAction {
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 
 /** A Pathfinder Society School */
-type PFSSchool = "none" | "scrolls" | "spells" | "swords";
+type PFSSchool = "scrolls" | "spells" | "swords" | null;
 
 /** PFS faction reputation values */
-interface PathfinderSocietyReputation {
-    EA: number;
-    GA: number;
-    HH: number;
-    VS: number;
-    RO: number;
-    VW: number;
-}
+type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
 
 /** Pathfinder Society Organized Play data fields */
 interface PathfinderSocietyData {
     /** Number assigned to the player. */
-    playerNumber: string;
+    playerNumber: number | null;
     /** Number assigned to the character. */
-    characterNumber: string;
+    characterNumber: number | null;
     /** Is the character currently affected by a level bump? */
     levelBump: boolean;
-    /** Character's current fame */
-    fame: number;
     /** Character's currently slotted faction */
     currentFaction: PFSFaction;
 
@@ -242,8 +236,6 @@ export type CharacterDetails = {
 
     /** Character alignment (LN, N, NG, etc.) */
     alignment: { value: Alignment };
-    /** The diety that the character worships (and an image of the diety symbol). */
-    deity: { value: string; image: ImagePath };
     /** How old the character is (user-provided field). */
     age: { value: string };
     /** Character height (user-provided field). */
@@ -303,9 +295,20 @@ export type CharacterDetails = {
     };
 
     /** Convenience information for easy access when the item class instance isn't available */
-    ancestry: { name: string; trait: string };
-    heritage: { name: string; trait: string | null };
-    class: { name: string; trait: string };
+    ancestry: { name: string; trait: string } | null;
+    heritage: { name: string; trait: string | null } | null;
+    class: { name: string; trait: string } | null;
+    deities: CharacterDeities;
+};
+
+interface CharacterDeities {
+    primary: DeityDetails | null;
+    secondary: null;
+    domains: { [K in DeityDomain]?: string };
+}
+
+type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
+    weapons: { option: string; label: string }[];
 };
 
 export interface CharacterAttributes extends CreatureAttributes {
@@ -380,4 +383,30 @@ export interface CharacterAttributes extends CreatureAttributes {
 
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
+}
+
+export interface GrantedFeat {
+    feat: FeatPF2e;
+    grants: GrantedFeat[];
+}
+
+export interface SlottedFeat {
+    id: string;
+    level: number | string;
+    feat?: FeatData;
+    grants: GrantedFeat[];
+}
+
+export interface BonusFeat {
+    feat: FeatData;
+    grants: GrantedFeat[];
+}
+
+export interface FeatSlot {
+    label: string;
+    feats: (SlottedFeat | BonusFeat)[];
+    /** Whether the feats are slotted by level or free-form */
+    slotted?: boolean;
+    featFilter?: string;
+    supported: FeatType[] | "all";
 }

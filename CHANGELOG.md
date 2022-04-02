@@ -1,5 +1,89 @@
 # Changelog
 
+## Version 3.8.0
+
+### New Features
+* (stwlam) Add deities as items, begin integrating them with system automation: players running champions and clerics may want to drop new classes onto their sheets.
+* (Supe) Implement innate-spell usage tracking
+
+### Core System Improvements
+* (stwlam) Show limited-permissions NPCs with actor links in the actor directory
+* (stwlam) Automate jousting trait (simplified to requiring a lance to be held in one hand)
+* (stwlam) Retire ToggleProperty rule element in favor of toggleable RollOptions
+* (stwlam) Accommodate Babele module's need for specific timing of condition manager's initialization
+* (stwlam) Add setting to disable flanking automation
+* (Supe) Remove doomed pips from character sheet, users should use conditions instead
+* (Supe) Make NPC spellcasting entry title editable
+* (Supe) Add optional campaign feats section, support drag/drop on campaign/bonus feats title
+
+### Bugfixes
+* (Brault) Process changes made to token HP values as damage application
+* (Cerapter) Fix action macros skipping weapon traits that impose penalties
+* (stwlam) Fix nameless export of themed pf2e journal sheet
+* (stwlam) Fix rendering of vehicle-sheet actions tab
+* (stwlam) Ignore token scale in TokenPF2e#distanceTo
+* (stwlam) Clean up PFS tab on PC sheet
+* (stwlam) Show circumstance bonuses/penalties to AC on attack messages even when they sum to zero
+* (stwlam) Add strike attack roll selectors for weapon group, base, and "other tags"
+* (stwlam) Localize damage-type labels on damage roll cards
+* (VestOfHolding) Fixing rendering vehicle-sheet description tab
+
+### Data Updates
+* (bennyt) Correct modifier for Liminal Fetchling bonus
+* (cepvep) Brush up spell effects I-J
+* (InfamousSky) Add RE to Berberoka for special impersonate
+* (InfamousSky) Fill in deity items starting with Z
+* (JDCalvert) Automate dual-handed assault feat
+* (Manni) Brush up brine, cloud, magma, and umbral dragon spellcasters
+* (Manni) Fix description of Greater Hat of the Magi
+* (NullWolf, InfamousSky) Add Deity items from various Paizo sources
+* (NullWolf) Add jouranl entries for archetype from SoT, MoM, LO:GB, G&G,
+* (NullWolf) Add feat type "skill" to Masterful Obfuscation
+* (NullWolf) Add inline save to Black Scorpion Greater Constrict.
+* (NullWolf) Add range to Frost Vial Greater
+* (NullWolf) Correct Dragonslayer's Shield Description
+* (NullWolf) Correct Multiple Property Rune Icons
+* (NullWolf) Correct Pistol of Wonder effects table
+* (NullWolf) Correct rarity of multiple focus spells
+* (NullWolf) Correct stealth dcs for hazards in mark of the mantis
+* (NullWolf) Correct blowgun damage and type
+* (NullWolf) Correct price on glaive weapon
+* (NullWolf) Set critical-success condition to Notes on multiple Blade Ally effects
+* (NullWolf) Set maxTakable for Skill Mastery feats
+* (rectulo) Fix Dedication feats with a wrong feat type
+* (rectulo) Fix a typo in details/descriptions of Reaper of Repose, Hunter's Dawn, and Habu's Cudgel
+* (redeux) Add actors for PFS 3-10, 3-11, and Bounty 18
+* (redeux) Update Stunning Fist on Yacob pregen
+* (RexAliquid) Automate Spellmaster Dedication
+* (Roxim) Add 2022 April Fools Blog Post Equipment
+* (Roxim) Adjust area for Phantom Crowd Spell
+* (Roxim) Brushup EC Book 2 NPCs part 2
+* (SkepticRobot) Set slick and shadow runes to level 5 as per errata
+* (SoldierC4) Add Heal's save, emanation, and roll
+* (SoldierC4) Add Press-Ganged background from G&G
+* (SoldierC4) Fix components of several cantrips
+* (SoldierC4) Fix sources and rarities of backgrounds
+* (SoldierC4) Fix several spells' rarity, traditions, components, and schools
+* (SpartanCPA) Add Range 20 to Flaming Skull's Spit Fire ability
+* (SpartanCPA) Add Sulfur Poisoning to Mud Pots
+* (SpartanCPA) Fix rarity of Unshadowed Mariama
+* (SpartanCPA) Brush up Blackfinger's Acolyte
+* (stwlam) Add the alchemical trait to all firearm ammunition
+* (stwlam) Fill out rule elements for Domain Initiate and Deity's Domain feats, update compendium Seelahs and Kyras
+* (Supe) Condense duplicate innate spells in compendium into uses
+* (Supe) Default check rolls to setting if skipDialog parameter is not given
+* (Telekenunes) Fix or add rule elements on Enlarge, Resist Energy, and Uncanny Awareness.
+* (Tikael) Add Outlaws Of Alkenstar Player's Guide content
+* (Tikael) Add content from Strength of Thousands book 6
+* (Tikael) Automate Bouncy Goblin feat
+* (Tikael) Brush up Kitsune feats
+* (Tikael) Fix several hazards with null stealth fields
+* (Tikael) Fix the number of times advanced multiclass feats can be taken
+* (TMun) Add several adventure-specific actions
+* (TMun) Fix rule elements on Precise Strike class feature
+* (VestOfHolding) Add content from Quest for the Frozen Flame book 3
+
+
 ## Version 3.7.2
 
 ### Bugfixes

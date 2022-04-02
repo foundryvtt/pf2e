@@ -124,9 +124,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -269,9 +266,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -409,9 +403,6 @@
                     "value": 5
                 },
                 "baseItem": "half-plate",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "heavy",
                 "check": {
                     "value": -3
@@ -529,9 +520,6 @@
                     "value": 2
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 10
-                },
                 "category": "shield",
                 "check": {
                     "value": 0
@@ -735,9 +723,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -873,9 +858,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
-                        "property": "flags.pf2e.rollOptions.damage-roll.twoHanded"
+                        "option": "twoHanded",
+                        "toggleable": true
                     },
                     {
                         "key": "DamageDice",
@@ -961,6 +948,48 @@
             "type": "melee"
         },
         {
+            "_id": "nlC81yf92sWZGQNO",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Darricus doesn't need to succeed at a flat check to target @Compendium[pf2e.conditionitems.Concealed]{Concealed} creatures, and he is not @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures that are @Compendium[pf2e.conditionitems.Hidden]{Hidden} from him.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sharp Eyes",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
             "_id": "kqKZCfaYLS8DSSjM",
             "data": {
                 "actionCategory": {
@@ -1003,48 +1032,6 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "nlC81yf92sWZGQNO",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Darricus doesn't need to succeed at a flat check to target @Compendium[pf2e.conditionitems.Concealed]{Concealed} creatures, and he is not @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures that are @Compendium[pf2e.conditionitems.Hidden]{Hidden} from him.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sharp Eyes",
             "sort": 1000000,
             "type": "action"
         },
@@ -1068,8 +1055,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.powerAttack"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "powerAttack",
+                        "toggleable": true
                     },
                     {
                         "diceNumber": 1,

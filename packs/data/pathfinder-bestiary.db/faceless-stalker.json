@@ -147,9 +147,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -250,9 +247,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -277,13 +271,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 5
-                },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "RQ0SxaYgQ0WCzXyb"
                 },
                 "materials": {
@@ -363,9 +355,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -504,9 +493,6 @@
                     "value": 2
                 },
                 "baseItem": "studded-leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -891,8 +877,10 @@
                         "value": 4
                     },
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.skill-check.assumeForm"
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "assumeForm",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -1075,7 +1063,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",

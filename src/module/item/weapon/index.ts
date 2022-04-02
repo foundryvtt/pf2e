@@ -14,7 +14,7 @@ import {
     WeaponTrait,
 } from "./data";
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from "@item/treasure/helpers";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";
 import { IdentificationStatus, MystifiedData } from "@item/physical/data";
@@ -92,9 +92,12 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "weapon"): string[] {
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const damageDieFaces = Number(this.data.data.damage.die.replace(/^d/, ""));
         const actorSize = this.actor?.data.data.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const isDeityFavored =
+            !!this.actor?.isOfType("character") && tupleHasValue(this.actor.deity?.favoredWeapons ?? [], this.baseType);
 
         return [
             super.getRollOptions(prefix),
@@ -107,7 +110,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`material:${this.material?.type}`]: !!this.material?.type,
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
+                [`damage:die:faces:${damageDieFaces}`]: true,
                 [`damage-dice:${1 + this.data.data.runes.striking}`]: true,
+                ["deity-favored"]: isDeityFavored,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
@@ -137,14 +142,14 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
-        const traitArray = this.data.data.traits.value;
-        if (traitArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
+        const traitsArray = this.data.data.traits.value;
+        if (traitsArray.some((t) => /^thrown(?:-\d{1,3})?$/.test(t))) {
             this.data.data.reload.value = "-"; // Thrown weapons always have a reload of "-"
         }
 
-        const rangedWeaponGroups: readonly string[] = RANGED_WEAPON_GROUPS;
+        const rangedWeaponGroups: Set<string> = RANGED_WEAPON_GROUPS;
         const traitSet = this.traits;
-        const mandatoryRanged = rangedWeaponGroups.includes(this.group ?? "") || traitSet.has("thrown");
+        const mandatoryRanged = rangedWeaponGroups.has(this.group ?? "") || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.data.data.range ??= 10;
 
@@ -157,8 +162,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
+        // Allow jousting weapons to be usable when held in one hand
+        this.data.isEquipped ||= this.handsHeld === 1 && traitsArray.some((t) => /^jousting-d\d{1,2}$/.test(t));
+
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
-        const mandatoryMelee = !mandatoryRanged && traitArray.some((trait) => /^thrown-\d+$/.test(trait));
+        const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
         if (mandatoryMelee) this.data.data.range = null;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form

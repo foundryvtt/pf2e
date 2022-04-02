@@ -23,14 +23,17 @@
         },
         "attributes": {
             "ac": {
-                "details": "construct armor",
+                "details": "(24 when broken); construct armor",
                 "value": 28
             },
             "allSaves": {
                 "value": ""
             },
+            "hardness": {
+                "value": 10
+            },
             "hp": {
-                "details": "Hardness 10",
+                "details": "",
                 "max": 90,
                 "temp": 0,
                 "value": 90
@@ -39,7 +42,7 @@
                 "ability": "perception"
             },
             "perception": {
-                "value": 17
+                "value": 15
             },
             "speed": {
                 "otherSpeeds": [],
@@ -50,13 +53,13 @@
             "alignment": {
                 "value": "N"
             },
-            "blurb": "",
+            "blurb": "Elite giant animated statue",
             "creatureType": "Construct",
             "level": {
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>As with any humanoid animated statues of Medium size, giant animated statues are used to guard locations of importance, but their increased size and power make them most useful in large vaults, spacious chambers, or outdoor locations. Animated objects of this strength and size are ideal for tasks and responsibilities usually performed by golems, and more powerful animated objects are thus all but unheard of.</p>",
+            "publicNotes": "<p>As with any humanoid animated statues of Medium size, giant animated statues are used to guard locations of importance, but their increased size and power make them most useful in large vaults, spacious chambers, or outdoor locations. Animated objects of this strength and size are ideal for tasks and responsibilities usually performed by golems, and more powerful animated objects are thus all but unheard of.</p>\n<hr />\n<p>Granted a semblance of life through the use of rituals or other strange magic, animated objects take many forms and serve a variety of uses. A few examples of typical animated objects are listed below. Many of these creatures serve as guardians, surprising unsuspecting adventurers when they suddenly attack. Others serve as idle distractions for the exceptionally rich, simple servants created to handle odd jobs, and the like.</p>",
             "source": {
                 "value": "Pathfinder #152: Legacy of the Lost God"
             }
@@ -91,10 +94,7 @@
                     "mental",
                     "necromancy",
                     "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
+                    "paralyzed"
                 ]
             },
             "dr": [],
@@ -132,9 +132,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 21
@@ -187,10 +185,6 @@
                     "0": {
                         "damage": "2d6+8",
                         "damageType": "bludgeoning"
-                    },
-                    "1": {
-                        "damage": "2d8+2",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -222,10 +216,10 @@
             "type": "melee"
         },
         {
-            "_id": "b0vvj0Goc8cH8sH9",
+            "_id": "HorpW2NucpQNU3sV",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -234,13 +228,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -257,10 +251,60 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "MQLisfH68V3Wk7Bg",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "fast-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 5",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -281,7 +325,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.AnimatedObjectsConstructArmor",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -301,8 +363,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Construct Armor",
-            "sort": 400000,
+            "name": "Construct Armor (Hardness 10)",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -344,7 +406,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Divine Restoration",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -360,12 +422,43 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach. Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue. Dealing [[/r 15 #cold]]{15 cold damage} to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal [[/r {2d8+2}[fire]]]{2d8+2 fire damage}.</p>"
+                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach. Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue. Dealing 15 cold damage to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal [[/r {2d8+2}[fire]]]{2d8+2 fire damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.GiantAnimatedStatueBrazier",
+                        "option": "brazier",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "brazier"
+                            ]
+                        },
+                        "selector": "flaming-coal-damage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "brazier",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -386,7 +479,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brazier",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -402,7 +495,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The statue grinds a creature it has grabbed into the red-hot coals of its brazier. The target takes [[/r {3d8}[fire]]]{3d8 fire damage} and [[/r {1d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p>The statue grinds a creature it has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} into the red-hot coals of its brazier. The target takes [[/r {3d8}[fire]]]{3d8 fire damage} and [[/r {1d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -430,11 +523,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Burn Alive",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "Ym1beTSPqyIJm34C",
+            "_id": "Y7lD8hRHSgTJuVoF",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -446,13 +539,13 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -469,10 +562,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -502,7 +599,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

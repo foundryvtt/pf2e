@@ -118,9 +118,6 @@
                     "value": 1
                 },
                 "baseItem": "padded-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": 0
@@ -237,9 +234,6 @@
             "_id": "fkamxWeRKPJNjp7C",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You need these tools to create items from raw materials with the Craft skill. Different sets are needed for different work, as determined by the GM; for example, blacksmith's tools differ from woodworker's tools.</p>"
@@ -321,9 +315,6 @@
             "_id": "Mz1hKhGITzmi33Pu",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>Maps are uncommon. Most maps you can find are simple and functional. A survey map details a single location in excellent detail.</p>\n<p>One of these maps gives you a +1 item bonus to Survival checks and any skill checks to Recall Knowledge, provided the checks are related to the location detailed on the map.</p>\n<p>The GM determines what maps are available in any location.</p>"
@@ -512,9 +503,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Supervised by a direct superior",
-                        "property": "flags.pf2e.rollOptions.all.apprentices-ambition"
+                        "option": "apprentices-ambition",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

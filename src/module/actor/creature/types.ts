@@ -7,6 +7,11 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckDC } from "@system/degree-of-success";
 import { CreaturePF2e } from ".";
+import { SheetOptions } from "@module/sheet/helpers";
+import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
+
+type Alignment = SetElement<typeof ALIGNMENTS>;
+type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
 
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
@@ -19,7 +24,7 @@ interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = Att
     modifiers: ModifierPF2e[];
 }
 
-interface StrikeTarget {
+interface AttackTarget {
     actor: ActorPF2e;
     token: TokenDocumentPF2e;
     distance: number;
@@ -30,7 +35,7 @@ interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
     /** Roll options */
     options: string[];
     self: StrikeSelf<A, I>;
-    target: StrikeTarget | null;
+    target: AttackTarget | null;
 }
 
 interface StrikeRollContextParams<T extends AttackItem> {
@@ -41,14 +46,11 @@ interface StrikeRollContextParams<T extends AttackItem> {
     viewOnly?: boolean;
 }
 
-interface AttackTarget extends StrikeTarget {
-    dc: CheckDC | null;
-}
-
 interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> {
     options: string[];
     self: StrikeSelf<A, I>;
     target: AttackTarget | null;
+    dc: CheckDC | null;
 }
 
 interface GetReachParameters {
@@ -62,10 +64,11 @@ interface IsFlatFootedParams {
 }
 
 interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
+    languages: SheetOptions;
     abilities: ConfigPF2e["PF2E"]["abilities"];
     skills: ConfigPF2e["PF2E"]["skills"];
     actorSizes: ConfigPF2e["PF2E"]["actorSizes"];
-    alignments: ConfigPF2e["PF2E"]["alignments"];
+    alignments: { [K in Alignment]?: string };
     rarity: ConfigPF2e["PF2E"]["rarityTraits"];
     attitude: ConfigPF2e["PF2E"]["attitude"];
     pfsFactions: ConfigPF2e["PF2E"]["pfsFactions"];
@@ -74,6 +77,8 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
 type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
 
 export {
+    Alignment,
+    AlignmentTrait,
     AttackItem,
     AttackRollContext,
     AttackTarget,
@@ -84,5 +89,4 @@ export {
     StrikeRollContext,
     StrikeRollContextParams,
     StrikeSelf,
-    StrikeTarget,
 };

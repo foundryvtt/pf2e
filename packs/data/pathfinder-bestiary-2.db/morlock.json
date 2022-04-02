@@ -131,9 +131,6 @@
                 "bonusDamage": {
                     "value": 0
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -657,7 +654,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -715,8 +712,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.attack-roll.swarmingStance"
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "swarmingStance",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",

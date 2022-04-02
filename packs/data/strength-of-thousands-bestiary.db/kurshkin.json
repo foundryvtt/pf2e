@@ -142,9 +142,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -245,9 +242,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -272,13 +266,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "VoPIFdy0O6ISSxJs"
                 },
                 "materials": {
@@ -358,9 +350,6 @@
                 "areasize": {
                     "value": "60-foot line"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -385,13 +374,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "VoPIFdy0O6ISSxJs"
                 },
                 "materials": {
@@ -473,9 +460,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -590,9 +574,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -625,13 +606,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "VoPIFdy0O6ISSxJs"
                 },
                 "materials": {
@@ -712,9 +691,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -857,9 +833,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -1010,9 +983,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -1162,9 +1132,11 @@
                         "selector": "{item|_id}-damage"
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "damage-roll",
+                        "key": "RollOption",
                         "label": "Target is affected by Unluck Aura",
-                        "property": "flags.pf2e.rollOptions.damage-roll.unluck-aura-melee"
+                        "option": "unluck-aura-melee",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,

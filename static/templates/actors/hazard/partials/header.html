@@ -1,0 +1,51 @@
+<!-- HEADER -->
+<header>
+    <div class="frame-container">
+        <div class="frame">
+            <img
+                class="player-image"
+                alt="{{actor.name}}"
+                src="{{actor.img}}"
+                title="{{actor.name}}"
+                data-edit="img"
+            />
+            <div class="edit-button"><i class="fas {{#if editing}}fa-lock-open{{else}}fa-lock{{/if}}"></i></div>
+        </div>
+    </div>
+
+    <div class="details">
+        <div class="title">
+            <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}"/>
+            <label>{{localize "ACTOR.TypeHazard"}}</label>
+            <input class="level" name="data.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number" placeholder="1" />
+        </div>
+
+        <div class="tags main">
+            {{#if editing}}
+                <select class="tag" name="data.traits.rarity" value="{{data.traits.rarity}}" data-dtype="String">
+                    {{#select data.traits.rarity}}
+                        {{#each rarity as |label key|}}
+                            <option value="{{key}}">{{localize label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <select class="tag" name="data.details.isComplex" data-dtype="Boolean">
+                    {{#select data.details.isComplex}}
+                        <option value="false">Simple</option>
+                        <option value="true">Complex</option>
+                    {{/select}}
+                </select>
+            {{else}}
+                {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
+                {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
+            {{/if}}
+
+            {{#each actorTraits as |trait id|}}
+                <span class="tag">{{trait}}</span>
+            {{/each}}
+            {{#if editing}}
+                <a class="trait-selector" data-trait-selector="basic" data-config-types="hazardTraits" data-property="data.traits.traits"><i class="fas fa-edit"></i></a>
+            {{/if}}
+        </div>
+    </div>
+</header>
