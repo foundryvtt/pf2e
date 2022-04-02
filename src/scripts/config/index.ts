@@ -1860,6 +1860,10 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
                 hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",
             },
+            flankingDetection: {
+                name: "PF2E.SETTINGS.Automation.FlankingDetection.Name",
+                hint: "PF2E.SETTINGS.Automation.FlankingDetection.Hint",
+            },
             actorsDeadAtZero: {
                 name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
                 hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",

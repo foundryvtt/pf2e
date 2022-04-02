@@ -46,47 +46,6 @@
                     padding: 11px;
                 }
 
-                .button-group {
-                    flex-wrap: nowrap;
-                    font-size: 14px;
-
-                    button {
-                        @include button;
-                        @include micro;
-                        margin: 0;
-                        border: none;
-                        padding: 3px 5px;
-                        color: white;
-                        font-weight: 500;
-                        border-radius: 2px;
-                        flex: 0;
-                        white-space: nowrap;
-                        width: auto;
-                        line-height: 14px;
-                        vertical-align: middle;
-
-                        span.activity-icon {
-                            line-height: 14px;
-                            font-size: 14px;
-                            margin: 0;
-                        }
-
-                        &:not(:disabled) {
-                            background: var(--secondary);
-                            cursor: pointer;
-
-                            &.damage {
-                                background: var(--primary);
-                            }
-
-                            &:hover {
-                                box-shadow: none;
-                                text-shadow: 0 0 2px white;
-                            }
-                        }
-                    }
-                }
-
                 .action-options {
                     display: flex;
                     margin-left: auto;
@@ -95,6 +54,47 @@
                         color: rgba(black, 0.5);
                         &.active {
                             color: var(--secondary);
+                        }
+                    }
+                }
+            }
+
+            .button-group {
+                flex-wrap: nowrap;
+                font-size: 14px;
+
+                button {
+                    @include button;
+                    @include micro;
+                    margin: 0;
+                    border: none;
+                    padding: 3px 5px;
+                    color: white;
+                    font-weight: 500;
+                    border-radius: 2px;
+                    flex: 0;
+                    white-space: nowrap;
+                    width: auto;
+                    line-height: 14px;
+                    vertical-align: middle;
+
+                    span.activity-icon {
+                        line-height: 14px;
+                        font-size: 14px;
+                        margin: 0;
+                    }
+
+                    &:not(:disabled) {
+                        background: var(--secondary);
+                        cursor: pointer;
+
+                        &.damage {
+                            background: var(--primary);
+                        }
+
+                        &:hover {
+                            box-shadow: none;
+                            text-shadow: 0 0 2px white;
                         }
                     }
                 }

@@ -38,6 +38,7 @@ export class DamageRollModifiersDialog extends Application {
 
         const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
+
         if (context.target)
             if (damage.traits) {
                 const strikeTraits: Record<string, string | undefined> = {
@@ -58,16 +59,21 @@ export class DamageRollModifiersDialog extends Application {
 
         const base = game.i18n.localize("PF2E.Damage.Base");
         const dice = `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`;
-        const baseBreakdown = `<span class="damage-tag damage-tag-base">${base} ${dice} ${damage.base.damageType}</span>`;
-        const modifierBreakdown = [
-            ...damage.diceModifiers.filter((m) => m.diceNumber !== 0),
-            ...damage.numericModifiers,
-        ]
+        const damageTypes: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
+        const damageType = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
+        const baseBreakdown = `<span class="damage-tag damage-tag-base">${base} ${dice} ${damageType}</span>`;
+        const modifierBreakdown = [damage.diceModifiers.filter((m) => m.diceNumber !== 0), damage.numericModifiers]
+            .flat()
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
             .map((m) => {
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
-                const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : "";
-                return `<span class="damage-tag damage-tag-modifier">${m.label} ${modifier}${damageType}</span>`;
+                const damageType =
+                    m.damageType && m.damageType !== damage.base.damageType
+                        ? game.i18n.localize(damageTypes[m.damageType] ?? m.damageType)
+                        : null;
+                const typeLabel = damageType ? ` ${damageType}` : "";
+
+                return `<span class="damage-tag damage-tag-modifier">${m.label} ${modifier}${typeLabel}</span>`;
             })
             .join("");
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;

@@ -48,7 +48,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
      * @param flankee       The potentially flanked token
      * @param context.reach An optional reach distance specific to this measurement */
     canFlank(flankee: TokenPF2e, context: { reach?: number } = {}): boolean {
-        if (this === flankee) return false;
+        if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
+            return false;
+        }
 
         if (!(this.actor?.attributes.flanking.canFlank && flankee.actor?.attributes.flanking.flankable)) {
             return false;
