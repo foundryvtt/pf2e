@@ -127,6 +127,9 @@
                     {{#each traits as |trait slug|}}
                         <span class="tag" data-slug="{{slug}}">{{localize trait.label}}</span>
                     {{/each}}
+                    {{#if data.traits.traits.custom}}
+                    <span class="tag {{data.traits.traits.custom}}">{{data.traits.traits.custom}}</span>
+                    {{/if}}
                 </ul>
             </div>
             <div class="flexrow" style="flex: auto;">
