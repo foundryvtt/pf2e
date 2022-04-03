@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 3.8.1
+
+### Bugfixes
+* (stwlam) Fix rendering of exploration and downtime actions on PC sheet
+* (stwlam) Prevent rule-element-based unarmed strikes from being renamed by handwraps runes
+* (stwlam) Migrate ToggleProperty rule elements with the older key naming schema ("PF2E.RuleElement.ToggleProperty")
+
+### Data Updates
+* (SoldierC4) Add data for 2-action cast to Harm
+* (Tikael) Add a Strike rule element to the Arcane Fist feat
+* (Tikael) Fix save type of Force Cage spell
+
+
 ## Version 3.8.0
 
 ### New Features
@@ -15,6 +28,7 @@
 * (Supe) Remove doomed pips from character sheet, users should use conditions instead
 * (Supe) Make NPC spellcasting entry title editable
 * (Supe) Add optional campaign feats section, support drag/drop on campaign/bonus feats title
+* (Vyklade) Add ability to specify from a macro that a roll should be made twice, keeping the higher or lower of the two
 
 ### Bugfixes
 * (Brault) Process changes made to token HP values as damage application
