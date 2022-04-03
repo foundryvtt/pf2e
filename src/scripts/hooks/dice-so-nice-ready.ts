@@ -28,6 +28,8 @@ export const DiceSoNiceReady = {
         Hooks.once("diceSoNiceReady", (dice3d: unknown) => {
             if (!isDice3D(dice3d)) return;
 
+            // BASIC SYSTEM
+
             dice3d.addSystem({ id: "basic", name: "Dicefinder Basic", colorset: "basic" });
 
             for (const faces of [4, 6, 8, 10, 12]) {
@@ -92,7 +94,7 @@ export const DiceSoNiceReady = {
 
             dice3d
                 .addTexture("PFred", {
-                    name: "Dicefinder Basic",
+                    name: "Pathfinder Red",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/texture.webp",
                 })
@@ -109,6 +111,8 @@ export const DiceSoNiceReady = {
                         visibility: "hidden",
                     });
                 });
+
+            // CAMPAIGN SYSTEM
 
             dice3d.addSystem({ id: "campaign", name: "Dicefinder Campaign", colorset: "campaign" });
 
@@ -264,8 +268,8 @@ export const DiceSoNiceReady = {
             });
 
             dice3d
-                .addTexture("d4", {
-                    name: "Dicefinder Campaign",
+                .addTexture("stoneD4", {
+                    name: "Pathfinder Stone (D4)",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/d4.webp",
                 })
@@ -274,7 +278,7 @@ export const DiceSoNiceReady = {
                         name: "campaign",
                         description: "Dicefinder Campaign",
                         category: "Pathfinder 2e",
-                        texture: "d4",
+                        texture: "stoneD4",
                         material: "stone",
                         foreground: "#5c2f00",
                         outline: "none",
@@ -282,6 +286,8 @@ export const DiceSoNiceReady = {
                         visibility: "hidden",
                     });
                 });
+
+            // DARKMODE SYSTEM
 
             dice3d.addSystem({ id: "darkmode", name: "Dicefinder Dark Mode", colorset: "darkmode" });
 
@@ -295,7 +301,7 @@ export const DiceSoNiceReady = {
             }
 
             dice3d.addDicePreset({
-                type: `d100`,
+                type: "d100",
                 labels: [...Array(10)].map((_value, idx) => String((idx + 1) * 10)),
                 system: "darkmode",
                 colorset: "darkmode",
@@ -345,8 +351,8 @@ export const DiceSoNiceReady = {
             });
 
             dice3d
-                .addTexture("transparent", {
-                    name: "Dicefinder Dark Mode",
+                .addTexture("darkModeBlack", {
+                    name: "Dark Mode Black",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/transparent.webp",
                 })
@@ -355,7 +361,7 @@ export const DiceSoNiceReady = {
                         name: "darkmode",
                         description: "Dicefinder Dark Mode",
                         category: "Pathfinder 2e",
-                        texture: "transparent",
+                        texture: "darkModeBlack",
                         material: "metal",
                         foreground: "#f9b96e",
                         outline: "none",
