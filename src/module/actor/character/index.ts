@@ -799,6 +799,11 @@ class CharacterPF2e extends CreaturePF2e {
             synthetics.strikes = synthetics.strikes.map((w) =>
                 w.category === "unarmed" ? w.clone({ data: unarmedRunes }, { keepId: true }) : w
             );
+
+            // Prevent unarmed synthetic strikes from being renamed by runes
+            for (const strike of synthetics.strikes) {
+                strike.data.name = strike.data._source.name;
+            }
         }
 
         const ammos = itemTypes.consumable.filter(
