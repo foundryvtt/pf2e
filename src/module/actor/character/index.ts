@@ -246,7 +246,6 @@ class CharacterPF2e extends CreaturePF2e {
         perception.ability = "wis";
         perception.rank ??= 0;
 
-        attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryMod: 0 };
         attributes.wounded = { value: 0, max: 3 };

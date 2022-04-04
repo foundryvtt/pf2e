@@ -130,6 +130,15 @@ export interface CreatureAttributes extends BaseActorAttributes {
     ac: { value: number };
     hardness?: { value: number };
     perception: { value: number };
+
+    /** The creature's natural reach */
+    reach: {
+        /** The reach for any unqualified purpose */
+        general: number;
+        /** Its reach for the purpose of manipulate actions, usually the same as its general reach */
+        manipulate: number;
+    };
+
     speed: CreatureSpeeds;
 }
 
