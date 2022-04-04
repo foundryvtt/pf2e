@@ -42,6 +42,13 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
+    /** The core link getter has been non-functional since Foundry's inception */
+    override get link(): string {
+        const linkType = this.pack ? "Compendium" : "Item";
+        const id = this.isEmbedded ? this.uuid : this.pack ? this.uuid.replace(/^Compendium./, "") : this.id;
+        return `@${linkType}[${id}]{${this.name}}`;
+    }
+
     /** The sluggified name of the item **/
     get slug(): string | null {
         return this.data.data.slug;
