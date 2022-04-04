@@ -20,7 +20,7 @@
                         {{else if (and entry.isFocusPool (eq ../../focusStyle "pips"))}}
                             <div class="focus-points" title="{{localize "PF2E.Focus.pointTitle"}}">
                                 {{#times section.uses.max}}
-                                    <i class="fas fa-{{#if (gt section.uses.value this)}}dot-{{/if}}circle"></i>
+                                    <i class="{{#if (gt section.uses.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
                                 {{/times}}
                             </div>
                         {{else if (and entry.isFocusPool (eq ../../focusStyle "inputs"))}}
