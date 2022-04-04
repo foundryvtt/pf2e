@@ -134,6 +134,16 @@ export function registerSettings() {
         },
     });
 
+    // Don't tell Nath
+    game.settings.register("pf2e", "nathMode", {
+        name: "PF2E.SETTINGS.NathMode.Name",
+        hint: "PF2E.SETTINGS.NathMode.Hint",
+        scope: "world",
+        config: BUILD_MODE === "development",
+        default: false,
+        type: Boolean,
+    });
+
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
