@@ -10,15 +10,17 @@
         },
         "rules": [
             {
-                "key": "ToggleProperty",
-                "label": "Creature stealing from Gourd Leshy's head",
-                "property": "flags.pf2e.rollOptions.perception.gourdLeshy"
+                "domain": "all",
+                "key": "RollOption",
+                "option": "gourd-head",
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
                 "predicate": {
                     "all": [
-                        "gourdLeshy"
+                        "gourd-head"
                     ]
                 },
                 "selector": "perception",

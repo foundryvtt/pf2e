@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 3.8.2
+
+### Bugfixes
+* (stwlam) Override core ClientDocument#link getter for items to fix compendium link generation
+* (Supe) Fix sheet errors on refresh while a crafting tab item summary is expanded
+
+### Data Updates
+* (Abaddon) Refresh lifesense ability from Bestiary 1's Nosoi
+* (Adisander) Fix HP and token images of some iconics
+* (Drental) Update rule elements on gourd leshy and observant halfling
+* (Drental) Correct typo in hunter automaton rule elements
+* (NullWolf) Correct description of Unbreakable Bond feat
+* (NullWolf) Add property Stonestep Shisk heritage
+* (NullWolf) Add missing archetype journal entries from Secrets of Magic
+* (Roxim) Brushup Exinction Curse Book 1 Appendix NPCs
+* (SoldierC4) Correct sources, levels, prices, and rarities of several equipment items
+* (SpartanCPA) Make several corrections among new PFS creatures
+* (stwlam) Fix reload property of peshpine grenades
+* (stwlam) Update Wild Morph spell effect
+* (Tikael) Correct bonus type for Dual-Handed Assault
+* (Tikael) Fix rule elements on Warrior Automaton heritage
+* (Tikael) Automate Twisting Tree hybrid study
+
 ## Version 3.8.1
 
 ### Bugfixes
