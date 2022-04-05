@@ -56,7 +56,7 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Flea swarms roil across city streets and rural hinterlands in a hissing, scraping scrabble, draining blood from any creatures unfortunate enough to cross their path.</p>",
+            "publicNotes": "<p>Flea swarms roil across city streets and rural hinterlands in a hissing, scraping scrabble, draining blood from any creatures unfortunate enough to cross their path.</p>\n<hr />\n<p>Fleas are little more than a nuisance in most circumstances, but can be lethal when they grow to monstrous proportions or gather in enormous swarms.</p>",
             "source": {
                 "value": "Pathfinder #151: The Show Must Go On"
             }
@@ -88,30 +88,25 @@
             },
             "dr": [
                 {
-                    "exceptions": "bludgeoning",
-                    "label": "Physical",
+                    "exceptions": "except bludgeoning",
                     "type": "physical",
-                    "value": "8"
+                    "value": 8
                 }
             ],
             "dv": [
                 {
-                    "label": "Area Damage",
                     "type": "area-damage",
-                    "value": "4"
+                    "value": 4
                 },
                 {
-                    "label": "Splash Damage",
                     "type": "splash-damage",
-                    "value": "4"
+                    "value": 4
                 }
             ],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": [
-                    "common"
-                ]
+                "value": []
             },
             "rarity": "common",
             "senses": {
@@ -134,6 +129,98 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "FZSw4o3rZCgCEFcW",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "xyO3M6BDrtYA6yRv",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "coep2DirH6k49uz3",
             "data": {
                 "actionCategory": {
@@ -146,7 +233,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Drain from flea fever can't be reduced or recovered from naturally until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1}</p>\n<p><strong>Stage 2</strong> drained 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}</p>\n<p><strong>Stage 3</strong> drained 2 and sickened 1</p>\n<p><strong>Stage 4</strong> drained 3 and sickened 1</p>\n<p><strong>Stage 5</strong> dead</p>"
+                    "value": "<p>Drain from flea fever can't be reduced or recovered from naturally until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} ([[/r 1d4]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> drained 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} and sickened 1 (1 day)</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 3} and sickened 1 (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -174,7 +261,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Flea Fever",
-            "sort": 100000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -190,7 +277,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes drained 1 and the swarm regains 3 HP for each victim drained.</p>"
+                    "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} and the swarm regains [[/r 3]]{3 HP} for each victim drained.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -216,7 +303,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Suck Blood",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -258,7 +345,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Bites",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -288,7 +375,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -303,7 +390,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Jump",
+                        "predicate": {
+                            "all": [
+                                "trait:action:jump"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -312,13 +411,19 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Jump",
+                        "options": "trait:action:jump"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         }
     ],
