@@ -1269,6 +1269,7 @@ class CharacterPF2e extends CreaturePF2e {
         options: {
             categories: WeaponCategory[];
             ammos?: Embedded<ConsumablePF2e>[];
+            defaultAbility?: AbilityString;
         }
     ): CharacterStrike {
         const itemData = weapon.data;
@@ -1288,7 +1289,7 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponTraits = weapon.traits;
 
         // Determine the default ability and score for this attack.
-        const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
+        const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
         const score = systemData.abilities[defaultAbility].value;
         modifiers.push(AbilityModifier.fromScore(defaultAbility, score));
         if (weapon.isMelee && weaponTraits.has("finesse")) {

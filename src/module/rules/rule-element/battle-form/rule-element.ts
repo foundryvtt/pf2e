@@ -338,9 +338,12 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
         this.actor.data.data.actions = this.data.ownUnarmed
             ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))
-            : synthetics.strikes.map((weapon) =>
-                  this.actor.prepareStrike(weapon, { categories: [...WEAPON_CATEGORIES] })
-              );
+            : synthetics.strikes.map((weapon) => {
+                  return this.actor.prepareStrike(weapon, {
+                      categories: [...WEAPON_CATEGORIES],
+                      defaultAbility: this.overrides.strikes[weapon.slug || ""]?.ability,
+                  });
+              });
         for (const action of this.actor.data.data.actions) {
             const strike = this.overrides.strikes[action.slug!];
             if (!this.data.ownUnarmed && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
