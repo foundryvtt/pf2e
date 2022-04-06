@@ -762,7 +762,7 @@
             "type": "weapon"
         },
         {
-            "_id": "LYnPhtYg3ZcLF3G3",
+            "_id": "AMCXG25Yra17rCpx",
             "data": {
                 "MAP": {
                     "value": ""
@@ -789,7 +789,7 @@
                     "carryType": "worn",
                     "handsHeld": 0,
                     "inSlot": false,
-                    "invested": false
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -815,7 +815,7 @@
                     }
                 },
                 "level": {
-                    "value": 4
+                    "value": 2
                 },
                 "negateBulk": {
                     "value": "0"
@@ -830,7 +830,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "100 gp"
+                    "value": "35 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -867,7 +867,7 @@
                 "size": "med",
                 "slug": "handwraps-of-mighty-blows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1415,7 +1415,53 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 2,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "any": [
+                                "foxfire-blast"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "foxfire-blast",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": {
+                            "any": [
+                                "foxfire-blast"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "text": "The target takes an additional 2d4 electricity damage and is pushed back 5 feet."
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "any": [
+                                "foxfire-blast"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "text": "On a critical hit, the target is pushed back and then knocked @Compendium[pf2e.conditionitems.Prone]{Prone}."
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
