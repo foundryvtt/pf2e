@@ -247,7 +247,7 @@ class CharacterPF2e extends CreaturePF2e {
         perception.rank ??= 0;
 
         attributes.doomed = { value: 0, max: 3 };
-        attributes.dying = { value: 0, max: 4, recoveryMod: 0 };
+        attributes.dying = { value: 0, max: 4, recoveryDc: 10, recoveryMod: 0 };
         attributes.wounded = { value: 0, max: 3 };
 
         // Hit points
@@ -1837,6 +1837,7 @@ class CharacterPF2e extends CreaturePF2e {
         const { Recovery } = translations;
 
         // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+        const recoveryDc = this.data.data.attributes.dying.recoveryDc;
         const recoveryMod = this.data.data.attributes.dying.recoveryMod;
 
         const dc: CheckDC = {
@@ -1844,7 +1845,7 @@ class CharacterPF2e extends CreaturePF2e {
                 dying,
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
-            value: 10 + recoveryMod + dying,
+            value: recoveryDc + dying + recoveryMod,
             visibility: "all",
         };
 

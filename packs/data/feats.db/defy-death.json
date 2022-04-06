@@ -29,7 +29,18 @@
         },
         "rules": [
             {
-                "key": "RecoveryCheckDC"
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "predicate" : {"not" : ["feat:toughness"]},
+                "path": "data.attributes.dying.recoveryDc",
+                "value": 9
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "predicate" : {"all": ["feat:toughness"]},
+                "path": "data.attributes.dying.recoveryDc",
+                "value": 8
             }
         ],
         "source": {
