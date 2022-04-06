@@ -25,13 +25,24 @@
         },
         "rules": [
             {
-                "key": "RecoveryCheckDC"
-            },
-            {
                 "key": "FlatModifier",
                 "selector": "hp",
                 "type": "untyped",
                 "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "predicate" : {"not" : ["feat:toughness"]},
+                "path": "data.attributes.dying.recoveryDc",
+                "value": 9
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "predicate" : {"all": ["feat:toughness"]},
+                "path": "data.attributes.dying.recoveryDc",
+                "value": 6
             }
         ],
         "source": {

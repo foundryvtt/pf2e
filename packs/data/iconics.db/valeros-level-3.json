@@ -108,11 +108,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -2925,64 +2925,6 @@
             "type": "feat"
         },
         {
-            "_id": "20E2ibvfx6FgyIVp",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-                },
-                "featType": {
-                    "value": "general"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "general-3",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "hp",
-                        "value": "@actor.level"
-                    },
-                    {
-                        "key": "RecoveryCheckDC"
-                    }
-                ],
-                "slug": "toughness",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Toughness",
-            "sort": 0,
-            "type": "feat"
-        },
-        {
             "_id": "iOWxmTKIdlqycFVB",
             "data": {
                 "actionCategory": {
@@ -3601,6 +3543,67 @@
             "name": "Warfare Lore",
             "sort": 0,
             "type": "lore"
+        },
+        {
+            "_id": "ySmlwSV9mMrkrlzn",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
+                },
+                "featType": {
+                    "value": "general"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "downgrade",
+                        "path": "data.attributes.dying.recoveryDc",
+                        "value": 9
+                    }
+                ],
+                "slug": "toughness",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "type": "feat"
         }
     ],
     "name": "Valeros (Level 3)",
