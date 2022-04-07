@@ -3,7 +3,6 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from "@item/treasure/helpers";
 import { ErrorPF2e, objectHasKey } from "@util";
-import { ActorPF2e, FamiliarPF2e } from "@actor";
 import { LocalizePF2e } from "@system/localize";
 import {
     CompendiumBrowserActionTab,
@@ -15,6 +14,7 @@ import {
 } from "./tabs/index";
 import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
 import { CheckBoxdata, RangesData } from "./tabs/data";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 class PackLoader {
     loadedPacks: {
@@ -477,15 +477,7 @@ export class CompendiumBrowser extends Application {
     }
 
     private async takePhysicalItem(itemId: string): Promise<void> {
-        const actors: ActorPF2e[] = canvas.tokens.controlled.flatMap((token) =>
-            token.actor?.isOwner && !(token.actor instanceof FamiliarPF2e) ? token.actor : []
-        );
-        if (actors.length === 0 && game.user.character) actors.push(game.user.character);
-        if (actors.length === 0) {
-            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
-            return;
-        }
-
+        const actors = await getSelectedOrOwnActors();
         const item = await this.getPhysicalItem(itemId);
 
         for (const actor of actors) {
@@ -505,15 +497,7 @@ export class CompendiumBrowser extends Application {
     }
 
     private async buyPhysicalItem(itemId: string): Promise<void> {
-        const actors: ActorPF2e[] = canvas.tokens.controlled.flatMap((token) =>
-            token.actor?.isOwner && !(token.actor instanceof FamiliarPF2e) ? token.actor : []
-        );
-        if (actors.length === 0 && game.user.character) actors.push(game.user.character);
-        if (actors.length === 0) {
-            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
-            return;
-        }
-
+        const actors = await getSelectedOrOwnActors();
         const item = await this.getPhysicalItem(itemId);
 
         let purchaseSuccess = false;
