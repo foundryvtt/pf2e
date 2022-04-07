@@ -480,6 +480,10 @@ export class CompendiumBrowser extends Application {
         const actors = await getSelectedOrOwnActors();
         const item = await this.getPhysicalItem(itemId);
 
+        if (actors.length === 0) {
+            return;
+        }
+
         for (const actor of actors) {
             await actor.createEmbeddedDocuments("Item", [item.toObject()]);
         }
@@ -499,6 +503,10 @@ export class CompendiumBrowser extends Application {
     private async buyPhysicalItem(itemId: string): Promise<void> {
         const actors = await getSelectedOrOwnActors();
         const item = await this.getPhysicalItem(itemId);
+
+        if (actors.length === 0) {
+            return;
+        }
 
         let purchaseSuccess = false;
 
