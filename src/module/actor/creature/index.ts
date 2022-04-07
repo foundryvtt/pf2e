@@ -61,7 +61,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** Skill check rolls for the creature. */
     get skills(): CreatureSkills {
-        return Object.entries(this.data.data.skills).reduce((current: Partial<CreatureSkills>, [key, value]) => {
+        return Object.entries(this.data.data.skills).reduce((current, [key, value]) => {
             if (!objectHasKey(this.data.data.skills, key)) return current;
             const skill = this.data.data.skills[key];
             const longForm = skill.name;
@@ -70,7 +70,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`];
             current[key] = Statistic.from(this, value, longForm, label, "skill-check", domains);
             return current;
-        }, {}) as CreatureSkills;
+        }, {} as CreatureSkills);
     }
 
     /** The creature's position on the alignment axes */

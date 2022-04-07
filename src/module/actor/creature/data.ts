@@ -95,7 +95,7 @@ export interface AbilityData {
     mod: number;
 }
 
-export type SkillAbbreviation = typeof SKILL_ABBREVIATIONS[number];
+export type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
 
 export type Abilities = Record<AbilityString, AbilityData>;
 
