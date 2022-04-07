@@ -24,15 +24,17 @@
                 </div>
             </div>
 
-            <div>
-                <div class="sidebar-title">
-                    <h2>{{localize "PF2E.StealthLabel"}}</h2>
-                </div>
+            {{#if document.isComplex}}
                 <div>
-                    <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
-                    <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
+                    <div class="sidebar-title">
+                        <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
+                    </div>
+                    <div>
+                        <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
+                        <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
+                    </div>
                 </div>
-            </div>
+            {{/if}}
 
             <div>
                 <div class="sidebar-title">
@@ -93,7 +95,7 @@
 
         <!-- BODY -->
         <section class="content">
-
+            {{#if (or hasStealthDescription editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.StealthLabel"}}</h3>
@@ -102,7 +104,9 @@
                     {{editor content=(enrichHTML data.attributes.stealth.details) target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasDescription editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardDescriptionLabel"}}</h3>
@@ -111,7 +115,9 @@
                     {{editor content=(enrichHTML data.details.description) target="data.details.description" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasDisable editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardDisableLabel"}}</h3>
@@ -120,7 +126,9 @@
                     {{editor content=(enrichHTML data.details.disable) target="data.details.disable" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasRoutineDetails editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardRoutineLabel"}}</h3>
@@ -129,7 +137,9 @@
                     {{editor content=(enrichHTML data.details.routine) target="data.details.routine" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasResetDetails editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardResetLabel"}}</h3>
@@ -138,6 +148,7 @@
                     {{editor content=(enrichHTML data.details.reset) target="data.details.reset" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
             <div class="section-container">
                 <div class="section-header">
