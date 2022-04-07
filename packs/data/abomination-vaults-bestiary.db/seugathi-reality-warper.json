@@ -56,7 +56,7 @@
                 "value": 9
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Seugathi reality warpers create and destroy inhospitable environments on a small scale by manipulating the forces of raw chaos. A neothelid might spawn such a seugathi to create habitats for unique slaves or guests, or to destroy the ecosystem of a troublesome species. Darklands scholars refer to reality warpers as veterans in the seugathi ranks, but they're more accurately compared to aggressive landscape architects.</p>\n<hr />\n<p>The wicked, alien @Compendium[pf2e.pathfinder-bestiary-2.Neothelid]{Neothelids} impregnate themselves through ritualistic magic to produce wormlike servitor creatures called seugathis. These creatures spawn with a strong psychic drive to complete some task on behalf of the neothelids' far-reaching plans. These directives are diverse, strange, and usually cruel toward humanoid life.</p>",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
@@ -92,9 +92,9 @@
             },
             "dr": [
                 {
-                    "label": "Bludgeoning",
+                    "exceptions": "",
                     "type": "bludgeoning",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -108,7 +108,7 @@
             },
             "rarity": "uncommon",
             "senses": {
-                "value": "darkvision, tremorsense 30 feet"
+                "value": "darkvision, tremorsense (imprecise) 30 feet"
             },
             "size": {
                 "value": "lg"
@@ -127,7 +127,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "H4XvIkWLE3T2lkf2",
+            "_id": "IcalXla4INxKnCPk",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -141,20 +141,20 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "slots": {
                     "slot0": {
-                        "max": 4,
+                        "max": 0,
                         "prepared": [],
-                        "value": 4
+                        "value": 0
                     },
                     "slot1": {
                         "max": 0,
@@ -177,19 +177,19 @@
                         "value": 0
                     },
                     "slot3": {
-                        "max": 9,
+                        "max": 0,
                         "prepared": [],
-                        "value": 9
+                        "value": 0
                     },
                     "slot4": {
-                        "max": 5,
+                        "max": 0,
                         "prepared": [],
-                        "value": 5
+                        "value": 0
                     },
                     "slot5": {
-                        "max": 4,
+                        "max": 0,
                         "prepared": [],
-                        "value": 4
+                        "value": 0
                     },
                     "slot6": {
                         "max": 0,
@@ -238,14 +238,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "CrbjK5i3A9WMVOjd",
+            "_id": "ZQ7GehjePgRVUEf7",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "burst",
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "20-foot burst adjacent to a flat surface"
@@ -265,8 +265,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "3d6"
@@ -274,7 +276,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Oily black tentacles rise up and attempt to Grapple each creature in the area. Make spell attack rolls against the Fortitude DC of each creature. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal 1d6 bludgeoning damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
+                    "value": "<p><strong>Area</strong> 20-foot burst adjacent to a flat surface</p>\n<hr />\n<p>Oily black tentacles rise up and attempt to capture creatures in the area. Make spell attack rolls against the Fortitude DC of each creature in the area. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal [[/r {1d6}[bludgeoning]]]{1d6 Bludgeoning Damage} to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -286,7 +288,8 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 5,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -316,10 +319,10 @@
                 },
                 "slug": "black-tentacles",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=23"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "attack"
                 },
                 "sustained": {
                     "value": false
@@ -354,7 +357,7 @@
             "type": "spell"
         },
         {
-            "_id": "j5cl46JRT2Ygb5t6",
+            "_id": "tle25JoYDwWFB7xJ",
             "data": {
                 "ability": {
                     "value": ""
@@ -382,7 +385,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically Slowed 1 for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
+                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
                 },
                 "duration": {
                     "value": "1 or more rounds"
@@ -394,7 +397,8 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 5,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -465,7 +469,7 @@
             "type": "spell"
         },
         {
-            "_id": "N2kcSUdK5gXezZBe",
+            "_id": "K7GclW4dMaTefB8Z",
             "data": {
                 "ability": {
                     "value": ""
@@ -505,7 +509,8 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 5,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -535,7 +540,7 @@
                 },
                 "slug": "hallucination",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=144"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -576,7 +581,7 @@
             "type": "spell"
         },
         {
-            "_id": "xCRODBDD4LmeHytT",
+            "_id": "7zuJEPxXDMoMPPjN",
             "data": {
                 "ability": {
                     "value": ""
@@ -604,7 +609,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target's senses are suddenly rewired in unexpected ways, causing them to process noises as bursts of color, smells as sounds, and so on. This has three effects, and the target must attempt a Will save. Due to the distraction, the target must succeed at a DC 5 flat check each time it uses a concentrate action, or the action fails and is wasted. The target's difficulty processing visual input makes all creatures and objects @Compendium[pf2e.conditionitems.Concealed]{Concealed} from it. The creature has trouble moving, making it @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} and giving it a -10-foot status penalty to its Speeds.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is affected for 1 round.</p>\n<p><strong>Failure</strong> The target is affected for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} as it attempts to process the sensory shifts.</p>\n<hr />\n<p><strong>Heightened (9th)</strong></p>"
+                    "value": "<p>The target's senses are suddenly rewired in unexpected ways, causing them to process noises as bursts of color, smells as sounds, and so on. This has three effects, and the target must attempt a Will save. Due to the distraction, the target must succeed at a DC 5 flat check each time it uses a concentrate action, or the action fails and is wasted. The target's difficulty processing visual input makes all creatures and objects @Compendium[pf2e.conditionitems.Concealed]{Concealed} from it. The creature has trouble moving, making it @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} and giving it a -10-foot status penalty to its Speeds.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is affected for 1 round.</p>\n<p><strong>Failure</strong> The target is affected for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} as it attempts to process the sensory shifts.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -616,7 +621,8 @@
                     "value": 5
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 5,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -646,7 +652,7 @@
                 },
                 "slug": "synesthesia",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=328"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -685,7 +691,7 @@
             "type": "spell"
         },
         {
-            "_id": "7s24k8K8KAu1SFs1",
+            "_id": "SR1BPr78jaiZBrfy",
             "data": {
                 "ability": {
                     "value": ""
@@ -725,11 +731,8 @@
                     "value": 4
                 },
                 "location": {
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 4,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -759,7 +762,7 @@
                 },
                 "slug": "confusion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=48"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -800,7 +803,231 @@
             "type": "spell"
         },
         {
-            "_id": "RyTO4Wj5ZD3YQSKR",
+            "_id": "PHKiw8j4aq6d3klV",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "confusion",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.LiGbewa9pO0yjbsY"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/confusion.webp",
+            "name": "Confusion",
+            "sort": 700000,
+            "type": "spell"
+        },
+        {
+            "_id": "aqerj9MgZA7O0KSA",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "confusion",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.LiGbewa9pO0yjbsY"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/confusion.webp",
+            "name": "Confusion",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "BrnGM5C86MsmYYHw",
             "data": {
                 "ability": {
                     "value": ""
@@ -836,7 +1063,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is Frightened 2.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is Frightened 4. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
+                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -848,7 +1075,8 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 4,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -884,7 +1112,7 @@
                 },
                 "slug": "phantasmal-killer",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=219"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -923,11 +1151,11 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
             "name": "Phantasmal Killer",
-            "sort": 700000,
+            "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "BlC4F30fZNfGMjBh",
+            "_id": "h9d8nwlDk0AcCPgY",
             "data": {
                 "ability": {
                     "value": ""
@@ -967,7 +1195,8 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 4,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -997,7 +1226,7 @@
                 },
                 "slug": "suggestion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1035,11 +1264,11 @@
             },
             "img": "systems/pf2e/icons/spells/suggestion.webp",
             "name": "Suggestion",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "8UuhBOINpBUlT8Yi",
+            "_id": "WUPlUhCOwGpawFqk",
             "data": {
                 "ability": {
                     "value": ""
@@ -1079,11 +1308,8 @@
                     "value": 3
                 },
                 "location": {
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1113,7 +1339,7 @@
                 },
                 "slug": "hypercognition",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=156"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1146,11 +1372,11 @@
             },
             "img": "systems/pf2e/icons/spells/hypercognition.webp",
             "name": "Hypercognition",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "ZMyzDfgduFW38OTO",
+            "_id": "QQWYPvILwW8aujPl",
             "data": {
                 "ability": {
                     "value": ""
@@ -1158,6 +1384,222 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You rapidly catalog and collate information relevant to your current situation. You can instantly use up to 6 Recall Knowledge actions as part of Casting this Spell. For these actions, you can't use any special abilities, reactions, or free actions that trigger when you Recall Knowledge.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hypercognition",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traditions": {
+                    "value": [
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ZYoC630tNGutgbE0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/hypercognition.webp",
+            "name": "Hypercognition",
+            "sort": 1200000,
+            "type": "spell"
+        },
+        {
+            "_id": "etCvTLXL3f6aTxl2",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You rapidly catalog and collate information relevant to your current situation. You can instantly use up to 6 Recall Knowledge actions as part of Casting this Spell. For these actions, you can't use any special abilities, reactions, or free actions that trigger when you Recall Knowledge.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hypercognition",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traditions": {
+                    "value": [
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ZYoC630tNGutgbE0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/hypercognition.webp",
+            "name": "Hypercognition",
+            "sort": 1300000,
+            "type": "spell"
+        },
+        {
+            "_id": "lvJt30ZXDkGJ9Jl1",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1178,7 +1620,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>"
+                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Levitate]{Spell Effect: Levitate}</p>"
                 },
                 "duration": {
                     "value": "5 minutes"
@@ -1190,11 +1632,8 @@
                     "value": 3
                 },
                 "location": {
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1224,7 +1663,7 @@
                 },
                 "slug": "levitate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=170"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1233,7 +1672,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 unatteded object or willing creature"
+                    "value": "1 unattended object or willing creature"
                 },
                 "time": {
                     "value": "2"
@@ -1258,11 +1697,229 @@
             },
             "img": "systems/pf2e/icons/spells/levitate.webp",
             "name": "Levitate",
-            "sort": 1000000,
+            "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "36I5e6QZceSJYo9O",
+            "_id": "0bl77Mad5frsiOpC",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Levitate]{Spell Effect: Levitate}</p>"
+                },
+                "duration": {
+                    "value": "5 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "levitate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 unattended object or willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fI20AVwOzJMHXRdo"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/levitate.webp",
+            "name": "Levitate",
+            "sort": 1500000,
+            "type": "spell"
+        },
+        {
+            "_id": "hrKLZ5HgS6xyUjBj",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Levitate]{Spell Effect: Levitate}</p>"
+                },
+                "duration": {
+                    "value": "5 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "levitate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 unattended object or willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fI20AVwOzJMHXRdo"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/levitate.webp",
+            "name": "Levitate",
+            "sort": 1600000,
+            "type": "spell"
+        },
+        {
+            "_id": "iwDEmXvW7OkrKTzf",
             "data": {
                 "ability": {
                     "value": ""
@@ -1302,11 +1959,8 @@
                     "value": 3
                 },
                 "location": {
-                    "uses": {
-                        "max": 3,
-                        "value": 3
-                    },
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1336,7 +1990,7 @@
                 },
                 "slug": "mind-reading",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=194"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1373,11 +2027,235 @@
             },
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
-            "sort": 1100000,
+            "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "aDBUm4pS4SOcHStU",
+            "_id": "Td4IEQYyITRwJgnG",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
+                },
+                "duration": {
+                    "value": "1 round or sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mind-reading",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "detection",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.KHnhPHL4x1AQHfbC"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/mind-reading.webp",
+            "name": "Mind Reading",
+            "sort": 1800000,
+            "type": "spell"
+        },
+        {
+            "_id": "1YUx168ecxbnax6f",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
+                },
+                "duration": {
+                    "value": "1 round or sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "value": "IcalXla4INxKnCPk"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mind-reading",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "detection",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.KHnhPHL4x1AQHfbC"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/mind-reading.webp",
+            "name": "Mind Reading",
+            "sort": 1900000,
+            "type": "spell"
+        },
+        {
+            "_id": "y1TsVeZaRiCsGooB",
             "data": {
                 "ability": {
                     "value": ""
@@ -1426,7 +2304,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1462,7 +2340,7 @@
                 },
                 "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1501,18 +2379,18 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
-            "sort": 1200000,
+            "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "27DJm3YrpW7XAMJM",
+            "_id": "3JmTCRhqqJrLMKjL",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot emanation"
@@ -1545,7 +2423,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1575,7 +2453,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1615,11 +2493,11 @@
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
-            "sort": 1300000,
+            "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "Rrc9NFFutpfGeV2V",
+            "_id": "RCUMfd3zPyjDc1T9",
             "data": {
                 "ability": {
                     "value": ""
@@ -1659,7 +2537,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1689,7 +2567,7 @@
                 },
                 "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1725,18 +2603,18 @@
             },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
-            "sort": 1400000,
+            "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "D6wZQTGPZkt7rSXD",
+            "_id": "a2XifCHGz5MH5gMk",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1766,7 +2644,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1778,7 +2656,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "H4XvIkWLE3T2lkf2"
+                    "value": "IcalXla4INxKnCPk"
                 },
                 "materials": {
                     "value": ""
@@ -1814,7 +2692,7 @@
                 },
                 "slug": "telekinetic-projectile",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=334"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1851,11 +2729,11 @@
             },
             "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
             "name": "Telekinetic Projectile",
-            "sort": 1500000,
+            "sort": 2300000,
             "type": "spell"
         },
         {
-            "_id": "QUiecKyeCl9z4JtW",
+            "_id": "IvhwAKjsxJV7jjkI",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1879,8 +2757,8 @@
                     "value": "<p>These axes are designed explicitly as weapons, rather than tools. They typically weigh less, with a shaft reinforced with metal bands or bolts, and have a sharper blade, making them ideal for chopping limbs rather than wood.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1916,10 +2794,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "1 gp"
@@ -1939,16 +2817,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -1956,10 +2834,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "lg",
                 "slug": "battle-axe",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1992,8 +2870,8 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/battle-axe.webp",
-            "name": "+1 Battle Axe",
-            "sort": 1600000,
+            "name": "Battle Axe",
+            "sort": 2400000,
             "type": "weapon"
         },
         {
@@ -2003,6 +2881,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "seugathi-venom"
                     ]
@@ -2044,7 +2923,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bite",
-            "sort": 1700000,
+            "sort": 2500000,
             "type": "melee"
         },
         {
@@ -2054,6 +2933,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -2070,7 +2950,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(magical, sweep, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -2082,8 +2962,8 @@
                     "rarity": "common",
                     "value": [
                         "magical",
-                        "sweep",
-                        "reach 10 feet"
+                        "reach-10",
+                        "sweep"
                     ]
                 },
                 "weaponType": {
@@ -2094,8 +2974,212 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Battle Axe",
-            "sort": 1800000,
+            "sort": 2600000,
             "type": "melee"
+        },
+        {
+            "_id": "hIYUGmOfZ6ZD3cNt",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 2700000,
+            "type": "action"
+        },
+        {
+            "_id": "J82EHqf8yKe7pMEq",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 2800000,
+            "type": "action"
+        },
+        {
+            "_id": "F7zqmFxLH2v3hOAA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
+            "sort": 2900000,
+            "type": "action"
+        },
+        {
+            "_id": "AGshXsiKjGrOkqWk",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs Magic",
+            "sort": 3000000,
+            "type": "action"
         },
         {
             "_id": "fNQ2aHpM6vTQ7iqr",
@@ -2110,7 +3194,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature fails its save against the seugathi's mindfog aura</p>\n<p><strong>Effect</strong> The seugathi determines who the confused creature attacks for that round, instead of the target being randomly determined by the GM. If the chosen target is the confused creature's ally, the creature can immediately attempt a @Check[type:will|dc:25] save; on a success, its target is determined randomly as normal for confusion, and on a critical success the target is no longer confused.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature fails its save against the seugathi's mindfog aura</p>\n<p><strong>Effect</strong> The seugathi determines who the @Compendium[pf2e.conditionitems.Confused]{Confused} creature attacks for that round, instead of the target being randomly determined by the GM.</p>\n<p>If the chosen target is the confused creature's ally, the creature can immediately attempt a @Check[type:will|dc:25] save; on a success, its target is determined randomly as normal for confusion, and on a critical success the target is no longer confused.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2136,7 +3220,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Command Confusion",
-            "sort": 1900000,
+            "sort": 3100000,
             "type": "action"
         },
         {
@@ -2146,13 +3230,13 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>20 feet. A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:25] save or become confused for 1 round; on a success, that creature is temporarily immune for 1 minute. A seugathi can suppress or activate this aura as a with the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:25] save or become @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round; on a success, that creature is temporarily immune for 1 minute. A seugathi can suppress or activate this aura as a with the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2179,9 +3263,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mindfog Aura",
-            "sort": 2000000,
+            "sort": 3200000,
             "type": "action"
         },
         {
@@ -2225,7 +3309,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Envenom Weapon",
-            "sort": 2100000,
+            "sort": 3300000,
             "type": "action"
         },
         {
@@ -2267,7 +3351,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Magic Item Mastery",
-            "sort": 2200000,
+            "sort": 3400000,
             "type": "action"
         },
         {
@@ -2283,7 +3367,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and stupefied 1 (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and deafened and stupefied 2 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Deafened]{Deafened} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2311,7 +3395,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Seugathi Venom",
-            "sort": 2300000,
+            "sort": 3500000,
             "type": "action"
         },
         {
@@ -2327,7 +3411,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The seugathi bends reality in their choice of a @Template[type:emanation|distance:10] or a @Template[type:line|distance:60], altering the terrain of the area. The terrain becomes a different type of terrain (such as aquatic, arctic, or desert) and becomes normal or difficult terrain, as the seugathi chooses. Structures, general geographic features, and creatures in the area aren't transformed, but creatures in the area take [[/r {5d6}[chaotic]]]{5d6 chaotic damage} (@Check[type:fortitude|dc:28|basic:true] save) as reality tries to bend them along with the terrain. Though changes to the area are permanent, the natural environment might eventually revert the land back to its original state (aquatic areas drain, arctic areas thaw, and so on).</p>"
+                    "value": "<p>The seugathi bends reality in their choice of a @Template[type:emanation|distance:10] or a @Template[type:line|distance:60], altering the terrain of the area. The terrain becomes a different type of terrain (such as aquatic, arctic, or desert) and becomes normal or difficult terrain, as the seugathi chooses. Structures, general geographic features, and creatures in the area aren't transformed, but creatures in the area take [[/r {5d6}[chaotic]]]{5d6 chaotic damage} (@Check[type:fortitude|dc:28|basic:true] save) as reality tries to bend them along with the terrain.</p>\n<p>Though changes to the area are permanent, the natural environment might eventually revert the land back to its original state (aquatic areas drain, arctic areas thaw, and so on).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2357,7 +3441,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Warp Reality",
-            "sort": 2400000,
+            "sort": 3600000,
             "type": "action"
         },
         {
@@ -2387,7 +3471,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2500000,
+            "sort": 3700000,
             "type": "lore"
         },
         {
@@ -2417,7 +3501,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2600000,
+            "sort": 3800000,
             "type": "lore"
         },
         {
@@ -2447,7 +3531,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2700000,
+            "sort": 3900000,
             "type": "lore"
         },
         {
@@ -2477,7 +3561,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2800000,
+            "sort": 4000000,
             "type": "lore"
         },
         {
@@ -2507,7 +3591,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2900000,
+            "sort": 4100000,
             "type": "lore"
         },
         {
@@ -2537,7 +3621,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 3000000,
+            "sort": 4200000,
             "type": "lore"
         },
         {
@@ -2567,7 +3651,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 3100000,
+            "sort": 4300000,
             "type": "lore"
         },
         {
@@ -2597,7 +3681,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3200000,
+            "sort": 4400000,
             "type": "lore"
         }
     ],
