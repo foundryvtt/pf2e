@@ -515,9 +515,6 @@ export class CompendiumBrowser extends Application {
         }
 
         const item = await this.getPhysicalItem(itemId);
-        if (item instanceof KitPF2e) {
-            return;
-        }
 
         let purchaseSuccess = false;
 

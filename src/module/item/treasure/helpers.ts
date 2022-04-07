@@ -94,13 +94,12 @@ export function extractPriceFromItem(
 ): Coins {
     // This requires preprocessing, as large gold values contain , for their value
     const priceTag = String(itemData.data.price.value).trim().replace(/,/g, "");
-    const match = /^(\d+)\s*([pgsc]p)$/.exec(priceTag);
-    if (match) {
-        const [value, denomination] = match.slice(1, 3);
-        return toCoins(denomination, (Number(value) || 0) * quantity);
-    } else {
-        return toCoins("gp", 0);
-    }
+    return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
+        .map((match) => {
+            const [value, denomination] = match.slice(1, 3);
+            return toCoins(denomination, (Number(value) || 0) * quantity);
+        })
+        .reduce(combineCoins, noCoins());
 }
 
 export function multiplyCoinValue(coins: Coins, factor: number): Coins {
