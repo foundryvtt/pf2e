@@ -536,15 +536,13 @@ export class SpellPF2e extends ItemPF2e {
         const locationChanged = newLocation && newLocation !== this.data.data.location.value;
         if ((!this.actor || locationChanged) && isObject<Record<string, unknown>>(changed.data)) {
             const data: Record<string, unknown> = changed.data;
-            data["-=location"] = null;
+            const locationUpdates: Record<string, unknown> = this.actor ? changed.data.location ?? {} : { value: "" };
+            data.location = locationUpdates;
 
-            if (!this.actor) {
-                data.location = { value: "" };
-            } else {
-                // If moving between spellcasting entries, make sure location updates are done last
-                const locationUpdates = changed.data?.location;
-                delete data.location;
-                data.location = locationUpdates;
+            // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
+            const keys = Object.keys(this.data.data.location).filter((k) => k !== "value" && !(k in locationUpdates));
+            for (const key of keys) {
+                locationUpdates[`-=${key}`] = null;
             }
         }
     }
