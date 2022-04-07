@@ -239,7 +239,14 @@ abstract class RuleElementPF2e {
 
         const saferEval = (formula: string): number => {
             try {
-                return Roll.safeEval(formula);
+                // If any resolvables were not provided for this formula, return the default value
+                const unresolved = /@[a-z]+/i.exec(formula) ?? [];
+                for (const resolvable of unresolved) {
+                    if (resolvable === "@target") continue; // Allow to fail with no warning
+                    this.failValidation(`This rule element requires a "${resolvable}" object, but none was provided.`);
+                }
+
+                return unresolved.length === 0 ? Roll.safeEval(formula) : 0;
             } catch {
                 const { item } = this;
                 this.failValidation(`Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`);
