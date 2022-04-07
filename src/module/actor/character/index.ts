@@ -563,7 +563,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            const domains = ["ac", `${acAbility}-based`, "all"];
+            const domains = ["ac", `${acAbility}-based`];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
