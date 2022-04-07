@@ -916,11 +916,14 @@ class CharacterPF2e extends CreaturePF2e {
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
 
+        // Set number of hands free
         const heldItems = this.physicalItems.filter((i) => i.isHeld);
         const handsFree = heldItems.reduce((count, item) => {
             const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
             return Math.max(count - handsOccupied, 0);
         }, 2);
+
+        this.attributes.handsFree = handsFree;
         rollOptionsAll[`hands-free:${handsFree}`] = true;
 
         // Some rules specify ignoring the Free Hand trait
