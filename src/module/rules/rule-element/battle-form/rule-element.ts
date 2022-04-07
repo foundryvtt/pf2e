@@ -180,7 +180,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     private setRollOptions(): void {
-        const { rollOptions } = this.actor;
+        const { attributes, rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
         rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
@@ -194,6 +194,23 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!(key in this.overrides.skills)) continue;
             const longForm = SKILL_DICTIONARY[key];
             rollOptions.all[`battle-form:${longForm}`] = true;
+        }
+
+        // Reestablish hands free
+        attributes.handsFree = Math.max(
+            Object.values(this.overrides.strikes ?? {}).reduce(
+                (count, s) => (s.category === "unarmed" ? count : count - 1),
+                2
+            ),
+            0
+        );
+
+        for (const num of [0, 1, 2]) {
+            if (attributes.handsFree === num) {
+                rollOptions.all[`hands-free:${num}`] = true;
+            } else {
+                delete rollOptions.all[`hands-free:${num}`];
+            }
         }
     }
 

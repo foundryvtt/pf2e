@@ -328,6 +328,8 @@ export interface CharacterAttributes extends CreatureAttributes {
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */
     ancestryhp: number;
+    /** The number of hands this character has free */
+    handsFree: number;
     /** A bonus to the maximum amount of bulk that this character can carry. */
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
