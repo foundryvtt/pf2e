@@ -27,7 +27,12 @@
             {
                 "key": "Weakness",
                 "type": "fire",
-                "value": "max(1,floor(@actor.level/3))"
+                "value": "max(1,floor(@actor.level/3))",
+                "predicate": {
+                    "not": [
+                        "feat:sealed-poppet"
+                    ]
+                }
             }
         ],
         "source": {
