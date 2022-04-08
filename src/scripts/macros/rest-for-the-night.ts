@@ -1,6 +1,6 @@
 import { CharacterPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
-import { ActionDefaultOptions } from "@system/actions/actions";
+import { ItemPF2e } from "@item";
+import { ActionDefaultOptions } from "@system/action-macros";
 
 /** A macro for the Rest for the Night quasi-action */
 export async function restForTheNight(options: ActionDefaultOptions): Promise<void | ChatMessage> {
