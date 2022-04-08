@@ -1,7 +1,7 @@
 import { HazardPF2e } from "@actor";
 import { SaveType } from "@actor/data";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionPF2e } from "@item";
+import { ActionItemPF2e } from "@item";
 
 interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
     actions: HazardActionSheetData;
@@ -39,7 +39,7 @@ interface HazardActionSheetData {
 
 interface ActionsDetails {
     label: string;
-    actions: ActionPF2e[];
+    actions: ActionItemPF2e[];
 }
 
 export { HazardActionSheetData, HazardSaveSheetData, HazardSheetData };

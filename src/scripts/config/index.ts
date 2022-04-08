@@ -1,5 +1,5 @@
 import {
-    ActionPF2e,
+    ActionItemPF2e,
     AncestryPF2e,
     BackgroundPF2e,
     BookPF2e,
@@ -1979,7 +1979,7 @@ export const PF2ECONFIG = {
 
     Item: {
         documentClasses: {
-            action: ActionPF2e,
+            action: ActionItemPF2e,
             ancestry: AncestryPF2e,
             armor: ArmorPF2e,
             background: BackgroundPF2e,
