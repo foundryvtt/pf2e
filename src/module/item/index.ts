@@ -1,7 +1,7 @@
 export { ItemPF2e, ItemConstructionContextPF2e } from "./base";
 export { PhysicalItemPF2e } from "./physical";
 export { ABCItemPF2e } from "./abc";
-export { ActionPF2e } from "./action";
+export { ActionItemPF2e } from "./action";
 export { AncestryPF2e } from "./ancestry";
 export { ArmorPF2e } from "./armor";
 export { BackgroundPF2e } from "./background";
