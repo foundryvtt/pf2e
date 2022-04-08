@@ -372,11 +372,12 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 const spells = spellsByLevel.get(level) ?? [];
                 // todo: innate spells should be able to expend like prep spells do
                 if (alwaysShowHeader || spells.length) {
-                    const uses = !this.isSpontaneous || level === 0 ? undefined : { value: data.value, max: data.max };
+                    const uses = this.isSpontaneous && level !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
                         spell,
                         chatData: spell.getChatData(),
                         expended: this.isInnate && !spell.data.data.location.uses?.value,
+                        uses: this.isInnate && !spell.unlimited ? spell.data.data.location.uses : undefined,
                     }));
 
                     // Spontaneous spellbooks hide their levels if there are no uses for them. Innate hide if there are no active spells.
