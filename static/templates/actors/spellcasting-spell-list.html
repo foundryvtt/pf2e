@@ -92,20 +92,22 @@
 
                             <div class="spell-range">
                                 {{!-- Innate spells replace range for uses --}}
-                                {{#if entry.isInnate}}
+                                {{#unless entry.isInnate}}
+                                    {{spell.data.data.range.value}}
+                                {{else if uses}}
                                     <div class="uses">
                                         <span class="spell-slots-input">
-                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.value" value="{{spell.data.data.location.uses.value}}" placeholder="0" />
+                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.value" value="{{uses.value}}" placeholder="0" />
                                         </span>
                                         <span class="slash"> / </span>
                                         <span class="spell-max-input">
-                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.max" value="{{spell.data.data.location.uses.max}}" placeholder="0" />
+                                            <input type="number" data-item-id="{{spell.id}}" data-item-property="data.location.uses.max" value="{{uses.max}}" placeholder="0" />
                                         </span>
                                         <a class="spell-slots-increment-reset" data-item-id="{{spell.id}}"><i class="fas fa-redo"></i></a>
                                     </div>
                                 {{else}}
-                                    {{spell.data.data.range.value}}
-                                {{/if}}
+                                    {{localize "PF2E.SpellUnlimitedLabel"}}
+                                {{/unless}}
                             </div>
 
                             <div class="spell-components tags">
