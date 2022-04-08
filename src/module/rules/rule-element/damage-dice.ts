@@ -16,21 +16,6 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         if (typeof data.selector !== "string" || data.selector.length === 0) {
             this.failValidation("Missing selector property");
         }
-
-        const isValidOverride = (override: unknown): override is DamageDiceOverride => {
-            return (
-                isObject<DamageDiceOverride>(override) &&
-                (typeof override.upgrade === "boolean" ||
-                    setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
-                    setHasElement(DAMAGE_TYPES, override.damageType))
-            );
-        };
-        if ("override" in data && !isValidOverride(data.override)) {
-            this.failValidation(
-                "The override property must be an object with one property of `upgrade` (boolean), `dieSize` (d6-d12),",
-                "or `damageType` (recognized damage type)"
-            );
-        }
     }
 
     override beforePrepareData(): void {
@@ -54,6 +39,23 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         if (data.override) {
             data.override.damageType &&= this.resolveInjectedProperties(data.override.damageType) as DamageType;
             data.override.dieSize &&= this.resolveInjectedProperties(data.override.dieSize) as DamageDieSize;
+
+            const isValidOverride = (override: unknown): override is DamageDiceOverride => {
+                return (
+                    isObject<DamageDiceOverride>(override) &&
+                    (typeof override.upgrade === "boolean" ||
+                        setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
+                        setHasElement(DAMAGE_TYPES, override.damageType))
+                );
+            };
+
+            if (!isValidOverride(data.override)) {
+                this.failValidation(
+                    "The override property must be an object with one property of `upgrade` (boolean), `dieSize` (d6-d12),",
+                    "or `damageType` (recognized damage type)"
+                );
+                return;
+            }
         }
 
         const dice = new DamageDicePF2e(data as Required<DamageDiceData>);

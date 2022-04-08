@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 3.8.3
+
+### Bugfixes
+* (stwlam) Check that there is at least one circumstance penalty/bonus before deciding an AC is adjusted
+* (stwlam) Fix issue preventing some damage dice overrides from being applied
+* (Supe) Fix lore checks to use intelligence
+* (Supe) Show unlimited uses for innate cantrips
+
 ## Version 3.8.2
 
 ### Bugfixes

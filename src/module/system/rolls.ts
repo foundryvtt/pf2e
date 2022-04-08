@@ -537,9 +537,9 @@ export class CheckPF2e {
             const circumstances =
                 dc.slug === "ac" && targetAC instanceof StatisticModifier
                     ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
-                    : null;
+                    : [];
             const preadjustedDC =
-                circumstances && targetAC
+                circumstances.length > 0 && targetAC
                     ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : targetAC?.value ?? null;
 
@@ -547,7 +547,7 @@ export class CheckPF2e {
                 ? "all"
                 : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
 
-            if (!(typeof preadjustedDC === "number" && circumstances)) {
+            if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = targetData
                     ? translations.DC.Label.WithTarget
                     : customLabel ?? translations.DC.Label.NoTarget;
