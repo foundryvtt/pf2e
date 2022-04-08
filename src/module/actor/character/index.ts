@@ -246,7 +246,6 @@ class CharacterPF2e extends CreaturePF2e {
         perception.ability = "wis";
         perception.rank ??= 0;
 
-        attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryMod: 0 };
         attributes.wounded = { value: 0, max: 3 };
@@ -564,7 +563,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            const domains = ["ac", `${acAbility}-based`, "all"];
+            const domains = ["ac", `${acAbility}-based`];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -707,6 +706,7 @@ class CharacterPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
                 overwrite: false,
             });
+            stat.ability = "int";
             stat.itemID = skill._id;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.rank = rank ?? 0;
@@ -893,7 +893,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    /** Set roll operations for ability scores and proficiency ranks */
+    /** Set roll operations for ability scores, proficiency ranks, and number of hands free */
     protected override setNumericRollOptions(): void {
         super.setNumericRollOptions();
 
@@ -916,6 +916,20 @@ class CharacterPF2e extends CreaturePF2e {
             const rank = this.data.data.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
+
+        // Set number of hands free
+        const heldItems = this.physicalItems.filter((i) => i.isHeld);
+        const handsFree = heldItems.reduce((count, item) => {
+            const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
+            return Math.max(count - handsOccupied, 0);
+        }, 2);
+
+        this.attributes.handsFree = handsFree;
+        rollOptionsAll[`hands-free:${handsFree}`] = true;
+
+        // Some rules specify ignoring the Free Hand trait
+        const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
+        rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
     prepareSaves(): void {
@@ -1269,6 +1283,7 @@ class CharacterPF2e extends CreaturePF2e {
         options: {
             categories: WeaponCategory[];
             ammos?: Embedded<ConsumablePF2e>[];
+            defaultAbility?: AbilityString;
         }
     ): CharacterStrike {
         const itemData = weapon.data;
@@ -1288,7 +1303,7 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponTraits = weapon.traits;
 
         // Determine the default ability and score for this attack.
-        const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
+        const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
         const score = systemData.abilities[defaultAbility].value;
         modifiers.push(AbilityModifier.fromScore(defaultAbility, score));
         if (weapon.isMelee && weaponTraits.has("finesse")) {

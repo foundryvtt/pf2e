@@ -1,12 +1,12 @@
-import { ActionPF2e } from "@item/action";
+import { ActionItemPF2e } from "@item/action";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { getActionIcon } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
 
-export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
+export class ActionSheetPF2e extends ItemSheetPF2e<ActionItemPF2e> {
     override async getData(): Promise<ActionSheetData> {
-        const data: ItemSheetDataPF2e<ActionPF2e> = await super.getData();
+        const data: ItemSheetDataPF2e<ActionItemPF2e> = await super.getData();
 
         // Update icon based on the action cost
         data.item.img = getActionIcon(this.item.actionCost);
@@ -24,7 +24,7 @@ export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
     }
 }
 
-interface ActionSheetData extends ItemSheetDataPF2e<ActionPF2e> {
+interface ActionSheetData extends ItemSheetDataPF2e<ActionItemPF2e> {
     categories: ConfigPF2e["PF2E"]["actionCategories"];
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];

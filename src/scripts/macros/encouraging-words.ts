@@ -1,9 +1,9 @@
-import { CharacterPF2e } from "@actor/character";
-import { LocalizePF2e } from "../../module/system/localize";
-import { ActionDefaultOptions } from "../..//module/system/actions/actions";
+import { CharacterPF2e } from "@actor";
 import { CharacterSkillData } from "@actor/character/data";
-import { RollDataPF2e } from "@system/rolls";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { ActionDefaultOptions } from "@system/action-macros";
+import { LocalizePF2e } from "@system/localize";
+import { RollDataPF2e } from "@system/rolls";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;

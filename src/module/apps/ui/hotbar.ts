@@ -8,7 +8,7 @@ import {
     createToggleEffectMacro,
     createTogglePropertyMacro,
 } from "@scripts/macros/hotbar";
-import { isObject, tupleHasValue } from "@util";
+import { isObject, setHasElement } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
@@ -37,7 +37,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
             } else if (item instanceof ItemPF2e) {
                 return createItemMacro(item.toObject(), slot);
             }
-        } else if (data.type === "Skill" && data.actorId && tupleHasValue(SKILL_ABBREVIATIONS, data.skill)) {
+        } else if (data.type === "Skill" && data.actorId && setHasElement(SKILL_ABBREVIATIONS, data.skill)) {
             const skillName = data.skillName ?? game.i18n.localize(CONFIG.PF2E.skills[data.skill]);
             return createSkillMacro(data.skill, skillName, data.actorId, slot);
         } else if (isObject(data.pf2e) && data.actorId) {

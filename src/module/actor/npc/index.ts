@@ -18,6 +18,7 @@ import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { NPCData, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
+import { SIZE_TO_REACH } from "@actor/creature/values";
 
 export class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -96,8 +97,14 @@ export class NPCPF2e extends CreaturePF2e {
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
-        systemData.attributes.perception.ability = "wis";
-        systemData.attributes.dexCap = [{ value: Infinity, source: "" }];
+
+        const { attributes } = systemData;
+        attributes.perception.ability = "wis";
+        attributes.dexCap = [{ value: Infinity, source: "" }];
+        attributes.reach = {
+            general: SIZE_TO_REACH[this.size],
+            manipulate: SIZE_TO_REACH[this.size],
+        };
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */

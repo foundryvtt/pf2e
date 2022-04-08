@@ -4,7 +4,7 @@ import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost } from "@item/data/base";
 
-export class ActionPF2e extends ItemPF2e {
+export class ActionItemPF2e extends ItemPF2e {
     static override get schema(): typeof ActionData {
         return ActionData;
     }
@@ -30,7 +30,7 @@ export class ActionPF2e extends ItemPF2e {
         return data;
     }
 
-    override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ActionItemPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
 
         // Feat properties
@@ -52,6 +52,6 @@ export class ActionPF2e extends ItemPF2e {
     }
 }
 
-export interface ActionPF2e {
+export interface ActionItemPF2e {
     readonly data: ActionData;
 }

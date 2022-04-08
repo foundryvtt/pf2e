@@ -80,7 +80,8 @@ export class HazardPF2e extends ActorPF2e {
             const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
 
             // Saving Throws with a value of 0 are not usable by the hazard
-            if (base === 0) return saves;
+            // Later on we'll need to explicitly check for null, since 0 is supposed to be valid
+            if (!base) return saves;
 
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {
