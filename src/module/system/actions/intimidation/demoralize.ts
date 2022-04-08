@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function demoralize(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "intimidation");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "intimidation");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,8 +17,8 @@ export function demoralize(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Demoralize", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Demoralize", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Demoralize", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Demoralize", "success"),
         ],
     });
 }

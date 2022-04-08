@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function balance(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "acrobatics");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "acrobatics");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -16,10 +16,10 @@ export function balance(options: SkillActionOptions) {
         event: options.event,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Balance", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Balance", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Balance", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Balance", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Balance", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Balance", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Balance", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.Balance", "criticalFailure"),
         ],
     });
 }

@@ -1,4 +1,4 @@
-import { ActionsPF2e, SkillActionOptions } from "@system/actions/actions";
+import { ActionMacros, SkillActionOptions } from "@system/actions/actions";
 import { PhysicalItemPF2e } from "@item";
 import { calculateDC } from "@module/dc";
 import { CheckDC } from "@system/degree-of-success";
@@ -84,7 +84,7 @@ class SelectItemDialog extends Application {
 }
 
 export async function craft(options: CraftActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "crafting");
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
     const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
@@ -110,7 +110,7 @@ export async function craft(options: CraftActionOptions) {
         visibility: "all",
     };
 
-    ActionsPF2e.simpleRollActionCheck({
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -124,10 +124,10 @@ export async function craft(options: CraftActionOptions) {
         event: options.event,
         difficultyClass: dc,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Craft", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Craft", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Craft", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Craft", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Craft", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Craft", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Craft", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.Craft", "criticalFailure"),
         ],
         createMessage: false,
         callback: async (result) => {

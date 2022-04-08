@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function bonMot(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "diplomacy");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "diplomacy");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,9 +17,9 @@ export function bonMot(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.BonMot", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.BonMot", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.BonMot", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.BonMot", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.BonMot", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.BonMot", "criticalFailure"),
         ],
     });
 }

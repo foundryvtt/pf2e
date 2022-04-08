@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function squeeze(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "acrobatics");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "acrobatics");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -16,9 +16,9 @@ export function squeeze(options: SkillActionOptions) {
         event: options.event,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Squeeze", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Squeeze", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Squeeze", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Squeeze", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Squeeze", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Squeeze", "criticalFailure"),
         ],
     });
 }

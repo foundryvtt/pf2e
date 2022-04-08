@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function climb(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "athletics");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -16,9 +16,9 @@ export function climb(options: SkillActionOptions) {
         event: options.event,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Climb", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Climb", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Climb", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Climb", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Climb", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Climb", "criticalFailure"),
         ],
     });
 }

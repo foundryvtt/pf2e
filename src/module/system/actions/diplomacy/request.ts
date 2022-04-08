@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function request(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "diplomacy");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "diplomacy");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -16,10 +16,10 @@ export function request(options: SkillActionOptions) {
         event: options.event,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Request", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Request", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Request", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Request", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Request", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Request", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Request", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.Request", "criticalFailure"),
         ],
     });
 }

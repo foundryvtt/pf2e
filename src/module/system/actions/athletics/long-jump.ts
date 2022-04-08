@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function longJump(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "athletics");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "D",
@@ -16,9 +16,9 @@ export function longJump(options: SkillActionOptions) {
         event: options.event,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.LongJump", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.LongJump", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.LongJump", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.LongJump", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.LongJump", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.LongJump", "criticalFailure"),
         ],
     });
 }

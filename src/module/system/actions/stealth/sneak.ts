@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function sneak(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "stealth");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "stealth");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,9 +17,9 @@ export function sneak(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Sneak", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Sneak", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Sneak", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Sneak", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Sneak", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.Sneak", "criticalFailure"),
         ],
     });
 }

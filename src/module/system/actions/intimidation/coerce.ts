@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function coerce(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "intimidation");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "intimidation");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
@@ -17,10 +17,10 @@ export function coerce(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Coerce", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Coerce", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Coerce", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Coerce", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Coerce", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Coerce", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Coerce", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.Coerce", "criticalFailure"),
         ],
     });
 }

@@ -1,4 +1,4 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
 import { CreaturePF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base";
@@ -11,7 +11,7 @@ function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e)
 }
 
 export function whirlingThrow(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "athletics");
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
 
     const actors = canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[];
     const actor = actors[0];
@@ -34,7 +34,7 @@ export function whirlingThrow(options: SkillActionOptions) {
         }
     }
 
-    ActionsPF2e.simpleRollActionCheck({
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -49,10 +49,10 @@ export function whirlingThrow(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.WhirlingThrow", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.WhirlingThrow", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.WhirlingThrow", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.WhirlingThrow", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.WhirlingThrow", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.WhirlingThrow", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.WhirlingThrow", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.WhirlingThrow", "criticalFailure"),
         ],
     });
 }

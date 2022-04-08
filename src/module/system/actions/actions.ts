@@ -91,8 +91,8 @@ interface SimpleRollActionCheckOptions {
     weaponTraitWithPenalty?: WeaponTrait;
 }
 
-export class ActionsPF2e {
-    static actionMacros = {
+export class ActionMacros {
+    static macros = {
         // Basic
         seek,
         senseMotive,

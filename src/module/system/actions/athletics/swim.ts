@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function swim(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "athletics");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "athletics");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -16,9 +16,9 @@ export function swim(options: SkillActionOptions) {
         event: options.event,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.Swim", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Swim", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.Swim", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.Swim", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.Swim", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.Swim", "criticalFailure"),
         ],
     });
 }

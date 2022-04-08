@@ -1,8 +1,8 @@
-import { ActionsPF2e, SkillActionOptions } from "../actions";
+import { ActionMacros, SkillActionOptions } from "../actions";
 
 export function senseMotive(options: SkillActionOptions) {
-    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? "perception");
-    ActionsPF2e.simpleRollActionCheck({
+    const { checkType, property, stat, subtitle } = ActionMacros.resolveStat(options?.skill ?? "perception");
+    ActionMacros.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
@@ -17,10 +17,10 @@ export function senseMotive(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.deception,
         extraNotes: (selector: string) => [
-            ActionsPF2e.note(selector, "PF2E.Actions.SenseMotive", "criticalSuccess"),
-            ActionsPF2e.note(selector, "PF2E.Actions.SenseMotive", "success"),
-            ActionsPF2e.note(selector, "PF2E.Actions.SenseMotive", "failure"),
-            ActionsPF2e.note(selector, "PF2E.Actions.SenseMotive", "criticalFailure"),
+            ActionMacros.note(selector, "PF2E.Actions.SenseMotive", "criticalSuccess"),
+            ActionMacros.note(selector, "PF2E.Actions.SenseMotive", "success"),
+            ActionMacros.note(selector, "PF2E.Actions.SenseMotive", "failure"),
+            ActionMacros.note(selector, "PF2E.Actions.SenseMotive", "criticalFailure"),
         ],
     });
 }

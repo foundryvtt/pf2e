@@ -23,7 +23,7 @@ import { steelYourResolve } from "@scripts/macros/steel-your-resolve";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
 import { remigrate } from "@scripts/system/remigrate";
-import { ActionsPF2e } from "@system/actions/actions";
+import { ActionMacros } from "@system/actions/actions";
 import { craft } from "@system/actions/crafting/craft";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
@@ -43,7 +43,7 @@ export const SetGamePF2e = {
             raiseAShield,
             restForTheNight,
             steelYourResolve,
-            ...ActionsPF2e.actionMacros,
+            ...ActionMacros.macros,
         };
 
         const initSafe: Partial<typeof game["pf2e"]> = {
