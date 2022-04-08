@@ -195,7 +195,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {
             event.preventDefault();
-            const saveType = $(event.currentTarget).parents("[data-save]")[0].getAttribute("data-save") as SaveType;
+            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save") as SaveType;
             const save = this.actor.saves?.[saveType];
             if (save) {
                 save.check.roll(eventToRollParams(event));

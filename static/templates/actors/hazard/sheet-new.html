@@ -25,38 +25,43 @@
             </div>
 
             {{#if document.isComplex}}
-                <div>
-                    <div class="sidebar-title">
-                        <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
-                    </div>
-                    <div>
-                        <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
-                        <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
-                    </div>
+            <div>
+                <div class="sidebar-title">
+                    <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
                 </div>
+                <div>
+                    <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
+                    <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
+                </div>
+            </div>
             {{/if}}
 
+            {{#if (or hasSaves editing)}}
             <div>
                 <div class="sidebar-title">
                     <h2>{{localize "PF2E.SavesHeader"}}</h2>
                 </div>
                 <div class="sidebar-saves">
-                    {{#each data.saves as |save sid|}}
-                        <div class="roll-data" data-save="{{sid}}">
+                    {{#each saves as |save|}}
+                        <div class="save">
                             <h2 class="sidebar_label">{{localize save.label}}</h2>
 
-                            <span class="valued-icon">
-                                <i class="fas fa-dice-d20"></i>
-                                {{#if @root.editing}}
-                                    <input name="data.saves.{{sid}}.value" type="number" value="{{save.value}}" data-dtype="Number" placeholder="0" />
-                                {{else}}
-                                    <span>{{numberFormat save.value decimals=0 sign=true}}</span>
-                                {{/if}}
-                            </span>
+                            {{#if @root.editing}}
+                                <span class="valued-icon">
+                                    <i class="fas fa-dice-d20 save-name" data-save="{{save.type}}"></i>
+                                    <input name="data.saves.{{save.type}}.value" type="number" value="{{save.mod}}" data-dtype="Number" placeholder="0" />
+                                </span>
+                            {{else}}
+                                <span class="valued-icon save-name" data-save="{{save.type}}">
+                                    <i class="fas fa-dice-d20"></i>
+                                    <span>{{numberFormat save.mod decimals=0 sign=true}}</span>
+                                </span>
+                            {{/if}}
                         </div>
                     {{/each}}
                 </div>
             </div>
+            {{/if}}
 
             <div>
                 <div class="sidebar-title">
@@ -170,7 +175,6 @@
                             <li class="item action flexrow" data-item-id="{{action.id}}">
                                 <div class="action-header">
                                     <div class="action-name rollable">
-                                        {{log action}}
                                         <h4>{{action.name}}</h4> {{{actionGlyph action.actionCost}}}
                                     </div>
                                     {{#if ../../owner}}
