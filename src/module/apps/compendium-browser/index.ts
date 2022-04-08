@@ -481,6 +481,7 @@ export class CompendiumBrowser extends Application {
         const item = await this.getPhysicalItem(itemId);
 
         if (actors.length === 0) {
+            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
             return;
         }
 
@@ -505,6 +506,7 @@ export class CompendiumBrowser extends Application {
         const item = await this.getPhysicalItem(itemId);
 
         if (actors.length === 0) {
+            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
             return;
         }
 
