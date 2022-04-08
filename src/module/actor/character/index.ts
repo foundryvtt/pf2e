@@ -706,6 +706,7 @@ class CharacterPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
                 overwrite: false,
             });
+            stat.ability = "int";
             stat.itemID = skill._id;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.rank = rank ?? 0;
