@@ -280,19 +280,29 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.AnimatedObjectsConstructArmor",
-                        "option": "constructArmor",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "constructArmor"
+                                "construct-armor"
                             ]
                         },
                         "selector": "ac",
                         "value": -4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "value": "4*(min(max(-9+@actor.attributes.hp.value,0),1)-1)",
+                        "predicate": {
+                            "not": [
+                                "construct-armor"
+                            ]
+                        }
                     }
                 ],
                 "slug": null,
