@@ -128,13 +128,6 @@ declare global {
         t1: number;
     }
 
-    interface Point {
-        x: number;
-        y: number;
-    }
-
-    type PointArray = [number, number];
-
     interface Vector2 {
         x: number;
         y: number;
