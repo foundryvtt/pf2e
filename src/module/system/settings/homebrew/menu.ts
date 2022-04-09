@@ -66,7 +66,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
             };
         }).reduce(
             (settings, setting) => mergeObject(settings, { [setting.key]: setting.value }),
-            {} as Record<ConfigPF2eHomebrewRecord, ClientSettingsData & { placeholder: string }>
+            {} as Record<ConfigPF2eHomebrewRecord, SettingRegistration & { placeholder: string }>
         );
     }
 
