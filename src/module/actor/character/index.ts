@@ -38,7 +38,7 @@ import {
     SlottedFeat,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, getActionGlyph, sluggify, sortedStringify } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -85,7 +85,7 @@ import { RollNotePF2e } from "@module/notes";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { CharacterSheetTabVisibility } from "./data/sheet";
-import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
+import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
 import { FamiliarPF2e } from "@actor/familiar";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -121,6 +121,23 @@ class CharacterPF2e extends CreaturePF2e {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
         };
+    }
+
+    override get skills(): CharacterSkills {
+        return Object.entries(super.skills).reduce((skills, [shortForm, skill]) => {
+            if (!(skill && objectHasKey(this.data.data.skills, shortForm))) {
+                return skills;
+            }
+
+            const data = this.data.data.skills[shortForm];
+            skills[shortForm] = mergeObject(skill, {
+                rank: data.rank,
+                ability: data.ability,
+                abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,
+            });
+
+            return skills;
+        }, {} as CharacterSkills);
     }
 
     get heroPoints(): { value: number; max: number } {
