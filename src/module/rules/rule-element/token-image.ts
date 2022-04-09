@@ -6,7 +6,7 @@ import { RuleElementPF2e } from "./";
  */
 export class TokenImageRuleElement extends RuleElementPF2e {
     override afterPrepareData(): void {
-        const img = this.resolveValue(this.data.value);
+        const img = this.resolveValue();
         if (typeof img !== "string") return this.failValidation("Missing value field");
 
         if (!this.test()) return;
