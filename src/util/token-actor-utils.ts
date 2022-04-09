@@ -15,7 +15,7 @@ async function getSelectedOrOwnActors(
     const actors = canvas.tokens.controlled
         .flatMap((token) => (token.actor ? token.actor : []))
         .filter((owned) => owned.isOwner)
-        .filter((hasInventory) => hasInventory.isOfType(...types));
+        .filter((actor) => actor.isOfType(...types));
 
     if (actors.length === 0 && game.user.character && useOwnCharacter) actors.push(game.user.character);
 
