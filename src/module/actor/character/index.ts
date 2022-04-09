@@ -180,6 +180,7 @@ class CharacterPF2e extends CreaturePF2e {
                 const item: PhysicalItemSource = prepData.item.toObject();
                 item.data.quantity = prepData.quantity || 1;
                 item.data.temporary = true;
+                item.data.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 
                 if (
                     entry.isAlchemical &&
