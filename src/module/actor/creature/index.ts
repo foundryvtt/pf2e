@@ -59,16 +59,24 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
-    /** Skill check rolls for the creature. */
+    /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
-        return Object.entries(this.data.data.skills).reduce((current, [key, value]) => {
-            if (!objectHasKey(this.data.data.skills, key)) return current;
-            const skill = this.data.data.skills[key];
+        return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
+            if (!objectHasKey(this.data.data.skills, shortForm)) return current;
             const longForm = skill.name;
-            const skillName = game.i18n.localize(CONFIG.PF2E.skills[key]) || skill.name;
+            const skillName = game.i18n.localize(CONFIG.PF2E.skills[shortForm]) || skill.name;
             const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`];
-            current[key] = Statistic.from(this, value, longForm, label, "skill-check", domains);
+
+            current[shortForm] = new Statistic(this, {
+                slug: longForm,
+                domains,
+                check: { adjustments: skill.adjustments, label, type: "skill-check" },
+                dc: {},
+                modifiers: [...skill.modifiers],
+                notes: skill.notes,
+            });
+
             return current;
         }, {} as CreatureSkills);
     }
