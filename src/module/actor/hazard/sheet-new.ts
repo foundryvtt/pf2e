@@ -147,6 +147,22 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
             this.actor.setFlag("pf2e", "editHazard.value", !this.editing);
         });
 
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue: number = getProperty(this.actor.data._source, propertyPath);
+            $input.val(baseValue).attr({ name: propertyPath });
+        });
+
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const preparedValue: number = getProperty(this.actor.data, propertyPath);
+            $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
+        });
+
         // NPC Weapon Rolling
         $html.find("button").on("click", (event) => {
             event.preventDefault();
