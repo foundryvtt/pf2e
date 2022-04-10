@@ -11,17 +11,22 @@
                         <i class="fas fa-heart"></i>
                         <input name="data.attributes.hp.value" class="current" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
                         /
-                        <input name="data.attributes.hp.max" class="max" type="number" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0" />
+                        <input name="data.attributes.hp.max" class="max" type="number" {{#unless editing}}disabled{{/unless}} value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0" />
                     </div>
                     <div class="armor-class valued-icon">
-                        <input name="data.attributes.hardness" type="number" value="{{data.attributes.hardness}}" data-dtype="Number" placeholder="0" />
+                        <input name="data.attributes.hardness" type="number" {{#unless editing}}disabled{{/unless}} value="{{data.attributes.hardness}}" data-dtype="Number" placeholder="0" />
                         H
                     </div>
                     <div class="armor-class valued-icon">
-                        <input name="data.attributes.ac.value" type="number" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0" />
+                        <input name="data.attributes.ac.value" type="number" {{#unless editing}}disabled{{/unless}} value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0" />
                         AC
                     </div>
                 </div>
+                {{#if editing}}
+                    <input class="hp-details" name="data.attributes.hp.details" type="text" value="{{data.attributes.hp.details}}" placeholder="{{localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder'}}"/>
+                {{else if hasHPDetails}}
+                    <div class="hp-details">{{{data.attributes.hp.details}}}</div>
+                {{/if}}
             </div>
 
             {{#if document.isComplex}}
@@ -30,8 +35,17 @@
                     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
                 </div>
                 <div>
-                    <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
-                    <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
+                    <div class="initiative">
+                        <div class="{{#unless editing}}roll-init{{/unless}} valued-icon">
+                            <i class="fas fa-dice-d20 roll-init"></i>
+                            {{#if editing}}
+                                <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="data.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                            {{else}}
+                                <span>{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}</span>
+                            {{/if}}
+                        </div>
+                        <h4 class="attribute-name">{{localize "PF2E.StealthLabel"}}</h4>
+                    </div>
                 </div>
             </div>
             {{/if}}
@@ -48,8 +62,10 @@
 
                             {{#if @root.editing}}
                                 <span class="valued-icon">
-                                    <i class="fas fa-dice-d20 save-name" data-save="{{save.type}}"></i>
-                                    <input name="data.saves.{{save.type}}.value" type="number" value="{{save.mod}}" data-dtype="Number" placeholder="0" />
+                                    {{#unless (isNullish save.mod)}}
+                                        <i class="fas fa-dice-d20 save-name" data-save="{{save.type}}"></i>
+                                    {{/unless}}
+                                    <input type="text" value="{{#unless (isNullish save.mod)}}{{numberFormat save.mod decimals=0 sign=true}}{{/unless}}" data-property="data.saves.{{save.type}}.value" data-dtype="Number" placeholder="N/A" />
                                 </span>
                             {{else}}
                                 <span class="valued-icon save-name" data-save="{{save.type}}">
@@ -184,8 +200,8 @@
                                             <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                                         {{/if}}
                                     </div>
+                                    {{/if}}
                                 </div>
-                                {{/if}}
                             </li>
                             {{/each}}
                         {{/each}}
