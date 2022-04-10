@@ -167,6 +167,6 @@ export function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper("isNullish", function (value: unknown) {
-        return value === null || typeof value === "undefined";
+        return value === null || value === undefined;
     });
 }
