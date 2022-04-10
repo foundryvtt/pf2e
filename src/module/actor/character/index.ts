@@ -884,6 +884,14 @@ class CharacterPF2e extends CreaturePF2e {
             entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
+        // Expose best spellcasting dc to character attributes
+        if (itemTypes.spellcastingEntry.length > 0) {
+            const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
+                return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
+            });
+            this.data.data.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
+        }
+
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
 
