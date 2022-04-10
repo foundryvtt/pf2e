@@ -3,7 +3,7 @@
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>The creature gains weakness to fire 5.</p>"
+            "value": "<p>The creature gains weakness to fire 5, and whenever the creature critically fails wth an attack roll with a wielded weapon, it drops the weapon.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,6 +19,14 @@
                 "key": "Weakness",
                 "type": "fire",
                 "value": 5
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "selector": "attack",
+                "text": "<p class='compact-text' data-visibility='gm'><strong>{item|name}</strong> @Localize[PF2E.AttackEffects.DropWeapon]</p>"
             }
         ],
         "source": {
