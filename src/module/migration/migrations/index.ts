@@ -137,3 +137,4 @@ export { Migration734SpellLocationPropsAndSignature } from "./734-spell-location
 export { Migration735FirearmAmmoAlchemical } from "./735-firearm-ammo-alchemical";
 export { Migration736RemoveBrokenThreshold } from "./736-remove-broken-threshold";
 export { Migration737NormalizeRuleElementKeys } from "./737-normalize-re-keys";
+export { Migration738UpdateLaughingShadow } from "./738-update-laughing-shadow";
