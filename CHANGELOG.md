@@ -1,5 +1,34 @@
 # Changelog
 
+## Version 3.8.4
+
+### Core System Improvements
+* (stwlam) Have tiny crafters craft tiny items during daily preparation
+* (Supe) Expose best spell dc for characters in attributes as @actor.attributes.spellDC.value
+
+### Data Updates
+* (Abaddon) Fix various typos in Bestiary 1
+* (Abaddon) Unify incorporeal resistance exceptions
+* (InfamousSky) Audit Fists of the Ruby Phoenix actors (book 1, chapter 1)
+* (NullWolf) Add Puff Dragon item from Guns and Gears
+* (NullWolf) Correct inline save for Necklace of Fireballs
+* (NullWolf) Correct typos in Wyrmblessed effects
+* (NullWolf) Fix modifier type for Observant Halfling.
+* (NullWolf) Grant Protector's Interdiction action with Protective Spirit Mask feat
+* (SoldierC4) Fill in missing sources for heritages and Shadows of the Ancients equipment
+* (SoldierC4) Correct Dragon Breath sources and feat rarities
+* (SoldierC4) Grant Arcane Cascade action with feat
+* (SpartanCPA) Add icons to spells lacking unique ones (A-B)
+* (SpartanCPA) Widen the line template of the Wand of Crackling Lightning
+* (TMun) Convert Lightning Storm to Saving Throw
+* (TMun) Update the Stabbing Beast stat block
+* (TikaelSol) Automate Sealed Poppet feat
+* (TikaelSol) Resolve the value of TokenImage REs
+* (rectulo) Fix the Drained effect in Violet Venom
+* (stwlam) Remove Laughing Shadow toggle and fully automate
+* (stwlam) Remove coins from kits
+
+
 ## Version 3.8.3
 
 ### Bugfixes
