@@ -1,13 +1,8 @@
 <div class="content">
     <h3>{{localize prompt}}</h3>
-    <div class="choices">
-        {{#if (gt choices.length 9)}}
-            <select data-choice="">
-                <option value=""></option>
-                {{#each choices as |choice|}}
-                    <option value="{{choice.value}}">{{choice.label}}</option>
-                {{/each}}
-            </select>
+    <div class="choices{{#if selectMenu}} select-menu{{/if}}">
+        {{#if selectMenu}}
+            <input data-tagify-select="true" spellcheck="false" />
             {{#> dropZone}}{{/dropZone}}
             <button type="button" value="">{{localize "PF2E.UI.RuleElements.ChoiceSet.SaveLabel"}}</button>
         {{else}}
@@ -17,7 +12,7 @@
                     <span>{{choice.label}}</span>
                 </button>
             {{/each}}
-            {{#if @root.allowNoSelection}}
+            {{#if allowNoSelection}}
                 <button type="button" data-action="close">
                     <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.Decline"}}</span>
                 </button>
