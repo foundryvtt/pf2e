@@ -117,7 +117,7 @@ export const RESISTANCE_TYPES = new Set([
     "protean anatomy",
 ] as const);
 
-export const SKILL_ABBREVIATIONS = [
+export const SKILL_ABBREVIATIONS = new Set([
     "acr",
     "arc",
     "ath",
@@ -134,7 +134,7 @@ export const SKILL_ABBREVIATIONS = [
     "ste",
     "sur",
     "thi",
-] as const;
+] as const);
 
 export const SKILL_DICTIONARY = {
     acr: "acrobatics",

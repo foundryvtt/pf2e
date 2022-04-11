@@ -53,11 +53,51 @@
                 "value": 10
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Enable arcane cascade damage from laughing shadow",
-                "option": "feature:laughing-shadow:damage",
-                "toggleable": true
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": {
+                    "all": [
+                        "target:condition:flat-footed",
+                        {
+                            "gte": ["hands-free:but-really", 1]
+                        }
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": {
+                    "all": [
+                        "feature:weapon-specialization",
+                        "target:condition:flat-footed",
+                        {
+                            "gte": ["hands-free:but-really", 1]
+                        }
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": {
+                    "all": [
+                        "feature:greater-weapon-specialization",
+                        "target:condition:flat-footed",
+                        {
+                            "gte": ["hands-free:but-really", 1]
+                        }
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 7
             }
         ],
         "source": {

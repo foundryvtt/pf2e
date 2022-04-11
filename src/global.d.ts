@@ -169,14 +169,15 @@ declare global {
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
+        get(module: "pf2e", setting: "nathMode"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
     }
 
     interface ClientSettingsMap {
-        get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
-        get(key: "core.chatBubblesPan"): ClientSettingsData & { default: boolean };
+        get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & { default: string };
+        get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
     }
 
     const BUILD_MODE: "development" | "production";

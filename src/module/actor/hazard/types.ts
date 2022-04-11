@@ -1,4 +1,34 @@
-import { ActionPF2e } from "@item";
+import { HazardPF2e } from "@actor";
+import { SaveType } from "@actor/data";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ActionItemPF2e } from "@item";
+
+interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
+    actions: HazardActionSheetData;
+    editing: boolean;
+    actorTraits: string[];
+    rarity: Record<string, string>;
+    rarityLabel: string;
+    brokenThreshold: number;
+    saves: HazardSaveSheetData[];
+
+    hasHPDetails: boolean;
+    hasSaves: boolean;
+    hasImmunities: boolean;
+    hasResistances: boolean;
+    hasWeaknesses: boolean;
+    hasStealthDescription: boolean;
+    hasDescription: boolean;
+    hasDisable: boolean;
+    hasRoutineDetails: boolean;
+    hasResetDetails: boolean;
+}
+
+interface HazardSaveSheetData {
+    label: string;
+    type: SaveType;
+    mod?: number;
+}
 
 interface HazardActionSheetData {
     passive: ActionsDetails;
@@ -9,7 +39,7 @@ interface HazardActionSheetData {
 
 interface ActionsDetails {
     label: string;
-    actions: ActionPF2e[];
+    actions: ActionItemPF2e[];
 }
 
-export { HazardActionSheetData };
+export { HazardActionSheetData, HazardSaveSheetData, HazardSheetData };

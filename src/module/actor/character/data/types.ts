@@ -316,6 +316,8 @@ export interface CharacterAttributes extends CreatureAttributes {
     perception: CharacterPerception;
     /** The class DC, used for saves related to class abilities. */
     classDC: ClassDCData;
+    /** The best spell DC, used for certain saves related to feats */
+    spellDC?: { rank: number; value: number };
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
@@ -328,6 +330,8 @@ export interface CharacterAttributes extends CreatureAttributes {
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */
     ancestryhp: number;
+    /** The number of hands this character has free */
+    handsFree: number;
     /** A bonus to the maximum amount of bulk that this character can carry. */
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
@@ -342,13 +346,6 @@ export interface CharacterAttributes extends CreatureAttributes {
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };
-
-    /** The character's natural reach */
-    reach: {
-        value: number;
-        /** Its reach for the purpose of manipulate actions */
-        manipulate: number | null;
-    };
 
     /** Data related to character hitpoints. */
     hp: CharacterHitPoints;

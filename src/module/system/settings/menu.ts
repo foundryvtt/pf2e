@@ -1,4 +1,4 @@
-export type PartialSettingsData = Omit<ClientSettingsData, "scope" | "config">;
+export type PartialSettingsData = Omit<SettingRegistration, "scope" | "config">;
 
 interface SettingsTemplateData extends PartialSettingsData {
     key: string;

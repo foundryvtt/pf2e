@@ -11,50 +11,73 @@
                         <i class="fas fa-heart"></i>
                         <input name="data.attributes.hp.value" class="current" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" />
                         /
-                        <input name="data.attributes.hp.max" class="max" type="number" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0" />
+                        <input name="data.attributes.hp.max" class="max" type="number" {{#unless editing}}disabled{{/unless}} value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0" />
                     </div>
                     <div class="armor-class valued-icon">
-                        <input name="data.attributes.hardness" type="number" value="{{data.attributes.hardness}}" data-dtype="Number" placeholder="0" />
+                        <input name="data.attributes.hardness" type="number" {{#unless editing}}disabled{{/unless}} value="{{data.attributes.hardness}}" data-dtype="Number" placeholder="0" />
                         H
                     </div>
                     <div class="armor-class valued-icon">
-                        <input name="data.attributes.ac.value" type="number" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0" />
+                        <input name="data.attributes.ac.value" type="number" {{#unless editing}}disabled{{/unless}} value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="0" />
                         AC
                     </div>
                 </div>
+                {{#if editing}}
+                    <input class="hp-details" name="data.attributes.hp.details" type="text" value="{{data.attributes.hp.details}}" placeholder="{{localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder'}}"/>
+                {{else if hasHPDetails}}
+                    <div class="hp-details">{{{data.attributes.hp.details}}}</div>
+                {{/if}}
             </div>
 
+            {{#if document.isComplex}}
             <div>
                 <div class="sidebar-title">
-                    <h2>{{localize "PF2E.StealthLabel"}}</h2>
+                    <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
                 </div>
                 <div>
-                    <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
-                    <h4 class="attribute-name rollable">{{localize "PF2E.StealthLabel"}}</h4>
+                    <div class="initiative">
+                        <div class="{{#unless editing}}roll-init{{/unless}} valued-icon">
+                            <i class="fas fa-dice-d20 roll-init"></i>
+                            {{#if editing}}
+                                <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="data.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                            {{else}}
+                                <span>{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}</span>
+                            {{/if}}
+                        </div>
+                        <h4 class="attribute-name">{{localize "PF2E.StealthLabel"}}</h4>
+                    </div>
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasSaves editing)}}
             <div>
                 <div class="sidebar-title">
                     <h2>{{localize "PF2E.SavesHeader"}}</h2>
                 </div>
                 <div class="sidebar-saves">
-                    {{#each data.saves as |save sid|}}
-                        <div class="roll-data" data-save="{{sid}}">
+                    {{#each saves as |save|}}
+                        <div class="save">
                             <h2 class="sidebar_label">{{localize save.label}}</h2>
 
-                            <span class="valued-icon">
-                                <i class="fas fa-dice-d20"></i>
-                                {{#if @root.editing}}
-                                    <input name="data.saves.{{sid}}.value" type="number" value="{{save.value}}" data-dtype="Number" placeholder="0" />
-                                {{else}}
-                                    <span>{{numberFormat save.value decimals=0 sign=true}}</span>
-                                {{/if}}
-                            </span>
+                            {{#if @root.editing}}
+                                <span class="valued-icon">
+                                    {{#unless (isNullish save.mod)}}
+                                        <i class="fas fa-dice-d20 save-name" data-save="{{save.type}}"></i>
+                                    {{/unless}}
+                                    <input type="text" value="{{#unless (isNullish save.mod)}}{{numberFormat save.mod decimals=0 sign=true}}{{/unless}}" data-property="data.saves.{{save.type}}.value" data-dtype="Number" placeholder="N/A" />
+                                </span>
+                            {{else}}
+                                <span class="valued-icon save-name" data-save="{{save.type}}">
+                                    <i class="fas fa-dice-d20"></i>
+                                    <span>{{numberFormat save.mod decimals=0 sign=true}}</span>
+                                </span>
+                            {{/if}}
                         </div>
                     {{/each}}
                 </div>
             </div>
+            {{/if}}
 
             <div>
                 <div class="sidebar-title">
@@ -93,7 +116,7 @@
 
         <!-- BODY -->
         <section class="content">
-
+            {{#if (or hasStealthDescription editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.StealthLabel"}}</h3>
@@ -102,7 +125,9 @@
                     {{editor content=(enrichHTML data.attributes.stealth.details) target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasDescription editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardDescriptionLabel"}}</h3>
@@ -111,7 +136,9 @@
                     {{editor content=(enrichHTML data.details.description) target="data.details.description" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasDisable editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardDisableLabel"}}</h3>
@@ -120,7 +147,9 @@
                     {{editor content=(enrichHTML data.details.disable) target="data.details.disable" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasRoutineDetails editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardRoutineLabel"}}</h3>
@@ -129,7 +158,9 @@
                     {{editor content=(enrichHTML data.details.routine) target="data.details.routine" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
+            {{#if (or hasResetDetails editing)}}
             <div class="section-container">
                 <div class="section-header">
                     <h3>{{localize "PF2E.HazardResetLabel"}}</h3>
@@ -138,6 +169,7 @@
                     {{editor content=(enrichHTML data.details.reset) target="data.details.reset" button=true owner=owner editable=editable}}
                 </div>
             </div>
+            {{/if}}
 
             <div class="section-container">
                 <div class="section-header">
@@ -159,7 +191,6 @@
                             <li class="item action flexrow" data-item-id="{{action.id}}">
                                 <div class="action-header">
                                     <div class="action-name rollable">
-                                        {{log action}}
                                         <h4>{{action.name}}</h4> {{{actionGlyph action.actionCost}}}
                                     </div>
                                     {{#if ../../owner}}
@@ -169,8 +200,8 @@
                                             <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                                         {{/if}}
                                     </div>
+                                    {{/if}}
                                 </div>
-                                {{/if}}
                             </li>
                             {{/each}}
                         {{/each}}

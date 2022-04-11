@@ -52,24 +52,33 @@ import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isCycle } from "@item/container/helpers";
 import { isEquipped } from "@item/physical/usage";
 import { ArmorSource } from "@item/data";
+import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
-    /** Skill check rolls for the creature. */
+    /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
-        return Object.entries(this.data.data.skills).reduce((current: Partial<CreatureSkills>, [key, value]) => {
-            if (!objectHasKey(this.data.data.skills, key)) return current;
-            const skill = this.data.data.skills[key];
+        return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
+            if (!objectHasKey(this.data.data.skills, shortForm)) return current;
             const longForm = skill.name;
-            const skillName = game.i18n.localize(CONFIG.PF2E.skills[key]) || skill.name;
+            const skillName = game.i18n.localize(CONFIG.PF2E.skills[shortForm]) || skill.name;
             const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`];
-            current[key] = Statistic.from(this, value, longForm, label, "skill-check", domains);
+
+            current[shortForm] = new Statistic(this, {
+                slug: longForm,
+                domains,
+                check: { adjustments: skill.adjustments, label, type: "skill-check" },
+                dc: {},
+                modifiers: [...skill.modifiers],
+                notes: skill.notes,
+            });
+
             return current;
-        }, {}) as CreatureSkills;
+        }, {} as CreatureSkills);
     }
 
     /** The creature's position on the alignment axes */
@@ -87,14 +96,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * @param [context.weapon] The "weapon," literal or otherwise, used in an attack-reach measurement
      */
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
-        const baseReach = {
-            tiny: 0,
-            sm: 5,
-            med: 5,
-            lg: 10,
-            huge: 15,
-            grg: 20,
-        }[this.size];
+        const baseReach = this.attributes.reach.general;
 
         if (action === "interact" || this.data.type === "familiar") {
             return baseReach;
@@ -277,6 +279,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         attributes.flanking.canFlank = true;
         attributes.flanking.flankable = true;
         attributes.flanking.flatFootable = true;
+        attributes.reach = { general: 0, manipulate: 0 };
 
         if ("initiative" in attributes) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -337,6 +340,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        // Set minimum reach according to creature size
+        const { attributes } = this;
+        const reachFromSize = SIZE_TO_REACH[this.size];
+        attributes.reach.general = Math.max(attributes.reach.general, reachFromSize);
+        attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.general, reachFromSize);
 
         // Add alignment traits from the creature's alignment
         const alignmentTraits = ((): AlignmentTrait[] => {

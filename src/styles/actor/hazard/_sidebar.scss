@@ -1,13 +1,13 @@
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 220px;
-    padding: 10px 8px 8px 8px;
-    gap: 8px;
-
     border-right: 1px solid #888;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 10px 8px 8px 8px;
+    width: 220px;
 
     .sidebar_label {
         font-weight: initial;
@@ -30,12 +30,16 @@
     .valued-icon {
         display: flex;
         align-items: baseline;
+        i {
+            margin-right: 4px;
+        }
+        i + input {
+            // simulate similar appearance for spans and inputs (that have a border)
+            margin-left: -1px;
+        }
     }
 
     .health {
-        i {
-            margin-right: 2px;
-        }
         input {
             width: 34px;
             &.current {
@@ -55,18 +59,37 @@
         font-size: 18px;
     }
 
+    .hp-details {
+        width: 100%;
+        text-align: right;
+    }
+
+    .initiative {
+        display: flex;
+        font-size: 18px;
+        .roll-init {
+            cursor: pointer;
+        }
+        .attribute-name {
+            margin-left: auto;
+        }
+    }
+
     .sidebar-saves {
         display: flex;
         justify-content: space-between;
-        .roll-data {
+        .save {
+            align-items: center;
             display: flex;
             flex: 1;
             flex-direction: column;
-            align-items: center;
             font-size: 18px;
         }
-        input {
-            width: 25px;
+        .save-name {
+            cursor: pointer;
+        }
+        input[value=""] {
+            text-align: center;
         }
     }
 }

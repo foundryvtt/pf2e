@@ -38,7 +38,7 @@ import {
     SlottedFeat,
 } from "./data";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
-import { ErrorPF2e, getActionGlyph, sluggify, sortedStringify } from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify } from "@util";
 import {
     AncestryPF2e,
     BackgroundPF2e,
@@ -85,7 +85,7 @@ import { RollNotePF2e } from "@module/notes";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { CharacterSheetTabVisibility } from "./data/sheet";
-import { CharacterHitPointsSummary, CreateAuxiliaryParams } from "./types";
+import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
 import { FamiliarPF2e } from "@actor/familiar";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -121,6 +121,23 @@ class CharacterPF2e extends CreaturePF2e {
             ...super.hitPoints,
             recoveryMultiplier: this.data.data.attributes.hp.recoveryMultiplier,
         };
+    }
+
+    override get skills(): CharacterSkills {
+        return Object.entries(super.skills).reduce((skills, [shortForm, skill]) => {
+            if (!(skill && objectHasKey(this.data.data.skills, shortForm))) {
+                return skills;
+            }
+
+            const data = this.data.data.skills[shortForm];
+            skills[shortForm] = mergeObject(skill, {
+                rank: data.rank,
+                ability: data.ability,
+                abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,
+            });
+
+            return skills;
+        }, {} as CharacterSkills);
     }
 
     get heroPoints(): { value: number; max: number } {
@@ -180,6 +197,7 @@ class CharacterPF2e extends CreaturePF2e {
                 const item: PhysicalItemSource = prepData.item.toObject();
                 item.data.quantity = prepData.quantity || 1;
                 item.data.temporary = true;
+                item.data.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 
                 if (
                     entry.isAlchemical &&
@@ -246,7 +264,6 @@ class CharacterPF2e extends CreaturePF2e {
         perception.ability = "wis";
         perception.rank ??= 0;
 
-        attributes.reach = { value: 5, manipulate: 5 };
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryMod: 0 };
         attributes.wounded = { value: 0, max: 3 };
@@ -564,7 +581,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.type === "ability" && !!m.ability)
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
-            const domains = ["ac", `${acAbility}-based`, "all"];
+            const domains = ["ac", `${acAbility}-based`];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -867,6 +884,14 @@ class CharacterPF2e extends CreaturePF2e {
             entry.data.data.statisticData = entry.statistic.getChatData();
         }
 
+        // Expose best spellcasting dc to character attributes
+        if (itemTypes.spellcastingEntry.length > 0) {
+            const best = itemTypes.spellcastingEntry.reduce((previous, current) => {
+                return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
+            });
+            this.data.data.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
+        }
+
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
 
@@ -894,7 +919,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    /** Set roll operations for ability scores and proficiency ranks */
+    /** Set roll operations for ability scores, proficiency ranks, and number of hands free */
     protected override setNumericRollOptions(): void {
         super.setNumericRollOptions();
 
@@ -917,6 +942,20 @@ class CharacterPF2e extends CreaturePF2e {
             const rank = this.data.data.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
         }
+
+        // Set number of hands free
+        const heldItems = this.physicalItems.filter((i) => i.isHeld);
+        const handsFree = heldItems.reduce((count, item) => {
+            const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
+            return Math.max(count - handsOccupied, 0);
+        }, 2);
+
+        this.attributes.handsFree = handsFree;
+        rollOptionsAll[`hands-free:${handsFree}`] = true;
+
+        // Some rules specify ignoring the Free Hand trait
+        const handsReallyFree = heldItems.reduce((count, i) => Math.max(count - i.handsHeld, 0), 2);
+        rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
     prepareSaves(): void {
@@ -1270,6 +1309,7 @@ class CharacterPF2e extends CreaturePF2e {
         options: {
             categories: WeaponCategory[];
             ammos?: Embedded<ConsumablePF2e>[];
+            defaultAbility?: AbilityString;
         }
     ): CharacterStrike {
         const itemData = weapon.data;
@@ -1289,7 +1329,7 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponTraits = weapon.traits;
 
         // Determine the default ability and score for this attack.
-        const defaultAbility: "str" | "dex" = weapon.isMelee ? "str" : "dex";
+        const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
         const score = systemData.abilities[defaultAbility].value;
         modifiers.push(AbilityModifier.fromScore(defaultAbility, score));
         if (weapon.isMelee && weaponTraits.has("finesse")) {

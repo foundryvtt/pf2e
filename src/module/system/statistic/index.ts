@@ -21,6 +21,8 @@ import { CheckDC } from "@system/degree-of-success";
 import { isObject } from "@util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
+import { ZeroToFour } from "@module/data";
+import { AbilityString } from "@actor/data";
 
 export * from "./data";
 
@@ -64,19 +66,27 @@ function hasDC(statistic: Statistic<BaseStatisticData>): statistic is Statistic<
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
-    abilityModifier?: ModifierPF2e;
+    ability: AbilityString | null = null;
+
+    abilityModifier: ModifierPF2e | null = null;
+
+    rank: ZeroToFour | null = null;
+
     modifiers: ModifierPF2e[];
 
-    get slug() {
-        return this.data.slug;
-    }
+    slug: string;
 
     constructor(public actor: ActorPF2e, public readonly data: T, public options?: RollOptionParameters) {
+        this.slug = this.data.slug;
+
         // Add some base modifiers depending on data values
         this.modifiers = [data.modifiers ?? []].flat();
-        if (typeof data.rank !== "undefined") {
+
+        if (typeof data.rank === "number") {
+            this.rank = data.rank;
             this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
         }
+
         if (actor instanceof CharacterPF2e && data.ability) {
             this.abilityModifier = AbilityModifier.fromScore(data.ability, actor.abilities[data.ability].value);
             this.modifiers.unshift(this.abilityModifier);
@@ -85,7 +95,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         // Pre-test modifiers so that inspection outside of rolls (such as modifier popups) works correctly
         if (data.domains) {
             const options = this.createRollOptions(data.domains, {});
-            this.modifiers?.forEach((mod) => mod.test(options));
+
+            for (const modifier of this.modifiers) {
+                modifier.test(options);
+            }
             data.check?.modifiers?.forEach((mod) => mod.test(options));
             data.dc?.modifiers?.forEach((mod) => mod.test(options));
         }

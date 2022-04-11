@@ -9,13 +9,11 @@ type SettingsKey =
     | "worldCreatedOn"
     | "showClockButton";
 
-interface FormInputData extends Omit<ClientSettingsData, "scope"> {
-    key: string;
+interface FormInputData extends Omit<SettingConfig, "config" | "namespace" | "scope"> {
     value: unknown;
     isSelect: boolean;
     isCheckbox: boolean;
     isDateTime: boolean;
-    scope?: "world" | "client";
 }
 
 interface TemplateData extends FormApplicationData {
@@ -48,7 +46,7 @@ export class WorldClockSettings extends FormApplication {
         const worldDefault = game.settings.get("pf2e", "worldClock.syncDarkness")
             ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled)
             : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled);
-        const sceneSetting: [string, Omit<ClientSettingsData, "scope">] = [
+        const sceneSetting: [string, SettingRegistration] = [
             "syncDarknessScene",
             {
                 name: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.name,
@@ -154,7 +152,7 @@ export class WorldClockSettings extends FormApplication {
     }
 
     /** Settings to be registered and also later referenced during user updates */
-    private static get settings(): Record<SettingsKey, ClientSettingsData> {
+    private static get settings(): Record<SettingsKey, SettingRegistration> {
         return {
             // Date theme, currently one of Golarion (Absalom Reckoning), Earth (Material Plane, 95 years ago), or
             // Earth (real world)

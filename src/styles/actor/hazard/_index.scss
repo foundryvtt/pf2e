@@ -721,7 +721,6 @@
 
     input[type="text"], input[type="number"] {
         @include p-reset;
-        height: calc(100% - 2px);
         background: none;
         border: 1px solid transparent;
 
@@ -737,6 +736,7 @@
             rgba(255, 255, 255, 0),
             rgba(255, 255, 255, 0)
         );
+        height: 100%;
         overflow: hidden;
     }
 
@@ -796,6 +796,7 @@
         }
 
         .editor {
+            width: 100%;
             .editor-content, .tox-edit-area {
                 padding: 4px;
             }
@@ -819,8 +820,8 @@
     }
 
     .editing {
-        .hazard-editor, .tox {
-            min-height: 120px;
+        .editor, .hazard-editor, .tox {
+            min-height: 100px;
         }
     }
 }
