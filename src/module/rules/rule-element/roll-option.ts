@@ -42,7 +42,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
             );
         }
 
-        if ("value" in data && ["boolean", "string"].includes(typeof data.value)) {
+        if ("value" in data && !["boolean", "string"].includes(typeof data.value)) {
             this.failValidation('The "value" property must be a boolean, string, or otherwise omitted');
         }
 

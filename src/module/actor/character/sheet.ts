@@ -15,7 +15,7 @@ import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./d
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { PhysicalItemType } from "@item/physical/data";
-import { craft } from "@system/actions/crafting/craft";
+import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";

@@ -70,6 +70,9 @@ declare global {
         /** Client settings which are used to configure application behavior */
         settings: ClientSettings;
 
+        /** Client keybindings which are used to configure application behavior */
+        keybindings: ClientKeybindings;
+
         /** A reference to the open Socket.io connection */
         socket: io.Socket;
 

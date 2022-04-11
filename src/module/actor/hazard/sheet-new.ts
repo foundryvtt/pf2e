@@ -6,7 +6,7 @@ import { ItemDataPF2e } from "@item/data";
 import { SAVE_TYPES } from "@actor/data";
 import { HazardSystemData } from "./data";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { HazardActionSheetData } from "./types";
+import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
 
 /** In development version of the hazard sheet. */
 export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
@@ -28,7 +28,7 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         return this.options.editable && !!this.actor.getFlag("pf2e", "editHazard.value");
     }
 
-    override async getData() {
+    override async getData(): Promise<HazardSheetData> {
         const sheetData = await super.getData();
 
         // Update save labels
@@ -38,28 +38,29 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         }
         sheetData.actor.flags.editHazard ??= { value: false };
         const systemData: HazardSystemData = sheetData.data;
+        const actor = this.actor;
 
         return {
             ...sheetData,
             actions: this.prepareActions(),
             editing: this.editing,
-            flags: sheetData.actor.flags,
-            hazardTraits: CONFIG.PF2E.hazardTraits,
             actorTraits: systemData.traits.traits.value,
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
-            stealthDC: (systemData.attributes.stealth?.value ?? 0) + 10,
-            hasStealthDescription: systemData.attributes.stealth?.details || false,
+            brokenThreshold: systemData.attributes.hp.brokenThreshold,
+            saves: this.prepareSaves(),
+
+            // Hazard visibility, in order of appearance on the sheet
+            hasHPDetails: !!systemData.attributes.hp.details.trim(),
+            hasSaves: Object.keys(actor.saves ?? {}).length > 0,
             hasImmunities: systemData.traits.di.value.length > 0,
             hasResistances: systemData.traits.dr.length > 0,
             hasWeaknesses: systemData.traits.dv.length > 0,
-            hasDescription: systemData.details.description.trim() || false,
-            hasDisable: systemData.details.disable.trim() || false,
-            hasRoutineDetails: systemData.details.routine.trim() || false,
-            hasResetDetails: systemData.details.reset.trim() || false,
-            hasHPDetails: systemData.attributes.hp.details.trim() || false,
-            hasWillSave: !!systemData.saves.will,
-            brokenThreshold: systemData.attributes.hp.brokenThreshold,
+            hasStealthDescription: !!systemData.attributes.stealth?.details,
+            hasDescription: !!systemData.details.description.trim(),
+            hasDisable: !!systemData.details.disable.trim(),
+            hasRoutineDetails: !!systemData.details.routine.trim(),
+            hasResetDetails: !!systemData.details.reset.trim(),
         };
     }
 
@@ -79,6 +80,24 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
         }
 
         return actions;
+    }
+
+    private prepareSaves(): HazardSaveSheetData[] {
+        if (!this.actor.saves) return [];
+
+        const results: HazardSaveSheetData[] = [];
+        for (const saveType of SAVE_TYPES) {
+            const save = this.actor.saves[saveType];
+            if (this.editing || save) {
+                results.push({
+                    label: CONFIG.PF2E.saves[saveType],
+                    type: saveType,
+                    mod: save?.check.mod,
+                });
+            }
+        }
+
+        return results;
     }
 
     override prepareItems(sheetData: ActorSheetDataPF2e<HazardPF2e>): void {
@@ -126,6 +145,22 @@ export class HazardSheetGreenPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         $html.find(".edit-button").on("click", () => {
             this.actor.setFlag("pf2e", "editHazard.value", !this.editing);
+        });
+
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
+            const $input = $(event.target);
+            const propertyPath = $input.attr("data-property") ?? "";
+            const baseValue: number = getProperty(this.actor.data._source, propertyPath);
+            $input.val(baseValue).attr({ name: propertyPath });
+        });
+
+        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
+            const $input = $(event.target);
+            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
+            const propertyPath = $input.attr("data-property") ?? "";
+            const preparedValue: number = getProperty(this.actor.data, propertyPath);
+            $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
         });
 
         // NPC Weapon Rolling

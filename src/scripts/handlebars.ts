@@ -165,4 +165,8 @@ export function registerHandlebarsHelpers() {
 
         return "";
     });
+
+    Handlebars.registerHelper("isNullish", function (value: unknown) {
+        return value === null || value === undefined;
+    });
 }

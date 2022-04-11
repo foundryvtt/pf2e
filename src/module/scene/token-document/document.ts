@@ -105,6 +105,14 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
             }
             this.data.sightAngle = this.data._source.sightAngle = 360;
         }
+
+        // Nath mode
+        const defaultIcon = (this.actor.data.constructor as typeof foundry.data.ActorData).DEFAULT_ICON;
+        if (game.settings.get("pf2e", "nathMode") && this.data.img === defaultIcon) {
+            this.data.img = this.actor.hasPlayerOwner
+                ? "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp"
+                : "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+        }
     }
 
     override prepareDerivedData(): void {

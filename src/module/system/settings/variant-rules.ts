@@ -1,4 +1,4 @@
-const SETTINGS: Record<string, ClientSettingsData> = {
+const SETTINGS: Record<string, SettingRegistration> = {
     staminaVariant: {
         name: "PF2E.SETTINGS.Variant.Stamina.Name",
         hint: "PF2E.SETTINGS.Variant.Stamina.Hint",
@@ -115,9 +115,9 @@ export class VariantRulesSettings extends FormApplication {
         };
     }
 
-    override async getData(): Promise<Record<string, { value: unknown; setting: ClientSettingsData }>> {
+    override async getData(): Promise<Record<string, { value: unknown; setting: SettingRegistration }>> {
         return Object.entries(SETTINGS).reduce(
-            (data: Record<string, { value: unknown; setting: ClientSettingsData }>, [key, setting]) => ({
+            (data: Record<string, { value: unknown; setting: SettingRegistration }>, [key, setting]) => ({
                 ...data,
                 [key]: { value: game.settings.get("pf2e", key), setting },
             }),
