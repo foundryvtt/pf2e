@@ -1,31 +1,29 @@
 {
-    "_id": "Z9ggO7spfHwr8up1",
+    "_id": "vlMuFskctUvjJe8X",
     "data": {
         "attributes": {
             "ac": {
-                "value": 0
+                "value": 18
             },
-            "hardness": 0,
-            "hasHealth": true,
+            "hardness": 8,
             "hp": {
                 "details": "",
-                "max": 10,
+                "max": 32,
                 "temp": 0,
-                "tempmax": 0,
-                "value": 10
+                "value": 32
             },
             "stealth": {
                 "details": "",
-                "value": 10
+                "value": 0
             }
         },
         "creatureType": "",
         "details": {
-            "description": "",
-            "disable": "<p>A hero must succeed at a @Check[type:thievery|dc:18|traits:hazard] check on the triggering square or the ceiling to prevent the stone blocks from falling.</p>",
+            "description": "<p>A wall socket loaded with a spear connects to a floor tile in one 5-foot square.</p>",
+            "disable": "<p>@Check[type:thievery|dc:18|name:Disable Mechanism] on the floor tile or wall socket.</p>",
             "isComplex": false,
             "level": {
-                "value": 1
+                "value": 2
             },
             "reset": "",
             "routine": ""
@@ -33,11 +31,11 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 11
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 3
             },
             "will": {
                 "saveDetail": "",
@@ -45,15 +43,16 @@
             }
         },
         "source": {
-            "value": "Pathfinder Beginners Box"
+            "value": "Pathfinder Beginner Box"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
             "di": {
-                "custom": "",
+                "custom": "Sneak Attack",
                 "selected": {},
-                "value": []
+                "value": [
+                    "critical-hits"
+                ]
             },
             "dr": [],
             "dv": [],
@@ -67,15 +66,14 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "0c1Yjs4t9BKCpjmr",
+            "_id": "dKlUXGzoOpojAKGv",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -84,7 +82,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature steps on the square closest to the north door, the trap drops blocks of stone all along the hallway. It makes one ranged Strike against each creature between the two doors.</p>"
+                    "value": "<p>When pressure is applied to the floor tile, the trap shoots a spear, making an attack against the creature or object on the floor tile. The trap makes a ranged Spear attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -97,24 +95,22 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "attack"
+                    ]
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Falling Stones",
-            "sort": 100000,
+            "name": "Spear",
+            "sort": 0,
             "type": "action"
         },
         {
-            "_id": "qG3VBB7HAWZksxvT",
+            "_id": "p27dLxTbXpewe8ZR",
             "data": {
                 "attack": {
                     "value": ""
@@ -123,12 +119,12 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 8
+                    "value": 14
                 },
                 "damageRolls": {
-                    "lhbiauwi4zscgjry2akfsn": {
-                        "damage": "1d8",
-                        "damageType": "bludgeoning"
+                    "1qhn7rr7wdkj5c5e9mu3": {
+                        "damage": "2d6+6",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -148,20 +144,19 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Falling Block",
-            "sort": 200000,
+            "name": "Spear",
+            "sort": 0,
             "type": "melee"
         }
     ],
-    "name": "Falling Ceiling",
+    "name": "Spear Launcher (BB)",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Falling Ceiling",
+        "name": "Spear Launcher",
         "width": 1
     },
     "type": "hazard"

@@ -1,30 +1,29 @@
 {
-    "_id": "pw2NFqvkDm54lsbt",
+    "_id": "7VqibTAEXXX6PIhh",
     "data": {
         "attributes": {
             "ac": {
-                "value": 15
+                "value": 21
             },
-            "hardness": 6,
-            "hasHealth": true,
+            "hardness": 11,
             "hp": {
                 "details": "",
-                "max": 24,
+                "max": 44,
                 "temp": 0,
-                "value": 24
+                "value": 44
             },
             "stealth": {
                 "details": "",
-                "value": 7
+                "value": 13
             }
         },
         "creatureType": "",
         "details": {
-            "description": "<p>A spring-loaded, poisoned spine is hidden near the keyhole of a lock. @Compendium[pf2e.actionspf2e.Disable Device]{Disabling} or breaking the trap doesn't disable or break the lock.</p>",
-            "disable": "<p>@Check[type:thievery|dc:17|traits:hazard] on the spring mechanism</p>",
+            "description": "<p>Two blades, each hidden in a 15-foot-long ceiling groove, are both connected to a trip wire.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21|name:Disable Blade] to disable each blade.</p>",
             "isComplex": false,
             "level": {
-                "value": 1
+                "value": 4
             },
             "reset": "",
             "routine": ""
@@ -32,11 +31,11 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 8
+                "value": 12
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 4
+                "value": 8
             },
             "will": {
                 "saveDetail": "",
@@ -44,11 +43,10 @@
             }
         },
         "source": {
-            "value": "Pathfinder Beginners Box"
+            "value": "Pathfinder Beginner Box"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
             "di": {
                 "custom": "Sneak Attack",
                 "selected": {},
@@ -64,19 +62,15 @@
             },
             "traits": {
                 "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
+                "value": []
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "3w5kvSRp3MF3snpw",
+            "_id": "MrC7xvsyL1EpWyqb",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -88,7 +82,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> When a creature tries to unlock or @Compendium[pf2e.actionspf2e.Pick a Lock]{Pick the Lock},</p>\n<p><strong>Effect</strong> A spine extends to attack that creature. The trap makes a melee attack with +13 to its attack roll. On a hit, it deals [[/r {1}[piercing]]]{1 piercing Damage} and [[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} (on a critical hit, [[/r {2}[piercing]]]{2 piercing Damage} and [[/r {2d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}).</p>"
+                    "value": "<p>When the trip wire is pulled or severed, both blades swing down, each one attacking all creatures under the ceiling grooves with a Scythe attack. The trap makes a Scythe melee attack with each blade. There's no multiple attack penalty on these attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -107,20 +101,16 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spring",
+            "name": "Falling Scythes",
             "sort": 0,
             "type": "action"
         },
         {
-            "_id": "VDL4WflLI1gxDylZ",
+            "_id": "LPBpvhfnfUxz7nWz",
             "data": {
                 "attack": {
                     "value": ""
@@ -129,18 +119,26 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 17
                 },
                 "damageRolls": {
-                    "g84susx7cqppozhijhdu": {
-                        "damage": "1",
-                        "damageType": "piercing"
+                    "3ky3ngplmh9pq9r7ut9j": {
+                        "damage": "2d12+4",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} ([[/r {2d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} on a critical success.)</p>"
+                    "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "critical": true,
+                        "diceNumber": 6,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -154,20 +152,19 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spine",
+            "name": "Scythe",
             "sort": 0,
             "type": "melee"
         }
     ],
-    "name": "Envenomed Lock",
+    "name": "Scythe Blades (BB)",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Envenomed Lock",
+        "name": "Scythe Blades",
         "width": 1
     },
     "type": "hazard"
