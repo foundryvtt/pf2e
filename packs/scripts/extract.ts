@@ -143,6 +143,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             if ("type" in docSource) {
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
+                    delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
@@ -168,6 +169,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
 
                 // Prune several common item data defaults
                 if (isItemSource(docSource)) {
+                    delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
