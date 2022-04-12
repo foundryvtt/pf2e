@@ -44,6 +44,16 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
         this.validateData();
         if (this.ignored) return;
 
+        // Run the definition through resolveInjectedProperties
+        for (const quantifier of ["all", "any", "not"] as const) {
+            const statements = (this.definition[quantifier] ??= []);
+            for (const statement of statements) {
+                if (typeof statement === "string") {
+                    statements[statements.indexOf(statement)] = this.resolveInjectedProperties(statement);
+                }
+            }
+        }
+
         if (!this.data.predicate.test(this.actor.getRollOptions())) return;
 
         const change = this.resolveValue();
