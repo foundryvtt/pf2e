@@ -688,10 +688,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         });
 
-        $html.find(".tab.proficiencies .recall").on("click", (event) => {
-            event.preventDefault();
+        $html.find(".tab.proficiencies .recall").on("click", () => {
             new RecallKnowledgeActionPopup(this.actor).render(true);
-        })
+        });
 
         const $craftingTab = $html.find(".tab.crafting");
 
