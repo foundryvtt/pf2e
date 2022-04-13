@@ -766,79 +766,7 @@ class CharacterPF2e extends CreaturePF2e {
             otherSpeeds[idx] = this.prepareSpeed(otherSpeeds[idx].type);
         }
 
-        // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
-        const handwrapsSlug = "handwraps-of-mighty-blows";
-        const handwraps = itemTypes.weapon.find((w) => w.slug === handwrapsSlug && w.category === "unarmed");
-        const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
-            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
-                handwraps?.data._source.data ?? {};
-            return handwraps?.isInvested
-                ? deepClone({
-                      potencyRune,
-                      strikingRune,
-                      propertyRune1,
-                      propertyRune2,
-                      propertyRune3,
-                      propertyRune4,
-                  })
-                : null;
-        })();
-
-        // Add a basic unarmed strike
-        const basicUnarmed = ((): Embedded<WeaponPF2e> => {
-            const source: PreCreate<WeaponSource> & { data: { damage?: Partial<WeaponDamage> } } = {
-                _id: "xxPF2ExUNARMEDxx",
-                name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
-                type: "weapon",
-                img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
-                data: {
-                    slug: "basic-unarmed",
-                    category: "unarmed",
-                    baseItem: null,
-                    bonus: { value: 0 },
-                    damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
-                    equipped: {
-                        carryType: "worn",
-                        inSlot: true,
-                        handsHeld: 0,
-                    },
-                    traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
-                    usage: { value: "worngloves" },
-                    ...(unarmedRunes ?? {}),
-                },
-            };
-
-            // No handwraps, so generate straight from source
-            return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
-        })();
-
-        // Regenerate the strikes from the handwraps so that all runes are included
-        if (unarmedRunes && !this.attributes.battleForm) {
-            synthetics.strikes = synthetics.strikes.map((w) =>
-                w.category === "unarmed" ? w.clone({ data: unarmedRunes }, { keepId: true }) : w
-            );
-
-            // Prevent unarmed synthetic strikes from being renamed by runes
-            for (const strike of synthetics.strikes) {
-                strike.data.name = strike.data._source.name;
-            }
-        }
-
-        const ammos = itemTypes.consumable.filter(
-            (item) => item.data.data.consumableType.value === "ammo" && !item.isStowed
-        );
-        const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
-        const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
-
-        // Exclude handwraps as a strike
-        const weapons = [
-            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
-            synthetics.strikes,
-            basicUnarmed,
-        ].flat();
-        systemData.actions = weapons.map((weapon) =>
-            this.prepareStrike(weapon, { categories: offensiveCategories, ammos })
-        );
+        systemData.actions = this.prepareStrikes();
 
         systemData.actions.sort((l, r) => {
             if (l.ready !== r.ready) return (l.ready ? 0 : 1) - (r.ready ? 0 : 1);
@@ -1303,8 +1231,86 @@ class CharacterPF2e extends CreaturePF2e {
         };
     }
 
+    /** Prepare this character's strike actions */
+    prepareStrikes({ includeBasicUnarmed = true } = {}): CharacterStrike[] {
+        const { itemTypes, synthetics } = this;
+
+        // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
+        const handwrapsSlug = "handwraps-of-mighty-blows";
+        const handwraps = itemTypes.weapon.find((w) => w.slug === handwrapsSlug && w.category === "unarmed");
+        const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
+            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
+                handwraps?.data._source.data ?? {};
+            return handwraps?.isInvested
+                ? deepClone({
+                      potencyRune,
+                      strikingRune,
+                      propertyRune1,
+                      propertyRune2,
+                      propertyRune3,
+                      propertyRune4,
+                  })
+                : null;
+        })();
+
+        // Add a basic unarmed strike
+        const basicUnarmed = includeBasicUnarmed
+            ? ((): Embedded<WeaponPF2e> => {
+                  const source: PreCreate<WeaponSource> & { data: { damage?: Partial<WeaponDamage> } } = {
+                      _id: "xxPF2ExUNARMEDxx",
+                      name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
+                      type: "weapon",
+                      img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                      data: {
+                          slug: "basic-unarmed",
+                          category: "unarmed",
+                          baseItem: null,
+                          bonus: { value: 0 },
+                          damage: { dice: 1, die: "d4", damageType: "bludgeoning" },
+                          equipped: {
+                              carryType: "worn",
+                              inSlot: true,
+                              handsHeld: 0,
+                          },
+                          traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
+                          usage: { value: "worngloves" },
+                          ...(unarmedRunes ?? {}),
+                      },
+                  };
+
+                  // No handwraps, so generate straight from source
+                  return new WeaponPF2e(source, { parent: this, pf2e: { ready: true } }) as Embedded<WeaponPF2e>;
+              })()
+            : null;
+
+        // Regenerate the strikes from the handwraps so that all runes are included
+        if (unarmedRunes) {
+            synthetics.strikes = synthetics.strikes.map((w) =>
+                w.category === "unarmed" ? w.clone({ data: unarmedRunes }, { keepId: true }) : w
+            );
+
+            // Prevent unarmed synthetic strikes from being renamed by runes
+            for (const strike of synthetics.strikes) {
+                strike.data.name = strike.data._source.name;
+            }
+        }
+
+        const ammos = itemTypes.consumable.filter((i) => i.consumableType === "ammo" && !i.isStowed);
+        const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
+        const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
+
+        // Exclude handwraps as a strike
+        const weapons = [
+            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
+            synthetics.strikes,
+            basicUnarmed ?? [],
+        ].flat();
+
+        return weapons.map((w) => this.prepareStrike(w, { categories: offensiveCategories, ammos }));
+    }
+
     /** Prepare a strike action from a weapon */
-    prepareStrike(
+    private prepareStrike(
         weapon: Embedded<WeaponPF2e>,
         options: {
             categories: WeaponCategory[];
