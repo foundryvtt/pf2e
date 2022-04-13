@@ -1,42 +1,43 @@
 {
-    "_id": "pw2NFqvkDm54lsbt",
+    "_id": "j8qD2LVDSP2lhLUO",
     "data": {
         "attributes": {
             "ac": {
-                "value": 15
+                "value": 0
             },
-            "hardness": 6,
+            "hardness": 0,
             "hasHealth": true,
             "hp": {
                 "details": "",
-                "max": 24,
+                "max": null,
                 "temp": 0,
-                "value": 24
+                "tempmax": 0,
+                "value": null
             },
             "stealth": {
                 "details": "",
-                "value": 7
+                "value": 10
             }
         },
         "creatureType": "",
         "details": {
-            "description": "<p>A spring-loaded, poisoned spine is hidden near the keyhole of a lock. @Compendium[pf2e.actionspf2e.Disable Device]{Disabling} or breaking the trap doesn't disable or break the lock.</p>",
-            "disable": "<p>@Check[type:thievery|dc:17|traits:hazard] on the spring mechanism</p>",
+            "description": "",
+            "disable": "<p>A hero must succeed at a @Check[type:thievery|dc:18|traits:hazard|name:Disable Mechanism] check on the triggering floor tiles or the wall sockets in the western wall.</p>",
             "isComplex": false,
             "level": {
                 "value": 1
             },
-            "reset": "",
+            "reset": "<p>The central spears reset after 1 minute.</p>",
             "routine": ""
         },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 8
+                "value": 0
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 4
+                "value": 0
             },
             "will": {
                 "saveDetail": "",
@@ -44,17 +45,15 @@
             }
         },
         "source": {
-            "value": "Pathfinder Beginners Box"
+            "value": "Pathfinder Beginner Box"
         },
         "statusEffects": [],
         "traits": {
             "ci": [],
             "di": {
-                "custom": "Sneak Attack",
+                "custom": "",
                 "selected": {},
-                "value": [
-                    "critical-hits"
-                ]
+                "value": []
             },
             "dr": [],
             "dv": [],
@@ -64,22 +63,18 @@
             },
             "traits": {
                 "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
+                "value": []
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "3w5kvSRp3MF3snpw",
+            "_id": "9yktjCbx8rbvpSZe",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": ""
                 },
                 "actionType": {
                     "value": "reaction"
@@ -88,7 +83,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> When a creature tries to unlock or @Compendium[pf2e.actionspf2e.Pick a Lock]{Pick the Lock},</p>\n<p><strong>Effect</strong> A spine extends to attack that creature. The trap makes a melee attack with +13 to its attack roll. On a hit, it deals [[/r {1}[piercing]]]{1 piercing Damage} and [[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} (on a critical hit, [[/r {2}[piercing]]]{2 piercing Damage} and [[/r {2d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}).</p>"
+                    "value": "<p>When a creature moves into any of the squares in the outlined area, the trap shoots three spears from the western wall. It makes one ranged Strike against the westernmost creature in each row.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -101,9 +96,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "attack"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -112,15 +105,14 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spring",
-            "sort": 0,
+            "name": "Spear Barrage",
+            "sort": 100000,
             "type": "action"
         },
         {
-            "_id": "VDL4WflLI1gxDylZ",
+            "_id": "Ae0gibnuQy3PwVCV",
             "data": {
                 "attack": {
                     "value": ""
@@ -129,16 +121,16 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 10
                 },
                 "damageRolls": {
-                    "g84susx7cqppozhijhdu": {
-                        "damage": "1",
+                    "8nomt95uxx3vnf6kn81bkr": {
+                        "damage": "1d8+4",
                         "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} ([[/r {2d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage} on a critical success.)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -151,23 +143,22 @@
                     "value": []
                 },
                 "weaponType": {
-                    "value": "melee"
+                    "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Spine",
-            "sort": 0,
+            "name": "Spear",
+            "sort": 200000,
             "type": "melee"
         }
     ],
-    "name": "Envenomed Lock",
+    "name": "Central Spears (BB)",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Envenomed Lock",
+        "name": "Central Spears",
         "width": 1
     },
     "type": "hazard"
