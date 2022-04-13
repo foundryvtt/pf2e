@@ -28,4 +28,7 @@ export interface KitEntryData {
 export interface KitSystemData extends ItemSystemData {
     traits: PhysicalItemTraits;
     items: Record<string, KitEntryData>;
+    price: {
+        value: string;
+    };
 }
