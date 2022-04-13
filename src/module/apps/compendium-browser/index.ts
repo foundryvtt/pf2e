@@ -446,13 +446,13 @@ export class CompendiumBrowser extends Application {
             });
 
         // Add an item to selected tokens' actors' inventories
-        $items.children("a.take-item").on("click", (event) => {
+        $items.find("a[data-action=take-item]").on("click", async (event) => {
             const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
             this.takePhysicalItem(itemId);
         });
 
         // Attempt to buy an item with the selected tokens' actors'
-        $items.children("a.buy-item").on("click", (event) => {
+        $items.find("a[data-action=buy-item]").on("click", (event) => {
             const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
             this.buyPhysicalItem(itemId);
         });

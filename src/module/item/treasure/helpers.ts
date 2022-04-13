@@ -89,8 +89,8 @@ function calculateValueOfTreasure(items: PhysicalItemData[]) {
 
 /** Converts the price of an item to the Coin structure */
 export function extractPriceFromItem(
-    itemData: { data: { price: { value: string }; quantity: number } },
-    quantity = itemData.data.quantity
+    itemData: { data: { price: { value: string }; quantity?: number } },
+    quantity = itemData.data.quantity ?? 1
 ): Coins {
     // This requires preprocessing, as large gold values contain , for their value
     const priceTag = String(itemData.data.price.value).trim().replace(/,/g, "");
