@@ -1,28 +1,27 @@
 {
-    "_id": "Z9ggO7spfHwr8up1",
+    "_id": "pw2NFqvkDm54lsbt",
     "data": {
         "attributes": {
             "ac": {
-                "value": 0
+                "value": 15
             },
-            "hardness": 0,
+            "hardness": 6,
             "hasHealth": true,
             "hp": {
                 "details": "",
-                "max": 10,
+                "max": 24,
                 "temp": 0,
-                "tempmax": 0,
-                "value": 10
+                "value": 24
             },
             "stealth": {
                 "details": "",
-                "value": 10
+                "value": 7
             }
         },
         "creatureType": "",
         "details": {
-            "description": "",
-            "disable": "<p>A hero must succeed at a @Check[type:thievery|dc:18|traits:hazard] check on the triggering square or the ceiling to prevent the stone blocks from falling.</p>",
+            "description": "<p>A spring-loaded, poisoned spine is hidden near the keyhole of a lock. @Compendium[pf2e.actionspf2e.Disable Device]{Disabling} or breaking the trap doesn't disable or break the lock.</p>",
+            "disable": "<p>@Check[type:thievery|dc:17|traits:hazard|name:Disable the Spring Mechanism] on the spring mechanism</p>",
             "isComplex": false,
             "level": {
                 "value": 1
@@ -33,11 +32,11 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 8
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 4
             },
             "will": {
                 "saveDetail": "",
@@ -45,15 +44,17 @@
             }
         },
         "source": {
-            "value": "Pathfinder Beginners Box"
+            "value": "Pathfinder Beginner Box"
         },
         "statusEffects": [],
         "traits": {
             "ci": [],
             "di": {
-                "custom": "",
+                "custom": "Sneak Attack",
                 "selected": {},
-                "value": []
+                "value": [
+                    "critical-hits"
+                ]
             },
             "dr": [],
             "dv": [],
@@ -67,15 +68,14 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "0c1Yjs4t9BKCpjmr",
+            "_id": "3w5kvSRp3MF3snpw",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -84,7 +84,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature steps on the square closest to the north door, the trap drops blocks of stone all along the hallway. It makes one ranged Strike against each creature between the two doors.</p>"
+                    "value": "<p>When a creature tries to unlock or Pick the Lock, a spine extends to attack that creature with a Spine attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -97,7 +97,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "attack"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -106,15 +108,14 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Falling Stones",
-            "sort": 100000,
+            "name": "Spring",
+            "sort": 0,
             "type": "action"
         },
         {
-            "_id": "qG3VBB7HAWZksxvT",
+            "_id": "VDL4WflLI1gxDylZ",
             "data": {
                 "attack": {
                     "value": ""
@@ -123,16 +124,16 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 8
+                    "value": 13
                 },
                 "damageRolls": {
-                    "lhbiauwi4zscgjry2akfsn": {
-                        "damage": "1d8",
-                        "damageType": "bludgeoning"
+                    "g84susx7cqppozhijhdu": {
+                        "damage": "1",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Success:</strong> @Localize[PF2E.PersistentDamage.Poison1d6.success]</p>\n<p><strong>Critical Success:</strong> @Localize[PF2E.PersistentDamage.Poison1d6.criticalSuccess]</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -145,23 +146,22 @@
                     "value": []
                 },
                 "weaponType": {
-                    "value": "ranged"
+                    "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Falling Block",
-            "sort": 200000,
+            "name": "Spine",
+            "sort": 0,
             "type": "melee"
         }
     ],
-    "name": "Falling Ceiling",
+    "name": "Envenomed Lock (BB)",
     "token": {
         "disposition": 0,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Falling Ceiling",
+        "name": "Envenomed Lock",
         "width": 1
     },
     "type": "hazard"
