@@ -1,8 +1,8 @@
 import { Progress } from "./progress";
 import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
+import { attemptToRemoveCoinsByValue, extractPriceFromItem } from "@item/treasure/helpers";
 import { ErrorPF2e, objectHasKey } from "@util";
-import { ActorPF2e, FamiliarPF2e } from "@actor";
 import { LocalizePF2e } from "@system/localize";
 import {
     CompendiumBrowserActionTab,
@@ -14,6 +14,7 @@ import {
 } from "./tabs/index";
 import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
 import { CheckBoxdata, RangesData } from "./tabs/data";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 class PackLoader {
     loadedPacks: {
@@ -445,9 +446,15 @@ export class CompendiumBrowser extends Application {
             });
 
         // Add an item to selected tokens' actors' inventories
-        $items.children("a.take-item").on("click", (event) => {
+        $items.find("a[data-action=take-item]").on("click", async (event) => {
             const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
             this.takePhysicalItem(itemId);
+        });
+
+        // Attempt to buy an item with the selected tokens' actors'
+        $items.find("a[data-action=buy-item]").on("click", (event) => {
+            const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
+            this.buyPhysicalItem(itemId);
         });
 
         // Lazy load list when scrollbar reaches bottom
@@ -470,16 +477,14 @@ export class CompendiumBrowser extends Application {
     }
 
     private async takePhysicalItem(itemId: string): Promise<void> {
-        const actors: ActorPF2e[] = canvas.tokens.controlled.flatMap((token) =>
-            token.actor?.isOwner && !(token.actor instanceof FamiliarPF2e) ? token.actor : []
-        );
-        if (actors.length === 0 && game.user.character) actors.push(game.user.character);
+        const actors = await getSelectedOrOwnActors();
+        const item = await this.getPhysicalItem(itemId);
+
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
             return;
         }
 
-        const item = await this.getPhysicalItem(itemId);
         for (const actor of actors) {
             await actor.createEmbeddedDocuments("Item", [item.toObject()]);
         }
@@ -493,6 +498,46 @@ export class CompendiumBrowser extends Application {
             );
         } else {
             ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.AddedItem", { item: item.name }));
+        }
+    }
+
+    private async buyPhysicalItem(itemId: string): Promise<void> {
+        const actors = await getSelectedOrOwnActors();
+        const item = await this.getPhysicalItem(itemId);
+
+        if (actors.length === 0) {
+            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
+            return;
+        }
+
+        let purchaseSuccess = false;
+
+        for (const actor of actors) {
+            const itemValue = extractPriceFromItem(item.data, 1);
+            purchaseSuccess = await attemptToRemoveCoinsByValue({ actor, coinsToRemove: itemValue });
+            if (purchaseSuccess) {
+                await actor.createEmbeddedDocuments("Item", [item.toObject()]);
+            }
+        }
+
+        if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
+            if (purchaseSuccess) {
+                ui.notifications.info(
+                    game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
+                        item: item.name,
+                        character: game.user.character.name,
+                    })
+                );
+            } else {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
+                        item: item.name,
+                        character: game.user.character.name,
+                    })
+                );
+            }
+        } else {
+            ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.BoughtItem", { item: item.name }));
         }
     }
 
