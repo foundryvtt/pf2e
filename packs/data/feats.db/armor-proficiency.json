@@ -23,7 +23,32 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.MartialLight",
+                        "value": "light"
+                    },
+                    {
+                        "label": "PF2E.MartialMedium",
+                        "value": "medium"
+                    },
+                    {
+                        "label": "PF2E.MartialHeavy",
+                        "value": "heavy"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ArmorProficiency.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.{item|flags.pf2e.rulesSelections.armorProficiency}.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
