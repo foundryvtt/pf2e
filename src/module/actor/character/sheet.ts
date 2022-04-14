@@ -20,6 +20,7 @@ import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
+import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -611,6 +612,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     await actor.increaseCondition(effect);
                 }
             }
+        });
+
+        $html.find("button[data-action=edit-ability-scores]").on("click", async (event) => {
+            event.preventDefault();
+            await new AbilityBuilderPopup(this.actor, {}).render(true);
         });
 
         const $craftingTab = $html.find(".tab.crafting");

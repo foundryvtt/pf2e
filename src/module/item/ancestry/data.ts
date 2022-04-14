@@ -21,6 +21,8 @@ interface AncestrySystemSource extends ABCSystemData {
     };
     boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     flaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    voluntaryBoosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
+    voluntaryFlaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     hp: number;
     languages: ValuesList<Language>;
     speed: number;

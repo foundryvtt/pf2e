@@ -307,11 +307,11 @@ class CharacterPF2e extends CreaturePF2e {
                     ancestry: [],
                     background: [],
                     class: null,
-                    1: [],
-                    5: [],
-                    10: [],
-                    15: [],
-                    20: [],
+                    1: systemData.build?.abilities?.boosts?.[1] ?? [],
+                    5: systemData.build?.abilities?.boosts?.[5] ?? [],
+                    10: systemData.build?.abilities?.boosts?.[10] ?? [],
+                    15: systemData.build?.abilities?.boosts?.[15] ?? [],
+                    20: systemData.build?.abilities?.boosts?.[20] ?? [],
                 },
                 flaws: {
                     ancestry: [],
@@ -436,11 +436,17 @@ class CharacterPF2e extends CreaturePF2e {
         this.rollOptions.all[`self:level:${this.level}`] = true;
     }
 
-    /** After AE-likes have been applied, compute ability modifiers and set numeric roll options */
+    // this needs to run before active-effects, but after the prepare embedded documents step is
+    // run are completed. This allows things like apex items to apply after the ability scores
+    // are calculated
+    override preActiveEffects(): void {
+        this.setAbilityScores();
+    }
+
+    /** After AE-likes have been applied, set numeric roll options */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        this.setAbilityScores();
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
     }
@@ -830,12 +836,12 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     private setAbilityScores(): void {
-        const { build } = this.data.data;
+        const { build, details } = this.data.data;
 
         if (!build.abilities.manual) {
             for (const section of ["ancestry", "background", "class", 1, 5, 10, 15, 20] as const) {
                 // Skip applying boosts from levels higher than the character's
-                if (typeof section === "number" && section < this.level) {
+                if (typeof section === "number" && this.level < section) {
                     continue;
                 }
 
@@ -852,11 +858,14 @@ class CharacterPF2e extends CreaturePF2e {
                 }
 
                 // Optional and non-optional flaws only come from the ancestry section
-                for (const abbrev of build.abilities.flaws.ancestry) {
+                const flaws = section === "ancestry" ? build.abilities.flaws[section] : [];
+                for (const abbrev of flaws) {
                     const ability = this.data.data.abilities[abbrev];
                     ability.value -= 2;
                 }
             }
+
+            details.keyability.value = build.abilities.boosts.class ?? "str";
         }
 
         // Enforce a minimum of 8 and a maximum of 30 for homebrew "mythic" mechanics
@@ -2273,6 +2282,24 @@ class CharacterPF2e extends CreaturePF2e {
                 {}
             );
             await this.update({ "data.abilities": deletions });
+        }
+    }
+
+    /** Toggle between boost-driven and manual management of ability scores */
+    async toggleVoluntaryFlaw(): Promise<void> {
+        if (!this.ancestry) return;
+        if (Object.keys(this.ancestry?.data._source.data.voluntaryFlaws || []).length === 0) {
+            await this.ancestry.update({
+                "data.voluntaryBoosts.vb": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+                "data.voluntaryFlaws.vf1": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+                "data.voluntaryFlaws.vf2": { value: Array.from(ABILITY_ABBREVIATIONS), selected: null },
+            });
+        } else {
+            await this.ancestry.update({
+                "data.voluntaryBoosts.-=vb": null,
+                "data.voluntaryFlaws.-=vf1": null,
+                "data.voluntaryFlaws.-=vf2": null,
+            });
         }
     }
 }

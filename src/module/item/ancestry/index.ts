@@ -76,12 +76,13 @@ class AncestryPF2e extends ABCItemPF2e {
         systemData.attributes.speed.value = String(this.speed);
 
         // Add ability boosts and flaws
-        const { build } = this.actor.data.data;
+        const { build } = actor.data.data;
 
-        for (const list of ["boosts", "flaws"] as const) {
+        for (const list of ["boosts", "flaws", "voluntaryBoosts", "voluntaryFlaws"] as const) {
+            const target = ["boosts", "voluntaryBoosts"].includes(list) ? "boosts" : "flaws";
             for (const ability of Object.values(this.data.data[list])) {
                 if (ability.selected) {
-                    build.abilities[list].ancestry.push(ability.selected);
+                    build.abilities[target].ancestry.push(ability.selected);
                 }
             }
         }

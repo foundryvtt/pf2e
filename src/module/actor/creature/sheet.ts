@@ -82,10 +82,11 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     /** Preserve browser focus on unnamed input elements when updating */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         const focused = document.activeElement;
+        const contained = this.element.get(0)?.contains(focused);
 
         await super._render(force, options);
 
-        if (focused instanceof HTMLInputElement && focused.name) {
+        if (focused instanceof HTMLInputElement && focused.name && contained) {
             const selector = `input[data-property="${focused.name}"]:not([name])`;
             const sameInput = this.element.get(0)?.querySelector<HTMLInputElement>(selector);
             sameInput?.focus();

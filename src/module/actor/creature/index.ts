@@ -346,9 +346,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
         ];
     }
 
+    /** This function runs after the embedded documents are prepared, but before active effects are applied */
+    preActiveEffects(): void {}
+
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
+
+        this.preActiveEffects();
 
         for (const rule of this.rules) {
             rule.onApplyActiveEffects?.();
