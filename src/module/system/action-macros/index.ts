@@ -14,6 +14,7 @@ import { RollNotePF2e } from "@module/notes";
 import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
+import { avoidNotice } from "@system/action-macros/exploration/avoid-notice";
 import { balance } from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
@@ -96,6 +97,9 @@ export class ActionMacros {
         // Basic
         seek,
         senseMotive,
+
+        // Exploration
+        avoidNotice,
 
         // Acrobatics
         balance,
