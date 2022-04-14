@@ -111,7 +111,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -250,7 +249,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.u2u6dkr01AB34tyA"
@@ -394,7 +392,6 @@
                     "value": "-"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.fjkwYZ0hRmBztwBG"
@@ -511,7 +508,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
@@ -564,7 +560,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Sai",
@@ -611,7 +606,6 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shuriken",
@@ -636,7 +630,25 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "nimbleDodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nimbleDodge"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -653,7 +665,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Nimble Dodge",
@@ -678,7 +689,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "action:disarm"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "text": "The agile warrior deals [[/r {2d6}[precision]]]{2d6 precision damage} to a creature on a successful Disarm attempt."
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -695,7 +721,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deadly Disarm",
@@ -715,7 +740,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The agile warrior's Strikes deal an additional [[/r {2d6}[precision]]]{2d6 extra precision damage} damage to flat-footed creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -755,7 +780,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
@@ -801,7 +825,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Tumbling Attack",
@@ -831,7 +854,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
@@ -861,7 +883,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Any One Terrain Lore",
@@ -891,7 +912,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -921,7 +941,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
@@ -951,7 +970,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
