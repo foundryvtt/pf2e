@@ -39,11 +39,48 @@
                 "value": "@actor.data.flags.pf2e.rageTempHP"
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.rollOptions.all.rage",
-                "priority": 10,
-                "value": true
+                "key": "FlatModifier",
+                "label": "PF2E.TraitRage",
+                "predicate": {
+                    "all": [
+                        {
+                            "or": [
+                                "weapon:melee",
+                                {
+                                    "and": [
+                                        "feat:raging-thrower",
+                                        "weapon:ranged",
+                                        "weapon:trait:thrown"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": {
+                    "all": [
+                        "weapon:trait:agile"
+                    ]
+                },
+                "priority": 95,
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 0.5
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.TraitRage",
+                "selector": "ac",
+                "value": -1
             }
         ],
         "source": {

@@ -33,60 +33,14 @@
         "rules": [
             {
                 "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "data.custom.modifiers.barbarian-dedication-count",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ]
-                },
-                "selector": "ac",
-                "slug": "dedication-rage",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "instinct-ability"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "dedication-rage",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "instinct-ability"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "dedication-rage-agile",
+                "mode": "upgrade",
+                "path": "data.skills.ath.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "flags.pf2e.rollOptions.all.barbarian-dedication",
+                "mode": "add",
+                "path": "data.custom.modifiers.barbarian-dedication-count",
                 "value": 1
             },
             {

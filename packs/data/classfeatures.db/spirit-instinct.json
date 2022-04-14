@@ -25,88 +25,70 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spiritRageDamage",
                 "predicate": {
                     "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
+                        "spirit-rage:positive"
                     ]
                 },
-                "selector": "ac",
-                "value": -1
+                "value": "positive"
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spiritRageDamage",
                 "predicate": {
                     "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "negative-spirit",
-                        "positive-spirit",
-                        "barbarian-dedication"
+                        "spirit-rage:negative"
                     ]
                 },
-                "selector": "strike-damage",
-                "slug": "rage-spirit",
-                "value": 2
+                "value": "negative"
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "damageType": "{actor|flags.pf2e.spiritRageDamage}",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": {
                     "all": [
-                        "rage",
-                        "agile"
+                        {
+                            "or": [
+                                "spirit-rage:positive",
+                                "spirit-rage:negative"
+                            ]
+                        }
                     ],
-                    "not": [
-                        "ranged",
-                        "negative-spirit",
-                        "positive-spirit",
-                        "barbarian-dedication"
+                    "any": [
+                        "class:barbarian",
+                        "feat:instinct-ability"
                     ]
                 },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-agile",
-                "value": 1
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 3
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Positive spirit damage",
-                "option": "positive-spirit",
-                "toggleable": true
-            },
-            {
-                "damageType": "positive",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": {
                     "all": [
-                        "rage",
-                        "positive-spirit"
+                        "class:barbarian",
+                        "feature:weapon-specialization"
                     ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "negative-spirit",
-                        "barbarian-dedication"
+                    "any": [
+                        "spirit-rage:positive",
+                        "spirit-rage:negative"
                     ]
                 },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-positive",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
                 "value": {
                     "brackets": [
-                        {
-                            "end": 6,
-                            "value": 3
-                        },
                         {
                             "end": 14,
                             "start": 7,
@@ -118,239 +100,6 @@
                         }
                     ]
                 }
-            },
-            {
-                "damageType": "positive",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "rage",
-                        "positive-spirit"
-                    ],
-                    "not": [
-                        "ranged",
-                        "negative-spirit",
-                        "barbarian-dedication"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Negative spirit damage",
-                "option": "negative-spirit",
-                "toggleable": true
-            },
-            {
-                "damageType": "negative",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "negative-spirit"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "positive-spirit",
-                        "barbarian-dedication"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-negative",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 3
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 7
-                        },
-                        {
-                            "start": 15,
-                            "value": 13
-                        }
-                    ]
-                }
-            },
-            {
-                "damageType": "negative",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "rage",
-                        "negative-spirit"
-                    ],
-                    "not": [
-                        "ranged",
-                        "positive-spirit",
-                        "barbarian-dedication"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-negative-agile",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "negative-spirit",
-                        "positive-spirit"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-dedication",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "negative-spirit",
-                        "positive-spirit"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-agile-dedication",
-                "value": 1
-            },
-            {
-                "damageType": "positive",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "positive-spirit",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "negative-spirit"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-positive-dedication",
-                "value": 3
-            },
-            {
-                "damageType": "positive",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "rage",
-                        "positive-spirit",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "negative-spirit"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-agile-dedication",
-                "value": 1
-            },
-            {
-                "damageType": "negative",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "negative-spirit",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "agile",
-                        "positive-spirit"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-negative-dedication",
-                "value": 3
-            },
-            {
-                "damageType": "negative",
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "rage",
-                        "negative-spirit",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "ranged",
-                        "positive-spirit"
-                    ]
-                },
-                "selector": "strike-damage",
-                "slug": "rage-spirit-negative-agile-dedication",
-                "value": 1
             }
         ],
         "source": {
