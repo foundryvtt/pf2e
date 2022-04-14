@@ -281,12 +281,22 @@
                 "rules": [
                     {
                         "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "action:squeeze"
+                            ]
+                        },
                         "selector": "acrobatics",
                         "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
                     },
                     {
                         "key": "Note",
-                        "selector": "athletics",
+                        "predicate": {
+                            "all": [
+                                "action:escape"
+                            ]
+                        },
+                        "selector": "skill-check",
                         "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
                     },
                     {
@@ -298,8 +308,7 @@
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": {
                             "any": [
-                                "action:squeeze",
-                                "action:escape"
+                                "action:squeeze"
                             ]
                         },
                         "selector": "acrobatics",
@@ -317,7 +326,7 @@
                                 "action:escape"
                             ]
                         },
-                        "selector": "athletics",
+                        "selector": "skill-check",
                         "type": "skill"
                     }
                 ],
