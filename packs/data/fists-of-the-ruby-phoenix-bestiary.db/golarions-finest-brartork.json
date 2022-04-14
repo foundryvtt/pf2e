@@ -63,8 +63,8 @@
         },
         "resources": {
             "focus": {
-                "max": 1,
-                "value": 1
+                "max": 3,
+                "value": 3
             }
         },
         "saves": {
@@ -1235,6 +1235,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
                     "invested": false
                 },
@@ -1539,12 +1540,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "silver",
                         "agile",
-                        "coldiron",
+                        "coldIron",
                         "finesse",
                         "magical",
                         "nonlethal",
+                        "silver",
                         "unarmed"
                     ]
                 },
@@ -1704,7 +1705,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ki adept swings their weapon with a sweeping spin. They attempt separate Athletics check to Trip any number of creatures within their reach. Each attempt counts toward the ki adept's multiple attack penalty, but the multiple attack penalty doesn't increase until after they makes all the attacks.</p>"
+                    "value": "<p>The ki adept swings their weapon with a sweeping spin. They attempt separate Athletics check to @Compendium[pf2e.actionspf2e.Trip]{Trip} any number of creatures within their reach. Each attempt counts toward the ki adept's multiple attack penalty, but the multiple attack penalty doesn't increase until after they makes all the attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1748,7 +1749,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The ki adept's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
+                    "value": "<p>Brartork's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1790,7 +1791,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The ki adept deals an extra [[/r 2d10]] damage to @Compendium[pf2e.conditionitems.Prone]{Prone} creatures.</p>"
+                    "value": "<p>Brartork deals an extra [[/r 2d10]] damage to @Compendium[pf2e.conditionitems.Prone]{Prone} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1802,17 +1803,10 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:prone"
+                                "target:condition:prone"
                             ]
                         },
                         "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "damage-roll",
-                        "key": "RollOption",
-                        "label": "Target is prone",
-                        "option": "target:prone",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -1980,7 +1974,7 @@
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Golarion's Finest (Brartork)",
+        "name": "Brartork",
         "width": 1
     },
     "type": "npc"

@@ -63,8 +63,8 @@
         },
         "resources": {
             "focus": {
-                "max": 1,
-                "value": 1
+                "max": 3,
+                "value": 3
             }
         },
         "saves": {
@@ -212,7 +212,7 @@
                 "spelldc": {
                     "dc": 32,
                     "mod": 0,
-                    "value": 24
+                    "value": 25
                 },
                 "tradition": {
                     "value": "arcane"
@@ -1233,6 +1233,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
                     "invested": false
                 },
@@ -1537,12 +1538,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "silver",
                         "agile",
-                        "coldiron",
+                        "coldIron",
                         "finesse",
                         "magical",
                         "nonlethal",
+                        "silver",
                         "unarmed"
                     ]
                 },
@@ -1660,7 +1661,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ki adept swings their weapon with a sweeping spin. They attempt separate Athletics check to Trip any number of creatures within their reach. Each attempt counts toward the ki adept's multiple attack penalty, but the multiple attack penalty doesn't increase until after they makes all the attacks.</p>"
+                    "value": "<p>The ki adept swings their weapon with a sweeping spin. They attempt separate Athletics check to @Compendium[pf2e.actionspf2e.Trip]{Trip} any number of creatures within their reach. Each attempt counts toward the ki adept's multiple attack penalty, but the multiple attack penalty doesn't increase until after they makes all the attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1758,7 +1759,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:prone"
+                                "target:condition:prone"
                             ]
                         },
                         "selector": "strike-damage"
@@ -1767,7 +1768,7 @@
                         "domain": "damage-roll",
                         "key": "RollOption",
                         "label": "Target is prone",
-                        "option": "target:prone",
+                        "option": "target:condition:prone",
                         "toggleable": true
                     }
                 ],
