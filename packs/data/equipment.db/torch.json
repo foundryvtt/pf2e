@@ -44,12 +44,48 @@
             "value": "1 cp"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#9b7337",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "range": null,
+                "traits": [
+                    "improvised"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": "{item|_id}-damage",
+                "value": 1
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
-        "stackGroup": null,
+        "stackGroup": "",
         "traits": {
             "custom": "",
             "rarity": "common",
@@ -62,7 +98,6 @@
             "value": "L"
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
     "name": "Torch",
