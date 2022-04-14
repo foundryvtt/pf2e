@@ -20,12 +20,15 @@ import { FakeActors, FakeCollection, FakeItems, FakeWorldCollection } from "test
 import { LocalizePF2e } from "@module/system/localize";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
+characterData.effects = [];
 characterData.data.schema = { version: 0, lastMigration: null };
 for (const item of characterData.items) {
+    item.effects = [];
     item.data.schema = { version: 0, lastMigration: null };
 }
 
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
+armorData.effects = [];
 armorData.data.schema = { version: 0, lastMigration: null };
 
 LocalizePF2e.ready = true;
