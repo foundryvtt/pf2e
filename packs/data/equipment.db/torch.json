@@ -47,6 +47,11 @@
         "rules": [
             {
                 "key": "TokenLight",
+                "predicate": {
+                    "all": [
+                        "lit-torch"
+                    ]
+                },
                 "value": {
                     "animation": {
                         "intensity": 4,
@@ -77,8 +82,20 @@
             {
                 "damageType": "fire",
                 "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "lit-torch"
+                    ]
+                },
                 "selector": "{item|_id}-damage",
                 "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitTorch",
+                "option": "lit-torch",
+                "toggleable": true
             }
         ],
         "size": "med",
