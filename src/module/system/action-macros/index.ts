@@ -268,8 +268,10 @@ export class ActionMacros {
                     }
                     return null;
                 })();
-                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.featTraits;
+                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
+                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
                 const traitObjects = options.traits.map((trait) => ({
+                    description: traitDescriptions[trait],
                     name: trait,
                     label: actionTraits[trait] ?? trait,
                 }));
