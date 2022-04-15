@@ -1,6 +1,11 @@
 import { ItemPF2e } from "@item";
 import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data";
-import { PickableThing, PickAThingConstructorArgs, PickAThingPrompt } from "@module/apps/pick-a-thing-prompt";
+import {
+    PickableThing,
+    PickAThingConstructorArgs,
+    PickAThingPrompt,
+    PromptTemplateData,
+} from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e } from "@util";
 
@@ -41,6 +46,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             prompt: this.prompt,
             containsUUIDs: this.containsUUIDs,
             allowNoSelection: this.allowNoSelection,
+            selectMenu: this.choices.length > 9,
         };
     }
 
@@ -50,12 +56,6 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-
-        $html.find<HTMLSelectElement>("select").on("change", (event) => {
-            const $select = $(event.target);
-            const $submit = $html.find<HTMLButtonElement>("button");
-            $submit.val(String($select.val()));
-        });
 
         $html.find("button[data-action=close]").on("click", () => {
             this.close();
@@ -99,7 +99,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             .append($("<img>").attr({ src: droppedItem.img }), $("<span>").text(droppedItem.name));
 
         $newButton.on("click", (event) => {
-            this.selection = this.getSelection(event) ?? null;
+            this.selection = this.getSelection(event.originalEvent!) ?? null;
             this.close();
         });
 
@@ -118,7 +118,7 @@ interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number 
     allowedDrops: PredicatePF2e;
 }
 
-interface ChoiceSetTemplateData {
+interface ChoiceSetTemplateData extends PromptTemplateData {
     prompt: string;
     choices: PickableThing[];
     containsUUIDs: boolean;
