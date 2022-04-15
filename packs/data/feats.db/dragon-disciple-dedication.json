@@ -41,6 +41,64 @@
                 "mode": "upgrade",
                 "path": "data.proficiencies.traditions.arcane.rank",
                 "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
+                        "value": "cold"
+                    }
+                ],
+                "flag": "dragonChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonDisciple.energyType",
+                "value": "{item|flags.pf2e.rulesSelections.dragonChoice}"
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|data.custom.dragonDisciple.energyType}",
+                "value": "floor(@actor.level/2)"
             }
         ],
         "source": {
