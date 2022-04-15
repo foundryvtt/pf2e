@@ -19,7 +19,7 @@ export class GhostTemplate extends MeasuredTemplate {
         this.data._source.y = destination.y;
 
         if (canvas.scene) {
-            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [duplicate(this.data)]);
+            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data.toObject()]);
         }
         this.destroy();
     };
