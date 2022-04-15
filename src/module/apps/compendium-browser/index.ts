@@ -477,7 +477,7 @@ export class CompendiumBrowser extends Application {
     }
 
     private async takePhysicalItem(itemId: string): Promise<void> {
-        const actors = await getSelectedOrOwnActors();
+        const actors = getSelectedOrOwnActors(["character", "npc"]);
         const item = await this.getPhysicalItem(itemId);
 
         if (actors.length === 0) {
@@ -502,7 +502,7 @@ export class CompendiumBrowser extends Application {
     }
 
     private async buyPhysicalItem(itemId: string): Promise<void> {
-        const actors = await getSelectedOrOwnActors();
+        const actors = getSelectedOrOwnActors(["character", "npc"]);
         const item = await this.getPhysicalItem(itemId);
 
         if (actors.length === 0) {
