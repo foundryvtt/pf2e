@@ -47,6 +47,7 @@ import { PredicatePF2e } from "@system/predication";
 import { WeaponPF2e } from "@item/weapon";
 import { WeaponTrait } from "@item/weapon/data";
 import { setHasElement } from "@util";
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 
@@ -193,10 +194,8 @@ export class ActionMacros {
             rollers.push(...options.actors);
         } else if (options.actors) {
             rollers.push(options.actors);
-        } else if (canvas.tokens.controlled.length) {
-            rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
-        } else if (game.user.character) {
-            rollers.push(game.user.character);
+        } else {
+            rollers.push(...getSelectedOrOwnActors());
         }
 
         const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
