@@ -37,6 +37,17 @@ interface WithAdjustments {
     adjustedLower?: boolean;
 }
 
+interface VariantCloneParams {
+    name?: string;
+    description?: string;
+    img?: {
+        actor?: ImagePath;
+        token?: VideoPath;
+    };
+    save?: boolean;
+    keepId?: boolean;
+}
+
 interface NPCSystemSheetData extends NPCSystemData {
     attributes: NPCAttributes & {
         ac: NPCArmorClass & WithAdjustments;
@@ -117,4 +128,11 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
     };
 };
 
-export { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData };
+export {
+    NPCActionSheetData,
+    NPCAttackSheetData,
+    NPCSheetData,
+    NPCSheetItemData,
+    NPCSystemSheetData,
+    VariantCloneParams,
+};
