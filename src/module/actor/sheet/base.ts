@@ -53,6 +53,7 @@ import { createSheetTags } from "@module/sheet/helpers";
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        options.dragDrop.push({ dragSelector: ".drag-handle" });
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             scrollY: [".sheet-sidebar", ".tab.active", "ol.inventory-list"],
@@ -589,7 +590,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return;
         }
 
-        const $li = $(event.currentTarget);
+        const $target = $(event.currentTarget);
+        const $li = $target.closest(".item");
+
+        // Show a different drag/drop preview element and copy some data if this is a handle
+        // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
+        const targetElement = $target.get(0);
+        const previewElement = $li.get(0);
+        if (previewElement && targetElement && targetElement !== previewElement) {
+            event.dataTransfer.setDragImage(previewElement, 0, 0);
+            mergeObject(targetElement.dataset, previewElement.dataset);
+        }
 
         const baseDragData: { [key: string]: unknown } = {
             actorId: this.actor.id,
