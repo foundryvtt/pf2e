@@ -242,7 +242,7 @@ export class CompendiumPack {
             if (docName && docId) {
                 return uuid.replace(docName, docId);
             } else {
-                throw PackError(`Unable to resolve UUID: ${uuid}`);
+                throw PackError(`Unable to resolve UUID in ${source.name}: ${uuid}`);
             }
         };
 
