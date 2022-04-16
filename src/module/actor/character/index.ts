@@ -1976,10 +1976,10 @@ class CharacterPF2e extends CreaturePF2e {
         // Constrain PFS player and character numbers
         for (const property of ["playerNumber", "characterNumber"] as const) {
             if (typeof changed.data?.pfs?.[property] === "number") {
-                const [min, max] = property === "playerNumber" ? [10000, 99999] : [2001, 9999];
+                const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
                 changed.data.pfs[property] = Math.clamped(changed.data.pfs[property] || 0, min, max);
             } else if (changed.data?.pfs && changed.data.pfs[property] !== null) {
-                changed.data.pfs[property] = null;
+                changed.data.pfs[property] = this.data.data.pfs[property] ?? null;
             }
         }
 
