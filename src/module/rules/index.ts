@@ -6,7 +6,6 @@ import {
     RuleElementSynthetics,
 } from "./rule-element";
 import { ActorTraitsRuleElement } from "@module/rules/rule-element/actor-traits";
-import { RecoveryCheckDCRuleElement } from "@module/rules/rule-element/recovery-check-dc";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
 import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier";
 import { AdjustStrikeRuleElement } from "./rule-element/adjust-strike";
@@ -70,7 +69,6 @@ class RuleElements {
         LoseHitPoints: LoseHitPointsRuleElement,
         MultipleAttackPenalty: MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
-        RecoveryCheckDC: RecoveryCheckDCRuleElement,
         Resistance: ResistanceRuleElement,
         RollOption: RollOptionRuleElement,
         TempHP: TempHPRuleElement,
