@@ -149,7 +149,7 @@
                                 {{/unless}}
                             {{/if}}
                         </li>
-            {{else}}
+                    {{else}}
                         <li class="item" data-item-id="{{i}}" data-spell-lvl="{{section.level}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}" draggable="true">
                             <div class="item-name empty"><h4>{{localize "PF2E.SpellSlotEmpty"}}</h4></div>
                         </li>
@@ -171,7 +171,7 @@
 
                 <!-- Unprepared Spells -->
                 {{#each (lookup entry.spellPrepList section.level) as |item i|}}
-                    <li class="item spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell">
+                    <li class="item spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell" draggable="true">
                         <div class="item-name rollable">
                             <h4>{{item.spell.name}}{{{actionGlyph item.spell.data.data.time.value}}}</h4>
                         </div>
