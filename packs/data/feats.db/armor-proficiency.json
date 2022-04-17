@@ -19,11 +19,59 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "maxTakable": 3,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "armor:light:rank",
+                                1
+                            ]
+                        }
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.heavy.rank",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "armor:light:rank",
+                                1
+                            ]
+                        },
+                        {
+                            "gte": [
+                                "armor:medium:rank",
+                                1
+                            ]
+                        }
+                    ]
+                },
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

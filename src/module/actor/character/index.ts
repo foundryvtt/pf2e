@@ -913,6 +913,16 @@ class CharacterPF2e extends CreaturePF2e {
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
+        for (const key of ARMOR_CATEGORIES) {
+            const rank = this.data.data.martial[key].rank;
+            rollOptionsAll[`armor:${key}:rank:${rank}`] = true;
+        }
+
+        for (const key of WEAPON_CATEGORIES) {
+            const rank = this.data.data.martial[key].rank;
+            rollOptionsAll[`weapon:${key}:rank:${rank}`] = true;
+        }
+
         for (const key of SAVE_TYPES) {
             const rank = this.data.data.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
