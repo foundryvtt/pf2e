@@ -1611,7 +1611,48 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "unarmed",
+                                "channel-element-manyala"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "unarmed",
+                                "channel-element-rijana"
+                            ]
+                        },
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "Channel Element (Manyala)",
+                        "option": "channel-element-manyala",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "Channel Element (Rijana)",
+                        "option": "channel-element-rijana",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
