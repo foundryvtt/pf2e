@@ -53,7 +53,7 @@ import { createSheetTags } from "@module/sheet/helpers";
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: ".drag-handle" });
+        options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             scrollY: [".sheet-sidebar", ".tab.active", "ol.inventory-list"],
