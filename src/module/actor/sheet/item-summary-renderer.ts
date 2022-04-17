@@ -12,9 +12,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
     constructor(protected sheet: ActorSheet<AType, ItemPF2e>) {}
 
     activateListeners($html: JQuery) {
-        $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
+        const selector = ".item .item-name h4, .item .melee-name h4, .item .action-name h4, .item-name h4";
+        $html.find(selector).on("click", async (event) => {
             const $target = $(event.currentTarget);
-            const $li = $target.closest("li");
+            const $li = $target.closest("[data-item-id]");
             await this.toggleItemSummary($li);
 
             // For PC-sheet strikes

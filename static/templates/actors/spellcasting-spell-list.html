@@ -74,7 +74,7 @@
                 {{#each section.active as |active i|}}
                     {{#with active}}
                         <li
-                            class="item spell{{#if virtual}} virtual{{/if}}"
+                            class="spell{{#if virtual}} virtual{{/if}}"
                             data-item-id="{{spell.id}}"
                             data-entry-id="{{entry.id}}"
                             data-spell-lvl="{{section.level}}"
@@ -150,7 +150,7 @@
                             {{/if}}
                         </li>
                     {{else}}
-                        <li class="item" data-item-id="{{i}}" data-spell-lvl="{{section.level}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}" draggable="true">
+                        <li class="spell" data-item-id="{{i}}" data-spell-lvl="{{section.level}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}">
                             <div class="item-name empty"><h4>{{localize "PF2E.SpellSlotEmpty"}}</h4></div>
                         </li>
                     {{/with}}
@@ -171,8 +171,8 @@
 
                 <!-- Unprepared Spells -->
                 {{#each (lookup entry.spellPrepList section.level) as |item i|}}
-                    <li class="item spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell" draggable="true">
-                        <div class="item-name rollable">
+                    <li class="spell spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell">
+                        <div class="drag-handle item-name rollable">
                             <h4>{{item.spell.name}}{{{actionGlyph item.spell.data.data.time.value}}}</h4>
                         </div>
 
