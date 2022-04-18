@@ -80,7 +80,7 @@ interface SimpleRollActionCheckOptions {
     actionGlyph: ActionGlyph | undefined;
     title: string;
     subtitle: string;
-    modifiers: ModifierPF2e[] | undefined;
+    modifiers: ((roller: ActorPF2e) => ModifierPF2e[] | undefined) | ModifierPF2e[] | undefined;
     rollOptions: string[];
     extraOptions: string[];
     traits: string[];
@@ -215,7 +215,9 @@ export class ActionMacros {
                 flavor += `<b>${game.i18n.localize(options.title)}</b>`;
                 flavor += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
                 const stat = getProperty(actor, options.statName) as StatisticModifier;
-                const check = new CheckModifier(flavor, stat, options.modifiers ?? []);
+                const modifiers =
+                    typeof options.modifiers === "function" ? options.modifiers(actor) : options.modifiers;
+                const check = new CheckModifier(flavor, stat, modifiers ?? []);
 
                 const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
                 const finalOptions = [
