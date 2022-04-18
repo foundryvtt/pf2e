@@ -53,7 +53,7 @@ import { createSheetTags } from "@module/sheet/helpers";
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
+        options.dragDrop.push({ dragSelector: ".drag-handle" });
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             scrollY: [".sheet-sidebar", ".tab.active", "ol.inventory-list"],
@@ -244,9 +244,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Remove Spell Slot
         $html.find(".item-unprepare").on("click", (event) => {
-            const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
-            const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
-            const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
+            const $spell = $(event.currentTarget).parents(".spell");
+            const spellLvl = Number($spell.attr("data-spell-lvl") ?? 0);
+            const slotId = Number($spell.attr("data-slot-id") ?? 0);
+            const entryId = $spell.attr("data-entry-id") ?? "";
             const entry = this.actor.spellcasting.get(entryId);
             if (entry) {
                 entry.unprepareSpell(spellLvl, slotId);
@@ -255,11 +256,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Set Expended Status of Spell Slot
         $html.find(".item-toggle-prepare").on("click", (event) => {
-            const slotId = Number($(event.currentTarget).parents(".item").attr("data-slot-id") ?? 0);
-            const spellLvl = Number($(event.currentTarget).parents(".item").attr("data-spell-lvl") ?? 0);
-            const entryId = $(event.currentTarget).parents(".item").attr("data-entry-id") ?? "";
+            const $spell = $(event.currentTarget).parents(".spell");
+            const slotId = Number($spell.attr("data-slot-id") ?? 0);
+            const spellLvl = Number($spell.attr("data-spell-lvl") ?? 0);
+            const entryId = $spell.attr("data-entry-id") ?? "";
             const expendedState = ((): boolean => {
-                const expendedString = $(event.currentTarget).parents(".item").attr("data-expended-state") ?? "";
+                const expendedString = $spell.attr("data-expended-state") ?? "";
                 return expendedString !== "true";
             })();
             const entry = this.actor.spellcasting.get(entryId);
@@ -380,7 +382,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
 
         // Item Rolling
-        $html.find(".item[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
+        $html.find("[data-item-id] .item-image").on("click", (event) => this.onClickItemToChat(event));
 
         // Delete Formula
         $html.find(".formula-delete").on("click", (event) => {
@@ -591,10 +593,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         const $target = $(event.currentTarget);
-        const $li = $target.closest(".item");
+
+        // If this is a drag handle, we need to fetch the actual item, not including the handle itself.
+        // Since "item" creates a draggable, we have to select on data-item-id instead,
+        // and the html must omit the "item" css class.
+        const isHandle = $target.hasClass("drag-handle");
+        const $li = isHandle ? $target.parent().closest("[data-item-id]") : $target;
 
         // Show a different drag/drop preview element and copy some data if this is a handle
-        // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
+        // This will make the preview nicer and also trick foundry into thinking handle is the item.
         const targetElement = $target.get(0);
         const previewElement = $li.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
@@ -673,7 +680,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const $dropItemEl = $(event.target).closest(".item");
+        const $dropItemEl = $(event.target).closest(".item, [data-item-id]");
         const $dropContainerEl = $(event.target).closest(".item-container");
 
         const dropSlotType = $dropItemEl.attr("data-item-type");
@@ -722,8 +729,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
             } else if (dropSlotType === "spellSlot") {
                 if (CONFIG.debug.hooks) console.debug("PF2e System | ***** spell dropped on a spellSlot *****");
-                const dropId = Number($(event.target).closest(".item").attr("data-item-id"));
-                const spellLvl = Number($(event.target).closest(".item").attr("data-spell-lvl"));
+                const dropId = Number($dropItemEl.attr("data-item-id"));
+                const spellLvl = Number($dropItemEl.attr("data-spell-lvl"));
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl)) {
                     const allocated = await entry.prepareSpell(item, spellLvl, dropId);

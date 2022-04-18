@@ -112,7 +112,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const token = this.actor.token;
-        const nearestItem = event ? event.currentTarget.closest(".item") : {};
+        const nearestItem = event ? event.currentTarget.closest("[data-item-id]") : {};
         const contextualData = !isObjectEmpty(data) ? data : nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
