@@ -591,7 +591,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         const $target = $(event.currentTarget);
-        const $li = $target.closest(".item");
+        const $li = $target.closest("[data-item-id]:not([data-drag-synthetic=true])");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
@@ -600,6 +600,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (previewElement && targetElement && targetElement !== previewElement) {
             event.dataTransfer.setDragImage(previewElement, 0, 0);
             mergeObject(targetElement.dataset, previewElement.dataset);
+            targetElement.dataset.dragSynthetic = "true";
         }
 
         const baseDragData: { [key: string]: unknown } = {
