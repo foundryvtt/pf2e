@@ -70,7 +70,27 @@
             ]
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": "medium"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": "small"
+                    }
+                ],
+                "flag": "sizeChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+            },
+            {
+                "key": "CreatureSize",
+                "value": "{item|flags.pf2e.rulesSelections.sizeChoice}"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Guns & Gears"
