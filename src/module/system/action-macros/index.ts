@@ -15,7 +15,8 @@ import { RollNotePF2e } from "@module/notes";
 import { CheckDC, DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
-import { avoidNotice } from "@system/action-macros/exploration/avoid-notice";
+import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
+import { avoidNotice } from "./exploration/avoid-notice";
 import { balance } from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
@@ -41,7 +42,7 @@ import { makeAnImpression } from "./diplomacy/make-an-impression";
 import { request } from "./diplomacy/request";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
-import { treatPoison } from "@system/action-macros/medicine/treat-poison";
+import { treatPoison } from "./medicine/treat-poison";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
@@ -101,6 +102,9 @@ export class ActionMacros {
         // Basic
         seek,
         senseMotive,
+
+        // Ancestry
+        arcaneSlam,
 
         // Exploration
         avoidNotice,
