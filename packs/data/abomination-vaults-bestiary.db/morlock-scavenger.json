@@ -61,7 +61,7 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>The morlock scavenger is a lankier, smaller version of a typical morlock. Their stature allows them to wriggle into areas other morlocks can't access.</p>\n<hr />\n<p>Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.</p>\n<p>Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.</p>\n<p>A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.</p>",
+            "publicNotes": "<p>The morlock scavenger is a lankier, smaller version of a typical morlock. Their stature allows them to wriggle into areas other morlocks can't access.</p>\n<hr />\n<p>Morlocks originate from humans long lost to the surface world. They have an affinity for machinery, scavenging, and strange occult behaviors.</p>",
             "source": {
                 "value": "Pathfinder #163: Ruins of Gauntlight"
             }
@@ -106,7 +106,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "humanoid"
+                    "humanoid",
+                    "morlock"
                 ]
             }
         }
@@ -115,7 +116,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "G31HsiqYPECZnsIe",
+            "_id": "y4r3mefbzA9TBl6j",
             "data": {
                 "MAP": {
                     "value": ""
@@ -173,13 +174,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -199,16 +200,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -216,10 +217,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "sm",
                 "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -265,6 +266,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -310,6 +312,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -353,6 +356,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -393,7 +397,7 @@
             "type": "melee"
         },
         {
-            "_id": "Ua3grWDVHheSG1ir",
+            "_id": "xA9OK9ybw4WLdQ8o",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -438,10 +442,68 @@
             "type": "action"
         },
         {
-            "_id": "kapISINmoMgs8gm0",
+            "_id": "j9vgTM71zw7kdn4T",
             "data": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "disease",
+                                "poison"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs Disease and Poison",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "FsHTfpYkyQ2CCGzZ",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -472,67 +534,14 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "UXglGyO502iGAxZo",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "poison",
-                                "disease"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "status",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to All Saves vs Disease and Poison",
             "sort": 700000,
             "type": "action"
         },
@@ -578,7 +587,7 @@
             "type": "action"
         },
         {
-            "_id": "ardNq7ed9xXT0x3J",
+            "_id": "qwwxBH4SCVdtmTb2",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -590,7 +599,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A morlock's Strikes deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The morlock deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -662,14 +671,14 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "option": "swarming-stance",
+                        "option": "swarmingStance",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "swarming-stance"
+                                "swarmingStance"
                             ]
                         },
                         "selector": "attack",
@@ -743,7 +752,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Climbing",
+                        "label": "PF2E.SkillVariant.Climb",
                         "predicate": {
                             "all": [
                                 "action:climb"
