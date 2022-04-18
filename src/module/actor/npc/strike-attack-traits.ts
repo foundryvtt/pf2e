@@ -13,13 +13,13 @@ class StrikeAttackTraits {
         };
 
         return traitsAndCustom.flatMap((trait) => {
-            switch(trait.replace(/-d?\d{1,3}$/, "")){
+            switch (trait.replace(/-d?\d{1,3}$/, "")) {
                 case "sweep": {
                     return new ModifierPF2e({
                         label: getLabel(trait),
                         modifier: 1,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        predicate: new PredicatePF2e({ all: ["self:sweep-bonus"] })
+                        predicate: new PredicatePF2e({ all: ["self:sweep-bonus"] }),
                     });
                 }
                 default:

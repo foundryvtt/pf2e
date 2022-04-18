@@ -83,7 +83,7 @@ class StrikeWeaponTraits {
                         label: getLabel(trait),
                         modifier: 1,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        predicate: new PredicatePF2e({ all: ["self:sweep-bonus"] })
+                        predicate: new PredicatePF2e({ all: ["self:sweep-bonus"] }),
                     });
                 }
                 default:
