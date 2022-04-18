@@ -40,6 +40,7 @@ import { makeAnImpression } from "./diplomacy/make-an-impression";
 import { request } from "./diplomacy/request";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
+import { treatPoison } from "@system/action-macros/medicine/treat-poison";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
@@ -138,6 +139,9 @@ export class ActionMacros {
         // Intimidation
         coerce,
         demoralize,
+
+        // Medicine
+        treatPoison,
 
         // Stealth
         hide,
