@@ -16,7 +16,47 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "resist-magic",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Resist Magic",
+                "predicate": {
+                    "all": [
+                        "resist-magic"
+                    ],
+                    "any": [
+                        "arcane",
+                        "divine",
+                        "primal",
+                        "occult",
+                        "magical"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "resist-magic",
+                        "arcane"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
