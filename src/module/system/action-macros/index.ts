@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor/base";
 import { CreaturePF2e } from "@actor";
+import { TokenDocumentPF2e } from "@scene";
 import { DC_SLUGS, SKILL_EXPANDED } from "@actor/data/values";
 import {
     ensureProficiencyOption,
@@ -92,6 +93,7 @@ interface SimpleRollActionCheckOptions {
     createMessage?: boolean;
     weaponTrait?: WeaponTrait;
     weaponTraitWithPenalty?: WeaponTrait;
+    target?: () => { token: TokenDocumentPF2e; actor: ActorPF2e } | null;
 }
 
 export class ActionMacros {
@@ -202,9 +204,7 @@ export class ActionMacros {
             rollers.push(...getSelectedOrOwnActors());
         }
 
-        const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
-        const target = targets.shift()?.document ?? null;
-        const targetActor = target?.actor ?? null;
+        const { token: target, actor: targetActor } = options.target?.() ?? this.target();
 
         if (rollers.length) {
             rollers.forEach((actor) => {
@@ -254,9 +254,9 @@ export class ActionMacros {
                 const dc = ((): CheckDC | null => {
                     if (options.difficultyClass) {
                         return options.difficultyClass;
-                    } else if (target && target.actor instanceof CreaturePF2e) {
+                    } else if (targetActor instanceof CreaturePF2e) {
                         // try to resolve target's defense stat and calculate DC
-                        const dcStat = options.difficultyClassStatistic?.(target.actor);
+                        const dcStat = options.difficultyClassStatistic?.(targetActor);
                         if (dcStat) {
                             const extraRollOptions = finalOptions.concat(targetOptions);
                             const { dc } = dcStat.withRollOptions({ extraRollOptions });
@@ -287,7 +287,10 @@ export class ActionMacros {
                         ? selfToken.object.distanceTo(target.object, { reach })
                         : null;
                 })();
-                const hasTarget = !!(targetActor && target) && typeof distance === "number";
+                const targetInfo =
+                    target && targetActor && typeof distance === "number"
+                        ? { token: target, actor: targetActor, distance }
+                        : null;
                 const notes = [stat.notes ?? [], options.extraNotes?.(options.statName) ?? []].flat();
 
                 CheckPF2e.roll(
@@ -296,7 +299,7 @@ export class ActionMacros {
                         actor,
                         token: selfToken,
                         createMessage: options.createMessage,
-                        target: hasTarget ? { actor: targetActor, token: target, distance } : null,
+                        target: targetInfo,
                         dc,
                         type: options.checkType,
                         options: finalOptions,
@@ -313,6 +316,16 @@ export class ActionMacros {
         } else {
             ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         }
+    }
+
+    static target() {
+        const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
+        const target = targets.shift()?.document ?? null;
+        const targetActor = target?.actor ?? null;
+        return {
+            token: target,
+            actor: targetActor,
+        };
     }
 
     private static getWeaponPotencyModifier(item: WeaponPF2e, actor: ActorPF2e): ModifierPF2e {
