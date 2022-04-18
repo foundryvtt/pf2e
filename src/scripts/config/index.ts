@@ -1001,6 +1001,7 @@ export const PF2ECONFIG = {
         "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
+        other: "Other",
         "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
         worn: "PF2E.TraitWorn",
