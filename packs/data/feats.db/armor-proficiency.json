@@ -28,47 +28,19 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.light.rank",
-                "value": 1
+                "path": "data.martial.heavy.rank",
+                "value": "max(min(1,@actor.data.data.martial.light.rank)*min(1,@actor.data.data.martial.medium.rank))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "data.martial.medium.rank",
-                "phase": "beforeDerived",
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "armor:light:rank",
-                                1
-                            ]
-                        }
-                    ]
-                },
-                "value": 1
+                "value": "min(1,@actor.data.data.martial.light.rank)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.heavy.rank",
-                "phase": "beforeDerived",
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "armor:light:rank",
-                                1
-                            ]
-                        },
-                        {
-                            "gte": [
-                                "armor:medium:rank",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "path": "data.martial.light.rank",
                 "value": 1
             }
         ],

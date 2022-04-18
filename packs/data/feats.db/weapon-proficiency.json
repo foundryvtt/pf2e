@@ -27,24 +27,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.light.rank",
-                "value": 1
+                "path": "data.martial.martial.rank",
+                "value": "min(1,@actor.data.data.martial.simple.rank)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.martial.rank",
-                "phase": "beforeDerived",
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "weapon:simple:rank",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "path": "data.martial.light.rank",
                 "value": 1
             }
         ],
