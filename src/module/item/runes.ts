@@ -563,7 +563,7 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
         traits: ["cold", "conjuration", "magical"],
     },
     greaterHauling: {
-        level: 1,
+        level: 11,
         // name: "PF2E.WeaponPropertyRune.greaterHauling.Name", // wait for translations to catch up
         name: "PF2E.WeaponPropertyRuneGreaterHauling",
         price: 1_300,
