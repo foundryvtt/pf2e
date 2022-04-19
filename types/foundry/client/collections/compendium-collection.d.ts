@@ -192,6 +192,7 @@ declare global {
         _id: string;
         type: string;
         name: string;
+        img?: ImagePath;
         [key: string]: any;
     }
 

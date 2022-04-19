@@ -59,10 +59,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
+            // Set module art if available
+            if (context.pack && data._id) {
+                const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
+                if (art) {
+                    data.img = art.actor;
+                    data.token = mergeObject(data.token ?? {}, { img: art.token });
+                }
+            }
+
             super(data, context);
-            this.physicalItems ??= new Collection();
-            this.spellcasting ??= new ActorSpellcasting(this);
-            this.rules ??= [];
         } else {
             mergeObject(context, { pf2e: { ready: true } });
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
