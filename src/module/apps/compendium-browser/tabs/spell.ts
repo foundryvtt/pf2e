@@ -30,11 +30,8 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             "data.source.value",
         ];
 
-        for await (const { pack, index } of this.browser.packLoader.loadPacks(
-            "Item",
-            this.browser.loadedPacks("spell"),
-            indexFields
-        )) {
+        const data = this.browser.packLoader.loadPacks("Item", this.browser.loadedPacks("spell"), indexFields);
+        for await (const { pack, index } of data) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const spellData of index) {
                 spellData.filters = {};
