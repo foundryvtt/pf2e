@@ -139,3 +139,4 @@ export { Migration736RemoveBrokenThreshold } from "./736-remove-broken-threshold
 export { Migration737NormalizeRuleElementKeys } from "./737-normalize-re-keys";
 export { Migration738UpdateLaughingShadow } from "./738-update-laughing-shadow";
 export { Migration739RecoveryCheckDC } from "./739-recovery-check-dc";
+export { Migration740MaxTakable } from "./740-fix-max-takable";
