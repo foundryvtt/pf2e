@@ -1,0 +1,78 @@
+{
+    "_id": "0izWD9ZYndiou9vR",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.actionspf2e.Change Shape (Beastkin)]{Change Shape (Beastkin)}.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ChangeShape.Form.Hybrid",
+                        "value": "hybrid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChangeShape.Form.Humanoid",
+                        "value": "humanoid"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ChangeShape.Prompt",
+                "rollOption": "beastkin"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": {
+                    "all": [
+                        "beastkin:hybrid"
+                    ]
+                },
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/beastmaster-trance.webp",
+    "name": "Effect: Change Shape (Beastkin)",
+    "type": "effect"
+}
