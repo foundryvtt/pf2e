@@ -64,6 +64,7 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
             };
             system: {
+                moduleArt: Map<ActorUUID, { actor: ImagePath; token: ImagePath }>;
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
             };
