@@ -6,6 +6,7 @@ import { storeInitialWorldVersions } from "@scripts/store-versions";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { MigrationSummary } from "@module/apps/migration-summary";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
+import { registerModuleArt } from "@scripts/register-module-art";
 
 export const Ready = {
     listen: (): void => {
@@ -61,6 +62,8 @@ export const Ready = {
             });
 
             PlayerConfigPF2e.activateColorScheme();
+
+            registerModuleArt();
 
             activateSocketListener();
 
