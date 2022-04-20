@@ -629,7 +629,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexterity);
             const acAbility = abilityModifier.ability!;
             const domains = ["ac", `${acAbility}-based`];
-            modifiers.push(...extractModifiers(statisticsModifiers, domains));
+            modifiers.push(...extractModifiers(statisticsModifiers, ["all", ...domains]));
 
             const rollOptions = this.getRollOptions(domains);
             const stat: CharacterArmorClass = mergeObject(new StatisticModifier("ac", modifiers, rollOptions), {

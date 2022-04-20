@@ -23,7 +23,80 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Magus.SparklingTarge.DefendingLabel",
+                "option": "defend-against-magic",
+                "predicate": {
+                    "all": [
+                        "self:effect:arcane-cascade"
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.attributes.shield.hardness",
+                "phase": "afterDerived",
+                "predicate": {
+                    "all": [
+                        "defend-against-magic",
+                        "self:effect:arcane-cascade",
+                        "self:shield:raised"
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.attributes.shield.hardness",
+                "phase": "afterDerived",
+                "predicate": {
+                    "all": [
+                        "defend-against-magic",
+                        "self:effect:arcane-cascade",
+                        "self:shield:raised",
+                        "feature:weapon-specialization"
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.attributes.shield.hardness",
+                "phase": "afterDerived",
+                "predicate": {
+                    "all": [
+                        "defend-against-magic",
+                        "self:effect:arcane-cascade",
+                        "self:shield:raised",
+                        "feature:greater-weapon-specialization"
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:shield:raised",
+                        "self:effect:arcane-cascade"
+                    ],
+                    "any": [
+                        "magical",
+                        "spell"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "@actor.data.data.attributes.shield.ac"
+            }
+        ],
         "source": {
             "value": ""
         },

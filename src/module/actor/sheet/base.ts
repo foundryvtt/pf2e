@@ -53,7 +53,7 @@ import { createSheetTags } from "@module/sheet/helpers";
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.dragDrop.push({ dragSelector: ".drag-handle" });
+        options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
         return mergeObject(options, {
             classes: options.classes.concat(["pf2e", "actor"]),
             scrollY: [".sheet-sidebar", ".tab.active", "ol.inventory-list"],
@@ -695,6 +695,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const { level } = $dropItemEl.data();
                 const spell = await entry.addSpell(item, level);
                 return [spell ?? []].flat();
+            } else if ($dropItemEl.attr("data-slot-id")) {
+                const dropId = Number($dropItemEl.attr("data-slot-id"));
+                const spellLvl = Number($dropItemEl.attr("data-spell-lvl"));
+
+                if (Number.isInteger(dropId) && Number.isInteger(spellLvl)) {
+                    const allocated = await entry.prepareSpell(item, spellLvl, dropId);
+                    if (allocated) return [allocated];
+                }
             } else if (dropSlotType === "spell") {
                 const dropId = $dropItemEl.attr("data-item-id") ?? "";
                 const target = this.actor.items.get(dropId);
@@ -719,15 +727,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         const spell = await entry.addSpell(item, target.level);
                         return [spell ?? []].flat();
                     }
-                }
-            } else if (dropSlotType === "spellSlot") {
-                if (CONFIG.debug.hooks) console.debug("PF2e System | ***** spell dropped on a spellSlot *****");
-                const dropId = Number($(event.target).closest(".item").attr("data-item-id"));
-                const spellLvl = Number($(event.target).closest(".item").attr("data-spell-lvl"));
-
-                if (Number.isInteger(dropId) && Number.isInteger(spellLvl)) {
-                    const allocated = await entry.prepareSpell(item, spellLvl, dropId);
-                    if (allocated) return [allocated];
                 }
             } else if (dropContainerType === "spellcastingEntry") {
                 // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
