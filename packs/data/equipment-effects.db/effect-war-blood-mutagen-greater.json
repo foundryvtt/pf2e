@@ -1,0 +1,61 @@
+{
+    "_id": "8RNPIAuV7ixaXeq5",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>You gain a +3 item bonus to your attack rolls with this weapon and to Will saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "EffectTarget",
+                "scope": "weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|data.target}-attack",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "will",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: War Blood Mutagen (Greater)",
+    "type": "effect"
+}
