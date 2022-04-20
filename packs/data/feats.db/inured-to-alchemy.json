@@ -1,0 +1,141 @@
+{
+    "_id": "gL7QZsSMldjwE6te",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p><strong>Access</strong> You're from Alkenstar or the Mana Wastes.</p>\n<hr />\n<p>You've developed control over how your body processes alchemical poisons and drugs. Each of your successful saving throws against an alchemical poison, a drug, or an addiction reduces the stage by 2, or by 1 for a virulent alchemical poison, drug, or addiction. Each critical success reduces the stage by 3, or by 2 for a virulent alchemical poison, drug, or addiction.</p>"
+        },
+        "featType": {
+            "value": "class"
+        },
+        "level": {
+            "value": 4
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Fortitude saves"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": {
+                    "any": [
+                        "drug",
+                        "addiciton",
+                        {
+                            "all": [
+                                "alchemical",
+                                "poison"
+                            ]
+                        }
+                    ],
+                    "not": [
+                        "virulent"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Each of your successful saving throws against against an alchemical poison, a drug, or an addiction reduces its stage by 2.</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": {
+                    "all": [
+                        "virulent"
+                    ],
+                    "any": [
+                        "drug",
+                        "addiciton",
+                        {
+                            "all": [
+                                "alchemical",
+                                "poison"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Each of your successful saving throws against against a virulent alchemical poison, drug, or addiction reduces its stage by 1.</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "any": [
+                        "drug",
+                        "addiciton",
+                        {
+                            "all": [
+                                "alchemical",
+                                "poison"
+                            ]
+                        }
+                    ],
+                    "not": [
+                        "virulent"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Each of your ciritcally successful saving throws against against an alchemical poison, a drug, or an addiction reduces its stage by 3.</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "virulent"
+                    ],
+                    "any": [
+                        "drug",
+                        "addiciton",
+                        {
+                            "all": [
+                                "alchemical",
+                                "poison"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Each of your critically successful saving throws against against a virulent alchemical poison, drug, or addiction reduces its stage by 2.</p>"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "uncommon",
+            "value": [
+                "alchemist",
+                "barbarian",
+                "fighter"
+            ]
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Inured to Alchemy",
+    "type": "feat"
+}
