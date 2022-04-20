@@ -31,8 +31,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         const { itemSource, pendingItems, context } = args;
 
+        const uuid = this.resolveInjectedProperties(this.data.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
-            const uuid = this.resolveInjectedProperties(this.data.uuid);
             try {
                 return await fromUuid(uuid);
             } catch (error) {
@@ -52,6 +52,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
         itemSource._id ??= randomID();
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
+
+        // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
+        grantedSource.flags ??= {};
+        mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
