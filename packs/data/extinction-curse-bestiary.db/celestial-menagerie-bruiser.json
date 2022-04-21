@@ -720,11 +720,11 @@
                 "damageRolls": {
                     "0": {
                         "damage": "1d4+8",
-                        "damageType": "acid"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, thrown 10 feet, versatile S)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -764,7 +764,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits the bruiser with a melee Strike</p>\n<p><strong>Effect</strong> The bruiser attempts to Shove the creature. On a success or a critical success, the target is also knocked prone. The bruiser can't Stride after a target it successfully Shoves in this way.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits the bruiser with a melee Strike</p>\n<p><strong>Effect</strong> The bruiser attempts to @Compendium[pf2e.actionspf2e.Shove]{Shove} the creature. On a success or a critical success, the target is also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. The bruiser can't Stride after a target it successfully Shoves in this way.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -806,7 +806,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Requirements</strong> The bruiser must target a creature they Shoved since the end of the bruiser's last turn</p>\n<p><strong>Effect</strong> The bruiser attempts to Demoralize the target. If the bruiser rolls a success, they gets a critical success instead.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Requirements</strong> The bruiser must target a creature they @Compendium[pf2e.actionspf2e.Shove]{Shoved} since the end of the bruiser's last turn</p>\n</div>\n<p><strong>Effect</strong> The bruiser attempts to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} the target. If the bruiser rolls a success, they get a critical success instead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -836,13 +836,61 @@
             "type": "action"
         },
         {
-            "_id": "x02zAihieGhNFqaH",
+            "_id": "AvIzHasAT7nWYhzG",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
                     "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Shove",
+                        "predicate": {
+                            "all": [
+                                "trait:action:shove"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+20 to Shove",
+                        "options": "trait:action:shove"
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1000000,
+            "type": "lore"
+        },
+        {
+            "_id": "jBwBgMthqpbCxl50",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -861,8 +909,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+20 to Shove)",
-            "sort": 1000000,
+            "name": "Circus Lore",
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -892,36 +940,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
-            "type": "lore"
-        },
-        {
-            "_id": "FlsJugituDo0JWQK",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
             "sort": 1200000,
             "type": "lore"
         },
