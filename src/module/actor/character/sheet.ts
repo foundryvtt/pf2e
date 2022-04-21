@@ -23,6 +23,7 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { RecallKnowledgeActionPopup } from "@actor/sheet/popups/recall-knowledge-action-popup";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -685,6 +686,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     await actor.increaseCondition(effect);
                 }
             }
+        });
+
+        $html.find(".tab.proficiencies .recall").on("click", () => {
+            new RecallKnowledgeActionPopup(this.actor).render(true);
         });
 
         const $craftingTab = $html.find(".tab.crafting");

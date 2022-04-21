@@ -1,0 +1,31 @@
+<div class ="content">
+    <h3>{{localize "PF2E.CoreSkillsHeader"}}</h3>
+    <div class="skill-buttons">
+        {{#each standard as |skill|}}
+            <button value="{{skill.value}}">{{skill.label}}</button>
+        {{/each}}
+    </div>
+    <h3>{{localize "PF2E.AdditionalSkills"}}</h3>
+    <div class="alternate-skills">
+        <div class="skills">
+            <label for="skill-select">{{localize "PF2E.SkillsLabel"}}</label>
+            <select class="skill" id="skill-select">
+                {{#each nonStandard as |skill|}}
+                    <option value="{{skill.value}}">{{skill.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="abilities">
+            <label for="ability-select">{{localize "PF2E.Abilities"}}</label>
+            <select class="ability" id="ability-select">
+                <option value=""> {{localize "PF2E.Default"}}</option>
+                {{#each abilities as |ability|}}
+                    <option value="{{ability.value}}">{{ability.label}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="controls">
+            <button class="alt-submit"> {{localize "PF2E.Roll.Roll"}}</button>
+        </div>
+    </div>
+</div>
