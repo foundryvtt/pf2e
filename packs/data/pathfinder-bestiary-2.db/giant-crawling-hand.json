@@ -56,7 +56,7 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>A giant crawling hand is the appendage of a very large creature, such as a giant.</p>",
+            "publicNotes": "<p>A giant crawling hand is the appendage of a very large creature, such as a giant.</p>\n<hr />\n<p>Typically, crawling hands are formed when severed appendages are endowed with a crude sentience by evil necromantic energies that turn them into tireless killers. Yet crawling hands can also arise spontaneously, usually when a creature loses an appendage in a place rife with necromantic energy or with a connection to the Negative Energy Plane.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
@@ -126,6 +126,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -163,7 +164,7 @@
             "type": "melee"
         },
         {
-            "_id": "i5Rlc5hJ4fbTWS7H",
+            "_id": "tOMw33x9d2qXTKwi",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -208,7 +209,7 @@
             "type": "action"
         },
         {
-            "_id": "wrrWSyBXlSizOWeT",
+            "_id": "yb7yQZeKyk9xJFnV",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -305,6 +306,59 @@
             "type": "action"
         },
         {
+            "_id": "gzM5E4i0UEzXZAoY",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "l6ptuF1kw5FfVHfl",
             "data": {
                 "actionCategory": {
@@ -342,7 +396,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Pus Burst",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -367,16 +421,14 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Target is Marked Quarry",
-                        "option": "mark-quarry",
+                        "option": "markQuarry",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Marked Quarry",
                         "predicate": {
                             "all": [
-                                "mark-quarry",
+                                "markQuarry",
                                 "action:seek"
                             ]
                         },
@@ -386,10 +438,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Marked Quarry",
                         "predicate": {
                             "all": [
-                                "mark-quarry",
+                                "markQuarry",
                                 "action:track"
                             ]
                         },
@@ -399,10 +450,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Marked Quarry",
                         "predicate": {
                             "all": [
-                                "mark-quarry"
+                                "markQuarry"
                             ]
                         },
                         "selector": "strike-damage",
@@ -429,11 +479,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mark Quarry",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "s4Ce80I5ui9yCmbG",
+            "_id": "LJ98Uh0Kt9H0AdSx",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -474,7 +524,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -503,7 +553,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -532,7 +582,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -561,7 +611,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
