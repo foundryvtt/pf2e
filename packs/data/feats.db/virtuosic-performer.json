@@ -19,6 +19,7 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,47 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Acting)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Comedy)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Dance)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Keyboards)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Oratory)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Percussion)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Singing)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Strings)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Virtuosic Performer (Winds)"
+                    }
+                ],
+                "flag": "performanceChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.VirtuosicPerformer.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "replaceSelf": true,
+                "uuid": "{item|flags.pf2e.rulesSelections.performanceChoice}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
