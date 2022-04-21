@@ -16,11 +16,12 @@ import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
-import { NPCData, NPCStrike } from "./data";
+import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { SIZE_TO_REACH } from "@actor/creature/values";
+import { VariantCloneParams } from "./types";
 
-export class NPCPF2e extends CreaturePF2e {
+class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
         return NPCData;
     }
@@ -28,6 +29,10 @@ export class NPCPF2e extends CreaturePF2e {
     /** This NPC's ability scores */
     get abilities() {
         return deepClone(this.data.data.abilities);
+    }
+
+    get description(): string {
+        return this.data.data.details.publicNotes;
     }
 
     /** Does this NPC have the Elite adjustment? */
@@ -869,7 +874,7 @@ export class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    // Returns the base level of a creature, as this gets modified on elite and weak adjustments
+    /** Returns the base level of a creature, as this gets modified on elite and weak adjustments */
     getBaseLevel(): number {
         if (this.isElite) {
             return this.level - 1;
@@ -879,12 +884,32 @@ export class NPCPF2e extends CreaturePF2e {
             return this.level;
         }
     }
+
+    /** Create a variant clone of this NPC, adjusting any of name, description, and images */
+    variantClone(params: VariantCloneParams & { save?: false }): this;
+    variantClone(params: VariantCloneParams & { save: true }): Promise<this>;
+    variantClone(params: VariantCloneParams): this | Promise<this>;
+    variantClone(params: VariantCloneParams): this | Promise<this> {
+        const source = this.data._source;
+        const changes: DeepPartial<NPCSource> = {
+            name: params.name ?? this.name,
+            data: {
+                details: { publicNotes: params.description ?? source.data.details.publicNotes },
+            },
+            img: params.img?.actor ?? source.img,
+            token: { img: params.img?.token ?? source.token.img },
+        };
+
+        return this.clone(changes, { save: params.save, keepId: params.keepId });
+    }
 }
 
-export interface NPCPF2e {
+interface NPCPF2e {
     readonly data: NPCData;
 
     get sheet(): NPCSheetPF2e;
 
     _sheet: NPCSheetPF2e | null;
 }
+
+export { NPCPF2e };

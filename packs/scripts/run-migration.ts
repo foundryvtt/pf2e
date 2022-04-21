@@ -26,6 +26,8 @@ import { Migration734SpellLocationPropsAndSignature } from "@module/migration/mi
 import { Migration735FirearmAmmoAlchemical } from "@module/migration/migrations/735-firearm-ammo-alchemical";
 import { Migration736RemoveBrokenThreshold } from "@module/migration/migrations/736-remove-broken-threshold";
 import { Migration737NormalizeRuleElementKeys } from "@module/migration/migrations/737-normalize-re-keys";
+import { Migration739RecoveryCheckDC } from "@module/migration/migrations/739-recovery-check-dc";
+import { Migration740MaxTakable } from "@module/migration/migrations/740-fix-max-takable";
 
 const migrations: MigrationBase[] = [
     new Migration715DangerousSorcery(),
@@ -48,6 +50,8 @@ const migrations: MigrationBase[] = [
     new Migration735FirearmAmmoAlchemical(),
     new Migration736RemoveBrokenThreshold(),
     new Migration737NormalizeRuleElementKeys(),
+    new Migration739RecoveryCheckDC(),
+    new Migration740MaxTakable(),
 ];
 
 global.deepClone = <T>(original: T): T => {

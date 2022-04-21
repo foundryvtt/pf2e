@@ -29,7 +29,10 @@ class PackLoader {
         const progress = new Progress({ steps: packs.length });
         for (const packId of packs) {
             let data = this.loadedPacks[documentType][packId];
-            if (!data) {
+            if (data) {
+                const { pack } = data;
+                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack?.metadata.label ?? "" }));
+            } else {
                 const pack = game.packs.get(packId);
                 if (!pack) {
                     progress.advance("");
@@ -38,9 +41,10 @@ class PackLoader {
                 progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
                 if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
-                    const firstResult = index.contents[0] ?? {};
-                    // Every result should have the 'data' property otherwise the indexFields were wrong for that pack
+                    const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
+                    // Every result should have the "data" property otherwise the indexFields were wrong for that pack
                     if (firstResult.data) {
+                        this.setModuleArt(packId, index);
                         data = { pack, index };
                         this.loadedPacks[documentType][packId] = data;
                     } else {
@@ -49,14 +53,20 @@ class PackLoader {
                 } else {
                     continue;
                 }
-            } else {
-                const { pack } = data;
-                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack?.metadata.label ?? "" }));
             }
 
             yield data;
         }
         progress.close(translations.LoadingComplete);
+    }
+
+    /** Set art provided by a module if any is available */
+    private setModuleArt(packName: string, index: CompendiumIndex): void {
+        if (!packName.startsWith("pf2e.")) return;
+        for (const record of index) {
+            const actorArt = game.pf2e.system.moduleArt.get(`Compendium.${packName}.${record._id}`)?.actor;
+            record.img = actorArt ?? record.img;
+        }
     }
 }
 
@@ -477,7 +487,7 @@ export class CompendiumBrowser extends Application {
     }
 
     private async takePhysicalItem(itemId: string): Promise<void> {
-        const actors = await getSelectedOrOwnActors();
+        const actors = getSelectedOrOwnActors(["character", "npc"]);
         const item = await this.getPhysicalItem(itemId);
 
         if (actors.length === 0) {
@@ -502,7 +512,7 @@ export class CompendiumBrowser extends Application {
     }
 
     private async buyPhysicalItem(itemId: string): Promise<void> {
-        const actors = await getSelectedOrOwnActors();
+        const actors = getSelectedOrOwnActors(["character", "npc"]);
         const item = await this.getPhysicalItem(itemId);
 
         if (actors.length === 0) {

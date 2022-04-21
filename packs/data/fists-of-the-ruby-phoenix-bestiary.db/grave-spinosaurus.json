@@ -31,7 +31,7 @@
             },
             "hp": {
                 "details": "",
-                "max": 200,
+                "max": 280,
                 "temp": 0,
                 "value": 200
             },
@@ -55,7 +55,7 @@
             "alignment": {
                 "value": "N"
             },
-            "blurb": "",
+            "blurb": "Variant spinosaurus",
             "creatureType": "Animal",
             "level": {
                 "value": 15
@@ -113,7 +113,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -158,10 +157,9 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
@@ -203,7 +201,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
@@ -245,7 +242,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
@@ -254,6 +250,51 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "izIH2XdjLJ3Xk3Nh",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (imprecise) 30ft",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -291,11 +332,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -311,7 +351,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The grave spinosaurus Strides and makes a Strike at the end of its movement. If the Strike hits, it deals damage as normal and the grave spinosaurus makes an Athletics check to Trip the target. This check counts toward the grave spinosaurus's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes the check.</p>"
+                    "value": "<p>The grave spinosaurus Strides and makes a Strike at the end of its movement. If the Strike hits, it deals damage as normal and the grave spinosaurus makes an Athletics check to @Compendium[pf2e.actionspf2e.Trip]{Trip} the target. This check counts toward the grave spinosaurus's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes the check.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -333,11 +373,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Pouncing Pin",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -375,11 +414,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rip and Tear",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -395,7 +433,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The grave spinosaurus is swimming on the surface of water</p>\n<p><strong>Effect</strong> With a powerful lunge to the side, the grave spinosaurus uses its sail to slap the surface of the water, creating a crushing wave of water that deals [[/r {6d6}[bludgeoning]]]{6d6 bludgeoning damage} in a 30 foot cone. Each creature in the water in the area must attempt a @Check[type:reflex|dc:36|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
+                    "value": "<p><strong>Requirements</strong> The grave spinosaurus is swimming on the surface of water</p>\n<p><strong>Effect</strong> With a powerful lunge to the side, the grave spinosaurus uses its sail to slap the surface of the water, creating a crushing wave of water that deals [[/r {8d6}[bludgeoning]]]{8d6 bludgeoning damage} in a @Template[type:cone|distance:30]. Each creature in the water in the area must attempt a @Check[type:reflex|dc:36|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -419,11 +457,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Staggering Sail",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -463,7 +500,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
@@ -471,7 +507,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -509,7 +545,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
@@ -517,7 +552,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -543,11 +578,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -591,11 +625,10 @@
                     }
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

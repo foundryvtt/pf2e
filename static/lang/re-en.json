@@ -432,9 +432,16 @@
         "NPCAbility": {
             "AnimatedObjectsConstructArmor": "Construct Armor is Broken",
             "BarghestFeed": "How many times has the Barghest fed?",
+            "Charge": {
+                "AtLeastTen": "Moved at Least 10 feet"
+            },
             "ConstructArmor": {
                 "BrokenArmor": "Broken Construct Armor",
                 "CriticalHit": "Construct Armor Broken by a Critical Hit"
+            },
+            "CustomArmor": {
+                "BrokenArmor": "Broken Custom Armor",
+                "CriticalHit": "Custom Armor Broken by a Critical Hit"
             },
             "DemonInfuseWeapons": "Deal chaotic instead of evil damage",
             "DuskwalkerHuntPrey": {
@@ -499,6 +506,10 @@
             }
         },
         "PersistentDamage": {
+            "Acid1d4": {
+                "success": "[[/r {1d4}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}",
+                "criticalSuccess": "[[/r {2*1d4}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}"
+            },
             "Acid1d6": {
                 "success": "[[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}",
                 "criticalSuccess": "[[/r {2*1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}"
@@ -539,6 +550,10 @@
                 "success": "[[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}",
                 "criticalSuccess": "[[/r {2*1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}"
             },
+            "Fire1d6": {
+                "success": "[[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}",
+                "criticalSuccess": "[[/r {2*1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}"
+            },
             "Fire2d4": {
                 "success": "[[/r {2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}",
                 "criticalSuccess": "[[/r {2*2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}"
@@ -562,6 +577,10 @@
             "Fire2d10": {
                 "success": "[[/r {2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}",
                 "criticalSuccess": "[[/r {2*2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}"
+            },
+            "Piercing2d8+8": {
+                "success": "[[/r {2d8+8}[persistent,piercing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Piercing Damage}",
+                "criticalSuccess": "[[/r {2*2d8+16}[persistent,piercing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Piercing Damage}"
             },
             "Poison1d6": {
                 "success": "[[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}",
@@ -595,7 +614,6 @@
             "Sense": "Sense",
             "Strike": "Strike",
             "Striking": "Striking",
-            "RecoveryCheckDC": "Recovery Check DC",
             "Resistance": "Resistance",
             "RollOption": "Roll Option",
             "TempHP": "Temporary Hit Points",
@@ -675,6 +693,27 @@
                 "AllowedDrops": "7th-level or lower general feat",
                 "Prompt": "Select a 7th-level or lower general feat."
             },
+            "Automaton": {
+                "ArcaneLomotion": {
+                    "Prompt": "Select a movement type."
+                },
+                "AutomatonArmament": {
+                    "Prompt": "Select an unarmed strike."
+                },
+                "CoreCannon": {
+                    "AttackNote": "You need to manually apply your highest Potency rune to this attack roll.",
+                    "CriticalHit": "On a critical hit, the target takes [[/r {10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. Your core cannon does not add critical specialization effects.</p>"
+                },
+                "EnergyBeam": {
+                    "CriticalHit": "On a critical hit, the target takes persistent fire damage equal to the number of weapon damage dice. Your eye beam does not add critical specialization effects."
+                },
+                "MagicalResistance": {
+                    "Prompt": "Select a type of energy damage."
+                }
+            },
+            "CelestialResistance": {
+                "Prompt": "Select a type of energy associated with your bloodline."
+            },
             "ClanWeapon": {
                 "Label": "Clan Weapon",
                 "Prompt": "Select a clan weapon.",
@@ -696,6 +735,26 @@
             "DeityAndCause": {
                 "AllowedDrops": "1st-level champion class feature",
                 "Prompt": "Select a champion's cause"
+            },
+            "DragonDisciple": {
+                "DragonChoice": {
+                    "Black": "Black Dragon",
+                    "Blue": "Blue Dragon",
+                    "Brass": "Brass Dragon",
+                    "Bronze": "Bronze Dragon",
+                    "Copper": "Copper Dragon",
+                    "Gold": "Gold Dragon",
+                    "Green": "Green Dragon",
+                    "Silver": "Silver Dragon",
+                    "Red": "Red Dragon",
+                    "White": "White Dragon"
+                },
+                "ScalesOfTheDragon": {
+                    "BracersOfArmor": "Scales of the Dragon w/ Bracers of Armor",
+                    "ExplorersClothing": "Scales of the Dragon w/ Explorer's Clothing",
+                    "MageArmor": "Scales of the Dragon w/ Mage Armor"
+                },
+                "Prompt": "Select a Dragon"
             },
             "FighterWeaponMasteryLegend": {
                 "Advanced": {
@@ -875,6 +934,7 @@
                 "Triangulate": "Spotter can see target",
                 "GourdHead": "Gourd Head: Increase perception DC"
             },
+            "LitTorch": "Torch is lit",
             "TwoHanded": {
                 "BastardSword": "Use Bastard Sword Two-Handed",
                 "BattleLute": "Use Battle Lute Two-Handed",

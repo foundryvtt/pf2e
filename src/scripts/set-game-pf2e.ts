@@ -67,7 +67,7 @@ export const SetGamePF2e = {
             RuleElements: RuleElements,
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
-            system: { remigrate, sluggify },
+            system: { moduleArt: new Map(), remigrate, sluggify },
             TextEditor: TextEditorPF2e,
             variantRules: { AutomaticBonusProgression },
         };
