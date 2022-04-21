@@ -574,6 +574,7 @@ const traitsDescriptions = {
     strix: "PF2E.TraitDescriptionStrix",
     structure: "PF2E.TraitDescriptionStructure",
     suli: "PF2E.TraitDescriptionSuli",
+    summon: "PF2E.TraitDescriptionSummon",
     summoned: "PF2E.TraitDescriptionSummoned",
     summoner: "PF2E.TraitDescriptionSummoner",
     swashbuckler: "PF2E.TraitDescriptionSwashbuckler",
@@ -610,6 +611,7 @@ const traitsDescriptions = {
     uncommon: "PF2E.TraitDescriptionUncommon",
     undine: "PF2E.TraitDescriptionUndine",
     unique: "PF2E.TraitDescriptionUnique",
+    unstable: "PF2E.TraitDescriptionUnstable",
     "versatile-b": "PF2E.TraitDescriptionVersatile",
     "versatile-fire": "PF2E.TraitDescriptionVersatile",
     "versatile-p": "PF2E.TraitDescriptionVersatile",
@@ -624,7 +626,6 @@ const traitsDescriptions = {
     water: "PF2E.TraitDescriptionWater",
     witch: "PF2E.TraitDescriptionWitch",
     wizard: "PF2E.TraitDescriptionWizard",
-    summon: "PF2E.TraitDescriptionSummon",
     ...preciousMaterialDescriptions,
 };
 
