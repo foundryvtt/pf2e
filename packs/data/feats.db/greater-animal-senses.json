@@ -19,12 +19,87 @@
         "level": {
             "value": 5
         },
-        "location": "",
+        "location": null,
         "maxTakable": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-greater-senses:echo-imprecise"
+                    ]
+                },
+                "range": 30,
+                "selector": "echolocation"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-greater-senses:tremor-imprecise"
+                    ]
+                },
+                "range": 30,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-greater-senses:tremor-precise"
+                    ]
+                },
+                "range": 30,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-greater-senses:echo-precise"
+                    ]
+                },
+                "range": 30,
+                "selector": "echolocation"
+            },
+            {
+                "choices": [{
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationImprecise",
+                    "value": "echo-imprecise",
+                    "predicate": {
+                        "not": ["beastkin-greater-senses:echo-imprecise"]
+                    }
+                }, {
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationPrecise",
+                    "value": "echo-precise",
+                    "predicate": {
+                        "all": ["beastkin-greater-senses:echo-imprecise"]
+                    }
+                }, {
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsenseImprecise",
+                    "value": "tremor-imprecise",
+                    "predicate": {
+                        "not": ["beastkin-greater-senses:tremor-imprecise"]
+                    }
+                }, {
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsensePrecise",
+                    "value": "tremor-precise",
+                    "predicate": {
+                        "all": ["beastkin-greater-senses:tremor-imprecise"]
+                    }
+                }],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Beastkin.GreaterAnimalSenses.Prompt",
+                "rollOption": "beastkin-greater-senses"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
