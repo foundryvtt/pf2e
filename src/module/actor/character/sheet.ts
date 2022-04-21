@@ -11,7 +11,7 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./data";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { PhysicalItemType } from "@item/physical/data";
@@ -23,6 +23,7 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { SkillAbbreviation } from "@actor/creature/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -184,6 +185,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }),
                 {}
             ) as MartialProficiencies;
+
+        // Sort skills by localized label
+        sheetData.data.skills = Object.fromEntries(
+            Object.entries(sheetData.data.skills).sort(([_keyA, skillA], [_keyB, skillB]) =>
+                game.i18n
+                    .localize(skillA.label ?? "")
+                    .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang)
+            )
+        ) as Record<SkillAbbreviation, CharacterSkillData>;
 
         // show hints for some things being modified
         const baseData = this.actor.toObject();
