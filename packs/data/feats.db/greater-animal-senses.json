@@ -29,6 +29,11 @@
                 "acuity": "imprecise",
                 "key": "Sense",
                 "predicate": {
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": {
                     "all": [
                         "beastkin-greater-senses:echo-imprecise"
                     ]
@@ -46,47 +51,6 @@
                 },
                 "range": 30,
                 "selector": "tremorsense"
-            },
-            {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationImprecise",
-                        "value": "echo-imprecise"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsenseImprecise",
-                        "value": "tremor-imprecise"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "predicate": {
-                    "not": [
-                        "beastkin-greater-senses:echo-imprecise",
-                        "beastkin-greater-senses:tremor-imprecise"
-                    ]
-                },
-                "prompt": "PF2E.SpecificRule.Beastkin.AnimalSenses.Prompt",
-                "rollOption": "beastkin-greater-senses"
-            },
-            {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationPrecise",
-                        "value": "echo-precise"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsenseImprecise",
-                        "value": "tremor-imprecise"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "predicate": {
-                    "all": [
-                        "beastkin-greater-senses:echo-imprecise"
-                    ]
-                },
-                "prompt": "PF2E.SpecificRule.Beastkin.AnimalSenses.Prompt",
-                "rollOption": "beastkin-greater-senses"
             },
             {
                 "acuity": "precise",
@@ -111,22 +75,32 @@
                 "selector": "echolocation"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationImprecise",
-                        "value": "echo-imprecise"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsensePrecise",
-                        "value": "tremor-precise"
+                "choices": [{
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationImprecise",
+                    "value": "echo-imprecise",
+                    "predicate": {
+                        "not": ["beastkin-greater-senses:echo-imprecise"]
                     }
-                ],
+                }, {
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationPrecise",
+                    "value": "echo-precise",
+                    "predicate": {
+                        "all": ["beastkin-greater-senses:echo-imprecise"]
+                    }
+                }, {
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsenseImprecise",
+                    "value": "tremor-imprecise",
+                    "predicate": {
+                        "not": ["beastkin-greater-senses:tremor-imprecise"]
+                    }
+                }, {
+                    "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsensePrecise",
+                    "value": "tremor-precise",
+                    "predicate": {
+                        "all": ["beastkin-greater-senses:tremor-imprecise"]
+                    }
+                }],
                 "key": "ChoiceSet",
-                "predicate": {
-                    "all": [
-                        "beastkin-greater-senses:tremor-imprecise"
-                    ]
-                },
                 "prompt": "PF2E.SpecificRule.Beastkin.GreaterAnimalSenses.Prompt",
                 "rollOption": "beastkin-greater-senses"
             }
