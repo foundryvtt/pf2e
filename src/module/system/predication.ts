@@ -29,16 +29,20 @@ class PredicatePF2e implements RawPredicate {
         this.all = deepClone(param.all ?? []);
         this.any = deepClone(param.any ?? []);
         this.not = deepClone(param.not ?? []);
-        this.label = param.label;
-        this.isValid = this.validate();
+        if (param.label) this.label = param.label;
+        this.isValid = PredicatePF2e.validate(param);
     }
 
     /** Structurally validate the predicates */
-    private validate() {
-        return (["all", "any", "not"] as const).every(
-            (operator) =>
-                Array.isArray(this[operator]) &&
-                this[operator].every((statement) => StatementValidator.validate(statement))
+    static validate(raw: unknown) {
+        return (
+            isObject<RawPredicate>(raw) &&
+            !Array.isArray(raw) &&
+            (["all", "any", "not"] as const).every((quantifier) => {
+                if (!(quantifier in raw)) return true;
+                const statements = raw[quantifier];
+                return Array.isArray(statements) && statements.every((s) => StatementValidator.validate(s));
+            })
         );
     }
 
