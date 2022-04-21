@@ -13,11 +13,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
     /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
     reevaluateOnUpdate: boolean;
+    allowDuplicate: boolean;
 
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.reevaluateOnUpdate = Boolean(data.reevaluateOnUpdate);
+        this.allowDuplicate = Boolean(data.allowDuplicate ?? true);
         this.data.preselectChoices ??= {};
         this.data.replaceSelf = Boolean(data.replaceSelf ?? false);
     }
@@ -41,6 +43,20 @@ class GrantItemRuleElement extends RuleElementPF2e {
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
+
+        // If we shouldn't allow duplicates, check for an existing item with this source ID
+        if (!this.allowDuplicate && this.actor.items.some((item) => item.sourceId === uuid)) {
+            if (this.data.replaceSelf) {
+                pendingItems.findSplice((item) => item === itemSource);
+            }
+            ui.notifications.info(
+                game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
+                    actor: this.actor.name,
+                    item: grantedItem.name,
+                })
+            );
+            return;
+        }
 
         // The grant may have come from a non-system compendium, so make sure it's fully migrated
         await MigrationRunner.ensureSchemaVersion(
@@ -179,6 +195,7 @@ interface GrantItemSource extends RuleElementSource {
     replaceSelf?: unknown;
     preselectChoices?: unknown;
     reevaluateOnUpdate?: unknown;
+    allowDuplicate?: unknown;
 }
 
 interface GrantItemData extends RuleElementData {
