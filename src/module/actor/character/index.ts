@@ -865,7 +865,24 @@ class CharacterPF2e extends CreaturePF2e {
                 return current.statistic.dc.value > previous.statistic.dc.value ? current : previous;
             });
             this.data.data.attributes.spellDC = { rank: best.statistic.rank ?? 0, value: best.statistic.dc.value };
+        } else {
+            this.data.data.attributes.spellDC = null;
         }
+
+        // Expose the higher between highest spellcasting DC and (if present) class DC
+        this.data.data.attributes.classOrSpellDC = ((): { rank: number; value: number } => {
+            const classDC = this.data.data.attributes.classDC.rank > 0 ? this.data.data.attributes.classDC : null;
+            const spellDC = this.data.data.attributes.spellDC;
+            return spellDC && classDC
+                ? spellDC.value > classDC.value
+                    ? { ...spellDC }
+                    : { rank: classDC.rank, value: classDC.value }
+                : classDC && !spellDC
+                ? { rank: classDC.rank, value: classDC.value }
+                : spellDC && !classDC
+                ? { ...spellDC }
+                : { rank: 0, value: 0 };
+        })();
 
         // Initiative
         this.prepareInitiative(statisticsModifiers, rollNotes);
