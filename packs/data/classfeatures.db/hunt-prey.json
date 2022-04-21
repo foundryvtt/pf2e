@@ -25,51 +25,16 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Target is your Hunted Prey",
-                "option": "hunted-prey",
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Seek hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Track hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
-                "selector": "survival",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "domain": "ranged-attack-roll",
-                "key": "RollOption",
-                "option": "ignore-range-penalty:2",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                }
-            },
-            {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Hunt Prey"
+            },
+            {
+                "count": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "grants-hunt-prey",
+                "priority": 99
             }
         ],
         "source": {

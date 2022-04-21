@@ -25,8 +25,11 @@ class RollOptionRuleElement extends RuleElementPF2e {
     /** Whether the toggle is interactable by the user. The `value` may still be true even if the toggle is disabled */
     enabledIf?: PredicatePF2e;
 
+    /** Whether this roll option is countable - the roll option will have a numeric value counting how many rules added this option */
+    count?: boolean;
+
     constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super({ key: "RollOption", label: data.label ?? item.name, predicate: data.predicate }, item, options);
+        super({ ...data, label: data.label ?? item.name }, item, options);
 
         this.domain = String(data.domain).trim();
         this.option = String(data.option).trim();
@@ -35,6 +38,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         if (this.toggleable && data.enabledIf instanceof Object) {
             this.enabledIf = new PredicatePF2e(data.enabledIf);
         }
+        this.count = !!data.count;
 
         if (!(typeof data.domain === "string" && /^[-a-z0-9]+$/.test(data.domain) && /[a-z]/.test(data.domain))) {
             this.failValidation(
@@ -55,6 +59,14 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 this.failValidation('The "enabledIf" property must be a predicate');
             } else if (!this.toggleable) {
                 this.failValidation('The "enabledIf" property may only be included if "toggeable" is true');
+            }
+        }
+
+        if ("count" in data) {
+            if (data.toggleable) {
+                this.failValidation('The "count" property may not be included if "toggleable" is true');
+            } else if (typeof data.count !== "boolean") {
+                this.failValidation('The "count" property must be a boolean or otherwise omitted');
             }
         }
     }
@@ -81,21 +93,38 @@ class RollOptionRuleElement extends RuleElementPF2e {
             return;
         }
 
-        const value = (domainRecord[option] ??= !!this.resolveValue(this.value));
-
-        if (this.toggleable) {
-            const toggle: RollToggle = {
-                label: this.label,
-                domain: this.domain,
-                option,
-                checked: value,
-                enabled: true,
-            };
-            if (this.enabledIf) {
-                const rollOptions = this.actor.getRollOptions();
-                toggle.enabled = this.enabledIf.test(rollOptions);
+        if (this.count) {
+            const existing = Object.keys(domainRecord)
+                .flatMap((key: string) => {
+                    return {
+                        key,
+                        count: Number(new RegExp(`^${option}:(\\d+)$`).exec(key)?.[1]),
+                    };
+                })
+                .find((keyAndCount) => !!keyAndCount.count);
+            if (existing) {
+                delete domainRecord[existing.key];
+                domainRecord[`${option}:${existing.count + 1}`] = true;
+            } else {
+                domainRecord[`${option}:1`] = true;
             }
-            this.actor.data.data.toggles.push(toggle);
+        } else {
+            const value = (domainRecord[option] ??= !!this.resolveValue(this.value));
+
+            if (this.toggleable) {
+                const toggle: RollToggle = {
+                    label: this.label,
+                    domain: this.domain,
+                    option,
+                    checked: value,
+                    enabled: true,
+                };
+                if (this.enabledIf) {
+                    const rollOptions = this.actor.getRollOptions();
+                    toggle.enabled = this.enabledIf.test(rollOptions);
+                }
+                this.actor.data.data.toggles.push(toggle);
+            }
         }
     }
 
@@ -131,6 +160,7 @@ interface RollOptionSource extends RuleElementSource {
     option?: unknown;
     toggleable?: unknown;
     enabledIf?: unknown;
+    count?: unknown;
 }
 
 export { RollOptionRuleElement };
