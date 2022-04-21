@@ -19,12 +19,61 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "maxTakable": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-senses:darkvision"
+                    ]
+                },
+                "selector": "darkvision"
+            },
+            {
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-senses:lowLightVision"
+                    ]
+                },
+                "selector": "lowLightVision"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": {
+                    "all": [
+                        "beastkin-senses:scent"
+                    ]
+                },
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SensesDarkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.SensesLowLightVision",
+                        "value": "lowLightVision"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.Scent",
+                        "value": "scent"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Beastkin.AnimalSenses.Prompt",
+                "rollOption": "beastkin-senses"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
