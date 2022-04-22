@@ -123,7 +123,7 @@
                     /** Details */
                     &.item-details {
                         padding: 0.5rem 0.5rem 0;
-                        overflow-y: auto;
+                        @include scrollbar;
 
                         label {
                             color: #353535;
@@ -137,9 +137,19 @@
                         }
                     }
 
+                    &.item-mystification {
+                        padding: 8px 8px 0;
+                        @include scrollbar;
+
+                        label {
+                            color: #353535;
+                            font-weight: bold;
+                        }
+                    }
+
                     /** Rule Elements */
                     &.item-rules {
-                        overflow-y: scroll;
+                        @include scrollbar;
 
                         .rules {
                             padding: 7px;
@@ -334,16 +344,6 @@
                 line-height: 24px;
                 font-size: 14px;
                 text-align: center;
-            }
-        }
-
-        .item-mystify {
-            padding: 8px 8px 0;
-            overflow-y: auto;
-
-            label {
-                color: #353535;
-                font-weight: bold;
             }
         }
 
