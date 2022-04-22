@@ -6,10 +6,31 @@ import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { sluggify } from "@util";
 import { ClassData, ClassTrait } from "./data";
+import { SaveType } from "@actor/data";
 
 class ClassPF2e extends ABCItemPF2e {
+    get attacks() {
+        return this.data.data.attacks;
+    }
+
+    get defenses() {
+        return this.data.data.defenses;
+    }
+
+    get classDC(): ZeroToFour {
+        return this.data.data.classDC;
+    }
+
     get hpPerLevel(): number {
         return this.data.data.hp;
+    }
+
+    get perception(): ZeroToFour {
+        return this.data.data.perception;
+    }
+
+    get savingThrows(): Record<SaveType, ZeroToFour> {
+        return this.data.data.savingThrows;
     }
 
     /** Include all class features in addition to any with the expected location ID */
@@ -24,6 +45,11 @@ class ClassPF2e extends ABCItemPF2e {
         );
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.data.keyAbility.selected ??= null;
+    }
+
     /** Prepare a character's data derived from their class */
     override prepareActorData(this: Embedded<ClassPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
@@ -32,33 +58,33 @@ class ClassPF2e extends ABCItemPF2e {
         }
 
         this.actor.class = this;
-        const classDetails = this.data.data;
-        const { attributes, details, martial, saves } = this.actor.data.data;
+        const { attributes, build, details, martial, saves } = this.actor.data.data;
+
+        // Add base key ability options
+        build.abilities.keyOptions = [...this.data.data.keyAbility.value];
+        build.abilities.boosts.class = this.data.data.keyAbility.selected;
+
         attributes.classhp = this.hpPerLevel;
 
-        attributes.perception.rank = Math.max(attributes.perception.rank, classDetails.perception) as ZeroToFour;
-        this.logAutoChange("data.attributes.perception.rank", classDetails.perception);
+        attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
+        this.logAutoChange("data.attributes.perception.rank", this.perception);
 
-        attributes.classDC.rank = Math.max(attributes.classDC.rank, classDetails.classDC) as ZeroToFour;
-        this.logAutoChange("data.attributes.classDC.rank", classDetails.classDC);
-
-        if (classDetails.keyAbility.value.length === 1) {
-            details.keyability.value = classDetails.keyAbility.value[0];
-        }
+        attributes.classDC.rank = Math.max(attributes.classDC.rank, this.classDC) as ZeroToFour;
+        this.logAutoChange("data.attributes.classDC.rank", this.classDC);
 
         for (const category of ARMOR_CATEGORIES) {
-            martial[category].rank = Math.max(martial[category].rank, classDetails.defenses[category]) as ZeroToFour;
-            this.logAutoChange(`data.martial.${category}.rank`, classDetails.defenses[category]);
+            martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
+            this.logAutoChange(`data.martial.${category}.rank`, this.defenses[category]);
         }
 
         for (const category of WEAPON_CATEGORIES) {
-            martial[category].rank = Math.max(martial[category].rank, classDetails.attacks[category]) as ZeroToFour;
-            this.logAutoChange(`data.martial.${category}.rank`, classDetails.attacks[category]);
+            martial[category].rank = Math.max(martial[category].rank, this.attacks[category]) as ZeroToFour;
+            this.logAutoChange(`data.martial.${category}.rank`, this.attacks[category]);
         }
 
         for (const saveType of SAVE_TYPES) {
-            saves[saveType].rank = Math.max(saves[saveType].rank, classDetails.savingThrows[saveType]) as ZeroToFour;
-            this.logAutoChange(`data.saves.${saveType}.rank`, classDetails.savingThrows[saveType]);
+            saves[saveType].rank = Math.max(saves[saveType].rank, this.savingThrows[saveType]) as ZeroToFour;
+            this.logAutoChange(`data.saves.${saveType}.rank`, this.savingThrows[saveType]);
         }
 
         const slug = this.slug ?? sluggify(this.name);
