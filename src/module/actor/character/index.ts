@@ -1640,7 +1640,7 @@ class CharacterPF2e extends CreaturePF2e {
             get: () => this.items.get(weapon.id),
         });
 
-        // Sets the ammo list if its an ammo using weapon
+        // Show the ammo list if the weapon requires ammo
         if (weapon.requiresAmmo) {
             const compatible = ammos.filter((ammo) => ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
             const incompatible = ammos.filter((ammo) => !ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
