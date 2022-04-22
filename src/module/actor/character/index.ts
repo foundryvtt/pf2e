@@ -1640,9 +1640,8 @@ class CharacterPF2e extends CreaturePF2e {
             get: () => this.items.get(weapon.id),
         });
 
-        // Sets the ammo list if its an ammo using weapon group
-        const usesAmmo = { bases: ["blowgun"], groups: ["firearm", "bow", "sling"] };
-        if (usesAmmo.groups.includes(weapon.group ?? "") || usesAmmo.bases.includes(weapon.baseType ?? "")) {
+        // Sets the ammo list if its an ammo using weapon
+        if (weapon.requiresAmmo) {
             const compatible = ammos.filter((ammo) => ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
             const incompatible = ammos.filter((ammo) => !ammo.isAmmoFor(weapon)).map((ammo) => ammo.toObject(false));
 
