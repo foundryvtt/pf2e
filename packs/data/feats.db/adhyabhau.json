@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You descend from the rare psychic vampires known as vetalaranas. Your forebear gained sustenance from the mental and emotional energy of living creatures, which manifests in you as powerful resistance to such effects. You gain a +1 circumstance bonus to Will saves against effects with the emotion trait, and when you roll a success on a saving throw against such an effect, you get a critical success instead.</p>"
+            "value": "<p>You descend from the rare psychic vampires known as vetalaranas. Your forebear gained sustenance from the mental and emotional energy of living creatures, which manifests in you as powerful resistance to such effects.</p>\n<p>You gain a +1 circumstance bonus to Will saves against effects with the emotion trait, and when you roll a success on a saving throw against such an effect, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,12 +19,51 @@
         "level": {
             "value": 1
         },
-        "location": "",
-        "onlyLevel1": true,
+        "location": null,
+        "onlyLevel1": [
+            null,
+            "true"
+        ],
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.VsEmotion",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "will",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> <em>@Localize[PF2E.SpecificRule.Dhampir.Adhyabhau.SaveNote]</em></p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "will",
+                "type": "save"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
