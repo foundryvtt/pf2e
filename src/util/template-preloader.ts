@@ -9,22 +9,4 @@ export class TemplatePreloader {
         const templatePaths = ["__ALL_TEMPLATES__"];
         return loadTemplates(templatePaths);
     }
-
-    static watch(): void {
-        if (BUILD_MODE === "development" && module.hot) {
-            module.hot.accept();
-
-            if (module.hot.status() === "apply") {
-                for (const template in _templateCache) {
-                    delete _templateCache[template];
-                }
-
-                this.preloadHandlebarsTemplates().then(() => {
-                    for (const appId in ui.windows) {
-                        ui.windows[Number(appId)].render(true);
-                    }
-                });
-            }
-        }
-    }
 }
