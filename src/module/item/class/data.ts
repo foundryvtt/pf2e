@@ -12,7 +12,7 @@ type ClassData = Omit<ClassSource, "effects" | "flags"> &
 
 interface ClassSystemSource extends ABCSystemData {
     traits: ItemTraits;
-    keyAbility: { value: AbilityString[] };
+    keyAbility: { value: AbilityString[]; selected: AbilityString | null };
     hp: number;
     perception: ZeroToFour;
     savingThrows: {
