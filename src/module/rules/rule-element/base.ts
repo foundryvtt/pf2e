@@ -63,6 +63,10 @@ abstract class RuleElementPF2e {
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
 
+        if (this.data.predicate && !this.data.predicate.isValid) {
+            console.debug(`Invalid predicate on ${this.item.name} (${this.item.uuid})`);
+        }
+
         this.slug = this.data.slug ?? null;
     }
 
@@ -257,7 +261,7 @@ abstract class RuleElementPF2e {
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...(resolvables ?? {}) }))
+            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...resolvables }))
             : value;
     }
 

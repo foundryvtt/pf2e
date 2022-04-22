@@ -140,3 +140,4 @@ export { Migration737NormalizeRuleElementKeys } from "./737-normalize-re-keys";
 export { Migration738UpdateLaughingShadow } from "./738-update-laughing-shadow";
 export { Migration739RecoveryCheckDC } from "./739-recovery-check-dc";
 export { Migration740MaxTakable } from "./740-fix-max-takable";
+export { Migration741RollOptionToggleToItem } from "./741-roll-option-toggle-to-item";
