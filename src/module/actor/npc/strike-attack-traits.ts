@@ -4,7 +4,7 @@ import { PredicatePF2e } from "@system/predication";
 
 class StrikeAttackTraits {
     static createAttackModifiers(strike: MeleePF2e): ModifierPF2e[] {
-        const traitsAndCustom = [strike.data.data.traits.value, strike.data.data.traits.custom].flat();
+        const traitsAndCustom = strike.data.data.traits.value;
 
         const getLabel = (traitOrTag: string): string => {
             const traits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
