@@ -44,6 +44,7 @@ import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CreaturePF2e } from "@actor/creature";
 import { createSheetTags } from "@module/sheet/helpers";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -217,10 +218,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         const toggleSelector = "input[type=checkbox][data-action=toggle-roll-option]";
         $html.find<HTMLInputElement>(toggleSelector).on("change", async (event) => {
-            const { domain, option } = event.target.dataset;
+            const { domain, option, itemId } = event.target.dataset;
             if (domain && option) {
-                const value = event.target.checked;
-                await this.actor.toggleRollOption(domain.trim(), option.trim(), value);
+                const value = !!event.target.checked;
+                await RollOptionRuleElement.toggleOption({
+                    domain,
+                    option,
+                    actor: this.actor,
+                    itemId: itemId ?? null,
+                    value,
+                });
             }
         });
 

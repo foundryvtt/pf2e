@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { RollToggle } from "@actor/data/base";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
@@ -113,6 +114,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
             if (this.toggleable) {
                 const toggle: RollToggle = {
+                    itemId: this.item.id,
                     label: this.label,
                     domain: this.domain,
                     option,
@@ -146,12 +148,47 @@ class RollOptionRuleElement extends RuleElementPF2e {
         }
     }
 
-    /** Clean up when this item is deleted */
-    override onDelete(actorUpdates: Record<string, unknown>): void {
-        if (this.toggleable) {
-            const option = this.resolveOption();
-            actorUpdates[`flags.pf2e.rollOptions.${this.domain}.-=${option}`] = null;
+    /**
+     * Toggle the provided roll option (swapping it from true to false or vice versa).
+     * @returns the new value if successful or otherwise `null`
+     */
+    static async toggleOption({
+        domain,
+        option,
+        actor,
+        itemId = null,
+        value = !actor.rollOptions[domain]?.[option],
+    }: ToggleParameters): Promise<boolean | null> {
+        domain = domain.replace(/[^-\w]/g, "");
+        option = option.replace(/[^-:\w]/g, "");
+
+        const flatFootedOption = "target:condition:flat-footed";
+        if (domain === "all" && option === flatFootedOption) {
+            const updateKey = value
+                ? `flags.pf2e.rollOptions.all.${flatFootedOption}`
+                : `flags.pf2e.rollOptions.all.-=${flatFootedOption}`;
+            return (await actor.update({ [updateKey]: value })) ? value : null;
+        } else if (itemId) {
+            // Directly update the rule element on the item
+            const item = actor.items.get(itemId, { strict: true });
+            const rules = item.toObject().data.rules;
+            const rule = rules.find(
+                (r: RollOptionSource) =>
+                    r.key === "RollOption" &&
+                    typeof r.toggleable === "boolean" &&
+                    r.toggleable &&
+                    r.domain === domain &&
+                    r.option === option &&
+                    r.value !== value
+            );
+            if (rule) {
+                rule.value = value;
+                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "data.rules": rules }]);
+                return result.length === 1 ? value : null;
+            }
         }
+
+        return null;
     }
 }
 
@@ -161,6 +198,14 @@ interface RollOptionSource extends RuleElementSource {
     toggleable?: unknown;
     enabledIf?: unknown;
     count?: unknown;
+}
+
+interface ToggleParameters {
+    domain: string;
+    option: string;
+    actor: ActorPF2e;
+    itemId?: string | null;
+    value?: boolean;
 }
 
 export { RollOptionRuleElement };

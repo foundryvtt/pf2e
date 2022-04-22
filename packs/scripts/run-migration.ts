@@ -6,8 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration715DangerousSorcery } from "@module/migration/migrations/715-dangerous-sorcery";
-import { Migration716StrikeDamageSelector } from "@module/migration/migrations/716-strike-damage-selector";
 import { Migration717TakeFeatLimits } from "@module/migration/migrations/717-take-feat-limits";
 import { Migration718CarryType } from "@module/migration/migrations/718-carry-type";
 import { Migration719ShrugFlanking } from "@module/migration/migrations/719-shrug-flanking";
@@ -28,10 +26,9 @@ import { Migration736RemoveBrokenThreshold } from "@module/migration/migrations/
 import { Migration737NormalizeRuleElementKeys } from "@module/migration/migrations/737-normalize-re-keys";
 import { Migration739RecoveryCheckDC } from "@module/migration/migrations/739-recovery-check-dc";
 import { Migration740MaxTakable } from "@module/migration/migrations/740-fix-max-takable";
+import { Migration741RollOptionToggleToItem } from "@module/migration/migrations/741-roll-option-toggle-to-item";
 
 const migrations: MigrationBase[] = [
-    new Migration715DangerousSorcery(),
-    new Migration716StrikeDamageSelector(),
     new Migration717TakeFeatLimits(),
     new Migration718CarryType(),
     new Migration719ShrugFlanking(),
@@ -52,6 +49,7 @@ const migrations: MigrationBase[] = [
     new Migration737NormalizeRuleElementKeys(),
     new Migration739RecoveryCheckDC(),
     new Migration740MaxTakable(),
+    new Migration741RollOptionToggleToItem(),
 ];
 
 global.deepClone = <T>(original: T): T => {
