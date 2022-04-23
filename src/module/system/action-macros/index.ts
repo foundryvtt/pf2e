@@ -61,6 +61,7 @@ export interface ActionDefaultOptions {
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
     modifiers?: ModifierPF2e[];
+    callback?: (result: CheckResultCallback) => void;
 }
 
 export interface SkillActionOptions extends ActionDefaultOptions {
