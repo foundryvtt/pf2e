@@ -84,17 +84,34 @@
             background: url("../assets/sheet/banner-bg.webp") repeat-x center;
             z-index: 1;
 
+            .bio-alignment {
+                position: absolute;
+                left: 0;
+            }
+
             select {
-                all: initial;
+                background: none;
+                border: none;
+                box-shadow: none;
                 color: var(--text-dark);
-                display: block;
                 cursor: pointer;
+                display: block;
                 font-family: var(--body-serif);
-                line-height: 1;
-                font-weight: 700;
                 font-size: 14px;
+                font-weight: 700;
+                outline: none;
+                overflow-x: visible;
+                padding-left: 8px;
+                width: auto;
+
+                line-height: 1;
                 text-transform: capitalize;
                 margin-top: 2px;
+
+                option {
+                    color: var(--text-light);
+                    font: initial;
+                }
             }
 
             input[type="text"] {
