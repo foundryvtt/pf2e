@@ -16,6 +16,7 @@ import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
 import { CheckBoxdata, RangesData } from "./tabs/data";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import noUiSlider from "nouislider";
+import { SpellcastingEntryPF2e } from "@item";
 
 class PackLoader {
     loadedPacks: {
@@ -237,6 +238,37 @@ export class CompendiumBrowser extends Application {
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
         this.initialMaxLevel = maxLevel;
         this.navigationTab.activate(tab, { triggerCallback: true });
+    }
+
+    async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null) {
+        const filter: string[] = [];
+
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.push("category-".concat(entry.data.data.prepared.value));
+        }
+
+        if (level || level === 0) {
+            filter.push(level ? `level-${level}` : "category-cantrip");
+
+            if (level > 0) {
+                if (!entry.isPrepared) {
+                    while (level > 1) {
+                        level -= 1;
+                        filter.push("level-".concat(level.toString()));
+                    }
+                }
+
+                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
+                    filter.push("category-spell");
+                }
+            }
+        }
+
+        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
+            filter.push("traditions-".concat(entry.data.data.tradition.value));
+        }
+
+        this.openTab("spell", filter);
     }
 
     async loadTab(tab: TabName): Promise<void> {

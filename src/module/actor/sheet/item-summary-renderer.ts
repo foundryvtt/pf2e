@@ -9,7 +9,7 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
 export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
-    constructor(protected sheet: ActorSheet<AType, ItemPF2e>) {}
+    constructor(protected sheet: Application & { get actor(): AType }) {}
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
