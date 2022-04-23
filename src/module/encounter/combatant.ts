@@ -40,6 +40,19 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         this.data.flags.pf2e.roundOfLastTurn ??= null;
     }
 
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentUpdateContext<this>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        if (changed.defeated) {
+            this.actor?.items
+                .filter((item) => "deathNote" in item.data.data && item.data.data.deathNote)
+                .forEach((item) => item.toMessage(undefined, { rollMode: "gmroll" }));
+        }
+    }
+
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
     async toggleDefeated(): Promise<void> {
         const isDead = !this.defeated;
