@@ -4,14 +4,15 @@ import { ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { ZeroToFour } from "@module/data";
 import type { ClassPF2e } from ".";
+import { CLASS_TRAITS } from "./values";
 
-export type ClassSource = BaseNonPhysicalItemSource<"class", ClassSystemData>;
+type ClassSource = BaseNonPhysicalItemSource<"class", ClassSystemData>;
 
-export class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
+class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/class.svg";
 }
 
-export interface ClassData extends Omit<ClassSource, "effects" | "flags"> {
+interface ClassData extends Omit<ClassSource, "effects" | "flags"> {
     type: ClassSource["type"];
     data: ClassSource["data"];
     readonly _source: ClassSource;
@@ -50,30 +51,8 @@ interface ClassSystemData extends ABCSystemData {
     generalFeatLevels: { value: number[] };
     skillFeatLevels: { value: number[] };
     skillIncreaseLevels: { value: number[] };
-    abilityBoostLevels: { value: number[] };
 }
 
-// Classes don't have traits, but both feats, spells, and other items can have traits corresponding with a class
-export const CLASS_TRAITS = [
-    "alchemist",
-    "barbarian",
-    "bard",
-    "champion",
-    "cleric",
-    "druid",
-    "fighter",
-    "gunslinger",
-    "inventor",
-    "investigator",
-    "magus",
-    "monk",
-    "oracle",
-    "ranger",
-    "rogue",
-    "sorcerer",
-    "summoner",
-    "swashbuckler",
-    "witch",
-    "wizard",
-] as const;
-export type ClassTrait = typeof CLASS_TRAITS[number];
+type ClassTrait = SetElement<typeof CLASS_TRAITS>;
+
+export { ClassData, ClassSource, ClassSystemData, ClassTrait };

@@ -1,9 +1,7 @@
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ABCItemPF2e } from "@item/abc";
-import { ABCFeatureEntryData } from "@item/abc/data";
 import { AncestryPF2e } from "@item/ancestry";
 import { BackgroundPF2e } from "@item/background";
-import { ClassPF2e } from "@item/class";
 import { FeatPF2e } from "@item/feat";
 import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
@@ -47,22 +45,6 @@ export interface BackgroundSheetData extends ABCSheetData<BackgroundPF2e> {
     rarities: SheetOptions;
     trainedSkills: SheetOptions;
     selectedBoosts: Record<string, Record<string, string>>;
-}
-
-export interface ClassSheetData extends ABCSheetData<ClassPF2e> {
-    rarities: SheetOptions;
-    items: { key: string; item: ABCFeatureEntryData }[];
-    skills: typeof CONFIG.PF2E.skills;
-    proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
-    selectedKeyAbility: Record<string, string>;
-    ancestryTraits: SheetOptions;
-    trainedSkills: SheetOptions;
-    ancestryFeatLevels: SheetOptions;
-    classFeatLevels: SheetOptions;
-    generalFeatLevels: SheetOptions;
-    skillFeatLevels: SheetOptions;
-    skillIncreaseLevels: SheetOptions;
-    abilityBoostLevels: SheetOptions;
 }
 
 export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {

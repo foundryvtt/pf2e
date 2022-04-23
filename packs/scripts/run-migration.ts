@@ -27,6 +27,7 @@ import { Migration737NormalizeRuleElementKeys } from "@module/migration/migratio
 import { Migration739RecoveryCheckDC } from "@module/migration/migrations/739-recovery-check-dc";
 import { Migration740MaxTakable } from "@module/migration/migrations/740-fix-max-takable";
 import { Migration741RollOptionToggleToItem } from "@module/migration/migrations/741-roll-option-toggle-to-item";
+import { Migration742RMAbilityBoostLevels } from "@module/migration/migrations/742-rm-class-ability-boost-levels";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -50,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration739RecoveryCheckDC(),
     new Migration740MaxTakable(),
     new Migration741RollOptionToggleToItem(),
+    new Migration742RMAbilityBoostLevels(),
 ];
 
 global.deepClone = <T>(original: T): T => {
