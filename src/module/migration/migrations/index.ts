@@ -141,3 +141,4 @@ export { Migration738UpdateLaughingShadow } from "./738-update-laughing-shadow";
 export { Migration739RecoveryCheckDC } from "./739-recovery-check-dc";
 export { Migration740MaxTakable } from "./740-fix-max-takable";
 export { Migration741RollOptionToggleToItem } from "./741-roll-option-toggle-to-item";
+export { Migration742RMAbilityBoostLevels } from "./742-rm-class-ability-boost-levels";
