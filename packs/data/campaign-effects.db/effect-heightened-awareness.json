@@ -1,9 +1,9 @@
 {
-    "_id": "4vnF6BFM4Xg4Eg0k",
+    "_id": "Rz35d02dUtAjKtMB",
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>Improved reflexes, giving a +1 item bonus to Reflex saves for 8 hours</p>"
+            "value": "<p>Heightened awareness, granting a +1 item bonus to Perception checks to @Compendium[pf2e.actionspf2e.Seek]{Seek} for 8 hours</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -17,7 +17,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "reflex",
+                "predicate": {
+                    "any": [
+                        "action:seek"
+                    ]
+                },
+                "selector": "perception",
                 "type": "item",
                 "value": 1
             }
@@ -40,7 +45,7 @@
         }
     },
     "flags": {},
-    "img": "systems/pf2e/icons/spells/fleet-step.webp",
-    "name": "Improved reflexes",
+    "img": "systems/pf2e/icons/spells/read-the-air.webp",
+    "name": "Effect: Heightened awareness",
     "type": "effect"
 }
