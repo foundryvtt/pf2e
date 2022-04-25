@@ -22,6 +22,7 @@ import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { UserPF2e } from "@module/user";
+import { StatisticRollParameters } from "@system/statistic";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -390,7 +391,12 @@ export class SpellPF2e extends ItemPF2e {
         };
     }
 
-    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, attackNumber = 1, context = {}) {
+    rollAttack(
+        this: Embedded<SpellPF2e>,
+        event: JQuery.ClickEvent,
+        attackNumber = 1,
+        context: StatisticRollParameters = {}
+    ) {
         // Prepare roll data
         const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
