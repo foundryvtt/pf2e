@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../";
-import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
+import { BattleFormAC, BattleFormOverrides, BattleFormSource, BattleFormStrike } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
 import { ResistanceRuleElement } from "../iwr/resistance";
@@ -354,13 +354,20 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             new StrikeRuleElement(datum, this.item).beforePrepareData();
         }
 
-        const strikeActions = (this.actor.data.data.actions = this.actor.prepareStrikes({
-            includeBasicUnarmed: this.data.ownUnarmed,
-        }));
+        const strikeActions = (this.actor.data.data.actions = this.actor
+            .prepareStrikes({
+                includeBasicUnarmed: this.data.ownUnarmed,
+            })
+            .filter(
+                (a) =>
+                    (a.slug && a.slug in this.overrides.strikes) ||
+                    (this.data.ownUnarmed && a.item.category === "unarmed")
+            ));
 
         for (const action of strikeActions) {
-            const strike = this.overrides.strikes[action.slug!];
-            if (!this.data.ownUnarmed && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
+            const strike = (this.overrides.strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
+
+            if (!this.data.ownUnarmed && strike && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);
