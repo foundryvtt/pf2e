@@ -390,14 +390,14 @@ export class SpellPF2e extends ItemPF2e {
         };
     }
 
-    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, attackNumber = 1) {
+    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, attackNumber = 1, context = {}) {
         // Prepare roll data
         const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
-
+        
         if (statistic) {
-            statistic.check.roll({ ...eventToRollParams(event), item: this, attackNumber });
+            statistic.check.roll({...eventToRollParams(event), ...context, item: this, attackNumber});
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
