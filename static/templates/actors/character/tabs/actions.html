@@ -12,7 +12,7 @@
                         {{#each data.toggles as |toggle idx|}}
                             <div class="actions-option item">
                                 <label>
-                                    <input type="checkbox" data-action="toggle-roll-option" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
+                                    <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
                                     <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
                                 </label>
                             </div>

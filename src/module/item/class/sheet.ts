@@ -1,7 +1,7 @@
 import { ClassPF2e } from "@item/class";
 import { createSheetOptions } from "@module/sheet/helpers";
 import { ABCSheetPF2e } from "../abc/sheet";
-import { ClassSheetData } from "../sheet/data-types";
+import { ClassSheetData } from "./types";
 
 export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
     override async getData(): Promise<ClassSheetData> {
@@ -26,7 +26,6 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
             generalFeatLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.generalFeatLevels),
             skillFeatLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.skillFeatLevels),
             skillIncreaseLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.skillIncreaseLevels),
-            abilityBoostLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.abilityBoostLevels),
         };
     }
 }

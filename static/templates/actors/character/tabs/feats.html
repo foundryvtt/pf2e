@@ -1,7 +1,7 @@
 <div class="tab feats feats-pane" data-group="primary" data-tab="feats">
-    <ol class="actions-list directory-list item-list">
-        {{#each actor.featSlots as |section sid|}}
-            <li class="action-header stroke-header" {{#unless section.slotted}}data-slot-id="{{sid}}" data-feat-type="{{sid}}"{{/unless}}>
+    {{#each actor.featSlots as |section sid|}}
+        <ol class="feat-section actions-list directory-list item-list" {{#unless section.slotted}}data-slot-id="{{sid}}" data-feat-type="{{sid}}"{{/unless}}>
+            <li class="action-header stroke-header">
                 {{> systems/pf2e/templates/actors/partials/images/header_stroke.html}}
                 <h3 class="feat-name">{{localize section.label}}</h3>
                 <div class="item-controls">
@@ -46,6 +46,6 @@
                     </li>
                 {{/if}}
             {{/each}}
-        {{/each}}
-    </ol>
+        </ol>
+    {{/each}}
 </div>

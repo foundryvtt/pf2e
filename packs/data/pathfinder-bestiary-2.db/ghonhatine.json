@@ -56,7 +56,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>In transforming xulgaths, drow fleshwarpers sought not to create a new type of creature but to recapture a form of xulgath predecessor believed entirely vanished from Golarion. Ghonhatines are the result-hulking reptilian beasts who prefer to crawl on all fours and tear at their foes with bestial fury.</p>",
+            "publicNotes": "<p>In transforming xulgaths, drow fleshwarpers sought not to create a new type of creature but to recapture a form of xulgath predecessor believed entirely vanished from Golarion. Ghonhatines are the result-hulking reptilian beasts who prefer to crawl on all fours and tear at their foes with bestial fury.</p>\n<hr />\n<p>Horrid abominations reshaped by vile alchemical magic, the two fleshwarps presented here were created by drow, who transform captured elves or xulgaths into twisted monstrosities that can then be loosed to cause havoc and terror.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
@@ -89,9 +89,9 @@
             },
             "dr": [
                 {
-                    "label": "Acid",
+                    "exceptions": "",
                     "type": "acid",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -117,7 +117,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -128,6 +127,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -140,9 +140,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Acid1d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Acid1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Acid1d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -158,7 +175,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
@@ -172,6 +188,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -203,7 +220,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
@@ -251,7 +267,6 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Vomit",
@@ -259,7 +274,7 @@
             "type": "melee"
         },
         {
-            "_id": "28i8LDUqvwLQGZFc",
+            "_id": "rBN7VRWeDcgG0c1C",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -293,7 +308,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -305,7 +319,7 @@
             "type": "action"
         },
         {
-            "_id": "YOoRUvvkgwbAOJ7M",
+            "_id": "P5TjcVC1dN5jLmFb",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -339,14 +353,13 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 500000,
             "type": "action"
         },
@@ -363,7 +376,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:26] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:26] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for as long as it's sickened on a critical failure).</p>\n<p>While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Stench]{Effect: Stench}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -378,8 +391,7 @@
                     "rarity": "common",
                     "value": [
                         "aura",
-                        "olfactory",
-                        "disease"
+                        "olfactory"
                     ]
                 },
                 "trigger": {
@@ -389,7 +401,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stench",
@@ -409,7 +420,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The ghonhatine is adjacent to the corpse of a creature that died within the last hour</p>\n<p><strong>Effect</strong> The ghonhatine devours a chunk of the corpse. For 1 minute, the ghonhatine gains fast healing 5 and a [[/r +2 # status bonus to damage]] status bonus to damage rolls. It can gain these benefits from any given corpse only once.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The ghonhatine is adjacent to the corpse of a creature that died within the last hour</p>\n<p><strong>Effect</strong> The ghonhatine devours a chunk of the corpse. For 1 minute, the ghonhatine gains @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 5} and a +2 status bonus to damage rolls. It can gain these benefits from any given corpse only once.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ghonhatine Feed]{Effect: Ghonhatine Feed}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -433,7 +444,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Feed",
@@ -453,7 +463,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A ghonhatine's vomit carries an awful disease that, over time, can cause a suffering creature's flesh to develop painful boils that eventually slough away, leaving gaping wounds</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/r 1d4 #hours]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Drained]{Drained 3} (1 day)</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 4}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day)</p>\n<p><strong>Stage 6</strong> dead</p>"
+                    "value": "<p>A ghonhatine's vomit carries an awful disease that, over time, can cause a suffering creature's flesh to develop painful boils that eventually slough away, leaving gaping wounds</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/r 1d4 #Incubation]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> enfeebled 2 and @Compendium[pf2e.conditionitems.Drained]{Drained 3} (1 day)</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 4}, enfeebled 2, and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day)</p>\n<p><strong>Stage 6</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -477,7 +487,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fleshgout",
@@ -507,7 +516,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -537,7 +545,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
@@ -567,7 +574,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",

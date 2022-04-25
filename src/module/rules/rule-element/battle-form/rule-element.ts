@@ -12,7 +12,6 @@ import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
-import { WEAPON_CATEGORIES } from "@item/weapon/data";
 import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
@@ -323,6 +322,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Clear out existing strikes and replace them with the form's stipulated ones, if any */
     private prepareStrikes(): void {
         const { synthetics } = this.actor;
+
         const ruleData = Object.entries(this.overrides.strikes).map(([slug, strikeData]) => ({
             key: "Strike",
             label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
@@ -353,15 +353,12 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!datum.traits.includes("magical")) datum.traits.push("magical");
             new StrikeRuleElement(datum, this.item).beforePrepareData();
         }
-        this.actor.data.data.actions = this.data.ownUnarmed
-            ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))
-            : synthetics.strikes.map((weapon) => {
-                  return this.actor.prepareStrike(weapon, {
-                      categories: [...WEAPON_CATEGORIES],
-                      defaultAbility: this.overrides.strikes[weapon.slug || ""]?.ability,
-                  });
-              });
-        for (const action of this.actor.data.data.actions) {
+
+        const strikeActions = (this.actor.data.data.actions = this.actor.prepareStrikes({
+            includeBasicUnarmed: this.data.ownUnarmed,
+        }));
+
+        for (const action of strikeActions) {
             const strike = this.overrides.strikes[action.slug!];
             if (!this.data.ownUnarmed && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:

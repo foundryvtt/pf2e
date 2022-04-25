@@ -257,6 +257,8 @@ export interface StrikeData {
 }
 
 export interface RollToggle {
+    /** The ID of the item with a rule element for this toggle */
+    itemId?: string;
     label: string;
     domain: string;
     option: string;

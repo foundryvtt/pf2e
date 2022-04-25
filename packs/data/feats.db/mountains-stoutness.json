@@ -25,13 +25,32 @@
         },
         "rules": [
             {
-                "key": "RecoveryCheckDC"
-            },
-            {
                 "key": "FlatModifier",
                 "selector": "hp",
                 "type": "untyped",
                 "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "data.attributes.dying.recoveryDC",
+                "predicate": {
+                    "not": [
+                        "feat:toughness"
+                    ]
+                },
+                "value": 9
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "data.attributes.dying.recoveryDC",
+                "predicate": {
+                    "all": [
+                        "feat:toughness"
+                    ]
+                },
+                "value": 6
             }
         ],
         "source": {
@@ -45,7 +64,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Mountain's Stoutness",

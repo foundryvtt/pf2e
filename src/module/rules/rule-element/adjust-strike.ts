@@ -25,11 +25,10 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
     }
 
     protected override validateData(): void {
-        const predicateQuantifiers = ["all", "any", "not"] as const;
         const tests = {
             property: ["range-increment", "traits"].includes(this.property ?? ""),
             predicate: this.predicate.isValid,
-            definition: this.definition.isValid && predicateQuantifiers.some((q) => this.definition[q].length > 0),
+            definition: this.definition.isValid,
             mode: AELikeRuleElement.CHANGE_MODES.includes(String(this.mode)),
             value: ["string", "number"].includes(typeof this.value),
         };

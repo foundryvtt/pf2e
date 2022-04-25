@@ -29,7 +29,26 @@
         },
         "rules": [
             {
-                "key": "RecoveryCheckDC"
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "data.attributes.dying.recoveryDC",
+                "predicate": {
+                    "not": [
+                        "feat:toughness"
+                    ]
+                },
+                "value": 9
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "data.attributes.dying.recoveryDC",
+                "predicate": {
+                    "all": [
+                        "feat:toughness"
+                    ]
+                },
+                "value": 8
             }
         ],
         "source": {
@@ -43,7 +62,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Defy Death",

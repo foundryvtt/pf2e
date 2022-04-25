@@ -259,9 +259,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             if (slot.name !== undefined) {
                 updates[`${key}.-=name`] = null;
             }
-            if (slot.expended !== undefined) {
-                updates[`${key}.-=expended`] = null;
-            }
         }
 
         return this.update(updates);
@@ -281,6 +278,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 name: game.i18n.localize("PF2E.SpellSlotEmpty"),
                 id: null,
                 prepared: false,
+                expended: false,
             },
         });
     }

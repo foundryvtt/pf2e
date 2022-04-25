@@ -29,6 +29,7 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 import { preImportJSON } from "@module/doc-helpers";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -59,10 +60,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
+            // Set module art if available
+            if (context.pack && data._id) {
+                const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
+                if (art) {
+                    data.img = art.actor;
+                    data.token = mergeObject(data.token ?? {}, { img: art.token });
+                }
+            }
+
             super(data, context);
-            this.physicalItems ??= new Collection();
-            this.spellcasting ??= new ActorSpellcasting(this);
-            this.rules ??= [];
         } else {
             mergeObject(context, { pf2e: { ready: true } });
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
@@ -529,14 +536,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
-    async toggleRollOption(domain: string, option: string, value = !this.rollOptions[domain]?.[option]): Promise<this> {
-        domain = domain.replace(/[^-\w]/g, "");
-        option = option.replace(/[^-:\w]/g, "");
-
-        if (domain && option) {
-            return this.update({ [`flags.pf2e.rollOptions.${domain}.${option}`]: value });
-        }
-        return this;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | null = null,
+        value = !this.rollOptions[domain]?.[option]
+    ): Promise<boolean | null> {
+        return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
     }
 
     /**
