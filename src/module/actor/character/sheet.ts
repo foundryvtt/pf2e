@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { FeatSource, ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
@@ -9,9 +9,9 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { ConditionPF2e, LorePF2e } from "@item";
+import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, CharacterStrike, MartialProficiencies } from "./data";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { PhysicalItemType } from "@item/physical/data";
@@ -23,6 +23,7 @@ import { LocalizePF2e } from "@system/localize";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { SkillAbbreviation } from "@actor/creature/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -184,6 +185,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }),
                 {}
             ) as MartialProficiencies;
+
+        // Sort skills by localized label
+        sheetData.data.skills = Object.fromEntries(
+            Object.entries(sheetData.data.skills).sort(([_keyA, skillA], [_keyB, skillB]) =>
+                game.i18n
+                    .localize(skillA.label ?? "")
+                    .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang)
+            )
+        ) as Record<SkillAbbreviation, CharacterSkillData>;
 
         // show hints for some things being modified
         const baseData = this.actor.toObject();
@@ -995,22 +1005,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatSource) {
-        let featType = feat.data?.featType?.value;
-        if (featType === "archetype") {
-            if (feat.data.traits.value.includes("skill")) {
-                featType = "skill";
-            } else {
-                featType = "class";
-            }
-        }
-
-        const group = this.actor.featGroups[featSlotType];
-        if (!group) return false;
-
-        return group.supported === "all" || group.supported.includes(featType);
-    }
-
     /** Handle cycling of dying, wounded, or doomed */
     private onClickDyingWounded(condition: "dying" | "wounded", event: JQuery.TriggeredEvent) {
         if (event.type === "click") {
@@ -1038,29 +1032,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
+
+        if (item instanceof FeatPF2e) {
+            const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
+            const results = await this.actor.insertFeat(item, featType ?? "", slotId ?? "");
+            if (results.length > 0) {
+                return results;
+            } else {
+                return super._onDropItem(event, data);
+            }
+        }
+
         const source = item.toObject();
 
-        const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
-
         switch (source.type) {
-            case "feat": {
-                if (!(slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, source))) {
-                    return super._onDropItem(event, data);
-                }
-
-                source.data.location = slotId;
-                const items = await Promise.all([
-                    this.actor.createEmbeddedDocuments("Item", [source]),
-                    this.actor.updateEmbeddedDocuments(
-                        "Item",
-                        this.actor.itemTypes.feat
-                            .filter((i) => i.data.data.location === slotId)
-                            .map((i) => ({ _id: i.id, "data.location": null }))
-                    ),
-                ]);
-
-                return items.flat();
-            }
             case "ancestry":
             case "background":
             case "class":
@@ -1099,30 +1084,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * @param itemData
      */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        if (itemData.type === "feat") {
+        const item = this.actor.items.get(itemData._id);
+        if (item instanceof FeatPF2e) {
             const { slotId, featType } = this.getNearestSlotId(event);
             const group = this.actor.featGroups[featType];
-            const resorting = group && !group.slotted && itemData.data.location === featType;
+            const resorting = group && !group.slotted && item.data.data.location === featType;
             if (slotId && featType && !resorting) {
-                if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                    const existing = this.actor.itemTypes.feat.filter((x) => x.data.data.location === slotId);
-                    const itemUpdate = { _id: itemData._id, "data.location": slotId };
-                    return this.actor.updateEmbeddedDocuments("Item", [
-                        itemUpdate,
-                        // If this is a slotted group, replace existing entries in that slot
-                        ...(group.slotted ? existing.map((x) => ({ _id: x.id, "data.location": "" })) : []),
-                    ]);
-                } else {
-                    // if they're dragging it away from a slot
-                    if (itemData.data.location) {
-                        return this.actor.updateEmbeddedDocuments("Item", [
-                            {
-                                _id: itemData._id,
-                                "data.location": "",
-                            },
-                        ]);
-                    }
-                }
+                return this.actor.insertFeat(item, featType, slotId);
             }
         }
 

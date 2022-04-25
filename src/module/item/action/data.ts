@@ -35,4 +35,5 @@ interface ActionSystemData extends ItemSystemData {
     trigger: {
         value: string;
     };
+    deathNote: boolean;
 }

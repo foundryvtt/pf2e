@@ -28,16 +28,11 @@ export interface REMaybeChoiceGrant extends RuleElementSource {
 
 type CompendiumSource = CompendiumDocument["data"]["_source"];
 export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
-    return (
-        "effects" in docSource &&
-        Array.isArray(docSource.effects) &&
-        "items" in docSource &&
-        Array.isArray(docSource.items)
-    );
+    return "data" in docSource && isObject(docSource.data) && "items" in docSource && Array.isArray(docSource.items);
 }
 
 export function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
-    return "effects" in docSource && Array.isArray(docSource.effects) && "description" in docSource.data;
+    return "data" in docSource && isObject(docSource.data) && !isActorSource(docSource);
 }
 
 export class CompendiumPack {
@@ -247,7 +242,7 @@ export class CompendiumPack {
             if (docName && docId) {
                 return uuid.replace(docName, docId);
             } else {
-                throw PackError(`Unable to resolve UUID: ${uuid}`);
+                throw PackError(`Unable to resolve UUID in ${source.name}: ${uuid}`);
             }
         };
 

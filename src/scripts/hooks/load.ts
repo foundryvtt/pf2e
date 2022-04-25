@@ -17,7 +17,6 @@ import {
     TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@scene";
-import { TemplatePreloader } from "@util/template-preloader";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -43,7 +42,5 @@ export const Load = {
 
         // Make available immediately on load for module subclassing
         window.AutomaticBonusProgression = AutomaticBonusProgression;
-
-        TemplatePreloader.watch();
     },
 };

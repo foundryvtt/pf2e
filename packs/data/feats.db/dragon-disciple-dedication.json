@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p><strong>Access</strong> You are a kobold with the dragonscaled or spellscaled</p>\n<p>heritage, a dragon instinct barbarian, or a draconic</p>\n<p>bloodline sorcerer.</p>\n<hr />\n<p>You choose to study or worship one type of dragon, and your focus grants you a measure of its power. Choose one color of dragon when you select this feat; if you are a sorcerer with the draconic bloodline, this must be the same type as your bloodline.</p>\n<p>You gain resistance equal to half your level against one type of damage determined by the chosen dragon type. The GM may allow you to choose a dragon type not listed below, and will determine the damage type appropriate for that dragon.</p>\n<ul>\n<li><strong>Black or Copper</strong> Acid</li>\n<li><strong>Blue or Bronze</strong> Electricity</li>\n<li><strong>Brass, Gold, or Red</strong> Fire</li>\n<li><strong>Green</strong> Poison</li>\n<li><strong>Silver or White</strong> Cold</li>\n</ul>\n<p>You also gain a +1 circumstance bonus to saving throws against sleep effects and effects that would make you paralyzed.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the dragon disciple archetype. If you later take the sorcerer archetype, you must choose the draconic bloodline.</p>"
+            "value": "<p><strong>Access</strong> You are a kobold with the dragonscaled or spellscaled heritage, a dragon instinct barbarian, or a draconic bloodline sorcerer.</p>\n<hr />\n<p>You choose to study or worship one type of dragon, and your focus grants you a measure of its power. You become trained in arcane spell DCs and arcane spell attack rolls. Choose one color of dragon when you select this feat; if you are a sorcerer with the draconic bloodline, this must be the same type as your bloodline.</p>\n<p>You gain resistance equal to half your level against one type of damage determined by the chosen dragon type. The GM may allow you to choose a dragon type not listed below, and will determine the damage type appropriate for that dragon.</p>\n<ul>\n<li><strong>Black or Copper</strong> Acid</li>\n<li><strong>Blue or Bronze</strong> Electricity</li>\n<li><strong>Brass, Gold, or Red</strong> Fire</li>\n<li><strong>Green</strong> Poison</li>\n<li><strong>Silver or White</strong> Cold</li>\n</ul>\n<p>You also gain a +1 circumstance bonus to saving throws against sleep effects and effects that would make you @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the dragon disciple archetype. If you later take the sorcerer archetype, you must choose the draconic bloodline.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -35,6 +35,70 @@
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.proficiencies.traditions.arcane.rank",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
+                        "value": "cold"
+                    }
+                ],
+                "flag": "dragonChoice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "data.custom.dragonDisciple.energyType",
+                "value": "{item|flags.pf2e.rulesSelections.dragonChoice}"
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|data.custom.dragonDisciple.energyType}",
+                "value": "floor(@actor.level/2)"
             }
         ],
         "source": {
@@ -49,7 +113,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Dragon Disciple Dedication",

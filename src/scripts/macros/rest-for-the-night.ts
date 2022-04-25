@@ -1,9 +1,10 @@
 import { CharacterPF2e } from "@actor";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { ItemPF2e } from "@item";
 import { ActionDefaultOptions } from "@system/action-macros";
 
 /** A macro for the Rest for the Night quasi-action */
-export async function restForTheNight(options: ActionDefaultOptions): Promise<void | ChatMessage> {
+export async function restForTheNight(options: ActionDefaultOptions): Promise<void | (ChatMessagePF2e | undefined)[]> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const characters = actors.filter((actor): actor is CharacterPF2e => actor?.data.type === "character");
     if (actors.length === 0) {
@@ -13,6 +14,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
     if (!(await Dialog.confirm({ title: "Rest", content: "<p>Rest for the night?</p>", defaultYes: true }))) return;
 
+    const chatMessages: Promise<ChatMessagePF2e | undefined>[] = [];
     for (const actor of characters) {
         const abilities = actor.data.data.abilities;
         const attributes = actor.attributes;
@@ -173,10 +175,13 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         messages.push(reducedConditions.length > 0 ? `${reducedString} reduced by 1.` : null);
 
         // Send chat message with results
-        return ChatMessage.create({
-            user: game.user.id,
-            content: messages.join(" "),
-            speaker: { alias: actorName },
-        });
+        chatMessages.push(
+            ChatMessagePF2e.create({
+                user: game.user.id,
+                content: messages.join(" "),
+                speaker: { alias: actorName },
+            })
+        );
     }
+    return Promise.all(chatMessages);
 }

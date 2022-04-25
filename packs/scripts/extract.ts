@@ -251,14 +251,6 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
                 delete (docSource.data as { equipped?: unknown }).equipped;
             }
         }
-
-        if (isActorSource(docSource)) {
-            if (!docSource.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
-                for (const effect of docSource.effects) {
-                    effect.origin = "";
-                }
-            }
-        }
     }
 
     pruneTree(docSource, docSource);

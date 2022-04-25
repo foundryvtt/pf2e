@@ -8,16 +8,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { sluggify } from "@util";
-
-function resolveActors(): ActorPF2e[] {
-    const actors: ActorPF2e[] = [];
-    if (canvas.tokens.controlled.length) {
-        actors.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
-    } else if (game.user.character) {
-        actors.push(game.user.character);
-    }
-    return actors;
-}
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -78,7 +69,7 @@ export const InlineRollLinks = {
 
         $links.filter("[data-pf2-check]").on("click", (event) => {
             const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
-            const actors = resolveActors();
+            const actors = getSelectedOrOwnActors();
             if (actors.length === 0) {
                 ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
                 return;

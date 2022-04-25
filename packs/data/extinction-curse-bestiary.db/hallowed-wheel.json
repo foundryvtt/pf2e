@@ -22,22 +22,22 @@
         "creatureType": "",
         "details": {
             "description": "<p>An ornate wheel, divided into eight segments with a rune painted on each, is mounted on a pole and controlled by a lever that can be triggered manually or a sensor that detects creatures within 30 feet in front of it.</p>",
-            "disable": "<p>DC 31 Thievery (master) on the wheel to flip the switch returning it to a harmless carnival game, DC 26 Thievery (expert) to erase each rune, or dispel magic (5th level; counteract DC 28) to counteract each rune.</p>",
+            "disable": "<p>@Check[type:thievery|dc:31|name:Flip the switch|traits:hazard,complex,magical,mechanical,trap] (master) on the wheel to flip the switch returning it to a harmless carnival game, @Check[type:thievery|dc:26|name:Erase each rune|traits:hazard,complex,magical,mechanical,trap] (expert) to erase each rune, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (5th level; counteract DC 28) to counteract each rune.</p>",
             "isComplex": true,
             "level": {
                 "value": 10
             },
             "reset": "<p>The trap deactivates and resets if 1 minute passes without any creature moving within range of its sensor.</p>",
-            "routine": "[[2-actions]] On its initiative, the trap uses its first action to spin, then stops. Roll 1d8 to determine which segment is topmost when the wheel stops spinning. The wheel uses its second action to replicate the spell listed for that segment (5th level, DC 27, spell attack roll +17). This spell's target is centered on or otherwise includes the nearest creature in the spell's area.  This increases the spell's range to 30 feet if necessary. Any spell cast by this trap is occult.\n1 black tentacles\n2 blindness\n3 confusion\n4 death ward\n5 outcast's curse\n6 shadow blast force damage in a 30‑foot line)\n7 sound burst\n8 spider climb"
+            "routine": "<p><span class=\"pf2-icon\">2</span> On its initiative, the trap uses its first action to spin, then stops. Roll [[/r 1d8]]{1d8} to determine which segment is topmost when the wheel stops spinning. The wheel uses its second action to replicate the spell listed for that segment (5th level, DC 27, spell attack roll +17). This spell's target is centered on or otherwise includes the nearest creature in the spell's area. This increases the spell's range to 30 feet if necessary. Any spell cast by this trap is occult.</p>\n<p><em>1 - @Compendium[pf2e.spells-srd.Black Tentacles]{Black Tentacles}</em> @Template[type:burst|distance:20|name:Black Tentacles|traits:hazard,complex,magical,mechanical,trap,conjuration,occult]{20-foot burst} [[/r 1d20+17]]{Spell Attack vs Target's Fortitude DC}</p>\n<p><em>2 - @Compendium[pf2e.spells-srd.Blindness]{Blindness}</em> @Check[type:fortitude|dc:27|name:Blindness|traits:hazard,complex,magical,mechanical,trap,incapacitation,necromancy,occult]</p>\n<p><em>3 - @Compendium[pf2e.spells-srd.Confusion]{Confusion}</em> @Check[type:will|dc:27|name:Confusion|traits:hazard,complex,magical,mechanical,trap,emotion,enchantment,mental,occult]</p>\n<p><em>4 - @Compendium[pf2e.spells-srd.Death Ward]{Death Ward}</em> Range 30 feet</p>\n<p><em>5 - @Compendium[pf2e.spells-srd.Outcast's Curse]{Outcast's Curse}</em> @Check[type:will|dc:27|name:Outcast's Curse|traits:hazard,complex,magical,mechanical,trap,curse,enchantment,mental,misfortune,occult] Range 30 feet</p>\n<p><em>6 - @Compendium[pf2e.spells-srd.Shadow Blast]{Shadow Blast}</em> @Template[type:line|distance:30|traits:hazard,complex,magical,mechanical,trap,evocation,occult,shadow|width:5]{30-foot line} @Check[type:reflex|dc:27|basic:true|name:Shadow Blast|traits:hazard,complex,magical,mechanical,trap,evocation,occult,shadow] or @Check[type:will|dc:27|basic:true|name:Shadow Blast|traits:hazard,complex,magical,mechanical,trap,evocation,occult,shadow] [[/r {5d8}[force]]]{5d8 Force Damage}</p>\n<p><em>7 - @Compendium[pf2e.spells-srd.Sound Burst]{Sound Burst}</em> @Template[type:burst|distance:10|traits:hazard,complex,magical,mechanical,trap,evocation,occult,sonic]{10-foot burst} @Check[type:fortitude|dc:27|name:Sound Burst|traits:hazard,complex,magical,mechanical,trap,evocation,occult,sonic] [[/r {2d10}[sonic]]]{2d10 Sonic Damage}</p>\n<p><em>8 - @Compendium[pf2e.spells-srd.Spider Climb]{Spider Climb}</em> Range 30 feet</p>"
         },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 21
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 15
             },
             "will": {
                 "saveDetail": "",
@@ -69,12 +69,12 @@
                 "custom": "",
                 "value": [
                     "magical",
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
@@ -113,7 +113,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Wheel Spin",

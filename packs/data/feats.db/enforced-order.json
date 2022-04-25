@@ -19,7 +19,7 @@
         "level": {
             "value": 13
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -32,7 +32,26 @@
                 "damageType": "lawful",
                 "key": "FlatModifier",
                 "selector": "strike-damage",
-                "value": 1
+                "value": 1,
+                "predicate":{
+                     "all":[
+                           "target:trait:chaotic"
+                     ]
+                 }
+            },
+            {
+                "definition": {},
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "lawful"
+            },
+            {
+                "definition": {},
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
             }
         ],
         "source": {
@@ -46,7 +65,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Enforced Order",

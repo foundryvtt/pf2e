@@ -5,7 +5,7 @@
             {{#each actor.data.toggles as |toggle idx|}}
                 <div class="actions-option item">
                     <label>
-                        <input type="checkbox" data-action="toggle-roll-option" data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}}>
+                        <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
                         <span>{{localize toggle.label}}</span>
                     </label>
                 </div>
@@ -172,7 +172,7 @@
                 {{#each actions as |section sectionId|}}
                     {{#if (eq sectionId "passive")}}
                         {{#each section.actions as |action actionId|}}
-                            {{> "systems/pf2e/templates/actors/npc/partials/action.html" action=action isEditable=@root.options.editable }}
+                            {{> "systems/pf2e/templates/actors/npc/partials/action.html" action=action isEditable=@root.options.editable}}
                         {{/each}}
                     {{/if}}
                 {{/each}}

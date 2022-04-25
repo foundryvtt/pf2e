@@ -19,13 +19,74 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": {
+                    "all": [
+                        "armament:claw"
+                    ]
+                },
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Pincer",
+                "predicate": {
+                    "all": [
+                        "armament:pincer"
+                    ]
+                },
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Pincer",
+                        "value": "pincer"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Automaton.AutomatonArmament.Prompt",
+                "rollOption": "armament"
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -35,7 +96,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Automaton Armament",

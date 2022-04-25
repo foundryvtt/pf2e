@@ -105,7 +105,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} } = {}
+        { rollMode = undefined, create = true, data = {} }: { rollMode?: RollMode; create?: boolean; data?: {} } = {}
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
@@ -139,7 +139,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         // Toggle default roll mode
-        const rollMode = event?.ctrlKey || event?.metaKey ? "blindroll" : game.settings.get("core", "rollMode");
+        rollMode ??= event?.ctrlKey || event?.metaKey ? "blindroll" : game.settings.get("core", "rollMode");
         if (["gmroll", "blindroll"].includes(rollMode))
             chatData.whisper = ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id);
         if (rollMode === "blindroll") chatData.blind = true;

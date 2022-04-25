@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
-import { sluggify } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
+import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
 abstract class PickAThingPrompt<T> extends Application {
@@ -44,8 +45,18 @@ abstract class PickAThingPrompt<T> extends Application {
         return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
     }
 
-    protected getSelection(event: JQuery.ClickEvent): PickableThing<T> | null {
-        return event.currentTarget.value === "" ? null : this.choices[Number(event.currentTarget.value)] ?? null;
+    protected getSelection(event: MouseEvent): PickableThing<T> | null {
+        if (!(event.currentTarget instanceof HTMLElement)) {
+            throw ErrorPF2e("Unexpected error retrieving form data");
+        }
+
+        const valueElement =
+            event.currentTarget.closest(".content")?.querySelector<HTMLElement>("tag") ?? event.currentTarget;
+        const selectedIndex = valueElement.getAttribute("value");
+
+        return selectedIndex === "" || !Number.isInteger(Number(selectedIndex))
+            ? null
+            : this.choices.at(Number(selectedIndex)) ?? null;
     }
 
     abstract override get template(): string;
@@ -66,21 +77,50 @@ abstract class PickAThingPrompt<T> extends Application {
         });
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<{ choices: PickableThing[] }> {
+    override async getData(options: Partial<ApplicationOptions> = {}): Promise<PromptTemplateData> {
         options.id = `pick-a-thing-${this.item.slug ?? sluggify(this.item.name)}`;
+
         return {
+            selectMenu: this.choices.length > 9,
             // Sort by the `sort` property, if set, and otherwise `label`
             choices: this.choices
                 .map((c, index) => ({ ...c, value: index }))
-                .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label))),
+                .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label, game.i18n.lang))),
         };
     }
 
     override activateListeners($html: JQuery): void {
-        $html.find("a[data-choice], button").on("click", (event) => {
-            this.selection = this.getSelection(event) ?? null;
-            this.close();
+        const html = $html[0];
+
+        html.querySelectorAll<HTMLElement>("a[data-choice], button[type=button]").forEach((element) => {
+            element.addEventListener("click", (event) => {
+                this.selection = this.getSelection(event) ?? null;
+                this.close();
+            });
         });
+
+        const select = html.querySelector<HTMLInputElement>("input[data-tagify-select]");
+        if (!select) return;
+
+        const tagified = new Tagify(select, {
+            enforceWhitelist: true,
+            keepInvalidTags: false,
+            mode: "select",
+            tagTextProp: "label",
+            dropdown: {
+                closeOnSelect: true,
+                enabled: 1,
+                highlightFirst: true,
+                mapValueTo: "label",
+                maxItems: 9,
+                searchKeys: ["label"],
+            },
+            whitelist: this.choices
+                .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label, game.i18n.lang)))
+                .map((c, index) => ({ value: index.toString(), label: c.label })),
+        });
+
+        tagified.DOM.input.spellcheck = false;
     }
 
     /** Close the dialog, applying the effect with configured target or warning the user that something went wrong. */
@@ -124,4 +164,10 @@ interface PickableThing<T = string | number | object> {
     sort?: number;
 }
 
-export { PickAThingPrompt, PickAThingConstructorArgs, PickableThing };
+interface PromptTemplateData {
+    choices: PickableThing[];
+    /** Whether to use a select menu instead of a column of buttons */
+    selectMenu: boolean;
+}
+
+export { PickAThingConstructorArgs, PickAThingPrompt, PickableThing, PromptTemplateData };
