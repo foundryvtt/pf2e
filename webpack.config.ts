@@ -53,21 +53,21 @@ const optimization: Optimization = isProductionBuild
               new TerserPlugin({ terserOptions: { mangle: false, module: true, keep_classnames: true } }),
               new CssMinimizerPlugin(),
           ],
-          splitChunks: {
-              chunks: "all",
-              cacheGroups: {
-                  default: {
-                      name: "main",
-                      test: "src/pf2e.ts",
-                  },
-                  vendor: {
-                      name: "vendor",
-                      test: /node_modules/,
-                  },
-              },
-          },
       }
-    : undefined;
+    : {};
+optimization.splitChunks = {
+    chunks: "all",
+    cacheGroups: {
+        default: {
+            name: "main",
+            test: "src/pf2e.ts",
+        },
+        vendor: {
+            name: "vendor",
+            test: /node_modules/,
+        },
+    },
+};
 
 const config: Configuration = {
     context: __dirname,
