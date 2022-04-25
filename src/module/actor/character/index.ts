@@ -1340,6 +1340,7 @@ class CharacterPF2e extends CreaturePF2e {
                               inSlot: true,
                               handsHeld: 0,
                           },
+                          group: "brawling",
                           traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                           usage: { value: "worngloves" },
                           ...(unarmedRunes ?? {}),
