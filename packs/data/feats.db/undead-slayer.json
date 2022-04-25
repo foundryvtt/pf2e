@@ -19,10 +19,39 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:trait:undead"
+                    ],
+                    "not": [
+                        "target:trait:vampire"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "undead-slayer",
+                "type": "circumstance",
+                "value": "1+@weapon.data.data.runes.striking"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:trait:vampire"
+                    ]
+                },
+                "selector": "damage",
+                "slug": "undead-slayer-vampire",
+                "type": "circumstance",
+                "value": "(1+@weapon.data.data.runes.striking)*2"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
