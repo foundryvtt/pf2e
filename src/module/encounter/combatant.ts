@@ -3,6 +3,11 @@ import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
 class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
+    /** Prioritize display of the token image in case it changes from a TokenImage rule element */
+    override get img(): VideoPath {
+        return this.token?.data.img || this.data.img || this.actor?.img || CONST.DEFAULT_TOKEN;
+    }
+
     get encounter() {
         return this.parent;
     }
