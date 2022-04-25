@@ -127,8 +127,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             for (let i = 0; i < choices.length; i++) {
                 const item = itemChoices[i];
                 if (item instanceof ItemPF2e) {
-                    choices[i].label = item.name;
-                    choices[i].img = item.img;
+                    choices[i].label ??= item.name;
+                    choices[i].img ??= item.img;
                 }
             }
             this.data.containsUUIDs = true;
