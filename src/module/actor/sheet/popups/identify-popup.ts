@@ -49,11 +49,12 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             $("div#identify-item")
                 .find("tr")
                 .each(function () {
-                    const description = $(this).find("th").text();
+                    const $th = $(this).find("th");
+                    const description = $th.text();
                     if (description) {
                         skillArray.push({
-                            description: description,
-                            skill: description.toLowerCase(),
+                            description,
+                            skill: $th.data("skill"),
                             DC: $(this).find("td").text(),
                         });
                     }
