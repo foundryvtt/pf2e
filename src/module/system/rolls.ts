@@ -21,6 +21,7 @@ import { TextEditorPF2e } from "./text-editor";
 import { CheckRoll } from "./check/roll";
 
 export interface RollDataPF2e extends RollData {
+    rollerId?: string;
     totalModifier?: number;
     degreeOfSuccess?: ZeroToThree;
     strike?: {
@@ -199,7 +200,7 @@ export class CheckPF2e {
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
         const rollData: RollDataPF2e = (() => {
-            const data: RollDataPF2e = { totalModifier: check.totalModifier };
+            const data: RollDataPF2e = { rollerId: game.userId, totalModifier: check.totalModifier };
 
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
@@ -395,6 +396,8 @@ export class CheckPF2e {
         context.isReroll = true;
 
         const oldRoll = message.roll;
+        if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
+
         const RollCls = message.roll.constructor as typeof Check.Roll;
         const newRoll = await new RollCls(oldRoll.formula, oldRoll.data).evaluate({ async: true });
 
