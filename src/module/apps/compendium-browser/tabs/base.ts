@@ -1,5 +1,5 @@
 import { CompendiumBrowser } from "..";
-import { BaseFilterData, CheckBoxOptions } from "./data";
+import { BaseFilterData, CheckBoxOptions, RangesData } from "./data";
 import { sluggify } from "@util";
 import { TabName } from "../data";
 
@@ -7,7 +7,7 @@ export abstract class CompendiumBrowserTab {
     /** A reference to the parent CompendiumBrowser */
     protected browser: CompendiumBrowser;
     /** An unmodified copy of this.filterData */
-    protected defaultFilterData!: BaseFilterData;
+    defaultFilterData!: BaseFilterData;
     /** The full CompendiumIndex of this tab */
     protected indexData: CompendiumIndexData[] = [];
     /** Is this tab initialized? */
@@ -76,6 +76,16 @@ export abstract class CompendiumBrowserTab {
             }
         });
         return order.direction === "asc" ? sorted : sorted.reverse();
+    }
+
+    /** Return new range filter values based on input */
+    parseRangeFilterInput(_name: string, lower: string, upper: string): RangesData["values"] {
+        return {
+            min: Number(lower) || 0,
+            max: Number(upper) || 0,
+            inputMin: lower,
+            inputMax: upper,
+        };
     }
 
     /** Check if an array includes any keys of another array */
