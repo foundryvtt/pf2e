@@ -539,10 +539,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     async toggleRollOption(
         domain: string,
         option: string,
-        itemId: string | null = null,
-        value = !this.rollOptions[domain]?.[option]
+        value = !this.rollOptions[domain]?.[option],
+        itemId: string | null = null
     ): Promise<boolean | null> {
-        return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        if (itemId) {
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        } else {
+            /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
+            const match = this.rules.find(
+                (rule) => rule instanceof RollOptionRuleElement && rule.domain === domain && rule.option === option
+            );
+
+            /** If a matching item is found toggle this option. */
+            if (match) {
+                itemId = match.item.id;
+                return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+            } else return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        }
     }
 
     /**
