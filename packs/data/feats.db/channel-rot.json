@@ -1,0 +1,116 @@
+{
+    "_id": "AMgTG6TwfoNmseWm",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You've learned to channel your curse through weapons you wield instead of solely through your flesh. The benefits of @Compendium[pf2e.feats-srd.Accursed Touch]{Accursed Touch} apply to any melee weapon you wield instead of only your fist Strikes.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 10
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Accursed Touch"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        {
+                            "lte": [
+                                "self:level",
+                                13
+                            ]
+                        }
+                    ],
+                    "not": [
+                        "weapon:fist"
+                    ]
+                },
+                "selector": "strike-damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Mummy.AccursedTouch.Note.Base]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                14
+                            ]
+                        }
+                    ],
+                    "not": [
+                        {
+                            "gte": [
+                                "self:level",
+                                20
+                            ]
+                        },
+                        "weapon:fist"
+                    ]
+                },
+                "selector": "strike-damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Mummy.AccursedTouch.Note.FourteenthLevel]</p>"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                20
+                            ]
+                        }
+                    ],
+                    "not": [
+                        "weapon:fist"
+                    ]
+                },
+                "selector": "strike-damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Mummy.AccursedTouch.Note.TwentiethLevel]</p>"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Channel Rot",
+    "type": "feat"
+}
