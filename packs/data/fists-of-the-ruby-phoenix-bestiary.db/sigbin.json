@@ -3,22 +3,22 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 2
             },
             "con": {
-                "mod": 0
+                "mod": 4
             },
             "dex": {
-                "mod": 0
+                "mod": 5
             },
             "int": {
-                "mod": 0
+                "mod": -1
             },
             "str": {
-                "mod": 0
+                "mod": 1
             },
             "wis": {
-                "mod": 0
+                "mod": 1
             }
         },
         "attributes": {
@@ -171,7 +171,7 @@
                 "damageRolls": {
                     "v06rnsvcv8jpqm6tv54x": {
                         "damage": "2d6+5",
-                        "damageType": "acid"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -259,6 +259,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -304,6 +305,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -333,7 +335,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 500000,
             "type": "action"
         },
@@ -349,8 +351,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:fortitude|dc:19|traits:aura,olfactory] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}, or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is immune to all sigbins' stenches for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:fortitude|dc:19] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}, or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is immune to all sigbins' stenches for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -363,7 +366,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -390,6 +396,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>A sigbin becomes almost imperceptible if it stands completely still. If the sigbin does not move or attack during its turn, it becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. It remains invisible until it moves or takes a hostile action. Children and young creatures, like animal cubs, can see the sigbin normally, even while it's invisible.</p>"
                 },
@@ -431,8 +438,9 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The sigbin is unnoticed by its target.</p>\n<p><strong>Effect</strong> The sigbin makes a fangs Strike (unlike other Strikes, this does not end its invisibility if the sigbin is invisible). On a hit, the target takes nonlethal damage from the Strike and becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} (@Compendium[pf2e.conditionitems.Drained]{Drained 2} on a critical hit). The sigbin gains 15 temporary Hit Points that remain for 1 hour.</p>"
+                    "value": "<p><strong>Requirements</strong> The sigbin is @Compendium[pf2e.conditionitems.Unnoticed]{Unnoticed} by its target.</p>\n<p><strong>Effect</strong> The sigbin makes a fangs Strike (unlike other Strikes, this does not end its @Compendium[pf2e.conditionitems.Invisible]{invisibility} if the sigbin is invisible). On a hit, the target takes nonlethal damage from the Strike and becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} (@Compendium[pf2e.conditionitems.Drained]{Drained 2} on a critical hit). The sigbin gains 15 temporary Hit Points that remain for 1 hour.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -472,6 +480,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
                 },
@@ -504,6 +513,93 @@
             "name": "Knockdown",
             "sort": 900000,
             "type": "action"
+        },
+        {
+            "_id": "PUyPNDKaX1eflYUH",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1000000,
+            "type": "lore"
+        },
+        {
+            "_id": "f0tFPsFreLVQC7P3",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "type": "lore"
+        },
+        {
+            "_id": "gTYMVx9jEt07dFY5",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1200000,
+            "type": "lore"
         }
     ],
     "name": "Sigbin",
