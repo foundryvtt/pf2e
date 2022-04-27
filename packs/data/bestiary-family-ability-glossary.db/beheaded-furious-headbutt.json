@@ -1,0 +1,63 @@
+{
+    "_id": "1p2UcxwgYDQzVqov",
+    "data": {
+        "actionCategory": {
+            "value": "offensive"
+        },
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "deathNote": false,
+        "description": {
+            "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per round;</p>\n<p><strong>Effect</strong> The beheaded makes a wild Strike, taking a -2 penalty to its AC until the end of its next turn. If the Strike damages a creature, it deals additional damage equal to the beheaded's level.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "furious-headbutt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "furious-headbutt"
+                    ]
+                },
+                "selector": "ac",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "furious-headbutt"
+                    ]
+                },
+                "selector": "damage",
+                "value": "@actor.level"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "(Beheaded) Furious Headbutt",
+    "type": "action"
+}
