@@ -1,0 +1,75 @@
+{
+    "_id": "tBg3FZST3nX5TfLf",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You've girded your soul against outside interference. You gain a +2 status bonus to saving throws against death effects, possession effects, and effects that attempt to manipulate or steal your soul. You can't be transformed into an undead by any means. While your spiral is glowing, your allies in the light of the spiral gain this benefit as well.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Safeguard Soul]{Effect: Safeguard Soul}</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 8
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soul Warden Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "death",
+                        "possession",
+                        "manipulate-soul"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SoulWarden.SafeguardSoul.Label",
+                "option": "manipulate-soul",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "data.custom.soulWarden.featCount",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of The Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "abjuration",
+                "archetype",
+                "divine"
+            ]
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Safeguard Soul",
+    "type": "feat"
+}

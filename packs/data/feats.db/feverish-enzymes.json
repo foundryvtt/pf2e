@@ -1,0 +1,77 @@
+{
+    "_id": "c5SfaSn6OEHkHxII",
+    "data": {
+        "actionCategory": {
+            "value": "offensive"
+        },
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "description": {
+            "value": "<p>Your claws and fangs exude an infectious enzyme, related to the necrotic effects of ghoul fever, that causes a creature's wounds to heal slowly. Strike with your claw or jaws. This attack deals negative damage instead of its normal type; on a hit, the target halves any healing it receives until the start of your next turn. The target or an adjacent ally can spend two interact actions to squeeze the enzymes from the wound and remove the effect.</p>\n<p>If you are satiated, when you hit you can choose to end your satiation and boost your enzymes, increasing the duration to 1 minute.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 6
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghoul Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damagetype": "negative"
+                },
+                "predicate": {
+                    "all": [
+                        "feverish-enzymes"
+                    ]
+                },
+                "selector": "claw-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damagetype": "negative"
+                },
+                "predicate": {
+                    "all": [
+                        "feverish-enzymes"
+                    ]
+                },
+                "selector": "jaws-damage"
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "option": "feverish-enzymes",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of The Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Feverish Enzymes",
+    "type": "feat"
+}
