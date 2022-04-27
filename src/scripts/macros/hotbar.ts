@@ -135,30 +135,6 @@ if (a) {
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
 
-export async function createTogglePropertyMacro(property: string, label: string, actorId: string, slot: number) {
-    const command = `const a = game.actors.get("${actorId}");
-if (a) {
-    const value = getProperty(a, "data.${property}");
-    a.update({"${property}": !value});
-} else {
-    ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
-}`;
-    const macroName = game.i18n.format("PF2E.ToggleWithName", { property: label });
-    const toggleMacro =
-        game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
-        (await MacroPF2e.create(
-            {
-                command,
-                name: macroName,
-                type: "script",
-                img: "icons/svg/d20-grey.svg",
-                flags: { "pf2e.skillMacro": true },
-            },
-            { renderSheet: false }
-        ));
-    game.user.assignHotbarMacro(toggleMacro ?? null, slot);
-}
-
 export async function createToggleEffectMacro(effect: EffectPF2e, slot: number) {
     const uuid = effect.uuid.startsWith("Actor") ? effect.sourceId : effect.uuid;
     if (!uuid) {
