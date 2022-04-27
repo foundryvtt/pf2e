@@ -11,9 +11,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     override beforePrepareData(): void {
-        const rollOptions = this.actor.getRollOptions();
-        const { predicate } = this.data;
-        if (predicate && !predicate.test(rollOptions)) return;
+        if (!this.test()) return;
 
         const value = this.resolveValue(this.data.value);
         const speedType = this.data.selector?.trim().replace(/-speed$/, "") ?? "land";
