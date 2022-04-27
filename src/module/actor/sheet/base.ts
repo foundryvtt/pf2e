@@ -598,12 +598,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         const $target = $(event.currentTarget);
-        const $li = $target.closest(".item");
+        const $itemRef = $target.closest(".item");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
         const targetElement = $target.get(0);
-        const previewElement = $li.get(0);
+        const previewElement = $itemRef.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
             event.dataTransfer.setDragImage(previewElement, 0, 0);
             mergeObject(targetElement.dataset, previewElement.dataset);
@@ -616,21 +616,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         };
 
         // Owned Items
-        const itemUuid = $li.attr("data-item-id");
-        if (itemUuid) {
-            const item = this.actor.items.get(itemUuid);
-            if (item && "data" in item) {
-                baseDragData.type = "Item";
-                baseDragData.data = item.data;
-            }
+        const itemId = $itemRef.attr("data-item-id");
+        const item = this.actor.items.get(itemId ?? "");
+        if (item) {
+            baseDragData.type = "Item";
+            baseDragData.data = item.data;
         }
 
         // Dragging ...
         const supplementalData = (() => {
-            const actionIndex = $li.attr("data-action-index");
-            const toggleProperty = $li.attr("data-toggle-property");
-            const toggleLabel = $li.attr("data-toggle-label");
-            const itemType = $li.attr("data-item-type");
+            const actionIndex = $itemRef.attr("data-action-index");
+            const rollOptionData = {
+                ...($itemRef.find("input[type=checkbox][data-action=toggle-roll-option]").get(0)?.dataset ?? {}),
+            };
+            const itemType = $itemRef.attr("data-item-type");
 
             // ... an action?
             if (actionIndex) {
@@ -642,14 +641,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 };
             }
 
-            // ... a toggle?
-            if (toggleProperty) {
+            // ... a roll-option toggle?
+            if (item && rollOptionData) {
+                const label = $itemRef.text().trim();
+                delete rollOptionData.action;
                 return {
-                    pf2e: {
-                        type: "Toggle",
-                        property: toggleProperty,
-                        label: toggleLabel,
-                    },
+                    type: "RollOption",
+                    label,
+                    img: item.img,
+                    ...rollOptionData,
                 };
             }
 
@@ -658,7 +658,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 return {
                     pf2e: {
                         type: "CraftingFormula",
-                        itemUuid: itemUuid,
+                        itemUuid: itemId,
                     },
                 };
             }
