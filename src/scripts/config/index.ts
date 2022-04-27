@@ -558,6 +558,7 @@ const traitsDescriptions = {
     shisk: "PF2E.TraitDescriptionShisk",
     shoony: "PF2E.TraitDescriptionShoony",
     shove: "PF2E.TraitDescriptionShove",
+    skeleton: "PF2E.TraitDescriptionSkeleton",
     skill: "PF2E.TraitDescriptionSkill",
     sleep: "PF2E.TraitDescriptionSleep",
     snare: "PF2E.TraitDescriptionSnare",

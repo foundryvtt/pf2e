@@ -48,6 +48,7 @@ const ancestryTraits = {
     ratfolk: "PF2E.TraitRatfolk",
     shisk: "PF2E.TraitShisk",
     shoony: "PF2E.TraitShoony",
+    skeleton: "PF2E.TraitSkeleton",
     sprite: "PF2E.TraitSprite",
     strix: "PF2E.TraitStrix",
     suli: "PF2E.TraitSuli",
