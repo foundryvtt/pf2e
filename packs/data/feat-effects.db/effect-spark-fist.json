@@ -1,0 +1,61 @@
+{
+    "_id": "3jubN7TkOnhmuLnS",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Spark Fist]{Spark Fist}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "weapon:basic-unarmed"
+                    ]
+                },
+                "selector": "brawling-weapon-group-damage",
+                "value": "1+@weapon.data.data.runes.striking"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "weapon:basic-unarmed"
+                    ]
+                },
+                "selector": "brawling-weapon-group-attack",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Dwarf.SparkFist.Note]"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/ignite-fireworks.webp",
+    "name": "Effect: Spark Fist",
+    "type": "effect"
+}
