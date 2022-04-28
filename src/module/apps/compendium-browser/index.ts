@@ -520,34 +520,46 @@ export class CompendiumBrowser extends Application {
             return;
         }
 
-        let purchaseSuccess = false;
+        let purchasesSucceeded = 0;
 
         for (const actor of actors) {
             const itemValue = extractPriceFromItem(item.data, 1);
-            purchaseSuccess = await attemptToRemoveCoinsByValue({ actor, coinsToRemove: itemValue });
-            if (purchaseSuccess) {
+            if (await attemptToRemoveCoinsByValue({ actor, coinsToRemove: itemValue })) {
+                purchasesSucceeded = purchasesSucceeded + 1;
                 await actor.createEmbeddedDocuments("Item", [item.toObject()]);
             }
         }
 
-        if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
-            if (purchaseSuccess) {
+        if (actors.length === 1) {
+            if (purchasesSucceeded === 1) {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
                         item: item.name,
-                        character: game.user.character.name,
+                        character: actors[0].name,
                     })
                 );
             } else {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
                         item: item.name,
-                        character: game.user.character.name,
+                        character: actors[0].name,
                     })
                 );
             }
         } else {
-            ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.BoughtItem", { item: item.name }));
+            if (purchasesSucceeded === actors.length) {
+                ui.notifications.info(
+                    game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
+                        item: item.name,
+                    })
+                );
+            } else {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
+                        item: item.name,
+                    })
+                );
+            }
         }
     }
 

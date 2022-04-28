@@ -19,11 +19,31 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "maxTakable": 3,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.heavy.rank",
+                "value": "max(min(1,@actor.data.data.martial.light.rank)*min(1,@actor.data.data.martial.medium.rank))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.medium.rank",
+                "value": "min(1,@actor.data.data.martial.light.rank)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.light.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

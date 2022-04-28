@@ -1,5 +1,32 @@
 # Changelog
 
+## Version 3.9.1
+
+### New Features
+* (Cerapter) Allow equipment to be purchased directly from compendium browser
+
+### Core System Improvements
+* (Telekenunes) Add more versatile traits
+* (Tikael) Add armor and weapon proficiencies to roll options, automate proficiency feats
+* (Vyklade) expand `SpellPF2e#rollAttack()` method to allow more arguments to be passed from macros
+
+### Bugfixes
+* (stwlam) Fix draggable roll option toggles from PC sheet
+* (stwlam) Add brawling group to basic unarmed strike
+* (stwlam) Clean up and localize item identification
+* (stwlam) Hide strike damage roll buttons on chat cards if the user can't roll them
+
+### Data Updates
+* (Abaddon) Brush up Belcorra from AV book 3
+* (Benyar, Doc Burns, Soldier C4, SpartanCPA, Tikael) Add BotD PC options
+* (InfamousSky) Review FotRP book 1 toolbox
+* (InfamousSky, Tikael) Add _Punks in a Powderkeg_ content
+* (rectulo) Fix the Breach ability of the megalodon
+* (Shandyan) Automate Dhampir and Duskwalker feats
+* (SpartanCPA) Add Book of the Dead Creature Abilities
+* (stwlam) Fix name of Janatimo's Lessons feat
+
+
 ## Version 3.9.0
 
 ### Core System Improvements

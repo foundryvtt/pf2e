@@ -13,6 +13,7 @@ import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
+import { CheckRoll } from "@system/check/roll";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -22,6 +23,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     ) {
         data.flags = mergeObject(expandObject(data.flags ?? {}), { core: {}, pf2e: {} });
         super(data, context);
+
+        // Backward compatibility for roll messages prior to `rollerId` (user ID) being stored with the roll
+        if (this.roll instanceof CheckRoll) {
+            this.roll.roller ??= this.user ?? null;
+        }
     }
 
     /** Is this a damage (or a manually-inputed non-D20) roll? */
@@ -248,6 +254,8 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
+
+    get user(): UserPF2e;
 }
 
 declare namespace ChatMessagePF2e {

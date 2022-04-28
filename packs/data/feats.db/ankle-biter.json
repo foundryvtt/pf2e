@@ -1,0 +1,59 @@
+{
+    "_id": "ifiaewasPbc091BQ",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>You fight just as well on the ground as you do standing up. While you are @Compendium[pf2e.conditionitems.Prone]{Prone}, you are always @Compendium[pf2e.actionspf2e.Take Cover]{Taking Cover} against ranged attacks, you ignore the status penalty on your attack rolls from being prone, and you gain a +1 circumstance bonus to Athletics checks to @Compendium[pf2e.actionspf2e.Trip]{Trip}.</p>\n<p>You can choose to move up to half your Speed when you @Compendium[pf2e.actionspf2e.Crawl]{Crawl}. You can instead move up to your full Speed when you Crawl, but if you do, you must succeed at a @Check[type:flat|dc:6] or your body deteriorates.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 4
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Zombie Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "self:condition:prone",
+                        "action:trip"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Ankle Biter",
+    "type": "feat"
+}
