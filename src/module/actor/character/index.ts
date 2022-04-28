@@ -930,6 +930,16 @@ class CharacterPF2e extends CreaturePF2e {
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
+        for (const key of ARMOR_CATEGORIES) {
+            const rank = this.data.data.martial[key].rank;
+            rollOptionsAll[`defense:${key}:rank:${rank}`] = true;
+        }
+
+        for (const key of WEAPON_CATEGORIES) {
+            const rank = this.data.data.martial[key].rank;
+            rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
+        }
+
         for (const key of SAVE_TYPES) {
             const rank = this.data.data.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
@@ -1340,6 +1350,7 @@ class CharacterPF2e extends CreaturePF2e {
                               inSlot: true,
                               handsHeld: 0,
                           },
+                          group: "brawling",
                           traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                           usage: { value: "worngloves" },
                           ...(unarmedRunes ?? {}),

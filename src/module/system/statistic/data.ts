@@ -33,6 +33,8 @@ export interface BaseStatisticData {
     slug: string;
     ability?: AbilityString;
     rank?: ZeroToFour;
+    /** If given and rank is omitted, declares if the statistic is with proficiency */
+    proficient?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];

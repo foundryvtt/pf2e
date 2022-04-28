@@ -526,12 +526,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.data.flags.pf2e.showUnreadyStrikes);
         });
 
-        $actions.find(".actions-list span[data-roll-option]").on("click", (event) => {
-            const { rollName, rollOption } = event.currentTarget.dataset;
-            if (!(rollName && rollOption)) return;
-            this.actor.toggleRollOption(rollName, rollOption);
-        });
-
         const $strikesList = $actions.find(".strikes-list");
 
         // Set damage-formula tooltips on damage buttons

@@ -30,13 +30,22 @@
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
+                        "class:rogue",
                         "target:condition:flat-footed",
-                        "class:rogue"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile",
-                        "ranged"
+                        {
+                            "or": [
+                                "finesse",
+                                "agile",
+                                {
+                                    "and": [
+                                        "ranged",
+                                        {
+                                            "not": "thrown"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "selector": "strike-damage",

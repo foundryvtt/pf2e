@@ -1,0 +1,70 @@
+{
+    "_id": "YGk41WV42aTM7CQV",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p><strong>Darkvision:</strong> You gain darkvision if you don't already have it.</p>\n<p><strong>Greater Disease and Poison Protection:</strong> Your bonus against disease and poison increases to +2. You gain poison resistance equal to half your level.</p>\n<p><strong>Paralysis and Sleep Protection:</strong> You gain a +1 circumstance bonus to saving throws (or any other defense) against effects that would make you @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} or have the sleep trait.</p>"
+        },
+        "featType": {
+            "value": "ancestryfeature"
+        },
+        "level": {
+            "value": 0
+        },
+        "location": null,
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "label": "PF2E.SensesLowLightVision",
+                "selector": "darkvision"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "disease",
+                        "poison"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "inflicts:paralyzed",
+                        "sleep"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Advanced Undead Benefits",
+    "type": "feat"
+}

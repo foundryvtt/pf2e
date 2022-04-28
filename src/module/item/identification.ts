@@ -43,24 +43,19 @@ function getDcRarity(itemData: PhysicalItemData) {
     }
 }
 
-export class IdentifyMagicDCs {
-    // eslint-disable-next-line no-useless-constructor
-    constructor(
-        public arc: number,
-        public nat: number,
-        public rel: number,
-        public occ: number // eslint-disable-next-line no-empty-function
-    ) {}
+export interface IdentifyMagicDCs {
+    arc: number;
+    nat: number;
+    rel: number;
+    occ: number;
 }
 
-export class IdentifyAlchemyDCs {
-    // eslint-disable-next-line no-useless-constructor,no-empty-function
-    constructor(public cra: number) {}
+export interface IdentifyAlchemyDCs {
+    cra: number;
 }
 
-export class GenericIdentifyDCs {
-    // eslint-disable-next-line no-useless-constructor,no-empty-function
-    constructor(public dc: number) {}
+export interface GenericIdentifyDCs {
+    dc: number;
 }
 
 function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTraditionModifier: number) {
@@ -78,7 +73,7 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
             result[key] = baseDc + notMatchingTraditionModifier;
         }
     }
-    return new IdentifyMagicDCs(result.arcane, result.primal, result.divine, result.occult);
+    return { arc: result.arcane, nat: result.primal, rel: result.divine, occ: result.occult };
 }
 
 function hasRunes(itemData: PhysicalItemData): boolean {
@@ -106,15 +101,15 @@ export function identifyItem(
     item: PhysicalItemPF2e,
     { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
-    const dc = calculateDC(item.level, { proficiencyWithoutLevel });
+    const baseDC = calculateDC(item.level, { proficiencyWithoutLevel });
     const rarity = getDcRarity(item.data);
-    const baseDc = adjustDCByRarity(dc, rarity);
+    const dc = adjustDCByRarity(baseDC, rarity);
     if (item.isMagical) {
-        return identifyMagic(item.data, baseDc, notMatchingTraditionModifier);
+        return identifyMagic(item.data, dc, notMatchingTraditionModifier);
     } else if (item.isAlchemical) {
-        return new IdentifyAlchemyDCs(baseDc);
+        return { cra: dc };
     } else {
-        return new GenericIdentifyDCs(baseDc);
+        return { dc: dc };
     }
 }
 

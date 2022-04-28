@@ -70,6 +70,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
             current[shortForm] = new Statistic(this, {
                 slug: longForm,
+                proficient: skill.visible,
                 domains,
                 check: { adjustments: skill.adjustments, label, type: "skill-check" },
                 dc: {},
