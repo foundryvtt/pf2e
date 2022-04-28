@@ -551,10 +551,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             );
 
             /** If a matching item is found toggle this option. */
-            if (match) {
-                itemId = match.item.id;
-                return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
-            } else return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+            const itemId = match?.item.id ?? null;
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
         }
     }
 
