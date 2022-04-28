@@ -29,10 +29,30 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "kneel-for-no-god"
-            }
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "divine",                        
+                        "call-on-ancient-blood"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "divine",
+                        "call-on-ancient-blood"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Dwarf.KneelForNoGod.Note]</p>"
+            },            
         ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
