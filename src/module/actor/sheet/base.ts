@@ -642,7 +642,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
 
             // ... a roll-option toggle?
-            if (item && rollOptionData) {
+            if (item && Object.keys(rollOptionData).length > 0) {
                 const label = $itemRef.text().trim();
                 delete rollOptionData.action;
                 return {
