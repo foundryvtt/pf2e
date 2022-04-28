@@ -20,6 +20,7 @@
 * (Abaddon) Brush up Belcorra from AV book 3
 * (Benyar, Doc Burns, Soldier C4, SpartanCPA, Tikael) Add BotD PC options
 * (InfamousSky) Review FotRP book 1 toolbox
+* (InfamousSky, Tikael) Add _Punks in a Powderkeg_ content
 * (rectulo) Fix the Breach ability of the megalodon
 * (Shandyan) Automate Dhampir and Duskwalker feats
 * (SpartanCPA) Add Book of the Dead Creature Abilities
