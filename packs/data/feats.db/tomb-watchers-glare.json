@@ -19,6 +19,7 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,21 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "target:trait:undead"
+                    ]
+                },
+                "selector": "attack",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Dwarf.TombWatchersGlare.Note]"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
