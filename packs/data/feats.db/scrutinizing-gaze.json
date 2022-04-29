@@ -19,11 +19,54 @@
         "level": {
             "value": 13
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:sense-motive",
+                        "target:trait:possessed"
+                    ]
+                },
+                "selector": "perception",
+                "slug": "gaze-find-possessed",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:trait:undead",
+                        "target:disguised"
+                    ]
+                },
+                "selector": "perception",
+                "slug": "gaze-undead-disguise",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:seek"
+                    ],
+                    "any": [
+                        "haunt",
+                        "target:trait:undead"
+                    ]
+                },
+                "selector": "perception",
+                "slug": "gaze-seek-undead-haunt",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
