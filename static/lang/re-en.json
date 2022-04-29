@@ -469,7 +469,20 @@
                 "SingleAttackLabel": "Telekinetic Storm - Single Target",
                 "SingleAttackEffect": "The attack deals [[/r {1d12}]]{1d12 damage} on a failure."
             },
-            "TreerazerPlantAttack": "Attack a Plant"
+            "TreerazerPlantAttack": "Attack a Plant",
+            "Vampire": {
+                "JiangShi": {
+                    "StanceOfDeath": {
+                        "CloudlessVoid": {
+                            "Label": "Cloudless Void Stance"
+                        },
+                        "SunderedVeins": {
+                            "Label": "Sundered Veins Stance",
+                            "Note": "The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}"
+                        }
+                    }
+                }
+            }
         },
         "OracleCurses": {
             "Ancestor": {
@@ -539,6 +552,14 @@
                 "success": "[[/r {1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
                 "criticalSuccess": "[[/r {2*1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
             },
+            "Bleed2d8": {
+                "success": "[[/r {2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
+                "criticalSuccess": "[[/r {2*2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
+            },
+            "Bleed1d10": {
+                "success": "[[/r {1d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}",
+                "criticalSuccess": "[[/r {2*1d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}"
+            },
             "Cold1d6": {
                 "success": "[[/r {1d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}",
                 "criticalSuccess": "[[/r {2*1d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}"
@@ -578,6 +599,14 @@
             "Fire2d10": {
                 "success": "[[/r {2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}",
                 "criticalSuccess": "[[/r {2*2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}"
+            },
+            "Mental1d6": {
+                "success": "[[/r {1d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}",
+                "criticalSuccess": "[[/r {2*2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}"
+            },
+            "Mental2d6": {
+                "success": "[[/r {2d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}",
+                "criticalSuccess": "[[/r {2*2d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}"
             },
             "Piercing2d8+8": {
                 "success": "[[/r {2d8+8}[persistent,piercing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Piercing Damage}",
@@ -780,7 +809,7 @@
                     "SaveNote": "When you roll a success on a Will save against an emotion effect, you get a critical success instead."
                  },
                 "BloodlettingFangs": {
-                    "AttackNote": "Your fangs Strike deals an additional [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} on a critical hit." 
+                    "AttackNote": "Your fangs Strike deals an additional [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} on a critical hit."
                 }
             },
             "DragonDisciple": {
@@ -789,6 +818,7 @@
                     "Blue": "Blue Dragon",
                     "Brass": "Brass Dragon",
                     "Bronze": "Bronze Dragon",
+                    "Cloud": "Cloud Dragon",
                     "Copper": "Copper Dragon",
                     "Gold": "Gold Dragon",
                     "Green": "Green Dragon",
@@ -802,6 +832,26 @@
                     "MageArmor": "Scales of the Dragon w/ Mage Armor"
                 },
                 "Prompt": "Select a Dragon"
+            },
+            "Dwarf": {
+                "KneelForNoGod": {
+                    "Note": "When you roll a success against a divine effect, you get a critical success instead."
+                },
+                "DeathWardenDwarf": {
+                    "Note": "When you roll a success against a necromancy effect, you get a critical success instead."
+                },
+                "SparkFist": {
+                    "Note": "Each time you succeed on a fist Strike, you take [[/r (1+@weapon.data.data.runes.striking)[fire]]]{fire damage}."
+                },
+                "ForgeBlessedShot": {
+                    "Note": "Ignore your target's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition, as well as your target's lesser, standard, and greater cover."
+                },
+                "RockRunner": {
+                    "Note": "When you use the Acrobatics skill to Balance on narrow surfaces or uneven ground made of stone or earth, you aren't flat-footed, and when you roll a success at one of these Acrobatics checks, you get a critical success instead."
+                },
+                "TombWatchersGlare": {
+                    "Note": "When you critically hit an undead creature, they are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round"
+                }
             },
             "FighterWeaponMasteryLegend": {
                 "Advanced": {
@@ -903,6 +953,7 @@
                 "AdvancedOrcWeapons": "Advanced Orc Weapons",
                 "AdvancedTenguWeapons": "Advanced Tengu Weapons",
                 "MartialAzarketiWeapons": "Martial Azarketi Weapons",
+                "MartialBombsFirearms": "Martial Bombs & Firearms",
                 "MartialCatfolkWeapons": "Martial Catfolk Weapons",
                 "MartialConrasuWeapons": "Martial Conrasu Weapons",
                 "MartialDwarfWeapons": "Martial Dwarven Weapons",
@@ -937,6 +988,7 @@
                 "MartialOrcWeapons": "Martial Orc Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
                 "MonasticArchery": "Monastic Archery",
+                "SimpleBombsFirearms": "Simple Bombs & Firearms",
                 "SimpleFirearmsCrossbows": "Simple Firearms & Crossbows"
             },
             "MountainStance": {

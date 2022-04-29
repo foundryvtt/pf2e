@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>When you lash out with your @Compendium[pf2e.equipment-srd.Clan Dagger]{Clan Dagger}, you keep its sheath close at hand. When you use Clan's Edge, if the hand you're not holding the dagger with is empty, you can use your clan dagger's sheath to block attacks as well. The circumstance bonus to your AC from parrying increases to a +2 against any target you hit with a Strike this turn.</p>"
+            "value": "<p>When you lash out with your @Compendium[pf2e.equipment-srd.Clan Dagger]{Clan Dagger}, you keep its sheath close at hand. When you use @Compendium[pf2e.feats-srd.Clan's Edge]{Clan's Edge}, if the hand you're not holding the dagger with is empty, you can use your clan dagger's sheath to block attacks as well. The circumstance bonus to your AC from parrying increases to a +2 against any target you hit with a Strike this turn.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Parry]{Effect: Parry}</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,6 +19,7 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,26 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "protective-sheath"
+                    ]
+                },
+                "selector": "ac",
+                "slug": "parry",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "protective-sheath",
+                "toggleable": true
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
