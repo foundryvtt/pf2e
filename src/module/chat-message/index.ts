@@ -14,6 +14,7 @@ import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/t
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
+import { TextEditorPF2e } from "@system/text-editor";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -147,6 +148,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** As of Foundry 9.251, players are able to delete their own messages, and GMs are unable to restrict it. */
     protected static override _canDelete(user: UserPF2e): boolean {
         return user.isGM;
+    }
+
+    override prepareData(): void {
+        super.prepareData();
+
+        const rollData = this.actor?.getRollData();
+        this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
     }
 
     override async getHTML(): Promise<JQuery> {
