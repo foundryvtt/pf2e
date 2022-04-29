@@ -536,13 +536,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
+    async toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
     async toggleRollOption(
         domain: string,
         option: string,
-        value = !this.rollOptions[domain]?.[option],
-        itemId: string | null = null
+        itemId: string | null,
+        value?: boolean
+    ): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | boolean | null = null,
+        value?: boolean
     ): Promise<boolean | null> {
-        if (itemId) {
+        value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
+        if (typeof itemId === "string") {
             return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
         } else {
             /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
@@ -576,7 +584,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             await this.applyDamage(-value, tokens[0]);
             return this;
         }
-
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
