@@ -164,10 +164,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         UserVisibilityPF2e.process($html, { message: this, actor: this.actor });
 
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
-        const $targetDC = $html.find(".target-dc");
-        if ($targetDC.children().length === 0) $targetDC.remove();
-        const $dcResult = $html.find(".dc-result");
-        if ($dcResult.children().length === 0) $dcResult.remove();
+        const targetDC = $html[0].querySelector(".target-dc");
+        if (targetDC?.innerHTML.trim() === "") targetDC.remove();
+        const dcResult = $html[0].querySelector(".dc-result");
+        if (dcResult?.innerHTML.trim() === "") dcResult.remove();
 
         if (this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
