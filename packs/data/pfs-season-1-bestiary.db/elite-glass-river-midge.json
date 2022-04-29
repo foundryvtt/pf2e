@@ -1,12 +1,12 @@
 {
-    "_id": "AKNY8155nYQ1WsmG",
+    "_id": "xu1dm0KnEHx5vySR",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
-                "mod": 2
+                "mod": 0
             },
             "dex": {
                 "mod": 3
@@ -15,25 +15,25 @@
                 "mod": -5
             },
             "str": {
-                "mod": 5
+                "mod": -4
             },
             "wis": {
-                "mod": 2
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 18
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
-                "max": 33,
+                "details": "",
+                "max": 16,
                 "temp": 0,
-                "value": 33
+                "value": 16
             },
             "initiative": {
                 "ability": "perception"
@@ -42,19 +42,24 @@
                 "value": 8
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "30"
+                    }
+                ],
                 "special": "",
-                "value": "40"
+                "value": "10"
             }
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "N"
             },
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 2
+                "value": 1
             },
             "privateNotes": "",
             "publicNotes": "",
@@ -66,57 +71,24 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 6
+                "value": 5
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 8
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 4
             }
         },
         "traits": {
             "ci": [],
             "di": {
                 "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
+                "value": []
             },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
+            "dr": [],
             "dv": [],
             "languages": {
                 "custom": "",
@@ -125,17 +97,15 @@
             },
             "rarity": "common",
             "senses": {
-                "value": "darkvision"
+                "value": "darkvision, scent (imprecise) 60 feet"
             },
             "size": {
-                "value": "lg"
+                "value": "tiny"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "mindless",
-                    "skeleton",
-                    "undead"
+                    "animal"
                 ]
             }
         }
@@ -144,24 +114,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v4ohj80e9zsjl14a",
+            "_id": "iw8o2tst9hmuzzlq",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "attach"
+                    ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 10
                 },
-                "damageRolls": {
-                    "AWj0c3rEFAEY7LhY": {
-                        "damage": "1d8+5",
-                        "damageType": "bludgeoning"
-                    }
-                },
+                "damageRolls": {},
                 "description": {
                     "value": ""
                 },
@@ -173,7 +140,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -181,12 +150,12 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof",
+            "name": "Barbed Leg",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "mk7icUbwGLEHSKgW",
+            "_id": "Qbd5qnOSAAf3O8st",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -232,10 +201,10 @@
             "type": "action"
         },
         {
-            "_id": "KhQqgEJBa5lp9hFR",
+            "_id": "AchPfxaPVunf8mFD",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -245,20 +214,13 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "data.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "negative-healing",
+                "rules": [],
+                "slug": "scent",
                 "source": {
                     "value": ""
                 },
@@ -276,19 +238,19 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
+            "name": "Scent (imprecise) 60 feet",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "JRbT9ykVW8Rkojc9",
+            "_id": "bq76jqjayvhmedu4",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -296,17 +258,17 @@
                 "actions": {
                     "value": null
                 },
-                "deathNote": true,
+                "deathNote": false,
                 "description": {
-                    "value": "<p>When the skeleton is destroyed, its bones shatter and explode as the necromantic energy holding it together is released.</p>\n<p>Adjacent creatures take [[/r {2d6}[slashing]]]{2d6 slashing damage} with a @Check[type:reflex|dc:13|basic:true] save.</p>"
+                    "value": "<p>When a Glass River midge hits a target larger than itself, its barbed legs attach it to that creature. This is similar to Grabbing the creature, but the midge moves with that creature rather than holding it in place. The midge is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} while attached. If the midge is killed or pushed away while attached to a creature it has drained blood from, that creature takes[[/r {1}[persistent,bleed]]]{1} @Compendium[pf2e.conditionitems.Persistent Damage]. @Compendium[pf2e.actionspf2e.Escape]{Escaping} the attach or removing the midge in other ways doesn't cause bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "skeleton-explosive-death",
+                "slug": null,
                 "source": {
-                    "value": "Pathfinder Bestiary"
+                    "value": ""
                 },
                 "traits": {
                     "custom": "",
@@ -315,23 +277,16 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.W77QhVNE46WDyMXi"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosive Death",
+            "name": "Attach",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "9kx4ldpmlvtr3m4m",
+            "_id": "kgv7degr3lhh4seo",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -340,11 +295,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>The mount Strides twice, with its Speed increased by 10 feet.</p>"
+                    "value": "<div data-visibility=\"gm\"><strong>Requirements</strong> The Glass River midge is attached to a creature</div>\n<hr />\n<p><strong>Effect</strong> The midge uses its proboscis to drain blood from the creature it's attached to. This deals [[/r {1d4+2}]]{1d4+2 damage}, and the midge gains temporary Hit Points equal to the damage dealt. A creature that has its blood drained by a midge is @Compendium[pf2e.conditionitems.Drained]{Drained 1} until it receives healing (of any kind or amount).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -364,13 +319,13 @@
                 }
             },
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Gallop",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Blood Drain",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "ohjbjl90iaap4rj2",
+            "_id": "bj89p5g5bjbg5yxr",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -383,7 +338,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>Undead and creatures allied with them can Command a skeletal mount without needing to attempt a skill check.</p>"
+                    "value": "<p>The Glass River midge can @Compendium[pf2e.actionspf2e.Hide]{Hide} in natural environments even if it doesn't have cover.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -404,18 +359,18 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Undead Steed",
+            "name": "Camouflage",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "o31gn8nwnwp2abu6",
+            "_id": "4w837eynx775aobz",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -438,13 +393,13 @@
             "type": "lore"
         },
         {
-            "_id": "6dhbr8rmzevyg4a2",
+            "_id": "cic355mija84dx6b",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 9
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -462,17 +417,17 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "name": "Stealth",
             "sort": 800000,
             "type": "lore"
         }
     ],
-    "name": "Skeletal Mount",
+    "name": "Elite Glass River Midge",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Skeletal Mount",
+        "name": "Glass River Midges",
         "width": 1
     },
     "type": "npc"
