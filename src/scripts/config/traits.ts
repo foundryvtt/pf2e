@@ -113,6 +113,7 @@ const creatureTraits = {
     construct: "PF2E.TraitConstruct",
     couatl: "PF2E.TraitCouatl",
     daemon: "PF2E.TraitDaemon",
+    darvakka: "PF2E.TraitDarvakka",
     demon: "PF2E.TraitDemon",
     dero: "PF2E.TraitDero",
     devil: "PF2E.TraitDevil",
