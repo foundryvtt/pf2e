@@ -368,6 +368,7 @@ const traitsDescriptions = {
     cursebound: "PF2E.TraitDescriptionCursebound",
     cursed: "PF2E.TraitDescriptionCursed",
     darkness: "PF2E.TraitDescriptionDarkness",
+    darvakka: "PF2E.TraitDescriptionDarvakka",
     "deadly-2d10": "PF2E.TraitDescriptionDeadly",
     "deadly-2d12": "PF2E.TraitDescriptionDeadly",
     "deadly-2d8": "PF2E.TraitDescriptionDeadly",
