@@ -315,8 +315,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
         // Setup the basic structure of pf2e flags with roll options
-        const defaultOptions = { [`self:type:${this.type}`]: true };
-        this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        const { flags } = this.data;
+        const targetFlagFooted = flags.pf2e?.rollOptions?.all?.["target:condition:flat-footed"];
+        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
+        flags.pf2e.rollOptions = { all: { [`self:type:${this.type}`]: true } };
+        if (targetFlagFooted) flags.pf2e.rollOptions.all["target:condition:flat-footed"] = true;
+
         this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
