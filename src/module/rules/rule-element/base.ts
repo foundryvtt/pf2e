@@ -12,6 +12,7 @@ import {
     REPreCreateParameters,
     REPreDeleteParameters,
 } from "./data";
+import { isObject } from "@util";
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -118,7 +119,7 @@ abstract class RuleElementPF2e {
         if (this.data.ignored) return false;
         if (!this.data.predicate) return true;
 
-        return this.data.predicate.test(rollOptions ?? this.actor.getRollOptions());
+        return this.resolveInjectedProperties(this.data.predicate).test(rollOptions ?? this.actor.getRollOptions());
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
@@ -156,21 +157,42 @@ abstract class RuleElementPF2e {
      * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties(source = ""): string {
-        if (!source.includes("{")) return source;
+    resolveInjectedProperties<T extends object>(source: T): T;
+    resolveInjectedProperties(source?: string): string;
+    resolveInjectedProperties(source: string | object): string | object;
+    resolveInjectedProperties(source: string | object = ""): string | object {
+        if (typeof source === "string" && !source.includes("{")) return source;
 
-        const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
-            actor: this.actor,
-            item: this.item,
-            rule: this,
-        };
-        return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-            const value = getProperty(objects[key]?.data ?? this.item.data, prop);
-            if (value === undefined) {
-                this.failValidation("Failed to resolve injected property");
+        // Walk the object tree and resolve any string values found
+        if (isObject<Record<string, unknown>>(source)) {
+            for (const [key, value] of Object.entries(source)) {
+                if (Array.isArray(value)) {
+                    source[key] = value.map((e: unknown) =>
+                        typeof e === "string" || isObject(e) ? this.resolveInjectedProperties(e) : e
+                    );
+                } else if (typeof value === "string" || isObject(value)) {
+                    source[key] = this.resolveInjectedProperties(value);
+                }
             }
-            return value;
-        });
+
+            return source;
+        } else if (typeof source === "string") {
+            const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
+                actor: this.actor,
+                item: this.item,
+                rule: this,
+            };
+
+            return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+                const value = getProperty(objects[key]?.data ?? this.item.data, prop);
+                if (value === undefined) {
+                    this.failValidation("Failed to resolve injected property");
+                }
+                return value;
+            });
+        }
+
+        return source;
     }
 
     /**
