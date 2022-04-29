@@ -1,0 +1,79 @@
+{
+    "_id": "fhMREQ5vQCEVjZeo",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Brightness Seeker]{Brightness Seeker} if the result of your @Compendium[pf2e.spells-srd.Augury]{Augury} was Woe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 30
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "call-upon-the-brightness",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/moonlight-bridge.webp",
+    "name": "Effect: Brightness Seeker (Woe)",
+    "type": "effect"
+}
