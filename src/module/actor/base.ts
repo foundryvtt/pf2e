@@ -314,7 +314,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
-        // Setup the basic structure of pf2e flags with roll options
+        // Setup the basic structure of pf2e flags with roll options, but remember flat-footed
         const { flags } = this.data;
         const targetFlagFooted = flags.pf2e?.rollOptions?.all?.["target:condition:flat-footed"];
         flags.pf2e = mergeObject({}, flags.pf2e ?? {});
