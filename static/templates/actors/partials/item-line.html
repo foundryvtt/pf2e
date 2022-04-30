@@ -47,6 +47,9 @@
             {{#if (eq @root.actor.type "character")}}
                 {{> "systems/pf2e/templates/actors/partials/carry-type.html" item=item}}
             {{/if}}
+            {{#if item.isDamaged}}
+                <a class="item-control item-repair" title="{{localize 'PF2E.RepairItemTitle'}}"><i class="fas fa-hammer"></i></a>
+            {{/if}}
             {{#if @root.user.isGM}}
                 {{#if item.isIdentified}}
                     <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>

@@ -361,6 +361,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Create New Item
         $html.find(".item-create").on("click", (event) => this.onClickCreateItem(event));
 
+        $html.find(".item-repair").on("click", (event) => this.repairItem(event));
+
         $html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
 
         // Sell treasure item
@@ -1017,6 +1019,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "");
         await item?.toChat(event);
+    }
+
+    /** Attempt to repair the item */
+    private async repairItem(event: JQuery.ClickEvent): Promise<void> {
+        const itemId = $(event.currentTarget).parents(".item").data("item-id");
+        const item = this.actor.items.get(itemId);
+        if (!item) return;
+
+        await game.pf2e.actions.repair({ event, item });
     }
 
     /** Opens an item container */

@@ -135,6 +135,11 @@ export function registerTemplates() {
         "systems/pf2e/templates/compendium-browser/spell-browser.html",
         "systems/pf2e/templates/compendium-browser/browser-settings.html",
         "systems/pf2e/templates/compendium-browser/filters.html",
+
+        // Action Partial
+        "systems/pf2e/templates/system/actions/repair/chat-button-partial.html",
+        "systems/pf2e/templates/system/actions/repair/repair-result-partial.html",
+        "systems/pf2e/templates/system/actions/repair/item-heading-partial.html",
     ];
     return loadTemplates(templatePaths);
 }

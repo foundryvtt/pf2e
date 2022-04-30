@@ -36,6 +36,7 @@ import { seek } from "./basic/seek";
 import { senseMotive } from "./basic/sense-motive";
 import { tamper } from "./class/inventor/tamper";
 import { craft } from "./crafting/craft";
+import { repair } from "./crafting/repair";
 import { createADiversion } from "./deception/create-a-diversion";
 import { feint } from "./deception/feint";
 import { impersonate } from "./deception/impersonate";
@@ -86,6 +87,7 @@ interface SimpleRollActionCheckOptions {
     actionGlyph: ActionGlyph | undefined;
     title: string;
     subtitle: string;
+    content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
     modifiers: ((roller: ActorPF2e) => ModifierPF2e[] | undefined) | ModifierPF2e[] | undefined;
     rollOptions: string[];
     extraOptions: string[];
@@ -139,6 +141,7 @@ export class ActionMacros {
 
         // Crafting
         craft,
+        repair,
 
         // Deception
         createADiversion,
@@ -225,17 +228,18 @@ export class ActionMacros {
         const { token: target, actor: targetActor } = options.target?.() ?? this.target();
 
         if (rollers.length) {
-            rollers.forEach((actor) => {
-                let flavor = "";
+            for (const actor of rollers) {
+                let title = "";
                 if (options.actionGlyph) {
-                    flavor += `<span class="pf2-icon">${options.actionGlyph}</span> `;
+                    title += `<span class="pf2-icon">${options.actionGlyph}</span> `;
                 }
-                flavor += `<b>${game.i18n.localize(options.title)}</b>`;
-                flavor += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
+                title += `<b>${game.i18n.localize(options.title)}</b>`;
+                title += ` <p class="compact-text">(${game.i18n.localize(options.subtitle)})</p>`;
+                const content = (await options.content?.(title)) ?? title;
                 const stat = getProperty(actor, options.statName) as StatisticModifier;
                 const modifiers =
                     typeof options.modifiers === "function" ? options.modifiers(actor) : options.modifiers;
-                const check = new CheckModifier(flavor, stat, modifiers ?? []);
+                const check = new CheckModifier(content, stat, modifiers ?? []);
 
                 const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
                 const finalOptions = [
@@ -332,7 +336,7 @@ export class ActionMacros {
                         options.callback?.({ actor, message, outcome, roll });
                     }
                 );
-            });
+            }
         } else {
             ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         }

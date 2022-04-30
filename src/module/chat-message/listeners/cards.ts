@@ -7,6 +7,7 @@ import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
@@ -133,6 +134,8 @@ export const ChatCards = {
                             strikeAction.critical?.({ event, altUsage, options });
                             break;
                     }
+                } else if (action === "repair-item") {
+                    await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
