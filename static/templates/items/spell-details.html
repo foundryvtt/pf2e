@@ -242,20 +242,26 @@
     </div>
 </ol>
 
-{{#if data.scaling}}
+{{#unless data.heightening.type}}
+{{#if canHeighten}}
+    <button data-action="heightening-interval-create"><i class="fas fa-plus"></i> {{localize "PF2E.SpellScalingInterval.Add"}}</button>
+{{/if}}
+{{/unless}}
+
+{{#if (eq data.heightening.type "interval")}}
     <div class="form-list">
         <h3>
             {{localize "PF2E.SpellScalingInterval.Header"}}
             <div class="item-controls">
-                <i class="fas fa-trash" data-action="scaling-delete" data-idx="{{idx}}"></i>
+                <i class="fas fa-trash" data-action="heightening-delete" data-idx="{{idx}}"></i>
             </div>
         </h3>
 
         <div class="form-group">
             <label>{{localize "PF2E.SpellScalingInterval.Label"}}</label>
-            <select name="data.scaling.interval" data-dtype="Number">
-                {{#select data.scaling.interval}}
-                    {{#each @root.spellScalingIntervals as |key|}}
+            <select name="data.heightening.interval" data-dtype="Number">
+                {{#select data.heightening.interval}}
+                    {{#each @root.heightenIntervals as |key|}}
                         <option value="{{key}}">{{localize "PF2E.SpellScalingInterval.Selection" interval=key}}</option>
                     {{/each}}
                 {{/select}}
@@ -265,13 +271,23 @@
         {{#each data.damage.value as |damage idx|}}
             <div class="form-group">
                 <label>{{localize (lookup @root.damageTypes damage.type.value)}}</label>
-                <input type="text" name="data.scaling.damage.{{idx}}" value="{{lookup ../data.scaling.damage idx}}"/>
+                <input type="text" name="data.heightening.damage.{{idx}}" value="{{lookup ../data.heightening.damage idx}}"/>
             </div>
         {{/each}}
     </div>
-{{else}}
-    <button data-action="scaling-create"><i class="fas fa-plus"></i> {{ localize "PF2E.SpellScalingInterval.Add" }}</button>
 {{/if}}
+
+{{! Spell heightening for fixed levels}}
+{{#unless (eq data.heightening.type "interval")}}
+    {{#each heightenOverlays}}
+        {{> systems/pf2e/templates/items/spell-overlay.html this=this}}
+    {{/each}}
+    {{#if canHeighten}}
+    <button data-action="heightening-fixed-create" data-overlay-type="heightening">
+        <i class="fas fa-plus"></i> {{localize "PF2E.SpellScalingOverlay.Add"}}
+    </button>
+    {{/if}}
+{{/unless}}
 
 <div class="form-group">
     <label>{{localize "PF2E.Counteract"}}</label>
