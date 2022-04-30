@@ -434,6 +434,38 @@
                     "Description": "{actor} releases a hand from their {weapon}."
                 }
             },
+            "Repair": {
+                "Chat": {
+                    "ItemRepaired": "{itemName} was repaired for {repairedDamage} points of damage for a total of {afterRepairHitPoints} out of {maximumHitPoints} Hit Points.",
+                    "ItemDamaged": "{itemName} was dealt {damageDealt} points of damage for a total of {afterDamageHitPoints} out of {maximumHitPoints} Hit Points."
+                },
+                "Error": {
+                    "ItemReferenceMismatch": "Only accepts physical items for Repair from an actor."
+                },
+                "Labels": {
+                    "DamageMitigatedByHardness": "The critically failed Repair attempt caused no damage to the item due to hardness.",
+                    "DealItemDamage": "Deal {value} damage to item",
+                    "Hardness": "Hardness",
+                    "ItemLevelRepairDC": "Item level {level} repair DC",
+                    "RestoreItemHitPoints": "Restore {value} Hit Points to item",
+                    "RollItemDamage": "Roll {value} damage"
+                },
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You restore 10 Hit Points to the item, plus an additional 10 Hit Points per proficiency rank you have in Crafting (a total of 20 HP if you're trained, 30 HP if you're an expert, 40 HP if you're a master, or 50 HP if you're legendary).",
+                    "success": "<strong>Success</strong> You restore 5 Hit Points to the item, plus an additional 5 per proficiency rank you have in Crafting (for a total of 10 HP if you are trained, 15 HP if you're an expert, 20 HP if you're a master, or 25 HP if you're legendary).",
+                    "criticalFailure": "<strong>Critical Failure</strong> You deal 2d6 damage to the item. Apply the item's Hardness to this damage."
+                },
+                "SelectItemDialog": {
+                    "CancelButtonLabel": "Cancel",
+                    "RepairButtonLabel": "Repair",
+                    "DropItemZoneLabel": "Drag item here...",
+                    "Title": "Select item to Repair"
+                },
+                "Title": "Repair",
+                "Warning": {
+                    "NotPhysicalItem": "Specified item {item} is not a physical item."
+                }
+            },
             "Request": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target agrees to your request without qualifications.",
@@ -2285,6 +2317,7 @@
             "Message": "Remove {proficiency} proficiency?"
         },
         "RemoveSpellcastingEntryTitle": "Remove Spellcasting Entry",
+        "RepairItemTitle": "Attempt to Repair Item",
         "Repost": "Post to Chat",
         "RerollMenu": {
             "ErrorNoActor": "No actor is associated to the roll",

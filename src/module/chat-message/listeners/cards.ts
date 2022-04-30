@@ -10,6 +10,82 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
 
+export async function onRepairChatCardEvent(
+    event: JQuery.ClickEvent,
+    message: ChatMessagePF2e | undefined,
+    $card: JQuery<HTMLElement>
+) {
+    const itemUuid = $card.attr("data-item-uuid");
+    const item = await fromUuid(itemUuid ?? "");
+    if (!(item instanceof PhysicalItemPF2e)) return;
+    const $button = $(event.currentTarget);
+    const repair = $button.attr("data-repair");
+    const speaker =
+        message &&
+        ChatMessagePF2e.getSpeaker({
+            actor: message.actor,
+            alias: message.alias,
+            token: message.token,
+        });
+    if (repair === "restore") {
+        const value = Number($button.attr("data-repair-value") ?? "0");
+        const beforeRepair = item.data.data.hp.value;
+        const afterRepair = Math.min(item.data.data.hp.max, beforeRepair + value);
+        await item.update({ "data.hp.value": afterRepair });
+        const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemRepaired", {
+            itemName: item.name,
+            repairedDamage: afterRepair - beforeRepair,
+            afterRepairHitPoints: afterRepair,
+            maximumHitPoints: item.data.data.hp.max,
+        });
+        await ChatMessage.create({ content, speaker });
+    } else if (repair === "roll-damage") {
+        const roll = await Roll.create("2d6").evaluate({ async: true });
+        const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
+        const flavor = await renderTemplate(templatePath, {
+            damage: {
+                dealt: Math.max(0, roll.total - item.data.data.hardness),
+                rolled: roll.total,
+            },
+            item,
+        });
+        await roll.toMessage({
+            flags: {
+                pf2e: {
+                    suppressDamageButtons: true,
+                },
+            },
+            flavor,
+            speaker,
+        });
+    } else if (repair === "damage") {
+        const hardness = Math.max(0, item.data.data.hardness);
+        const damage = (message?.roll?.total ?? 0) - hardness;
+        if (damage > 0) {
+            const beforeDamage = item.data.data.hp.value;
+            const afterDamage = Math.max(0, item.data.data.hp.value - damage);
+            await item.update({ "data.hp.value": afterDamage });
+            const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemDamaged", {
+                itemName: item.name,
+                damageDealt: beforeDamage - afterDamage,
+                afterDamageHitPoints: afterDamage,
+                maximumHitPoints: item.data.data.hp.max,
+            });
+            await ChatMessage.create({ content, speaker });
+        } else {
+            const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
+            const content = await renderTemplate(templatePath, {
+                damage: {
+                    dealt: 0,
+                    rolled: message?.roll?.total ?? 0,
+                },
+                item,
+            });
+            await ChatMessage.create({ content, speaker });
+        }
+    }
+}
+
 export const ChatCards = {
     listen: ($html: JQuery) => {
         const selectors = [".card-buttons button", ".message-buttons button", "button[data-action=consume]"].join(",");
@@ -124,6 +200,8 @@ export const ChatCards = {
                             strikeAction.critical?.({ event: event, options });
                             break;
                     }
+                } else if (action === "repair-item") {
+                    await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
                     const item = await fromUuid(itemUuid);
