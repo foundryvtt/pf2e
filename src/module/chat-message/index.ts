@@ -14,6 +14,7 @@ import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/t
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
+import { TextEditorPF2e } from "@system/text-editor";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -149,6 +150,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return user.isGM;
     }
 
+    override prepareData(): void {
+        super.prepareData();
+
+        const rollData = this.actor?.getRollData();
+        this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
+    }
+
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
 
@@ -156,12 +164,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         UserVisibilityPF2e.process($html, { message: this, actor: this.actor });
 
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
-        const $targetDC = $html.find(".target-dc");
-        if ($targetDC.children().length === 0) $targetDC.remove();
-        const $dcResult = $html.find(".dc-result");
-        if ($dcResult.children().length === 0) $dcResult.remove();
+        const targetDC = $html[0].querySelector(".target-dc");
+        if (targetDC?.innerHTML.trim() === "") targetDC.remove();
+        const dcResult = $html[0].querySelector(".dc-result");
+        if (dcResult?.innerHTML.trim() === "") dcResult.remove();
 
-        if (this.isDamageRoll && this.isContentVisible) {
+        if (!this.data.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
 
             // Clean up styling of old damage messages

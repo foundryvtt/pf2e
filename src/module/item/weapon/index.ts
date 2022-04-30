@@ -31,6 +31,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     override isStackableWith(item: PhysicalItemPF2e): boolean {
+        if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
+            return false;
+        }
+
         const equippedButStackable = ["bomb", "dart"].includes(this.group ?? "");
         if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
         return super.isStackableWith(item);
@@ -162,6 +166,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
+        // Make unarmed "weapons" always equipped with the exception of handwraps
+        if (systemData.category === "unarmed" && systemData.slug !== "handwraps-of-mighty-blows") {
+            this.data.isEquipped = true;
+        }
         // Allow jousting weapons to be usable when held in one hand
         this.data.isEquipped ||= this.handsHeld === 1 && traitsArray.some((t) => /^jousting-d\d{1,2}$/.test(t));
 

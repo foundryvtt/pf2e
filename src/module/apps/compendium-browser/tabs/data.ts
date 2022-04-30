@@ -22,10 +22,25 @@ interface OrderData {
 }
 
 export interface RangesData {
+    changed: boolean;
     isExpanded: boolean;
     values: {
         min: number;
         max: number;
+        inputMin: string;
+        inputMax: string;
+    };
+    label: string;
+}
+
+interface SliderData {
+    isExpanded: boolean;
+    values: {
+        lowerLimit: number;
+        upperLimit: number;
+        min: number;
+        max: number;
+        step: number;
     };
     label: string;
 }
@@ -38,6 +53,7 @@ export interface BaseFilterData {
     search: {
         text: string;
     };
+    sliders?: Record<string, SliderData>;
 }
 
 export interface ActionFilters extends BaseFilterData {
@@ -46,7 +62,7 @@ export interface ActionFilters extends BaseFilterData {
 
 export interface BestiaryFilters extends BaseFilterData {
     checkboxes: Record<"alignments" | "rarity" | "sizes" | "source" | "traits", CheckBoxdata>;
-    ranges: Record<"level", RangesData>;
+    sliders: Record<"level", SliderData>;
 }
 
 export interface EquipmentFilters extends BaseFilterData {
@@ -54,17 +70,18 @@ export interface EquipmentFilters extends BaseFilterData {
         "armorTypes" | "consumableType" | "weaponTypes" | "weaponTraits" | "itemtypes" | "rarity" | "source",
         CheckBoxdata
     >;
-    ranges: Record<"level", RangesData>;
+    ranges: Record<"price", RangesData>;
+    sliders: Record<"level", SliderData>;
 }
 
 export interface FeatFilters extends BaseFilterData {
     checkboxes: Record<"ancestry" | "classes" | "feattype" | "skills" | "rarity" | "source" | "traits", CheckBoxdata>;
-    ranges: Record<"level", RangesData>;
+    sliders: Record<"level", SliderData>;
 }
 
 export interface HazardFilters extends BaseFilterData {
     checkboxes: Record<"complexity" | "rarity" | "source" | "traits", CheckBoxdata>;
-    ranges: Record<"level", RangesData>;
+    sliders: Record<"level", SliderData>;
 }
 
 export interface SpellFilters extends BaseFilterData {

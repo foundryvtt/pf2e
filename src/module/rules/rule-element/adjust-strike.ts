@@ -41,9 +41,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
     override applyAELike(): void {
         this.validateData();
-        if (this.ignored) return;
-
-        if (!this.data.predicate.test(this.actor.getRollOptions())) return;
+        if (!this.test()) return;
 
         const change = this.resolveValue();
 

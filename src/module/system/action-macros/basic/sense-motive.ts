@@ -14,6 +14,7 @@ export function senseMotive(options: SkillActionOptions) {
         traits: ["concentrate", "secret"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.deception,
         extraNotes: (selector: string) => [

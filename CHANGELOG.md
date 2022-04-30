@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 3.9.2
+
+### Data Updates
+* (InfamousSky) Brush up FotRP book 1 toolbox, continued
+* (InfamousSky) Brush up FotRP book 2, chapter 1
+* (Shandyan) Automate several dwarf ancestry feats
+* (SpartanCPA) Add Book of the Dead NPCs
+* (Tikael) Add new traits and localizations for Book of the Dead NPCs
+* (Tikael) Add Cloud Dragon to the choices for Dragon Disciple
+
+
 ## Version 3.9.1
 
 ### New Features
