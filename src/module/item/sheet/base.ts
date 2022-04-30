@@ -259,10 +259,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rulesData: Partial<RuleElementSource>[] = this.item.data.data.rules;
-            this.item.update({
-                "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
-            });
+            const rulesData = this.item.toObject().data.rules;
+            this.item.update({ "data.rules": rulesData.concat({ key: "NewRuleElement" }) });
         });
         $html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
