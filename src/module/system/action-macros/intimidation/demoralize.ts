@@ -14,6 +14,7 @@ export function demoralize(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "emotion", "fear", "mental"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [

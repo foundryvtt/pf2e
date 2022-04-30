@@ -14,6 +14,7 @@ export function avoidNotice(options: SkillActionOptions) {
         traits: ["exploration"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [ActionMacros.note(selector, "PF2E.Actions.AvoidNotice", "success")],
     });

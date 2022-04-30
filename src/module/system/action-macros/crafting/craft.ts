@@ -147,6 +147,7 @@ export async function craft(options: CraftActionOptions) {
             } else {
                 console.error("PF2E | Unable to amend chat message with craft result.", result.message);
             }
+            options.callback?.(result);
         },
     });
 }

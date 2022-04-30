@@ -14,6 +14,7 @@ export function shove(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.fortitude,
         extraNotes: (selector: string) => [
