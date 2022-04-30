@@ -1,4 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
+import { SpellSystemData } from "@item/spell/data";
 import { DamageType } from "@system/damage";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
@@ -26,18 +27,19 @@ export class Migration663FixSpellDamage extends MigrationBase {
         if (Object.keys(itemData.data.damage?.value ?? {}).length > 0) return;
 
         const itemName = itemData.data.slug ?? sluggify(itemData.name);
+        const systemData: SpellScalingOld = itemData.data;
 
         switch (itemName) {
             case "animated-assault":
-                itemData.data.damage.value = createBasicDamage("2d10", false, "bludgeoning");
-                itemData.data.scaling = createBasicScaling(2, "2d10");
+                systemData.damage.value = createBasicDamage("2d10", false, "bludgeoning");
+                systemData.scaling = createBasicScaling(2, "2d10");
                 break;
             case "daze":
-                itemData.data.damage.value = createBasicDamage("0", true, "mental");
-                itemData.data.scaling = createBasicScaling(2, "1d6");
+                systemData.damage.value = createBasicDamage("0", true, "mental");
+                systemData.scaling = createBasicScaling(2, "1d6");
                 break;
             case "personal-blizzard":
-                itemData.data.damage.value = {
+                systemData.damage.value = {
                     0: {
                         applyMod: false,
                         type: { value: "cold", categories: [] },
@@ -49,14 +51,21 @@ export class Migration663FixSpellDamage extends MigrationBase {
                         value: "1d6",
                     },
                 };
-                itemData.data.scaling = {
+                systemData.scaling = {
                     interval: 1,
                     damage: { 0: "1", 1: "1" },
                 };
                 break;
             case "power-word-kill":
-                itemData.data.damage.value = createBasicDamage("50", false, "untyped");
+                systemData.damage.value = createBasicDamage("50", false, "untyped");
                 break;
         }
     }
+}
+
+interface SpellScalingOld extends SpellSystemData {
+    scaling?: {
+        interval: number;
+        damage: Record<string, string>;
+    };
 }
