@@ -278,7 +278,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     label: "PF2E.PriceLabel",
                     values: {
                         min: 0,
-                        max: 30,
+                        max: 20_000_000,
                         inputMin: `0${coins.cp}`,
                         inputMax: `200,000${coins.gp}`,
                     },
