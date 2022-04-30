@@ -169,7 +169,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const dcResult = $html[0].querySelector(".dc-result");
         if (dcResult?.innerHTML.trim() === "") dcResult.remove();
 
-        if (this.isDamageRoll && this.isContentVisible) {
+        if (!this.data.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
 
             // Clean up styling of old damage messages
