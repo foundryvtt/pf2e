@@ -6,7 +6,7 @@
         },
         "area": {
             "areaType": "burst",
-            "value": 15
+            "value": "15"
         },
         "areasize": {
             "value": "15-foot burst"
@@ -15,6 +15,7 @@
             "value": "spell"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": true
@@ -25,9 +26,11 @@
         "damage": {
             "value": {
                 "0": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
-                        "value": "untyped"
+                        "subtype": "",
+                        "value": "cold"
                     },
                     "value": "2d4"
                 }
@@ -41,6 +44,49 @@
         },
         "hasCounteractCheck": {
             "value": false
+        },
+        "heightening": {
+            "levels": {
+                "5": {
+                    "area": {
+                        "areaType": "burst",
+                        "value": "30"
+                    },
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "cold"
+                                },
+                                "value": "8d4"
+                            }
+                        }
+                    }
+                },
+                "8": {
+                    "area": {
+                        "areaType": "burst",
+                        "value": "60"
+                    },
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "cold"
+                                },
+                                "value": "14d4"
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "fixed"
         },
         "level": {
             "value": 2
