@@ -70,31 +70,44 @@
                 "selector": "echolocation"
             },
             {
-                "choices": [{
-                    "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationImprecise",
-                    "value": "echo-imprecise",
-                    "predicate": {
-                        "not": ["beastkin-greater-senses:echo-imprecise"]
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationImprecise",
+                        "predicate": {
+                            "not": [
+                                "beastkin-greater-senses:echo-imprecise"
+                            ]
+                        },
+                        "value": "echo-imprecise"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationPrecise",
+                        "predicate": {
+                            "all": [
+                                "beastkin-greater-senses:echo-imprecise"
+                            ]
+                        },
+                        "value": "echo-precise"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsenseImprecise",
+                        "predicate": {
+                            "not": [
+                                "beastkin-greater-senses:tremor-imprecise"
+                            ]
+                        },
+                        "value": "tremor-imprecise"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsensePrecise",
+                        "predicate": {
+                            "all": [
+                                "beastkin-greater-senses:tremor-imprecise"
+                            ]
+                        },
+                        "value": "tremor-precise"
                     }
-                }, {
-                    "label": "PF2E.SpecificRule.Beastkin.Senses.EcholocationPrecise",
-                    "value": "echo-precise",
-                    "predicate": {
-                        "all": ["beastkin-greater-senses:echo-imprecise"]
-                    }
-                }, {
-                    "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsenseImprecise",
-                    "value": "tremor-imprecise",
-                    "predicate": {
-                        "not": ["beastkin-greater-senses:tremor-imprecise"]
-                    }
-                }, {
-                    "label": "PF2E.SpecificRule.Beastkin.Senses.TremorsensePrecise",
-                    "value": "tremor-precise",
-                    "predicate": {
-                        "all": ["beastkin-greater-senses:tremor-imprecise"]
-                    }
-                }],
+                ],
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Beastkin.GreaterAnimalSenses.Prompt",
                 "rollOption": "beastkin-greater-senses"
