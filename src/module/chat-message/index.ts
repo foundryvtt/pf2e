@@ -204,8 +204,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             if (error instanceof Error) console.error(error.message);
         }
 
-        // Trait tooltips
-        $html.find(".tag[data-trait]").each((_idx, span) => {
+        // Trait and material tooltips
+        $html.find(".tag[data-trait], .tag[data-material]").each((_idx, span) => {
             const $tag = $(span);
             const description = $tag.attr("data-description");
             if (description) {

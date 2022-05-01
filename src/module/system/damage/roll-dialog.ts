@@ -37,25 +37,53 @@ export class DamageRollModifiersDialog extends Application {
         }
 
         const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-        let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
+        let flavor = `<strong>${damage.name}</strong> (${outcomeLabel})`;
 
-        if (context.target)
-            if (damage.traits) {
-                const strikeTraits: Record<string, string | undefined> = {
-                    ...CONFIG.PF2E.npcAttackTraits,
-                    attack: "PF2E.TraitAttack",
-                };
-                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-                const traits = damage.traits
-                    .map((trait) => ({ value: trait, label: game.i18n.localize(strikeTraits[trait] ?? "") }))
+        if (damage.traits) {
+            const strikeTraits: Record<string, string | undefined> = {
+                ...CONFIG.PF2E.npcAttackTraits,
+                attack: "PF2E.TraitAttack",
+            };
+
+            interface ToTagsParams {
+                labels: Record<string, string | undefined>;
+                descriptions: Record<string, string | undefined>;
+                cssClass: string | null;
+                dataAttr: string;
+            }
+            const toTags = (slugs: string[], { labels, descriptions, cssClass, dataAttr }: ToTagsParams): string =>
+                slugs
+                    .map((s) => ({ value: s, label: game.i18n.localize(labels[s] ?? "") }))
                     .sort((a, b) => a.label.localeCompare(b.label))
-                    .map((trait) => {
-                        const description = traitDescriptions[trait.value] ?? "";
-                        return `<span class="tag" data-trait="${trait.value}" data-description="${description}">${trait.label}</span>`;
+                    .map((tag) => {
+                        const description = descriptions[tag.value] ?? "";
+
+                        const span = document.createElement("span");
+                        span.className = "tag";
+                        if (cssClass) span.classList.add(cssClass);
+                        span.dataset[dataAttr] = tag.value;
+                        span.dataset.description = description;
+                        span.innerText = tag.label;
+
+                        return span.outerHTML;
                     })
                     .join("");
-                flavor += `<div class="tags">${traits}</div><hr>`;
-            }
+
+            const traits = toTags(damage.traits, {
+                labels: strikeTraits,
+                descriptions: CONFIG.PF2E.traitsDescriptions,
+                cssClass: null,
+                dataAttr: "trait",
+            });
+            const materialEffects = toTags(damage.materials, {
+                labels: CONFIG.PF2E.preciousMaterials,
+                descriptions: CONFIG.PF2E.traitsDescriptions,
+                cssClass: "tag_material",
+                dataAttr: "material",
+            });
+
+            flavor += `<div class="tags">${traits}${materialEffects}</div><hr>`;
+        }
 
         const base = game.i18n.localize("PF2E.Damage.Base");
         const dice = `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`;

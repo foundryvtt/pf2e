@@ -32,26 +32,6 @@ export const PHYSICAL_ITEM_TYPES = new Set([
     "weapon",
 ] as const);
 
-export const PRECIOUS_MATERIAL_TYPES = [
-    "abysium",
-    "adamantine",
-    "coldIron",
-    "darkwood",
-    "djezet",
-    "dragonhide",
-    "grisantian-pelt",
-    "inubrix",
-    "mithral",
-    "noqual",
-    "orichalcum",
-    "siccatite",
-    "silver",
-    "sovereignSteel",
-    "warpglass",
-] as const;
-
-export const PRECIOUS_MATERIAL_GRADES = ["low", "standard", "high"] as const;
-
 export const RANGE_TRAITS = [
     "range",
     "range-5",
