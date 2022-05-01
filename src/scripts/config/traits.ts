@@ -639,6 +639,7 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...npcAttackTraits,
+    circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
 
