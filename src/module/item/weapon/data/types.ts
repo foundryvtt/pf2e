@@ -6,14 +6,14 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-    PreciousMaterialGrade,
-    PreciousMaterialType,
 } from "@item/physical/data";
+import { BaseMaterial, PreciousMaterialGrade } from "@item/physical/types";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { OneToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize, DamageType } from "@system/damage";
 import type { LocalizePF2e } from "@system/localize";
 import type { WeaponPF2e } from "..";
+import { WeaponMaterialType } from "../types";
 import { MELEE_WEAPON_GROUPS, RANGED_WEAPON_GROUPS, WEAPON_CATEGORIES, WEAPON_GROUPS, WEAPON_RANGES } from "./values";
 
 export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
@@ -60,7 +60,6 @@ export interface WeaponDamage {
 export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 export type WeaponPropertyRuneType = keyof typeof WEAPON_PROPERTY_RUNES[number];
-export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
     striking: StrikingRuneType | null;
@@ -150,8 +149,20 @@ export interface WeaponSystemData extends WeaponSystemSource, Investable<Physica
         potency: number;
         striking: ZeroToThree;
         property: WeaponPropertyRuneType[];
+        effects: [];
     };
+    material: WeaponMaterialData;
     usage: WeaponSystemSource["usage"];
+}
+
+export interface WeaponMaterialData {
+    /** The "base material" or category: icon/steel (metal), wood, rope, etc. */
+    base: BaseMaterial[];
+    /** The precious material of which this weapon is composed */
+    precious: {
+        type: WeaponMaterialType;
+        grade: PreciousMaterialGrade;
+    } | null;
 }
 
 export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
@@ -162,4 +173,4 @@ export interface ComboWeaponMeleeUsage {
     traits: WeaponTrait[];
 }
 
-export type OtherWeaponTag = "crossbow" | "ghost-touch";
+export type OtherWeaponTag = "crossbow" | "improvised";
