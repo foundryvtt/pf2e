@@ -22,6 +22,7 @@ export type RuleElementSource = {
     priority?: number;
     ignored?: unknown;
     requiresInvestment?: unknown;
+    requiresEquipped?: unknown;
     removeUponCreate?: unknown;
 };
 
@@ -36,7 +37,6 @@ export interface RuleElementData extends RuleElementSource {
     predicate?: PredicatePF2e;
     priority: number;
     ignored: boolean;
-    requiresInvestment?: boolean;
     removeUponCreate?: boolean;
 }
 
