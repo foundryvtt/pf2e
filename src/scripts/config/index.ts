@@ -24,7 +24,7 @@ import {
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
-import { PreciousMaterialGrade } from "@item/physical/data";
+import { PreciousMaterialGrade } from "@item/physical/types";
 import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
@@ -508,6 +508,7 @@ const traitsDescriptions = {
     orc: "PF2E.TraitDescriptionOrc",
     oread: "PF2E.TraitDescriptionOread",
     parry: "PF2E.TraitDescriptionParry",
+    peachwood: "PF2E.PreciousMaterialPeachwoodDescription",
     plant: "PF2E.TraitDescriptionPlant",
     poison: "PF2E.TraitDescriptionPoison",
     polymorph: "PF2E.TraitDescriptionPolymorph",

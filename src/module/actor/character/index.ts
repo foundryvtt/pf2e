@@ -1405,10 +1405,10 @@ class CharacterPF2e extends CreaturePF2e {
         const { categories } = options;
         const ammos = options.ammos ?? [];
 
-        // Apply strike adjustments
+        // Apply strike adjustments affecting the weapon
         const weaponRollOptions = weapon.getRollOptions();
         for (const adjustment of strikeAdjustments) {
-            adjustment.adjustStrike(weapon);
+            adjustment.adjustWeapon?.(weapon);
         }
 
         const weaponTraits = weapon.traits;
@@ -1829,13 +1829,15 @@ class CharacterPF2e extends CreaturePF2e {
                     options,
                     rollNotes,
                     weaponPotency,
-                    synthetics.striking
+                    synthetics.striking,
+                    synthetics.strikeAdjustments
                 );
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
                     const { self, target, options } = context;
+
                     const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
 
                     await DamageRollPF2e.roll(damage, damageContext, args.callback);

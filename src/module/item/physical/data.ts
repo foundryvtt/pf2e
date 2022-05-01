@@ -8,7 +8,7 @@ import {
     ItemTraits,
 } from "../data/base";
 import type { PhysicalItemPF2e } from "@item/physical";
-import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "../data/values";
+import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES } from "../data/values";
 import { EquipmentTrait } from "@item/equipment/data";
 import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
@@ -16,6 +16,7 @@ import { ConsumableTrait } from "@item/consumable/data";
 import { Size, ValuesList } from "@module/data";
 import { ActionTrait } from "@item/action/data";
 import { UsageDetails } from "./usage";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
@@ -99,9 +100,6 @@ type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData
         invested: boolean | null;
     };
 };
-
-type PreciousMaterialType = typeof PRECIOUS_MATERIAL_TYPES[number];
-type PreciousMaterialGrade = "low" | "standard" | "high";
 
 interface ActivatedEffectData {
     activation: {
@@ -206,6 +204,4 @@ export {
     PhysicalItemType,
     PhysicalSystemData,
     PhysicalSystemSource,
-    PreciousMaterialGrade,
-    PreciousMaterialType,
 };
