@@ -75,16 +75,12 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: PreparationType;
         flexible?: boolean;
     };
-    showUnpreparedSpells: {
-        value: boolean;
-    };
     showSlotlessLevels: {
         value: boolean;
     };
     proficiency: {
         value: OneToFour;
     };
-    displayLevels: Record<number, boolean>;
     slots: Record<SlotKey, SpellSlotData>;
     autoHeightenLevel: {
         value: OneToTen | null;

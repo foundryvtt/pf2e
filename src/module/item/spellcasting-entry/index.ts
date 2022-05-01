@@ -332,10 +332,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                     },
                     isCantrip: level === 0,
                     active,
-                    displayPrepared:
-                        this.data.data.displayLevels && this.data.data.displayLevels[level] !== undefined
-                            ? this.data.data.displayLevels[level]
-                            : true,
                 });
             }
         } else if (this.isFocusPool) {
@@ -454,7 +450,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 })) ?? [];
         }
 
-        return spellPrepList;
+        return Object.values(spellPrepList).some((s) => !!s.length) ? spellPrepList : null;
     }
 
     override getRollOptions(prefix = this.type): string[] {

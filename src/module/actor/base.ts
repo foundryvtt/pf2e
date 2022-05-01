@@ -698,34 +698,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         });
     }
 
-    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
-        if (!entryId || !spellLevel) {
-            // TODO: Consider throwing an error on null inputs in the future.
-            return;
-        }
-
-        const spellcastingEntry = this.items.get(entryId);
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
-
-        if (
-            spellcastingEntry.data.data?.prepared?.value === "prepared" &&
-            spellcastingEntry.data.data?.showUnpreparedSpells?.value === false
-        ) {
-            if (CONFIG.debug.hooks === true) {
-                console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-            }
-
-            const displayLevels: Record<number, boolean> = {};
-            displayLevels[spellLevel] = true;
-            await spellcastingEntry.update({
-                "data.showUnpreparedSpells.value": true,
-                "data.displayLevels": displayLevels,
-            });
-        }
-    }
-
     isLootableBy(user: UserPF2e) {
         return this.canUserModify(user, "update");
     }
