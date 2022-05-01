@@ -38,7 +38,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
                 { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
             ],
-            showUnpreparedSpells: false,
         });
     }
 
@@ -101,7 +100,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
-        sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
         // Update dying icon and container width
         sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);

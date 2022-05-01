@@ -191,6 +191,42 @@ $header-height: 89px;   /* Adjust height of the header */
     }
 }
 
+// Spellcasting Preparation Sheet Styling
+.spellcasting-entry.sheet {
+    @import "spell-list";
+
+    form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 4px;
+    }
+
+    .sheet-header {
+        align-items: baseline;
+        display: flex;
+        flex: 0;
+        padding-right: 16px;
+        h1 {
+            white-space: nowrap;
+            flex: 1;
+            overflow: hidden;
+            font-family: var(--serif-condensed);
+            font-weight: 700;
+        }
+        .item-controls {
+            flex: 0;
+            white-space: nowrap;
+        }
+    }
+
+    .sheet-content {
+        @include scrollbar;
+        padding-bottom: 1em;
+        padding-right: 8px; // easier resize gripping
+    }
+}
+
 @import "coinage";
 
 /* Actor-type Imports */

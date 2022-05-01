@@ -30,7 +30,7 @@ declare global {
     > {
         static override get defaultOptions(): ActorSheetOptions;
 
-        override get id(): `actor-${string}` | `actor-${string}-${string}`;
+        override get id(): string;
 
         override get title(): string;
 
