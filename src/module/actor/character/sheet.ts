@@ -102,10 +102,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.preparationType = CONFIG.PF2E.preparationType;
 
         // Update dying icon and container width
-        sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
+        sheetData.data.attributes.dying.icon = this.getDyingIcon();
+        sheetData.dyingLabel = this.getDyingLabel();
 
         // Update wounded
-        sheetData.data.attributes.wounded.icon = this.getWoundedIcon(sheetData.data.attributes.wounded.value);
         sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
 
         // preparing the name of the rank, as this is displayed on the sheet
@@ -629,16 +629,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Toggle Dying, Wounded, or Doomed
         $html
-            .find("aside > .sidebar > .hitpoints")
-            .find(".dots.dying, .dots.wounded")
+            .find("aside > .sidebar > .hitpoints-ac")
+            .find(".dying")
+            .tooltipster({ theme: "crb-hover" })
             .on("click contextmenu", (event) => {
-                type ConditionName = "dying" | "wounded";
-                const condition = Array.from(event.delegateTarget.classList).find(
-                    (className): className is ConditionName => ["dying", "wounded"].includes(className)
-                );
-                if (condition) {
-                    this.onClickDyingWounded(condition, event);
-                }
+                this.onClickDyingWounded(event);
             });
 
         // Roll recovery flat check when Dying
@@ -998,11 +993,24 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle cycling of dying, wounded, or doomed */
-    private onClickDyingWounded(condition: "dying" | "wounded", event: JQuery.TriggeredEvent) {
+    private onClickDyingWounded(event: JQuery.TriggeredEvent) {
+        const wounded: number = this.object.data.data.attributes.wounded.value || 0;
+        const woundedMax: number = this.object.data.data.attributes.wounded.max || 0;
+        const dying: number = this.object.data.data.attributes.dying.value || 0;
+        const dyingMax: number = this.object.data.data.attributes.dying.max || 0;
+
         if (event.type === "click") {
-            this.actor.increaseCondition(condition, { max: this.actor.data.data.attributes[condition].max });
+            const min = dying === 0 ? wounded + 1 : 0;
+            this.actor.increaseCondition("dying", { min, max: dyingMax });
         } else if (event.type === "contextmenu") {
-            this.actor.decreaseCondition(condition);
+            if (dying > 0) {
+                this.actor.decreaseCondition("dying");
+                if (dying === 1) {
+                    this.actor.increaseCondition("wounded", { max: woundedMax });
+                }
+            } else {
+                this.actor.decreaseCondition("wounded");
+            }
         }
     }
 
@@ -1090,51 +1098,58 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Get the font-awesome icon used to display a certain level of dying */
-    private getDyingIcon(level: number) {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const doomed = this.object.data.data.attributes.doomed.value || 0;
-        const circle = '<i class="far fa-circle"></i>';
-        const cross = '<i class="fas fa-times-circle"></i>';
-        const skull = '<i class="fas fa-skull"></i>';
-        const redOpen = "<span>";
-        const redClose = "</span>";
-        const icons: Record<number, string> = {};
+    private getDyingIcon() {
+        const skull = (filled: boolean) => `
+            <svg width="19" height="19" viewBox="0 0 22 22" class="${filled ? "filled" : ""}">
+                <path class="outline" d="M 9.9960938 0.33789062 C 9.9830526 0.33777368 8.5561503 0.33023634 6.7929688 0.67773438 C 5.0217516 1.0270094 2.8523857 1.715275 1.3652344 3.328125 C -0.22286043 5.0504322 -0.13950155 7.4977526 0.20703125 9.4199219 C 0.53209731 11.22302 1.090538 12.500799 1.1660156 12.675781 C 1.1565656 12.867844 1.0907668 13.985623 1.2851562 15.074219 C 1.3969106 15.700041 1.902741 16.109214 2.3183594 16.292969 C 2.7339778 16.476716 3.1390189 16.539821 3.5214844 16.574219 C 3.7455712 16.594249 3.7530934 16.566106 3.9492188 16.566406 C 3.9499038 16.648966 3.9464687 16.641156 3.9492188 16.728516 C 3.9687237 17.348094 3.9030288 18.012379 4.4140625 18.736328 C 4.6852269 19.120466 4.9558115 19.183888 5.1972656 19.267578 C 5.438719 19.351268 5.6893906 19.408785 5.9570312 19.453125 C 6.4923123 19.541805 7.1046657 19.585371 7.7011719 19.615234 C 8.8941839 19.674954 10.017578 19.660156 10.017578 19.660156 C 10.045738 19.660609 11.120925 19.674274 12.298828 19.615234 C 12.895401 19.585374 13.513501 19.541804 14.048828 19.453125 C 14.316493 19.408785 14.561267 19.351268 14.802734 19.267578 C 15.044202 19.183888 15.314743 19.120511 15.585938 18.736328 C 16.096972 18.012383 16.039105 17.348094 16.058594 16.728516 C 16.062994 16.589487 16.051181 16.595671 16.050781 16.470703 C 16.291289 16.447643 16.324757 16.457896 16.619141 16.410156 C 16.997719 16.348546 17.391921 16.274689 17.769531 16.130859 C 18.147141 15.987029 18.657971 15.81113 18.847656 15.097656 L 18.863281 15.060547 L 18.863281 15.023438 C 19.064881 13.894405 18.875304 12.900042 18.833984 12.652344 C 18.915724 12.462397 19.46994 11.211741 19.792969 9.4199219 C 20.139493 7.4981746 20.222869 5.0504288 18.634766 3.328125 C 17.147603 1.715287 14.986186 1.0270354 13.214844 0.67773438 C 11.451536 0.33002037 10.024777 0.33777363 10.011719 0.33789062 L 9.9960938 0.33789062 z M 9.9960938 2.1835938 L 10.003906 2.1835938 L 10.011719 2.1835938 C 10.011719 2.1835938 11.276128 2.1692548 12.853516 2.4804688 C 14.430904 2.7915276 16.246588 3.4519565 17.283203 4.5761719 C 18.218942 5.5909595 18.286661 7.4189525 17.984375 9.0957031 C 17.68209 10.772454 17.083984 12.144531 17.083984 12.144531 L 16.972656 12.394531 L 17.017578 12.660156 C 17.017578 12.660156 17.095765 13.682412 17.046875 14.417969 C 16.869308 14.479019 16.608268 14.549511 16.324219 14.595703 C 15.70422 14.696592 15.076172 14.728516 15.076172 14.728516 L 14.130859 14.765625 L 14.197266 15.710938 C 14.197266 15.710938 14.228851 16.161107 14.212891 16.669922 C 14.198751 17.118933 14.072937 17.520179 14.09375 17.556641 C 14.00276 17.582341 13.904413 17.610519 13.746094 17.636719 C 13.335548 17.704719 12.768887 17.74941 12.210938 17.777344 C 11.095033 17.833214 10.017578 17.814453 10.017578 17.814453 L 10.003906 17.814453 L 9.9882812 17.814453 C 9.9882812 17.814453 8.9048231 17.833284 7.7890625 17.777344 C 7.2311646 17.749374 6.6643949 17.704724 6.2539062 17.636719 C 6.0956098 17.610639 5.9972317 17.582121 5.90625 17.556641 C 5.927078 17.519971 5.8012316 17.118933 5.7871094 16.669922 C 5.7711194 16.161107 5.8027344 15.710935 5.8027344 15.710938 L 5.8847656 14.617188 L 4.7910156 14.728516 C 4.7910156 14.728516 4.2280313 14.784398 3.6914062 14.736328 C 3.4358453 14.713267 3.2075338 14.654925 3.09375 14.609375 C 2.9796471 13.78845 2.9980469 12.556641 2.9980469 12.556641 L 3.0039062 12.34375 L 2.9238281 12.144531 C 2.9238281 12.144531 2.3257253 10.772454 2.0234375 9.0957031 C 1.7211508 7.4189525 1.7810898 5.5909595 2.7167969 4.5761719 C 3.7534503 3.4518995 5.5692423 2.7915088 7.1464844 2.4804688 C 8.7237265 2.1694102 9.9960938 2.1835935 9.9960938 2.1835938 z M 13.078125 6.9335938 C 12.548629 6.9462947 11.96986 6.9987344 11.5 7.1269531 C 10.560281 7.3834018 10.905871 9.4887784 11.080078 9.8183594 C 11.254284 10.147948 12.238011 11.103141 12.601562 11.150391 C 12.965117 11.197631 15.192709 10.477312 15.224609 9.2636719 C 15.267039 7.649666 14.361328 6.9824219 14.361328 6.9824219 C 14.089031 6.9487419 13.607622 6.9207419 13.078125 6.9335938 z M 7.2128906 7.0097656 C 6.6833942 6.9971026 6.2019822 7.0229986 5.9296875 7.0566406 C 5.9296875 7.0566406 5.0259284 7.7238847 5.0683594 9.3378906 C 5.1002648 10.55153 7.3259009 11.271859 7.6894531 11.224609 C 8.0530057 11.177411 9.0367309 10.22415 9.2109375 9.8945312 C 9.3851437 9.5649541 9.7307336 7.4595624 8.7910156 7.203125 C 8.3211568 7.0749063 7.7423866 7.0222394 7.2128906 7.0097656 z M 10.203125 11.380859 C 10.203125 11.380859 8.5687957 14.44658 8.9960938 14.572266 C 9.423392 14.697922 10.203125 14.699219 10.203125 14.699219 C 10.203125 14.699219 10.982858 14.697952 11.410156 14.572266 C 11.837455 14.446595 10.203125 11.380859 10.203125 11.380859 z"/>
+                <path class="fill" d="M 9.9960938 0.33789062 C 9.9830526 0.33777367 8.5561503 0.33023635 6.7929688 0.67773438 C 5.0217516 1.0270094 2.8523857 1.715275 1.3652344 3.328125 C -0.2228604 5.0504322 -0.13950155 7.4977526 0.20703125 9.4199219 C 0.53209731 11.22302 1.090538 12.500799 1.1660156 12.675781 C 1.1565656 12.867844 1.0907667 13.985623 1.2851562 15.074219 C 1.3969106 15.700041 1.902741 16.109214 2.3183594 16.292969 C 2.7339778 16.476716 3.1390189 16.539821 3.5214844 16.574219 C 3.7455712 16.594249 3.7530935 16.566106 3.9492188 16.566406 C 3.9499039 16.648966 3.9464688 16.641156 3.9492188 16.728516 C 3.9687238 17.348094 3.9030288 18.012379 4.4140625 18.736328 C 4.6852269 19.120466 4.9558115 19.183888 5.1972656 19.267578 C 5.438719 19.351268 5.6893906 19.408785 5.9570312 19.453125 C 6.4923123 19.541805 7.1046657 19.585371 7.7011719 19.615234 C 8.8941839 19.674954 10.017578 19.660156 10.017578 19.660156 C 10.045738 19.660609 11.120925 19.674274 12.298828 19.615234 C 12.895401 19.585374 13.513501 19.541804 14.048828 19.453125 C 14.316493 19.408785 14.561267 19.351268 14.802734 19.267578 C 15.044202 19.183888 15.314744 19.120511 15.585938 18.736328 C 16.096972 18.012383 16.039105 17.348094 16.058594 16.728516 C 16.062994 16.589487 16.051181 16.595671 16.050781 16.470703 C 16.291289 16.447643 16.324757 16.457896 16.619141 16.410156 C 16.997719 16.348546 17.391921 16.274689 17.769531 16.130859 C 18.147141 15.987029 18.657971 15.81113 18.847656 15.097656 L 18.863281 15.060547 L 18.863281 15.023438 C 19.064881 13.894405 18.875304 12.900042 18.833984 12.652344 C 18.915724 12.462397 19.46994 11.211741 19.792969 9.4199219 C 20.139493 7.4981746 20.222869 5.0504288 18.634766 3.328125 C 17.147603 1.715287 14.986186 1.0270354 13.214844 0.67773438 C 11.451536 0.33002037 10.024777 0.33777363 10.011719 0.33789062 L 9.9960938 0.33789062 z M 13.078125 6.9335938 C 13.607622 6.9207418 14.089031 6.9487419 14.361328 6.9824219 C 14.361328 6.9824219 15.267043 7.649666 15.224609 9.2636719 C 15.192709 10.477312 12.965116 11.197634 12.601562 11.150391 C 12.23801 11.103141 11.254284 10.147948 11.080078 9.8183594 C 10.905871 9.4887784 10.560281 7.3834018 11.5 7.1269531 C 11.96986 6.9987344 12.548629 6.9462947 13.078125 6.9335938 z M 7.2128906 7.0097656 C 7.7423866 7.0222396 8.3211568 7.0749063 8.7910156 7.203125 C 9.7307336 7.4595624 9.3851437 9.5649539 9.2109375 9.8945312 C 9.0367309 10.22415 8.0530057 11.177411 7.6894531 11.224609 C 7.3259009 11.271859 5.1002648 10.55153 5.0683594 9.3378906 C 5.0259284 7.7238847 5.9296875 7.0566406 5.9296875 7.0566406 C 6.2019822 7.0229986 6.6833942 6.9971026 7.2128906 7.0097656 z M 10.203125 11.380859 C 10.203125 11.380859 11.837455 14.446595 11.410156 14.572266 C 10.982858 14.697952 10.203125 14.699219 10.203125 14.699219 C 10.203125 14.699219 9.4233921 14.697922 8.9960938 14.572266 C 8.5687957 14.44658 10.203125 11.380859 10.203125 11.380859 z "/>
+            </svg>`;
+        const circle = (filled: boolean) => `
+            <svg width="19" height="19" viewBox="0 0 22 22" class="${filled ? "filled" : ""}">
+                <path class="outline" d="M 10,0.00195313 C 4.4934621,0.00195313 0,4.4954232 0,10.001953 0,15.508493 4.4934621,20 10,20 15.506538,20 20,15.508493 20,10.001953 20,4.4954232 15.506538,0.00195313 10,0.00195313 Z m 0,1.89062497 c 4.481692,0 8.107422,3.6279481 8.107422,8.1093749 0,4.481445 -3.625985,8.107422 -8.107422,8.107422 -4.4814375,0 -8.1074219,-3.625977 -8.1074219,-8.107422 0,-4.4814268 3.6257291,-8.1093749 8.1074219,-8.1093749 z"/>
+                <path class="fill" d="M 10,0.00169 C 4.4934621,0.00169 0,4.49515 0,10.00168 0,15.50822 4.4934621,20 10,20 15.506538,20 20,15.50822 20,10.00168 20,4.49515 15.506538,0.00169 10,0.00169 Z"/>
+            </svg>`;
+        const woundIcon = (filled: boolean) => `
+            <svg width="19" height="19" viewBox="0 0 22 22" class="${filled ? "filled" : ""}">
+                <path class="outline" d="M 10 0.001953125 C 4.4934621 0.001953125 0 4.4954232 0 10.001953 C 0 15.508493 4.4934621 20 10 20 C 15.506538 20 20 15.508493 20 10.001953 C 20 4.4954232 15.506538 0.001953125 10 0.001953125 z M 10 1.8925781 C 14.481692 1.8925781 18.107422 5.5205262 18.107422 10.001953 C 18.107422 14.483398 14.481437 18.109375 10 18.109375 C 5.5185625 18.109375 1.8925781 14.483398 1.8925781 10.001953 C 1.8925781 5.5205262 5.5183072 1.8925781 10 1.8925781 z M 7.4394531 5.5839844 L 5.5839844 7.4394531 L 8.1445312 10 L 5.5839844 12.560547 L 7.4394531 14.416016 L 10 11.855469 L 12.560547 14.416016 L 14.416016 12.560547 L 11.855469 10 L 14.416016 7.4394531 L 12.560547 5.5839844 L 10 8.1445312 L 7.4394531 5.5839844 z "/>
+                <path class="fill" d="M 10,0.00195298 C 4.493462,0.00195298 0,4.495423 0,10.001953 0,15.508493 4.493462,20 10,20 15.506538,20 20,15.508493 20,10.001953 20,4.495423 15.506538,0.00195298 10,0.00195298 Z M 7.439453,5.5839843 10,8.1445311 12.560547,5.5839843 14.416016,7.439453 11.855469,9.9999999 14.416016,12.560547 12.560547,14.416016 10,11.855469 7.439453,14.416016 5.583985,12.560547 8.144531,9.9999999 5.583985,7.439453 Z"/>
+            </svg>`;
 
-        for (let dyingLevel = 0; dyingLevel <= maxDying; dyingLevel++) {
-            icons[dyingLevel] = dyingLevel === maxDying ? redOpen : "";
-            for (let column = 1; column <= maxDying; column++) {
-                if (column >= maxDying - doomed || dyingLevel === maxDying) {
-                    icons[dyingLevel] += skull;
-                } else if (dyingLevel < column) {
-                    icons[dyingLevel] += circle;
-                } else {
-                    icons[dyingLevel] += cross;
-                }
-            }
-            icons[dyingLevel] += dyingLevel === maxDying ? redClose : "";
+        const maxDying = this.object.data.data.attributes.dying.max || 4;
+        const wounded = this.object.data.data.attributes.wounded.value || 0;
+        const dying = this.object.data.data.attributes.dying.value || 0;
+        const doomed = this.object.data.data.attributes.doomed.value || 0;
+
+        if (dying >= maxDying - doomed) {
+            return [...Array(maxDying).keys()].map(() => skull(true)).join("");
         }
 
-        return icons[level];
+        const ret = [];
+        while (ret.length < wounded && ret.length < maxDying - 1 - doomed) {
+            ret.push(woundIcon);
+        }
+
+        while (ret.length < maxDying - 1 - doomed) {
+            ret.push(circle);
+        }
+
+        ret.push(skull);
+
+        while (ret.length < maxDying) {
+            ret.push(skull);
+        }
+
+        return ret.map((v: (filled: boolean) => string, i) => v(i < dying)).join("");
     }
 
-    /**
-     * Get the font-awesome icon used to display a certain level of wounded
-     */
-    private getWoundedIcon(level: number) {
-        const maxDying = this.object.data.data.attributes.dying.max || 4;
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-dot-circle"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
+    private getDyingLabel() {
+        const wounded = this.object.data.data.attributes.wounded.value || 0;
+        const dying = this.object.data.data.attributes.dying.value || 0;
 
-        for (let i = 0; i < maxDying; i++) {
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
+        if (dying === 0 && wounded > 0) {
+            return `${game.i18n.format("PF2E.condition.wounded.name")} ${wounded}`;
         }
-
-        return icons[level];
+        return `${game.i18n.format("PF2E.condition.dying.name")} ${dying}`;
     }
 
     /** Get the font-awesome icon used to display hero points */

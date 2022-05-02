@@ -1,56 +1,128 @@
-.hitpoints {
-    .hp-big {
-        display: grid;
-        justify-content: space-evenly;
-        grid-template-columns: repeat(3, 1fr);
-        .container {
-            text-align: center;
-            &.temp-hp {
-                text-align: center;
-                margin-right: 8px;
-            }
-            &.max-hp {
-                text-align: center;
-                margin-left: 8px;
-            }
-            &.max-hp,
-            &.temp-hp {
-                margin-top: 12px;
-            }
-            &.current-hp {
-                display: flex;
-                flex-direction: column;
-                padding: 10px 4px 0;
-                position: relative;
-                z-index: 0;
-                border-radius: 0 0 4px 4px;
-                width: min-content;
-                background-color: var(--primary);
-                background-image: linear-gradient(
-                    90deg,
-                    darken($primary-color, 5) 0%,
-                    lighten($primary-color, 8) 50%,
-                    darken($primary-color, 5) 100%
-                );
-                border: 1px solid var(--sidebar-title);
+.hitpoints-ac {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
 
-                .data-value {
-                    margin-top: 3px;
-                    input[type='number'] {
-                        font-size: 32px;
-                        letter-spacing: -1px;
-                        height: 32px;
-                    }
-                }
-            }
+    h2 {
+        color: var(--tertiary-light);
+        text-align: center;
+        font-size: 26px;
+        line-height: 1;
+        font-weight: initial;
+        font-family: var(--serif);
+        border: none;
+    }
+
+    input[type="number"] {
+        padding: 0;
+    }
+
+    i {
+        color: var(--text-light);
+    }
+
+    .armor-class {
+        grid-area: 1 / 1 / 2 / 2;
+        min-width: 65px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 0px 0px;
+
+        .ac-label {
+            grid-area: 1 / 1 / 2 / 2;
+            text-align: center;
+            align-self: start;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        .ac-value {
+            grid-area: 2 / 1 / 3 / 2;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .ac {
+            grid-area: 1 / 1 / 4 / 2;
+            height: 71px;
+            width: 100%;
+
+            background: url("../assets/sheet/shield-blue.webp") no-repeat center center;
         }
     }
-    .hp-small {
-        display: flex;
-        justify-content: space-evenly;
-        margin: 8px 2px 0 2px;
+
+    .hitpoints {
+        grid-area: 1 / 2 / 2 / 3;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 0px 0px;
+        margin-left: 10px;
+
+        .hp-label {
+            grid-area: 1 / 1 / 2 / 4;
+            text-align: center;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        .curr-hp {
+            grid-area: 2 / 1 / 3 / 2;
+            margin-right: 0;
+
+            font-size: 32px;
+            text-align: right;
+        }
+        .hp-divider {
+            grid-area: 2 / 2 / 3 / 3;
+        }
+        .max-hp {
+            grid-area: 2 / 3 / 3 / 4;
+            text-align: left;
+        }
+        .temp-hp {
+            grid-area: 3 / 1 / 4 / 2;
+            align-self: start;
+            input[type="number"] {
+                font-size: 20px;
+                line-height: 20px;
+                height: 20px;
+                text-align: right;
+            }
+        }
+        .temp-label {
+            grid-area: 3 / 2 / 4 / 4;
+            align-self: start;
+            text-align: left;
+            margin-top: 7px;
+        }
+
+        .hp {
+            grid-area: 1 / 1 / 4 / 4;
+            border: 1px solid var(--sidebar-title);
+            border-radius: 4px;
+            background-color: var(--primary);
+            background-image: linear-gradient(
+                90deg,
+                darken($primary-color, 5) 0%,
+                lighten($primary-color, 8) 50%,
+                darken($primary-color, 5) 100%
+            );
+        }
+    }
+
+    .death-dying {
+        grid-area: 2 / 1 / 3 / 3;
+        display: grid;
+        grid-auto-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            "dying death-save rest";
+        margin-top: 12px;
+
+        white-space: nowrap;
         text-align: center;
-        gap: 2px;
         h4,
         label {
             @include micro;
@@ -58,6 +130,59 @@
         .far,
         .fas {
             color: var(--text-light);
+        }
+
+        .dying {
+            grid-area: dying;
+            margin-right: 6px;
+            justify-self: center;
+            display: flex;
+            flex-direction: column;
+
+            div.dots {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+                padding: 0;
+            }
+
+            path.outline {
+                fill: var(--text-light);
+            }
+            path.fill {
+                fill: none;
+            }
+            .filled {
+                path.outline {
+                    fill: none;
+                }
+                path.fill {
+                    fill: var(--text-light);
+                }
+            }
+        }
+        .recovery-check {
+            grid-area: death-save;
+            align-self: center;
+            justify-self: center;
+            display: flex;
+            flex-direction: column;
+
+            a {
+                padding: 0;
+                margin-right: 5px;
+            }
+        }
+
+        .rest {
+            grid-area: rest;
+            align-self: center;
+            justify-self: center;
+            display: flex;
+            flex-direction: column;
+            i {
+                text-align: center;
+            }
         }
     }
 }
