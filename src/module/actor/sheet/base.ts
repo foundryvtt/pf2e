@@ -1,6 +1,6 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -1039,20 +1039,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const actor = this.actor;
                 if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
 
-                const spellcastingEntity = {
-                    ability: { value: ability },
-                    spelldc: { value: 0, dc: 0, mod: 0 },
-                    tradition: { value: tradition },
-                    prepared: { value: spellcastingType, flexible: flexible ?? undefined },
-                };
-
-                const data = {
+                const data: PreCreate<SpellcastingEntrySource> = {
                     name,
                     type: "spellcastingEntry",
-                    data: spellcastingEntity,
+                    data: {
+                        ability: { value: ability },
+                        spelldc: { value: 0, dc: 0, mod: 0 },
+                        tradition: { value: tradition },
+                        prepared: { value: spellcastingType, flexible: flexible ?? undefined },
+                    },
                 };
 
-                this.actor.createEmbeddedDocuments("Item", [data] as unknown as ItemDataPF2e[]);
+                this.actor.createEmbeddedDocuments("Item", [data]);
             },
         });
     }
