@@ -16,13 +16,13 @@
             },
             "stealth": {
                 "details": "<p>(expert)</p>",
-                "value": 25
+                "value": 15
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>A trip wire halfway up the stairs releases half a dozen spherical thunderstones that bounce down the stairs and explode.</p>",
-            "disable": "<p>DC 27 Thievery (expert) to safely cut the trip wire</p>",
+            "disable": "<p>@Check[type:thievery|dc:27|name:Safely Cut the Trip Wire|traits:mechanical,hazard,trap] (expert) to safely cut the trip wire</p>",
             "isComplex": false,
             "level": {
                 "value": 7
@@ -33,11 +33,11 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 15
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 13
             },
             "will": {
                 "saveDetail": "",
@@ -68,12 +68,12 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
@@ -81,7 +81,7 @@
             "_id": "JTK8CW0TwOok1X9Z",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -90,7 +90,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The trip wire is disturbed</p>\n<p><strong>Effect</strong> Several thunderstones bounce down the stairs and explode. Each creature within 10 feet of the lower half of the stairs takes [][/r {6d10}[sonic]]] sonic damage (@Check[type:fortitude|dc:24|basic:true] save). Creatures that fail this save are additionally @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute; creatures that critically fail this save are instead deafened for 1 hour.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The trip wire is disturbed</p>\n<p><strong>Effect</strong> Several thunderstones bounce down the stairs and explode. Each creature within 10 feet of the lower half of the stairs takes [[/r {6d10}[sonic]]]{6d10 sonic damage} (@Check[type:fortitude|dc:24|basic:true|traits:hazard,trap,mechanical] save). Creatures that fail this save are additionally @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute; creatures that critically fail this save are instead deafened for 1 hour.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -112,7 +112,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Thunderstone Explosion",

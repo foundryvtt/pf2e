@@ -89,18 +89,21 @@ function calculateValueOfTreasure(items: PhysicalItemData[]) {
 
 /** Converts the price of an item to the Coin structure */
 export function extractPriceFromItem(
-    itemData: { data: { price: { value: string }; quantity: number } },
-    quantity = itemData.data.quantity
+    itemData: { data: { price: { value: string }; quantity?: number } },
+    quantity = itemData.data.quantity ?? 1
 ): Coins {
+    return coinStringToCoins(itemData.data.price.value, quantity);
+}
+
+export function coinStringToCoins(coinString: string, quantity = 1): Coins {
     // This requires preprocessing, as large gold values contain , for their value
-    const priceTag = String(itemData.data.price.value).trim().replace(/,/g, "");
-    const match = /^(\d+)\s*([pgsc]p)$/.exec(priceTag);
-    if (match) {
-        const [value, denomination] = match.slice(1, 3);
-        return toCoins(denomination, (Number(value) || 0) * quantity);
-    } else {
-        return toCoins("gp", 0);
-    }
+    const priceTag = String(coinString).trim().replace(/,/g, "");
+    return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
+        .map((match) => {
+            const [value, denomination] = match.slice(1, 3);
+            return toCoins(denomination, (Number(value) || 0) * quantity);
+        })
+        .reduce(combineCoins, noCoins());
 }
 
 export function multiplyCoinValue(coins: Coins, factor: number): Coins {
@@ -202,7 +205,6 @@ function isTopLevelCoin(itemData: PhysicalItemData, currencies: typeof CURRENCIE
         itemData.type === "treasure" &&
         itemData.data.value.value === 1 &&
         itemData.data.stackGroup === "coins" &&
-        itemData.data.containerId === null &&
         currencies.has(itemData.data.denomination?.value)
     );
 }

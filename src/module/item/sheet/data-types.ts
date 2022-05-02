@@ -1,26 +1,13 @@
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ABCItemPF2e } from "@item/abc";
-import { ABCFeatureEntryData } from "@item/abc/data";
 import { AncestryPF2e } from "@item/ancestry";
 import { BackgroundPF2e } from "@item/background";
-import { ClassPF2e } from "@item/class";
 import { FeatPF2e } from "@item/feat";
 import { HeritagePF2e } from "@item/heritage";
 import { ItemActivation } from "@item/physical/data";
 import { SpellPF2e } from "@item/spell";
-
-export interface SheetOption {
-    value: string;
-    label: string;
-    selected: boolean;
-}
-
-export type SheetOptions = Record<string, SheetOption>;
-
-export interface SheetSelections {
-    value: (string | number)[];
-    custom?: string;
-}
+import { SpellSystemData } from "@item/spell/data";
+import { SheetOptions } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     itemType: string | null;
@@ -61,22 +48,6 @@ export interface BackgroundSheetData extends ABCSheetData<BackgroundPF2e> {
     selectedBoosts: Record<string, Record<string, string>>;
 }
 
-export interface ClassSheetData extends ABCSheetData<ClassPF2e> {
-    rarities: SheetOptions;
-    items: { key: string; item: ABCFeatureEntryData }[];
-    skills: typeof CONFIG.PF2E.skills;
-    proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
-    selectedKeyAbility: Record<string, string>;
-    ancestryTraits: SheetOptions;
-    trainedSkills: SheetOptions;
-    ancestryFeatLevels: SheetOptions;
-    classFeatLevels: SheetOptions;
-    generalFeatLevels: SheetOptions;
-    skillFeatLevels: SheetOptions;
-    skillIncreaseLevels: SheetOptions;
-    abilityBoostLevels: SheetOptions;
-}
-
 export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     featTypes: ConfigPF2e["PF2E"]["featTypes"];
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
@@ -89,6 +60,19 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
+}
+
+export interface SpellSheetOverlayData {
+    id: string | null;
+    /** Base path to the property, dot delimited */
+    base: string;
+    /** Base path to the spell override data, dot delimited. Currently this is the same as base */
+    dataPath: string;
+    level: number;
+    data: Partial<SpellSystemData>;
+    type: "heighten";
+    heightenLevels: number[];
+    missing: { key: keyof SpellSystemData; label: string }[];
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
@@ -104,7 +88,9 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     rarities: SheetOptions;
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
-    spellScalingIntervals: number[];
+    heightenIntervals: number[];
+    heightenOverlays: SpellSheetOverlayData[];
+    canHeighten: boolean;
 }
 
 export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {

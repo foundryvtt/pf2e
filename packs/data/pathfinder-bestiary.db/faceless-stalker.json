@@ -89,7 +89,6 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
                     "type": "bludgeoning",
                     "value": 5
                 }
@@ -119,7 +118,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -146,9 +144,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -230,7 +225,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
@@ -249,9 +243,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -277,13 +268,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 5
-                },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "RQ0SxaYgQ0WCzXyb"
                 },
                 "materials": {
@@ -341,7 +330,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
@@ -363,9 +351,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -486,7 +471,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
@@ -504,9 +488,6 @@
                     "value": 2
                 },
                 "baseItem": "studded-leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -606,7 +587,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
@@ -655,7 +635,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
@@ -702,7 +681,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
@@ -744,7 +722,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -790,7 +767,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
@@ -849,7 +825,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
@@ -891,8 +866,10 @@
                         "value": 4
                     },
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.skill-check.assumeForm"
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "assumeForm",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -916,7 +893,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Assume Form",
@@ -958,7 +934,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Blood Nourishment",
@@ -1000,7 +975,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Compression",
@@ -1042,7 +1016,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Revert Form",
@@ -1075,7 +1048,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -1105,7 +1078,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
@@ -1147,7 +1119,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
@@ -1181,7 +1152,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
@@ -1211,7 +1181,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -1242,7 +1211,6 @@
                 },
                 "variants": {}
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
@@ -1272,7 +1240,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
@@ -1302,7 +1269,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",

@@ -107,7 +107,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -122,9 +121,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -248,7 +244,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.nOFcCidD5AwVZWTv"
@@ -263,9 +258,6 @@
             "_id": "s5e6CueENejAHsP7",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds.</p>"
@@ -332,7 +324,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.s1vB3HdXjMigYAnY"
@@ -381,7 +372,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scalpel",
@@ -427,7 +417,6 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Scalpel",
@@ -485,7 +474,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Doctor's Hand",
@@ -512,13 +500,17 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.medical-malpractice"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "medical-malpractice",
+                        "toggleable": true
                     },
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Medical Malpractice (Critical Success)",
-                        "property": "flags.pf2e.rollOptions.all.medical-malpractice-crit"
+                        "option": "medical-malpractice-crit",
+                        "toggleable": true
                     },
                     {
                         "damageType": "precision",
@@ -561,7 +553,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Medical Malpractice",
@@ -591,7 +582,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
@@ -621,7 +611,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
@@ -651,7 +640,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",

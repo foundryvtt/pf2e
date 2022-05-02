@@ -90,27 +90,22 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
                     "type": "cold",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "electricity",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "fire",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "piercing",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "slashing",
                     "value": 5
                 }
@@ -140,7 +135,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -155,9 +149,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -280,7 +271,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.vlnzTSsRmWeSkt9O"
@@ -298,9 +288,6 @@
                     "value": 5
                 },
                 "baseItem": "half-plate",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "heavy",
                 "check": {
                     "value": -3
@@ -400,7 +387,6 @@
                     "value": "4"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.pRoikbRo5HFW6YUB"
@@ -450,7 +436,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Glaive",
@@ -494,7 +479,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Horns",
@@ -536,7 +520,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -589,7 +572,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
@@ -635,7 +617,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Broad Swipe",
@@ -662,8 +643,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.terrifyingCharge"
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "terrifyingCharge",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -693,7 +676,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Terrifying Charge",
@@ -723,7 +705,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -753,7 +734,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",

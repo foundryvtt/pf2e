@@ -10,16 +10,18 @@ import {
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
-import { DamageCategory, DamageDieSize, nextDamageDieSize } from "./damage";
+import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { PredicatePF2e } from "@system/predication";
-import { sluggify } from "@util";
+import { setHasElement, sluggify } from "@util";
 import { extractModifiers } from "@module/rules/util";
-import { DeferredModifier } from "@module/rules/rule-element/data";
-import { DamageType } from "@module/damage-calculation";
+import { DeferredModifier, StrikeAdjustment } from "@module/rules/rule-element/data";
+import { WeaponMaterialEffect } from "@item/weapon/types";
+import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
+import { WeaponPF2e } from "@item";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -56,6 +58,7 @@ export interface DamageTemplate {
     notes: RollNotePF2e[];
     numericModifiers: ModifierPF2e[];
     traits: string[];
+    materials: WeaponMaterialEffect[];
 }
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
@@ -138,6 +141,8 @@ export class WeaponDamagePF2e {
                 modifier += Number(digits);
             }
 
+            weapon.data.material = { effects: [] };
+
             if (parsedBaseDamage) {
                 const { damageType } = dmg;
                 // amend damage dice with any extra dice
@@ -184,7 +189,8 @@ export class WeaponDamagePF2e {
             options,
             rollNotes,
             null,
-            {}
+            {},
+            []
         );
     }
 
@@ -198,7 +204,8 @@ export class WeaponDamagePF2e {
         options: string[] = [],
         rollNotes: Record<string, RollNotePF2e[]>,
         weaponPotency: WeaponPotencyPF2e | null,
-        striking: Record<string, StrikingPF2e[]>
+        striking: Record<string, StrikingPF2e[]>,
+        strikeAdjustments: StrikeAdjustment[]
     ): DamageTemplate {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: DiceModifierPF2e[] = [];
@@ -364,7 +371,7 @@ export class WeaponDamagePF2e {
         }
 
         // Backstabber trait
-        if (traits.some((t) => t.name === "backstabber") && options.includes("target:flatFooted")) {
+        if (traits.some((t) => t.name === "backstabber") && options.includes("target:condition:flat-footed")) {
             const modifier = new ModifierPF2e({
                 label: CONFIG.PF2E.weaponTraits.backstabber,
                 modifier: potency > 2 ? 2 : 1,
@@ -470,13 +477,29 @@ export class WeaponDamagePF2e {
                     .filter((note) => PredicatePF2e.test(note.predicate, options)) ?? []
         );
 
+        // Accumulate damage-affecting precious materials
+        const material = setHasElement(WEAPON_MATERIAL_EFFECTS, weapon.data.material.precious)
+            ? weapon.data.material.precious
+            : null;
+        const materials: Set<WeaponMaterialEffect> = new Set();
+        if (material) materials.add(material);
+
+        if (weapon.document instanceof WeaponPF2e) {
+            for (const adjustment of strikeAdjustments) {
+                adjustment.adjustDamageRoll?.(weapon.document as Embedded<WeaponPF2e>, { materials });
+            }
+        }
+        for (const option of Array.from(materials).map((m) => `weapon:material:${m}`)) {
+            options.push(option);
+        }
+
         const damage: Omit<DamageTemplate, "formula"> = {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,
                 modifier: weapon.data.damage.modifier,
-                category: DamageCategory.fromDamageType(baseDamageType),
+                category: DamageCategorization.fromDamageType(baseDamageType),
                 damageType: baseDamageType,
             },
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
@@ -488,6 +511,7 @@ export class WeaponDamagePF2e {
             numericModifiers,
             notes,
             traits: (traits ?? []).map((t) => t.name),
+            materials: Array.from(materials),
         };
 
         // Damage dice from synthetics
@@ -558,14 +582,14 @@ export class WeaponDamagePF2e {
             }
         }
 
-        base.category = DamageCategory.fromDamageType(base.damageType);
+        base.category = DamageCategorization.fromDamageType(base.damageType);
 
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
         dicePool[base.damageType] = {
             base: true,
             categories: {
-                [DamageCategory.fromDamageType(base.damageType)]: {
+                [DamageCategorization.fromDamageType(base.damageType)]: {
                     dice: { [base.dieSize]: base.diceNumber },
                     modifier: base.modifier ?? 0,
                 },
@@ -605,7 +629,7 @@ export class WeaponDamagePF2e {
                 .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
                 .flatMap((nm: ModifierPF2e) => {
                     nm.damageType ??= base.damageType;
-                    nm.damageCategory ??= DamageCategory.fromDamageType(nm.damageType);
+                    nm.damageCategory ??= DamageCategorization.fromDamageType(nm.damageType);
                     if (critical && nm.damageCategory === "splash") {
                         return [];
                     } else if (critical && nm.critical) {
@@ -640,10 +664,12 @@ export class WeaponDamagePF2e {
                         pool = { categories: {} };
                         dicePool[damageType] = pool;
                     }
-                    let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
+                    let category =
+                        pool.categories[nm.damageCategory ?? DamageCategorization.fromDamageType(damageType)];
                     if (!category) {
                         category = {};
-                        pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
+                        pool.categories[nm.damageCategory ?? DamageCategorization.fromDamageType(damageType)] =
+                            category;
                     }
                     category.modifier = (category.modifier ?? 0) + nm.modifier;
                     (nm.traits ?? [])
@@ -700,9 +726,9 @@ export class WeaponDamagePF2e {
         const damagePool = pool[damageType];
 
         // Ensure that the damage category sub-pool for this given damage category exists...
-        damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] =
-            damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] || {};
-        const damageCategory = damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)];
+        damagePool.categories[category ?? DamageCategorization.fromDamageType(damageType)] =
+            damagePool.categories[category ?? DamageCategorization.fromDamageType(damageType)] || {};
+        const damageCategory = damagePool.categories[category ?? DamageCategorization.fromDamageType(damageType)];
 
         // And then add the given number of dice of the given size.
         damageCategory.dice = damageCategory.dice || {};

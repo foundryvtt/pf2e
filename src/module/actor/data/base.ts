@@ -1,17 +1,9 @@
-import {
-    DocumentSchemaRecord,
-    LabeledNumber,
-    LabeledValue,
-    Rarity,
-    Size,
-    ValueAndMaybeMax,
-    ValuesList,
-} from "@module/data";
+import { DocumentSchemaRecord, LabeledNumber, Rarity, Size, ValueAndMaybeMax, ValuesList } from "@module/data";
 import { ActorType } from ".";
 import type { ActorPF2e } from "@actor/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import type { ItemPF2e } from "@item/base";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import { ABILITY_ABBREVIATIONS, IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "./values";
 import { RollParameters, StrikeRollParams } from "@module/system/rolls";
 import { ConsumableData } from "@item/consumable/data";
@@ -64,6 +56,7 @@ export interface ActorSystemData extends ActorSystemSource {
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
     autoChanges: Record<string, AutoChangeEntry[] | undefined>;
+    toggles: RollToggle[];
 }
 
 export interface RollOptionFlags {
@@ -73,9 +66,10 @@ export interface RollOptionFlags {
 
 export interface ActorFlagsPF2e extends foundry.data.ActorFlags {
     pf2e: {
-        rollOptions: RollOptionFlags;
+        favoredWeaponRank: number;
         freeCrafting: boolean;
         quickAlchemy: boolean;
+        rollOptions: RollOptionFlags;
         [key: string]: unknown;
     };
 }
@@ -141,8 +135,6 @@ export interface BaseTraitsSource {
     size: { value: Size };
     /** Actual Pathfinder traits */
     traits: ValuesList;
-    /** Condition immunities */
-    ci: LabeledValue[];
     /** Damage immunities this actor has. */
     di: ValuesList<ImmunityType>;
     /** Damage resistances that this actor has. */
@@ -155,7 +147,7 @@ export interface BaseTraitsData extends BaseTraitsSource {
     size: ActorSizePF2e;
 }
 
-export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
+export type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
 /** Basic skill and save data (not including custom modifiers). */
 export interface AbilityBasedStatistic {
@@ -265,8 +257,11 @@ export interface StrikeData {
 }
 
 export interface RollToggle {
+    /** The ID of the item with a rule element for this toggle */
+    itemId?: string;
     label: string;
-    inputName: string;
+    domain: string;
+    option: string;
     checked: boolean;
     enabled: boolean;
 }

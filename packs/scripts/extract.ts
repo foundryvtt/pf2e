@@ -143,6 +143,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             if ("type" in docSource) {
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
+                    delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
@@ -168,6 +169,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
 
                 // Prune several common item data defaults
                 if (isItemSource(docSource)) {
+                    delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.data as { schema?: unknown }).schema;
                     docSource.name = docSource.name.trim();
 
@@ -217,7 +219,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
         } else if (["_modifiers", "_sheetTab"].includes(key)) {
             delete docSource[key as DocumentKey];
         } else if (docSource[key as DocumentKey] instanceof Object) {
-            pruneTree(docSource[key as DocumentKey] as PackEntry, topLevel);
+            pruneTree(docSource[key as DocumentKey] as unknown as PackEntry, topLevel);
         }
     }
 }
@@ -247,14 +249,6 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
             if (isPhysicalData(docSource)) {
                 delete (docSource.data as { equipped?: unknown }).equipped;
-            }
-        }
-
-        if (isActorSource(docSource)) {
-            if (!docSource.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
-                for (const effect of docSource.effects) {
-                    effect.origin = "";
-                }
             }
         }
     }

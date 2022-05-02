@@ -108,6 +108,7 @@
         "ActionCategoryInteraction": "Interaction",
         "ActionCategoryLabel": "Action Category",
         "ActionCategoryOffensive": "Offensive",
+        "ActionDeathNoteLabel": "Death Note",
         "ActionNumber1": "One",
         "ActionNumber2": "Two",
         "ActionNumber3": "Three",
@@ -119,6 +120,25 @@
         "ActionTypeReaction": "Reaction",
         "ActionWeaponLabel": "Associated Weapon",
         "Actions": {
+            "ArcaneSlam": {
+                "Modifier": {
+                    "SizeDifference": "Size Difference"
+                },
+                "Notes": {
+                    "NoTarget": "<strong>Size Difference</strong> You take a –2 circumstance penalty to your check if the target is one size larger than you and a –4 circumstance penalty if it's larger than that. You gain a +2 circumstance bonus to your check if the target is one size smaller than you and a +4 circumstance bonus if it's smaller than that.",
+                    "criticalSuccess": "<strong>Critical Success</strong> You slam the foe down and the magical energy overwhelms it. The creature is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{prone}, becomes @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{dazzled} for 1 round, and takes damage equal to [[/r 2d6 + @abilities.str.mod # Damage: Arcane Slam]]{2d6 plus your Strength modifier}. The foe is no longer @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{grabbed} or @Compendium[pf2e.conditionitems.VcDeM8A5oI6VqhbM]{restrained} by you.",
+                    "success": "<strong>Success</strong> You slam the foe down. The creature is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{prone} and takes damage equal to your [[/r @abilities.str.mod # Damage: Arcane Slam]]{Strength modifier}. The foe is no longer @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{grabbed} or @Compendium[pf2e.conditionitems.VcDeM8A5oI6VqhbM]{restrained} by you.",
+                    "failure": "<strong>Failure</strong> You are unable to slam the creature, but your hold on the creature remains.",
+                    "criticalFailure": "<strong>Critical Failure</strong> The creature breaks free and is no longer @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{grabbed} or @Compendium[pf2e.conditionitems.VcDeM8A5oI6VqhbM]{restrained} by you."
+                },
+                "Title": "Arcane Slam"
+            },
+            "AvoidNotice": {
+                "Notes": {
+                    "success": "<strong>Success</strong> You're @Compendium[pf2e.conditionitems.VRSef5y1LmL2Hkjf]{undetected} by the creature during your movement and remain undetected by the creature at the end of it.<br/><br/>See the @Compendium[pf2e.actionspf2e.VMozDqMMuK5kpoX4]{Sneak} action for details."
+                },
+                "Title": "Avoid Notice"
+            },
             "Balance": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You move up to your Speed.",
@@ -455,6 +475,14 @@
                 },
                 "Title": "Swim"
             },
+            "TreatPoison": {
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the poison.<br/>@Compendium[pf2e.equipment-effects.XwCBalKJf3CiEiFa]{Effect: Treat Poison (Critical Success)}",
+                    "success": "<strong>Success</strong> You grant the creature a +2 circumstance bonus to its next saving throw against the poison.<br/>@Compendium[pf2e.equipment-effects.XWenziR7J3mwKV4W]{Effect: Treat Poison (Success)}",
+                    "criticalFailure": "<strong>Critical Failure</strong> Your efforts cause the creature to take a –2 circumstance penalty to its next save against the poison.<br/>@Compendium[pf2e.equipment-effects.ESuBosh3t1pXEcBj]{Effect: Treat Poison (Critical Failure)}"
+                },
+                "Title": "Treat Poison"
+            },
             "Trip": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target falls and lands @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone} and takes [[/r 1d6[bludgeoning] # Bludgeoning damage]]{1d6} bludgeoning damage.",
@@ -506,28 +534,6 @@
         "ActionsActionsHeader": "Actions",
         "ActionsFreeActionsHeader": "Free Actions",
         "ActionsReactionsHeader": "Reactions",
-        "ActiveEffects": {
-            "Label": "Active Effects",
-            "Duration": {
-                "Label": "Duration",
-                "Permanent": "Permanent",
-                "Second": "{quantity} second",
-                "Round": "{quantity} round",
-                "Turn": "{quantity} turn",
-                "Seconds": "{quantity} seconds",
-                "Rounds": "{quantity} rounds",
-                "Turns": "{quantity} turns"
-            },
-            "Controls": {
-                "Label": "Controls",
-                "Disable": "Disable",
-                "Enable": "Enable",
-                "Edit": "Edit",
-                "Delete": "Delete"
-            },
-            "EnableAutomation": "Enable Automation",
-            "DisableAutomation": "Disable Automation"
-        },
         "Actor": {
             "ApplyDamage": {
                 "AtFullHealth": "{actor} is already at full health.",
@@ -590,7 +596,6 @@
         "AlignmentNG": "Neutral Good",
         "AlignmentTitle": "Your alignment",
         "AllSavesLabel": "All Saves",
-        "Ancestry": "Ancestry",
         "AncestryFeatures": "Ancestry Features",
         "AncestryHP": "Ancestry HP",
         "AncestryTitle": "Your character's ancestry",
@@ -598,6 +603,7 @@
         "AreaLabel": "Area",
         "AreaSize10": "10 Foot",
         "AreaSize100": "100 Foot",
+        "AreaSize1000": "1000 Foot",
         "AreaSize120": "120 Foot",
         "AreaSize15": "15 Foot",
         "AreaSize20": "20 Foot",
@@ -606,10 +612,13 @@
         "AreaSize45": "45 Foot",
         "AreaSize5": "5 Foot",
         "AreaSize50": "50 Foot",
+        "AreaSize500": "500 Foot",
         "AreaSize60": "60 Foot",
         "AreaSize75": "75 Foot",
         "AreaSize80": "80 Foot",
         "AreaSize90": "90 Foot",
+        "AreaSize1Mile": "1 Mile",
+        "AreaSizeQuarterMile": "Quarter Mile",
         "AreaTypeBurst": "Burst",
         "AreaTypeCone": "Cone",
         "AreaTypeEmanation": "Emanation",
@@ -813,7 +822,8 @@
             "DC": {
                 "Label": {
                     "AdjustedTarget": "<target>Target: {target}</target> <dc>({dcType} <preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>",
-                    "NoTarget": "{dcType} {dc}",
+                    "NoChangeTarget": "<target>Target: {target}</target> <dc>({dcType} <adjusted>{adjusted}</adjusted>)</dc>",
+                    "NoTarget": "<dc>{dcType} {dc}</dc>",
                     "WithTarget": "<target>Target: {target}</target> <dc>({dcType} {dc})</dc>"
                 },
                 "Specific": {
@@ -886,6 +896,10 @@
         "CompendiumBrowser": {
             "AddedItem": "Added {item} to the selected actor(s).",
             "AddedItemToCharacter": "Added {item} to {character}.",
+            "BoughtItemWithCharacter": "Purchased {item} with {character}.",
+            "FailedToBuyItemWithCharacter": "Could not purchase {item} with {character}.",
+            "BoughtItemWithAllCharacters": "Purchased {item} with all selected actor(s).",
+            "FailedToBuyItemWithSomeCharacters": "Could not purchase {item} with some of the selected actor(s).",
             "BestiaryBrowser": "Bestiary Browser",
             "Hint": "Use the tabs above to select a compendium",
             "ProgressBar": {
@@ -900,6 +914,7 @@
             "TabSpell": "Spells",
             "TabSettings": "Load Packs",
             "TakeLabel": "Take Item",
+            "BuyLabel": "Buy Item",
             "Title": "Compendium Browser"
         },
         "Condition": {
@@ -1068,8 +1083,9 @@
         "DCAdjustmentIncrediblyHard": "incredibly hard",
         "DCBase": "Base DC 10",
         "DCWithValue": "DC {dc} {text}",
+        "DCWithValueAndVisibility": "<span data-visibility=\"{role}\">DC {dc}</span> {text}",
         "DecrementEffectTitle": "Decrease Effect Level",
-        "DefencesLabel": "Defences",
+        "DefensesLabel": "Defenses",
         "Deity": "Deity",
         "DeityTitle": "Your deity",
         "DeleteConditionQuestion": "Are you sure you want to delete {condition}?",
@@ -1199,6 +1215,7 @@
         "FeatBackgroundShort": "BG",
         "FeatBonusHeader": "Bonus Feats",
         "FeatBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
+        "FeatCampaignHeader": "Campaign Feats",
         "FeatClassHeader": "Class Feats",
         "FeatDualClassHeader": "Dual Class Feats",
         "FeatGeneralHeader": "General Feats",
@@ -1355,19 +1372,266 @@
             },
             "Deity": {
                 "Alignment": "Alignment",
-                "FollowerAlignments": "Follower Alignments",
-                "DivineAbility": "Divine Ability",
+                "ClericSpells": {
+                    "Label": "Cleric Spells",
+                    "Hint": "To add a spell, drag and drop one onto this sheet."
+                },
+                "DivineAbility": {
+                    "Label": "Divine Ability",
+                    "Hint": "If choosing the Raised by Belief background, its ability boost options come from a deity."
+                },
                 "DivineSkill": "Divine Skill",
-                "Edicts": "Edicts",
-                "Anathema": "Anathema",
-                "AreasOfConcern": "Areas of Concern",
                 "DivineFont": {
                     "Label": "Divine Font",
                     "Harm": "Harm",
                     "Heal": "Heal"
                 },
-                "FavoredWeapon": "Favored Weapon",
-                "ClericSpells": "Cleric Spells"
+                "FavoredWeapons": {
+                    "Label": "Favored Weapon(s)",
+                    "Hint": "Almost all deities have a single favored weapon, but a few have both a favored weapon and unarmed attack."
+                },
+                "FollowerAlignments": "Follower Alignments",
+                "Domains": {
+                    "Primary": "Primary Domains",
+                    "Alternate": {
+                        "Label": "Alternate Domains",
+                        "Hint": "A cleric can take the Expanded Domain Initiate feat to gain access to one of their deity's alternate domains."
+                    }
+                },
+                "Domain": {
+                    "Abomination": {
+                        "Label": "Abomination",
+                        "Description": "You seek to instill abhorrence and horror in those around you."
+                    },
+                    "Air": {
+                        "Label": "Air",
+                        "Description": "You can control winds and the weather."
+                    },
+                    "Ambition": {
+                        "Label": "Ambition",
+                        "Description": "You strive to keep up with and outpace the competition."
+                    },
+                    "Change": {
+                        "Label": "Change",
+                        "Description": "You can restructure the physical and metaphysical."
+                    },
+                    "Cities": {
+                        "Label": "Cities",
+                        "Description": "You have powers over urban environments and denizens."
+                    },
+                    "Cold": {
+                        "Label": "Cold",
+                        "Description": "You control ice, snow, and freezing temperatures."
+                    },
+                    "Confidence": {
+                        "Label": "Confidence",
+                        "Description": "You overcome your fear and project pride."
+                    },
+                    "Creation": {
+                        "Label": "Creation",
+                        "Description": "You have divine abilities related to crafting and art."
+                    },
+                    "Darkness": {
+                        "Label": "Darkness",
+                        "Description": "You operate in the darkness and take away the light."
+                    },
+                    "Death": {
+                        "Label": "Death",
+                        "Description": "You have the power to end lives and destroy undead."
+                    },
+                    "Decay": {
+                        "Label": "Decay",
+                        "Description": "You have the power to spoil and deteriorate matter."
+                    },
+                    "Delirium": {
+                        "Label": "Delirium",
+                        "Description": "You can bring about hallucinations and restlessness."
+                    },
+                    "Destruction": {
+                        "Label": "Destruction",
+                        "Description": "You are a conduit for divine devastation."
+                    },
+                    "Dreams": {
+                        "Label": "Dreams",
+                        "Description": "You have the power to enter and manipulate dreams."
+                    },
+                    "Dust": {
+                        "Label": "Dust",
+                        "Description": "You have the power to dry and crumble what opposes you."
+                    },
+                    "Duty": {
+                        "Label": "Duty",
+                        "Description": "You defend oaths and carry out your divine missions with great dedication."
+                    },
+                    "Earth": {
+                        "Label": "Earth",
+                        "Description": "You control soil and stone."
+                    },
+                    "Family": {
+                        "Label": "Family",
+                        "Description": "You aid and protect your family and community more effectively."
+                    },
+                    "Fate": {
+                        "Label": "Fate",
+                        "Description": "You see and understand hidden inevitabilities."
+                    },
+                    "Fire": {
+                        "Label": "Fire",
+                        "Description": "You control flame."
+                    },
+                    "Freedom": {
+                        "Label": "Freedom",
+                        "Description": "You liberate yourself and others from shackles and constraints."
+                    },
+                    "Glyph": {
+                        "Label": "Glyph",
+                        "Description": "You wield power over written words and symbols."
+                    },
+                    "Healing": {
+                        "Label": "Healing",
+                        "Description": "Your healing magic is particularly potent."
+                    },
+                    "Indulgence": {
+                        "Label": "Indulgence",
+                        "Description": "You feast mightily and can shake off the effects of overindulging."
+                    },
+                    "Knowledge": {
+                        "Label": "Knowledge",
+                        "Description": "You receive divine insights."
+                    },
+                    "Lightning": {
+                        "Label": "Lightning",
+                        "Description": "You control electricity, thunder, and storms."
+                    },
+                    "Luck": {
+                        "Label": "Luck",
+                        "Description": "You’re unnaturally lucky and keep out of harm’s way."
+                    },
+                    "Magic": {
+                        "Label": "Magic",
+                        "Description": "You perform the unexpected and inexplicable."
+                    },
+                    "Might": {
+                        "Label": "Might",
+                        "Description": "Your physical power is bolstered by divine strength."
+                    },
+                    "Moon": {
+                        "Label": "Moon",
+                        "Description": "You command powers associated with the moon."
+                    },
+                    "Naga": {
+                        "Label": "Naga",
+                        "Description": "Like the serpentine nagas, you're in tune with cosmic forces that Ravithra once controlled."
+                    },
+                    "Nature": {
+                        "Label": "Nature",
+                        "Description": "You hold power over animals and plants."
+                    },
+                    "Nightmares": {
+                        "Label": "Nightmares",
+                        "Description": "You fill minds with horror and dread."
+                    },
+                    "Pain": {
+                        "Label": "Pain",
+                        "Description": "You punish those who displease you with the sharp sting of pain."
+                    },
+                    "Passion": {
+                        "Label": "Passion",
+                        "Description": "You evoke passion, whether as love or lust."
+                    },
+                    "Perfection": {
+                        "Label": "Perfection",
+                        "Description": "You strive to perfect your mind, body, and spirit."
+                    },
+                    "Plague": {
+                        "Label": "Plague",
+                        "Description": "You wield disease and pestilence like a weapon."
+                    },
+                    "Protection": {
+                        "Label": "Protection",
+                        "Description": "You ward yourself and others."
+                    },
+                    "Repose": {
+                        "Label": "Repose",
+                        "Description": "You ease mental burdens."
+                    },
+                    "Secrecy": {
+                        "Label": "Secrecy",
+                        "Description": "You protect secrets and keep them hidden."
+                    },
+                    "Sorrow": {
+                        "Label": "Sorrow",
+                        "Description": "You have a painful connection to melancholy and sadness."
+                    },
+                    "Soul": {
+                        "Label": "Soul",
+                        "Description": "You wield power over the spiritual."
+                    },
+                    "Star": {
+                        "Label": "Star",
+                        "Description": "You command the power of the stars."
+                    },
+                    "Sun": {
+                        "Label": "Sun",
+                        "Description": "You harness the power of the sun and other light sources, and punish undead."
+                    },
+                    "Swarm": {
+                        "Label": "Swarm",
+                        "Description": "You exert control over masses of creatures."
+                    },
+                    "Time": {
+                        "Label": "Time",
+                        "Description": "You reign over the flow of time."
+                    },
+                    "Toil": {
+                        "Label": "Toil",
+                        "Description": "You work constantly and refuse to let anything stand in your way."
+                    },
+                    "Travel": {
+                        "Label": "Travel",
+                        "Description": "You have power over movement and journeys."
+                    },
+                    "Trickery": {
+                        "Label": "Trickery",
+                        "Description": "You deceive others and cause mischief."
+                    },
+                    "Truth": {
+                        "Label": "Truth",
+                        "Description": "You pierce lies and discover the truth."
+                    },
+                    "Tyranny": {
+                        "Label": "Tyranny",
+                        "Description": "You wield power to rule and enslave others."
+                    },
+                    "Undeath": {
+                        "Label": "Undeath",
+                        "Description": "Your magic carries close ties to the undead."
+                    },
+                    "Vigil": {
+                        "Label": "Vigil",
+                        "Description": "You watch over those long passed and guard their secrets."
+                    },
+                    "Void": {
+                        "Label": "Void",
+                        "Description": "You draw power from emptiness."
+                    },
+                    "Water": {
+                        "Label": "Water",
+                        "Description": "You control water and bodies of water."
+                    },
+                    "Wealth": {
+                        "Label": "Wealth",
+                        "Description": "You hold power over wealth, trade, and treasure."
+                    },
+                    "Wyrmkin": {
+                        "Label": "Wyrmkin",
+                        "Description": "You draw on the power of dragons, linnorms, and other powerful reptilian creatures."
+                    },
+                    "Zeal": {
+                        "Label": "Zeal",
+                        "Description": "Your inner fire increases your combat prowess."
+                    }
+                }
             },
             "Effect": {
                 "Sustained": "Sustained",
@@ -1385,6 +1649,7 @@
                     "Two": "Up to 2×",
                     "Three": "Up to 3×",
                     "Four": "Up to 4×",
+                    "Five": "Up to 5x",
                     "NoLimit": "No limit"
                 },
                 "Warning": {
@@ -1523,7 +1788,9 @@
         "ItemNewRuleElement": "New Rule Element",
         "ItemNewSkillVariant": "New Skill Variant",
         "ItemRemoveRuleElement": "Remove Rule Element",
+        "ItemSourceIDLabel": "Source ID:",
         "ItemTitle": "Item",
+        "ItemUUIDLabel": "UUID:",
         "ItemsLabel": "Items",
         "JournalEntry": {
             "Plural": "Journal Entries",
@@ -1820,8 +2087,7 @@
         "PerceptionLabel": "Perception",
         "PFS": {
             "CharacterNumber": "Character #",
-            "CurrentFaction": "Currently Slotted Faction",
-            "Fame": "Fame",
+            "CurrentFaction": "Current Faction",
             "LevelBump": "Level Bump",
             "OrganizedPlayNumber": "Organized Play #",
             "Reputation": "Reputation",
@@ -1870,6 +2136,8 @@
         "PreciousMaterialNoqualDescription": "Light and strong, noqual also demonstrates a powerful resistance to magic. A side effect of this resistance is that making magical weapons out of noqual requires complex and expensive alchemical treatments. Kevoth‑Kul, the Black Sovereign of Numeria, has developed an alloy of noqual and cold iron known as sovereign steel to help mitigate this property. The metal's crystalline appearance might suggest that it's fragile, but the pale‑green material can be worked similarly to iron. Objects made of noqual have a +4 circumstance bonus on saves against magic that the item attempts and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).",
         "PreciousMaterialOrichalcum": "Orichalcum",
         "PreciousMaterialOrichalcumDescription": "The most rare and valuable skymetal, orichalcum is coveted for its incredible time-related magical properties. This dull, coppery metal isn't as physically sturdy as adamantine, but orichalcum's time-bending properties protect it, granting it greater Hardness and Hit Points. If an orichalcum item takes damage but isn't destroyed, it repairs itself completely 24 hours later.",
+        "PreciousMaterialPeachwood": "Peachwood",
+        "PreciousMaterialPeachwoodDescription": "Peachwood weapons have a particularly auburn tinge to them when under direct sunlight. Peachwood is treated as darkwood for any undead creatures' resistances or weaknesses related to darkwood (allowing a peachwood weapon to bypass a jiang-shi's resistance, for example). In addition, peachwood weapons bypass a small portion of the resistances of any undead creature. Strikes with a peachwood weapon treat an undead's resistances against physical damage as 2 lower for standard-grade peachwood, and 4 lower for high-grade.",
         "PreciousMaterialSiccatite": "Siccatite",
         "PreciousMaterialSiccatiteDescription": "In its raw state, this silvery ore is either scalding hot or freezing cold. Metallurgists disagree over whether siccatite is two related substances or one substance that determines its temperature output via some unknown process. Whatever the reason, the extreme temperature of the material means it must be handled carefully. Hot siccatite can easily ignite flammables such as paper and dry brush, and cold siccatite left in moist areas quickly surrounds itself with a thick layer of ice. A creature that comes into physical contact with a significant amount of siccatite takes 1 energy Damage for each round of continued contact (either fire or cold damage, for hot and cold siccatite respectively).",
         "PreciousMaterialSilver": "Silver",
@@ -1959,6 +2227,8 @@
             "Modifier": "Modifier",
             "Type": "Type",
             "Fortune": "Fortune",
+            "KeepHigher": "Keep Higher",
+            "KeepLower": "Keep Lower",
             "FortuneTitle": "{title} Fortune",
             "Misfortune": "Misfortune",
             "MisfortuneTitle": "{title} Misfortune",
@@ -1996,6 +2266,10 @@
                 "Name": "Death Icon",
                 "Hint": "Set the overlay icon used to mark dead actors."
             },
+            "NathMode": {
+                "Name": "Nath Mode",
+                "Hint": "Use better default token icons"
+            },
             "statusEffectKeepFoundry": {
                 "hint": "Determines if you want to show the Foundry Icon set below the Pathfinder 2E icon set. This will trigger a reload.",
                 "name": "Status Icon Foundry Set"
@@ -2025,18 +2299,6 @@
             "WorldSchemaVersion": {
                 "Name": "World Schema Version",
                 "Hint": "Records the schema version for documents in the PF2e system (don't modify this unless you know what you are doing)."
-            },
-            "DefaultTokenSettings": {
-                "Name": "Default Prototype Token Settings",
-                "Hint": "Automatically set advised prototype token settings to newly created Actors."
-            },
-            "DefaultTokenSettingsName": {
-                "Name": "Default Token Name display",
-                "Hint": "The setting for the default token's name display"
-            },
-            "DefaultTokenSettingsBar": {
-                "Name": "Default Token Bar display",
-                "Hint": "The setting for the default token's bar display"
             },
             "IgnoreCoinBulk": {
                 "Name": "Coins are weightless",
@@ -2085,6 +2347,10 @@
                 "RemoveExpiredEffects": {
                     "Name": "Remove expired effects",
                     "Hint": "Expired effects are automatically removed from actors (requires a GM to be logged in)."
+                },
+                "FlankingDetection": {
+                    "Name": "Flanking detection",
+                    "Hint": "Flanking arrangements and abilities that predicate on it are managed by the system."
                 },
                 "ActorsDeadAtZero": {
                     "Name": "NPCs dead at 0 HP",
@@ -2240,6 +2506,10 @@
                     }
                 },
                 "DeferredToModule": "This setting is managed by the Calendar/Weather module."
+            },
+            "CampaignFeats": {
+                "Name": "Campaign Feats",
+                "Hint": "Adds a section to all player sheets for campaign specific feats."
             },
             "RAI": {
                 "TreatWoundsAltSkills": {
@@ -2493,10 +2763,12 @@
         "SpellDurationLabel": "Duration",
         "SpellFocusLabel": "Focus",
         "SpellFlexibleLabel": "Flexible",
+        "SpellFlexibleAvailable": "Flexible: {value} / {max}",
         "SpellCollectionAdd": "Add to Spell Collection",
         "SpellCollectionRemove": "Remove from Spell Collection",
         "SpellLabel": "Spell",
         "SpellLabelPlural": "Spells",
+        "SpellLevel": "{level} Level",
         "SpellLevel1": "1st Level",
         "SpellLevel10": "10th Level",
         "SpellLevel2": "2nd Level",
@@ -2519,7 +2791,12 @@
             "Header": "Scaling (Interval)",
             "Label": "Interval",
             "Selection": "Heightened (+{interval})",
-            "Add": "Add Interval Scaling"
+            "Add": "Add Heightening (Interval)"
+        },
+        "SpellScalingOverlay": {
+            "Label": "Heightened Level",
+            "Selection": "Heightened ({level})",
+            "Add": "Add Heightening (Fixed)"
         },
         "SpellScalingLabel": "Scaling",
         "SpellSchoolLabel": "School",
@@ -2538,6 +2815,8 @@
         "SpellTypeSave": "Saving Throw",
         "SpellTypeUtility": "Utility",
         "SpellCategorySpell": "Spell",
+        "SpellUsesLabel": "Uses",
+        "SpellUnlimitedLabel": "Unlimited",
         "SpellCategoryFocus": "Focus",
         "SpellCategoryRitual": "Ritual",
         "SpellCategoryFocusCantrip": "Focus Cantrip",
@@ -2746,6 +3025,7 @@
         "TraitChaotic": "Chaotic",
         "TraitCharauKa": "Charau-ka",
         "TraitCharm": "Charm",
+        "TraitCircus": "Circus",
         "TraitCleric": "Cleric",
         "TraitClimbing": "Climbing",
         "TraitClockwork": "Clockwork",
@@ -2778,6 +3058,7 @@
         "TraitCursebound": "Cursebound",
         "TraitDaemon": "Daemon",
         "TraitDarkness": "Darkness",
+        "TraitDarvakka": "Darvakka",
         "TraitDeadlyD10": "Deadly d10",
         "TraitDeadlyD12": "Deadly d12",
         "TraitDeadlyD6": "Deadly d6",
@@ -2857,15 +3138,16 @@
         "TraitDescriptionConstruct": "A construct is an artificial creature empowered by a force other than necromancy. Constructs are often mindless; they are immune to bleed damage, death effects, disease, healing, necromancy, nonlethal attacks, poison, and the doomed, drained, fatigued, paralyzed, sickened, and unconscious conditions; and they may have Hardness based on the materials used to construct their bodies. Constructs are not living creatures, nor are they undead. When reduced to 0 Hit Points, a construct creature is destroyed.",
         "TraitDescriptionContact": "This poison is delivered by contact with the skin.",
         "TraitDescriptionCriticalFusion": "Critical fusion is a new trait for combination weapons that grants you two additional options for the critical specialization effect when using the combination weapon's melee version to make a melee attack while the firearm is loaded. If you choose to use one of them, they replace the melee usage's normal critical specialization effect. First, you can discharge the firearm to create a loud bang and concussion, using the critical specialization effect for firearms instead of the melee weapon group's critical specialization effect. Second, you can choose to discharge the firearm to increase the critical hit's momentum or shoot the foe as you attack them in melee, dealing 2 additional damage per weapon damage die. Both of these options discharge the firearm, which typically means you have to reload it before firing it again.",
-        "TraitDescriptionCurse": "A curse is an effect that places some long-term affliction on a creature. Curses are always magical and are typically the result of a spell or trap.",
+        "TraitDescriptionCurse": "A curse is an effect that places some long-term affliction on a creature. Curses are always magical and are typically the result of a spell or trap. Effects with this trait can be removed only by effects that specifically target curses.",
         "TraitDescriptionCursed": "An item with this trait is cursed to cause trouble for its owner. A curse isn't detected when the item is identified, though a critical success reveals both the presence and exact nature of the curse. Cursed items can't be discarded once they've been triggered or invested the first time. The item can be removed only if the curse is removed.",
         "TraitDescriptionCursebound": "Spells with this trait increase the severity of your oracular curse when cast. Usually, only revelation spells have this trait. You can't cast a cursebound spell if you don't have an oracular curse.",
         "TraitDescriptionDarkness": "Darkness effects extinguish non-magical light in the area, and can counteract less powerful magical light. You must usually target light magic with your darkness magic directly to counteract the light, but some darkness spells automatically attempt to counteract light.",
+        "TraitDescriptionDarvakka": "Entropic undead creatures twisted by the Shadow Plane and Negative Energy Plane.",
         "TraitDescriptionDeadly": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeath": "An effect with the death trait kills you immediately if it reduces you to 0 HP. Some death effects can bring you closer to death or slay you outright without reducing you to 0 HP.",
         "TraitDescriptionDedication": "You must select a feat with this trait to apply an archetype to your character.",
         "TraitDescriptionDetection": "Effects with this trait attempt to determine the presence or location of a person, object, or aura.",
-        "TraitDescriptionDhampir": "A creature with this trait is a member of the dhampir ancestry.",
+        "TraitDescriptionDhampir": "A creature with this trait is a member of the dhampir ancestry. These humanoids are the mortal offspring of vampires and members of other ancestries.",
         "TraitDescriptionDisarm": "You can use this weapon to Disarm with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls (if any) as an item bonus to the Athletics check. If you critically fail a check to Disarm using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure. On a critical success, you still need a free hand if you want to take the item.",
         "TraitDescriptionDisease": "An effect with this trait applies one or more diseases. A disease is typically an affliction.",
         "TraitDescriptionDivination": "The divination school of magic typically involves obtaining or transferring information, or predicting events.",
@@ -2958,7 +3240,7 @@
         "TraitDescriptionMental": "A mental effect can alter the target's mind. It has no effect on an object or a mindless creature.",
         "TraitDescriptionMetamagic": "Actions with the metamagic trait, usually from metamagic feats, tweak the properties of your spells. You must use a metamagic action directly before Casting the Spell you want to alter. If you use any action (including free actions and reactions) other than Cast a Spell directly after, you waste the benefits of the metamagic action. Any additional effects added by a metamagic action are part of the spell's effect, not of the metamagic action itself.",
         "TraitDescriptionMindless": "A mindless creature has either programmed or rudimentary mental attributes. Most, if not all, of their mental ability modifiers are -5. They are immune to all mental effects.",
-        "TraitDescriptionMinion": "Minions are creatures that directly serve another creature. A creature with this trait can use only 2 actions per turn and can't use reactions. Your minion acts on your turn in combat, once per turn, when you spend an action to issue it commands. For an animal companion, you Command an Animal; for a minion that's a spell or magic item effect, like a summoned minion, you Sustain a Spell or Sustain an Activation; if not otherwise specified, you issue a verbal command, a single action with the auditory and concentrate traits. If given no commands, minions use no actions except to defend themselves or to escape obvious harm. If left unattended for long enough, typically 1 minute, mindless minions usually don't act, animals follow their instincts, and sapient minions act how they please.",
+        "TraitDescriptionMinion": "A creature with this trait can use only 2 actions per turn, doesn't have reactions, and can't act when it's not your turn. Your minion acts on your turn in combat, once per turn, when you spend an action to issue it commands. For an animal companion, you Command an Animal; for a minion that's a spell or magic item effect, like a summoned minion, you Sustain a Spell or Sustain an Activation; if not otherwise specified, you issue a verbal command as a single action with the auditory and concentrate traits. If given no commands, minions use no actions except to defend themselves or to escape obvious harm. If left unattended for long enough, typically 1 minute, mindless minions usually don't act, animals follow their instincts, and sapient minions act how they please. A minion can't control other creatures.",
         "TraitDescriptionMisfortune": "A misfortune effect detrimentally alters how you roll your dice. You can never have more than one misfortune effect alter a single roll. If multiple misfortune effects would apply, the GM decides which is worse and applies it. If a fortune effect and a misfortune effect would apply to the same roll, the two cancel each other out, and you roll normally.",
         "TraitDescriptionModification": "A feat with this trait alters the construction of your innovation. If you have the reconfigure class feature, you can retrain such a feat more easily.",
         "TraitDescriptionModular": "The weapon has multiple configurations that you can switch between using an Interact action. Typically, switching between configurations of a modular weapon allows it to deal different types of damage (listed in the trait, such as “modular B, P, or S”), though it's possible for a modular weapon's description to list more complicated configurations.",
@@ -2981,6 +3263,7 @@
         "TraitDescriptionOread": "A type of geniekin descended from a being from the Plane of Earth.",
         "TraitDescriptionOrc": "A creature with this trait is a member of the orc ancestry. A weapon with this trait is a weapon which orcs craft and use.",
         "TraitDescriptionParry": "This weapon can be used defensively to block attacks. While wielding this weapon, if your proficiency with it is trained or better, you can spend an Interact action to position your weapon defensively, gaining a +1 circumstance bonus to AC until the start of your next turn.",
+        "TraitDescriptionPeachwood": "Peachwood weapons have a particularly auburn tinge to them when under direct sunlight. Peachwood is treated as darkwood for any undead creatures' resistances or weaknesses related to darkwood (allowing a peachwood weapon to bypass a jiang-shi's resistance, for example). In addition, peachwood weapons bypass a small portion of the resistances of any undead creature. Strikes with a peachwood weapon treat an undead's resistances against physical damage as 2 lower for standard-grade peachwood, and 4 lower for high-grade.",
         "TraitDescriptionPlant": "Vegetable creatures have the plant trait. They are distinct from normal plants. Magical effects with this trait manipulate or conjure plants or plant matter in some way. Those that manipulate plants have no effect in an area with no plants.",
         "TraitDescriptionPoison": "An effect with this trait delivers a poison or deals poison damage. An item with this trait is poisonous and might cause an affliction.",
         "TraitDescriptionPolymorph": "These effects transform the target into a new form. A target can't be under the effect of more than one polymorph effect at a time. If it comes under the effect of a second polymorph effect, the second polymorph effect attempts to counteract the first. If it succeeds, it takes effect, and if it fails, the spell has no effect on that target. Any Strikes specifically granted by a polymorph effect are magical. Unless otherwise stated, polymorph spells don't allow the target to take on the appearance of a specific individual creature, but rather just a generic creature of a general type or ancestry. If you take on a battle form with a polymorph spell, the special statistics can be adjusted only by circumstance bonuses, status bonuses, and penalties. Unless otherwise noted, the battle form prevents you from casting spells, speaking, and using most manipulate actions that require hands. (If there's doubt about whether you can use an action, the GM decides.) Your gear is absorbed into you; the constant abilities of your gear still function, but you can't activate any items.",
@@ -3014,6 +3297,7 @@
         "TraitDescriptionShisk": "Secretive humanoids covered in bony plumage that reside underground.",
         "TraitDescriptionShoony": "A creature with this trait is a member of the shoony ancestry.",
         "TraitDescriptionShove": "You can use this weapon to Shove with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Shove using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
+        "TraitDescriptionSkeleton": "This undead is made by animating a dead creature's skeleton with negative energy. An ability with this trait can be used or selected only by skeletons.",
         "TraitDescriptionSkill": "A general feat with the skill trait improves your skills and their actions or gives you new actions for a skill. A feat with this trait can be selected when a class grants a skill feat or general feat. Archetype feats with the skill trait can be selected in place of a skill feat if you have that archetype's dedication feat.",
         "TraitDescriptionSleep": "This effect can cause a creature to fall asleep or get drowsy.",
         "TraitDescriptionSonic": "An effect with the sonic trait functions only if it makes sound, meaning it has no effect in an area of silence or in a vacuum. This is different from an auditory spell, which is effective only if the target can hear it. A sonic effect might deal sonic damage.",
@@ -3026,7 +3310,7 @@
         "TraitDescriptionSteam": "Items with this trait are powered by engines that boil water to produce steam and move their components.",
         "TraitDescriptionStrix": "Winged humanoids, most of whom live in and around Cheliax.",
         "TraitDescriptionStructure": "An item with the structure trait creates a magical building or other structure when activated. The item must be activated on a plot of land free of other structures. The structure adapts to the natural terrain, adopting the structural requirements for being built there. The structure adjusts around small features such as ponds or spires of rock, but it can't be created on water or other nonsolid surfaces. If activated on snow, sand dunes, or other soft surfaces with a solid surface underneath, the structure's foundation (if any) reaches the solid ground. If an item with this trait is activated on a solid but unstable surface, such as a swamp or an area plagued by tremors, roll a DC 3 flat check each day; on a failure, the structure begins to sink or collapse. The structure doesn't harm creatures within the area when it appears, and it can't be created within a crowd or in a densely populated area. Any creature inadvertently caught inside the structure when the item is activated ends up unharmed inside the complete structure and always has a clear path of escape. A creature inside the structure when the activation ends isn't harmed, and it lands harmlessly on the ground if it was on an upper level of the structure.",
-        "TraitDescriptionSummoned": "A creature called by a conjuration spell or effect gains the summoned trait. A summoned creature can't summon other creatures, create things of value, or cast spells that require a cost. It has the minion trait. If it tries to cast a spell of equal or higher level than the spell that summoned it, it overpowers the summoning magic, causing the summoned creature's spell to fail and the summon spell to end. Otherwise, the summoned creature uses the standard abilities for a creature of its kind. It generally attacks your enemies to the best of its abilities. If you can communicate with it, you can attempt to command it, but the GM determines the degree to which it follows your commands. Immediately when you finish Casting the Spell, the summoned creature uses its 2 actions for that turn. Summoned creatures can be banished by various spells and effects. They are automatically banished if reduced to 0 Hit Points or if the spell that called them ends.",
+        "TraitDescriptionSummoned": "A creature called by a spell or effect gains the summoned trait. A summoned creature can't summon other creatures, create things of value, or cast spells that require a cost. It has the minion trait. If it tries to Cast a Spell of equal or higher level than the spell that summoned it, it overpowers the summoning magic, causing its own spell to fail and the summon spell to end. Otherwise, the summoned creature uses the standard abilities for a creature of its kind. It generally attacks your enemies to the best of its ability. If you can communicate with it, you can attempt to command it, but the GM determines the degree to which it follows your commands. Immediately when you finish Casting the Spell, the summoned creature uses its 2 actions for that turn. A spawn or other creature generated from a summoned creature returns to its unaltered state (usually a corpse in the case of spawn) once the summoned creature is gone. If it’s unclear what this state would be, the GM decides. Summoned creatures can be banished by various spells and effects. They are automatically banished if reduced to 0 Hit Points or if the spell that called them ends.",
         "TraitDescriptionSummoner": "This indicates abilities from the Summoner class.",
         "TraitDescriptionSuli": "Sulis are planar scions descended from jann.",
         "TraitDescriptionSwashbuckler": "This indicates abilities from the Swashbuckler class.",
@@ -3459,12 +3743,22 @@
         "TraitVampireWeaknesses": "Vampire Weaknesses",
         "TraitVanara": "Vanara",
         "TraitVelstrac": "Velstrac",
+        "TraitVersatileAcid": "Versatile Acid",
         "TraitVersatileB": "Versatile B",
+        "TraitVersatileChaotic": "Versatile Chaotic",
+        "TraitVersatileCold": "Versatile Cold",
+        "TraitVersatileElectricity": "Versatile Electricity",
+        "TraitVersatileEvil": "Versatile Evil",
         "TraitVersatileFire": "Versatile Fire",
+        "TraitVersatileForce": "Versatile Force",
+        "TraitVersatileGood": "Versatile Good",
         "TraitVersatileHeritage": "Versatile Heritage",
+        "TraitVersatileLawful": "Versatile Lawful",
+        "TraitVersatileNegative": "Versatile Negative",
         "TraitVersatileP": "Versatile P",
         "TraitVersatilePositive": "Versatile Positive",
         "TraitVersatileS": "Versatile S",
+        "TraitVersatileSonic": "Versatile Sonic",
         "TraitVigilante": "Vigilante",
         "TraitVirulent": "Virulent",
         "TraitVishkanya": "Vishkanya",
@@ -3589,7 +3883,7 @@
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
-        "UnpreparedSpellsLabel": "{label}: Preparation Shortlist",
+        "UnpreparedSpellsLabel": "{label}: Preparation Spells Available",
         "UpdateActorLabel": "Update Actor",
         "UpdateLabelUniversal": "Update",
         "UserSettings": {
@@ -3610,7 +3904,6 @@
                 "aldori-dueling-sword": "Aldori Dueling Sword",
                 "air-repeater": "Air Repeater",
                 "arquebus": "Arquebus",
-                "arrows": "Arrows",
                 "axe-musket": "Axe Musket",
                 "asp-coil": "Asp Coil",
                 "bastard-sword": "Bastard Sword",
@@ -3628,7 +3921,6 @@
                 "boarding-axe": "Boarding Axe",
                 "boarding-pike": "Boarding Pike",
                 "bola": "Bola",
-                "bolts": "Bolts",
                 "butchering-axe": "Butchering Axe",
                 "butterfly-sword": "Butterfly Sword",
                 "buugeng": "Buugeng",

@@ -37,6 +37,9 @@ export function registerTemplates() {
         "systems/pf2e/templates/actors/character/tabs/spellcasting.html",
         "systems/pf2e/templates/actors/character/tabs/crafting.html",
 
+        // Actor Sheets Partials (Hazards)
+        "systems/pf2e/templates/actors/hazard/partials/header.html",
+
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/partials/coinage.html",
         "systems/pf2e/templates/actors/partials/item-line.html",
@@ -88,7 +91,6 @@ export function registerTemplates() {
         "systems/pf2e/templates/items/condition-details.html",
         "systems/pf2e/templates/items/condition-sidebar.html",
         "systems/pf2e/templates/items/deity-details.html",
-        "systems/pf2e/templates/items/deity-sidebar.html",
         "systems/pf2e/templates/items/effect-sidebar.html",
         "systems/pf2e/templates/items/equipment-details.html",
         "systems/pf2e/templates/items/equipment-sidebar.html",
@@ -101,6 +103,7 @@ export function registerTemplates() {
         "systems/pf2e/templates/items/lore-sidebar.html",
         "systems/pf2e/templates/items/mystify-panel.html",
         "systems/pf2e/templates/items/spell-details.html",
+        "systems/pf2e/templates/items/spell-overlay.html",
         "systems/pf2e/templates/items/spell-sidebar.html",
         "systems/pf2e/templates/items/melee-details.html",
         "systems/pf2e/templates/items/weapon-details.html",

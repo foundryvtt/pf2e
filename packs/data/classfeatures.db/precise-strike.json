@@ -30,12 +30,12 @@
                 "predicate": {
                     "all": [
                         "panache",
-                        "melee"
+                        "melee",
+                        "class:swashbuckler"
                     ],
                     "any": [
                         "finesse",
-                        "agile",
-                        "class:swashbuckler"
+                        "agile"
                     ],
                     "not": [
                         "finisher"
@@ -79,12 +79,12 @@
                     "all": [
                         "finisher",
                         "panache",
-                        "melee"
+                        "melee",
+                        "class:swashbuckler"
                     ],
                     "any": [
                         "finesse",
-                        "agile",
-                        "class:swashbuckler"
+                        "agile"
                     ]
                 },
                 "selector": "strike-damage",
@@ -128,9 +128,11 @@
                 }
             },
             {
-                "key": "ToggleProperty",
+                "domain": "damage-roll",
+                "key": "RollOption",
                 "label": "Finisher",
-                "property": "flags.pf2e.rollOptions.damage-roll.finisher"
+                "option": "finisher",
+                "toggleable": true
             }
         ],
         "source": {
@@ -144,7 +146,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
     "name": "Precise Strike",

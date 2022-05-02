@@ -10,7 +10,7 @@ declare global {
         data: any;
         items: any;
         cssClass: "editable" | "locked";
-        effects: RawObject<A["data"]>["effects"];
+        effects: RawObject<foundry.data.ActiveEffectData>[];
         limited: boolean;
         options: ActorSheetOptions;
     }
@@ -30,7 +30,7 @@ declare global {
     > {
         static override get defaultOptions(): ActorSheetOptions;
 
-        override get id(): `actor-${string}` | `actor-${string}-${string}`;
+        override get id(): string;
 
         override get title(): string;
 

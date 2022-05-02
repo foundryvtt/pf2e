@@ -4,7 +4,7 @@ import { objectHasKey } from "@util";
 
 const UserVisibilityPF2e = {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    process: ($html: JQuery, { message, actor }: { message?: ChatMessagePF2e; actor?: ActorPF2e | null } = {}) => {
+    process: ($html: JQuery, { message, actor = message?.actor ?? null }: ProcessOptions = {}) => {
         const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
 
         // Remove all visibility=none elements
@@ -12,7 +12,6 @@ const UserVisibilityPF2e = {
             element.remove();
         }
 
-        // Handle owner visibility scopes, but only if an actor is supplied
         if (actor) {
             const elements = visibilityElements.filter((e) => e.dataset.visibility === "owner");
             for (const element of elements) {
@@ -26,49 +25,39 @@ const UserVisibilityPF2e = {
                     element.dataset.visibility = message.target.actor.hasPlayerOwner ?? true ? "all" : "gm";
                 }
             }
+        }
 
-            const hasOwnership = actor.isOwner;
-            // Show DC for inline checks if user has sufficient permission
-            $html.find("[data-pf2-dc][data-pf2-show-dc]").each((_idx, elem) => {
-                const dc = elem.dataset.pf2Dc?.trim() ?? "";
-                const role = elem.dataset.pf2ShowDc?.trim() ?? "";
-                if (role === "all" || (role === "gm" && game.user.isGM) || (role === "owner" && hasOwnership)) {
-                    elem.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text: elem.innerHTML });
-                    elem.removeAttribute("data-pf2-show-dc"); // short-circuit the global DC interpolation
+        const hasOwnership = actor?.isOwner || game.user.isGM;
+        // Hide DC for explicit save buttons (such as in spell cards)
+        const dcSetting = game.settings.get("pf2e", "metagame.showDC");
+        const $saveButtons = $html.find("button[data-action=save]");
+        const hideDC =
+            !actor?.hasPlayerOwner &&
+            ((dcSetting === "owner" && !hasOwnership) ||
+                (dcSetting === "gm" && !game.user.isGM) ||
+                dcSetting === "none");
+        if (hideDC) {
+            $saveButtons.each((_idx, elem) => {
+                const saveType = elem.dataset.save;
+                if (objectHasKey(CONFIG.PF2E.saves, saveType)) {
+                    const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+                    elem.innerText = game.i18n.format("PF2E.SavingThrowWithName", { saveName });
                 }
             });
-
-            // Hide DC for explicit save buttons (such as in spell cards)
-            const dcSetting = game.settings.get("pf2e", "metagame.showDC");
-            const $saveButtons = $html.find("button[data-action=save]");
-            const hideDC =
-                !actor.hasPlayerOwner &&
-                ((dcSetting === "owner" && !hasOwnership) ||
-                    (dcSetting === "gm" && !game.user.isGM) ||
-                    dcSetting === "none");
-            if (hideDC) {
-                $saveButtons.each((_idx, elem) => {
-                    const saveType = elem.dataset.save;
-                    if (objectHasKey(CONFIG.PF2E.saves, saveType)) {
-                        const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
-                        elem.innerText = game.i18n.format("PF2E.SavingThrowWithName", { saveName });
-                    }
-                });
-            } else if (!actor.hasPlayerOwner && dcSetting !== "all") {
-                $saveButtons.each((_idx, elem) => {
-                    $(elem).addClass("hidden-to-others");
-                });
-            }
-
-            $html.find("[data-owner-title]").each((_idx, element) => {
-                if (hasOwnership) {
-                    const value = element.dataset.ownerTitle!;
-                    element.setAttribute("title", value);
-                } else {
-                    element.removeAttribute("data-owner-title");
-                }
+        } else if (!actor?.hasPlayerOwner && dcSetting !== "all") {
+            $saveButtons.each((_idx, elem) => {
+                $(elem).addClass("hidden-to-others");
             });
         }
+
+        $html.find("[data-owner-title]").each((_idx, element) => {
+            if (hasOwnership) {
+                const value = element.dataset.ownerTitle!;
+                element.setAttribute("title", value);
+            } else {
+                element.removeAttribute("data-owner-title");
+            }
+        });
 
         // Remove visibility=gm elements if the user is not a GM
         if (!game.user.isGM) {
@@ -95,5 +84,10 @@ const UserVisibilityPF2e = {
 };
 
 type UserVisibility = "all" | "owner" | "gm" | "none";
+
+interface ProcessOptions {
+    message?: ChatMessagePF2e;
+    actor?: ActorPF2e | null;
+}
 
 export { UserVisibilityPF2e, UserVisibility };

@@ -115,7 +115,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -142,9 +141,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -226,7 +222,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Innate Primal Spells",
@@ -246,9 +241,6 @@
                 "areasize": {
                     "value": "20-foot burst"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -283,13 +275,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 3
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -308,12 +309,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -354,7 +349,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
@@ -363,138 +357,6 @@
             "img": "systems/pf2e/icons/spells/fireball.webp",
             "name": "Fireball",
             "sort": 200000,
-            "type": "spell"
-        },
-        {
-            "_id": "WgQCVljKhPMcjk0X",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "fire"
-                            },
-                            "value": "6d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 3
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "value": "v9rkDlk2I5K3GdLl"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "fireball",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/fireball.webp",
-            "name": "Fireball",
-            "sort": 300000,
             "type": "spell"
         },
         {
@@ -509,9 +371,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -545,13 +404,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -570,12 +434,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "evocation"
@@ -617,7 +475,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
@@ -625,7 +482,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
-            "sort": 400000,
+            "sort": 300000,
             "type": "spell"
         },
         {
@@ -640,9 +497,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -668,13 +522,11 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
-                "heightenedLevel": {
-                    "value": 2
-                },
                 "level": {
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -733,7 +585,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
@@ -741,7 +592,7 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 500000,
+            "sort": 400000,
             "type": "spell"
         },
         {
@@ -756,9 +607,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -859,7 +707,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gISYsBFby1TiXfBt"
@@ -867,7 +714,7 @@
             },
             "img": "systems/pf2e/icons/spells/acid-splash.webp",
             "name": "Acid Splash",
-            "sort": 600000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -882,9 +729,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -974,7 +818,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.izcxFQFwf3woCnFs"
@@ -982,7 +825,7 @@
             },
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
-            "sort": 700000,
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -998,9 +841,6 @@
                 "areasize": {
                     "value": "varies"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1033,13 +873,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -1058,12 +907,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1106,7 +949,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
@@ -1114,139 +956,7 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 800000,
-            "type": "spell"
-        },
-        {
-            "_id": "dt4JBDeOaSURWz8c",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "varies"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "positive"
-                            },
-                            "value": "1d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 1
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "v9rkDlk2I5K3GdLl"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "heal",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "1 to 3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "positive"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/heal.webp",
-            "name": "Heal",
-            "sort": 900000,
+            "sort": 700000,
             "type": "spell"
         },
         {
@@ -1262,9 +972,6 @@
                 "areasize": {
                     "value": "varies"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1297,13 +1004,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 2
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -1322,12 +1034,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1370,7 +1076,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
@@ -1378,7 +1083,7 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 1000000,
+            "sort": 800000,
             "type": "spell"
         },
         {
@@ -1394,9 +1099,6 @@
                 "areasize": {
                     "value": "varies"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1429,13 +1131,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 3
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -1454,12 +1161,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1502,7 +1203,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
@@ -1510,7 +1210,7 @@
             },
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
-            "sort": 1100000,
+            "sort": 900000,
             "type": "spell"
         },
         {
@@ -1525,9 +1225,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1553,13 +1250,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 1
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "v9rkDlk2I5K3GdLl"
                 },
                 "materials": {
@@ -1615,7 +1310,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.zlnXpME1T2uvn8Lr"
@@ -1623,7 +1317,7 @@
             },
             "img": "systems/pf2e/icons/spells/pass-without-trace.webp",
             "name": "Pass Without Trace",
-            "sort": 1200000,
+            "sort": 1000000,
             "type": "spell"
         },
         {
@@ -1638,9 +1332,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1731,7 +1422,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.SnjhtQYexDtNDdEg"
@@ -1739,7 +1429,7 @@
             },
             "img": "systems/pf2e/icons/spells/stabelize.webp",
             "name": "Stabilize",
-            "sort": 1300000,
+            "sort": 1100000,
             "type": "spell"
         },
         {
@@ -1753,9 +1443,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -1877,7 +1564,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.MVAWttmT0QDa7LsV"
@@ -1885,7 +1571,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/longbow.webp",
             "name": "Longbow",
-            "sort": 1400000,
+            "sort": 1200000,
             "type": "weapon"
         },
         {
@@ -1895,9 +1581,6 @@
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -1997,7 +1680,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
@@ -2005,16 +1687,13 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
             "name": "Leather Armor",
-            "sort": 1500000,
+            "sort": 1300000,
             "type": "armor"
         },
         {
             "_id": "7l811k9gbgtd14ac",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -2081,20 +1760,16 @@
                     "value": 0
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "leather armor",
-            "sort": 1600000,
+            "sort": 1400000,
             "type": "equipment"
         },
         {
             "_id": "w8pnk0mctdxhloqc",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": "null",
                 "description": {
                     "value": ""
@@ -2161,11 +1836,10 @@
                     "value": 0
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "+1 longbow",
-            "sort": 1700000,
+            "sort": 1500000,
             "type": "equipment"
         },
         {
@@ -2206,11 +1880,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1800000,
+            "sort": 1600000,
             "type": "melee"
         },
         {
@@ -2251,11 +1924,10 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longbow",
-            "sort": 1900000,
+            "sort": 1700000,
             "type": "melee"
         },
         {
@@ -2290,11 +1962,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
-            "sort": 2000000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -2320,11 +1991,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -2350,11 +2020,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2200000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2380,11 +2049,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Astrology Lore",
-            "sort": 2300000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2410,11 +2078,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 2400000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2440,11 +2107,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2500000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2470,11 +2136,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2600000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],

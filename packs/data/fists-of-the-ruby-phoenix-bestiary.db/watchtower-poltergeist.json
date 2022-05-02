@@ -42,15 +42,20 @@
                 "value": 24
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 20"
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "20"
+                    }
+                ],
+                "value": "0"
             }
         },
         "details": {
             "alignment": {
                 "value": "LE"
             },
-            "blurb": "",
+            "blurb": "Variant poltergeist",
             "creatureType": "Spirit",
             "level": {
                 "value": 14
@@ -99,10 +104,9 @@
             },
             "dr": [
                 {
-                    "exceptions": "force or ghost touch or positive; double resistance vs. non-magical",
-                    "label": "All",
+                    "exceptions": "except force or ghost touch or positive; double resistance vs. non-magical",
                     "type": "all",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [],
@@ -130,12 +134,11 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "wBKGpIKY3BTANzqY",
+            "_id": "TuusItULJtoU0KFG",
             "data": {
                 "autoHeightenLevel": {
                     "value": null
@@ -146,20 +149,17 @@
                 "displayLevels": {},
                 "prepared": {
                     "flexible": false,
-                    "value": "Innate"
+                    "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
                     "value": false
                 },
-                "signatureSpells": {
-                    "value": []
+                "showUnpreparedSpells": {
+                    "value": true
                 },
                 "slots": {
                     "slot0": {
@@ -229,7 +229,6 @@
                 },
                 "spelldc": {
                     "dc": 35,
-                    "item": 0,
                     "mod": 0,
                     "value": 25
                 },
@@ -242,7 +241,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
@@ -250,7 +248,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "OEwmQQDbleoK1HcR",
+            "_id": "vamAWdElJop77hnu",
             "data": {
                 "ability": {
                     "value": ""
@@ -259,8 +257,8 @@
                     "areaType": "",
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -287,15 +285,23 @@
                     "value": false
                 },
                 "level": {
-                    "value": 7
+                    "value": 2
                 },
                 "location": {
-                    "value": "wBKGpIKY3BTANzqY"
+                    "heightenedLevel": 7,
+                    "uses": {
+                        "max": 1,
+                        "value": 1
+                    },
+                    "value": "TuusItULJtoU0KFG"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -309,9 +315,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "telekinetic-maneuver",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=333"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -340,25 +352,28 @@
                     ]
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
+                }
+            },
             "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
-            "name": "Telekinetic Maneuver",
+            "name": "Telekinetic Maneuver (at will)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "PQtYX0LsSwVsxZLo",
+            "_id": "waW7vyrWp7PRaz84",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": ""
-                },
-                "autoHeightenLevel": {
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -376,7 +391,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -388,12 +403,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "wBKGpIKY3BTANzqY"
+                    "value": "TuusItULJtoU0KFG"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -407,9 +425,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -437,8 +461,11 @@
                     ]
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pwzdSlJgYqN7bs2w"
+                }
+            },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
             "sort": 300000,
@@ -486,7 +513,6 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Telekinetic Object",
@@ -528,7 +554,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -540,7 +565,7 @@
             "type": "action"
         },
         {
-            "_id": "Yi4K7PbKaZWlXxWj",
+            "_id": "N4NERVzWq3cN1bOE",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -552,13 +577,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A poltergeist is tied to a location and can't travel more than 120 feet from the place where it was created or formed. Some poltergeists are instead bound to a specific room, building, or similar area</p>\n<p>The poltergeist is tied to its watchtower.</p>"
+                    "value": "<p>The poltergeist is tied to its watchtower.</p>\n<hr />\n<p>A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location.</p>"
                 },
                 "requirements": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-site-bound",
                 "source": {
                     "value": ""
                 },
@@ -574,11 +599,59 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.BcSlVpaN72LoQ5BV"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Site Bound",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "H5wuUVHcFAs1pWa5",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -616,15 +689,14 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Natural Invisibility",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "pvdHMw62l3uanob8",
+            "_id": "nZVJ9WLCbntcMOnT",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -635,14 +707,15 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>When the watchtower poltergeist is destroyed, it re-forms, fully healed, at the watchtower after 12 hours. Destroying the poltergeist and lighting its watchtower's brazier permanently destroys it.</p>"
                 },
                 "requirements": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-rejuvenation",
                 "source": {
                     "value": ""
                 },
@@ -650,8 +723,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "necromancy",
-                        "occult"
+                        "divine",
+                        "necromancy"
                     ]
                 },
                 "trigger": {
@@ -661,11 +734,14 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.unR8VVR4yyRnsmnB"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -703,11 +779,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Telekinetic Defense",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -751,11 +826,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Frighten",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -797,11 +871,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Telekinetic Storm",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -827,11 +900,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -857,11 +929,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -887,11 +958,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         }
     ],

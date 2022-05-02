@@ -1,10 +1,9 @@
-import { CharacterPF2e } from "@actor/character";
-import { NPCPF2e } from "@actor/npc";
-import { EffectPF2e } from "@item/effect";
+import { CharacterPF2e, NPCPF2e } from "@actor";
+import { EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ErrorPF2e } from "@util";
-import { ActionDefaultOptions } from "@system/actions/actions";
+import { ActionDefaultOptions } from "@system/action-macros";
 import { LocalizePF2e } from "@system/localize";
+import { ErrorPF2e } from "@util";
 
 /** Effect: Raise a Shield */
 const ITEM_UUID = "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr";

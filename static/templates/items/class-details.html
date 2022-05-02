@@ -281,21 +281,6 @@
     </ul>
 </div>
 
-<div class="form-group form-group-trait">
-    <label class="pf-title">
-        {{localize "PF2E.AbilityBoostLevels"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityBoostLevels" data-config-types="levels" data-property="data.abilityBoostLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
-    </label>
-
-    <ul class="abc-traits-list">
-        {{#each abilityBoostLevels}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
-            {{/if}}
-        {{/each}}
-    </ul>
-</div>
-
 {{~#*inline "abcItem"~}}
     <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
         <img src="{{item.img}}">
@@ -314,14 +299,14 @@
 {{~/inline~}}
 
 {{~#*inline "abcItems"~}}
-<ul class="abc-items">
+<ul class="item-refs">
     {{#each items}}
         {{#> abcItem item=this.item i=this.key}}{{@partial-block}}{{/abcItem}}
     {{/each}}
 </ul>
 {{~/inline~}}
 
-<div class="form-group-stacked abc-list" data-valid-drops="classfeature">
+<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
     <label for="data.traits">
         {{localize "PF2E.ClassFeatures"}}
     </label>

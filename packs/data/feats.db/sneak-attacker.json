@@ -34,12 +34,21 @@
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
-                        "target:flatFooted"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile",
-                        "ranged"
+                        "target:condition:flat-footed",
+                        {
+                            "or": [
+                                "finesse",
+                                "agile",
+                                {
+                                    "and": [
+                                        "ranged",
+                                        {
+                                            "not": "thrown"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
                 "selector": "strike-damage",
@@ -76,7 +85,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Sneak Attacker",

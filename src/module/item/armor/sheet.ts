@@ -2,6 +2,7 @@ import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { LocalizePF2e } from "@system/localize";
 import { getPropertySlots } from "../runes";
 import { ArmorPF2e } from ".";
+import { createSheetTags } from "@module/sheet/helpers";
 
 export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     override async getData() {
@@ -28,7 +29,7 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             preciousMaterials: CONFIG.PF2E.preciousMaterials,
             preciousMaterialGrades: CONFIG.PF2E.preciousMaterialGrades,
             sizes: CONFIG.PF2E.actorSizes,
-            traits: this.prepareOptions(CONFIG.PF2E.armorTraits, sheetData.item.data.traits, { selectedOnly: true }),
+            traits: createSheetTags(CONFIG.PF2E.armorTraits, sheetData.item.data.traits),
             ...propertyRuneSlots,
         };
     }

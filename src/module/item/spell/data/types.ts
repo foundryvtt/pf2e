@@ -1,10 +1,10 @@
 import { SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
-import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
+import { ItemLevelData, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { DamageType } from "@module/damage-calculation";
-import { ValuesList, OneToTen } from "@module/data";
+import { DamageType } from "@system/damage";
+import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
 
@@ -43,7 +43,23 @@ export interface SpellDamage {
     type: SpellDamageType;
 }
 
-export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
+export interface SpellHeighteningInterval {
+    type: "interval";
+    interval: number;
+    damage: Record<string, string>;
+}
+
+export interface SpellHeighteningFixed {
+    type: "fixed";
+    levels: Record<OneToTen, Partial<SpellSystemData>>;
+}
+
+export interface SpellHeightenLayer {
+    level: number;
+    data: Partial<SpellSystemData>;
+}
+
+export interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     traits: SpellTraits;
     level: {
         value: OneToTen;
@@ -86,10 +102,7 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     damage: {
         value: Record<string, SpellDamage>;
     };
-    scaling?: {
-        interval: number;
-        damage: Record<string, string>;
-    };
+    heightening?: SpellHeighteningFixed | SpellHeighteningInterval;
     save: {
         basic: string;
         value: SaveType | "";
@@ -105,18 +118,20 @@ export interface SpellSystemSource extends ItemSystemData, ItemLevelData {
     ability: {
         value: AbilityString;
     };
-    location: {
-        value: string;
-    };
-    heightenedLevel?: {
-        value: number;
-    };
     hasCounteractCheck: {
         value: boolean;
     };
-    autoHeightenLevel: {
-        value: OneToTen | null;
+    location: {
+        value: string;
+        signature?: boolean;
+        heightenedLevel?: number;
+
+        /** The level to heighten this spell to if it's a cantrip or focus spell */
+        autoHeightenLevel?: OneToTen | null;
+
+        /** Number of uses if this is an innate spell */
+        uses?: ValueAndMax;
     };
 }
 
-export type SpellSystemData = SpellSystemSource;
+export type SpellSystemData = SpellSystemSource & ItemSystemData;

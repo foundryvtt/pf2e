@@ -563,7 +563,7 @@ declare global {
 
     interface DocumentConstructionContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
         parent?: T["parent"];
-        compendium?: CompendiumCollection | null;
+        pack?: string;
         [key: string]: unknown;
     }
 

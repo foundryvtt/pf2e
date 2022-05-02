@@ -2,7 +2,7 @@ import { HazardData } from "./data";
 import { ActorPF2e } from "@actor/index";
 import { Rarity } from "@module/data";
 import { SaveType, SAVE_TYPES } from "@actor/data";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 
@@ -26,8 +26,13 @@ export class HazardPF2e extends ActorPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.data.attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
-        this.data.data.attributes.hp.negativeHealing = false;
+
+        const { attributes } = this;
+        attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
+
+        attributes.hp.negativeHealing = false;
+        attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
+        attributes.hasHealth = attributes.hp.max > 0;
     }
 
     override prepareDerivedData(): void {
@@ -75,7 +80,8 @@ export class HazardPF2e extends ActorPF2e {
             const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
 
             // Saving Throws with a value of 0 are not usable by the hazard
-            if (base === 0) return saves;
+            // Later on we'll need to explicitly check for null, since 0 is supposed to be valid
+            if (!base) return saves;
 
             const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
             const stat = new Statistic(this, {

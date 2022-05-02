@@ -1,32 +1,6 @@
 export {};
 
 declare global {
-    interface ClientSettingsData {
-        default: unknown;
-        name: string;
-        scope: "world" | "client";
-        hint?: string;
-        config?: boolean;
-        type?: NumberConstructor | StringConstructor | BooleanConstructor | ObjectConstructor | FunctionConstructor;
-        range?: this["type"] extends NumberConstructor ? { min: number; max: number; step: number } : undefined;
-        choices?: Record<string, string> | Record<number, string>;
-        onChange?: (choice?: string) => void | Promise<void>;
-    }
-
-    interface SettingsMenuConstructor {
-        new (object?: {}, options?: FormApplicationOptions): FormApplication;
-        registerSettings(): void;
-    }
-
-    interface SettingsMenuData {
-        name: string;
-        label: string;
-        hint: string;
-        icon: string;
-        type: SettingsMenuConstructor;
-        restricted: boolean;
-    }
-
     interface ClientSettingsStorage extends Map<string, Storage | WorldSettingsStorage> {
         get(key: "client"): Storage;
         get(key: "world"): WorldSettingsStorage;
@@ -49,7 +23,7 @@ declare global {
          */
         storage: ClientSettingsStorage;
 
-        constructor(worldSettings: ClientSettingsData);
+        constructor(worldSettings: SettingConfig);
 
         /** Return a singleton instance of the Game Settings Configuration app */
         get sheet(): SettingsConfig;
@@ -98,7 +72,7 @@ declare global {
          *   }
          * });
          */
-        register(module: string, key: string, data: ClientSettingsData): void;
+        register(module: string, key: string, data: SettingRegistration): void;
 
         /**
          * Register a new sub-settings menu
@@ -118,7 +92,7 @@ declare global {
          *   restricted: true                   // Restrict this submenu to gamemaster only?
          * });
          */
-        registerMenu(module: string, key: string, data: SettingsMenuData): void;
+        registerMenu(module: string, key: string, data: SettingSubmenuConfig): void;
 
         /**
          * Get the value of a game setting for a certain module and setting key
@@ -146,8 +120,13 @@ declare global {
         update(key: string, value: any): Promise<any>;
     }
 
-    interface ClientSettingsMap extends Map<string, ClientSettingsData> {
-        get(key: "core.defaultToken"): ClientSettingsData & { default: PreCreate<foundry.data.PrototypeTokenSource> };
+    interface SettingRegistration extends Omit<SettingConfig, "config" | "key" | "namespace" | "scope"> {
+        config?: boolean;
+        scope?: "client" | "world";
+    }
+
+    interface ClientSettingsMap extends Map<string, SettingConfig> {
+        get(key: "core.defaultToken"): SettingConfig & { default: PreCreate<foundry.data.PrototypeTokenSource> };
     }
 
     /** A simple interface for World settings storage which imitates the API provided by localStorage */

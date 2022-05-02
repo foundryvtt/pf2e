@@ -52,6 +52,29 @@ export class FeatPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        const traits = this.data.data.traits.value;
+
+        // Add the General trait if of the general feat type
+        if (this.featType === "general" && !traits.includes("general")) {
+            traits.push("general");
+        }
+
+        if (this.featType === "skill") {
+            // Add the Skill trait
+            if (!traits.includes("skill")) traits.push("skill");
+
+            // Add the General trait only if the feat is not an archetype skill feat
+            if (!traits.includes("general") && !traits.includes("archetype")) {
+                traits.push("general");
+            }
+        }
+
+        // Only archetype feats can have the dedication trait
+        if (traits.includes("dedication")) {
+            this.featType === "archetype";
+            if (!traits.includes("archetype")) traits.push("archetype");
+        }
+
         // Feats with the Lineage trait can only ever be taken at level 1
         if (this.data.data.traits.value.includes("lineage")) {
             this.data.data.onlyLevel1 = true;
@@ -86,7 +109,12 @@ export class FeatPF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        return super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const baseOptions = super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0"));
+        const featTypeInfix = this.isFeature ? "feature-type" : "feat-type";
+        const featTypeSuffix = this.featType.replace("feature", "");
+
+        return [...baseOptions, `${delimitedPrefix}${featTypeInfix}:${featTypeSuffix}`];
     }
 
     /* -------------------------------------------- */
@@ -98,6 +126,12 @@ export class FeatPF2e extends ItemPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Ensure an empty-string `location` property is null
+        if (typeof changed.data?.location === "string") {
+            changed.data.location ||= null;
+        }
+
+        // Normalize action counts
         const actionCount = changed.data?.actions;
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
@@ -114,7 +148,7 @@ export class FeatPF2e extends ItemPF2e {
                 traits.findSplice((t) => t === "lineage");
             }
         } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.data?.onlyLevel1) {
-            mergeObject(changed, { data: { maxTaken: 1 } });
+            mergeObject(changed, { data: { maxTakable: 1 } });
         }
 
         await super._preUpdate(changed, options, user);

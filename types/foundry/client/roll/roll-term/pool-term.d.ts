@@ -13,8 +13,8 @@ declare global {
      * });
      * pool.evaluate();
      */
-    class PoolTerm extends RollTerm<PoolTermData> {
-        constructor({ terms, modifiers, rolls, results, options }?: PoolTermData);
+    class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTerm<TData> {
+        constructor({ terms, modifiers, rolls, results, options }?: TData);
 
         /** The original provided terms to the Dice Pool */
         terms: RollTerm[];
@@ -46,8 +46,7 @@ declare global {
         /** A regular expression pattern used to identify the closing of a dice pool expression. */
         static CLOSE_REGEXP: RegExp;
 
-        /** @override */
-        static SERIALIZE_ATTRIBUTES: ["terms", "modifiers", "rolls", "results"];
+        static override SERIALIZE_ATTRIBUTES: ["terms", "modifiers", "rolls", "results"];
 
         /* -------------------------------------------- */
         /*  Dice Pool Attributes                        */
@@ -56,11 +55,9 @@ declare global {
         /** Return an Array of each individual DiceTerm instances contained within the PoolTerm. */
         get dice(): DiceTerm[];
 
-        /** @override */
-        get expression(): string;
+        override get expression(): string;
 
-        /** @override */
-        get total(): number | undefined;
+        override get total(): number | undefined;
 
         /** Return an array of rolled values which are still active within the PoolTerm */
         get values(): number[];
@@ -74,17 +71,12 @@ declare global {
          */
         alter(...args: unknown[]): this[];
 
-        /** @override */
-        protected _evaluateSync({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Evaluated<this>;
+        protected override _evaluateSync({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Evaluated<this>;
 
-        /** @override */
-        protected _evaluate({
+        protected override _evaluate({
             minimize,
             maximize,
-        }?: {
-            minimize?: boolean;
-            maximize?: boolean;
-        }): Promise<Evaluated<this>>;
+        }?: Omit<EvaluateRollParams, "async">): Promise<Evaluated<this>>;
 
         /**
          * Use the same logic as for the DiceTerm to avoid duplication
@@ -102,8 +94,10 @@ declare global {
         /*  Saving and Loading                          */
         /* -------------------------------------------- */
 
-        /** @override */
-        protected static _fromData<D extends PoolTermData, T extends RollTerm<D>>(this: ConstructorOf<T>, data: D): T;
+        protected static override _fromData<D extends RollTermData, T extends RollTerm<D>>(
+            this: ConstructorOf<T>,
+            data: D
+        ): T;
 
         /**
          * Given a string formula, create and return an evaluated PoolTerm object
@@ -111,14 +105,18 @@ declare global {
          * @param [options] Additional options applied to the PoolTerm
          * @return The evaluated PoolTerm object or null if the formula is invalid
          */
-        static fromExpression(formula: string, options?: Record<string, unknown>): PoolTerm | null;
+        static fromExpression<D extends PoolTermData, T extends PoolTerm<D>>(
+            this: ConstructorOf<T>,
+            formula: string,
+            options?: Record<string, unknown>
+        ): T | null;
 
         /**
          * Create a PoolTerm by providing an array of existing Roll objects
          * @param rolls An array of Roll objects from which to create the pool
          * @returns The constructed PoolTerm comprised of the provided rolls
          */
-        static fromRolls(rolls?: Roll[]): PoolTerm;
+        static fromRolls(rolls?: Roll[]): PoolTerm<PoolTermData>;
 
         /* -------------------------------------------- */
         /*  Modifiers                                   */

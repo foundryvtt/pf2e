@@ -1,11 +1,11 @@
 import { ActionType, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
-import { ActionPF2e } from ".";
+import { ActionItemPF2e } from ".";
 import { OneToThree } from "@module/data";
 
 export type ActionSource = BaseNonPhysicalItemSource<"action", ActionSystemData>;
 
-export class ActionData extends BaseNonPhysicalItemData<ActionPF2e> {
+export class ActionData extends BaseNonPhysicalItemData<ActionItemPF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/action.svg";
 }
 
@@ -35,4 +35,5 @@ interface ActionSystemData extends ItemSystemData {
     trigger: {
         value: string;
     };
+    deathNote: boolean;
 }

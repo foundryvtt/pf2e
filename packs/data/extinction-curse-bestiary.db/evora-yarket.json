@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "N"
             },
-            "blurb": "",
+            "blurb": "Female half-orc mammoth trainer",
             "creatureType": "",
             "level": {
                 "value": 7
@@ -90,7 +90,7 @@
                 "value": [
                     "common",
                     "hallit",
-                    "orc"
+                    "orcish"
                 ]
             },
             "rarity": "unique",
@@ -110,24 +110,19 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "aaYhpiHtzMzj0Hv4",
+            "_id": "mGBjl8y8lB2kGFjC",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>A <em>bullhook</em> is a stout rod about 4 feet long with a blunt hook on the end. Too dull to be useful as a weapon, a <em>bullhook</em> is instead used to direct animals in training or in performing their tasks. A <em>bullhook</em> grants you a +2 item bonus to Nature checks to Command an Animal while you are holding it.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You wave the <em>bullhook</em> to produce the effects of a first level <em>@Compendium[pf2e.spells-srd.Command]{Command}</em> spell (DC 18). This spell loses the linguistic trait and can target only animals.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of <em>command</em> of the appropriate level.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Nature checks to Command an Animal</li>\n</ul>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -174,7 +169,7 @@
                         "label": "Bullhook (Command an Animal)",
                         "predicate": {
                             "any": [
-                                "command-an-animal"
+                                "action:command-an-animal"
                             ]
                         },
                         "selector": "nature",
@@ -183,9 +178,9 @@
                     }
                 ],
                 "size": "med",
-                "slug": null,
+                "slug": "bullhook",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #152: Legacy of the Lost God"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -203,8 +198,11 @@
                     "value": "1"
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.2EOeljZiUdNVf8s2"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/held-items/bullhook.webp",
             "name": "Bullhook",
             "sort": 100000,
@@ -249,12 +247,56 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Falling Stone Unarmed Attack",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "cZEvbEpDTZmmwmdY",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "QR5bODSKMiojeESn",
@@ -268,8 +310,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Evora would be reduced to 0 Hit Points but not immediately killed</p>\n<p><strong>Effect</strong> Evora avoids being knocked out and remains at 1 Hit Point, and her wounded condition increases by 1.</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Evora would be reduced to 0 Hit Points but not immediately killed</p>\n</div>\n<p><strong>Effect</strong> Evora avoids being knocked out and remains at 1 Hit Point, and her @Compendium[pf2e.conditionitems.Wounded]{Wounded} condition increases by 1.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -291,11 +334,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Orc Ferocity",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -333,11 +375,62 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Stand Still",
-            "sort": 400000,
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "Cgn2V1u3dIaaSjCc",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Successful Fortitude saves are critical successes instead</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "fortitude",
+                        "type": "save"
+                    },
+                    {
+                        "key": "Note",
+                        "selector": "fortitude",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Fortitude save, you get a critical success instead.</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Successful Fortitude saves are critical successes instead",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -353,7 +446,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Effect</strong> Evora makes two unarmed Strikes. If both hit the same creature, combine their damage and apply resistances and weaknesses only once. She applies her multiple attack penalty to the Strikes normally. As it has the flourish trait, Evora can use Flurry of Blows only once per turn.</p>"
+                    "value": "<p><strong>Effect</strong> Evora makes two unarmed Strikes. If both hit the same creature, combine their damage and apply resistances and weaknesses only once. She applies her multiple attack penalty to the Strikes normally.</p>\n<p>As it has the flourish trait, Evora can use Flurry of Blows only once per turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -377,11 +470,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flurry of Blows",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -397,12 +489,55 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Evora is unarmored and touching the ground</p>\n<p><strong>Effect</strong> Evora enters the stance of an implacable mountain until she is knocked out or the encounter ends. She gains a +4 status bonus to AC and a +2 circumstance bonus to any defenses against being Shoved or Tripped. Her Speed is reduced by 5 feet.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> Evora is unarmored and touching the ground</p>\n<p><strong>Effect</strong> Evora enters the stance of an implacable mountain until she is knocked out or the encounter ends. She gains a +4 status bonus to AC and a +2 circumstance bonus to any defenses against being Shoved or Tripped. Her Speed is reduced by 5 feet.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mountain-stance",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mountain-stance"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "status",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mountain-stance"
+                            ]
+                        },
+                        "selector": "speed",
+                        "value": -5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mountain-stance"
+                            ],
+                            "any": [
+                                "action:shove",
+                                "action:trip"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -421,11 +556,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Mountain Stance",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -441,12 +575,31 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Evora is in Mountain Stance</p>\n<p><strong>Effect</strong> Evora gains a +2 circumstance bonus to AC until the beginning of her next turn.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> Evora is in Mountain Stance</p>\n<p><strong>Effect</strong> Evora gains a +2 circumstance bonus to AC until the beginning of her next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "mountain-stronghold",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mountain-stance",
+                                "mountain-stronghold"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -463,11 +616,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Mountain Stronghold",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -493,11 +645,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -523,11 +674,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -553,11 +703,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -583,11 +732,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -613,11 +761,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -643,11 +790,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         }
     ],

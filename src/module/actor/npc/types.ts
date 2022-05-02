@@ -37,6 +37,17 @@ interface WithAdjustments {
     adjustedLower?: boolean;
 }
 
+interface VariantCloneParams {
+    name?: string;
+    description?: string;
+    img?: {
+        actor?: ImagePath;
+        token?: VideoPath;
+    };
+    save?: boolean;
+    keepId?: boolean;
+}
+
 interface NPCSystemSheetData extends NPCSystemData {
     attributes: NPCAttributes & {
         ac: NPCArmorClass & WithAdjustments;
@@ -82,10 +93,6 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     unspecificLoreProgression?: string;
     isNotCommon?: boolean;
     actorSize?: string;
-    traits?: Record<string, string>;
-    immunities?: Record<string, string>;
-    hasImmunities?: boolean;
-    languages?: Record<string, string>;
     isWeak?: boolean;
     isElite?: boolean;
     eliteState: "active" | "inactive";
@@ -121,4 +128,11 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
     };
 };
 
-export { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData };
+export {
+    NPCActionSheetData,
+    NPCAttackSheetData,
+    NPCSheetData,
+    NPCSheetItemData,
+    NPCSystemSheetData,
+    VariantCloneParams,
+};

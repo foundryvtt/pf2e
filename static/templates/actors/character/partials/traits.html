@@ -25,24 +25,22 @@
 
 <div class="pc pc_bonus-bulk encumbered">
     <label class="details-label" for="{{options.id}}-bonus-encumbrance-bulk">{{localize "PF2E.BonusEncumbranceBulkLabel"}}</label>
-    <input class="details-input {{#if adjustedBonusEncumbranceBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-encumbrance-bulk" type="number" 
+    <input type="number" class="details-input {{#if adjustedBonusEncumbranceBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-encumbrance-bulk"
         data-property="data.attributes.bonusEncumbranceBulk" value="{{data.attributes.bonusEncumbranceBulk}}" placeholder="0" />
 </div>
 <div class="pc pc_bonus-bulk">
     <label class="details-label" for="{{options.id}}-bonus-limit-bulk">{{localize "PF2E.BonusLimitBulkLabel"}}</label>
-    <input class="details-input {{#if adjustedBonusLimitBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-limit-bulk" type="number"
+    <input type="number" class="details-input {{#if adjustedBonusLimitBulk}}adjusted{{/if}}" id="{{options.id}}-bonus-limit-bulk"
         data-property="data.attributes.bonusLimitBulk" value="{{data.attributes.bonusLimitBulk}}" placeholder="0" />
 </div>
 <div class="character-traits">
     <div class="pc pc_speed-types">
         <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
         <ol class="tags">
-            {{#each data.attributes.speed.otherSpeeds as |speed k|}}
-            <li class="tag tag_alt {{k}}" title="{{speed.breakdown}}">
-                {{localize speed.label}} ({{speed.total}})
-            </li>
+            {{#each data.attributes.speed.otherSpeeds as |speed|}}
+                <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{localize speed.label}} ({{speed.total}})</li>
             {{/each}}
-            {{#if @root.owner}}
+            {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
                     <a class="crb-trait-selector" data-trait-selector="speed-types">
                         {{> systems/pf2e/templates/actors/character/icons/plus.html}}
@@ -52,14 +50,12 @@
         </ol>
     </div>
     <div class="pc pc_senses">
-        <span class="details-label">
-            {{localize "PF2E.Senses"}}
-        </span>
+        <span class="details-label">{{localize "PF2E.Senses"}}</span>
         <ol class="tags">
-            {{#each data.traits.senses as |sense k|}}
-                {{#if sense.label}}<li class="tag tag_alt {{k}}">{{sense.label}}</li>{{/if}}
+            {{#each data.traits.senses as |sense slug|}}
+                {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
             {{/each}}
-            {{#if @root.owner}}
+            {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
                     <a class="crb-trait-selector" data-trait-selector="senses">
                         {{> systems/pf2e/templates/actors/character/icons/plus.html}}
@@ -69,16 +65,12 @@
         </ol>
     </div>
     <div class="pc pc_languages">
-        <span class="details-label">
-            {{localize 'PF2E.Languages'}}
-        </span>
+        <span class="details-label">{{localize "PF2E.Languages"}}</span>
         <ul class="tags">
-            {{#each data.traits.languages.selected as |v k|}}
-            <li class="tag tag_alt {{k}}">
-                {{localize v}}
-            </li>
+            {{#each languages as |language slug|}}
+                <li class="tag tag_alt" data-slug="{{slug}}">{{localize language.label}}</li>
             {{/each}}
-            {{#if @root.owner}}
+            {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
                     <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
                         {{> systems/pf2e/templates/actors/character/icons/plus.html}}
@@ -89,16 +81,12 @@
     </div>
 
     <div class="pc pc_traits">
-        <span class="details-label">
-            {{localize 'PF2E.Traits'}}
-        </span>
+        <span class="details-label">{{localize "PF2E.Traits"}}</span>
         <ul class="tags">
-            {{#each data.traits.traits.selected as |v k|}}
-            <li class="tag tag_alt {{k}}">
-                {{localize v}}
-            </li>
+            {{#each traits as |trait slug|}}
+                <li class="tag tag_alt" data-slug="{{slug}}">{{localize trait.label}}</li>
             {{/each}}
-            {{#if @root.owner}}
+            {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
                     <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
                         {{> systems/pf2e/templates/actors/character/icons/plus.html}}

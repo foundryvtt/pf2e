@@ -4,10 +4,11 @@ import {
     BaseItemSourcePF2e,
     ItemLevelData,
     ItemSystemData,
+    ItemSystemSource,
     ItemTraits,
 } from "../data/base";
 import type { PhysicalItemPF2e } from "@item/physical";
-import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "../data/values";
+import type { ITEM_CARRY_TYPES, PHYSICAL_ITEM_TYPES } from "../data/values";
 import { EquipmentTrait } from "@item/equipment/data";
 import { ArmorTrait } from "@item/armor/data";
 import { WeaponTrait } from "@item/weapon/data";
@@ -15,13 +16,14 @@ import { ConsumableTrait } from "@item/consumable/data";
 import { Size, ValuesList } from "@module/data";
 import { ActionTrait } from "@item/action/data";
 import { UsageDetails } from "./usage";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
 type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
-    TSystemData extends PhysicalSystemData = PhysicalSystemData
-> = BaseItemSourcePF2e<TItemType, TSystemData>;
+    TSystemSource extends PhysicalSystemSource = PhysicalSystemSource
+> = BaseItemSourcePF2e<TItemType, TSystemSource>;
 
 class BasePhysicalItemData<
     TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
@@ -50,42 +52,7 @@ interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e
 
 type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
 
-type MagicItemSystemData = PhysicalSystemData & {
-    equipped: {
-        invested: boolean | null;
-    };
-};
-
-type PreciousMaterialType = typeof PRECIOUS_MATERIAL_TYPES[number];
-type PreciousMaterialGrade = "low" | "standard" | "high";
-
-interface ActivatedEffectData {
-    activation: {
-        type: string;
-        cost: number;
-        condition: string;
-    };
-    duration: {
-        value: unknown;
-        units: string;
-    };
-    target: {
-        value: unknown;
-        units: string;
-        type: string;
-    };
-    range: {
-        value: unknown;
-        long: unknown;
-        units: unknown;
-    };
-    uses: {
-        value: number;
-        max: number;
-        per: number;
-    };
-}
-interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
+interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     traits: PhysicalItemTraits;
     quantity: number;
     baseItem: string | null;
@@ -122,6 +89,43 @@ interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
+}
+
+interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
+    traits: PhysicalItemTraits;
+}
+
+type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData & {
+    equipped: {
+        invested: boolean | null;
+    };
+};
+
+interface ActivatedEffectData {
+    activation: {
+        type: string;
+        cost: number;
+        condition: string;
+    };
+    duration: {
+        value: unknown;
+        units: string;
+    };
+    target: {
+        value: unknown;
+        units: string;
+        type: string;
+    };
+    range: {
+        value: unknown;
+        long: unknown;
+        units: unknown;
+    };
+    uses: {
+        value: number;
+        max: number;
+        per: number;
+    };
 }
 
 type IdentificationStatus = "identified" | "unidentified";
@@ -190,15 +194,14 @@ export {
     IdentificationData,
     IdentificationStatus,
     IdentifiedData,
+    Investable,
     ItemActivation,
     ItemCarryType,
-    MagicItemSystemData,
     MystifiedData,
     PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalItemTraits,
     PhysicalItemType,
     PhysicalSystemData,
-    PreciousMaterialGrade,
-    PreciousMaterialType,
+    PhysicalSystemSource,
 };

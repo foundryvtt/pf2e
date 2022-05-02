@@ -21,7 +21,7 @@
                     "all": [
                         "feature:inexorable-iron",
                         "self:weapon:melee",
-                        "self:weapon:hands:2"
+                        "self:weapon:hands-held:2"
                     ]
                 },
                 "value": "max(floor(@actor.level / 2), 1)"
@@ -105,67 +105,6 @@
                 "prompt": "Select extra damage type"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "melee"
-                    ],
-                    "not": [
-                        "feature:laughing-shadow:damage"
-                    ]
-                },
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 2
-                        },
-                        {
-                            "start": 15,
-                            "value": 3
-                        }
-                    ]
-                }
-            },
-            {
-                "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "label": "Laughing Shadow",
-                "predicate": {
-                    "all": [
-                        "melee",
-                        "feature:laughing-shadow:damage"
-                    ]
-                },
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 3
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 5
-                        },
-                        {
-                            "start": 15,
-                            "value": 7
-                        }
-                    ]
-                }
-            },
-            {
                 "definition": {
                     "all": [
                         "weapon:melee"
@@ -175,6 +114,44 @@
                 "mode": "add",
                 "property": "traits",
                 "value": "arcane"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "weapon:melee"
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        "feature:weapon-specialization"
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": {
+                    "all": [
+                        "weapon:melee",
+                        "feature:greater-weapon-specialization"
+                    ]
+                },
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 3
             }
         ],
         "source": {
@@ -194,7 +171,6 @@
             "value": []
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/arcane-cascade.webp",
     "name": "Stance: Arcane Cascade",

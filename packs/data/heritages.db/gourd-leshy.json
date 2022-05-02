@@ -10,15 +10,17 @@
         },
         "rules": [
             {
-                "key": "ToggleProperty",
-                "label": "Creature stealing from Gourd Leshy's head",
-                "property": "flags.pf2e.rollOptions.perception.gourdLeshy"
+                "domain": "all",
+                "key": "RollOption",
+                "option": "gourd-head",
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.ToggleProperty.GourdHead",
                 "predicate": {
                     "all": [
-                        "gourdLeshy"
+                        "gourd-head"
                     ]
                 },
                 "selector": "perception",
@@ -27,7 +29,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Character Guide"
         },
         "traits": {
             "custom": "",
@@ -35,7 +37,6 @@
             "value": []
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/ancestry/goudy-leshy.webp",
     "name": "Gourd Leshy",

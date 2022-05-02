@@ -29,44 +29,39 @@
         },
         "rules": [
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
-                "predicate": {
-                    "not": [
-                        "feature:hunt-prey"
-                    ]
-                },
                 "uuid": "Compendium.pf2e.actionspf2e.Hunt Prey"
             },
             {
-                "key": "ToggleProperty",
-                "label": "Target is your Hunted Prey (Animal Beast, or Dragon Only)",
-                "property": "flags.pf2e.rollOptions.all.huntedPreyGameHunter"
+                "count": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "grants-hunt-prey",
+                "priority": 99
             },
             {
-                "key": "FlatModifier",
-                "label": "To Seek hunted prey",
-                "predicate": {
+                "domain": "all",
+                "enabledIf": {
                     "all": [
-                        "action:seek",
-                        "huntedPreyGameHunter"
+                        "hunted-prey"
                     ]
                 },
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Track hunted prey",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.GameHunterDedication.TargetHuntedPrey",
+                "option": "huntedPreyGameHunter",
                 "predicate": {
                     "all": [
-                        "action:track",
-                        "huntedPreyGameHunter"
+                        {
+                            "gt": [
+                                "grants-hunt-prey",
+                                1
+                            ]
+                        }
                     ]
                 },
-                "selector": "survival",
-                "type": "circumstance",
-                "value": 2
+                "priority": 101,
+                "toggleable": true
             },
             {
                 "key": "Note",
@@ -76,8 +71,17 @@
                 ],
                 "predicate": {
                     "all": [
+                        "target:condition:flat-footed",
+                        "hunted-prey"
+                    ],
+                    "any": [
                         "huntedPreyGameHunter",
-                        "target:flatFooted"
+                        {
+                            "eq": [
+                                "grants-hunt-prey",
+                                1
+                            ]
+                        }
                     ]
                 },
                 "selector": "attack",
@@ -89,7 +93,12 @@
                 "path": "data.skills.sur.rank",
                 "predicate": {
                     "all": [
-                        "feature:hunt-prey"
+                        {
+                            "gt": [
+                                "grants-hunt-prey",
+                                1
+                            ]
+                        }
                     ]
                 },
                 "value": 2
@@ -99,7 +108,16 @@
                 "label": "Using Stealth against Hunted Prey",
                 "predicate": {
                     "all": [
-                        "huntedPreyGameHunter"
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "huntedPreyGameHunter",
+                        {
+                            "eq": [
+                                "grants-hunt-prey",
+                                1
+                            ]
+                        }
                     ]
                 },
                 "selector": "stealth",
@@ -119,7 +137,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Game Hunter Dedication",

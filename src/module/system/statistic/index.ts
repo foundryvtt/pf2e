@@ -5,7 +5,7 @@ import {
     ProficiencyModifier,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { CheckPF2e, CheckType } from "@system/rolls";
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import {
@@ -20,12 +20,17 @@ import { ItemPF2e } from "@item";
 import { CheckDC } from "@system/degree-of-success";
 import { isObject } from "@util";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { CheckRoll } from "@system/check/roll";
+import { ZeroToFour } from "@module/data";
+import { AbilityString } from "@actor/data";
 
 export * from "./data";
 
 export interface StatisticRollParameters {
     /** Which attack this is (for the purposes of multiple attack penalty) */
     attackNumber?: number;
+    /** Optional target for the roll */
+    target?: ActorPF2e | null;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Any additional options which should be used in the roll. */
@@ -45,6 +50,7 @@ export interface StatisticRollParameters {
 interface RollOptionParameters {
     extraRollOptions?: string[];
     item?: ItemPF2e | null;
+    target?: ActorPF2e | null;
 }
 
 type CheckValue<T extends BaseStatisticData> = T["check"] extends object ? StatisticCheck : null;
@@ -60,19 +66,32 @@ function hasDC(statistic: Statistic<BaseStatisticData>): statistic is Statistic<
 
 /** Object used to perform checks or get dcs, or both. These are created from StatisticData which drives its behavior. */
 export class Statistic<T extends BaseStatisticData = StatisticData> {
-    abilityModifier?: ModifierPF2e;
+    ability: AbilityString | null = null;
+
+    abilityModifier: ModifierPF2e | null = null;
+
+    rank: ZeroToFour | null = null;
+
+    proficient = true;
+
     modifiers: ModifierPF2e[];
 
-    get slug() {
-        return this.data.slug;
-    }
+    slug: string;
 
     constructor(public actor: ActorPF2e, public readonly data: T, public options?: RollOptionParameters) {
+        this.slug = this.data.slug;
+
         // Add some base modifiers depending on data values
         this.modifiers = [data.modifiers ?? []].flat();
-        if (typeof data.rank !== "undefined") {
+
+        if (typeof data.rank === "number") {
+            this.rank = data.rank;
+            this.proficient = this.rank > 0;
             this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+        } else {
+            this.proficient = data.proficient === undefined ? true : !!data.proficient;
         }
+
         if (actor instanceof CharacterPF2e && data.ability) {
             this.abilityModifier = AbilityModifier.fromScore(data.ability, actor.abilities[data.ability].value);
             this.modifiers.unshift(this.abilityModifier);
@@ -81,7 +100,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
         // Pre-test modifiers so that inspection outside of rolls (such as modifier popups) works correctly
         if (data.domains) {
             const options = this.createRollOptions(data.domains, {});
-            this.modifiers?.forEach((mod) => mod.test(options));
+
+            for (const modifier of this.modifiers) {
+                modifier.test(options);
+            }
             data.check?.modifiers?.forEach((mod) => mod.test(options));
             data.dc?.modifiers?.forEach((mod) => mod.test(options));
         }
@@ -107,7 +129,7 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
     }
 
     createRollOptions(domains: string[], args: RollOptionParameters = {}): string[] {
-        const { item, extraRollOptions } = args;
+        const { item, extraRollOptions, target } = args;
 
         const rollOptions: string[] = [];
         if (domains && domains.length) {
@@ -134,6 +156,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
             if (traits.includes("attack")) {
                 rollOptions.push("trait:attack");
             }
+        }
+
+        if (target) {
+            rollOptions.push(...target.getSelfRollOptions("target"));
         }
 
         if (extraRollOptions) {
@@ -239,7 +265,7 @@ class StatisticCheck {
         return { label, penalty };
     }
 
-    async roll(args: StatisticRollParameters = {}) {
+    async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Allow use of events for modules and macros but don't allow it for internal system use
         const { secret, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
@@ -273,8 +299,15 @@ class StatisticCheck {
             args.dc.adjustments.push(...data.check.adjustments);
         }
 
+        const target =
+            args.target ??
+            rollContext?.target?.actor ??
+            Array.from(game.user.targets)
+                .filter((t) => t.actor instanceof CreaturePF2e)
+                .shift()?.document?.actor;
+
         const extraModifiers = [...(args?.modifiers ?? [])];
-        const options = this.parent.createRollOptions(domains, args);
+        const options = this.createRollOptions({ ...args, target });
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -298,7 +331,7 @@ class StatisticCheck {
             actor,
             item,
             target: rollContext?.target ?? null,
-            dc: args.dc ?? rollContext?.target?.dc,
+            dc: args.dc ?? rollContext?.dc,
             notes: data.notes,
             options,
             type: data.check.type,
@@ -306,7 +339,7 @@ class StatisticCheck {
             skipDialog,
         };
 
-        await CheckPF2e.roll(new CheckModifier(this.label, this.#stat, extraModifiers), context, null, args.callback);
+        return CheckPF2e.roll(new CheckModifier(this.label, this.#stat, extraModifiers), context, null, args.callback);
     }
 
     get breakdown() {

@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing, rejuvenation",
                 "max": 115,
                 "temp": 0,
                 "value": 115
@@ -42,15 +42,20 @@
                 "value": 18
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 40"
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "value": "0"
             }
         },
         "details": {
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Ghost adherents of Irori",
             "creatureType": "",
             "level": {
                 "value": 9
@@ -84,19 +89,19 @@
             "di": {
                 "custom": "",
                 "value": [
-                    "paralyzed",
-                    "unconscious",
-                    "poison",
                     "death-effects",
-                    "disease"
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "precision",
+                    "unconscious"
                 ]
             },
             "dr": [
                 {
                     "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "label": "All",
                     "type": "all",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -125,7 +130,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -168,7 +172,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Fist",
@@ -210,7 +213,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -256,7 +258,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Site Bound",
@@ -305,7 +306,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
@@ -317,7 +317,7 @@
             "type": "action"
         },
         {
-            "_id": "L6JppIyhwMZVP7f3",
+            "_id": "8ovtahDiGjKBzpA8",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -328,14 +328,15 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
-                    "value": "<p>When a ghost is destroyed, it re-forms after [[/r 2d4]] days within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting. Completing the ghost's project allows it to move on to the afterlife.</p>\n<hr />\n<p>As ghost. Putting the abbot in <strong>A8</strong> to rest brings peace to the ghost monks, allowing them to move on to the Serene Circle in Axis.</p>"
+                    "value": "<p>Putting the abbot in A8 to rest brings peace to the ghost monks, allowing them to move on to the Serene Circle in Axis.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
                 },
                 "requirements": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-rejuvenation",
                 "source": {
                     "value": ""
                 },
@@ -354,8 +355,11 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.unR8VVR4yyRnsmnB"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
             "sort": 500000,
@@ -398,7 +402,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flurry of Blows",
@@ -406,7 +409,7 @@
             "type": "action"
         },
         {
-            "_id": "t4fXiCly56BpVRCa",
+            "_id": "fyvjzjFjpQ83HfiI",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -415,16 +418,16 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "description": {
-                    "value": "<p>The ghost laments its fate, forcing each living creature within 30 feet to attempt a @Check[type:will|dc:25] save. On a failure, a creature becomes @Compendium[pf2e.conditionitems.Frightened]{frightened 2} (or @Compendium[pf2e.conditionitems.Frightened]{frightened 3} on a critical failure). On a success, a creature is temporarily immune to this ghost's frightful moan for 1 minute.</p>"
+                    "value": "<p>The ghost laments its fate, forcing each living creature within @Template[type:emanation|distance:30]{30 feet} to attempt a @Check[type:will|dc:25] save. On a failure, a creature becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (or @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure). On a success, a creature is temporarily immune to this ghost's frightful moan for 1 minute.</p>"
                 },
                 "requirements": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-frightful-moan",
                 "source": {
                     "value": ""
                 },
@@ -447,15 +450,18 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.aiwlPSmNY9b6Psvd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Frightful Moan",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "ezHMHSKw6wFcsSdU",
+            "_id": "ra6OHHr7SigmnQ88",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -467,13 +473,13 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ghost cries out in pain and anguish as small objects and debris fly about in a @Template[type:emanation|distance:30]. Creatures in this area take [[/r {5d6}[bludgeoning]]]{5d6 bludgeoning damage}, subject to a @Check[type:reflex|dc:25|basic:true] save.</p>"
+                    "value": "<p>The ghost cries out in pain and anguish as small objects and debris fly about in a @Template[type:emanation|distance:30]. Creatures in this area take [[/r {5d6}[bludgeoning]]]{5d6 bludgeoning damage} + 1d6 per 2 levels, subject to a @Check[type:reflex|dc:25|basic:true] save.</p>"
                 },
                 "requirements": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-telekinetic-assault",
                 "source": {
                     "value": ""
                 },
@@ -492,8 +498,11 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.0K3vhX14UEPftqu8"
+                }
+            },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Telekinetic Assault",
             "sort": 800000,
@@ -522,7 +531,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Irori Lore",
@@ -552,7 +560,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
@@ -582,7 +589,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Temple Lore",

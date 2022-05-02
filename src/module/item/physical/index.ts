@@ -9,6 +9,7 @@ import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait }
 import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -86,14 +87,16 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.temporary === true;
     }
 
-    get material() {
+    get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
         const systemData = this.data.data;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
             ? {
-                  type: systemData.preciousMaterial.value,
-                  grade: systemData.preciousMaterialGrade.value,
+                  precious: {
+                      type: systemData.preciousMaterial.value,
+                      grade: systemData.preciousMaterialGrade.value,
+                  },
               }
-            : null;
+            : { precious: null };
     }
 
     get isInContainer(): boolean {
@@ -109,7 +112,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.data.data.containerId === null) return (this._container = null);
 
         const container = this._container ?? this.actor?.items.get(this.data.data.containerId ?? "");
-        if (container?.type === "backpack") this._container = container as Embedded<ContainerPF2e>;
+        if (container?.isOfType("backpack")) this._container = container;
 
         return this._container;
     }
@@ -136,7 +139,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             equipped: this.isEquipped,
             magical: this.isMagical,
             uninvested: this.isInvested === false,
-            [`material:${this.material?.type}`]: !!this.material,
+            [`material:${this.material.precious?.type}`]: !!this.material,
         })
             .filter(([_key, isTrue]) => isTrue)
             .map(([key]) => key)
@@ -218,9 +221,23 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
+    override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
+        if (this.isStowed) {
+            this.data.data.equipped.carryType = "stowed";
+            delete this.data.data.equipped.inSlot;
+        }
+    }
+
     /** Can the provided item stack with this item? */
     isStackableWith(item: PhysicalItemPF2e): boolean {
-        if (this.type !== item.type || this.name !== item.name || this.isIdentified !== item.isIdentified) return false;
+        const preCheck =
+            this !== item &&
+            this.type === item.type &&
+            this.name === item.name &&
+            this.isIdentified === item.isIdentified &&
+            ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
+        if (!preCheck) return false;
+
         const thisData = this.toObject().data;
         const otherData = item.toObject().data;
         thisData.quantity = otherData.quantity;
@@ -263,10 +280,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     override getChatData(): Record<string, unknown> {
-        const material = this.material
+        const { precious } = this.material;
+        const material = precious
             ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
-                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
-                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[this.material.grade]),
+                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[precious.type]),
+                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[precious.grade]),
               })
             : null;
 

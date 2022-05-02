@@ -1,5 +1,5 @@
 import {
-    ActionPF2e,
+    ActionItemPF2e,
     AncestryPF2e,
     BackgroundPF2e,
     BookPF2e,
@@ -24,8 +24,8 @@ import {
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
-import { PreciousMaterialGrade } from "@item/physical/data";
-import { DamageCategory, DamageType } from "@module/damage-calculation";
+import { PreciousMaterialGrade } from "@item/physical/types";
+import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
@@ -56,6 +56,11 @@ import {
     weaponTraits,
 } from "./traits";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { Size } from "@module/data";
+import { FeatType } from "@item/feat/data";
+import { DeityDomain } from "@item/deity/types";
+import { sluggify } from "@util";
+import { Alignment } from "@actor/creature/types";
 
 export type StatusEffectIconTheme = "default" | "blackWhite" | "legacy";
 
@@ -358,11 +363,12 @@ const traitsDescriptions = {
     contact: "PF2E.TraitDescriptionContact",
     contingency: "PF2E.TraitDescriptionContingency",
     contract: "PF2E.TraitDescriptionContract",
+    "critical-fusion": "PF2E.TraitDescriptionCriticalFusion",
     curse: "PF2E.TraitDescriptionCurse",
     cursebound: "PF2E.TraitDescriptionCursebound",
     cursed: "PF2E.TraitDescriptionCursed",
-    "critical-fusion": "PF2E.TraitDescriptionCriticalFusion",
     darkness: "PF2E.TraitDescriptionDarkness",
+    darvakka: "PF2E.TraitDescriptionDarvakka",
     "deadly-2d10": "PF2E.TraitDescriptionDeadly",
     "deadly-2d12": "PF2E.TraitDescriptionDeadly",
     "deadly-2d8": "PF2E.TraitDescriptionDeadly",
@@ -407,7 +413,6 @@ const traitsDescriptions = {
     "fatal-d10": "PF2E.TraitDescriptionFatal",
     "fatal-d12": "PF2E.TraitDescriptionFatal",
     "fatal-d8": "PF2E.TraitDescriptionFatal",
-    "free-hand": "PF2E.TraitDescriptionFreeHand",
     fear: "PF2E.TraitDescriptionFear",
     fetchling: "PF2E.TraitDescriptionFetchling",
     fey: "PF2E.TraitDescriptionFey",
@@ -422,6 +427,7 @@ const traitsDescriptions = {
     force: "PF2E.TraitDescriptionForce",
     forceful: "PF2E.TraitDescriptionForceful",
     fortune: "PF2E.TraitDescriptionFortune",
+    "free-hand": "PF2E.TraitDescriptionFreeHand",
     fulu: "PF2E.TraitDescriptionFulu",
     fungus: "PF2E.TraitDescriptionFungus",
     gadget: "PF2E.TraitDescriptionGadget",
@@ -438,9 +444,10 @@ const traitsDescriptions = {
     grimoire: "PF2E.TraitDescriptionGrimoire",
     grippli: "PF2E.TraitDescriptionGrippli",
     gunslinger: "PF2E.TraitDescriptionGunslinger",
+    halfling: "PF2E.TraitDescriptionHalfling",
     "half-elf": "PF2E.TraitDescriptionHalfElf",
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
-    halfling: "PF2E.TraitDescriptionHalfling",
+    "jousting-d6": "PF2E.TraitDescriptionJoustingD6",
     hampering: "PF2E.TraitDescriptionHampering",
     haunt: "PF2E.TraitDescriptionHaunt",
     healing: "PF2E.TraitDescriptionHealing",
@@ -448,7 +455,6 @@ const traitsDescriptions = {
     hobgoblin: "PF2E.TraitDescriptionHobgoblin",
     human: "PF2E.TraitDescriptionHuman",
     humanoid: "PF2E.TraitDescriptionHumanoid",
-    "jousting-d6": "PF2E.TraitDescriptionJoustingD6",
     ifrit: "PF2E.TraitDescriptionIfrit",
     illusion: "PF2E.TraitDescriptionIllusion",
     incapacitation: "PF2E.TraitDescriptionIncapacitation",
@@ -496,12 +502,13 @@ const traitsDescriptions = {
     oath: "PF2E.TraitDescriptionOath",
     occult: "PF2E.TraitDescriptionOccult",
     oil: "PF2E.TraitDescriptionOil",
-    olfactory: "PF2E.TraitDescrpitionOlfactory",
+    olfactory: "PF2E.TraitDescriptionOlfactory",
     open: "PF2E.TraitDescriptionOpen",
     oracle: "PF2E.TraitDescriptionOracle",
     orc: "PF2E.TraitDescriptionOrc",
     oread: "PF2E.TraitDescriptionOread",
     parry: "PF2E.TraitDescriptionParry",
+    peachwood: "PF2E.PreciousMaterialPeachwoodDescription",
     plant: "PF2E.TraitDescriptionPlant",
     poison: "PF2E.TraitDescriptionPoison",
     polymorph: "PF2E.TraitDescriptionPolymorph",
@@ -511,15 +518,14 @@ const traitsDescriptions = {
     possession: "PF2E.TraitDescriptionPossession",
     potion: "PF2E.TraitDescriptionPotion",
     precious: "PF2E.TraitDescriptionPrecious",
-    ...preciousMaterialDescriptions,
     prediction: "PF2E.TraitDescriptionPrediction",
     press: "PF2E.TraitDescriptionPress",
     primal: "PF2E.TraitDescriptionPrimal",
     propulsive: "PF2E.TraitDescriptionPropulsive",
     rage: "PF2E.TraitDescriptionRage",
+    ranger: "PF2E.TraitDescriptionRanger",
     ...rangeDescriptions,
     "ranged-trip": "PF2E.TraitDescriptionRangedTrip",
-    ranger: "PF2E.TraitDescriptionRanger",
     rare: "PF2E.TraitDescriptionRare",
     ratfolk: "PF2E.TraitDescriptionRatfolk",
     reach: "PF2E.TraitDescriptionReach",
@@ -554,6 +560,7 @@ const traitsDescriptions = {
     shisk: "PF2E.TraitDescriptionShisk",
     shoony: "PF2E.TraitDescriptionShoony",
     shove: "PF2E.TraitDescriptionShove",
+    skeleton: "PF2E.TraitDescriptionSkeleton",
     skill: "PF2E.TraitDescriptionSkill",
     sleep: "PF2E.TraitDescriptionSleep",
     snare: "PF2E.TraitDescriptionSnare",
@@ -570,6 +577,7 @@ const traitsDescriptions = {
     strix: "PF2E.TraitDescriptionStrix",
     structure: "PF2E.TraitDescriptionStructure",
     suli: "PF2E.TraitDescriptionSuli",
+    summon: "PF2E.TraitDescriptionSummon",
     summoned: "PF2E.TraitDescriptionSummoned",
     summoner: "PF2E.TraitDescriptionSummoner",
     swashbuckler: "PF2E.TraitDescriptionSwashbuckler",
@@ -606,11 +614,22 @@ const traitsDescriptions = {
     uncommon: "PF2E.TraitDescriptionUncommon",
     undine: "PF2E.TraitDescriptionUndine",
     unique: "PF2E.TraitDescriptionUnique",
+    unstable: "PF2E.TraitDescriptionUnstable",
+    "versatile-acid": "PF2E.TraitDescriptionVersatile",
     "versatile-b": "PF2E.TraitDescriptionVersatile",
+    "versatile-chaotic": "PF2E.TraitDescriptionVersatile",
+    "versatile-cold": "PF2E.TraitDescriptionVersatile",
+    "versatile-electricity": "PF2E.TraitDescriptionVersatile",
+    "versatile-evil": "PF2E.TraitDescriptionVersatile",
     "versatile-fire": "PF2E.TraitDescriptionVersatile",
+    "versatile-force": "PF2E.TraitDescriptionVersatile",
+    "versatile-good": "PF2E.TraitDescriptionVersatile",
+    "versatile-lawful": "PF2E.TraitDescriptionVersatile",
+    "versatile-negative": "PF2E.TraitDescriptionVersatile",
     "versatile-p": "PF2E.TraitDescriptionVersatile",
     "versatile-positive": "PF2E.TraitDescriptionVersatile",
     "versatile-s": "PF2E.TraitDescriptionVersatile",
+    "versatile-sonic": "PF2E.TraitDescriptionVersatile",
     virulent: "PF2E.TraitDescriptionVirulent",
     visual: "PF2E.TraitDescriptionVisual",
     "volley-20": "PF2E.TraitDescriptionVolley",
@@ -620,6 +639,7 @@ const traitsDescriptions = {
     water: "PF2E.TraitDescriptionWater",
     witch: "PF2E.TraitDescriptionWitch",
     wizard: "PF2E.TraitDescriptionWizard",
+    ...preciousMaterialDescriptions,
 };
 
 const preciousMaterialGrades: Record<PreciousMaterialGrade, string> = {
@@ -659,7 +679,7 @@ const weaponPropertyRunes: Record<string, string> = {
 };
 
 // Creature and Equipment Sizes
-const sizeTypes = {
+const sizeTypes: Record<Size, string> = {
     tiny: "PF2E.ActorSizeTiny",
     sm: "PF2E.ActorSizeSmall",
     med: "PF2E.ActorSizeMedium",
@@ -668,12 +688,49 @@ const sizeTypes = {
     grg: "PF2E.ActorSizeGargantuan",
 };
 
+const featTypes: Record<FeatType, string> = {
+    ancestry: "PF2E.FeatTypeAncestry",
+    ancestryfeature: "PF2E.FeatTypeAncestryfeature",
+    class: "PF2E.FeatTypeClass",
+    classfeature: "PF2E.FeatTypeClassfeature",
+    skill: "PF2E.FeatTypeSkill",
+    general: "PF2E.FeatTypeGeneral",
+    archetype: "PF2E.FeatTypeArchetype",
+    bonus: "PF2E.FeatTypeBonus",
+    pfsboon: "PF2E.FeatPFSBoonHeader",
+    deityboon: "PF2E.FeatDeityBoonHeader",
+    curse: "PF2E.FeatCurseHeader",
+};
+
+const alignments: Record<Alignment, string> = {
+    LG: "PF2E.AlignmentLG",
+    NG: "PF2E.AlignmentNG",
+    CG: "PF2E.AlignmentCG",
+    LN: "PF2E.AlignmentLN",
+    N: "PF2E.AlignmentN",
+    CN: "PF2E.AlignmentCN",
+    LE: "PF2E.AlignmentLE",
+    NE: "PF2E.AlignmentNE",
+    CE: "PF2E.AlignmentCE",
+};
+
+const deityDomains = Object.keys(enJSON.PF2E.Item.Deity.Domain).reduce((domains, key) => {
+    const slug = sluggify(key);
+    const casedKey = sluggify(key, { camel: "bactrian" });
+    return {
+        ...domains,
+        [slug]: {
+            label: `PF2E.Item.Deity.Domain.${casedKey}.Label`,
+            description: `PF2E.Item.Deity.Domain.${casedKey}.Description`,
+        },
+    };
+}, {} as Record<DeityDomain, { label: string; description: string }>);
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
     statusEffects: {
-        overruledByModule: false,
         lastIconType: "default" as StatusEffectIconTheme,
         effectsIconFolder: "systems/pf2e/icons/conditions/",
         effectsIconFileType: "webp",
@@ -958,6 +1015,7 @@ export const PF2ECONFIG = {
         "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
         "held-in-one-hand": "PF2E.TraitHeldOneHand",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
+        other: "Other",
         "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",
         worn: "PF2E.TraitWorn",
@@ -1006,6 +1064,7 @@ export const PF2ECONFIG = {
     classTraits,
     ancestryTraits,
     ancestryItemTraits,
+    deityDomains,
 
     weaponTraits,
     otherWeaponTags,
@@ -1216,20 +1275,13 @@ export const PF2ECONFIG = {
         90: "PF2E.AreaSize90",
         100: "PF2E.AreaSize100",
         120: "PF2E.AreaSize120",
+        500: "PF2E.AreaSize500",
+        1000: "PF2E.AreaSize1000",
+        1320: "PF2E.AreaSizeQuarterMile",
+        5280: "PF2E.AreaSize1Mile",
     },
 
-    alignments: {
-        LG: "PF2E.AlignmentLG",
-        NG: "PF2E.AlignmentNG",
-        CG: "PF2E.AlignmentCG",
-        LN: "PF2E.AlignmentLN",
-        N: "PF2E.AlignmentN",
-        CN: "PF2E.AlignmentCN",
-        LE: "PF2E.AlignmentLE",
-        NE: "PF2E.AlignmentNE",
-        CE: "PF2E.AlignmentCE",
-    },
-
+    alignments,
     alignmentTraits,
 
     attitude: {
@@ -1293,19 +1345,7 @@ export const PF2ECONFIG = {
         10: "PF2E.SpellLevel10",
     }, // TODO: Compute levels!
 
-    featTypes: {
-        ancestry: "PF2E.FeatTypeAncestry",
-        ancestryfeature: "PF2E.FeatTypeAncestryfeature",
-        class: "PF2E.FeatTypeClass",
-        classfeature: "PF2E.FeatTypeClassfeature",
-        skill: "PF2E.FeatTypeSkill",
-        general: "PF2E.FeatTypeGeneral",
-        archetype: "PF2E.FeatTypeArchetype",
-        bonus: "PF2E.FeatTypeBonus",
-        pfsboon: "PF2E.FeatPFSBoonHeader",
-        deityboon: "PF2E.FeatDeityBoonHeader",
-        curse: "PF2E.FeatCurseHeader",
-    },
+    featTypes,
 
     actionTypes: {
         action: "PF2E.ActionTypeAction",
@@ -1838,6 +1878,10 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Name",
                 hint: "PF2E.SETTINGS.Automation.RemoveExpiredEffects.Hint",
             },
+            flankingDetection: {
+                name: "PF2E.SETTINGS.Automation.FlankingDetection.Name",
+                hint: "PF2E.SETTINGS.Automation.FlankingDetection.Hint",
+            },
             actorsDeadAtZero: {
                 name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
                 hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
@@ -1934,6 +1978,10 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.WorldClock.WorldCreatedOn.Hint",
             },
         },
+        CampaignFeats: {
+            name: "PF2E.SETTINGS.CampaignFeats.Name",
+            hint: "PF2E.SETTINGS.CampaignFeats.Hint",
+        },
     },
 
     Actor: {
@@ -1949,7 +1997,7 @@ export const PF2ECONFIG = {
 
     Item: {
         documentClasses: {
-            action: ActionPF2e,
+            action: ActionItemPF2e,
             ancestry: AncestryPF2e,
             armor: ArmorPF2e,
             background: BackgroundPF2e,

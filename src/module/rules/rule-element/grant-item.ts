@@ -1,4 +1,4 @@
-import { ClassPF2e, FeatPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementPF2e, REPreCreateParameters, REPreDeleteParameters, RuleElementData, RuleElementSource } from "./";
 import { sluggify } from "@util";
@@ -6,32 +6,31 @@ import { ChoiceSetRuleElement } from "./choice-set/rule-element";
 import { ChoiceSetSource } from "./choice-set/data";
 import { RuleElementOptions } from "./base";
 import { ActorType } from "@actor/data";
+import { MigrationList, MigrationRunner } from "@module/migration";
 
 class GrantItemRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
     reevaluateOnUpdate: boolean;
+    allowDuplicate: boolean;
 
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.reevaluateOnUpdate = Boolean(data.reevaluateOnUpdate);
+        this.allowDuplicate = Boolean(data.allowDuplicate ?? true);
         this.data.preselectChoices ??= {};
         this.data.replaceSelf = Boolean(data.replaceSelf ?? false);
     }
 
     override async preCreate(args: Omit<REPreCreateParameters, "ruleSource">): Promise<void> {
-        if (this.ignored) return;
-
-        if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions())) {
-            return;
-        }
+        if (!this.test()) return;
 
         const { itemSource, pendingItems, context } = args;
 
+        const uuid = this.resolveInjectedProperties(this.data.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
-            const uuid = this.resolveInjectedProperties(this.data.uuid);
             try {
                 return await fromUuid(uuid);
             } catch (error) {
@@ -41,19 +40,48 @@ class GrantItemRuleElement extends RuleElementPF2e {
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
 
+        // If we shouldn't allow duplicates, check for an existing item with this source ID
+        if (!this.allowDuplicate && this.actor.items.some((item) => item.sourceId === uuid)) {
+            if (this.data.replaceSelf) {
+                pendingItems.findSplice((item) => item === itemSource);
+            }
+            ui.notifications.info(
+                game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
+                    actor: this.actor.name,
+                    item: grantedItem.name,
+                })
+            );
+            return;
+        }
+
+        // The grant may have come from a non-system compendium, so make sure it's fully migrated
+        await MigrationRunner.ensureSchemaVersion(
+            grantedItem,
+            MigrationList.constructFromVersion(grantedItem.schemaVersion)
+        );
+
         // Set ids and flags on the granting and granted items
         itemSource._id ??= randomID();
         const grantedSource: PreCreate<ItemSourcePF2e> = grantedItem.toObject();
         grantedSource._id = randomID();
 
+        // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
+        grantedSource.flags ??= {};
+        mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
+
+        // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
-        tempGranted.prepareRuleElements({ suppressWarnings: true });
+        tempGranted.prepareActorData?.();
+        for (const rule of tempGranted.prepareRuleElements({ suppressWarnings: true })) {
+            rule.onApplyActiveEffects?.();
+        }
+
         this.applyChoiceSelections(tempGranted);
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
         for (const item of [this.item, tempGranted]) {
-            if (item instanceof ClassPF2e || item instanceof FeatPF2e) {
-                const prefix = item instanceof ClassPF2e || !item.isFeature ? item.type : "feature";
+            if (item.isOfType("class", "feat")) {
+                const prefix = item.isOfType("class") || !item.isFeature ? item.type : "feature";
                 const slug = item.slug ?? sluggify(item.name);
                 this.actor.rollOptions.all[`self:${prefix}:${slug}`] = true;
             }
@@ -163,6 +191,7 @@ interface GrantItemSource extends RuleElementSource {
     replaceSelf?: unknown;
     preselectChoices?: unknown;
     reevaluateOnUpdate?: unknown;
+    allowDuplicate?: unknown;
 }
 
 interface GrantItemData extends RuleElementData {

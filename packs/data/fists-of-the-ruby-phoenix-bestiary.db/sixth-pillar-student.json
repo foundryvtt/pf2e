@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Nagaji and human sorcerous monks",
             "creatureType": "",
             "level": {
                 "value": 14
@@ -92,7 +92,11 @@
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "aklo",
+                    "nagaji",
+                    "tien"
+                ]
             },
             "rarity": "rare",
             "senses": {
@@ -111,7 +115,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -138,9 +141,6 @@
                 "showUnpreparedSpells": {
                     "value": true
                 },
-                "signatureSpells": {
-                    "value": []
-                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -150,7 +150,7 @@
                     "slot1": {
                         "max": 4,
                         "prepared": [],
-                        "value": 0
+                        "value": 4
                     },
                     "slot10": {
                         "max": 0,
@@ -221,7 +221,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Spontaneous Arcane Spells",
@@ -250,9 +249,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -334,7 +330,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Focus Spells",
@@ -342,20 +337,17 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "zIb9rBHfF2fWKkzp",
+            "_id": "nYLlyjfx6uFGPBXo",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -385,6 +377,7 @@
                     "value": 8
                 },
                 "location": {
+                    "heightenedLevel": 8,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -415,7 +408,7 @@
                 },
                 "slug": "disappearance",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -441,7 +434,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.wfleiawxsfhpRRwf"
@@ -453,20 +445,17 @@
             "type": "spell"
         },
         {
-            "_id": "kDRb3pOc4P4qJHER",
+            "_id": "o0vlXa9XXubcwDsn",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -496,6 +485,7 @@
                     "value": 8
                 },
                 "location": {
+                    "heightenedLevel": 8,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -526,7 +516,7 @@
                 },
                 "slug": "monstrosity-form",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -554,7 +544,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.8AMvNVOUEtxBCDvJ"
@@ -566,7 +555,7 @@
             "type": "spell"
         },
         {
-            "_id": "7gj0pOhfHmYF5ciu",
+            "_id": "0eA3nBqhIw4KQkde",
             "data": {
                 "ability": {
                     "value": ""
@@ -577,9 +566,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -596,8 +582,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "10d8"
@@ -613,10 +601,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 8
                 },
                 "location": {
+                    "heightenedLevel": 8,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -636,12 +632,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -653,7 +643,7 @@
                 },
                 "slug": "polar-ray",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -682,7 +672,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.BKIet436snMNcnez"
@@ -694,125 +683,7 @@
             "type": "spell"
         },
         {
-            "_id": "gOEElIdIdVAlUVtA",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "value": "10"
-                },
-                "areasize": {
-                    "value": "10-foot-radius burst, 30-foot cone, or 60-foot line"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "bludgeoning"
-                            },
-                            "value": "12d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p><strong>Area</strong> 10-foot-radius burst, 30-foot cone, or 60-foot line</p>\n<hr />\n<p>You gather elemental energy and blast your foes in one of the various listed shapes of your choosing, dealing 8d6 bludgeoning damage (or fire damage if your element is fire). This spell has your element's trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "63pPqK8bI1CuXafX"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet (burst only)"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "elemental-blast",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "sorcerer"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Qlp8G3knwLGhAxQ0"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/elemental-blast.webp",
-            "name": "Elemental Blast",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "sKwSzNfh2szhPeOO",
+            "_id": "vdS2WVu4egGD31mG",
             "data": {
                 "ability": {
                     "value": ""
@@ -823,244 +694,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You call upon your element to propel you, improving your Speed depending on your element. This spell has your element's trait.</p>\n<ul>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Air)]{Air}You gain a fly Speed equal to your Speed.</li>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Earth)]{Earth}You gain a burrow Speed of 10 feet.</li>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Fire)]{Fire}You gain a fly Speed equal to your Speed.</li>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Water)]{Water}You gain a swim Speed equal to your Speed and can breathe underwater.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You also gain a +10-foot status bonus to your Speeds.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +20 feet.</p>"
-                },
-                "duration": {
-                    "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "63pPqK8bI1CuXafX"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "elemental-motion",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "sorcerer"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.B8aCUMCHCIMUCEVK"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/elemental-motion.webp",
-            "name": "Elemental Motion",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "7ymVgEKDmtrZs2sp",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "focus"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "bludgeoning"
-                            },
-                            "value": "7d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>With a flick of your wrist, you fling a chunk of your elemental matter at your foe. Make a spell attack roll, dealing 1d8 bludgeoning damage (or fire damage if your element is fire) on a success, and double damage on a critical success. This spell has your element's trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "63pPqK8bI1CuXafX"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "elemental-toss",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "uncommon",
-                    "value": [
-                        "attack",
-                        "sorcerer"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.0JUOgbbFCapp3HlW"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/elemental-toss.webp",
-            "name": "Elemental Toss",
-            "sort": 800000,
-            "type": "spell"
-        },
-        {
-            "_id": "2Il7JVkEZWKtHMmb",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1090,6 +723,7 @@
                     "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1120,7 +754,7 @@
                 },
                 "slug": "baleful-polymorph",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1149,7 +783,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.dN8QBNuTiaBHCKUe"
@@ -1157,24 +790,21 @@
             },
             "img": "systems/pf2e/icons/spells/baleful-polymorph.webp",
             "name": "Baleful Polymorph",
-            "sort": 900000,
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "x0gefT7XZ6ookZO1",
+            "_id": "6XovB6B3KOORxoV0",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": "20"
+                    "value": 20
                 },
                 "areasize": {
                     "value": "20-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1212,6 +842,7 @@
                     "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1242,7 +873,7 @@
                 },
                 "slug": "field-of-life",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -1271,7 +902,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.x5rGOmhDRDVQPrnW"
@@ -1279,11 +909,11 @@
             },
             "img": "systems/pf2e/icons/spells/field-of-life.webp",
             "name": "Field of Life",
-            "sort": 1000000,
+            "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "rv7LfJWpvFGMyixu",
+            "_id": "ScsZMBQTCHgjVxEE",
             "data": {
                 "ability": {
                     "value": ""
@@ -1294,9 +924,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1326,6 +953,7 @@
                     "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1356,7 +984,7 @@
                 },
                 "slug": "repulsion",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1386,7 +1014,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.yrZA4k2VAqEP8xx7"
@@ -1394,24 +1021,21 @@
             },
             "img": "systems/pf2e/icons/spells/repulsion.webp",
             "name": "Repulsion",
-            "sort": 1100000,
+            "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "nQD5wrdxYshJ0Rem",
+            "_id": "bWhAU8pHEigzfSXr",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": ""
+                    "areaType": "burst",
+                    "value": "40"
                 },
                 "areasize": {
                     "value": "40-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1441,6 +1065,7 @@
                     "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1471,7 +1096,7 @@
                 },
                 "slug": "tangling-creepers",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1498,7 +1123,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.JbAcSLu62TU1OgNF"
@@ -1506,24 +1130,145 @@
             },
             "img": "systems/pf2e/icons/spells/tangling-creepers.webp",
             "name": "Tangling Creepers",
-            "sort": 1200000,
+            "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "8OvceryMKatcD1aK",
+            "_id": "kLYVtq6oLl60zmzo",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "burst",
+                    "value": "10"
+                },
+                "areasize": {
+                    "value": "10-foot-radius burst, 30-foot cone, or 60-foot line"
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "bludgeoning"
+                            },
+                            "value": "8d6"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Area</strong> @Template[type:burst|distance:10], @Template[type:cone|distance:30], or @Template[type:line|distance:60]</p>\n<hr />\n<p>You gather elemental energy and blast your foes in one of the various listed shapes of your choosing, dealing 8d6 bludgeoning damage (or fire damage if your element is fire). This spell has your element's trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "63pPqK8bI1CuXafX"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet (burst only)"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "elemental-blast",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "air",
+                        "sorcerer"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Qlp8G3knwLGhAxQ0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/elemental-blast.webp",
+            "name": "Elemental Blast (air)",
+            "sort": 1000000,
+            "type": "spell"
+        },
+        {
+            "_id": "eB5zQJEnoUh7EDc2",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1553,6 +1298,7 @@
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1583,7 +1329,7 @@
                 },
                 "slug": "elemental-form",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1611,7 +1357,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.1K6AYGisvo9gqdhs"
@@ -1619,11 +1364,11 @@
             },
             "img": "systems/pf2e/icons/spells/elemental-form.webp",
             "name": "Elemental Form",
-            "sort": 1300000,
+            "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "oO56jnrEXTdQJtUU",
+            "_id": "6yp6SRcoCtxO0KhB",
             "data": {
                 "ability": {
                     "value": ""
@@ -1634,9 +1379,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1666,6 +1408,7 @@
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1696,7 +1439,7 @@
                 },
                 "slug": "mariners-curse",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1725,7 +1468,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.z2mfh3oPnfYqXflY"
@@ -1733,11 +1475,11 @@
             },
             "img": "systems/pf2e/icons/spells/mariners-curse.webp",
             "name": "Mariner's Curse",
-            "sort": 1400000,
+            "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "YRVjyJdQPtOMQQkF",
+            "_id": "yqFwmX9r0MMT6ehu",
             "data": {
                 "ability": {
                     "value": ""
@@ -1748,9 +1490,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1780,6 +1519,7 @@
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1810,7 +1550,7 @@
                 },
                 "slug": "moon-frenzy",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1837,7 +1577,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.YtesyvfAIwXOqISq"
@@ -1845,11 +1584,11 @@
             },
             "img": "systems/pf2e/icons/spells/moon-frenzy.webp",
             "name": "Moon Frenzy",
-            "sort": 1500000,
+            "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "ye8NJH3MeHDLHsUe",
+            "_id": "1wCKwJy4Se4rlns3",
             "data": {
                 "ability": {
                     "value": ""
@@ -1860,9 +1599,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1879,8 +1615,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "2d6"
@@ -1896,10 +1634,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -1919,12 +1665,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -1936,7 +1676,7 @@
                 },
                 "slug": "wall-of-ice",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1965,7 +1705,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.R5FHRv7VqyRnxg2t"
@@ -1973,11 +1712,11 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-ice.webp",
             "name": "Wall of Ice",
-            "sort": 1600000,
+            "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "v5Aezgi1aWlCJCT8",
+            "_id": "keRbHYizrcYQaEke",
             "data": {
                 "ability": {
                     "value": ""
@@ -1988,9 +1727,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2007,8 +1743,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "2d6"
@@ -2016,7 +1754,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
+                    "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Fire Shield]{Spell Effect: Fire Shield}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2024,10 +1762,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2047,12 +1793,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -2064,7 +1804,7 @@
                 },
                 "slug": "fire-shield",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2092,7 +1832,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.YrzBLPLd3r9m6t1p"
@@ -2100,11 +1839,11 @@
             },
             "img": "systems/pf2e/icons/spells/fire-shield.webp",
             "name": "Fire Shield",
-            "sort": 1700000,
+            "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "2Ej4YNmaHnGMdAmz",
+            "_id": "JHKcmb9VtfGust2B",
             "data": {
                 "ability": {
                     "value": ""
@@ -2115,9 +1854,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2147,6 +1883,7 @@
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2177,7 +1914,7 @@
                 },
                 "slug": "freedom-of-movement",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2204,7 +1941,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
@@ -2212,11 +1948,11 @@
             },
             "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
             "name": "Freedom of Movement",
-            "sort": 1800000,
+            "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "xWb10ZWBeLcuLNht",
+            "_id": "jOG1mzgMpwRTidoq",
             "data": {
                 "ability": {
                     "value": ""
@@ -2227,9 +1963,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2259,6 +1992,7 @@
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2289,7 +2023,7 @@
                 },
                 "slug": "stoneskin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2317,7 +2051,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.2BV2yYPfVJ5zirZt"
@@ -2325,11 +2058,11 @@
             },
             "img": "systems/pf2e/icons/spells/stone-skin.webp",
             "name": "Stoneskin",
-            "sort": 1900000,
+            "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "wnwyvUpN4klwJ7ox",
+            "_id": "wQoEp6FX2EEWXTf8",
             "data": {
                 "ability": {
                     "value": ""
@@ -2340,9 +2073,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2359,8 +2089,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "4d6"
@@ -2376,10 +2108,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2399,12 +2139,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -2416,7 +2150,7 @@
                 },
                 "slug": "wall-of-fire",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2444,7 +2178,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
@@ -2452,11 +2185,11 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
             "name": "Wall of Fire",
-            "sort": 2000000,
+            "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "ZfvuPudAlbGfX7wG",
+            "_id": "tCymQfrgvQTb8Cak",
             "data": {
                 "ability": {
                     "value": ""
@@ -2467,9 +2200,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2499,6 +2229,7 @@
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2529,7 +2260,7 @@
                 },
                 "slug": "earthbind",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -2555,7 +2286,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gPvtmKMRpg9I9D7H"
@@ -2563,11 +2293,118 @@
             },
             "img": "systems/pf2e/icons/spells/earthbind.webp",
             "name": "Earthbind",
-            "sort": 2100000,
+            "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "A121ewwshZZnCqj7",
+            "_id": "S2LybclAuBOHQs2U",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You call upon your element to propel you, improving your Speed depending on your element. This spell has your element's trait.</p>\n<ul>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Air)]{Air}You gain a fly Speed equal to your Speed.</li>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Earth)]{Earth}You gain a burrow Speed of 10 feet.</li>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Fire)]{Fire}You gain a fly Speed equal to your Speed.</li>\n<li>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Motion (Water)]{Water}You gain a swim Speed equal to your Speed and can breathe underwater.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> You also gain a +10-foot status bonus to your Speeds.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +20 feet.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "63pPqK8bI1CuXafX"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "elemental-motion",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "air",
+                        "sorcerer"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.B8aCUMCHCIMUCEVK"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/elemental-motion.webp",
+            "name": "Elemental Motion (air)",
+            "sort": 2000000,
+            "type": "spell"
+        },
+        {
+            "_id": "FieqASLbf4ws1Bex",
             "data": {
                 "ability": {
                     "value": ""
@@ -2578,9 +2415,6 @@
                 },
                 "areasize": {
                     "value": "20-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2597,8 +2431,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "6d6"
@@ -2614,10 +2450,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2637,12 +2481,6 @@
                     "basic": "basic",
                     "value": "reflex"
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -2654,7 +2492,7 @@
                 },
                 "slug": "fireball",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -2682,7 +2520,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
@@ -2690,11 +2527,11 @@
             },
             "img": "systems/pf2e/icons/spells/fireball.webp",
             "name": "Fireball",
-            "sort": 2200000,
+            "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "8rsDJP0HoPdn6Xvc",
+            "_id": "omG8vIYyKVn24KkZ",
             "data": {
                 "ability": {
                     "value": ""
@@ -2705,9 +2542,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2741,10 +2575,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2764,12 +2606,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "conjuration"
                 },
@@ -2781,7 +2617,7 @@
                 },
                 "slug": "wall-of-thorns",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2808,7 +2644,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.KsWhliKfUs3IpW3c"
@@ -2816,11 +2651,11 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-thorns.webp",
             "name": "Wall of Thorns",
-            "sort": 2300000,
+            "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "nDFETmXbfycvsGPx",
+            "_id": "CUgeATZQxbE4AceN",
             "data": {
                 "ability": {
                     "value": ""
@@ -2831,9 +2666,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2863,6 +2695,7 @@
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -2893,7 +2726,7 @@
                 },
                 "slug": "wall-of-wind",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2921,7 +2754,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.it4ZsAi6XgvGcodc"
@@ -2929,11 +2761,11 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-wind.webp",
             "name": "Wall of Wind",
-            "sort": 2400000,
+            "sort": 2300000,
             "type": "spell"
         },
         {
-            "_id": "DXj89aU8WiZ2faP3",
+            "_id": "qb5Hj0go9eZfisVT",
             "data": {
                 "ability": {
                     "value": ""
@@ -2944,9 +2776,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -2976,6 +2805,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3006,7 +2836,7 @@
                 },
                 "slug": "dispel-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3034,7 +2864,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
@@ -3042,11 +2871,11 @@
             },
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
-            "sort": 2500000,
+            "sort": 2400000,
             "type": "spell"
         },
         {
-            "_id": "y8O0rhxNxFq690lc",
+            "_id": "76OJu1aO6IAHEPGP",
             "data": {
                 "ability": {
                     "value": ""
@@ -3057,9 +2886,6 @@
                 },
                 "areasize": {
                     "value": "10-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3089,6 +2915,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3119,7 +2946,7 @@
                 },
                 "slug": "glitterdust",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -3145,7 +2972,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.0qaqksrGGDj74HXE"
@@ -3153,11 +2979,11 @@
             },
             "img": "systems/pf2e/icons/spells/glitterdust.webp",
             "name": "Glitterdust",
-            "sort": 2600000,
+            "sort": 2500000,
             "type": "spell"
         },
         {
-            "_id": "7l9JCplvLWvCzQ56",
+            "_id": "JG4R7NoNBezLe5LC",
             "data": {
                 "ability": {
                     "value": ""
@@ -3168,9 +2994,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3200,6 +3023,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3230,7 +3054,7 @@
                 },
                 "slug": "humanoid-form",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3259,7 +3083,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.2qGqa33E4GPUCbMV"
@@ -3267,24 +3090,21 @@
             },
             "img": "systems/pf2e/icons/spells/humanoid-form.webp",
             "name": "Humanoid Form",
-            "sort": 2700000,
+            "sort": 2600000,
             "type": "spell"
         },
         {
-            "_id": "iC14ftwQHANQikML",
+            "_id": "KFK9rgxAKg1STl8L",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3302,7 +3122,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
+                    "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Resist Energy]{Spell Effect: Resist Energy}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -3314,6 +3134,7 @@
                     "value": 2
                 },
                 "location": {
+                    "heightenedLevel": 2,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3344,7 +3165,7 @@
                 },
                 "slug": "resist-energy",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3372,7 +3193,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Fr58LDSrbndgld9n"
@@ -3380,11 +3200,11 @@
             },
             "img": "systems/pf2e/icons/spells/resist-energy.webp",
             "name": "Resist Energy",
-            "sort": 2800000,
+            "sort": 2700000,
             "type": "spell"
         },
         {
-            "_id": "HxeumYysdr3ldryG",
+            "_id": "RUYB3krLPzZOIgPO",
             "data": {
                 "ability": {
                     "value": ""
@@ -3395,9 +3215,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3414,8 +3231,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "2d6"
@@ -3431,10 +3250,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3454,12 +3281,6 @@
                     "basic": "basic",
                     "value": "reflex"
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -3471,7 +3292,7 @@
                 },
                 "slug": "burning-hands",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -3499,7 +3320,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
@@ -3507,24 +3327,21 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
-            "sort": 2900000,
+            "sort": 2800000,
             "type": "spell"
         },
         {
-            "_id": "cgQ14soCxfnHqU8P",
+            "_id": "HWV6wMeJoNGLiKS7",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "emanation",
+                    "value": "30"
                 },
                 "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
+                    "value": "30-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -3542,7 +3359,245 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You gain a +30-foot status bonus to your Speed.</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "uMz0RtoUgvpPoKW6"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "detection",
+                        "cantrip"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
+            "sort": 2900000,
+            "type": "spell"
+        },
+        {
+            "_id": "enKFNYH1uXkHkSkU",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "bludgeoning"
+                            },
+                            "value": "1d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>With a flick of your wrist, you fling a chunk of your elemental matter at your foe. Make a spell attack roll, dealing 1d8 bludgeoning damage (or fire damage if your element is fire) on a success, and double damage on a critical success. This spell has your element's trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "63pPqK8bI1CuXafX"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "elemental-toss",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "uncommon",
+                    "value": [
+                        "air",
+                        "attack",
+                        "sorcerer"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.0JUOgbbFCapp3HlW"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/elemental-toss.webp",
+            "name": "Elemental Toss (air)",
+            "sort": 3000000,
+            "type": "spell"
+        },
+        {
+            "_id": "wSmL6qQPBIkbqAKI",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You gain a +30-foot status bonus to your Speed.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Fleet Step]{Spell Effect: Fleet Step}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -3554,6 +3609,7 @@
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3584,7 +3640,7 @@
                 },
                 "slug": "fleet-step",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3610,7 +3666,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.aEM2cttJ2eYcLssW"
@@ -3618,11 +3673,11 @@
             },
             "img": "systems/pf2e/icons/spells/fleet-step.webp",
             "name": "Fleet Step",
-            "sort": 3000000,
+            "sort": 3100000,
             "type": "spell"
         },
         {
-            "_id": "hLD8fXgAUSSZS4oW",
+            "_id": "rhuoYBV1twNU94Gz",
             "data": {
                 "ability": {
                     "value": ""
@@ -3633,9 +3688,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3665,6 +3717,7 @@
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3695,7 +3748,7 @@
                 },
                 "slug": "jump",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3723,7 +3776,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Q7QQ91vQtyi1Ux36"
@@ -3731,11 +3783,11 @@
             },
             "img": "systems/pf2e/icons/spells/jump.webp",
             "name": "Jump",
-            "sort": 3100000,
+            "sort": 3200000,
             "type": "spell"
         },
         {
-            "_id": "SvT5UyKFdTzfM35m",
+            "_id": "dvVhHeBHHqmJpl3p",
             "data": {
                 "ability": {
                     "value": ""
@@ -3746,9 +3798,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3766,7 +3815,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -3808,7 +3857,7 @@
                 },
                 "slug": "light",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3840,7 +3889,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
@@ -3848,11 +3896,11 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 3200000,
+            "sort": 3300000,
             "type": "spell"
         },
         {
-            "_id": "ACP4XrI0vDeGYC2J",
+            "_id": "iKrJDSlTYsmJ9xjj",
             "data": {
                 "ability": {
                     "value": ""
@@ -3863,9 +3911,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3895,6 +3940,7 @@
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "uMz0RtoUgvpPoKW6"
                 },
                 "materials": {
@@ -3925,7 +3971,7 @@
                 },
                 "slug": "mending",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -3953,7 +3999,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.dINQzhqGmIsqGMUY"
@@ -3961,11 +4006,11 @@
             },
             "img": "systems/pf2e/icons/spells/mending.webp",
             "name": "Mending",
-            "sort": 3300000,
+            "sort": 3400000,
             "type": "spell"
         },
         {
-            "_id": "PQnek4rjDWBVkCt9",
+            "_id": "3eB7C5QHJv4xznHV",
             "data": {
                 "ability": {
                     "value": ""
@@ -3976,9 +4021,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -3998,6 +4040,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "1d4"
@@ -4012,6 +4055,13 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -4036,12 +4086,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -4053,7 +4097,7 @@
                 },
                 "slug": "produce-flame",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -4084,7 +4128,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.O9w7r4BKgPogYDDe"
@@ -4092,11 +4135,11 @@
             },
             "img": "systems/pf2e/icons/spells/produce-flame.webp",
             "name": "Produce Flame",
-            "sort": 3400000,
+            "sort": 3500000,
             "type": "spell"
         },
         {
-            "_id": "RlqVoKtDY9EGfxdC",
+            "_id": "x99IY7s56up8bOQX",
             "data": {
                 "ability": {
                     "value": ""
@@ -4107,9 +4150,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -4129,6 +4169,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "1d4"
@@ -4143,6 +4184,13 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -4167,12 +4215,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -4184,7 +4226,7 @@
                 },
                 "slug": "ray-of-frost",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -4215,7 +4257,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gYjPm7YwGtEa1oxh"
@@ -4223,11 +4264,11 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
             "name": "Ray of Frost",
-            "sort": 3500000,
+            "sort": 3600000,
             "type": "spell"
         },
         {
-            "_id": "xPgQFNFXWxIplDdf",
+            "_id": "QK4h6huuc6oeWyZh",
             "data": {
                 "ability": {
                     "value": ""
@@ -4238,9 +4279,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -4300,7 +4338,7 @@
                 },
                 "slug": "shield",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -4330,7 +4368,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.TVKNbcgTee19PXZR"
@@ -4338,11 +4375,11 @@
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
-            "sort": 3600000,
+            "sort": 3700000,
             "type": "spell"
         },
         {
-            "_id": "W42YCRz852m2bIUT",
+            "_id": "AwFYUeIzqWfnAMED",
             "data": {
                 "MAP": {
                     "value": ""
@@ -4352,9 +4389,6 @@
                     "value": 1
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "unarmed",
@@ -4370,8 +4404,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
-                    "invested": false
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -4397,7 +4432,7 @@
                     }
                 },
                 "level": {
-                    "value": 12
+                    "value": 2
                 },
                 "negateBulk": {
                     "value": "0"
@@ -4412,7 +4447,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2000 gp"
+                    "value": "35 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -4445,30 +4480,11 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Striking",
-                        "predicate": {
-                            "all": [
-                                "unarmed"
-                            ]
-                        },
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "WeaponPotency",
-                        "predicate": {
-                            "all": [
-                                "unarmed"
-                            ]
-                        },
-                        "selector": "attack"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "handwraps-of-mighty-blows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -4500,7 +4516,6 @@
                     "value": "-"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.FNDq4NFSN0g2HKWO"
@@ -4508,7 +4523,7 @@
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-mighty-blows.webp",
             "name": "+2 Greater Striking Handwraps of Mighty Blows",
-            "sort": 3700000,
+            "sort": 3800000,
             "type": "weapon"
         },
         {
@@ -4550,11 +4565,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 3800000,
+            "sort": 3900000,
             "type": "melee"
         },
         {
@@ -4569,6 +4583,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -4592,7 +4607,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -4600,7 +4614,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 3900000,
+            "sort": 4000000,
             "type": "action"
         },
         {
@@ -4615,6 +4629,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The students' combine elemental energies with physical brawn, blasting opponents with huge gusts of compressed air instead of typical energies. Any of the students' spells that deal energy damage (such as fireball, burning hands, ray of frost, and so on) instead deal bludgeoning damage.</p>"
                 },
@@ -4638,11 +4653,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bludgeoning Energy",
-            "sort": 4000000,
+            "sort": 4100000,
             "type": "action"
         },
         {
@@ -4668,11 +4682,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 4100000,
+            "sort": 4200000,
             "type": "lore"
         },
         {
@@ -4698,11 +4711,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 4200000,
+            "sort": 4300000,
             "type": "lore"
         },
         {
@@ -4728,11 +4740,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 4300000,
+            "sort": 4400000,
             "type": "lore"
         }
     ],

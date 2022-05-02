@@ -39,7 +39,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         const familiarTraits: Record<string, string> = CONFIG.PF2E.creatureTraits;
         const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
 
-        const traits = Array.from(this.actor.data.data.traits.traits.value)
+        const traits = this.actor.data.data.traits.traits.value
             .map((trait) => ({
                 value: trait,
                 label: familiarTraits[trait] ?? trait,

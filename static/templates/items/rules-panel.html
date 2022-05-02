@@ -1,12 +1,21 @@
 <div class="rules">
     <div class="nerd-details">
         <div class="form-group">
-            <label>UUID:</label>
+            <label>{{localize "PF2E.ItemUUIDLabel"}}</label>
             <input disabled value="{{@root.document.uuid}}"/>
             <div class="item-controls">
                 <a data-clipboard="{{@root.document.uuid}}"><i class="fas fa-clipboard"></i></a>
             </div>
         </div>
+        {{#if @root.document.sourceId}}
+            <div class="form-group">
+                <label>{{localize "PF2E.ItemSourceIDLabel"}}</label>
+                <input disabled value="{{@root.document.sourceId}}"/>
+                <div class="item-controls">
+                    <a data-clipboard="{{@root.document.sourceId}}"><i class="fas fa-clipboard"></i></a>
+                </div>
+            </div>
+        {{/if}}
     </div>
 
     <div>

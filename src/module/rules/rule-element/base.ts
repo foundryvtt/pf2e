@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type { ActorType } from "@actor/data";
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
-import { BaseRawModifier } from "@module/modifiers";
+import { BaseRawModifier } from "@actor/modifiers";
 import { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication";
 import {
@@ -12,6 +12,7 @@ import {
     REPreCreateParameters,
     REPreDeleteParameters,
 } from "./data";
+import { isObject } from "@util";
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -24,7 +25,15 @@ abstract class RuleElementPF2e {
 
     key: string;
 
+    slug: string | null;
+
     protected suppressWarnings: boolean;
+
+    /** Must the parent item be equipped for this rule element to apply (`null` for non-physical items)? */
+    requiresEquipped: boolean | null = null;
+
+    /** Must the parent item be invested for this rule element to apply (`null` unless an investable physical item)? */
+    requiresInvestment: boolean | null = null;
 
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
@@ -50,8 +59,6 @@ abstract class RuleElementPF2e {
             data.ignored = true;
         }
 
-        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
-
         this.data = {
             priority: 100,
             ...data,
@@ -60,6 +67,17 @@ abstract class RuleElementPF2e {
             ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
+
+        if (this.data.predicate && !this.data.predicate.isValid) {
+            console.debug(`Invalid predicate on ${this.item.name} (${this.item.uuid})`);
+        }
+
+        this.slug = this.data.slug ?? null;
+
+        if (item instanceof PhysicalItemPF2e) {
+            this.requiresEquipped = !!(data.requiresEquipped ?? true);
+            this.requiresInvestment = item.isInvested === null ? null : !!(data.requiresInvestment ?? true);
+        }
     }
 
     get actor(): ActorPF2e {
@@ -98,7 +116,9 @@ abstract class RuleElementPF2e {
             return (this.data.ignored = true);
         }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
-        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
+
+        return (this.data.ignored =
+            (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested));
     }
 
     set ignored(value: boolean) {
@@ -110,7 +130,7 @@ abstract class RuleElementPF2e {
         if (this.data.ignored) return false;
         if (!this.data.predicate) return true;
 
-        return this.data.predicate.test(rollOptions ?? this.actor.getRollOptions());
+        return this.resolveInjectedProperties(this.data.predicate).test(rollOptions ?? this.actor.getRollOptions());
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
@@ -148,21 +168,42 @@ abstract class RuleElementPF2e {
      * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties(source = ""): string {
-        if (!source.includes("{")) return source;
+    resolveInjectedProperties<T extends object>(source: T): T;
+    resolveInjectedProperties(source?: string): string;
+    resolveInjectedProperties(source: string | object): string | object;
+    resolveInjectedProperties(source: string | object = ""): string | object {
+        if (typeof source === "string" && !source.includes("{")) return source;
 
-        const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
-            actor: this.actor,
-            item: this.item,
-            rule: this,
-        };
-        return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-            const value = getProperty(objects[key]?.data ?? this.item.data, prop);
-            if (value === undefined) {
-                this.failValidation("Failed to resolve injected property");
+        // Walk the object tree and resolve any string values found
+        if (isObject<Record<string, unknown>>(source)) {
+            for (const [key, value] of Object.entries(source)) {
+                if (Array.isArray(value)) {
+                    source[key] = value.map((e: unknown) =>
+                        typeof e === "string" || isObject(e) ? this.resolveInjectedProperties(e) : e
+                    );
+                } else if (typeof value === "string" || isObject(value)) {
+                    source[key] = this.resolveInjectedProperties(value);
+                }
             }
-            return value;
-        });
+
+            return source;
+        } else if (typeof source === "string") {
+            const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
+                actor: this.actor,
+                item: this.item,
+                rule: this,
+            };
+
+            return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+                const value = getProperty(objects[key]?.data ?? this.item.data, prop);
+                if (value === undefined) {
+                    this.failValidation("Failed to resolve injected property");
+                }
+                return value;
+            });
+        }
+
+        return source;
     }
 
     /**
@@ -235,7 +276,14 @@ abstract class RuleElementPF2e {
 
         const saferEval = (formula: string): number => {
             try {
-                return Roll.safeEval(formula);
+                // If any resolvables were not provided for this formula, return the default value
+                const unresolved = /@[a-z]+/i.exec(formula) ?? [];
+                for (const resolvable of unresolved) {
+                    if (resolvable === "@target") continue; // Allow to fail with no warning
+                    this.failValidation(`This rule element requires a "${resolvable}" object, but none was provided.`);
+                }
+
+                return unresolved.length === 0 ? Roll.safeEval(formula) : 0;
             } catch {
                 const { item } = this;
                 this.failValidation(`Unable to evaluate formula in Rule Element on item "${item.name}" (${item.uuid})`);
@@ -246,7 +294,7 @@ abstract class RuleElementPF2e {
         return value instanceof Object && defaultValue instanceof Object
             ? mergeObject(defaultValue, value, { inplace: false })
             : typeof value === "string" && value.includes("@") && evaluate
-            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...(resolvables ?? {}) }))
+            ? saferEval(Roll.replaceFormulaData(value, { actor: this.actor, item: this.item, ...resolvables }))
             : value;
     }
 

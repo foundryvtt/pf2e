@@ -1,77 +1,86 @@
-import { RuleElementPF2e, RuleElementData } from "./";
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { RuleElementPF2e, RuleElementSource } from "./";
+import { CharacterPF2e } from "@actor";
 import { AbilityString, ActorType } from "@actor/data";
-import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
-import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
-import { objectHasKey, tupleHasValue } from "@util";
-
-const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: "ac" }> = {
-    ac: { ability: "dex" as const, shortform: "ac" },
-};
+import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/data/values";
+import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { setHasElement, sluggify } from "@util";
+import { RuleElementOptions } from "./base";
+import { ItemPF2e } from "@item";
+import { PredicatePF2e } from "@system/predication";
 
 /**
  * @category RuleElement
  */
-export class FixedProficiencyRuleElement extends RuleElementPF2e {
-    protected static override validActorTypes: ActorType[] = ["character", "npc"];
+class FixedProficiencyRuleElement extends RuleElementPF2e {
+    protected static override validActorTypes: ActorType[] = ["character"];
+
+    override slug: string;
+
+    ability: AbilityString | null;
+
+    constructor(data: FixedProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
+        this.slug = sluggify(typeof data.slug === "string" ? data.slug : this.label);
+        this.ability =
+            data.ability === null
+                ? null
+                : setHasElement(ABILITY_ABBREVIATIONS, data.ability)
+                ? data.ability
+                : data.selector === "ac"
+                ? "dex"
+                : null;
+    }
 
     override beforePrepareData(): void {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        let value = Number(this.resolveValue(this.data.value)) || 0;
-        if (selector === "ac") {
-            // Special case for AC so the rule elements match what's written in the book
-            value -= 10;
-        }
+        const proficiencyBonus = Number(this.resolveValue(this.data.value)) || 0;
+        const abilityModifier = this.ability ? this.actor.data.data.abilities[this.ability].mod : 0;
 
-        const ability =
-            (this.data.ability && String(this.data.ability).trim()) ||
-            (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
-
-        if (!tupleHasValue(ABILITY_ABBREVIATIONS, ability)) {
-            console.warn("PF2E | Fixed modifier requires an ability field, or a known selector.");
-        } else if (!value) {
-            console.warn("PF2E | Fixed modifier requires at least a non-zero value or formula field.");
-        } else {
-            const modifier = new ModifierPF2e(
-                this.label,
-                value - this.actor.data.data.abilities[ability].mod,
-                MODIFIER_TYPE.PROFICIENCY
-            );
-            const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
-            modifiers.push(() => modifier);
-        }
+        const modifier = new ModifierPF2e({
+            type: MODIFIER_TYPE.PROFICIENCY,
+            slug: this.slug ?? sluggify(this.label),
+            label: this.label,
+            modifier: proficiencyBonus + abilityModifier,
+        });
+        const modifiers = (this.actor.synthetics.statisticsModifiers[selector] ??= []);
+        modifiers.push(() => modifier);
     }
 
     override afterPrepareData() {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const { data } = this.actor.data;
-        const skill: string = SKILL_EXPANDED[selector]?.shortform ?? selector;
-        const skills: Record<string, StatisticModifier> = data.skills;
-        const target = skills[skill] ?? (objectHasKey(data.attributes, skill) ? data.attributes[skill] : null);
-        const force = this.data.force;
+        const systemData = this.actor.data.data;
+        const skillLongForms: Record<string, { shortform?: string } | undefined> = SKILL_EXPANDED;
+        const proficiency = skillLongForms[selector]?.shortform ?? selector;
+        const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)
+            ? this.actor.skills[proficiency]
+            : proficiency === "ac"
+            ? systemData.attributes.ac
+            : null;
 
-        if (target instanceof StatisticModifier) {
-            for (const modifier of target.modifiers) {
-                const itemOrUntyped: string[] = [MODIFIER_TYPE.ITEM, MODIFIER_TYPE.UNTYPED];
-                if (itemOrUntyped.includes(modifier.type) && modifier.modifier > 0) {
-                    modifier.ignored = true;
-                }
-                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.slug !== this.label) {
-                    modifier.ignored = true;
-                }
+        if (statistic) {
+            const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);
+            for (const modifier of toIgnore) {
+                modifier.predicate = new PredicatePF2e({ all: [`overridden-by-${this.slug}`] });
             }
-            target.calculateTotal();
-            target.value = target.totalModifier + (skill === "ac" ? 10 : 0);
+
+            // Only AC will be a `StatisticModifier`
+            if (statistic instanceof StatisticModifier) {
+                const rollOptions = this.actor.getRollOptions(["ac", `${this.ability}-based`]);
+                statistic.calculateTotal(rollOptions);
+                statistic.value = 10 + statistic.totalModifier;
+            }
         }
     }
 }
 
-export interface FixedProficiencyRuleElement {
-    data: RuleElementData & {
-        name?: string;
-        ability?: string;
-        force?: boolean;
-    };
-
-    get actor(): CharacterPF2e | NPCPF2e;
+interface FixedProficiencyRuleElement {
+    get actor(): CharacterPF2e;
 }
+
+interface FixedProficiencySource extends RuleElementSource {
+    ability?: unknown;
+    force?: unknown;
+}
+
+export { FixedProficiencyRuleElement };

@@ -17,15 +17,15 @@ export class AncestryBackgroundClassManager {
     ): Promise<ItemPF2e[]> {
         switch (source.type) {
             case "ancestry": {
-                await actor.ancestry?.delete();
+                await actor.ancestry?.delete({ render: false });
                 return this.addFeatures(source, actor, true, options);
             }
             case "background": {
-                await actor.background?.delete();
+                await actor.background?.delete({ render: false });
                 return this.addFeatures(source, actor, true, options);
             }
             case "class": {
-                await actor.class?.delete();
+                await actor.class?.delete({ render: false });
 
                 /** Add class self roll option in case it is needed by any features' rule elements */
                 const slug = source.data.slug ?? sluggify(source.name);

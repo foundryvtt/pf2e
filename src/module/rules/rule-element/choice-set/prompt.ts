@@ -1,11 +1,16 @@
 import { ItemPF2e } from "@item";
 import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data";
-import { PromptChoice, RulesElementPromptData, RulesElementPrompt } from "@module/rules/apps/prompt";
+import {
+    PickableThing,
+    PickAThingConstructorArgs,
+    PickAThingPrompt,
+    PromptTemplateData,
+} from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e } from "@util";
 
 /** Prompt the user for a selection among a set of options */
-export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object> {
+export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     /** Does this choice set contain UUIDs? If true, options are always buttons and an item-drop zone is added */
     private containsUUIDs: boolean;
 
@@ -26,6 +31,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
+            classes: ["choice-set-prompt"],
             dragDrop: [{ dropSelector: ".drop-zone" }],
         };
     }
@@ -40,24 +46,18 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
             prompt: this.prompt,
             containsUUIDs: this.containsUUIDs,
             allowNoSelection: this.allowNoSelection,
+            selectMenu: this.choices.length > 9,
         };
     }
 
-    protected override getChoices(): PromptChoice[] {
-        const rollOptions = this.actor.getRollOptions();
-        return this.choices.filter((c) => (c.predicate ? c.predicate.test(rollOptions) : c));
+    protected override getChoices(): PickableThing[] {
+        return this.choices;
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        $html.find<HTMLSelectElement>("select").on("change", (event) => {
-            const $select = $(event.target);
-            const $submit = $html.find<HTMLButtonElement>("button");
-            $submit.val(String($select.val()));
-        });
-
-        $html.find('button[data-action="close"]').on("click", () => {
+        $html.find("button[data-action=close]").on("click", () => {
             this.close();
         });
 
@@ -99,7 +99,7 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
             .append($("<img>").attr({ src: droppedItem.img }), $("<span>").text(droppedItem.name));
 
         $newButton.on("click", (event) => {
-            this.selection = this.getSelection(event) ?? null;
+            this.selection = this.getSelection(event.originalEvent!) ?? null;
             this.close();
         });
 
@@ -111,16 +111,16 @@ export class ChoiceSetPrompt extends RulesElementPrompt<string | number | object
     }
 }
 
-interface ChoiceSetPromptData extends RulesElementPromptData<string | number | object> {
+interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
     prompt?: string;
-    choices?: PromptChoice[];
+    choices?: PickableThing[];
     containsUUIDs: boolean;
     allowedDrops: PredicatePF2e;
 }
 
-interface ChoiceSetTemplateData {
+interface ChoiceSetTemplateData extends PromptTemplateData {
     prompt: string;
-    choices: PromptChoice[];
+    choices: PickableThing[];
     containsUUIDs: boolean;
     allowNoSelection: boolean;
 }

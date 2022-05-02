@@ -1,4 +1,12 @@
 .pf2e.item.sheet {
+    &.deity form {
+        @import "deity-sheet";
+    }
+
+    &.feat form {
+        @import "feat-sheet";
+    }
+
     &.heritage form {
         @import "heritage-sheet";
     }
@@ -7,14 +15,11 @@
         @import "kit-sheet";
     }
 
-    &.feat form {
-        @import "feat-sheet";
-    }
-
     form {
         @import "abc-sheet";
         @import "activations";
         @import "identify-item";
+        @import "tagify";
 
         display: flex;
         flex-direction: column;
@@ -22,6 +27,11 @@
 
         > * {
             flex: 1;
+        }
+
+        p.hint {
+            font-family: var(--font-primary);
+            font-weight: normal;
         }
 
         .item-controls {
@@ -112,8 +122,8 @@
 
                     /** Details */
                     &.item-details {
-                        padding: 8px 8px 0;
-                        overflow-y: auto;
+                        padding: 0.5rem 0.5rem 0;
+                        @include scrollbar;
 
                         label {
                             color: #353535;
@@ -121,14 +131,25 @@
                         }
 
                         select {
-                            font-size: 12px;
-                            height: 24px;
+                            font-size: 0.75rem;
+                            height: 1.5rem;
+                            padding-right: 1em;
+                        }
+                    }
+
+                    &.item-mystification {
+                        padding: 8px 8px 0;
+                        @include scrollbar;
+
+                        label {
+                            color: #353535;
+                            font-weight: bold;
                         }
                     }
 
                     /** Rule Elements */
                     &.item-rules {
-                        overflow-y: scroll;
+                        @include scrollbar;
 
                         .rules {
                             padding: 7px;
@@ -171,10 +192,15 @@
             flex: 0 1 auto;
         }
 
+        .form-section {
+            margin-top: 8px;
+        }
+
         .form-list {
             border: 1px solid var(--secondary-background);
             border-radius: 5px;
             padding: 0.25em;
+            margin: 0.5em 0;
             h3 {
                 font-size: 1.05em;
                 margin-bottom: 0.25em;
@@ -182,7 +208,6 @@
         }
 
         .form-group {
-            height: 24px;
             margin: 2px 0;
             font-weight: 500;
 
@@ -270,6 +295,22 @@
             }
         }
 
+        .toggle-button-list {
+            display: flex;
+            gap: 2px;
+            margin: 4px 0;
+
+            button {
+                margin: 0;
+                font-size: 10px;
+                line-height: 16px;
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+                padding: 3px 4px;
+            }
+        }
+
         .consumable-details {
             flex: 0 0 24px;
 
@@ -327,16 +368,6 @@
             }
         }
 
-        .item-mystify {
-            padding: 8px 8px 0;
-            overflow-y: auto;
-
-            label {
-                color: #353535;
-                font-weight: bold;
-            }
-        }
-
         .spell-components {
             input {
                 margin-left: 0;
@@ -382,9 +413,13 @@
 
     .nerd-details {
         margin-bottom: 10px;
+        .form-group {
+            margin: 0;
+        }
         label {
-            flex: 0;
+            flex: 0 0 70px;
             margin-right: 4px;
+            line-height: 1.5em;
         }
     }
 }

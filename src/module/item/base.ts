@@ -14,6 +14,7 @@ import { UserPF2e } from "@module/user";
 import { MigrationRunner, MigrationList } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { preImportJSON } from "@module/doc-helpers";
 
 export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -64,7 +65,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     isOfType<T extends ItemType>(
         ...types: T[]
     ): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]> {
-        return types.some((t) => this.type === t);
+        return types.some((t) => this.data.type === t);
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
@@ -104,7 +105,7 @@ class ItemPF2e extends Item<ActorPF2e> {
      */
     async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} } = {}
+        { rollMode = undefined, create = true, data = {} }: { rollMode?: RollMode; create?: boolean; data?: {} } = {}
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
@@ -138,7 +139,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         };
 
         // Toggle default roll mode
-        const rollMode = event?.ctrlKey || event?.metaKey ? "blindroll" : game.settings.get("core", "rollMode");
+        rollMode ??= event?.ctrlKey || event?.metaKey ? "blindroll" : game.settings.get("core", "rollMode");
         if (["gmroll", "blindroll"].includes(rollMode))
             chatData.whisper = ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id);
         if (rollMode === "blindroll") chatData.blind = true;
@@ -489,35 +490,18 @@ class ItemPF2e extends Item<ActorPF2e> {
         const original = game.system.documentTypes.Item;
         game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
-                !(
-                    ["condition", "spellcastingEntry"].includes(itemType) ||
-                    (["book", "deity"].includes(itemType) && BUILD_MODE === "production")
-                )
+                !["condition", "spellcastingEntry"].includes(itemType) &&
+                !(itemType === "book" && BUILD_MODE === "production")
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.documentTypes.Item = original;
         return newItem;
     }
 
-    /** If necessary, migrate this item before importing */
+    /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const source = JSON.parse(json);
-        source._id = this.id;
-        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
-        const data = new (this.constructor as typeof ItemPF2e).schema(processed);
-
-        const { folder, sort, permission } = this.data;
-        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
-            recursive: false,
-        });
-
-        await MigrationRunner.ensureSchemaVersion(
-            this,
-            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
-            { preCreate: false }
-        );
-
-        return this.update(this.toObject(), { diff: false, recursive: false });
+        const processed = await preImportJSON(this, json);
+        return processed ? super.importFromJSON(processed) : this;
     }
 
     static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
@@ -528,6 +512,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (context.parent) {
             const kits = data.filter((d) => d.type === "kit");
             const nonKits = data.filter((d) => !kits.includes(d));
+
+            // Perform character pre-create deletions
+            if (context.parent.isOfType("character")) {
+                await context.parent.preCreateDelete(nonKits);
+            }
 
             for (const itemSource of [...nonKits]) {
                 if (!itemSource.data?.rules) continue;
@@ -549,6 +538,20 @@ class ItemPF2e extends Item<ActorPF2e> {
             for (const kitSource of kits) {
                 const item = new ItemPF2e(kitSource);
                 if (item.isOfType("kit")) await item.dumpContents({ actor: context.parent });
+            }
+
+            // Pre-sort unnested, class features according to their sorting from the class
+            if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
+                const classFeatures = nonKits.filter(
+                    (i): i is PreCreate<InstanceType<T>["data"]["_source"]> & { data: { level: { value: number } } } =>
+                        i.type === "feat" &&
+                        typeof i.data?.level?.value === "number" &&
+                        i.data.featType?.value === "classfeature" &&
+                        !i.flags?.pf2e?.grantedBy
+                );
+                for (const feature of classFeatures) {
+                    feature.sort = classFeatures.indexOf(feature) * 100 * feature.data.level.value;
+                }
             }
 
             return super.createDocuments(nonKits, context) as Promise<InstanceType<T>[]>;
@@ -588,9 +591,9 @@ class ItemPF2e extends Item<ActorPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
 
-        if (!this.actor) {
+        if (!options.parent) {
             // Ensure imported items are current on their schema version
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion());
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }
 
         // Remove any rule elements that request their own removal upon item creation

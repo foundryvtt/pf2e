@@ -53,8 +53,8 @@
     .character-details {
         display: grid;
         grid:
-            'img alignment deity' 30px
-            'img details details' auto
+            "img alignment deity" 46px
+            "img details details" auto
             / 120px 120px 1fr;
         margin-top: 4px;
 
@@ -81,24 +81,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url('../assets/sheet/banner-bg.webp') repeat-x center;
-            height: 31px;
+            background: url("../assets/sheet/banner-bg.webp") repeat-x center;
             z-index: 1;
 
-            select {
-                all: initial;
-                color: var(--text-dark);
-                display: block;
-                cursor: pointer;
-                font-family: var(--body-serif);
-                line-height: 1;
-                font-weight: 700;
-                font-size: 14px;
-                text-transform: capitalize;
-                margin-top: 2px;
+            .bio-alignment {
+                position: absolute;
+                left: 0;
             }
 
-            input[type='text'] {
+            select {
+                background: none;
+                border: none;
+                box-shadow: none;
+                color: var(--text-dark);
+                cursor: pointer;
+                display: block;
+                font-family: var(--body-serif);
+                font-size: 14px;
+                font-weight: 700;
+                outline: none;
+                overflow-x: visible;
+                padding-left: 8px;
+                width: auto;
+
+                line-height: 1;
+                text-transform: capitalize;
+                margin-top: 2px;
+
+                option {
+                    color: var(--text-light);
+                    font: initial;
+                }
+            }
+
+            input[type="text"] {
                 font-family: var(--body-serif);
                 font-size: 14px;
                 font-weight: 700;
@@ -107,48 +123,36 @@
             }
             &::after {
                 position: absolute;
-                content: '';
-                height: 31px;
+                content: "";
+                height: 46px;
                 width: 15px;
                 top: 0;
                 right: -11px;
-                background: url('../assets/sheet/banner-bg2.webp') no-repeat
+                background: url("../assets/sheet/banner-bg2.webp") no-repeat
                     right;
             }
         }
 
-        .deity {
-            grid-area: deity;
-            display: flex;
-            justify-content: flex-end;
+        .pc_deity {
             align-items: center;
-            .dropdown {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                width: 130px;
-                select {
-                    all: initial;
-                    display: block;
-                    cursor: pointer;
-                    font-family: var(--body-serif);
-                    line-height: 1;
-                    font-weight: 700;
-                    font-size: 14px;
-                    text-transform: capitalize;
-                }
+            display: flex;
+            grid-area: deity;
+            justify-content: end;
+            padding-bottom: 0.7em;
 
-                input {
-                    text-align: right;
-                }
+            .input {
+                display: flex;
+                flex-basis: 55%;
+                flex-wrap: wrap;
+                justify-content: end;
             }
-            img {
-                height: 32px;
-                width: 32px;
-                border-radius: 16px;
-                margin-left: 8px;
+
+            img.symbol {
                 @include brown-border;
-                margin-top: 8px;
+                border-radius: 50%;
+                height: 32px;
+                margin: 0.5rem 0 0 0.5rem;
+                width: 32px;
             }
         }
 
@@ -179,8 +183,8 @@
         .pc {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+            justify-content: start;
+            align-items: start;
             flex: 20%;
             margin-bottom: 8px;
 
@@ -207,8 +211,8 @@
         .pc {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+            justify-content: start;
+            align-items: start;
             flex: 20%;
             margin-bottom: 8px;
 
@@ -283,8 +287,8 @@
         .ability {
             display: grid;
             grid:
-                '. label label' auto
-                'prefix score mod' 1fr
+                ". label label" auto
+                "prefix score mod" 1fr
                 / 1fr 1fr 1fr;
             column-gap: 10px;
             align-items: center;
@@ -302,10 +306,8 @@
                 filter: opacity(0.5);
                 text-transform: capitalize;
                 grid-area: prefix;
-                font-size: 28px;
+                font: 500 1.75rem var(--serif);
                 color: var(--primary);
-                font-family: var(--serif);
-                font-weight: 500;
                 text-align: right;
                 @include p-reset;
                 border: none;

@@ -19,11 +19,42 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:simple"
+                    ],
+                    "any": [
+                        "weapon:group:firearm",
+                        "weapon:group:bomb"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.SimpleBombsFirearms",
+                "slug": "simple-bombs-firearms",
+                "value": 1
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:martial"
+                    ],
+                    "any": [
+                        "weapon:group:firearm",
+                        "weapon:group:bomb"
+                    ]
+                },
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialBombsFirearms",
+                "slug": "martial-bombs-firearms",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -35,7 +66,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Explosive Savant",

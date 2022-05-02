@@ -22,29 +22,18 @@
             }
         },
         "attributes": {
-            "ancestryhp": 8,
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
-            "bonusbulk": 0,
-            "classDC": {
-                "rank": 0
-            },
-            "classhp": 10,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
+            "classDC": {},
             "hp": {
                 "details": "",
                 "temp": 0,
                 "value": 19
             },
             "initiative": {
-                "ability": ""
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
-            "perception": {
-                "rank": 0
-            },
+            "perception": {},
             "resolve": {
                 "max": 0,
                 "value": 0
@@ -52,7 +41,6 @@
             "sp": {
                 "details": "",
                 "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -71,12 +59,6 @@
             "alignment": {
                 "value": "LN"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "background": {
-                "value": ""
-            },
             "biography": {
                 "allies": "",
                 "appearance": "",
@@ -91,27 +73,23 @@
                 "likes": "",
                 "organaizations": ""
             },
-            "class": {
-                "value": ""
-            },
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
                 "value": ""
             },
             "ethnicity": {
                 "value": ""
             },
             "gender": {
-                "value": "M/He/Him"
+                "value": ""
             },
             "height": {
                 "value": ""
             },
             "keyability": {
-                "value": "dex"
+                "value": "str"
             },
             "level": {
-                "min": 1,
                 "value": 1
             },
             "nationality": {
@@ -127,13 +105,17 @@
                 "value": 0
             }
         },
-        "martial": {},
+        "martial": {
+            "martial": {
+                "rank": 1
+            }
+        },
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -153,23 +135,10 @@
                 "value": 1
             }
         },
-        "saves": {
-            "fortitude": {
-                "rank": 0,
-                "value": 0
-            },
-            "reflex": {
-                "rank": 0,
-                "value": 0
-            },
-            "will": {
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "saves": {},
         "skills": {
             "acr": {
-                "rank": 1
+                "rank": 0
             },
             "arc": {
                 "rank": 0
@@ -229,11 +198,9 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "common",
                     "vudrani"
                 ]
             },
-            "rarity": "common",
             "senses": [],
             "traits": {
                 "custom": "",
@@ -241,12 +208,11 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/SajanFull.webp",
     "items": [
         {
-            "_id": "rmNhEwLtdlGfWesP",
+            "_id": "1035j56upthbtexx",
             "data": {
                 "additionalLanguages": {
                     "count": 1,
@@ -299,7 +265,7 @@
                 "size": "med",
                 "slug": "human",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": 25,
                 "traits": {
@@ -312,7 +278,6 @@
                 },
                 "vision": "normal"
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.ancestries.IiG7DgeLWYrSNXuX"
@@ -320,20 +285,242 @@
             },
             "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
             "name": "Human",
-            "sort": 100000,
+            "sort": 0,
             "type": "ancestry"
         },
         {
-            "_id": "WelZUtNzoxFCfi4P",
+            "_id": "v6gdqk1v1h99mmac",
             "data": {
-                "abilityBoostLevels": {
-                    "value": [
-                        5,
-                        10,
-                        15,
-                        20
-                    ]
+                "ancestry": {
+                    "name": "Human",
+                    "uuid": "Compendium.pf2e.ancestries.IiG7DgeLWYrSNXuX"
                 },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "all": [
+                                "item:type:feat",
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                        },
+                        "choices": {
+                            "query": "{\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"general\"}}"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.x9wxQ61HNkAVbDHr"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-heritage",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.hFBwsVcSnNCJoimo"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "2kx9je7ctvtvllwf"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+            "name": "Versatile Heritage",
+            "sort": 0,
+            "type": "heritage"
+        },
+        {
+            "_id": "2kx9je7ctvtvllwf",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You become trained in all simple weapons. If you were already trained in all simple weapons, you become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in additional weapons as appropriate, following the above progression.</p>"
+                },
+                "featType": {
+                    "value": "general"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "weapon-proficiency",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.x9wxQ61HNkAVbDHr"
+                },
+                "pf2e": {
+                    "grantedBy": "v6gdqk1v1h99mmac"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Weapon Proficiency (Martial)",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "g20t7xvxbsmcqx8e",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>You can attack rapidly with fists, feet, elbows, knees, and other unarmed attacks. You gain the Flurry of Blows action.</p>\n<hr />\n<p>Make two unarmed @Compendium[pf2e.actionspf2e.Strike]{Strikes}. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As it has the flourish trait, you can use Flurry of Blows only once per turn.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "1diccnzp37wxvi5a",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "flurry-of-blows",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "flourish",
+                        "monk"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.NLHHHiAcdnZ5ohc2"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
+            "name": "Flurry of Blows",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "9oh5gnhfvbqr9btt",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You know how to wield your fists as deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. Most people take a -2 circumstance penalty when making a lethal attack with nonlethal unarmed attacks, because they find it hard to use their fists with deadly force. You don't take this penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "1diccnzp37wxvi5a",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                        "key": "Strike",
+                        "label": "PF2E.Strike.Fist.Label",
+                        "range": null,
+                        "slug": "fist",
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "nonlethal",
+                            "unarmed"
+                        ]
+                    }
+                ],
+                "slug": "powerful-fist",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.SB8UJ8rZmvbcBweJ"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+            "name": "Powerful Fist",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "1diccnzp37wxvi5a",
+            "data": {
                 "ancestryFeatLevels": {
                     "value": [
                         1,
@@ -401,6 +588,13 @@
                         "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
                         "level": 7,
                         "name": "Weapon Specialization",
+                        "pack": "pf2e.classfeatures"
+                    },
+                    "3ohvk": {
+                        "id": "y6qnbUc8y0815QNE",
+                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "level": 11,
+                        "name": "Second Path to Perfection",
                         "pack": "pf2e.classfeatures"
                     },
                     "4ru9g": {
@@ -480,11 +674,25 @@
                         "name": "Adamantine Strikes",
                         "pack": "pf2e.classfeatures"
                     },
+                    "z0s0v": {
+                        "id": "1K6m6AVmn3r8XZ9d",
+                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "level": 7,
+                        "name": "Path to Perfection",
+                        "pack": "pf2e.classfeatures"
+                    },
                     "zeyz5": {
                         "id": "KmTfg7Sg5va4yU00",
                         "img": "systems/pf2e/icons/features/classes/perfected-form.webp",
                         "level": 19,
                         "name": "Perfected Form",
+                        "pack": "pf2e.classfeatures"
+                    },
+                    "zgtbz": {
+                        "id": "haoTkr2U5k7kaAKN",
+                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "level": 15,
+                        "name": "Third Path to Perfection",
                         "pack": "pf2e.classfeatures"
                     },
                     "zl9gg": {
@@ -537,7 +745,7 @@
                 },
                 "slug": "monk",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "trainedSkills": {
                     "additional": 4,
@@ -549,7 +757,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.YPxpk9JbMnKjbNLc"
@@ -560,133 +767,11 @@
             },
             "img": "systems/pf2e/icons/classes/monk.webp",
             "name": "Monk",
-            "sort": 200000,
+            "sort": 0,
             "type": "class"
         },
         {
-            "_id": "fbQxUXOdFyjwLw9e",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>You can attack rapidly with fists, feet, elbows, knees, and other unarmed attacks. You gain the Flurry of Blows action.</p>\n<hr />\n<p>Make two unarmed @Compendium[pf2e.actionspf2e.Strike]{Strikes}. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As it has the flourish trait, you can use Flurry of Blows only once per turn.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "WelZUtNzoxFCfi4P",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "flurry-of-blows",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "flourish",
-                        "monk"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.NLHHHiAcdnZ5ohc2"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
-            "name": "Flurry of Blows",
-            "sort": 300000,
-            "type": "feat"
-        },
-        {
-            "_id": "942DamB5yvKvoJeO",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You know how to wield your fists as deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. Most people take a -2 circumstance penalty when making a lethal attack with nonlethal unarmed attacks, because they find it hard to use their fists with deadly force. You don't take this penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "WelZUtNzoxFCfi4P",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "bludgeoning",
-                                "dice": 1,
-                                "die": "d6"
-                            }
-                        },
-                        "group": "brawling",
-                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
-                        "key": "Strike",
-                        "label": "PF2E.Strike.Fist.Label",
-                        "range": null,
-                        "slug": "fist",
-                        "traits": [
-                            "agile",
-                            "finesse",
-                            "nonlethal",
-                            "unarmed"
-                        ]
-                    }
-                ],
-                "slug": "powerful-fist",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.SB8UJ8rZmvbcBweJ"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
-            "name": "Powerful Fist",
-            "sort": 400000,
-            "type": "feat"
-        },
-        {
-            "_id": "R6NsBNaAtGBCqZHH",
+            "_id": "hpndejddh3fhalal",
             "data": {
                 "boosts": {
                     "0": {
@@ -721,7 +806,7 @@
                 "rules": [],
                 "slug": "martial-disciple-acrobatics",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "trainedLore": "Warfare Lore",
                 "trainedSkills": {
@@ -735,19 +820,18 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.backgrounds.lRVYgV9zL6O6O3U4"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/background.svg",
             "name": "Martial Disciple (Acrobatics)",
-            "sort": 500000,
+            "sort": 0,
             "type": "background"
         },
         {
-            "_id": "YdMbWCWit5bBugZU",
+            "_id": "bwmbz7xmmm5k0ggo",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -767,7 +851,7 @@
                 "level": {
                     "value": 1
                 },
-                "location": "R6NsBNaAtGBCqZHH",
+                "location": "hpndejddh3fhalal",
                 "prerequisites": {
                     "value": [
                         {
@@ -778,7 +862,7 @@
                 "rules": [],
                 "slug": "cat-fall",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -789,7 +873,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.LQw0yIMDUJJkq1nD"
@@ -797,11 +880,11 @@
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Cat Fall",
-            "sort": 600000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "dW4jhQ9w3ERRRRIa",
+            "_id": "IHw632mCpANMn6es",
             "data": {
                 "description": {
                     "value": ""
@@ -823,15 +906,14 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 700000,
+            "sort": 0,
             "type": "lore"
         },
         {
-            "_id": "gsbWiQlMnVpjHPiw",
+            "_id": "txvixnbf5ik8ht3s",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -855,10 +937,47 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "postFilter": {
+                                "any": [
+                                    "feature:dragon-instinct",
+                                    {
+                                        "not": "item:draconic-arrogance"
+                                    }
+                                ],
+                                "not": [
+                                    "item:animal-companion",
+                                    "item:animal-companion-druid",
+                                    "item:bardic-lore",
+                                    "item:fire-lung",
+                                    "item:lingering-composition",
+                                    "item:leshy-familiar",
+                                    "item:martial-performance",
+                                    "item:shore-step",
+                                    "item:steadying-stone",
+                                    "item:storm-born",
+                                    "item:versatile-performance",
+                                    "item:wild-shape"
+                                ]
+                            },
+                            "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"{actor|data.details.class.trait}\"}}"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.VCjAlOvjNvFJOsG5"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
                 "slug": "natural-ambition",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -868,19 +987,23 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.PodajLVxqYSAqVox"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "876on97cr80erz04"
+                    ]
                 }
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Natural Ambition",
-            "sort": 900000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "nCAYDUrdLSrsLICP",
+            "_id": "876on97cr80erz04",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -892,7 +1015,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes 1d4 persistent bleed damage.</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>\n<p>@Compendium[pf2e.feat-effects.Stance: Tiger Stance]{Stance: Tiger Stance}</p>"
+                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>\n<p>@Compendium[pf2e.feat-effects.Stance: Tiger Stance]{Stance: Tiger Stance}</p>"
                 },
                 "featType": {
                     "value": "class"
@@ -907,7 +1030,7 @@
                 "rules": [],
                 "slug": "tiger-stance",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -918,19 +1041,21 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.VCjAlOvjNvFJOsG5"
+                },
+                "pf2e": {
+                    "grantedBy": "txvixnbf5ik8ht3s"
                 }
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Tiger Stance (Natural Ambition)",
-            "sort": 1000000,
+            "name": "Tiger Stance",
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "Wp5Yrr354xam2VMW",
+            "_id": "PmbIz2kjx58BXFZ3",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -964,7 +1089,7 @@
                 ],
                 "slug": "ki-rush",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -974,7 +1099,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.yA9tsWT9uzL2REnw"
@@ -982,65 +1106,13 @@
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Ki Rush",
-            "sort": 1100000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "jOB1vUJ0UGp2zyZ0",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You become trained in all simple weapons. If you were already trained in all simple weapons, you become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in additional weapons as appropriate, following the above progression.</p>"
-                },
-                "featType": {
-                    "value": "general"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "weapon-proficiency",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.x9wxQ61HNkAVbDHr"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Weapon Proficiency (Martial) (Versatile Heritage)",
-            "sort": 1200000,
-            "type": "feat"
-        },
-        {
-            "_id": "zACNaDBtTjzFNy7a",
+            "_id": "10ljcayenbhp5nmy",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "bulkCapacity": {
                     "value": "4"
                 },
@@ -1051,6 +1123,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -1096,7 +1169,7 @@
                 "size": "med",
                 "slug": "backpack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "stowing": true,
@@ -1112,7 +1185,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.3lgwjrFEsQVKzhh7"
@@ -1120,23 +1192,148 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
             "name": "Backpack",
-            "sort": 1300000,
+            "sort": 0,
             "type": "backpack"
         },
         {
-            "_id": "MPzBPGzErlR2d81s",
+            "_id": "oo4lauuxrqtkzyvu",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
-                "brokenThreshold": {
+                "charges": {
+                    "_deprecated": true,
+                    "max": 7,
+                    "value": 7
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": "10ljcayenbhp5nmy",
+                "description": {
+                    "value": ""
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
                     "value": 0
                 },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": "4 sp"
+                },
+                "quantity": 2,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": null,
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 0,
+            "type": "consumable"
+        },
+        {
+            "_id": "qvglo3nbcoro6at1",
+            "data": {
+                "baseItem": null,
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>50 feet of rope.</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1181,7 +1378,7 @@
                 "size": "med",
                 "slug": "rope",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1196,7 +1393,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.fyYnQf1NAx9fWFaS"
@@ -1204,23 +1400,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/rope.webp",
             "name": "Rope",
-            "sort": 1400000,
+            "sort": 33204,
             "type": "equipment"
         },
         {
-            "_id": "aZ6f82tKroWTyZTM",
+            "_id": "hpngyf1dy9py718v",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1260,12 +1452,12 @@
                 "price": {
                     "value": "5 cp"
                 },
-                "quantity": 1,
+                "quantity": 10,
                 "rules": [],
                 "size": "med",
                 "slug": "waterskin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1280,7 +1472,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
@@ -1288,23 +1479,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
-            "sort": 1500000,
+            "sort": 34375,
             "type": "equipment"
         },
         {
-            "_id": "x0oXEzxckQAhALhe",
+            "_id": "imvptrwimt9bvg39",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1344,12 +1531,12 @@
                 "price": {
                     "value": "1 cp"
                 },
-                "quantity": 10,
+                "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "chalk",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1364,7 +1551,6 @@
                     "value": "-"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.xShIDyydOMkGvGNb"
@@ -1372,23 +1558,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
             "name": "Chalk",
-            "sort": 1600000,
+            "sort": 31250,
             "type": "equipment"
         },
         {
-            "_id": "Rl8IFStgJ3EvrlFX",
+            "_id": "uadq8whc2esc5ska",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1428,12 +1610,12 @@
                 "price": {
                     "value": "5 cp"
                 },
-                "quantity": 1,
+                "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "flint-and-steel",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1448,7 +1630,6 @@
                     "value": "-"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
@@ -1456,23 +1637,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
             "name": "Flint and Steel",
-            "sort": 1700000,
+            "sort": 32032,
             "type": "equipment"
         },
         {
-            "_id": "PBXIFyo14QzGLFta",
+            "_id": "ypn14l9otenuocty",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1517,7 +1694,7 @@
                 "size": "med",
                 "slug": "torch",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1532,7 +1709,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.8Jdw4yAzWYylGePS"
@@ -1540,23 +1716,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
             "name": "Torch",
-            "sort": 1900000,
+            "sort": 33790,
             "type": "equipment"
         },
         {
-            "_id": "k7QE6L4jPCqTGNVx",
+            "_id": "h445gjzlq8i6zpr1",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>A rolled up bed.</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1601,7 +1773,7 @@
                 "size": "med",
                 "slug": "bedroll",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1616,7 +1788,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
@@ -1624,23 +1795,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
             "name": "Bedroll",
-            "sort": 2000000,
+            "sort": 25000,
             "type": "equipment"
         },
         {
-            "_id": "o5pRQBbAuWj9sH9e",
+            "_id": "7g0g9bwv6ghjra40",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>Bar of soap.</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1685,7 +1852,7 @@
                 "size": "med",
                 "slug": "soap",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1700,7 +1867,6 @@
                     "value": "-"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.81aHsD27HFGnq1Nt"
@@ -1708,23 +1874,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/soap.webp",
             "name": "Soap",
-            "sort": 2100000,
+            "sort": 33497,
             "type": "equipment"
         },
         {
-            "_id": "bcI7a9I53mLbjwKy",
+            "_id": "71NOqjwekwonrFat",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
+                "containerId": "10ljcayenbhp5nmy",
                 "description": {
                     "value": "<p>When Forcing Open an object that doesn't have an easy grip, a crowbar makes it easier to gain the necessary leverage. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open (similar to using a shoddy item).</p>"
                 },
                 "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1769,7 +1931,7 @@
                 "size": "med",
                 "slug": "crowbar",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1784,7 +1946,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.44F1mfJei4GY8f2X"
@@ -1792,19 +1953,274 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/crowbar.webp",
             "name": "Crowbar",
-            "sort": 2200000,
+            "sort": 31641,
             "type": "equipment"
         },
         {
-            "_id": "ppuMAFVegKZg5uNT",
+            "_id": "GaG6ZeWHBm0mp86W",
             "data": {
                 "armor": {
                     "value": 0
                 },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": null
+                "baseItem": "explorers-clothing",
+                "containerId": null,
+                "denomination": {
+                    "value": "gp"
                 },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "cloth",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": "coins",
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                },
+                "usage": {
+                    "value": ""
+                },
+                "value": {
+                    "value": 1
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.B6B7tBWJSqOBz5zz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 0,
+            "type": "treasure"
+        },
+        {
+            "_id": "4h9J50B4NZk76kjO",
+            "data": {
+                "baseItem": null,
+                "containerId": null,
+                "denomination": {
+                    "value": "sp"
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": "coins",
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": ""
+                },
+                "value": {
+                    "value": 1
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.5Ew82vBF9YfaiY9f"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 0,
+            "type": "treasure"
+        },
+        {
+            "_id": "MHHFTKL9xHfU2oSu",
+            "data": {
+                "baseItem": null,
+                "containerId": null,
+                "denomination": {
+                    "value": "cp"
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "copper-pieces",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": "coins",
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": ""
+                },
+                "value": {
+                    "value": 1
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.lzJ8AVhRcbFul5fh"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
+            "name": "Copper Pieces",
+            "sort": 0,
+            "type": "treasure"
+        },
+        {
+            "_id": "bW47CPuOPXvGZN9V",
+            "data": {
+                "armor": {
+                    "value": 0
+                },
+                "baseItem": "explorers-clothing",
                 "category": "unarmored",
                 "check": {
                     "value": 0
@@ -1818,13 +2234,14 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
                     "value": "L"
                 },
-                "group": null,
+                "group": "cloth",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -1854,10 +2271,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "1 sp"
@@ -1882,7 +2299,7 @@
                 "size": "med",
                 "slug": "clothing-explorers",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -1894,7 +2311,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "comfort"
+                    ]
                 },
                 "usage": {
                     "value": "wornarmor"
@@ -1903,7 +2322,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.dDIPA1WE9ESF67EB"
@@ -1911,11 +2329,11 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-explorers.webp",
             "name": "Clothing (Explorer's)",
-            "sort": 2300000,
+            "sort": 0,
             "type": "armor"
         },
         {
-            "_id": "bGTX0aIXXU2HfMv4",
+            "_id": "SNkKrxUitxbm7ygS",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1925,9 +2343,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -1942,8 +2357,8 @@
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 1d6 electricity damage and 1 electricity splash damage. On a hit, the target becomes flat-footed until the start of your next turn.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -2018,11 +2433,17 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'>@Localize[PF2E.BombNotes.BottledLightning.Lesser.success]</p>"
+                    }
+                ],
                 "size": "med",
                 "slug": "bottled-lightning-lesser",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2052,7 +2473,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.AFR01HVd7DcZvkpP"
@@ -2060,11 +2480,11 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.webp",
             "name": "Bottled Lightning (Lesser)",
-            "sort": 2400000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "7zFUMUlE6FVUhYb7",
+            "_id": "oxdmzPXt8nkuhPrb",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2074,9 +2494,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -2091,8 +2508,8 @@
                     "value": "<p>This thrown weapon is larger than an arrow but shorter than a javelin. It typically has a short shaft of wood ending in a metal tip and is sometimes stabilized by feathers or fur.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -2171,7 +2588,7 @@
                 "size": "med",
                 "slug": "dart",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2198,7 +2615,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.Tt4Qw64fwrxhr5gT"
@@ -2206,23 +2622,19 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
-            "sort": 2500000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "bd1Wjq4K8HqYAH2j",
+            "_id": "wKazyW4F8wTVtLAb",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "equippedBulk": {
@@ -2267,7 +2679,7 @@
                 "size": "med",
                 "slug": "grappling-hook",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -2282,7 +2694,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.6DCy7tEF1cxaIJMy"
@@ -2290,11 +2701,11 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
             "name": "Grappling Hook",
-            "sort": 2600000,
+            "sort": 0,
             "type": "equipment"
         },
         {
-            "_id": "3n84wtyuuhqO3ZJV",
+            "_id": "T1wSKuNfbLNLvonO",
             "data": {
                 "activation": {
                     "condition": "",
@@ -2310,16 +2721,13 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "elixir"
                 },
                 "consume": {
                     "_deprecated": true,
@@ -2334,8 +2742,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2384,7 +2792,7 @@
                 "size": "med",
                 "slug": "elixir-of-life-minor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -2420,7 +2828,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.hDLbR56Id2OtU318"
@@ -2428,11 +2835,11 @@
             },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
             "name": "Elixir of Life (Minor)",
-            "sort": 2700000,
+            "sort": 0,
             "type": "consumable"
         },
         {
-            "_id": "B2gfUkNbZq3f6wfZ",
+            "_id": "rgE2P6EPyY3gClzl",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2442,9 +2849,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -2539,7 +2943,7 @@
                 "size": "med",
                 "slug": "temple-sword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2566,7 +2970,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.NIsxR5zXtVa3PuyU"
@@ -2574,11 +2977,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/temple-sword.webp",
             "name": "Temple Sword",
-            "sort": 2800000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "9Wm7VXFYaEnG3fVL",
+            "_id": "ilIgpzbt2yQUyheA",
             "data": {
                 "ability": {
                     "value": "cha"
@@ -2591,10 +2994,11 @@
                 },
                 "displayLevels": {},
                 "prepared": {
+                    "flexible": false,
                     "value": "focus"
                 },
                 "proficiency": {
-                    "value": 1
+                    "value": 0
                 },
                 "rules": [],
                 "showSlotlessLevels": {
@@ -2602,9 +3006,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -2673,13 +3074,12 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": 13,
-                    "item": 0,
+                    "dc": 0,
                     "mod": 0,
-                    "value": 3
+                    "value": 0
                 },
                 "tradition": {
-                    "value": "divine"
+                    "value": "arcane"
                 },
                 "traits": {
                     "custom": "",
@@ -2687,15 +3087,14 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Focus Spells",
-            "sort": 2900000,
+            "name": "Arcane Focus Spells",
+            "sort": 0,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "0SAXwWqKaEygbylK",
+            "_id": "7jPsDcMBaL5Ua9bv",
             "data": {
                 "ability": {
                     "value": ""
@@ -2706,9 +3105,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "focus"
@@ -2738,7 +3134,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "9Wm7VXFYaEnG3fVL"
+                    "value": "ilIgpzbt2yQUyheA"
                 },
                 "materials": {
                     "value": ""
@@ -2768,7 +3164,7 @@
                 },
                 "slug": "ki-rush",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -2793,7 +3189,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.ps0nmhclT6aIXgd8"
@@ -2801,437 +3196,8 @@
             },
             "img": "systems/pf2e/icons/spells/ki-rush.webp",
             "name": "Ki Rush",
-            "sort": 3000000,
+            "sort": 0,
             "type": "spell"
-        },
-        {
-            "_id": "DkA8oFhItqhQ7im1",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "gold-pieces",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": "coins",
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": ""
-                },
-                "value": {
-                    "value": 1
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.B6B7tBWJSqOBz5zz"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
-            "name": "Gold Pieces",
-            "sort": 3100000,
-            "type": "treasure"
-        },
-        {
-            "_id": "i5Gr2QHlhsil8Dy9",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": null,
-                "denomination": {
-                    "value": "sp"
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": 4,
-                "rules": [],
-                "size": "med",
-                "slug": "silver-pieces",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": "coins",
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": ""
-                },
-                "value": {
-                    "value": 1
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.5Ew82vBF9YfaiY9f"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
-            "name": "Silver Pieces",
-            "sort": 3200000,
-            "type": "treasure"
-        },
-        {
-            "_id": "PACcxX30XBInVdQ0",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": null,
-                "denomination": {
-                    "value": "cp"
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "copper-pieces",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": "coins",
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": ""
-                },
-                "value": {
-                    "value": 1
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.lzJ8AVhRcbFul5fh"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
-            "name": "Copper Pieces",
-            "sort": 3300000,
-            "type": "treasure"
-        },
-        {
-            "_id": "5uDpCnkuA38YTt3I",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": "zACNaDBtTjzFNy7a",
-                "description": {
-                    "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": "4 sp"
-                },
-                "quantity": 2,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": "med",
-                "slug": "rations",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Rations",
-            "sort": 1800000,
-            "type": "consumable"
-        },
-        {
-            "_id": "s3ikrju6aaa8q99j",
-            "data": {
-                "ancestry": {
-                    "name": "Human",
-                    "uuid": "Compendium.pf2e.ancestries.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
-                },
-                "rules": [],
-                "slug": "versatile-heritage",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.hFBwsVcSnNCJoimo"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
-            "name": "Versatile Heritage",
-            "sort": 800000,
-            "type": "heritage"
         }
     ],
     "name": "Sajan (Level 1)",

@@ -6,7 +6,7 @@
     margin-bottom: 2px;
 }
 
-.tags .tag {
+.tags .tag, .tags .tag option {
     @include micro;
     border-radius: 2px;
     padding: 3px 4px;
@@ -31,27 +31,27 @@
         }
     }
 
-    &_secondary.tag {
+    &.tag_secondary {
         background-color: var(--secondary);
         color: white;
     }
 
-    &_tertiary.tag {
+    &.tag_tertiary {
         background-color: var(--tertiary);
         color: white;
     }
 
-    &_alt.tag {
+    &.tag_alt {
         background-color: var(--alt);
         color: white;
     }
 
-    &_material.tag {
+    &.tag_material {
         background-color: var(--alt-dark);
         color: white;
     }
 
-    &_transparent.tag {
+    &.tag_transparent {
         background-color: transparent;
         color: black;
         text-transform: none;
@@ -61,8 +61,38 @@
     }
 
     &.mystified {
-        opacity: 0.6;
+        opacity: 0.7;
     }
+
+    &.common, &[value="common"] {
+        border-color: $rarity-common;
+        background-color: $rarity-common;
+    }
+
+    &.uncommon, &[value="uncommon"] {
+        border-color: $rarity-uncommon;
+        background-color: $rarity-uncommon;
+    }
+
+    &.rare, &[value="rare"] {
+        border-color: $rarity-rare;
+        background-color: $rarity-rare;
+    }
+
+    &.unique, &[value="unique"] {
+        border-color: $rarity-unique;
+        background-color: $rarity-unique;
+    }
+}
+
+.tags select.tag {
+    border: none;
+    padding: 0;
+    height: auto;
+}
+
+.tags.main .tag {
+    font-size: 12px;
 }
 
 .damage-tag {

@@ -25,14 +25,23 @@
         },
         "rules": [
             {
-                "key": "ToggleProperty",
-                "label": "Target triggered your champion reaction (negative damage)",
-                "property": "flags.pf2e.rollOptions.damage-roll.selfish-shield-negative"
+                "domain": "all",
+                "key": "RollOption",
+                "option": "class:champion:alignment:ne"
             },
             {
-                "key": "ToggleProperty",
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Target triggered your champion reaction (negative damage)",
+                "option": "selfish-shield-negative",
+                "toggleable": true
+            },
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
                 "label": "Target triggered your champion reaction (evil damage)",
-                "property": "flags.pf2e.rollOptions.damage-roll.selfish-shield-evil"
+                "option": "selfish-shield-evil",
+                "toggleable": true
             },
             {
                 "damageType": "negative",
@@ -92,17 +101,16 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
-            "rarity": "common",
+            "rarity": "uncommon",
             "value": [
                 "champion"
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/desecrator.webp",
     "name": "Desecrator",

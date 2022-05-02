@@ -1,10 +1,9 @@
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
-import { CheckModifier, ModifierPF2e, StatisticModifier } from "../modifiers";
+import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { CheckDC, DegreeOfSuccess, DEGREE_ADJUSTMENTS, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
-import { DamageTemplate } from "@system/damage/weapon";
+import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
@@ -14,14 +13,15 @@ import { PredicatePF2e } from "./predication";
 import { StrikeData, StrikeTrait } from "@actor/data/base";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { AttackTarget, StrikeTarget } from "@actor/creature/types";
-import { DamageCategory, DamageRollContext } from "./damage/damage";
+import { AttackTarget } from "@actor/creature/types";
 import { LocalizePF2e } from "./localize";
 import { Check } from "./check";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TextEditorPF2e } from "./text-editor";
+import { CheckRoll } from "./check/roll";
 
 export interface RollDataPF2e extends RollData {
+    rollerId?: string;
     totalModifier?: number;
     degreeOfSuccess?: ZeroToThree;
     strike?: {
@@ -50,9 +50,11 @@ export interface StrikeRollParams extends RollParameters {
     getFormula?: true;
     /** The strike is to use the melee usage of a combination weapon */
     meleeUsage?: boolean;
+    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
+    rollTwice?: RollTwiceOption;
 }
 
-export type FateString = "none" | "fortune" | "misfortune";
+export type RollTwiceOption = "no" | "keep-higher" | "keep-lower";
 
 export type AttackCheck = "attack-roll" | "spell-attack-roll";
 export type CheckType =
@@ -75,7 +77,7 @@ export interface BaseRollContext {
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
     /** If this is an attack, the target of that attack */
-    target?: StrikeTarget | null;
+    target?: AttackTarget | null;
     /** Any traits for the check. */
     traits?: StrikeTrait[];
     /** The outcome a roll (usually relevant only to rerolls) */
@@ -92,8 +94,8 @@ export interface CheckRollContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
     target?: AttackTarget | null;
-    /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
-    fate?: FateString;
+    /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
+    rollTwice?: RollTwiceOption;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The token which initiated this roll. */
@@ -139,10 +141,11 @@ export class CheckPF2e {
             outcome: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null | undefined,
             message: ChatMessagePF2e
         ) => Promise<void> | void
-    ): Promise<Rolled<Roll<RollDataPF2e>> | null> {
+    ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
+        context.skipDialog ??= !game.user.settings.showRollDialogs;
 
         if (context.options?.length && !context.isReroll) {
             check.calculateTotal(context.options);
@@ -174,10 +177,10 @@ export class CheckPF2e {
 
         const options: string[] = [];
         let dice = "1d20";
-        if (context.fate === "misfortune") {
+        if (context.rollTwice === "keep-lower") {
             dice = "2d20kl";
             options.push("PF2E.TraitMisfortune");
-        } else if (context.fate === "fortune") {
+        } else if (context.rollTwice === "keep-higher") {
             dice = "2d20kh";
             options.push("PF2E.TraitFortune");
         }
@@ -197,7 +200,7 @@ export class CheckPF2e {
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
         const rollData: RollDataPF2e = (() => {
-            const data: RollDataPF2e = { totalModifier: check.totalModifier };
+            const data: RollDataPF2e = { rollerId: game.userId, totalModifier: check.totalModifier };
 
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
@@ -305,7 +308,7 @@ export class CheckPF2e {
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
-            fate: context.fate ?? "none",
+            rollTwice: context.rollTwice ?? "no",
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
             traits: context.traits ?? [],
@@ -325,7 +328,7 @@ export class CheckPF2e {
             const flags = {
                 core: coreFlags,
                 pf2e: {
-                    canReroll: !["fortune", "misfortune"].includes(context.fate ?? ""),
+                    canReroll: !["keep-higher", "keep-lower"].includes(context.rollTwice ?? ""),
                     context: contextFlag,
                     unsafe: flavor,
                     modifierName: check.name,
@@ -393,6 +396,8 @@ export class CheckPF2e {
         context.isReroll = true;
 
         const oldRoll = message.roll;
+        if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
+
         const RollCls = message.roll.constructor as typeof Check.Roll;
         const newRoll = await new RollCls(oldRoll.formula, oldRoll.data).evaluate({ async: true });
 
@@ -535,9 +540,9 @@ export class CheckPF2e {
             const circumstances =
                 dc.slug === "ac" && targetAC instanceof StatisticModifier
                     ? targetAC.modifiers.filter((m) => m.enabled && m.type === "circumstance")
-                    : null;
+                    : [];
             const preadjustedDC =
-                circumstances && targetAC
+                circumstances.length > 0 && targetAC
                     ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : targetAC?.value ?? null;
 
@@ -545,7 +550,7 @@ export class CheckPF2e {
                 ? "all"
                 : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
 
-            if (!(preadjustedDC && circumstances) || preadjustedDC === targetAC?.value) {
+            if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = targetData
                     ? translations.DC.Label.WithTarget
                     : customLabel ?? translations.DC.Label.NoTarget;
@@ -557,11 +562,18 @@ export class CheckPF2e {
 
             const adjustment = {
                 preadjusted: preadjustedDC,
-                direction: preadjustedDC < dc.value ? "increased" : "decreased",
+                direction:
+                    preadjustedDC < dc.value ? "increased" : preadjustedDC > dc.value ? "decreased" : "no-change",
                 circumstances: circumstances.map((c) => ({ label: c.label, value: c.modifier })),
             } as const;
 
-            const markup = game.i18n.format(translations.DC.Label.AdjustedTarget, {
+            // If the adjustment direction is "no-change", the bonuses and penalties summed to zero
+            const translation =
+                adjustment.direction === "no-change"
+                    ? translations.DC.Label.NoChangeTarget
+                    : translations.DC.Label.AdjustedTarget;
+
+            const markup = game.i18n.format(translation, {
                 target: targetData?.name ?? game.user.name,
                 dcType,
                 preadjusted: preadjustedDC,
@@ -668,7 +680,7 @@ interface FlavorTemplateData {
         visibility: UserVisibility;
         adjustment?: {
             preadjusted: number;
-            direction: "increased" | "decreased";
+            direction: "increased" | "decreased" | "no-change";
             circumstances: { label: string; value: number }[];
         };
     };
@@ -686,7 +698,7 @@ export class DamageRollPF2e {
         // Change the base damage type in case it was overridden
         const baseDamageType = damage.formula[context.outcome ?? "success"]?.data.baseDamageType;
         damage.base.damageType = baseDamageType ?? damage.base.damageType;
-        damage.base.category = DamageCategory.fromDamageType(damage.base.damageType);
+        damage.base.category = DamageCategorization.fromDamageType(damage.base.damageType);
 
         // Change default roll mode to blind GM roll if the "secret" option is specified
         if (context.options && context.options?.length > 0) {

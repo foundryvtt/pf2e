@@ -16,7 +16,51 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                "option": "hunted-prey",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "hunted-prey"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": {
+                    "all": [
+                        "action:track",
+                        "hunted-prey"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
@@ -35,7 +79,6 @@
             "value": ""
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/actions/OneAction.webp",
     "name": "Hunt Prey",

@@ -22,29 +22,18 @@
             }
         },
         "attributes": {
-            "ancestryhp": 6,
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
-            "bonusbulk": 0,
-            "classDC": {
-                "rank": 0
-            },
-            "classhp": 8,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
+            "classDC": {},
             "hp": {
                 "details": "",
                 "temp": 0,
                 "value": 15
             },
             "initiative": {
-                "ability": ""
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
-            "perception": {
-                "rank": 0
-            },
+            "perception": {},
             "resolve": {
                 "max": 0,
                 "value": 0
@@ -52,7 +41,6 @@
             "sp": {
                 "details": "",
                 "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -71,12 +59,6 @@
             "alignment": {
                 "value": "CN"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "background": {
-                "value": ""
-            },
             "biography": {
                 "allies": "",
                 "appearance": "",
@@ -91,27 +73,23 @@
                 "likes": "",
                 "organaizations": ""
             },
-            "class": {
-                "value": ""
-            },
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
                 "value": ""
             },
             "ethnicity": {
                 "value": ""
             },
             "gender": {
-                "value": "F/She/Her"
+                "value": ""
             },
             "height": {
                 "value": ""
             },
             "keyability": {
-                "value": "dex"
+                "value": "str"
             },
             "level": {
-                "min": 1,
                 "value": 1
             },
             "nationality": {
@@ -129,11 +107,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,
@@ -150,20 +128,7 @@
                 "value": 1
             }
         },
-        "saves": {
-            "fortitude": {
-                "rank": 0,
-                "value": 0
-            },
-            "reflex": {
-                "rank": 0,
-                "value": 0
-            },
-            "will": {
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "saves": {},
         "skills": {
             "acr": {
                 "rank": 1
@@ -211,7 +176,7 @@
                 "rank": 1
             },
             "thi": {
-                "rank": 1
+                "rank": 0
             }
         },
         "traits": {
@@ -226,31 +191,21 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "common",
-                    "elven",
                     "gnoll"
                 ]
             },
-            "rarity": "common",
-            "senses": [
-                {
-                    "label": "Low-Light Vision",
-                    "type": "lowLightVision",
-                    "value": ""
-                }
-            ],
+            "senses": [],
             "traits": {
                 "custom": "",
                 "value": []
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/MerisielFull.webp",
     "items": [
         {
-            "_id": "VBAUwKpyIKD13DH6",
+            "_id": "3moyhtv55my9nu1p",
             "data": {
                 "additionalLanguages": {
                     "count": 0,
@@ -311,7 +266,7 @@
                 "size": "med",
                 "slug": "elf",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": 30,
                 "traits": {
@@ -324,7 +279,6 @@
                 },
                 "vision": "lowLightVision"
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.ancestries.PgKmsA2aKdbLU6O0"
@@ -332,20 +286,491 @@
             },
             "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
             "name": "Elf",
-            "sort": 100000,
+            "sort": 0,
             "type": "ancestry"
         },
         {
-            "_id": "WbVtQKKnZ7kHwQV4",
+            "_id": "jaPfdIXADWJgjIcq",
             "data": {
-                "abilityBoostLevels": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Watching your friends age and die fills you with moroseness that protects you against harmful emotions. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+                },
+                "featType": {
+                    "value": "ancestry"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Against emotion effects",
+                        "predicate": {
+                            "all": [
+                                "emotion"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "emotion"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": {
+                            "all": [
+                                "emotion"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "save"
+                    }
+                ],
+                "slug": "forlorn",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
                     "value": [
-                        5,
-                        10,
-                        15,
-                        20
+                        "elf"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.AogIo1gHLdz7DyHx"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Forlorn",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "uxAzqXX7vshGqWu0",
+            "data": {
+                "ancestry": {
+                    "name": "Elf",
+                    "uuid": "Compendium.pf2e.ancestries.PgKmsA2aKdbLU6O0"
+                },
+                "description": {
+                    "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound.</p>\n<p>As long as you can hear normally, you can use the @Compendium[pf2e.actionspf2e.Seek]{Seek} action to sense @Compendium[pf2e.conditionitems.Undetected]{Undetected} creatures in a @Template[type:cone|distance:60] instead of a @Template[type:cone|distance:30].</p>\n<p>You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a seek action.</p>"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Whisper Elf (locate audible undetected within range)",
+                        "predicate": {
+                            "all": [
+                                "target:undetected",
+                                "target:within-30-feet",
+                                "target:audible"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "whisper-elf",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.1wVDYY9Wue0G5R9Q"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/whisper-elf.webp",
+            "name": "Whisper Elf",
+            "sort": 0,
+            "type": "heritage"
+        },
+        {
+            "_id": "r4pyk53r32hkdxuo",
+            "data": {
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "dex",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>As an unscrupulous independent or as a member of an underworld organization, you lived a life of crime. You might have become an adventurer to seek redemption, to escape the law, or simply to get access to bigger and better loot.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Stealth skill and the Underworld Lore skill. You gain the @Compendium[pf2e.feats-srd.Experienced Smuggler]{Experienced Smuggler} skill feat.</p>"
+                },
+                "items": {
+                    "19grf": {
+                        "id": "t3btih0O5RUwWynt",
+                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "level": "1",
+                        "name": "Experienced Smuggler",
+                        "pack": "pf2e.feats-srd"
+                    }
+                },
+                "rules": [],
+                "slug": "criminal",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "trainedLore": "Underworld Lore",
+                "trainedSkills": {
+                    "value": [
+                        "ste"
                     ]
                 },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.9lVw1JGl5ser6626"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Criminal",
+            "sort": 0,
+            "type": "background"
+        },
+        {
+            "_id": "d37468fnkgtgvcpq",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You often smuggle things past the authorities.</p>\n<p>When the GM rolls your Stealth check to see if a passive observer notices a small item you have concealed, the GM uses the number rolled or 10 - whichever is higher - as the result of your die roll, adding it to your Stealth modifier to determine your Stealth check result.</p>\n<p>If you're a master in Stealth, the GM uses the number rolled or 15, and if you're legendary in Stealth, you automatically succeed at hiding a small concealed item from passive observers.</p>\n<p>This provides no benefits when a creature attempts a Perception check while actively searching you for hidden items.</p>\n<p>Due to your smuggling skill, you're more likely to find more lucrative smuggling jobs when using Underworld Lore to Earn Income.</p>\n<hr />\n<p><strong>PFS Note</strong> This feat allows you to Earn Income with Underworld Lore with tasks of your level -1 (instead of the normal level -2).</p>"
+                },
+                "featType": {
+                    "value": "skill"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "r4pyk53r32hkdxuo",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Trained in Stealth"
+                        }
+                    ]
+                },
+                "rules": [],
+                "slug": "experienced-smuggler",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.t3btih0O5RUwWynt"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Experienced Smuggler",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "81s8v3ohnn3k3n13",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "zx8lcgra45gerurx",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "allowedDrops": {
+                            "all": [
+                                "item:trait:rogue",
+                                "item:level:1"
+                            ],
+                            "label": "level 1 Rogue feature"
+                        },
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.classfeatures.D8qtAo2w4jsqjBrM"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.RyOkmu0W9svavuAB"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.3KPZ7svIO6kmmEKH"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.ZvfxtUMtfIOLYHyg"
+                            },
+                            {
+                                "value": "Compendium.pf2e.classfeatures.wAh2riuFRzz0edPl"
+                            }
+                        ],
+                        "flag": "roguesRacket",
+                        "key": "ChoiceSet",
+                        "prompt": "Select a Racket.",
+                        "selection": "Compendium.pf2e.classfeatures.wAh2riuFRzz0edPl"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.roguesRacket}"
+                    }
+                ],
+                "slug": "rogues-racket",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.uGuCGQvUmioFV2Bd"
+                },
+                "pf2e": {
+                    "itemGrants": [
+                        "76tnlqjbx734jh0b"
+                    ]
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "name": "Rogue's Racket",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "ag4y6l0rdav2a0ei",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "zx8lcgra45gerurx",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:condition:flat-footed",
+                                "class:rogue"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 4,
+                                    "value": {
+                                        "diceNumber": 1
+                                    }
+                                },
+                                {
+                                    "end": 10,
+                                    "start": 5,
+                                    "value": {
+                                        "diceNumber": 2
+                                    }
+                                },
+                                {
+                                    "end": 16,
+                                    "start": 11,
+                                    "value": {
+                                        "diceNumber": 3
+                                    }
+                                },
+                                {
+                                    "start": 17,
+                                    "value": {
+                                        "diceNumber": 4
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.j1JE61quDxdge4mg"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
+            "name": "Sneak Attack",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "nt2yg0vr30lqakg5",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are flat-footed to you.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "zx8lcgra45gerurx",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "surprise-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "rogue"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.w6rMqmGzhUahdnA7"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
+            "name": "Surprise Attack",
+            "sort": 0,
+            "type": "feat"
+        },
+        {
+            "_id": "zx8lcgra45gerurx",
+            "data": {
                 "ancestryFeatLevels": {
                     "value": [
                         1,
@@ -388,7 +813,7 @@
                     "unarmored": 1
                 },
                 "description": {
-                    "value": "<p><em>You are skilled and opportunistic. Using your sharp wits and quick reactions, you take advantage of your opponents' missteps and strike where it hurts most. You play a dangerous game, seeking thrills and testing your skills, and likely don't care much for any laws that happen to get in your way. While the path of every rogue is unique and riddled with danger, the one thing you all share in common is the breadth and depth of your skills.</em></p>\n<p><strong>Key Ability: DEXTERITY OR OTHER</strong></p>\n<p>At 1st level, your class gives you an ability boost to Dexterity or an option from rogue's racket.</p>\n<p><strong>Hit Points: 8 plus your Constitution modifier</strong></p>\n<p>You increase your maximum number of HP by this number at 1st level and every level thereafter.</p>\n<h1 class=\"title\">Roleplaying the Rogue</h1>\n<h2 class=\"title\">During Combat Encounters...</h2>\n<p>You move about stealthily so you can catch foes unawares. You're a precision instrument, more useful against a tough boss or distant spellcaster than against rank-and-file soldiers.</p>\n<h2 class=\"title\">During Social Encounters...</h2>\n<p>Your skills give you multiple tools to influence your opposition. Pulling cons and ferreting out information are second nature to you.</p>\n<h2 class=\"title\">While Exploring...</h2>\n<p>You sneak to get the drop on foes and scout for danger or traps. You're a great asset, since you can disable traps, solve puzzles, and anticipate dangers.</p>\n<h2 class=\"title\">In Downtime...</h2>\n<p>You might pick pockets or trade in illegal goods. You can also become part of a thieves' guild, or even found one of your own.</p>\n<h2 class=\"title\">You Might...</h2>\n<ul>\n<li>Hone your skills through intense practice, both on your own and out in the world.</li>\n<li>Know where to attain illicit goods.</li>\n<li>Skirt or break the law because you think it's meaningless or have your own code.</li>\n</ul>\n<h2 class=\"title\">Others Probably...</h2>\n<ul>\n<li>Find you charming or fascinating, even if they think they know better than to trust you.</li>\n<li>Come to you when they need someone who is willing to take risks or use questionable methods.</li>\n<li>Suspect you're motivated primarily by greed.</li>\n</ul>\n<h1 class=\"title\">Initial Proficiencies</h1>\n<p>At 1st level, you gain the listed proficiency ranks in the following statistics. You are untrained in anything not listed unless you gain a better proficiency rank in some other way.</p>\n<h2 class=\"title\">Perception</h2>\n<p>Expert in Perception</p>\n<h2 class=\"title\">Saving Throws</h2>\n<p>Trained in Fortitude</p>\n<p>Expert in Reflex</p>\n<p>Expert in Will</p>\n<h2 class=\"title\">Skills</h2>\n<p>Trained in Stealth</p>\n<p>Trained in a number of additional skills equal to 7 plus your Intelligence modifier</p>\n<h2 class=\"title\">Attacks</h2>\n<p>Trained in simple weapons</p>\n<p>Trained in the rapier, sap, shortbow, and shortsword</p>\n<p>Trained in unarmed attacks</p>\n<h2 class=\"title\">Defenses</h2>\n<p>Trained in light armor</p>\n<p>Trained in unarmored defense</p>\n<h2 class=\"title\">Class DC</h2>\n<p>Trained in rogue class DC</p>\n<h1 class=\"title\">Class Features</h1>\n<p>You gain these features as a Rogue. Abilities gained at higher levels list the levels at which you gain them next to the features' names.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Class Features</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Ancestry and background, initial proficiencies, rogue's racket, sneak attack 1d6, surprise attack, rogue feat, skill feat</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Deny advantage, general feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Ability boosts, ancestry feat, skill feat, skill increase, sneak attack 2d6, weapon tricks</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>7</td>\n<td>Evasion, general feat, skill feat, skill increase, vigilant senses, weapon specialization</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>9</td>\n<td>Ancestry feat, debilitating strike, great fortitude, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Ability boosts, rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>11</td>\n<td>General feat, rogue expertise, skill feat, skill increase, sneak attack 3d6</td>\n</tr>\n<tr>\n<td>12</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>13</td>\n<td>Ancestry feat, improved evasion, incredible senses, light armor expertise, master tricks, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>14</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>15</td>\n<td>Ability boosts, double debilitation, general feat, greater weapon specialization, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>16</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>17</td>\n<td>Ancestry feat, skill feat, skill increase, slippery mind, sneak attack 4d6</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>19</td>\n<td>General feat, light armor mastery, master strike, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>20</td>\n<td>Ability boosts, rogue feat, skill feat, skill increase</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Ancestry and Background</h2>\n<p>In addition to what you get from your class at 1st level, you have the benefits of your selected ancestry and background.</p>\n<h2 class=\"title\">Initial Proficiencies</h2>\n<p>At 1st level, you gain a number of proficiencies that represent your basic training. These proficiencies are noted at the start of this class.</p>\n<h2 class=\"title\">Rogue Feats</h2>\n<p>At 1st level and every even-numbered level, you gain a rogue class feat.</p>\n<h2 class=\"title\">Rogue's Racket</h2>\n<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>\n<p>Rackets can be found here:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Eldritch Trickster]{Eldritch Trickster Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Mastermind]{Mastermind Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Ruffian]{Ruffian Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Scoundrel]{Scoundrel Racket}, and</li>\n<li>@Compendium[pf2e.classfeatures.Thief]{Thief Racket}</li>\n</ul>\n<h2 class=\"title\">Skill Feats</h2>\n<p>You gain skill feats more often than others. At 1st level and every level thereafter, you gain a skill feat.</p>\n<h2 class=\"title\">Sneak Attack</h2>\n<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>\n<h2 class=\"title\">Surprise Attack</h2>\n<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are flat-footed to you.</p>\n<h2 class=\"title\">Skill Increases<span style=\"float: right;\">Level 2</span></h2>\n<p>You gain more skill increases than members of other classes. At 2nd level and every level thereafter, you gain a skill increase. You can use this increase to either become trained in one skill you're untrained in, or to become an expert in one skill in which you're already trained.</p>\n<p>At 7th level, you can use skill increases to become a master in a skill in which you're already an expert, and at 15th level, you can use them to become legendary in a skill in which you're already a master.</p>\n<h2 class=\"title\">Deny Advantage<span style=\"float: right;\">Level 3</span></h2>\n<p>As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't flat-footed to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<h2 class=\"title\">General Feats<span style=\"float: right;\">Level 3</span></h2>\n<p>At 3rd level and every 4 levels thereafter, you gain a general feat.</p>\n<h2 class=\"title\">Ability Boosts<span style=\"float: right;\">Level 5</span></h2>\n<p>At 5th level and every 5 levels thereafter, you boost four different ability scores. You can use these ability boosts to increase your ability scores above 18. Boosting an ability score increases it by 1 if it's already 18 or above, or by 2 if it starts out below 18.</p>\n<h2 class=\"title\">Ancestry Feats<span style=\"float: right;\">Level 5</span></h2>\n<p>In addition to the initial ancestry feat you started with, you gain an ancestry feat at 5th level and every 4 levels thereafter.</p>\n<h2 class=\"title\">Weapon Tricks<span style=\"float: right;\">Level 5</span></h2>\n<p>You have become thoroughly familiar with the tools of your trade. You gain expert proficiency in simple weapons and unarmed attacks, as well as the rapier, sap, shortbow, and shortsword. When you critically succeed at an attack roll against a flat-footed creature while using an agile or finesse simple weapon or any of the listed weapons, you apply the critical specialization effect for the weapon you're wielding.</p>\n<h2 class=\"title\">Evasion<span style=\"float: right;\">Level 7</span></h2>\n<p>You've learned to move quickly to avoid explosions, dragons' breath, and worse. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>\n<h2 class=\"title\">Vigilant Senses<span style=\"float: right;\">Level 7</span></h2>\n<p>Through your adventures, you've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master.</p>\n<h2 class=\"title\">Weapon Specialization<span style=\"float: right;\">Level 7</span></h2>\n<p>You've learned how to inflict greater injuries with the weapons you know best. You deal 2 additional damage with weapons and unarmed attacks in which you are an expert. This damage increases to 3 damage if you're a master, and 4 damage if you're legendary.</p>\n<h2 class=\"title\">Debilitating Strikes<span style=\"float: right;\">Level 9</span></h2>\n<p>When taking advantage of an opening, you both hinder and harm your foe. You gain the Debilitating Strike free action.</p>\n<h3 class=\"title\">@Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike} <span class=\"pf2-icon\">F</span></h3>\n<p><strong>Trigger</strong> Your Strike hits a flat-footed creature and deals damage.</p>\n<hr />\n<p>You apply one of the following debilitations, which lasts until the end of your next turn.</p>\n<p><strong>Debilitation</strong> The target takes a -10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes enfeebled 1.</p>\n<h2 class=\"title\">Great Fortitude<span style=\"float: right;\">Level 9</span></h2>\n<p>Your physique is incredibly hardy. Your proficiency rank for Fortitude saves increases to expert.</p>\n<h2 class=\"title\">Rogue Expertise<span style=\"float: right;\">Level 11</span></h2>\n<p>Your techniques are now harder to resist. Your proficiency rank for your rogue class DC increases to expert.</p>\n<h2 class=\"title\">Improved Evasion<span style=\"float: right;\">Level 13</span></h2>\n<p>You elude danger to a degree that few can match. Your proficiency rank for Reflex saves increases to legendary. When you roll a critical failure on a Reflex save, you get a failure instead. When you roll a failure on a Reflex save against a damaging effect, you take half damage.</p>\n<h2 class=\"title\">Incredible Senses<span style=\"float: right;\">Level 13</span></h2>\n<p>You notice things almost impossible for an ordinary person to detect. Your proficiency rank for Perception increases to legendary.</p>\n<h2 class=\"title\">Light Armor Expertise<span style=\"float: right;\">Level 13</span></h2>\n<p>You've learned how to dodge while wearing light or no armor. Your proficiency ranks for light armor and unarmored defense increase to expert.</p>\n<h2 class=\"title\">Master Tricks<span style=\"float: right;\">Level 13</span></h2>\n<p>You've mastered a rogue's fighting moves. Your proficiency ranks increase to master for all simple weapons and unarmed attacks plus the rapier, sap, shortbow, and shortsword.</p>\n<h2 class=\"title\">Double Debilitation<span style=\"float: right;\">Level 15</span></h2>\n<p>Your opportunistic attacks are particularly detrimental. When you use Debilitating Strike, you can apply two debilitations simultaneously; removing one removes both.</p>\n<h2 class=\"title\">Greater Weapon Specialization<span style=\"float: right;\">Level 15</span></h2>\n<p>Your damage from weapon specialization increases to 4 with weapons and unarmed attacks in which you're an expert, 6 if you're a master, and 8 if you're legendary.</p>\n<h2 class=\"title\">Slippery Mind<span style=\"float: right;\">Level 17</span></h2>\n<p>You play mental games and employ cognitive tricks to throw off mind-altering effects. Your proficiency rank for Will saves increases to master. When you roll a success at a Will save, you get a critical success instead.</p>\n<h2 class=\"title\">Light Armor Mastery<span style=\"float: right;\">Level 19</span></h2>\n<p>Your skill with light armor improves, increasing your ability to dodge blows. Your proficiency ranks for light armor and unarmored defense increase to master.</p>\n<h2 class=\"title\">Master Strike<span style=\"float: right;\">Level 19</span></h2>\n<p>You can incapacitate an unwary foe with a single strike. Your proficiency rank for your rogue class DC increases to master. You gain the Master Strike free action.</p>\n<h3 class=\"title\">@Compendium[pf2e.actionspf2e.Master Strike]{Master Strike} <span class=\"pf2-icon\">F</span></h3>\n<p><strong>Trigger</strong> Your Strike hits a flat-footed creature and deals damage.</p>\n<hr />\n<p>The target attempts a Fortitude save at your class DC. It then becomes temporarily immune to your Master Strike for 1 day.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is enfeebled 2 until the end of your next turn.</p>\n<p><strong>Failure</strong> The target is paralyzed for 4 rounds.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 4 rounds, knocked unconscious for 2 hours, or killed (your choice).</p>"
+                    "value": "<p><em>You are skilled and opportunistic. Using your sharp wits and quick reactions, you take advantage of your opponents' missteps and strike where it hurts most. You play a dangerous game, seeking thrills and testing your skills, and likely don't care much for any laws that happen to get in your way. While the path of every rogue is unique and riddled with danger, the one thing you all share in common is the breadth and depth of your skills.</em></p>\n<p><strong>Key Ability: DEXTERITY OR OTHER</strong></p>\n<p>At 1st level, your class gives you an ability boost to Dexterity or an option from rogue's racket.</p>\n<p><strong>Hit Points: 8 plus your Constitution modifier</strong></p>\n<p>You increase your maximum number of HP by this number at 1st level and every level thereafter.</p>\n<h1 class=\"title\">Roleplaying the Rogue</h1>\n<h2 class=\"title\">During Combat Encounters...</h2>\n<p>You move about stealthily so you can catch foes unawares. You're a precision instrument, more useful against a tough boss or distant spellcaster than against rank-and-file soldiers.</p>\n<h2 class=\"title\">During Social Encounters...</h2>\n<p>Your skills give you multiple tools to influence your opposition. Pulling cons and ferreting out information are second nature to you.</p>\n<h2 class=\"title\">While Exploring...</h2>\n<p>You sneak to get the drop on foes and scout for danger or traps. You're a great asset, since you can disable traps, solve puzzles, and anticipate dangers.</p>\n<h2 class=\"title\">In Downtime...</h2>\n<p>You might pick pockets or trade in illegal goods. You can also become part of a thieves' guild, or even found one of your own.</p>\n<h2 class=\"title\">You Might...</h2>\n<ul>\n<li>Hone your skills through intense practice, both on your own and out in the world.</li>\n<li>Know where to attain illicit goods.</li>\n<li>Skirt or break the law because you think it's meaningless or have your own code.</li>\n</ul>\n<h2 class=\"title\">Others Probably...</h2>\n<ul>\n<li>Find you charming or fascinating, even if they think they know better than to trust you.</li>\n<li>Come to you when they need someone who is willing to take risks or use questionable methods.</li>\n<li>Suspect you're motivated primarily by greed.</li>\n</ul>\n<h1 class=\"title\">Initial Proficiencies</h1>\n<p>At 1st level, you gain the listed proficiency ranks in the following statistics. You are untrained in anything not listed unless you gain a better proficiency rank in some other way.</p>\n<h2 class=\"title\">Perception</h2>\n<p>Expert in Perception</p>\n<h2 class=\"title\">Saving Throws</h2>\n<p>Trained in Fortitude</p>\n<p>Expert in Reflex</p>\n<p>Expert in Will</p>\n<h2 class=\"title\">Skills</h2>\n<p>Trained in Stealth</p>\n<p>Trained in one or more skills determined by your rogue's racket</p>\n<p>Trained in a number of additional skills equal to 7 plus your Intelligence modifier</p>\n<h2 class=\"title\">Attacks</h2>\n<p>Trained in simple weapons</p>\n<p>Trained in the rapier, sap, shortbow, and shortsword</p>\n<p>Trained in unarmed attacks</p>\n<h2 class=\"title\">Defenses</h2>\n<p>Trained in light armor</p>\n<p>Trained in unarmored defense</p>\n<h2 class=\"title\">Class DC</h2>\n<p>Trained in rogue class DC</p>\n<h1 class=\"title\">Class Features</h1>\n<p>You gain these features as a Rogue. Abilities gained at higher levels list the levels at which you gain them next to the features' names.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Your Level</th>\n<th>Class Features</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Ancestry and background, initial proficiencies, rogue's racket, sneak attack 1d6, surprise attack, rogue feat, skill feat</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Deny advantage, general feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Ability boosts, ancestry feat, skill feat, skill increase, sneak attack 2d6, weapon tricks</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>7</td>\n<td>Evasion, general feat, skill feat, skill increase, vigilant senses, weapon specialization</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>9</td>\n<td>Ancestry feat, debilitating strike, great fortitude, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Ability boosts, rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>11</td>\n<td>General feat, rogue expertise, skill feat, skill increase, sneak attack 3d6</td>\n</tr>\n<tr>\n<td>12</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>13</td>\n<td>Ancestry feat, improved evasion, incredible senses, light armor expertise, master tricks, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>14</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>15</td>\n<td>Ability boosts, double debilitation, general feat, greater weapon specialization, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>16</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>17</td>\n<td>Ancestry feat, skill feat, skill increase, slippery mind, sneak attack 4d6</td>\n</tr>\n<tr>\n<td>18</td>\n<td>Rogue feat, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>19</td>\n<td>General feat, light armor mastery, master strike, skill feat, skill increase</td>\n</tr>\n<tr>\n<td>20</td>\n<td>Ability boosts, rogue feat, skill feat, skill increase</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Ancestry and Background</h2>\n<p>In addition to what you get from your class at 1st level, you have the benefits of your selected ancestry and background.</p>\n<h2 class=\"title\">Initial Proficiencies</h2>\n<p>At 1st level, you gain a number of proficiencies that represent your basic training. These proficiencies are noted at the start of this class.</p>\n<h2 class=\"title\">Rogue Feats</h2>\n<p>At 1st level and every even-numbered level, you gain a rogue class feat.</p>\n<h2 class=\"title\">Rogue's Racket</h2>\n<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>\n<p>Rackets can be found here:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Eldritch Trickster]{Eldritch Trickster Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Mastermind]{Mastermind Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Ruffian]{Ruffian Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Scoundrel]{Scoundrel Racket}, and</li>\n<li>@Compendium[pf2e.classfeatures.Thief]{Thief Racket}</li>\n</ul>\n<h2 class=\"title\">Skill Feats</h2>\n<p>You gain skill feats more often than others. At 1st level and every level thereafter, you gain a skill feat.</p>\n<h2 class=\"title\">Sneak Attack</h2>\n<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>\n<h2 class=\"title\">Surprise Attack</h2>\n<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are flat-footed to you.</p>\n<h2 class=\"title\">Skill Increases<span style=\"float: right;\">Level 2</span></h2>\n<p>You gain more skill increases than members of other classes. At 2nd level and every level thereafter, you gain a skill increase. You can use this increase to either become trained in one skill you're untrained in, or to become an expert in one skill in which you're already trained.</p>\n<p>At 7th level, you can use skill increases to become a master in a skill in which you're already an expert, and at 15th level, you can use them to become legendary in a skill in which you're already a master.</p>\n<h2 class=\"title\">Deny Advantage<span style=\"float: right;\">Level 3</span></h2>\n<p>As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't flat-footed to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<h2 class=\"title\">General Feats<span style=\"float: right;\">Level 3</span></h2>\n<p>At 3rd level and every 4 levels thereafter, you gain a general feat.</p>\n<h2 class=\"title\">Ability Boosts<span style=\"float: right;\">Level 5</span></h2>\n<p>At 5th level and every 5 levels thereafter, you boost four different ability scores. You can use these ability boosts to increase your ability scores above 18. Boosting an ability score increases it by 1 if it's already 18 or above, or by 2 if it starts out below 18.</p>\n<h2 class=\"title\">Ancestry Feats<span style=\"float: right;\">Level 5</span></h2>\n<p>In addition to the initial ancestry feat you started with, you gain an ancestry feat at 5th level and every 4 levels thereafter.</p>\n<h2 class=\"title\">Weapon Tricks<span style=\"float: right;\">Level 5</span></h2>\n<p>You have become thoroughly familiar with the tools of your trade. You gain expert proficiency in simple weapons and unarmed attacks, as well as the rapier, sap, shortbow, and shortsword. When you critically succeed at an attack roll against a flat-footed creature while using an agile or finesse simple weapon or any of the listed weapons, you apply the critical specialization effect for the weapon you're wielding.</p>\n<h2 class=\"title\">Evasion<span style=\"float: right;\">Level 7</span></h2>\n<p>You've learned to move quickly to avoid explosions, dragons' breath, and worse. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>\n<h2 class=\"title\">Vigilant Senses<span style=\"float: right;\">Level 7</span></h2>\n<p>Through your adventures, you've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master.</p>\n<h2 class=\"title\">Weapon Specialization<span style=\"float: right;\">Level 7</span></h2>\n<p>You've learned how to inflict greater injuries with the weapons you know best. You deal 2 additional damage with weapons and unarmed attacks in which you are an expert. This damage increases to 3 damage if you're a master, and 4 damage if you're legendary.</p>\n<h2 class=\"title\">Debilitating Strikes<span style=\"float: right;\">Level 9</span></h2>\n<p>When taking advantage of an opening, you both hinder and harm your foe. You gain the Debilitating Strike free action.</p>\n<h3 class=\"title\">@Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike} <span class=\"pf2-icon\">F</span></h3>\n<p><strong>Trigger</strong> Your Strike hits a flat-footed creature and deals damage.</p>\n<hr />\n<p>You apply one of the following debilitations, which lasts until the end of your next turn.</p>\n<p><strong>Debilitation</strong> The target takes a -10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes enfeebled 1.</p>\n<h2 class=\"title\">Great Fortitude<span style=\"float: right;\">Level 9</span></h2>\n<p>Your physique is incredibly hardy. Your proficiency rank for Fortitude saves increases to expert.</p>\n<h2 class=\"title\">Rogue Expertise<span style=\"float: right;\">Level 11</span></h2>\n<p>Your techniques are now harder to resist. Your proficiency rank for your rogue class DC increases to expert.</p>\n<h2 class=\"title\">Improved Evasion<span style=\"float: right;\">Level 13</span></h2>\n<p>You elude danger to a degree that few can match. Your proficiency rank for Reflex saves increases to legendary. When you roll a critical failure on a Reflex save, you get a failure instead. When you roll a failure on a Reflex save against a damaging effect, you take half damage.</p>\n<h2 class=\"title\">Incredible Senses<span style=\"float: right;\">Level 13</span></h2>\n<p>You notice things almost impossible for an ordinary person to detect. Your proficiency rank for Perception increases to legendary.</p>\n<h2 class=\"title\">Light Armor Expertise<span style=\"float: right;\">Level 13</span></h2>\n<p>You've learned how to dodge while wearing light or no armor. Your proficiency ranks for light armor and unarmored defense increase to expert.</p>\n<h2 class=\"title\">Master Tricks<span style=\"float: right;\">Level 13</span></h2>\n<p>You've mastered a rogue's fighting moves. Your proficiency ranks increase to master for all simple weapons and unarmed attacks plus the rapier, sap, shortbow, and shortsword.</p>\n<h2 class=\"title\">Double Debilitation<span style=\"float: right;\">Level 15</span></h2>\n<p>Your opportunistic attacks are particularly detrimental. When you use Debilitating Strike, you can apply two debilitations simultaneously; removing one removes both.</p>\n<h2 class=\"title\">Greater Weapon Specialization<span style=\"float: right;\">Level 15</span></h2>\n<p>Your damage from weapon specialization increases to 4 with weapons and unarmed attacks in which you're an expert, 6 if you're a master, and 8 if you're legendary.</p>\n<h2 class=\"title\">Slippery Mind<span style=\"float: right;\">Level 17</span></h2>\n<p>You play mental games and employ cognitive tricks to throw off mind-altering effects. Your proficiency rank for Will saves increases to master. When you roll a success at a Will save, you get a critical success instead.</p>\n<h2 class=\"title\">Light Armor Mastery<span style=\"float: right;\">Level 19</span></h2>\n<p>Your skill with light armor improves, increasing your ability to dodge blows. Your proficiency ranks for light armor and unarmored defense increase to master.</p>\n<h2 class=\"title\">Master Strike<span style=\"float: right;\">Level 19</span></h2>\n<p>You can incapacitate an unwary foe with a single strike. Your proficiency rank for your rogue class DC increases to master. You gain the Master Strike free action.</p>\n<h3 class=\"title\">@Compendium[pf2e.actionspf2e.Master Strike]{Master Strike} <span class=\"pf2-icon\">F</span></h3>\n<p><strong>Trigger</strong> Your Strike hits a flat-footed creature and deals damage.</p>\n<hr />\n<p>The target attempts a Fortitude save at your class DC. It then becomes temporarily immune to your Master Strike for 1 day.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is enfeebled 2 until the end of your next turn.</p>\n<p><strong>Failure</strong> The target is paralyzed for 4 rounds.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 4 rounds, knocked unconscious for 2 hours, or killed (your choice).</p>"
                 },
                 "generalFeatLevels": {
                     "value": [
@@ -419,7 +844,7 @@
                         "id": "SHpjmM4A3Sw4GgDz",
                         "img": "systems/pf2e/icons/features/classes/light-armor-master.webp",
                         "level": 19,
-                        "name": "Light Armor Mastery (Level 19)",
+                        "name": "Light Armor Mastery",
                         "pack": "pf2e.classfeatures"
                     },
                     "2xl4q": {
@@ -433,7 +858,7 @@
                         "id": "Z7HX6TeFsaup7Dx9",
                         "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
                         "level": 15,
-                        "name": "Greater Weapon Specialization (Level 15)",
+                        "name": "Greater Weapon Specialization",
                         "pack": "pf2e.classfeatures"
                     },
                     "517c6": {
@@ -448,13 +873,6 @@
                         "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
                         "level": 13,
                         "name": "Light Armor Expertise",
-                        "pack": "pf2e.classfeatures"
-                    },
-                    "7w4br": {
-                        "id": "uGuCGQvUmioFV2Bd",
-                        "img": "systems/pf2e/icons/features/classes/rogues-racket.webp",
-                        "level": 1,
-                        "name": "Rogue's Racket",
                         "pack": "pf2e.classfeatures"
                     },
                     "8tar0": {
@@ -504,6 +922,13 @@
                         "img": "systems/pf2e/icons/features/classes/debilitating-strikes.webp",
                         "level": 9,
                         "name": "Debilitating Strikes",
+                        "pack": "pf2e.classfeatures"
+                    },
+                    "odz8x": {
+                        "id": "uGuCGQvUmioFV2Bd",
+                        "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+                        "level": 1,
+                        "name": "Rogue's Racket",
                         "pack": "pf2e.classfeatures"
                     },
                     "pfjze": {
@@ -590,54 +1015,54 @@
                 },
                 "skillFeatLevels": {
                     "value": [
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20"
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20
                     ]
                 },
                 "skillIncreaseLevels": {
                     "value": [
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                        "13",
-                        "14",
-                        "15",
-                        "16",
-                        "17",
-                        "18",
-                        "19",
-                        "20"
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20
                     ]
                 },
                 "slug": "rogue",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "trainedSkills": {
                     "additional": 7,
@@ -651,7 +1076,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.LO9STvskJemPkiAI"
@@ -662,412 +1086,11 @@
             },
             "img": "systems/pf2e/icons/classes/rogue.webp",
             "name": "Rogue",
-            "sort": 300000,
+            "sort": 0,
             "type": "class"
         },
         {
-            "_id": "gvsJ6l0OzvSD55VF",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>\n<p>Rackets can be found here:</p>\n<ul>\n<li>@Compendium[pf2e.classfeatures.Eldritch Trickster]{Eldritch Trickster Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Mastermind]{Mastermind Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Ruffian]{Ruffian Racket},</li>\n<li>@Compendium[pf2e.classfeatures.Scoundrel]{Scoundrel Racket}, and</li>\n<li>@Compendium[pf2e.classfeatures.Thief]{Thief Racket}</li>\n</ul>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "WbVtQKKnZ7kHwQV4",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "rogues-racket",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.uGuCGQvUmioFV2Bd"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/rogues-racket.webp",
-            "name": "Rogue's Racket",
-            "sort": 400000,
-            "type": "feat"
-        },
-        {
-            "_id": "VCcMYd5x2fVv7qmf",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>When your enemy can't properly defend itself, you take advantage to deal extra damage. If you Strike a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, you deal an extra 1d6 precision damage. For a ranged attack with a thrown melee weapon, that weapon must also be agile or finesse.</p>\n<p>As your rogue level increases, so does the number of damage dice for your sneak attack. Increase the number of dice by one at 5th, 11th, and 17th levels.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "WbVtQKKnZ7kHwQV4",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "strike-damage",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": {
-                                        "diceNumber": 1
-                                    }
-                                },
-                                {
-                                    "end": 10,
-                                    "start": 5,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 11,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                },
-                                {
-                                    "start": 17,
-                                    "value": {
-                                        "diceNumber": 4
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "sneak-attack",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.j1JE61quDxdge4mg"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
-            "name": "Sneak Attack",
-            "sort": 500000,
-            "type": "feat"
-        },
-        {
-            "_id": "2DeiZocCya4aGOZY",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are flat-footed to you.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "WbVtQKKnZ7kHwQV4",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "surprise-attack",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "rogue"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.w6rMqmGzhUahdnA7"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
-            "name": "Surprise Attack",
-            "sort": 600000,
-            "type": "feat"
-        },
-        {
-            "_id": "PQu6Cy2RAiM3YpeT",
-            "data": {
-                "boosts": {
-                    "0": {
-                        "value": [
-                            "dex",
-                            "int"
-                        ]
-                    },
-                    "1": {
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>As an unscrupulous independent or as a member of an underworld organization, you lived a life of crime. You might have become an adventurer to seek redemption, to escape the law, or simply to get access to bigger and better loot.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Stealth skill and the Underworld Lore skill. You gain the @Compendium[pf2e.feats-srd.Experienced Smuggler]{Experienced Smuggler} skill feat.</p>"
-                },
-                "items": {
-                    "19grf": {
-                        "id": "t3btih0O5RUwWynt",
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
-                        "level": "1",
-                        "name": "Experienced Smuggler",
-                        "pack": "pf2e.feats-srd"
-                    }
-                },
-                "rules": [],
-                "slug": "criminal",
-                "source": {
-                    "value": ""
-                },
-                "trainedLore": "Underworld Lore",
-                "trainedSkills": {
-                    "value": [
-                        "ste"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.9lVw1JGl5ser6626"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Criminal",
-            "sort": 700000,
-            "type": "background"
-        },
-        {
-            "_id": "8HTarJ5jCY6bCzfe",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You often smuggle things past the authorities.</p>\n<p>When the GM rolls your Stealth check to see if a passive observer notices a small item you have concealed, the GM uses the number rolled or 10 - whichever is higher - as the result of your die roll, adding it to your Stealth modifier to determine your Stealth check result.</p>\n<p>If you're a master in Stealth, the GM uses the number rolled or 15, and if you're legendary in Stealth, you automatically succeed at hiding a small concealed item from passive observers.</p>\n<p>This provides no benefits when a creature attempts a Perception check while actively searching you for hidden items.</p>\n<p>Due to your smuggling skill, you're more likely to find more lucrative smuggling jobs when using Underworld Lore to Earn Income.</p>\n<hr />\n<p><strong>PFS Note</strong> This feat allows you to Earn Income with Underworld Lore with tasks of your level -1 (instead of the normal level -2).</p>"
-                },
-                "featType": {
-                    "value": "skill"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "PQu6Cy2RAiM3YpeT",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "Trained in Stealth"
-                        }
-                    ]
-                },
-                "rules": [],
-                "slug": "experienced-smuggler",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.t3btih0O5RUwWynt"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Experienced Smuggler",
-            "sort": 800000,
-            "type": "feat"
-        },
-        {
-            "_id": "9HgwrwrxRv9Ahv2D",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 1
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Underworld Lore",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "DibzISbiUavPqE7j",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Watching your friends age and die fills you with moroseness that protects you against harmful emotions. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
-                },
-                "featType": {
-                    "value": "ancestry"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Against emotion effects",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": "forlorn",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "elf"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.AogIo1gHLdz7DyHx"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Forlorn",
-            "sort": 1000000,
-            "type": "feat"
-        },
-        {
-            "_id": "ZAM2HNBmfyni9Pqj",
+            "_id": "76tnlqjbx734jh0b",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1114,9 +1137,9 @@
                         "value": 1
                     }
                 ],
-                "slug": "thief-racket",
+                "slug": "thief",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -1126,19 +1149,21 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.wAh2riuFRzz0edPl"
+                },
+                "pf2e": {
+                    "grantedBy": "81s8v3ohnn3k3n13"
                 }
             },
             "img": "systems/pf2e/icons/features/classes/thief.webp",
-            "name": "Thief Racket",
-            "sort": 1200000,
+            "name": "Thief",
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "AQEnC8dluMOiw1f8",
+            "_id": "ir1tArJ0rOZn89c6",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1164,9 +1189,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Trap Finder (detecting or defending against traps)",
-                        "property": "flags.pf2e.rollOptions.all.trap-finder"
+                        "option": "trap-finder",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1249,7 +1276,7 @@
                 ],
                 "slug": "trap-finder",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Advanced Player's Guide"
                 },
                 "traits": {
                     "custom": "",
@@ -1260,7 +1287,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.oA866uVEFu1OrAX0"
@@ -1268,11 +1294,11 @@
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Trap Finder",
-            "sort": 1300000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "SEr8RO5pcgXpadKT",
+            "_id": "4H56HNzpL9zYuxVO",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1303,7 +1329,7 @@
                 "rules": [],
                 "slug": "cat-fall",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "traits": {
                     "custom": "",
@@ -1314,7 +1340,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.LQw0yIMDUJJkq1nD"
@@ -1322,16 +1347,13 @@
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Cat Fall",
-            "sort": 1400000,
+            "sort": 0,
             "type": "feat"
         },
         {
-            "_id": "8S4a1OV7VpVBpN5v",
+            "_id": "LVwVBmNYGmiwcesJ",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "bulkCapacity": {
                     "value": "4"
                 },
@@ -1388,7 +1410,7 @@
                 "size": "med",
                 "slug": "backpack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "stowing": true,
@@ -1404,7 +1426,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.3lgwjrFEsQVKzhh7"
@@ -1412,19 +1433,857 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/backpack.webp",
             "name": "Backpack",
-            "sort": 1500000,
+            "sort": 0,
             "type": "backpack"
         },
         {
-            "_id": "4vO8H4E0LsZyMUo4",
+            "_id": "HRc3acd0sKXRhZdx",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 cp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bedroll",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
+            "name": "Bedroll",
+            "sort": 100000,
+            "type": "equipment"
+        },
+        {
+            "_id": "CGds3ezlwhpB0Z79",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>When Forcing Open an object that doesn't have an easy grip, a crowbar makes it easier to gain the necessary leverage. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open (similar to using a shoddy item).</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 sp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "crowbar",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.44F1mfJei4GY8f2X"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/crowbar.webp",
+            "name": "Crowbar",
+            "sort": 200000,
+            "type": "equipment"
+        },
+        {
+            "_id": "FNEAJVCi63GIzXbS",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 cp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
+            "name": "Flint and Steel",
+            "sort": 300000,
+            "type": "equipment"
+        },
+        {
+            "_id": "cBlveI9rsruZRAk3",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 sp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "grappling-hook",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.6DCy7tEF1cxaIJMy"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
+            "name": "Grappling Hook",
+            "sort": 400000,
+            "type": "equipment"
+        },
+        {
+            "_id": "xUCbcGIPmgb1UHBx",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 sp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "hammer",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ML0GR2cIEdMn2hoD"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/hammer.webp",
+            "name": "Hammer",
+            "sort": 500000,
+            "type": "equipment"
+        },
+        {
+            "_id": "PWvIBYOVQhQjH6at",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>These small spikes can be used as anchors to make climbing easier. To affix a piton, you must hold it in one hand and use a hammer to drive it in with your other hand. You can attach a rope to the hammered piton so that you don't fall all the way to the ground on a critical failure while Climbing.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "piton",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.oX39xqMLVB8kNrY0"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/piton.webp",
+            "name": "Piton",
+            "sort": 600000,
+            "type": "equipment"
+        },
+        {
+            "_id": "2pPm3Sx2BbB4rsav",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 7,
+                    "value": 7
+                },
+                "consumableType": {
+                    "value": "other"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": ""
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": "4 sp"
+                },
+                "quantity": 1,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": null,
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 100000,
+            "type": "consumable"
+        },
+        {
+            "_id": "8aWLjZcLiidfdban",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 sp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fyYnQf1NAx9fWFaS"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rope.webp",
+            "name": "Rope",
+            "sort": 700000,
+            "type": "equipment"
+        },
+        {
+            "_id": "m77YiS4TSa1iivTO",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "torch",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.8Jdw4yAzWYylGePS"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
+            "name": "Torch",
+            "sort": 800000,
+            "type": "equipment"
+        },
+        {
+            "_id": "pDyn1prR3t0d7Q3p",
+            "data": {
+                "baseItem": null,
+                "containerId": "LVwVBmNYGmiwcesJ",
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "5 cp"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "waterskin",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 900000,
+            "type": "equipment"
+        },
+        {
+            "_id": "fpKCHQkR3mXicTfC",
             "data": {
                 "armor": {
                     "value": 1
                 },
                 "baseItem": "leather-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "light",
                 "check": {
                     "value": -1
@@ -1504,7 +2363,7 @@
                 "size": "med",
                 "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -1525,7 +2384,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
@@ -1533,23 +2391,20 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
             "name": "Leather Armor",
-            "sort": 1600000,
+            "sort": 0,
             "type": "armor"
         },
         {
-            "_id": "7Mqyiib4UXQtYlD4",
+            "_id": "L2hIWPjHUMikSUWM",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A sheath or scabbard lets you easily carry a weapon on your person.</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1587,14 +2442,14 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": "0 gp"
                 },
                 "quantity": 10,
                 "rules": [],
                 "size": "med",
                 "slug": "sheath",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1609,7 +2464,6 @@
                     "value": "-"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.Zycu6zaGvDsqLH5g"
@@ -1617,23 +2471,20 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/sheath.webp",
             "name": "Sheath",
-            "sort": 1700000,
+            "sort": 1100000,
             "type": "equipment"
         },
         {
-            "_id": "M7ALk14TaISN6JVw",
+            "_id": "4kAWH64VH21Sd0IS",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1678,7 +2529,7 @@
                 "size": "med",
                 "slug": "thieves-tools",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1693,7 +2544,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.zvLyCVD8g2PdHJAc"
@@ -1701,23 +2551,20 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools",
-            "sort": 1800000,
+            "sort": 1200000,
             "type": "equipment"
         },
         {
-            "_id": "ygVhwxiDpliKeqKA",
+            "_id": "hYtvyDUdUYtJMkXt",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
                     "value": "<p>These are replacement picks for @Compendium[pf2e.equipment-srd.Thieves' Tools]{Thieves' Tools}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1762,7 +2609,7 @@
                 "size": "med",
                 "slug": "thieves-tools-replacement-picks",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1777,7 +2624,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.Sw7MBLASN3xK4Y44"
@@ -1785,23 +2631,19 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools (Replacement Picks)",
-            "sort": 1900000,
+            "sort": 1300000,
             "type": "equipment"
         },
         {
-            "_id": "V2FkLpGxdr5CN7ED",
+            "_id": "iTn6KJ6uRG6ZwF6g",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
-                    "value": "<p>These four‑pronged metal spikes can cause damage to a creature's feet. You can scatter caltrops in an empty square adjacent to you with an Interact action. The first creature that moves into that square must succeed at a DC 14 Acrobatics check or take 1d4 piercing damage and 1 persistent bleed damage. A creature taking persistent bleed damage from caltrops takes a -5‑foot penalty to its Speed. Spending an Interact action to pluck the caltrops free reduces the DC to stop the bleeding. Once a creature takes damage from caltrops, enough caltrops are ruined that other creatures moving into the square are safe. Deployed caltrops can be salvaged and reused if no creatures took damage from them. Otherwise, enough caltrops are ruined that they can't be salvaged.</p>"
+                    "value": "<p>These four‑pronged metal spikes can cause damage to a creature's feet. You can scatter caltrops in an empty square adjacent to you with an Interact action. The first creature that moves into that square must succeed at a DC 14 Acrobatics check or take 1d4 piercing damage and [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. A creature taking persistent bleed damage from caltrops takes a -5‑foot penalty to its Speed. Spending an Interact action to pluck the caltrops free reduces the DC to stop the bleeding. Once a creature takes damage from caltrops, enough caltrops are ruined that other creatures moving into the square are safe. Deployed caltrops can be salvaged and reused if no creatures took damage from them. Otherwise, enough caltrops are ruined that they can't be salvaged.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1846,7 +2688,7 @@
                 "size": "med",
                 "slug": "caltrops",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1861,7 +2703,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.7fSnvJ2xoSfa6JXD"
@@ -1869,11 +2710,11 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/caltrops.webp",
             "name": "Caltrops",
-            "sort": 2000000,
+            "sort": 1000000,
             "type": "equipment"
         },
         {
-            "_id": "B2oMDgJNYvlkv6Oj",
+            "_id": "bhwGrsF7e4Ie4rzt",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1883,9 +2724,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -1901,7 +2739,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1934,13 +2772,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "2 sp"
@@ -1960,16 +2798,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 9,
                 "range": null,
@@ -1980,7 +2818,7 @@
                 "size": "med",
                 "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2009,7 +2847,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
@@ -2017,11 +2854,146 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
-            "sort": 2100000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "1BzIkL1VrspW9QjK",
+            "_id": "iaXxWSxaUqmGFj3w",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "potion"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": "1d8"
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r {1d8}[healing]]]{1d8 Hit Points}.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "level": {
+                    "value": 1
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "4 gp"
+                },
+                "quantity": 1,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": null,
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "necromancy",
+                        "positive",
+                        "potion"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.2RuepCemJhrpKKao"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 300000,
+            "type": "consumable"
+        },
+        {
+            "_id": "tXhdmE5CFkYgxhPc",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2031,9 +3003,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -2048,7 +3017,7 @@
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
+                    "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
                 },
@@ -2128,7 +3097,7 @@
                 "size": "med",
                 "slug": "rapier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2156,7 +3125,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
@@ -2164,11 +3132,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 2200000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "9TSXV33Sw7r4ybFC",
+            "_id": "n0CglBqCB467BeTs",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2178,9 +3146,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -2196,7 +3161,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -2229,13 +3194,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "3 gp"
@@ -2255,16 +3220,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 60,
@@ -2272,11 +3237,11 @@
                     "value": "0"
                 },
                 "rules": [],
-                "selectedAmmoId": "8pupxDlhMRUiGl9j",
+                "selectedAmmoId": "ssBeKJVz9yI1T6iL",
                 "size": "med",
                 "slug": "shortbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2302,7 +3267,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.hIgqLgH3YcLZBeoT"
@@ -2310,11 +3274,11 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
             "name": "Shortbow",
-            "sort": 2300000,
+            "sort": 0,
             "type": "weapon"
         },
         {
-            "_id": "8pupxDlhMRUiGl9j",
+            "_id": "ssBeKJVz9yI1T6iL",
             "data": {
                 "activation": {
                     "condition": "",
@@ -2330,9 +3294,6 @@
                     "value": true
                 },
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "charges": {
                     "_deprecated": true,
                     "max": 0,
@@ -2354,8 +3315,7 @@
                     "value": null
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 1
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2404,7 +3364,7 @@
                 "size": "med",
                 "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
                     "data": null,
@@ -2435,7 +3395,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
@@ -2443,911 +3402,13 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
             "name": "Arrows",
-            "sort": 2400000,
+            "sort": 200000,
             "type": "consumable"
         },
         {
-            "_id": "BR5YgneO7s8DzbNi",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": "1d8"
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r {1d8}[healing]]]{1d8 Hit Points}.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 1
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 1
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "4 gp"
-                },
-                "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-minor",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "necromancy",
-                        "potion"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.2RuepCemJhrpKKao"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
-            "name": "Healing Potion (Minor)",
-            "sort": 2500000,
-            "type": "consumable"
-        },
-        {
-            "_id": "prb2ILZnvjhAFN2b",
+            "_id": "PfLf59yV5YpMcsmI",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>A rolled up bed.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "2 cp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "bedroll",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.fagzYdmfYyMQ6J77"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/bedroll.webp",
-            "name": "Bedroll",
-            "sort": 2600000,
-            "type": "equipment"
-        },
-        {
-            "_id": "GmWdVEvd2k1x8pi2",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>When Forcing Open an object that doesn't have an easy grip, a crowbar makes it easier to gain the necessary leverage. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open (similar to using a shoddy item).</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 sp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "crowbar",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.44F1mfJei4GY8f2X"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/crowbar.webp",
-            "name": "Crowbar",
-            "sort": 2700000,
-            "type": "equipment"
-        },
-        {
-            "_id": "vo5F8VqnZbRayYHF",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time‑consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 cp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "flint-and-steel",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.UlIxxLm71UdRgCFE"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/flint-and-steel.webp",
-            "name": "Flint and Steel",
-            "sort": 2800000,
-            "type": "equipment"
-        },
-        {
-            "_id": "oJCw7FE0ywXYLCNF",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 sp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "grappling-hook",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.6DCy7tEF1cxaIJMy"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
-            "name": "Grappling Hook",
-            "sort": 2900000,
-            "type": "equipment"
-        },
-        {
-            "_id": "ALiIm3q9UAnchOUQ",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 sp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "hammer",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.ML0GR2cIEdMn2hoD"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/hammer.webp",
-            "name": "Hammer",
-            "sort": 3000000,
-            "type": "equipment"
-        },
-        {
-            "_id": "KeBrk8vQRKAdt884",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>These small spikes can be used as anchors to make climbing easier. To affix a piton, you must hold it in one hand and use a hammer to drive it in with your other hand. You can attach a rope to the hammered piton so that you don't fall all the way to the ground on a critical failure while Climbing.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 cp"
-                },
-                "quantity": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "piton",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.oX39xqMLVB8kNrY0"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/piton.webp",
-            "name": "Piton",
-            "sort": 3100000,
-            "type": "equipment"
-        },
-        {
-            "_id": "A87ntm40oSslTzj8",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>50 feet of rope.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 sp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "rope",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.fyYnQf1NAx9fWFaS"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rope.webp",
-            "name": "Rope",
-            "sort": 3300000,
-            "type": "equipment"
-        },
-        {
-            "_id": "tex1Ph2pp1LGZVuP",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>A torch sheds bright light in a 20‑foot radius (and dim light to the next 20 feet). It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 cp"
-                },
-                "quantity": 3,
-                "rules": [],
-                "size": "med",
-                "slug": "torch",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.8Jdw4yAzWYylGePS"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
-            "name": "Torch",
-            "sort": 3400000,
-            "type": "equipment"
-        },
-        {
-            "_id": "pGTlx9pXWopPNZsn",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
-                "description": {
-                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "5 cp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "waterskin",
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.VnPh324pKwd2ZB66"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
-            "name": "Waterskin",
-            "sort": 3500000,
-            "type": "equipment"
-        },
-        {
-            "_id": "XJ6FoVohqC7T9tRn",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "denomination": {
                     "value": "sp"
@@ -3356,8 +3417,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3401,7 +3461,7 @@
                 "size": "med",
                 "slug": "silver-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "coins",
                 "traits": {
@@ -3419,7 +3479,6 @@
                     "value": 0
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.5Ew82vBF9YfaiY9f"
@@ -3427,16 +3486,13 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
             "name": "Silver Pieces",
-            "sort": 3600000,
+            "sort": 0,
             "type": "treasure"
         },
         {
-            "_id": "qIF3BRnXgGn05FMx",
+            "_id": "ny5p4YsynLMWL8dr",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "denomination": {
                     "value": "cp"
@@ -3445,8 +3501,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3490,7 +3545,7 @@
                 "size": "med",
                 "slug": "copper-pieces",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "coins",
                 "traits": {
@@ -3508,7 +3563,6 @@
                     "value": 0
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.lzJ8AVhRcbFul5fh"
@@ -3516,169 +3570,23 @@
             },
             "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
             "name": "Copper Pieces",
-            "sort": 3700000,
+            "sort": 0,
             "type": "treasure"
         },
         {
-            "_id": "XlXpbHV8ICjoylka",
+            "_id": "UiFBg6Eav0Dlrzms",
             "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": "8S4a1OV7VpVBpN5v",
                 "description": {
                     "value": ""
                 },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
+                "mod": {
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": "4 sp"
-                },
-                "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
+                "proficient": {
+                    "value": 1
                 },
                 "rules": [],
-                "size": "med",
-                "slug": "rations",
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
-            "name": "Rations",
-            "sort": 3200000,
-            "type": "consumable"
-        },
-        {
-            "_id": "341q82tm10rslux9",
-            "data": {
-                "ancestry": {
-                    "name": "Elf",
-                    "uuid": "Compendium.pf2e.ancestries.PgKmsA2aKdbLU6O0"
-                },
-                "description": {
-                    "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound.</p>\n<p>As long as you can hear normally, you can use the @Compendium[pf2e.actionspf2e.Seek]{Seek} action to sense @Compendium[pf2e.conditionitems.Undetected]{Undetected} creatures in a 60-foot cone instead of a 30-foot cone.</p>\n<p>You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a seek action.</p>"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Whisper Elf (locate audible undetected within range)",
-                        "predicate": {
-                            "all": [
-                                "target:undetected",
-                                "target:within-30-feet",
-                                "target:audible"
-                            ]
-                        },
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "whisper-elf",
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3688,16 +3596,11 @@
                     "value": []
                 }
             },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.1wVDYY9Wue0G5R9Q"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/whisper-elf.webp",
-            "name": "Whisper Elf",
-            "sort": 1100000,
-            "type": "heritage"
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Underworld Lore",
+            "sort": 0,
+            "type": "lore"
         }
     ],
     "name": "Merisiel (Level 1)",

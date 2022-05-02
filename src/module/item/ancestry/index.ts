@@ -1,10 +1,11 @@
 import { CreatureTrait } from "@actor/creature/data";
 import { CharacterPF2e } from "@actor";
 import { Size } from "@module/data";
-import { ABCItemPF2e } from "../abc";
+import { ABCItemPF2e, FeatPF2e } from "@item";
 import { AncestryData } from "./data";
 import { sluggify } from "@util";
 import { CreatureSensePF2e } from "@actor/creature/sense";
+import { SIZE_TO_REACH } from "@actor/creature/values";
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {
@@ -27,8 +28,16 @@ export class AncestryPF2e extends ABCItemPF2e {
         return this.data.data.size;
     }
 
-    get reach(): number {
-        return this.data.data.reach;
+    /** Include all ancestry features in addition to any with the expected location ID */
+    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+        if (!this.actor) return [];
+
+        return Array.from(
+            new Set([
+                ...super.getLinkedFeatures(),
+                ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
+            ])
+        );
     }
 
     /** Prepare a character's data derived from their ancestry */
@@ -38,6 +47,7 @@ export class AncestryPF2e extends ABCItemPF2e {
             return;
         }
 
+        this.actor.ancestry = this;
         const actorData = this.actor.data;
         const systemData = actorData.data;
 
@@ -47,8 +57,10 @@ export class AncestryPF2e extends ABCItemPF2e {
         systemData.traits.size.value = this.size;
         this.logAutoChange("data.traits.size.value", this.size);
 
+        const reach = SIZE_TO_REACH[this.size];
+        systemData.attributes.reach = { general: reach, manipulate: reach };
+
         systemData.attributes.speed.value = String(this.speed);
-        systemData.attributes.reach = { value: this.reach, manipulate: this.reach };
 
         // Add languages
         const innateLanguages = this.data.data.languages.value;

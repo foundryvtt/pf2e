@@ -10,11 +10,34 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d6"
+                "baseType": "fist",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
                 },
-                "selector": "unarmed-strike-damage"
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "predicate": {
+                    "not": [
+                        "feature:powerful-fist",
+                        "feat:martial-artist-dedication",
+                        "feat:arcane-fist"
+                    ]
+                },
+                "range": null,
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "nonlethal",
+                    "unarmed"
+                ]
             }
         ],
         "source": {
@@ -26,7 +49,6 @@
             "value": []
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/heritage.svg",
     "name": "Warrior Automaton",

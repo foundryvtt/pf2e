@@ -42,8 +42,13 @@
                 "value": 18
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 25"
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": "25"
+                    }
+                ],
+                "value": "0"
             }
         },
         "details": {
@@ -95,14 +100,13 @@
             "dr": [
                 {
                     "exceptions": "except force or ghost touch; double resistance vs. non-magical",
-                    "label": "All",
                     "type": "all",
-                    "value": "8"
+                    "value": 8
                 }
             ],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(can't speak any language)",
                 "selected": [],
                 "value": [
                     "common"
@@ -126,7 +130,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -169,7 +172,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
@@ -217,7 +219,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
@@ -236,6 +237,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -259,7 +261,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -282,6 +283,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
                 },
@@ -305,14 +307,13 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 60 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -328,8 +329,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>A hantu denai that succeeds at a Deception check to Lie can mimic the sounds of any animal native to its environment. It adds a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A hantu denai that succeeds at a Deception check to @Compendium[pf2e.actionspf2e.Lie]{Lie} can mimic the sounds of any animal native to its environment. It adds a +4 circumstance bonus to this check.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -347,8 +349,10 @@
                         "value": 4
                     },
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.skill-check.sound-imitation"
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "sound-imitation",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
@@ -367,7 +371,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sound Imitation",
@@ -375,7 +378,7 @@
             "type": "action"
         },
         {
-            "_id": "9ba0tWpQ6bkIESQi",
+            "_id": "2aRvF7IZPwf7N3pW",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -386,8 +389,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>A hantu denai's Strikes deal an additional [[/r {2d6}[precision]]]{2d6 precision damage} to @Compendium[pf2e.conditionitems.Frightened]{Frightened} and flat-footed creatures</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -400,12 +404,26 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                {
+                                    "or": [
+                                        "target:condition:flat-footed",
+                                        "target:condition:frightened"
+                                    ]
+                                },
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -427,7 +445,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
@@ -450,6 +467,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The hantu denai unleashes a loud animal cry to scare off nearby creatures. Each creature in a @Template[type:emanation|distance:120] must attempt a @Check[type:will|dc:27] save and is then immune to the hantu denai's Terrifying Cry for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round and @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is fleeing for 1 round and @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
                 },
@@ -478,7 +496,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Terrifying Cry",
@@ -497,6 +514,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
@@ -520,7 +538,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
@@ -554,7 +571,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
@@ -584,7 +600,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
@@ -614,7 +629,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
@@ -644,7 +658,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
@@ -674,7 +687,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",

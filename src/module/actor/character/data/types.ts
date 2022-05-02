@@ -1,6 +1,5 @@
 import {
     Abilities,
-    Alignment,
     CreatureAttributes,
     BaseCreatureData,
     BaseCreatureSource,
@@ -23,7 +22,7 @@ import {
 } from "@actor/data/base";
 import { ArmorCategory } from "@item/armor/data";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/data";
-import { StatisticModifier } from "@module/modifiers";
+import { StatisticModifier } from "@actor/modifiers";
 import { ZeroToFour } from "@module/data";
 import type { CharacterPF2e } from "..";
 import { SaveType } from "@actor/data";
@@ -32,9 +31,13 @@ import { CraftingFormulaData } from "@actor/character/crafting/formula";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
-import { ProficiencyRank } from "@item/data";
-import { WeaponPF2e } from "@item";
+import { FeatData, ProficiencyRank } from "@item/data";
+import { FeatPF2e, WeaponPF2e } from "@item";
 import { CharacterSheetTabVisibility } from "./sheet";
+import { DeitySystemData } from "@item/deity/data";
+import { Alignment } from "@actor/creature/types";
+import { FeatType } from "@item/feat/data";
+import { DeityDomain } from "@item/deity/types";
 
 export interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemData> {
     flags: DeepPartial<CharacterFlags>;
@@ -104,7 +107,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** Crafting-related data, including known formulas */
     crafting: {
         formulas: CraftingFormulaData[];
-        entries: Record<string, CraftingEntryData>;
+        entries: Record<string, Partial<CraftingEntryData>>;
     };
 }
 
@@ -169,7 +172,7 @@ export interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier &
     Omit<StrikeData, "item"> & {
-        item?: Embedded<WeaponPF2e>;
+        item: Embedded<WeaponPF2e>;
         slug: string | null;
         adjustments?: DegreeOfSuccessAdjustment[];
         meleeUsage: CharacterStrike | null;
@@ -186,28 +189,19 @@ export interface AuxiliaryAction {
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 
 /** A Pathfinder Society School */
-type PFSSchool = "none" | "scrolls" | "spells" | "swords";
+type PFSSchool = "scrolls" | "spells" | "swords" | null;
 
 /** PFS faction reputation values */
-interface PathfinderSocietyReputation {
-    EA: number;
-    GA: number;
-    HH: number;
-    VS: number;
-    RO: number;
-    VW: number;
-}
+type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
 
 /** Pathfinder Society Organized Play data fields */
 interface PathfinderSocietyData {
     /** Number assigned to the player. */
-    playerNumber: string;
+    playerNumber: number | null;
     /** Number assigned to the character. */
-    characterNumber: string;
+    characterNumber: number | null;
     /** Is the character currently affected by a level bump? */
     levelBump: boolean;
-    /** Character's current fame */
-    fame: number;
     /** Character's currently slotted faction */
     currentFaction: PFSFaction;
 
@@ -242,8 +236,6 @@ export type CharacterDetails = {
 
     /** Character alignment (LN, N, NG, etc.) */
     alignment: { value: Alignment };
-    /** The diety that the character worships (and an image of the diety symbol). */
-    deity: { value: string; image: ImagePath };
     /** How old the character is (user-provided field). */
     age: { value: string };
     /** Character height (user-provided field). */
@@ -303,9 +295,20 @@ export type CharacterDetails = {
     };
 
     /** Convenience information for easy access when the item class instance isn't available */
-    ancestry: { name: string; trait: string };
-    heritage: { name: string; trait: string | null };
-    class: { name: string; trait: string };
+    ancestry: { name: string; trait: string } | null;
+    heritage: { name: string; trait: string | null } | null;
+    class: { name: string; trait: string } | null;
+    deities: CharacterDeities;
+};
+
+interface CharacterDeities {
+    primary: DeityDetails | null;
+    secondary: null;
+    domains: { [K in DeityDomain]?: string };
+}
+
+type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
+    weapons: { option: string; label: string }[];
 };
 
 export interface CharacterAttributes extends CreatureAttributes {
@@ -313,6 +316,10 @@ export interface CharacterAttributes extends CreatureAttributes {
     perception: CharacterPerception;
     /** The class DC, used for saves related to class abilities. */
     classDC: ClassDCData;
+    /** The best spell DC, used for certain saves related to feats */
+    spellDC: { rank: number; value: number } | null;
+    /** the higher between highest spellcasting DC and (if present) class DC */
+    classOrSpellDC: { rank: number; value: number };
     /** Creature armor class, used to defend against attacks. */
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
@@ -325,13 +332,15 @@ export interface CharacterAttributes extends CreatureAttributes {
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */
     ancestryhp: number;
+    /** The number of hands this character has free */
+    handsFree: number;
     /** A bonus to the maximum amount of bulk that this character can carry. */
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
     bonusEncumbranceBulk: number;
 
     /** The current dying level (and maximum) for this character. */
-    dying: { value: number; max: number; recoveryMod: number };
+    dying: { value: number; max: number; recoveryDC: number };
     /** The current wounded level (and maximum) for this character. */
     wounded: { value: number; max: number };
     /** The current doomed level (and maximum) for this character. */
@@ -339,13 +348,6 @@ export interface CharacterAttributes extends CreatureAttributes {
 
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: { value: number };
-
-    /** The character's natural reach */
-    reach: {
-        value: number;
-        /** Its reach for the purpose of manipulate actions */
-        manipulate: number | null;
-    };
 
     /** Data related to character hitpoints. */
     hp: CharacterHitPoints;
@@ -380,4 +382,30 @@ export interface CharacterAttributes extends CreatureAttributes {
 
 interface CharacterHitPoints extends CreatureHitPoints {
     recoveryMultiplier: number;
+}
+
+export interface GrantedFeat {
+    feat: FeatPF2e;
+    grants: GrantedFeat[];
+}
+
+export interface SlottedFeat {
+    id: string;
+    level: number | string;
+    feat?: FeatData;
+    grants: GrantedFeat[];
+}
+
+export interface BonusFeat {
+    feat: FeatData;
+    grants: GrantedFeat[];
+}
+
+export interface FeatSlot {
+    label: string;
+    feats: (SlottedFeat | BonusFeat)[];
+    /** Whether the feats are slotted by level or free-form */
+    slotted?: boolean;
+    featFilter?: string;
+    supported: FeatType[] | "all";
 }

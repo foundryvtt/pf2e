@@ -1,19 +1,20 @@
+import { ItemFlagsPF2e } from "@item/data/base";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
-    MagicItemSystemData,
+    Investable,
     PhysicalItemTraits,
-    PreciousMaterialGrade,
-    PreciousMaterialType,
+    PhysicalSystemData,
+    PhysicalSystemSource,
 } from "@item/physical/data";
-import { DamageType } from "@module/damage-calculation";
-import type { LocalizePF2e } from "@system/localize";
-import { OneToFour, ZeroToThree } from "@module/data";
-import type { WeaponPF2e } from "..";
+import { BaseMaterial, PreciousMaterialGrade } from "@item/physical/types";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
-import { ItemFlagsPF2e } from "@item/data/base";
+import { OneToFour, ZeroToThree } from "@module/data";
+import { DamageDieSize, DamageType } from "@system/damage";
+import type { LocalizePF2e } from "@system/localize";
+import type { WeaponPF2e } from "..";
+import { WeaponMaterialType } from "../types";
 import { MELEE_WEAPON_GROUPS, RANGED_WEAPON_GROUPS, WEAPON_CATEGORIES, WEAPON_GROUPS, WEAPON_RANGES } from "./values";
-import { DamageDieSize } from "@system/damage/damage";
 
 export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
     flags: DeepPartial<WeaponFlags>;
@@ -42,10 +43,10 @@ interface WeaponSourceTraits extends PhysicalItemTraits<WeaponTrait> {
 }
 type WeaponTraits = Required<WeaponSourceTraits>;
 
-export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
-export type WeaponGroup = typeof WEAPON_GROUPS[number];
-export type MeleeWeaponGroup = typeof MELEE_WEAPON_GROUPS[number];
-export type RangedWeaponGroup = typeof RANGED_WEAPON_GROUPS[number];
+export type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;
+export type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;
+export type MeleeWeaponGroup = SetElement<typeof MELEE_WEAPON_GROUPS>;
+export type RangedWeaponGroup = SetElement<typeof RANGED_WEAPON_GROUPS>;
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 export interface WeaponDamage {
@@ -59,7 +60,6 @@ export interface WeaponDamage {
 export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 export type WeaponPropertyRuneType = keyof typeof WEAPON_PROPERTY_RUNES[number];
-export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
     striking: StrikingRuneType | null;
@@ -85,7 +85,7 @@ export interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-export interface WeaponSystemSource extends MagicItemSystemData {
+export interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     traits: WeaponSourceTraits;
     category: WeaponCategory;
     group: WeaponGroup | null;
@@ -142,16 +142,30 @@ export interface WeaponSystemSource extends MagicItemSystemData {
     selectedAmmoId: string | null;
 }
 
-export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
-
-export interface WeaponSystemData extends WeaponSystemSource {
+export interface WeaponSystemData extends WeaponSystemSource, Investable<PhysicalSystemData> {
+    baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     runes: {
         potency: number;
         striking: ZeroToThree;
         property: WeaponPropertyRuneType[];
+        effects: [];
     };
+    material: WeaponMaterialData;
+    usage: WeaponSystemSource["usage"];
 }
+
+export interface WeaponMaterialData {
+    /** The "base material" or category: icon/steel (metal), wood, rope, etc. */
+    base: BaseMaterial[];
+    /** The precious material of which this weapon is composed */
+    precious: {
+        type: WeaponMaterialType;
+        grade: PreciousMaterialGrade;
+    } | null;
+}
+
+export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
 
 export interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
@@ -159,4 +173,4 @@ export interface ComboWeaponMeleeUsage {
     traits: WeaponTrait[];
 }
 
-export type OtherWeaponTag = "crossbow" | "ghost-touch";
+export type OtherWeaponTag = "crossbow" | "improvised";

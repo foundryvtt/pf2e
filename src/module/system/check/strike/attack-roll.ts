@@ -1,5 +1,4 @@
-import { RollDataPF2e } from "@system/rolls";
-import { CheckRoll } from "../roll";
+import { CheckRoll, CheckRollJSON } from "../roll";
 
 export class StrikeAttackRoll extends CheckRoll {
     static override CHAT_TEMPLATE = "systems/pf2e/templates/chat/check/strike/attack-roll.html";
@@ -15,12 +14,13 @@ export class StrikeAttackRoll extends CheckRoll {
             total: isPrivate ? "?" : Math.round(this.total * 100) / 100,
             strike: this.data.strike,
             degree: this.data.degreeOfSuccess,
+            canRollDamage: this.roller === game.user || game.user.isGM,
         };
 
         return renderTemplate(template ?? StrikeAttackRoll.CHAT_TEMPLATE, chatData);
     }
 
-    override toJSON(): StrikeRollJSON {
+    override toJSON(): CheckRollJSON {
         const data = super.toJSON();
         if (this.data.strike) {
             data.data = mergeObject(data.data ?? {}, {
@@ -31,8 +31,4 @@ export class StrikeAttackRoll extends CheckRoll {
 
         return data;
     }
-}
-
-interface StrikeRollJSON extends RollJSON {
-    data?: Partial<RollDataPF2e>;
 }

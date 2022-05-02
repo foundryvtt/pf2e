@@ -20,15 +20,16 @@ import { MigrationRunner, MigrationList } from "@module/migration";
 import { Size } from "@module/data";
 import { ActorSizePF2e } from "./data/size";
 import { ActorSpellcasting } from "./spellcasting";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { Statistic } from "@system/statistic";
 import { TokenEffect } from "./token-effect";
 import { RuleElementSynthetics } from "@module/rules";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenPF2e } from "@module/canvas";
-import { ModifierAdjustment } from "@module/modifiers";
+import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
+import { preImportJSON } from "@module/doc-helpers";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -59,10 +60,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
+            // Set module art if available
+            if (context.pack && data._id) {
+                const art = game.pf2e.system.moduleArt.get(`Compendium.${context.pack}.${data._id}`);
+                if (art) {
+                    data.img = art.actor;
+                    data.token = mergeObject(data.token ?? {}, { img: art.token });
+                }
+            }
+
             super(data, context);
-            this.physicalItems ??= new Collection();
-            this.spellcasting ??= new ActorSpellcasting(this);
-            this.rules ??= [];
         } else {
             mergeObject(context, { pf2e: { ready: true } });
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
@@ -302,13 +309,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.data.data.tokenEffects = [];
         this.data.data.autoChanges = {};
         this.data.data.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
+        this.data.data.toggles = [];
 
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
-        // Setup the basic structure of pf2e flags with roll options
-        const defaultOptions = { [`self:type:${this.type}`]: true };
-        this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        // Setup the basic structure of pf2e flags with roll options, but remember flat-footed
+        const { flags } = this.data;
+        const targetFlagFooted = flags.pf2e?.rollOptions?.all?.["target:condition:flat-footed"];
+        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
+        flags.pf2e.rollOptions = { all: { [`self:type:${this.type}`]: true } };
+        if (targetFlagFooted) flags.pf2e.rollOptions.all["target:condition:flat-footed"] = true;
+
         this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
@@ -527,6 +539,58 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /** Toggle the provided roll option (swapping it from true to false or vice versa). */
+    async toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | null,
+        value?: boolean
+    ): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | boolean | null = null,
+        value?: boolean
+    ): Promise<boolean | null> {
+        value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
+        if (typeof itemId === "string") {
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        } else {
+            /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
+            const match = this.rules.find(
+                (rule) => rule instanceof RollOptionRuleElement && rule.domain === domain && rule.option === option
+            );
+
+            /** If a matching item is found toggle this option. */
+            const itemId = match?.item.id ?? null;
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        }
+    }
+
+    /**
+     * Handle how changes to a Token attribute bar are applied to the Actor.
+     *
+     * If the attribute bar is for hp and the change is in delta form, defer to the applyDamage method. Otherwise, do nothing special
+     * @param attribute The attribute path
+     * @param value     The target attribute value
+     * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
+     */
+    override async modifyTokenAttribute(
+        attribute: string,
+        value: number,
+        isDelta = false,
+        isBar = true
+    ): Promise<this> {
+        const tokens = this.getActiveTokens();
+        if (attribute === "attributes.hp" && isDelta && tokens.length) {
+            await this.applyDamage(-value, tokens[0]);
+            return this;
+        }
+        return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+    }
+
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
@@ -632,34 +696,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
-    }
-
-    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
-        if (!entryId || !spellLevel) {
-            // TODO: Consider throwing an error on null inputs in the future.
-            return;
-        }
-
-        const spellcastingEntry = this.items.get(entryId);
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
-
-        if (
-            spellcastingEntry.data.data?.prepared?.value === "prepared" &&
-            spellcastingEntry.data.data?.showUnpreparedSpells?.value === false
-        ) {
-            if (CONFIG.debug.hooks === true) {
-                console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-            }
-
-            const displayLevels: Record<number, boolean> = {};
-            displayLevels[spellLevel] = true;
-            await spellcastingEntry.update({
-                "data.showUnpreparedSpells.value": true,
-                "data.displayLevels": displayLevels,
-            });
-        }
     }
 
     isLootableBy(user: UserPF2e) {
@@ -788,9 +824,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
         if (container && !isCycle(item.id, container.id, [item.data])) {
+            const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "data.containerId": container.id,
-                "data.equipped.carryType": "stowed",
+                "data.equipped.carryType": carryType,
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });
@@ -987,49 +1024,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** If necessary, migrate this actor before importing */
+    /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const source: unknown = JSON.parse(json);
-        if (!this.canImportJSON(source)) return this;
-
-        source._id = this.id;
-        const processed = this.collection.fromCompendium(source, { addFlags: false, keepId: true });
-        const data = new (this.constructor as typeof ActorPF2e).schema(processed);
-
-        const { folder, sort, permission } = this.data;
-        this.data.update(foundry.utils.mergeObject(data.toObject(), { folder, sort, permission }), {
-            recursive: false,
-        });
-
-        await MigrationRunner.ensureSchemaVersion(
-            this,
-            MigrationList.constructFromVersion(this.schemaVersion ?? undefined),
-            { preCreate: false }
-        );
-
-        return this.update(this.toObject(), { diff: false, recursive: false });
-    }
-
-    /** Determine whether a requested JSON import can be performed */
-    canImportJSON(source: unknown): source is ActorSourcePF2e {
-        // The import came from
-        if (!(isObject<ActorSourcePF2e>(source) && isObject(source.data))) return false;
-
-        const sourceSchemaVersion = source.data?.schema?.version ?? null;
-        const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
-        if (foundry.utils.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
-            // Refuse to import if the schema version on the document is higher than the system schema verson;
-            ui.notifications.error(
-                game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
-                    sourceName: game.i18n.localize("DOCUMENT.Actor"),
-                    sourceSchemaVersion,
-                    worldSchemaVersion,
-                })
-            );
-            return false;
-        }
-
-        return true;
+        const processed = await preImportJSON(this, json);
+        return processed ? super.importFromJSON(processed) : this;
     }
 
     /* -------------------------------------------- */
@@ -1044,8 +1042,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (!options.parent) {
-            const currentVersion = this.schemaVersion || undefined;
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(currentVersion));
+            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }
     }
 
@@ -1094,7 +1091,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Unregister all effects possessed by this actor */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.unregister(effect);
         }

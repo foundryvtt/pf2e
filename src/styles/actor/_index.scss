@@ -38,13 +38,19 @@ $header-height: 89px;   /* Adjust height of the header */
             grid-area: header;
             margin-right: $window-p-right;
         }
+
         .sheet-navigation {
             grid-area: nav;
             margin-left: -2px;
         }
+
         .sheet-body {
             grid-area: content;
             position: relative;
+
+            ol {
+                list-style: none;
+            }
 
             .sheet-content,
             .sheet-content .inventory {
@@ -55,7 +61,7 @@ $header-height: 89px;   /* Adjust height of the header */
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                padding-top: 8px;
+                padding-top: 6px;
                 padding-left: 8px;
 
                 & > .tab:not(.inventory),
@@ -79,148 +85,64 @@ $header-height: 89px;   /* Adjust height of the header */
                 color: var(--body);
                 @import "spell-list";
 
-                .tab.inventory {
-                    ol:not(.currency) {
-                        @include p-reset;
-                        list-style: none;
-                        display: flex;
-
-                        &:last-child {
-                            margin-bottom: 42px;
-                        }
-                    }
-
-                    .item-name {
-                        display: flex;
-                        align-items: center;
+                ol.directory-list {
+                    > h3, > li > h3 {
+                        font-size: 1rem;
                         font-weight: 500;
-                        flex: 2;
-
-                        h3,
-                        h4 {
-                            margin-right: auto;
-                            line-height: 12px;
-                            padding: 2px;
-                            word-break: break-word;
-                            cursor: pointer;
-
-                            &:hover {
-                                color: var(--primary);
-                            }
-                        }
-
-                        span {
-                            margin: 0 4px;
-                        }
-
-                        .item-image {
-                            height: 24px;
-                            width: 24px;
-                            box-shadow: inset 0 0 0 1px var(--tertiary);
-                            background-size: cover;
-                            padding: 12px;
-                            cursor: pointer;
-                            margin-right: 4px;
-                        }
-                    }
-
-                    ol.inventory-list, ol.item-list {
-                        list-style-type: none;
-                        flex-direction: column;
-                        width: 100%;
-                        border: 1px solid var(--alt);
-                        border-top: none;
-
-                        & > li:nth-of-type(even) {
-                            background-color: rgba($alt-color, 0.1);
-                        }
-
-                        li {
-                            display: flex;
-                            flex-wrap: wrap;
-                            font-size: 0.75rem;
-                            justify-content: flex-end;
-                            padding: 0;
-                            width: 100%;
-
-                            &:last-child {
-                                .item-summary {
-                                    border-bottom: none;
-                                }
-                            }
-                        }
-                    }
-
-                    .item-quantity,
-                    .item-weight,
-                    .item-controls,
-                    .item-sell-value {
-                        @include flex-center;
-                        border-left: 1px solid var(--alt);
-                    }
-
-                    .item-quantity {
-                        flex: 0 0 65px;
-
-                        .item-decrease-quantity,
-                        .item-increase-quantity {
-                            @include flex-center;
-                            height: 100%;
-                            width: 18px;
-                            text-align: center;
-                        }
-                    }
-
-                    .item-weight {
-                        flex: 0 0 36px;
-                    }
-
-                    .item-controls {
-                        .item-control {
-                            margin-right: 4px;
-                            color: var(--body);
-                        }
-                    }
-
-                    .inventory-header {
-                        @include micro;
-                        display: flex;
-                        justify-content: flex-end;
-                        align-items: center;
-                        width: 100%;
-                        background-color: var(--alt);
-                        @include button;
-                        margin-top: 8px;
-                        padding: 4px;
+                        font-family: var(--serif);
+                        line-height: 1;
                         color: white;
+                        @include p-reset;
+                        margin-left: 8px;
+                    }
+
+                    .action-header {
+                        align-items: center;
+                        border: none;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        height: 32px;
+                        justify-content: space-between;
+                        margin-left: 0;
+                        margin-top: 8px;
+                        padding-bottom: 2px;
+                        padding: 0;
+                        position: relative;
+
+                        h3 {
+                            color: white;
+                            flex: 1 1 100%;
+                        }
+
+                        .item-controls {
+                            color: var(--primary);
+                            font-size: 12px;
+                            flex: 1 0 auto;
+                            a + a {
+                                margin-left: 4px;
+                            }
+                        }
 
                         &:first-child {
                             margin-top: 0;
                         }
 
-                        h3 {
-                            font-size: 14px;
-                            text-transform: capitalize;
-                            text-shadow: 0 0 2px rgba(black, 0.75);
-                            margin: 2px;
-                            margin-left: 4px;
-                            cursor: default;
-                            &:hover {
-                                color: white;
-                            }
-                        }
-
-                        .item-sell-value,
-                        .item-quantity,
-                        .item-weight {
-                            @include flex-center;
-                            margin-right: -2px;
-                        }
-
-                        .item-invested-total {
-                            margin-right: 3px;
+                        & + li {
+                            border-top: none;
                         }
                     }
+                }
+
+                .tab.actions {
+                    @import "tabs/actions";
+                }
+
+                .tab.inventory {
+                    @import "tabs/inventory";
+                }
+
+                .tab.biography {
+                    @import "tabs/bio";
                 }
 
                 footer {
@@ -266,6 +188,42 @@ $header-height: 89px;   /* Adjust height of the header */
             cursor: not-allowed;
             background-color: var(--color-text-dark-inactive);
         }
+    }
+}
+
+// Spellcasting Preparation Sheet Styling
+.spellcasting-entry.sheet {
+    @import "spell-list";
+
+    form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 4px;
+    }
+
+    .sheet-header {
+        align-items: baseline;
+        display: flex;
+        flex: 0;
+        padding-right: 16px;
+        h1 {
+            white-space: nowrap;
+            flex: 1;
+            overflow: hidden;
+            font-family: var(--serif-condensed);
+            font-weight: 700;
+        }
+        .item-controls {
+            flex: 0;
+            white-space: nowrap;
+        }
+    }
+
+    .sheet-content {
+        @include scrollbar;
+        padding-bottom: 1em;
+        padding-right: 8px; // easier resize gripping
     }
 }
 

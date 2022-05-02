@@ -1,11 +1,10 @@
-import { RuleElementPF2e, RuleElementData } from "./";
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { DamageDiceOverride, DamageDicePF2e } from "@module/modifiers";
 import { ItemPF2e } from "@item";
+import { DamageDiceOverride, DamageDicePF2e } from "@actor/modifiers";
+import { DamageDieSize, DamageType, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage";
+import { isObject, setHasElement } from "@util";
+import { RuleElementData, RuleElementPF2e } from "./";
 import { RuleElementSource } from "./data";
-import { isObject } from "@util";
-import { DamageType } from "@module/damage-calculation";
-import { DamageDieSize } from "@system/damage/damage";
 
 /**
  * @category RuleElement
@@ -16,9 +15,6 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
 
         if (typeof data.selector !== "string" || data.selector.length === 0) {
             this.failValidation("Missing selector property");
-        }
-        if ("override" in data && !isObject(data.override)) {
-            this.failValidation("The override property must be an object");
         }
     }
 
@@ -43,6 +39,23 @@ export class DamageDiceRuleElement extends RuleElementPF2e {
         if (data.override) {
             data.override.damageType &&= this.resolveInjectedProperties(data.override.damageType) as DamageType;
             data.override.dieSize &&= this.resolveInjectedProperties(data.override.dieSize) as DamageDieSize;
+
+            const isValidOverride = (override: unknown): override is DamageDiceOverride => {
+                return (
+                    isObject<DamageDiceOverride>(override) &&
+                    (typeof override.upgrade === "boolean" ||
+                        setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
+                        setHasElement(DAMAGE_TYPES, override.damageType))
+                );
+            };
+
+            if (!isValidOverride(data.override)) {
+                this.failValidation(
+                    "The override property must be an object with one property of `upgrade` (boolean), `dieSize` (d6-d12),",
+                    "or `damageType` (recognized damage type)"
+                );
+                return;
+            }
         }
 
         const dice = new DamageDicePF2e(data as Required<DamageDiceData>);

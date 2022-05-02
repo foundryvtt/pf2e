@@ -91,34 +91,24 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "exceptions": "",
-                    "label": "Electricity",
                     "type": "electricity",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "exceptions": "",
-                    "label": "Piercing",
                     "type": "piercing",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "exceptions": "",
-                    "label": "Slashing",
                     "type": "slashing",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
@@ -143,7 +133,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -182,7 +171,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
@@ -224,7 +212,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
@@ -255,8 +242,10 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.packAttack"
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "packAttack",
+                        "toggleable": true
                     },
                     {
                         "damageType": "piercing",
@@ -287,7 +276,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
@@ -317,7 +305,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
@@ -347,7 +334,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -377,7 +363,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",

@@ -103,7 +103,6 @@
                     "value": 10
                 },
                 {
-                    "exceptions": "",
                     "type": "poison",
                     "value": 10
                 }
@@ -140,7 +139,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -167,9 +165,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -251,7 +246,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
@@ -281,9 +275,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -365,7 +356,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
@@ -385,9 +375,6 @@
                 "areasize": {
                     "value": "60-foot cone"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -420,13 +407,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 7
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 7,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "pugIMNhBHc9VHl1z"
                 },
                 "materials": {
@@ -445,12 +441,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -491,7 +481,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.3puDanGfpEt6jK5k"
@@ -500,136 +489,6 @@
             "img": "systems/pf2e/icons/spells/cone-of-cold.webp",
             "name": "Cone of Cold",
             "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "UAPMlsmnk2t335ca",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "cone",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot cone"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "cold"
-                            },
-                            "value": "12d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>Icy cold rushes forth from your hands. You deal 12d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 7
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "pugIMNhBHc9VHl1z"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "cone-of-cold",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.3puDanGfpEt6jK5k"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/cone-of-cold.webp",
-            "name": "Cone of Cold",
-            "sort": 400000,
             "type": "spell"
         },
         {
@@ -644,9 +503,6 @@
                 },
                 "areasize": {
                     "value": "30-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -672,13 +528,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 6
-                },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "pugIMNhBHc9VHl1z"
                 },
                 "materials": {
@@ -739,7 +593,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Ucf8eynbZMfUucjE"
@@ -747,7 +600,7 @@
             },
             "img": "systems/pf2e/icons/spells/illusory-scene.webp",
             "name": "Illusory Scene",
-            "sort": 500000,
+            "sort": 400000,
             "type": "spell"
         },
         {
@@ -763,9 +616,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -798,13 +648,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 5
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
+                    "uses": {
+                        "max": 3,
+                        "value": 3
+                    },
                     "value": "pugIMNhBHc9VHl1z"
                 },
                 "materials": {
@@ -823,12 +682,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -870,7 +723,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.R5FHRv7VqyRnxg2t"
@@ -878,269 +730,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-ice.webp",
             "name": "Wall of Ice",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "BUI4qaFXk6AhVpQA",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "cold"
-                            },
-                            "value": "2d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You sculpt an ice barrier that blocks sight and, once shattered, freezes foes. You create either a 1-foot-thick wall of ice in a straight line up to 60 feet long and 10 feet high (the wall doesn't have to be vertical, but it must be anchored on both sides to a solid surface) or a 1-foot-thick, 10-foot radius hemisphere of ice. The ice that makes up the wall is opaque. If you wish, the wall can be of a smaller length, height, or radius.</p>\n<p>You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 40 Hit Points, and it's immune to critical hits, cold damage, and precision damage. A section also has weakness to fire 15; a section of the wall destroyed by fire melts, evaporating into water and steam. A section destroyed by means other than fire leaves behind a chilling mass of ice that is difficult terrain and deals 2d6 cold damage to any creature passing through it.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The Hit Points of each section of the wall increase by 10, and the cold damage dealt to creatures crossing a destroyed section increases by 1d6.</p>"
-                },
-                "duration": {
-                    "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 5
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "pugIMNhBHc9VHl1z"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "wall-of-ice",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "water"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.R5FHRv7VqyRnxg2t"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/wall-of-ice.webp",
-            "name": "Wall of Ice",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "UoamDMiBHp7zeCNg",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "cold"
-                            },
-                            "value": "2d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You sculpt an ice barrier that blocks sight and, once shattered, freezes foes. You create either a 1-foot-thick wall of ice in a straight line up to 60 feet long and 10 feet high (the wall doesn't have to be vertical, but it must be anchored on both sides to a solid surface) or a 1-foot-thick, 10-foot radius hemisphere of ice. The ice that makes up the wall is opaque. If you wish, the wall can be of a smaller length, height, or radius.</p>\n<p>You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 40 Hit Points, and it's immune to critical hits, cold damage, and precision damage. A section also has weakness to fire 15; a section of the wall destroyed by fire melts, evaporating into water and steam. A section destroyed by means other than fire leaves behind a chilling mass of ice that is difficult terrain and deals 2d6 cold damage to any creature passing through it.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The Hit Points of each section of the wall increase by 10, and the cold damage dealt to creatures crossing a destroyed section increases by 1d6.</p>"
-                },
-                "duration": {
-                    "value": "1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 5
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "pugIMNhBHc9VHl1z"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "wall-of-ice",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold",
-                        "water"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.R5FHRv7VqyRnxg2t"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/wall-of-ice.webp",
-            "name": "Wall of Ice",
-            "sort": 800000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -1156,9 +746,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1183,13 +770,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 5
-                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "value": "pugIMNhBHc9VHl1z"
                 },
                 "materials": {
@@ -1248,7 +833,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -1256,7 +840,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door",
-            "sort": 900000,
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -1272,9 +856,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -1299,13 +880,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 4
-                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "pugIMNhBHc9VHl1z"
                 },
                 "materials": {
@@ -1364,7 +943,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -1372,7 +950,7 @@
             },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
             "name": "Dimension Door (At Will)",
-            "sort": 1000000,
+            "sort": 700000,
             "type": "spell"
         },
         {
@@ -1387,9 +965,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1415,13 +990,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 4
-                },
                 "level": {
                     "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "pugIMNhBHc9VHl1z"
                 },
                 "materials": {
@@ -1479,7 +1052,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.A2JfEKe6BZcTG1S8"
@@ -1487,7 +1059,7 @@
             },
             "img": "systems/pf2e/icons/spells/fly.webp",
             "name": "Fly (Constant)",
-            "sort": 1100000,
+            "sort": 800000,
             "type": "spell"
         },
         {
@@ -1501,9 +1073,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "ritual"
@@ -1586,7 +1155,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.30BBep9U4BDV0EgQ"
@@ -1594,7 +1162,7 @@
             },
             "img": "systems/pf2e/icons/spells/infernal-pact.webp",
             "name": "Infernal Pact",
-            "sort": 1200000,
+            "sort": 900000,
             "type": "spell"
         },
         {
@@ -1609,9 +1177,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1646,6 +1211,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1668,12 +1240,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1717,7 +1283,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gYjPm7YwGtEa1oxh"
@@ -1725,7 +1290,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
             "name": "Ray of Frost",
-            "sort": 1300000,
+            "sort": 1000000,
             "type": "spell"
         },
         {
@@ -1739,9 +1304,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -1862,7 +1424,6 @@
                     "value": "2"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.aXuJh4i8HqSu6NYV"
@@ -1870,7 +1431,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/longspear.webp",
             "name": "Longspear",
-            "sort": 1400000,
+            "sort": 1100000,
             "type": "weapon"
         },
         {
@@ -1924,11 +1485,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Frost Longspear",
-            "sort": 1500000,
+            "sort": 1200000,
             "type": "melee"
         },
         {
@@ -1983,11 +1543,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tail",
-            "sort": 1600000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -2034,11 +1593,10 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Frost Longspear",
-            "sort": 1700000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -2076,7 +1634,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
@@ -2084,7 +1641,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 1800000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -2126,7 +1683,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
@@ -2134,7 +1690,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1900000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -2172,7 +1728,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
@@ -2180,7 +1735,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 2000000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2218,7 +1773,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
@@ -2226,7 +1780,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 2100000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -2280,7 +1834,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
@@ -2288,7 +1841,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Magic",
-            "sort": 2200000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2326,7 +1879,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
@@ -2334,7 +1886,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 2300000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -2379,7 +1931,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
@@ -2387,7 +1938,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 2400000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -2429,11 +1980,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slowing Frost",
-            "sort": 2500000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2473,11 +2023,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Tactician of Cocytus",
-            "sort": 2600000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2503,11 +2052,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2700000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2533,11 +2081,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2800000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -2563,11 +2110,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2900000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2593,11 +2139,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 3000000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2623,11 +2168,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3100000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2653,11 +2197,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 3200000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2683,11 +2226,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 3300000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2713,11 +2255,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3400000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2743,11 +2284,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 3500000,
+            "sort": 3200000,
             "type": "lore"
         }
     ],

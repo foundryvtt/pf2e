@@ -117,7 +117,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -156,12 +155,49 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pseudopod",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "vYd3rbKnbc32kox2",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A Luminous Ooze can sense nearby motion through vibration and air movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "hKCyP0kuF8Zoh3ey",
@@ -176,12 +212,26 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>5 feet. A luminous ooze constantly sheds distracting multicolored light. A creature that ends its turn within the aura must attempt a @Check[type:fortitude|dc:21] save or become @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} until the end of its next turn. On a critical failure, it instead becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A luminous ooze constantly sheds distracting multicolored light. A creature that ends its turn within the aura must attempt a @Check[type:fortitude|dc:21] save or become @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} until the end of its next turn. On a critical failure, it instead becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "animation": {
+                                "intensity": 2,
+                                "speed": 2,
+                                "type": "fairy"
+                            },
+                            "bright": 5,
+                            "color": "#cd4242",
+                            "luminosity": 0.2
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -202,11 +252,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bedazzling",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -227,7 +276,29 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "lightning-catcher",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "lightning-catcher"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "traits": [
+                            "electricity"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -244,11 +315,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lightning Catcher",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -264,7 +334,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ooze glows with blinding brightness. All creatures within a @Template[type:emanation|distance:30] must attempt a @Check[type:fortitude|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is blinded for 1 minute.</p>"
+                    "value": "<p>The ooze glows with blinding brightness. All creatures within a @Template[type:emanation|distance:30] must attempt a @Check[type:fortitude|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -289,11 +359,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Light Up",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -319,11 +388,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],

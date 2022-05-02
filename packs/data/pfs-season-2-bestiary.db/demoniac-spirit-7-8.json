@@ -130,7 +130,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -156,9 +155,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": false
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -241,7 +237,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
@@ -260,9 +255,6 @@
                 },
                 "areasize": {
                     "value": "20-foot burst"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -298,6 +290,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
@@ -320,12 +319,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -366,7 +359,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
@@ -389,9 +381,6 @@
                 },
                 "areasize": {
                     "value": "120-foot line"
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -427,13 +416,18 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 4
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "MYibMRbADiGhp9nR"
                 },
                 "materials": {
@@ -452,12 +446,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -498,7 +486,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.9AAkVUCwF6WVNNY2"
@@ -521,9 +508,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -549,13 +533,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 4
-                },
                 "level": {
                     "value": 3
                 },
                 "location": {
+                    "heightenedLevel": 4,
                     "value": "MYibMRbADiGhp9nR"
                 },
                 "materials": {
@@ -616,7 +598,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.DCQHaLrYXMI37dvW"
@@ -640,9 +621,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -671,6 +649,10 @@
                     "value": 2
                 },
                 "location": {
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "MYibMRbADiGhp9nR"
                 },
                 "materials": {
@@ -730,7 +712,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
@@ -739,120 +720,6 @@
             "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
             "name": "Telekinetic Maneuver",
             "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "6lz6EBODWzVF8nJK",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "MYibMRbADiGhp9nR"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "telekinetic-maneuver",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "attack",
-                        "force"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
-            "name": "Telekinetic Maneuver",
-            "sort": 600000,
             "type": "spell"
         },
         {
@@ -867,9 +734,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -895,13 +759,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 3
-                },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "MYibMRbADiGhp9nR"
                 },
                 "materials": {
@@ -964,7 +826,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
@@ -972,7 +833,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 700000,
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -1016,11 +877,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spectral Claw",
-            "sort": 800000,
+            "sort": 700000,
             "type": "melee"
         },
         {
@@ -1058,7 +918,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -1066,7 +925,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 900000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1104,7 +963,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
@@ -1112,7 +970,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense 60 feet",
-            "sort": 1000000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1162,7 +1020,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
@@ -1170,7 +1027,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Positive",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1215,7 +1072,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
@@ -1223,7 +1079,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1258,11 +1114,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Vengeful Flash",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1300,11 +1155,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Abyssal Spite",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1342,11 +1196,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Drain Life",
-            "sort": 1500000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1369,9 +1222,11 @@
                 },
                 "rules": [
                     {
-                        "key": "ToggleProperty",
+                        "domain": "all",
+                        "key": "RollOption",
                         "label": "Rune has been disabled",
-                        "property": "flags.pf2e.rollOptions.all.runeDisabled"
+                        "option": "runeDisabled",
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
@@ -1398,11 +1253,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ritual Transformation",
-            "sort": 1600000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1428,11 +1282,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1458,11 +1311,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1488,11 +1340,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "lore"
         }
     ],

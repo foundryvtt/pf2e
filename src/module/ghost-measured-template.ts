@@ -13,23 +13,13 @@ export class GhostTemplate extends MeasuredTemplate {
         this.moveTime = now;
     };
 
-    override _onClickRight = (_event: PIXI.InteractionEvent) => {
-        this.layer.preview.removeChildren();
-        canvas.stage.off("mousemove", this._onMouseMove);
-        canvas.stage.off("mousedown", this._onLeftClick);
-        canvas.stage.off("rightdown", this._onClickRight);
-        canvas.app.view.onwheel = null;
-        canvas.activateLayer("tokens");
-    };
-
-    private _onLeftClick = (event: PIXI.InteractionEvent) => {
-        this._onClickRight(event);
+    private _onLeftClick = () => {
         const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
         this.data._source.x = destination.x;
         this.data._source.y = destination.y;
 
         if (canvas.scene) {
-            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data]);
+            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data.toObject()]);
         }
         this.destroy();
     };
@@ -53,6 +43,15 @@ export class GhostTemplate extends MeasuredTemplate {
         }
     };
 
+    override destroy(options?: boolean | PIXI.IDestroyOptions): void {
+        canvas.stage.off("mousemove", this._onMouseMove);
+        canvas.stage.off("mousedown", this._onLeftClick);
+        canvas.stage.off("rightdown", this.destroy);
+        canvas.app.view.onwheel = null;
+        canvas.activateLayer("tokens");
+        super.destroy(options);
+    }
+
     drawPreview() {
         this.layer.activate();
         this.draw();
@@ -63,7 +62,7 @@ export class GhostTemplate extends MeasuredTemplate {
     activatePreviewListeners() {
         canvas.stage.on("mousemove", this._onMouseMove);
         canvas.stage.on("mousedown", this._onLeftClick);
-        canvas.stage.on("rightdown", this._onClickRight);
+        canvas.stage.on("rightdown", this.destroy.bind(this));
         canvas.app.view.onwheel = this._onMouseWheel;
     }
 }

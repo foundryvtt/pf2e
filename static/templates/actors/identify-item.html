@@ -3,43 +3,41 @@
         <h1>{{localize "PF2E.identification.IdentifyMagicDCs"}}</h1>
         <table>
             <tbody>
-                <tr>
+                <tr data-skill="arc" data-dc="{{dcs.arc}}">
                     <th>{{localize "PF2E.SkillArcana"}}</th>
                     <td>{{dcs.arc}}</td>
                 </tr>
-                <tr>
+                <tr data-skill="nat" data-dc="{{dcs.nat}}">
                     <th>{{localize "PF2E.SkillNature"}}</th>
                     <td>{{dcs.nat}}</td>
                 </tr>
-                <tr>
+                <tr data-skill="occ" data-dc="{{dcs.occ}}">
                     <th>{{localize "PF2E.SkillOccultism"}}</th>
                     <td>{{dcs.occ}}</td>
                 </tr>
-                <tr>
+                <tr data-skill="rel" data-dc="{{dcs.rel}}">
                     <th>{{localize "PF2E.SkillReligion"}}</th>
                     <td>{{dcs.rel}}</td>
                 </tr>
         </table>
+    {{else if isAlchemical}}
+        <h1>{{localize "PF2E.identification.IdentifyAlchemyDCs"}}</h1>
+        <table>
+            <tbody>
+                <tr data-skill="cra" data-dc="{{dcs.cra}}">
+                    <th>{{localize "PF2E.SkillCrafting"}}</th>
+                    <td>{{dcs.cra}}</td>
+                </tr>
+        </table>
     {{else}}
-        {{#if isAlchemical}}
-            <h1>{{localize "PF2E.identification.IdentifyAlchemyDCs"}}</h1>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>{{localize "PF2E.SkillCrafting"}}</th>
-                        <td>{{dcs.cra}}</td>
-                    </tr>
-            </table>
-        {{else}}
-            <h1>{{localize "PF2E.identification.IdentifyGenericDCs"}}</h1>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>{{localize "PF2E.SkillCrafting"}}</th>
-                        <td>{{dcs.dc}}</td>
-                    </tr>
-            </table>
-        {{/if}}
+        <h1>{{localize "PF2E.identification.IdentifyGenericDCs"}}</h1>
+        <table>
+            <tbody>
+                <tr data-skill="cra" data-dc="{{dcs.dc}}">
+                    <th>{{localize "PF2E.SkillCrafting"}}</th>
+                    <td>{{dcs.dc}}</td>
+                </tr>
+        </table>
     {{/if}}
     <button type="button" class="post-skill-checks">
         <i class="far fa-save"></i>{{localize "PF2E.identification.PostSkillsToChat"}}

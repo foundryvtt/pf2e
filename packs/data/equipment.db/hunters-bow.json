@@ -11,9 +11,6 @@
         "bonusDamage": {
             "value": 0
         },
-        "brokenThreshold": {
-            "value": 0
-        },
         "category": "martial",
         "containerId": null,
         "damage": {
@@ -99,9 +96,11 @@
         },
         "rules": [
             {
-                "key": "ToggleProperty",
+                "domain": "damage-roll",
+                "key": "RollOption",
                 "label": "Attacker is hidden, undetected, or unnoticed",
-                "property": "flags.pf2e.rollOptions.damage-roll.self:hidden"
+                "option": "self:hidden",
+                "toggleable": true
             },
             {
                 "critical": true,
@@ -155,7 +154,6 @@
             "value": "1"
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/hunters-bow.webp",
     "name": "Hunter's Bow",

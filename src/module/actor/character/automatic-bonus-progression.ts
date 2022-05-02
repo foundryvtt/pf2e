@@ -1,5 +1,5 @@
 import { WeaponPF2e } from "@item";
-import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@actor/modifiers";
 import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rule-element";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 
@@ -148,17 +148,16 @@ export class AutomaticBonusProgression {
     }
 
     /**
-     * Determine whether a rule element can be applied to an actor. This analysis is limited in that it has no way of
-     * determining whether an effect item is associated with an article of equipment.
+     * Determine whether a rule element can be applied to an actor.
      * @param rule The rule element to assess
      * @returns Whether the rule element is to be ignored
      */
-    static suppressRuleElement(rule: FlatModifierRuleElement): boolean {
-        if (rule.actor.type !== "character" || !this.isEnabled) {
-            return rule.ignored;
+    static suppressRuleElement(rule: FlatModifierRuleElement, value: number): boolean {
+        if (!(rule.actor.type === "character" && this.isEnabled)) {
+            return false;
         }
 
-        return rule.data.type === "item" && rule.item.data.isPhysical && !rule.data.selector?.endsWith("speed");
+        return rule.type === "item" && value >= 0 && rule.fromEquipment;
     }
 
     private static abpValues(level: number) {

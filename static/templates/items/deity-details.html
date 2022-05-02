@@ -1,30 +1,56 @@
-<!-- Follower Alignments -->
-<div class="form-group form-group-trait">
-    <label class="pf-title">
-        {{localize "PF2E.Item.Deity.FollowerAlignments"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Item.Deity.FollowerAlignments" data-config-types="alignments" data-property="data.alignment.follower" data-no-custom="true"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="abc-traits-list">
-        {{#each followerAlignments as |alignment|}}
-            <span class="tag-legacy {{alignment.value}}">{{localize alignment.label}}</span>
-        {{/each}}
-    </ul>
-</div>
-<!-- Divine Ability -->
-<div class="form-group form-group-trait">
-    <label class="pf-title">
-        {{localize "PF2E.Item.Deity.DivineAbility"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Item.Deity.DivineAbility" data-config-types="abilities" data-property="data.ability" data-no-custom="true"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="abc-traits-list">
-        {{#each abilities as |ability|}}
-            <span class="tag-legacy {{ability.value}}">{{localize ability.label}}</span>
-        {{/each}}
-    </ul>
-</div>
-<!-- Divine Font -->
+{{!-- Deity Alignment --}}
 <div class="form-group">
-    <label class="pf-title">{{localize "PF2E.Item.Deity.DivineFont.Label"}}</label>
+    <label>{{localize "PF2E.Item.Deity.Alignment"}}</label>
+    <select name="data.alignment.own">
+        {{#select data.alignment.own}}
+            <option value=""></option>
+            {{#each alignments as |label slug|}}<option value="{{slug}}">{{localize label}}</option>{{/each}}
+        {{/select}}
+    </select>
+</div>
+{{!-- Follower Alignments --}}
+<div class="form-group">
+    <label>{{localize "PF2E.Item.Deity.FollowerAlignments"}}</label>
+    <input name="data.alignment.follower" value="{{json data.alignment.follower}}" data-dtype="JSON" />
+</div>
+{{!-- Divine Ability --}}
+<div class="form-group form-group-trait">
+    <label>{{localize "PF2E.Item.Deity.DivineAbility.Label"}}</label>
+    <input name="data.ability" value="{{json data.ability}}" data-dtype="JSON" />
+    <p class="hint">{{localize "PF2E.Item.Deity.DivineAbility.Hint"}}</p>
+</div>
+{{!-- Divine Skill --}}
+<div class="form-group">
+    <label>{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
+    <select name="data.skill">
+        {{#select data.skill}}
+            <option value=""></option>
+            {{#each skills as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>
+{{!-- Favored Weapon --}}
+<div class="form-group form-group-trait">
+    <label>{{localize "PF2E.Item.Deity.FavoredWeapons.Label"}}</label>
+    <input name="data.weapons" value="{{json data.weapons}}" data-dtype="JSON" />
+    <p class="hint">{{localize "PF2E.Item.Deity.FavoredWeapons.Hint"}}</p>
+</div>
+{{!-- Primary Domains --}}
+<div class="form-group form-group-trait">
+    <label>{{localize "PF2E.Item.Deity.Domains.Primary"}}</label>
+    <input name="data.domains.primary" value="{{json data.domains.primary}}" data-dtype="JSON" />
+</div>
+{{!-- Alternate Domains --}}
+<div class="form-group form-group-trait">
+    <label>{{localize "PF2E.Item.Deity.Domains.Alternate.Label"}}</label>
+    <input name="data.domains.alternate" value="{{json data.domains.alternate}}" data-dtype="JSON" />
+    <p class="hint">{{localize "PF2E.Item.Deity.Domains.Alternate.Hint"}}</p>
+</div>
+{{!-- Divine Font --}}
+<div class="form-group">
+    <label>{{localize "PF2E.Item.Deity.DivineFont.Label"}}</label>
     <div class="checkbox-pair">
         {{#each divineFonts as |font|}}
             <span>{{localize font.label}}</span>
@@ -32,40 +58,18 @@
         {{/each}}
     </div>
 </div>
-<!-- Divine Skill -->
-<div class="form-group">
-    <label>{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
-    <select name="data.skill">
-        {{#select data.skill}}
-            {{#each skills as |label key|}}
-                <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-<!-- Favored Weapon -->
-<div class="form-group form-group-trait">
-    <label class="pf-title">
-        {{localize "PF2E.Item.Deity.FavoredWeapon"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Item.Deity.FavoredWeapon" data-config-types="baseWeaponTypes" data-property="data.weapon" data-no-custom="true"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="abc-traits-list">
-        {{#each favoredWeapons as |weapon|}}
-            <span class="tag-legacy {{weapon.value}}">{{localize weapon.label}}</span>
+{{!-- Cleric Spells --}}
+<div class="form-group item-ref-group cleric-spells">
+    <label>{{localize "PF2E.Item.Deity.ClericSpells.Label"}}</label>
+    <ul class="item-refs{{#if (eq spells.length 0)}} empty{{/if}}">
+        {{#each spells as |spell|}}
+            <li data-uuid="{{spell.uuid}}">
+                <img class="icon" src="{{spell.img}}" />
+                <a class="name" data-action="view-spell">{{spell.name}}</a>
+                <input type="number" class="level" value="{{spell.level}}" data-level="{{spell.level}}" data-action="update-spell-level" />
+                {{#if @root.options.editable}}<a class="remove" data-action="remove-spell"><i class="fa fa-times"></i></a>{{/if}}
+            </li>
         {{/each}}
     </ul>
-</div>
-<!-- Cleric Spells -->
-<div class="form-group cleric-spells item-ref-list">
-    <label class="pf-title">{{localize "PF2E.Item.Deity.ClericSpells"}}</label>
-    <ul class="item-refs">
-    {{#each spells as |spell|}}
-        <li data-uuid="{{spell.uuid}}">
-            <img class="icon" src="{{spell.img}}" />
-            <a class="name" data-action="view-spell">{{spell.name}}</a>
-            <div class="level">{{spell.level}}</div>
-            <a class="remove" data-action="remove-spell"><i class="fa fa-times"></i></a>
-        </li>
-    {{/each}}
-    </ul>
+    <p class="hint">{{localize "PF2E.Item.Deity.ClericSpells.Hint"}}</p>
 </div>

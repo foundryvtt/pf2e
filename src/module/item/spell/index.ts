@@ -1,12 +1,11 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemConstructionContextPF2e, ItemPF2e } from "@item/base";
-import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { ItemPF2e, ItemConstructionContextPF2e, SpellcastingEntryPF2e } from "@item";
 import { MagicTradition } from "@item/spellcasting-entry/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
-import { ordinal, objectHasKey, ErrorPF2e } from "@util";
+import { ordinal, objectHasKey, ErrorPF2e, isObject } from "@util";
 import { DicePF2e } from "@scripts/dice";
-import { MagicSchool, SpellData, SpellTrait } from "./data";
+import { MagicSchool, SpellData, SpellHeightenLayer, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -17,12 +16,13 @@ import {
     ModifierPF2e,
     ProficiencyModifier,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { AbilityString } from "@actor/data";
 import { CheckPF2e } from "@system/rolls";
 import { extractModifiers } from "@module/rules/util";
-import { DamageCategory } from "@system/damage/damage";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
+import { UserPF2e } from "@module/user";
+import { StatisticRollParameters } from "@system/statistic";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -34,6 +34,9 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     readonly isFromConsumable: boolean;
+
+    /** The original spell. Only exists if this is a variant */
+    original?: SpellPF2e;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry?: TrickMagicItemEntry;
@@ -47,7 +50,7 @@ export class SpellPF2e extends ItemPF2e {
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
     get level() {
-        return this.data.data.heightenedLevel?.value ?? this.baseLevel;
+        return this.data.data.location.heightenedLevel ?? this.baseLevel;
     }
 
     get traits(): Set<SpellTrait> {
@@ -100,6 +103,10 @@ export class SpellPF2e extends ItemPF2e {
         return this.isCantrip;
     }
 
+    get isVariant() {
+        return !!this.original;
+    }
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
         super(data, mergeObject(context, { pf2e: { ready: true } }));
         this.isFromConsumable = context.fromConsumable ?? false;
@@ -109,7 +116,7 @@ export class SpellPF2e extends ItemPF2e {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) {
             return (
-                this.data.data.autoHeightenLevel.value ||
+                this.data.data.location.autoHeightenLevel ||
                 this.spellcasting?.data.data.autoHeightenLevel.value ||
                 Math.ceil(this.actor.level / 2)
             );
@@ -125,7 +132,7 @@ export class SpellPF2e extends ItemPF2e {
 
         // If we need to heighten it, clone it and return its roll data instead
         if (spellLevel && castLevel !== this.level) {
-            const heightenedSpell = this.clone({ "data.heightenedLevel.value": castLevel });
+            const heightenedSpell = this.clone({ "data.location.heightenedLevel": castLevel });
             return heightenedSpell.getRollData();
         }
 
@@ -147,8 +154,15 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     /** Calculates the full damage formula for a specific spell level */
-    getDamageFormula(castLevel?: number, rollData: object = {}) {
+    getDamageFormula(castLevel?: number, rollData: object = {}): string {
         castLevel = this.computeCastLevel(castLevel);
+
+        // If this isn't a variant, it probably needs to be heightened via overlays
+        if (!this.isVariant) {
+            const variant = this.loadVariant(castLevel);
+            if (variant) return variant.getDamageFormula(castLevel, rollData);
+        }
+
         const formulas: string[] = [];
         for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
             // Currently unable to handle display of perisistent and splash damage
@@ -168,12 +182,12 @@ export class SpellPF2e extends ItemPF2e {
                 }
             }
 
-            // Interval Spell scaling. Ensure it heightens first
-            const scaling = this.data.data.scaling;
-            if (scaling?.interval) {
-                const scalingFormula = scaling.damage[id];
-                if (scalingFormula && scalingFormula !== "0" && scaling.interval) {
-                    const partCount = Math.floor((castLevel - this.baseLevel) / scaling.interval);
+            // Check for and apply interval Spell scaling
+            const heightening = this.data.data.heightening;
+            if (heightening?.type === "interval" && heightening.interval) {
+                const scalingFormula = heightening.damage[id];
+                if (scalingFormula && scalingFormula !== "0" && heightening.interval) {
+                    const partCount = Math.floor((castLevel - this.baseLevel) / heightening.interval);
                     if (partCount > 0) {
                         const scalingParts = Array(partCount).fill(scalingFormula);
                         parts.push(scalingParts.join("+"));
@@ -204,7 +218,7 @@ export class SpellPF2e extends ItemPF2e {
         if (actor) {
             const statisticsModifiers = actor.synthetics.statisticsModifiers;
             const domains = ["damage", "spell-damage"];
-            const heightened = this.clone({ "data.heightenedLevel.value": castLevel });
+            const heightened = this.clone({ "data.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(statisticsModifiers, domains, { resolvables: { spell: heightened } });
             const rollOptions = [...actor.getRollOptions(domains), ...this.getRollOptions("item"), ...this.traits];
             const damageModifier = new StatisticModifier("", modifiers, rollOptions);
@@ -212,6 +226,42 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         return formulas.join(" + ");
+    }
+
+    /**
+     * Loads an alternative version of this spell, called a variant.
+     * The variant is created via the application of one or more overlays based on parameters.
+     * This handles heightening as well as alternative cast modes of spells.
+     * If there's nothing to apply, returns null.
+     */
+    loadVariant(this: SpellPF2e, castLevel: number): SpellPF2e | null {
+        if (this.original) {
+            return this.original.loadVariant(castLevel);
+        }
+
+        // Retrieve and apply variant overlays to override data
+        const heightenEntries = this.getHeightenLayers(castLevel);
+        if (heightenEntries.length === 0) return null;
+
+        const override = this.toObject(true);
+        for (const overlay of heightenEntries) {
+            mergeObject(override.data, overlay.data);
+        }
+
+        mergeObject(override.data, { heightenedLevel: { value: castLevel } });
+        const variantSpell = new SpellPF2e(override, { parent: this.actor });
+        variantSpell.original = this;
+        return variantSpell;
+    }
+
+    getHeightenLayers(level?: number): SpellHeightenLayer[] {
+        const heightening = this.data.data.heightening;
+        if (heightening?.type !== "fixed") return [];
+
+        return Object.entries(heightening.levels)
+            .map(([level, data]) => ({ level: Number(level), data }))
+            .filter((data) => !level || level >= data.level)
+            .sort((first, second) => first.level - second.level);
     }
 
     override prepareBaseData() {
@@ -226,6 +276,9 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.data.data.traits.value.push(this.school, ...this.traditions);
+        if (this.spellcasting?.isInnate) {
+            mergeObject(this.data.data.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
+        }
     }
 
     override getRollOptions(prefix = this.type): string[] {
@@ -241,7 +294,7 @@ export class SpellPF2e extends ItemPF2e {
         }
 
         for (const damage of Object.values(this.data.data.damage.value)) {
-            const category = DamageCategory.fromDamageType(damage.type.value);
+            const category = DamageCategorization.fromDamageType(damage.type.value);
             if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
             if (category) options.add(`${prefix}:damage:${category}`);
         }
@@ -276,11 +329,18 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     override getChatData(
-        this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
+        if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
+
+        // Load the heightened version of the spell if one exists
+        if (!this.isVariant) {
+            const variant = this.loadVariant(level);
+            if (variant) return variant.getChatData(htmlOptions, rollOptions);
+        }
+
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         rollData.item ??= this;
 
@@ -388,14 +448,19 @@ export class SpellPF2e extends ItemPF2e {
         };
     }
 
-    rollAttack(this: Embedded<SpellPF2e>, event: JQuery.ClickEvent, attackNumber = 1) {
+    rollAttack(
+        this: Embedded<SpellPF2e>,
+        event: JQuery.ClickEvent,
+        attackNumber = 1,
+        context: StatisticRollParameters = {}
+    ) {
         // Prepare roll data
         const trickMagicEntry = this.trickMagicEntry;
         const spellcastingEntry = this.spellcasting;
         const statistic = (trickMagicEntry ?? spellcastingEntry)?.statistic;
 
         if (statistic) {
-            statistic.check.roll({ ...eventToRollParams(event), item: this, attackNumber });
+            statistic.check.roll({ ...eventToRollParams(event), ...context, item: this, attackNumber });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
@@ -512,6 +577,37 @@ export class SpellPF2e extends ItemPF2e {
             },
             event
         );
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        await super._preUpdate(changed, options, user);
+
+        const uses = changed.data?.location?.uses;
+        if (uses) {
+            const currentUses = uses.value ?? this.data.data.location.uses?.value ?? 1;
+            const currentMax = uses.max ?? this.data.data.location.uses?.max;
+            uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
+        }
+
+        // If dragged to outside an actor, location properties should be cleaned up
+        mergeObject(changed, { data: {} });
+        const newLocation = changed.data?.location?.value;
+        const locationChanged = newLocation && newLocation !== this.data.data.location.value;
+        if ((!this.actor || locationChanged) && isObject<Record<string, unknown>>(changed.data)) {
+            const data: Record<string, unknown> = changed.data;
+            const locationUpdates: Record<string, unknown> = this.actor ? changed.data.location ?? {} : { value: "" };
+            data.location = locationUpdates;
+
+            // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
+            const keys = Object.keys(this.data.data.location).filter((k) => k !== "value" && !(k in locationUpdates));
+            for (const key of keys) {
+                locationUpdates[`-=${key}`] = null;
+            }
+        }
     }
 }
 

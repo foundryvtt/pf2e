@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "CG"
             },
-            "blurb": "",
+            "blurb": "Nonbinary tengu sword master",
             "creatureType": "",
             "level": {
                 "value": 9
@@ -113,7 +113,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -128,9 +127,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -216,7 +212,7 @@
                 "propertyRune4": {
                     "value": null
                 },
-                "quantity": 1,
+                "quantity": 2,
                 "range": null,
                 "reload": {
                     "value": ""
@@ -254,7 +250,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.6qJkA6fnHHiF4CEV"
@@ -272,9 +267,6 @@
                     "value": 3
                 },
                 "baseItem": "hide-armor",
-                "brokenThreshold": {
-                    "value": null
-                },
                 "category": "medium",
                 "check": {
                     "value": -2
@@ -288,6 +280,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
                     "invested": false
                 },
@@ -374,7 +367,6 @@
                     "value": "3"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.AnwzlOs0njF9Jqnr"
@@ -425,7 +417,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tengu gale blade",
@@ -470,7 +461,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beak",
@@ -512,7 +502,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
@@ -562,11 +551,55 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Soaring Flight",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "uoEMHLm7YNrmwEb3",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -587,7 +620,38 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "melee",
+                                "blade-barrage"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "traits": [
+                            "forceful"
+                        ]
+                    },
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "option": "blade-barrage",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "melee",
+                                "blade-barrage"
+                            ]
+                        },
+                        "selector": "strike-damage",
+                        "text": "If one target is hit with at least two of these Strikes, they also take [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. The target is then @Compendium[pf2e.conditionitems.Flat-Footed]{flat-footed} until they heal the persistent bleed damage."
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -604,11 +668,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Blade Barrage",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -624,7 +687,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Takatorra spins, striking at their foes' weapons. Takatorra attempts an Athletics check to Disarm against each enemy within melee reach. Each attempt counts toward Takatorra's multiple attack penalty, but the penalty doesn't increase until they have made all the attempts.</p>"
+                    "value": "<p>Takatorra spins, striking at their foes' weapons. Takatorra attempts an Athletics check to @Compendium[pf2e.actionspf2e.Disarm]{Disarm} against each enemy within melee reach. Each attempt counts toward Takatorra's multiple attack penalty, but the penalty doesn't increase until they have made all the attempts.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -648,11 +711,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Disarming Whirl",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -678,11 +740,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -708,11 +769,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -738,11 +798,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -768,11 +827,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],

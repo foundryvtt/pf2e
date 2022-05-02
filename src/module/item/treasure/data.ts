@@ -1,21 +1,26 @@
-import { BasePhysicalItemData, BasePhysicalItemSource, PhysicalSystemData } from "@item/physical/data";
+import {
+    BasePhysicalItemData,
+    BasePhysicalItemSource,
+    PhysicalSystemData,
+    PhysicalSystemSource,
+} from "@item/physical/data";
 import { TreasurePF2e } from ".";
 
-export type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemData>;
+type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 
-export class TreasureData extends BasePhysicalItemData<TreasurePF2e> {
+class TreasureData extends BasePhysicalItemData<TreasurePF2e> {
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/treasure.svg";
 }
 
-export interface TreasureData extends Omit<TreasureSource, "effects" | "flags"> {
+interface TreasureData extends Omit<TreasureSource, "effects" | "flags"> {
     type: TreasureSource["type"];
-    data: TreasureSource["data"];
+    data: TreasureSystemData;
     readonly _source: TreasureSource;
 
     isInvested: null;
 }
 
-export interface TreasureSystemData extends PhysicalSystemData {
+interface TreasureSystemSource extends PhysicalSystemSource {
     denomination: {
         value: "pp" | "gp" | "sp" | "cp";
     };
@@ -23,3 +28,7 @@ export interface TreasureSystemData extends PhysicalSystemData {
         value: number;
     };
 }
+
+type TreasureSystemData = TreasureSystemSource & PhysicalSystemData;
+
+export { TreasureData, TreasureSource, TreasureSystemData, TreasureSystemSource };

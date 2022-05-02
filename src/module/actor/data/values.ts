@@ -1,15 +1,13 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "./base";
-import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@module/damage-calculation";
+import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage";
 import { MAGIC_SCHOOLS } from "@module/item/spell/data/values";
 
-export const ABILITY_ABBREVIATIONS = ["str", "dex", "con", "int", "wis", "cha"] as const;
+export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
 export const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
 export const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
-
-export const ALIGNMENT_TRAITS = ["chaotic", "evil", "good", "lawful"] as const;
 
 export const CONDITION_SLUGS = new Set([
     "blinded",
@@ -119,7 +117,7 @@ export const RESISTANCE_TYPES = new Set([
     "protean anatomy",
 ] as const);
 
-export const SKILL_ABBREVIATIONS = [
+export const SKILL_ABBREVIATIONS = new Set([
     "acr",
     "arc",
     "ath",
@@ -136,7 +134,7 @@ export const SKILL_ABBREVIATIONS = [
     "ste",
     "sur",
     "thi",
-] as const;
+] as const);
 
 export const SKILL_DICTIONARY = {
     acr: "acrobatics",
@@ -184,19 +182,5 @@ export const SKILL_EXPANDED: Record<string, SkillExpanded> = {
     survival: { ability: "wis", shortform: "sur" },
     thievery: { ability: "dex", shortform: "thi" },
 };
-
-export const SUPPORTED_ROLL_OPTIONS = [
-    "all",
-    "attack-roll",
-    "damage-roll",
-    "saving-throw",
-    "fortitude",
-    "reflex",
-    "will",
-    "perception",
-    "initiative",
-    "skill-check",
-    "counteract-check",
-];
 
 export const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;

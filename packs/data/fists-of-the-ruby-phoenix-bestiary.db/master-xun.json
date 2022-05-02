@@ -42,7 +42,12 @@
                 "value": 25
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": "15"
+                    }
+                ],
                 "value": "25"
             }
         },
@@ -50,7 +55,7 @@
             "alignment": {
                 "value": "LE"
             },
-            "blurb": "",
+            "blurb": "Tian-Shu Golden League ruffians",
             "creatureType": "",
             "level": {
                 "value": 14
@@ -107,7 +112,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -122,9 +126,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "simple",
@@ -248,7 +249,6 @@
                     "value": "L"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
@@ -302,7 +302,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
@@ -352,7 +351,6 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
@@ -371,8 +369,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The xun's Strike hits a flat-footed creature and deals damage</p>\n<p><strong>Effect</strong> The xun applies one of the following debilitations, which lasts until the end of the xun's next turn or for 1 week on a critical hit.</p>\n<p><strong>Debilitation</strong> The target takes a -10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The xun's Strike hits a @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creature and deals damage</p>\n<p><strong>Effect</strong> The xun applies one of the following debilitations, which lasts until the end of the xun's next turn or for 1 week on a critical hit.</p>\n<p><strong>Debilitation</strong> The target takes a -10-foot status penalty to its Speeds.</p>\n<p><strong>Debilitation</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -394,10 +393,9 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Lasting Debilitating Dagger",
+            "name": "Lasting Debilitating Strike",
             "sort": 400000,
             "type": "action"
         },
@@ -413,8 +411,9 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The master xun @Compendium[pf2e.actionspf2e.Step]{Step} or @Compendium[pf2e.actionspf2e.Feint]{Feint}, then @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize}.</p>"
+                    "value": "<p>The master xun @Compendium[pf2e.actionspf2e.Step]{Steps} or @Compendium[pf2e.actionspf2e.Feint]{Feints}, then @Compendium[pf2e.actionspf2e.Demoralize]{Demoralizes}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -436,7 +435,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Looming Threat",
@@ -444,7 +442,7 @@
             "type": "action"
         },
         {
-            "_id": "4gxwNg3Pfe2yBYmm",
+            "_id": "htMmxOMY7QoAXqje",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -455,8 +453,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The master xun deals an extra [[/r {3d6}[precision]]]{3d6 precision damage} to flat-footed opponents.</p>\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The master xun deals an extra [[/r {3d6}[precision]]]{3d6 precision damage} to flat-footed opponents.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -469,12 +468,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -496,7 +504,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
@@ -530,7 +537,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
@@ -560,7 +566,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -590,7 +595,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
@@ -620,7 +624,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
@@ -650,7 +653,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
@@ -680,7 +682,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",

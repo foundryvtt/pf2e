@@ -132,7 +132,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -159,9 +158,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": false
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -282,7 +278,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Primal Innate Spells",
@@ -301,9 +296,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -391,7 +383,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
@@ -415,9 +406,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -446,6 +434,10 @@
                     "value": 9
                 },
                 "location": {
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "sHSSYKQfJRk9yltb"
                 },
                 "materials": {
@@ -505,7 +497,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.dN8QBNuTiaBHCKUe"
@@ -514,120 +505,6 @@
             "img": "systems/pf2e/icons/spells/baleful-polymorph.webp",
             "name": "Baleful Polymorph",
             "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "0AawLKYpH8SpI5Vh",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You transform the target creature into a harmless animal appropriate to the area, with effects based on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's body gains minor features of the harmless animal. Its insides churn as they partially transform, causing it to be @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. When it recovers from the Sickened condition, its features revert to normal.</p>\n<p><strong>Failure</strong> The target transforms for 1 minute but keeps its mind. If it spends all its actions on its turn concentrating on its original form, it can attempt a Will save to end the effect immediately.</p>\n<p><strong>Critical Failure</strong> The target is transformed into the chosen harmless animal, body and mind, for an unlimited duration.</p>"
-                },
-                "duration": {
-                    "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "value": "sHSSYKQfJRk9yltb"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "fortitude"
-                },
-                "school": {
-                    "value": "transmutation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "baleful-polymorph",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "incapacitation",
-                        "polymorph"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.dN8QBNuTiaBHCKUe"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/baleful-polymorph.webp",
-            "name": "Baleful Polymorph",
-            "sort": 400000,
             "type": "spell"
         },
         {
@@ -643,9 +520,6 @@
                 "areasize": {
                     "value": "60-foot cone"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -678,10 +552,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 9
                 },
                 "location": {
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "sHSSYKQfJRk9yltb"
                 },
                 "materials": {
@@ -700,12 +585,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -746,7 +625,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.3puDanGfpEt6jK5k"
@@ -754,134 +632,7 @@
             },
             "img": "systems/pf2e/icons/spells/cone-of-cold.webp",
             "name": "Cone of Cold",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "0qtbzpkK6pWX7d8j",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "cone",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot cone"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "cold"
-                            },
-                            "value": "20d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>Icy cold rushes forth from your hands. You deal 20d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "value": "sHSSYKQfJRk9yltb"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "cone-of-cold",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.3puDanGfpEt6jK5k"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/cone-of-cold.webp",
-            "name": "Cone of Cold",
-            "sort": 600000,
+            "sort": 400000,
             "type": "spell"
         },
         {
@@ -896,9 +647,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -987,7 +735,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.jwK43yKsHTkJQvQ9"
@@ -995,7 +742,7 @@
             },
             "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility (Constant)",
-            "sort": 700000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -1010,9 +757,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1099,7 +843,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
@@ -1107,7 +850,7 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues (Constant)",
-            "sort": 800000,
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -1122,9 +865,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1158,6 +898,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 9
                 },
@@ -1180,12 +927,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1227,7 +968,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.R5FHRv7VqyRnxg2t"
@@ -1235,7 +975,7 @@
             },
             "img": "systems/pf2e/icons/spells/wall-of-ice.webp",
             "name": "Wall of Ice",
-            "sort": 900000,
+            "sort": 700000,
             "type": "spell"
         },
         {
@@ -1250,9 +990,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1343,7 +1080,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
@@ -1351,7 +1087,7 @@
             },
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
-            "sort": 1000000,
+            "sort": 800000,
             "type": "spell"
         },
         {
@@ -1366,9 +1102,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1403,6 +1136,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1425,12 +1165,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1474,7 +1208,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gYjPm7YwGtEa1oxh"
@@ -1482,7 +1215,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
             "name": "Ray of Frost",
-            "sort": 1100000,
+            "sort": 900000,
             "type": "spell"
         },
         {
@@ -1497,9 +1230,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1590,7 +1320,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.AUctDF2fqPZN2w4W"
@@ -1598,7 +1327,7 @@
             },
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
-            "sort": 1200000,
+            "sort": 1000000,
             "type": "spell"
         },
         {
@@ -1613,9 +1342,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1705,7 +1431,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.uZK2BYzPnxUBnDjr"
@@ -1713,7 +1438,7 @@
             },
             "img": "systems/pf2e/icons/spells/tanglefoot.webp",
             "name": "Tanglefoot",
-            "sort": 1300000,
+            "sort": 1100000,
             "type": "spell"
         },
         {
@@ -1727,9 +1452,6 @@
                     "value": 0
                 },
                 "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
                 "category": "martial",
@@ -1852,7 +1574,6 @@
                     "value": "1"
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.zi9ovfoRp2fMhfpO"
@@ -1860,7 +1581,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/spiked-chain.webp",
             "name": "+3 Greater Striking Cold Iron Spiked Chain",
-            "sort": 1400000,
+            "sort": 1200000,
             "type": "weapon"
         },
         {
@@ -1908,11 +1629,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spiked Chain",
-            "sort": 1500000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1957,11 +1677,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1600000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -2002,11 +1721,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Horn",
-            "sort": 1700000,
+            "sort": 1500000,
             "type": "melee"
         },
         {
@@ -2044,7 +1762,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
@@ -2052,7 +1769,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scent (Imprecise) 60 feet",
-            "sort": 1800000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -2090,11 +1807,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Blizzard Sight",
-            "sort": 1900000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2132,7 +1848,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
@@ -2140,7 +1855,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 2000000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -2183,7 +1898,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
@@ -2191,7 +1905,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 2100000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2229,11 +1943,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Limited Immortality",
-            "sort": 2200000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -2273,11 +1986,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Capture",
-            "sort": 2300000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -2317,11 +2029,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Punish the Naughty",
-            "sort": 2400000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2364,11 +2075,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regression",
-            "sort": 2500000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2406,11 +2116,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Snowstep",
-            "sort": 2600000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2448,7 +2157,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
@@ -2456,7 +2164,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 2700000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2482,11 +2190,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2800000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2512,11 +2219,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2900000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2542,11 +2248,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Festival Lore",
-            "sort": 3000000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2572,11 +2277,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3100000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2602,11 +2306,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 3200000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2632,11 +2335,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3300000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2662,11 +2364,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3400000,
+            "sort": 3200000,
             "type": "lore"
         }
     ],

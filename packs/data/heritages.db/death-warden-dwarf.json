@@ -17,11 +17,24 @@
                     ]
                 },
                 "selector": "saving-throw",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success against a necromancy effect, you get a critical success instead.</p>"
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Dwarf.DeathWardenDwarf.Note]</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "necromancy"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -29,7 +42,6 @@
             "value": []
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/ancestry/death-warden-dwarf.webp",
     "name": "Death Warden Dwarf",

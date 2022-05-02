@@ -1,25 +1,28 @@
+import { ActorPF2e, CreaturePF2e } from "@actor";
+import { VisionLevel, VisionLevels } from "@actor/creature/data";
+import { SaveType } from "@actor/data";
+import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/data/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e } from "@item";
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@module/modifiers";
-import { WeaponDamagePF2e } from "@module/system/damage/weapon";
-import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
-import { RollNotePF2e } from "@module/notes";
-import { RollParameters } from "@system/rolls";
-import { CreaturePF2e, ActorPF2e } from "@actor";
 import { MeleeData } from "@item/data";
-import { DamageType } from "@module/damage-calculation";
-import { sluggify } from "@util";
-import { NPCData, NPCStrike } from "./data";
-import { AbilityString, RollFunction, StrikeTrait } from "@actor/data/base";
-import { VisionLevel, VisionLevels } from "@actor/creature/data";
-import { NPCSheetPF2e } from "./sheet";
-import { LocalizePF2e } from "@system/localize";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
+import { RollNotePF2e } from "@module/notes";
 import { extractModifiers, extractNotes } from "@module/rules/util";
+import { WeaponDamagePF2e } from "@module/system/damage";
+import { CheckPF2e, DamageRollPF2e } from "@module/system/rolls";
+import { DamageType } from "@system/damage";
+import { LocalizePF2e } from "@system/localize";
+import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { SaveType } from "@actor/data";
 import { TextEditorPF2e } from "@system/text-editor";
+import { sluggify } from "@util";
+import { NPCData, NPCSource, NPCStrike } from "./data";
+import { NPCSheetPF2e } from "./sheet";
+import { SIZE_TO_REACH } from "@actor/creature/values";
+import { VariantCloneParams } from "./types";
+import { StrikeAttackTraits } from "./strike-attack-traits";
 
-export class NPCPF2e extends CreaturePF2e {
+class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
         return NPCData;
     }
@@ -27,6 +30,10 @@ export class NPCPF2e extends CreaturePF2e {
     /** This NPC's ability scores */
     get abilities() {
         return deepClone(this.data.data.abilities);
+    }
+
+    get description(): string {
+        return this.data.data.details.publicNotes;
     }
 
     /** Does this NPC have the Elite adjustment? */
@@ -52,9 +59,9 @@ export class NPCPF2e extends CreaturePF2e {
         return super.canUserModify(user, action);
     }
 
-    /** A user can see an NPC in the actor directory only if they have at least Observer permission */
+    /** A user can see a synthetic NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
-        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        return this.data.token.actorLink ? super.visible : this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
     }
 
     get isLootable(): boolean {
@@ -96,8 +103,14 @@ export class NPCPF2e extends CreaturePF2e {
         for (const key of SAVE_TYPES) {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
-        systemData.attributes.perception.ability = "wis";
-        systemData.attributes.dexCap = [{ value: Infinity, source: "" }];
+
+        const { attributes } = systemData;
+        attributes.perception.ability = "wis";
+        attributes.dexCap = [{ value: Infinity, source: "" }];
+        attributes.reach = {
+            general: SIZE_TO_REACH[this.size],
+            manipulate: SIZE_TO_REACH[this.size],
+        };
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
@@ -430,6 +443,7 @@ export class NPCPF2e extends CreaturePF2e {
                     "all",
                 ];
                 modifiers.push(...extractModifiers(statisticsModifiers, domains));
+                modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
                 notes.push(...domains.flatMap((key) => duplicate(rollNotes[key] ?? [])));
 
                 // action image
@@ -565,7 +579,7 @@ export class NPCPF2e extends CreaturePF2e {
                                     type: "attack-roll",
                                     options,
                                     notes: rollNotes,
-                                    dc: args.dc ?? context.target?.dc ?? null,
+                                    dc: args.dc ?? context.dc,
                                     traits: action.traits,
                                 },
                                 args.event
@@ -587,7 +601,7 @@ export class NPCPF2e extends CreaturePF2e {
                             context.self.item.data,
                             context.self.actor,
                             action.traits,
-                            statisticsModifiers,
+                            deepClone(statisticsModifiers),
                             this.cloneSyntheticsRecord(damageDice),
                             1,
                             options,
@@ -862,7 +876,7 @@ export class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    // Returns the base level of a creature, as this gets modified on elite and weak adjustments
+    /** Returns the base level of a creature, as this gets modified on elite and weak adjustments */
     getBaseLevel(): number {
         if (this.isElite) {
             return this.level - 1;
@@ -872,12 +886,32 @@ export class NPCPF2e extends CreaturePF2e {
             return this.level;
         }
     }
+
+    /** Create a variant clone of this NPC, adjusting any of name, description, and images */
+    variantClone(params: VariantCloneParams & { save?: false }): this;
+    variantClone(params: VariantCloneParams & { save: true }): Promise<this>;
+    variantClone(params: VariantCloneParams): this | Promise<this>;
+    variantClone(params: VariantCloneParams): this | Promise<this> {
+        const source = this.data._source;
+        const changes: DeepPartial<NPCSource> = {
+            name: params.name ?? this.name,
+            data: {
+                details: { publicNotes: params.description ?? source.data.details.publicNotes },
+            },
+            img: params.img?.actor ?? source.img,
+            token: { img: params.img?.token ?? source.token.img },
+        };
+
+        return this.clone(changes, { save: params.save, keepId: params.keepId });
+    }
 }
 
-export interface NPCPF2e {
+interface NPCPF2e {
     readonly data: NPCData;
 
     get sheet(): NPCSheetPF2e;
 
     _sheet: NPCSheetPF2e | null;
 }
+
+export { NPCPF2e };

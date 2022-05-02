@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You attempt a skill check requiring three actions or fewer.</p>\n<hr />\n<p>You stimulate your nanites, forcing your body to temporarily increase its efficiency. You gain a +2 status bonus to the triggering skill check. In addition, your circuitry glows, lighting a @Template[type:emanation|distance:10] with dim light for 1 round.</p>"
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You attempt a skill check requiring three actions or fewer.</p>\n<hr />\n<p>You stimulate your nanites, forcing your body to temporarily increase its efficiency. You gain a +2 status bonus to the triggering skill check. In addition, your circuitry glows, lighting a @Template[type:emanation|distance:10] with dim light for 1 round.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Nanite Surge]{Effect: Nanite Surge}</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,15 +19,17 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "key": "ToggleProperty",
+                "domain": "all",
+                "key": "RollOption",
                 "label": "Activate Nanite Surge",
-                "property": "flags.pf2e.rollOptions.all.nanite-surge"
+                "option": "nanite-surge",
+                "toggleable": true
             },
             {
                 "key": "FlatModifier",
@@ -53,7 +55,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Nanite Surge",

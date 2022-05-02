@@ -7,13 +7,17 @@ interface ColorsetOptions {
     foreground: string;
     outline: string;
     edge: string;
+    visibility?: "visible" | "hidden";
 }
 
 interface Dice3D {
-    addSystem(system: { id: string; name: string }, mode: "default" | "preferred"): void;
-    addDicePreset(data: { type: string; labels: string[]; system: string }, shape?: string | null): void;
+    addSystem(system: { id: string; name: string; colorset?: string }, mode?: "default" | "preferred"): void;
+    addDicePreset(
+        data: { type: string; labels: string[]; system: string; colorset?: string },
+        shape?: string | null
+    ): void;
     addTexture(textureId: string, options: { name: string; composite: string; source: string }): Promise<void>;
-    addColorset(options: ColorsetOptions, mode: "default" | "preferred"): void;
+    addColorset(options: ColorsetOptions, mode?: "default" | "preferred"): void;
 }
 
 const isDice3D = (obj: unknown): obj is Dice3D =>
@@ -24,7 +28,18 @@ export const DiceSoNiceReady = {
         Hooks.once("diceSoNiceReady", (dice3d: unknown) => {
             if (!isDice3D(dice3d)) return;
 
-            dice3d.addSystem({ id: "basic", name: "Dicefinder Basic" }, "preferred");
+            // BASIC SYSTEM
+
+            dice3d.addSystem({ id: "basic", name: "Dicefinder Basic", colorset: "basic" });
+
+            for (const faces of [4, 6, 8, 10, 12]) {
+                dice3d.addDicePreset({
+                    type: `d${faces}`,
+                    labels: [...Array(faces)].map((_value, idx) => String(idx + 1)),
+                    system: "basic",
+                    colorset: "basic",
+                });
+            }
 
             dice3d.addDicePreset({
                 type: "d20",
@@ -51,54 +66,68 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/basic/nat20.webp",
                 ],
                 system: "basic",
+                colorset: "basic",
             });
 
             dice3d.addDicePreset({
                 type: "dc",
                 labels: ["systems/pf2e/dice/basic/tail.webp", "systems/pf2e/dice/basic/heads.webp"],
                 system: "basic",
+                colorset: "basic",
             });
 
             dice3d.addDicePreset({
                 type: "d2",
                 labels: ["systems/pf2e/dice/basic/tail_bump.webp", "systems/pf2e/dice/basic/heads_bump.webp"],
                 system: "basic",
+                colorset: "basic",
             });
+
+            dice3d.addDicePreset({
+                type: "d100",
+                labels: [...Array(10)].map((_value, idx) => String((idx + 1) * 10)),
+                system: "basic",
+                colorset: "basic",
+            });
+
+            dice3d.addDicePreset({ type: "df", labels: ["-", "", "+"], system: "basic", colorset: "basic" });
 
             dice3d
                 .addTexture("PFred", {
-                    name: "Dicefinder Basic",
+                    name: "Pathfinder Red",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/texture.webp",
                 })
                 .then(() => {
-                    dice3d.addColorset(
-                        {
-                            name: "basic",
-                            description: "Dicefinder Basic",
-                            category: "Pathfinder 2e",
-                            texture: "PFred",
-                            material: "metal",
-                            foreground: "#f9b96e",
-                            outline: "none",
-                            edge: "#f9b96e",
-                        },
-                        "preferred"
-                    );
+                    dice3d.addColorset({
+                        name: "basic",
+                        description: "Dicefinder Basic",
+                        category: "Pathfinder 2e",
+                        texture: "PFred",
+                        material: "metal",
+                        foreground: "#f9b96e",
+                        outline: "none",
+                        edge: "#f9b96e",
+                        visibility: "hidden",
+                    });
                 });
 
-            dice3d.addSystem({ id: "campaign", name: "Dicefinder Campaign" }, "default");
+            // CAMPAIGN SYSTEM
+
+            dice3d.addSystem({ id: "campaign", name: "Dicefinder Campaign", colorset: "campaign" });
 
             dice3d.addDicePreset({
                 type: "dc",
                 labels: ["systems/pf2e/dice/basic/tail.webp", "systems/pf2e/dice/basic/heads.webp"],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
                 type: "d2",
                 labels: ["systems/pf2e/dice/basic/tail_bump.webp", "systems/pf2e/dice/basic/heads_bump.webp"],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -110,6 +139,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d4/d4-4.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -123,6 +153,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d6/d6-6.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -133,6 +164,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/df/dfp.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -148,6 +180,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d8/d8-P.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -165,6 +198,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d10/d10-10.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -184,6 +218,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d12/d12-12.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -201,6 +236,7 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d100/d100-100.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d.addDicePreset({
@@ -228,31 +264,50 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/campaign/d20/d20-20.webp",
                 ],
                 system: "campaign",
+                colorset: "campaign",
             });
 
             dice3d
-                .addTexture("d4", {
-                    name: "Dicefinder Campaign",
+                .addTexture("stoneD4", {
+                    name: "Pathfinder Stone (D4)",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/d4.webp",
                 })
                 .then(() => {
-                    dice3d.addColorset(
-                        {
-                            name: "campaign",
-                            description: "Dicefinder Campaign",
-                            category: "Pathfinder 2e",
-                            texture: "d4",
-                            material: "metal",
-                            foreground: "#f9b96e",
-                            outline: "none",
-                            edge: "#f9b96e",
-                        },
-                        "default"
-                    );
+                    dice3d.addColorset({
+                        name: "campaign",
+                        description: "Dicefinder Campaign",
+                        category: "Pathfinder 2e",
+                        texture: "stoneD4",
+                        material: "stone",
+                        foreground: "#5c2f00",
+                        outline: "none",
+                        edge: "#f9b96e",
+                        visibility: "hidden",
+                    });
                 });
 
-            dice3d.addSystem({ id: "darkmode", name: "Dicefinder Dark Mode" }, "default");
+            // DARKMODE SYSTEM
+
+            dice3d.addSystem({ id: "darkmode", name: "Dicefinder Dark Mode", colorset: "darkmode" });
+
+            for (const faces of [4, 6, 8, 10, 12]) {
+                dice3d.addDicePreset({
+                    type: `d${faces}`,
+                    labels: [...Array(faces)].map((_value, idx) => String(idx + 1)),
+                    system: "darkmode",
+                    colorset: "darkmode",
+                });
+            }
+
+            dice3d.addDicePreset({
+                type: "d100",
+                labels: [...Array(10)].map((_value, idx) => String((idx + 1) * 10)),
+                system: "darkmode",
+                colorset: "darkmode",
+            });
+
+            dice3d.addDicePreset({ type: "df", labels: ["-", "", "+"], system: "darkmode", colorset: "darkmode" });
 
             dice3d.addDicePreset({
                 type: "d20",
@@ -279,39 +334,40 @@ export const DiceSoNiceReady = {
                     "systems/pf2e/dice/basic/nat20.webp",
                 ],
                 system: "darkmode",
+                colorset: "darkmode",
             });
             dice3d.addDicePreset({
                 type: "dc",
                 labels: ["systems/pf2e/dice/basic/tail.webp", "systems/pf2e/dice/basic/heads.webp"],
                 system: "darkmode",
+                colorset: "darkmode",
             });
 
             dice3d.addDicePreset({
                 type: "d2",
                 labels: ["systems/pf2e/dice/basic/tail_bump.webp", "systems/pf2e/dice/basic/heads_bump.webp"],
                 system: "darkmode",
+                colorset: "darkmode",
             });
 
             dice3d
-                .addTexture("transparent", {
-                    name: "Dicefinder Dark Mode",
+                .addTexture("darkModeBlack", {
+                    name: "Dark Mode Black",
                     composite: "source-over",
                     source: "systems/pf2e/dice/texture/transparent.webp",
                 })
                 .then(() => {
-                    dice3d.addColorset(
-                        {
-                            name: "darkmode",
-                            description: "Dicefinder Dark Mode",
-                            category: "Pathfinder 2e",
-                            texture: "transparent",
-                            material: "metal",
-                            foreground: "#f9b96e",
-                            outline: "none",
-                            edge: "#f9b96e",
-                        },
-                        "default"
-                    );
+                    dice3d.addColorset({
+                        name: "darkmode",
+                        description: "Dicefinder Dark Mode",
+                        category: "Pathfinder 2e",
+                        texture: "darkModeBlack",
+                        material: "metal",
+                        foreground: "#f9b96e",
+                        outline: "none",
+                        edge: "#f9b96e",
+                        visibility: "hidden",
+                    });
                 });
         });
     },

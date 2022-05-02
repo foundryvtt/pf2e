@@ -1,12 +1,12 @@
 import { activateSocketListener } from "@scripts/socket";
 import { PlayerConfigPF2e } from "@module/user/player-config";
-import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { MigrationRunner } from "@module/migration/runner";
 import { MigrationList } from "@module/migration";
 import { storeInitialWorldVersions } from "@scripts/store-versions";
 import { extendDragData } from "@scripts/system/dragstart-handler";
 import { MigrationSummary } from "@module/apps/migration-summary";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
+import { registerModuleArt } from "@scripts/register-module-art";
 
 export const Ready = {
     listen: (): void => {
@@ -63,8 +63,8 @@ export const Ready = {
 
             PlayerConfigPF2e.activateColorScheme();
 
-            // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
-            prepareMinions();
+            registerModuleArt();
+
             activateSocketListener();
 
             // Extend drag data for things such as condition value
@@ -72,6 +72,9 @@ export const Ready = {
 
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
+
+            // In case there's no canvas, run Condition Manager initialization from this hook as well
+            game.pf2e.ConditionManager.initialize();
 
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {
@@ -90,6 +93,11 @@ export const Ready = {
             // Final pass to ensure effects on actors properly consider the initiative of any active combat
             if (fightyActors.size > 0) {
                 game.pf2e.effectTracker.refresh();
+            }
+
+            // Prepare familiars now that all actors are initialized
+            for (const familiar of game.actors.filter((a) => a.data.type === "familiar")) {
+                familiar.prepareData();
             }
 
             // Announce the system is ready in case any module needs access to an application not available until now

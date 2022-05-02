@@ -8,33 +8,11 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { sluggify } from "@util";
-
-function resolveActors(): ActorPF2e[] {
-    const actors: ActorPF2e[] = [];
-    if (canvas.tokens.controlled.length) {
-        actors.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
-    } else if (game.user.character) {
-        actors.push(game.user.character);
-    }
-    return actors;
-}
+import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    // Conditionally show DCs in the text
-    injectDCText: ($links: JQuery): void => {
-        for (const link of $links) {
-            const dc = Number(link.dataset.pf2Dc?.trim() ?? "");
-            const role = link.dataset.pf2ShowDc?.trim() ?? "";
-            const userCanView = ["all", "owner"].includes(role) || (role === "gm" && game.user.isGM);
-            if (userCanView && dc > 0) {
-                const text = link.innerHTML;
-                link.innerHTML = game.i18n.format("PF2E.DCWithValue", { dc, text });
-            }
-        }
-    },
-
     injectRepostElement: ($links: JQuery): void => {
         if (!game.user.isGM) return;
 
@@ -52,26 +30,38 @@ export const InlineRollLinks = {
 
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
-        InlineRollLinks.injectDCText($links);
         InlineRollLinks.injectRepostElement($links);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
+        const actorFromDOM = (html: HTMLElement): ActorPF2e | null => {
+            const sheet: { id?: string; actor?: unknown } | null =
+                ui.windows[Number(html.closest<HTMLElement>(".actor.sheet")?.dataset.appid)];
+            const sheetOrMessage =
+                sheet ?? game.messages.get(html.closest<HTMLElement>("li.chat-message")?.dataset.messageId ?? "") ?? {};
+            const { actor } = sheetOrMessage;
+
+            return actor instanceof ActorPF2e ? actor : null;
+        };
+
         $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
-            const parent = event.target.parentElement;
-            if (parent) InlineRollLinks.repostAction(parent);
+            const target = event.currentTarget;
+            const parent = target.parentElement;
+            const actor = actorFromDOM(target);
+            if (parent) InlineRollLinks.repostAction(parent, actor instanceof ActorPF2e ? actor : null);
             event.stopPropagation();
         });
 
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc } = $target[0]?.dataset ?? {};
+            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc } = $target[0]?.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
+            const visibility = pf2ShowDc ?? "all";
             if (pf2Action && action) {
                 action({
                     event,
                     glyph: pf2Glyph,
                     variant: pf2Variant,
-                    difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0 } : undefined,
+                    difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -80,7 +70,7 @@ export const InlineRollLinks = {
 
         $links.filter("[data-pf2-check]").on("click", (event) => {
             const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment } = event.currentTarget.dataset;
-            const actors = resolveActors();
+            const actors = getSelectedOrOwnActors();
             if (actors.length === 0) {
                 ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
                 return;
@@ -250,33 +240,21 @@ export const InlineRollLinks = {
         });
     },
 
-    repostAction: (target: HTMLElement): void => {
-        if (
-            !(
-                target?.matches("[data-pf2-action], [data-pf2-action] *") ||
-                target?.matches("[data-pf2-check], [data-pf2-check] *")
-            )
-        ) {
+    repostAction: (target: HTMLElement, actor: ActorPF2e | null = null): void => {
+        if (!target?.matches("[data-pf2-action], [data-pf2-action] *, [data-pf2-check], [data-pf2-check] *")) {
             return;
         }
 
         const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
         const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? "owner";
-
-        // Need to strip out the DC from the inner HTML if it exists before repost.
-        const regexDC = new RegExp(
-            game.i18n
-                .localize("PF2E.DCWithValue")
-                .replace(/\{dc\}/g, "\\d+")
-                .replace(/\{text\}/g, "(.*)")
-        );
-        const newInnerHTML = target.innerHTML
-            .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, "")
-            .replace(regexDC, "$1");
-        const replaced = target.outerHTML.replace(target.innerHTML, newInnerHTML);
+        const speaker = ChatMessagePF2e.getSpeaker({
+            actor,
+            token: actor?.token ?? actor?.getActiveTokens(false, true).shift(),
+        });
 
         ChatMessagePF2e.create({
-            content: `<span data-visibility="${showDC}">${flavor}</span> ${replaced}`.trim(),
+            speaker,
+            content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
         });
     },
 };

@@ -7,16 +7,13 @@ import {
     MODIFIER_TYPE,
     RawModifier,
     StatisticModifier,
-} from "@module/modifiers";
+} from "@actor/modifiers";
 import { ItemPF2e, ArmorPF2e, ConditionPF2e, PhysicalItemPF2e } from "@item";
-import { prepareMinions } from "@scripts/actor/prepare-minions";
 import { RuleElementSynthetics } from "@module/rules";
 import { RollNotePF2e } from "@module/notes";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { CheckPF2e } from "@system/rolls";
 import {
-    Alignment,
-    AlignmentTrait,
     CreatureSkills,
     CreatureSpeeds,
     InitiativeRollParams,
@@ -32,19 +29,20 @@ import { Statistic } from "@system/statistic";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { UserPF2e } from "@module/user";
-import { SKILL_DICTIONARY, SUPPORTED_ROLL_OPTIONS } from "@actor/data/values";
+import { SKILL_DICTIONARY } from "@actor/data/values";
 import { CreatureSensePF2e } from "./sense";
 import { CombatantPF2e } from "@module/encounter";
 import { HitPointsSummary } from "@actor/base";
 import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { extractModifiers } from "@module/rules/util";
 import { DeferredModifier } from "@module/rules/rule-element/data";
-import { DamageType } from "@module/damage-calculation";
+import { DamageType } from "@system/damage";
 import { StrikeData } from "@actor/data/base";
 import {
+    Alignment,
+    AlignmentTrait,
     AttackItem,
     AttackRollContext,
-    AttackTarget,
     GetReachParameters,
     IsFlatFootedParams,
     StrikeRollContext,
@@ -54,24 +52,34 @@ import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isCycle } from "@item/container/helpers";
 import { isEquipped } from "@item/physical/usage";
 import { ArmorSource } from "@item/data";
+import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Saving throw rolls for the creature, built during data prep */
     override saves!: Record<SaveType, Statistic>;
 
-    /** Skill check rolls for the creature. */
+    /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
-        return Object.entries(this.data.data.skills).reduce((current: Partial<CreatureSkills>, [key, value]) => {
-            if (!objectHasKey(this.data.data.skills, key)) return current;
-            const skill = this.data.data.skills[key];
+        return Object.entries(this.data.data.skills).reduce((current, [shortForm, skill]) => {
+            if (!objectHasKey(this.data.data.skills, shortForm)) return current;
             const longForm = skill.name;
-            const skillName = game.i18n.localize(CONFIG.PF2E.skills[key]) || skill.name;
+            const skillName = game.i18n.localize(CONFIG.PF2E.skills[shortForm]) || skill.name;
             const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`];
-            current[key] = Statistic.from(this, value, longForm, label, "skill-check", domains);
+
+            current[shortForm] = new Statistic(this, {
+                slug: longForm,
+                proficient: skill.visible,
+                domains,
+                check: { adjustments: skill.adjustments, label, type: "skill-check" },
+                dc: {},
+                modifiers: [...skill.modifiers],
+                notes: skill.notes,
+            });
+
             return current;
-        }, {}) as CreatureSkills;
+        }, {} as CreatureSkills);
     }
 
     /** The creature's position on the alignment axes */
@@ -89,14 +97,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * @param [context.weapon] The "weapon," literal or otherwise, used in an attack-reach measurement
      */
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
-        const baseReach = {
-            tiny: 0,
-            sm: 5,
-            med: 5,
-            lg: 10,
-            huge: 15,
-            grg: 20,
-        }[this.size];
+        const baseReach = this.attributes.reach.general;
 
         if (action === "interact" || this.data.type === "familiar") {
             return baseReach;
@@ -166,8 +167,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     get isDead(): boolean {
         const deathIcon = game.settings.get("pf2e", "deathIcon");
-        const tokens = this.getActiveTokens();
-        const hasDeathOverlay = tokens.length > 0 && tokens.every((token) => token.data.overlayEffect === deathIcon);
+        const tokens = this.getActiveTokens(false, true);
+        const hasDeathOverlay = tokens.length > 0 && tokens.every((t) => t.data.overlayEffect === deathIcon);
         return (this.hitPoints.value === 0 || hasDeathOverlay) && !this.hasCondition("dying");
     }
 
@@ -279,6 +280,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         attributes.flanking.canFlank = true;
         attributes.flanking.flankable = true;
         attributes.flanking.flatFootable = true;
+        attributes.reach = { general: 0, manipulate: 0 };
 
         if ("initiative" in attributes) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -294,7 +296,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
 
         // Set base actor-shield data for PCs NPCs
-        if (this.data.type === "character" || this.data.type === "npc") {
+        if (this.isOfType("character", "npc")) {
             this.data.data.attributes.shield = {
                 itemId: null,
                 name: game.i18n.localize("PF2E.ArmorTypeShield"),
@@ -310,16 +312,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        this.data.data.toggles = {
-            actions: [
-                {
-                    label: "PF2E.TargetFlatFootedLabel",
-                    inputName: "flags.pf2e.rollOptions.all.target:flatFooted",
-                    checked: !!this.rollOptions.all["target:flatFooted"],
-                    enabled: true,
-                },
-            ],
-        };
+        const flatFootedOption = "target:condition:flat-footed";
+        this.data.data.toggles = [
+            {
+                label: "PF2E.TargetFlatFootedLabel",
+                domain: "all",
+                option: flatFootedOption,
+                checked: !!this.rollOptions.all[flatFootedOption],
+                enabled: true,
+            },
+        ];
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
@@ -339,6 +341,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        // Set minimum reach according to creature size
+        const { attributes } = this;
+        const reachFromSize = SIZE_TO_REACH[this.size];
+        attributes.reach.general = Math.max(attributes.reach.general, reachFromSize);
+        attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.general, reachFromSize);
 
         // Add alignment traits from the creature's alignment
         const alignmentTraits = ((): AlignmentTrait[] => {
@@ -598,15 +606,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-    async toggleRollOption(domain: string, option: string): Promise<this> {
-        if (!SUPPORTED_ROLL_OPTIONS.includes(domain) && !objectHasKey(this.data.data.skills, domain)) {
-            throw ErrorPF2e(`${domain} is not a recognized roll-option domain`);
-        }
-        const flag = `rollOptions.${domain}.${option}`;
-        return this.setFlag("pf2e", flag, !this.rollOptions[domain]?.[option]);
-    }
-
     /** Prepare derived creature senses from Rules Element synthetics */
     prepareSenses(data: SenseData[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
         const preparedSenses = data.map((datum) => new CreatureSensePF2e(datum));
@@ -700,19 +699,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         params.domains ??= [];
         const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
         const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
-        const attackTarget: AttackTarget | null = context.target ? { ...context.target, dc: null } : null;
-        if (attackTarget && attackTarget.actor.attributes.ac) {
-            attackTarget.dc = {
-                scope: "attack",
-                slug: "ac",
-                value: attackTarget.actor.attributes.ac.value,
-            };
-        }
-
+        const targetActor = context.target?.actor;
         return {
-            options: Array.from(new Set(context.options)),
-            self: context.self,
-            target: attackTarget,
+            ...context,
+            dc: targetActor?.attributes.ac
+                ? {
+                      scope: "attack",
+                      slug: "ac",
+                      value: targetActor.attributes.ac.value,
+                  }
+                : null,
         };
     }
 
@@ -792,7 +788,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : null;
 
         return {
-            options: rollOptions,
+            options: Array.from(new Set(rollOptions)),
             self,
             target,
         };
@@ -801,16 +797,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
-
-    /** Re-prepare familiars when their masters are updated */
-    protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentUpdateContext<this>,
-        userId: string
-    ): void {
-        super._onUpdate(changed, options, userId);
-        prepareMinions(this);
-    }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,

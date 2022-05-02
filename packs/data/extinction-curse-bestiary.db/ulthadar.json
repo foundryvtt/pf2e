@@ -55,7 +55,7 @@
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Male ghost high priest of Aroden",
             "creatureType": "",
             "level": {
                 "value": 8
@@ -89,15 +89,16 @@
                     "death-effects",
                     "disease",
                     "paralyzed",
-                    "poison"
+                    "poison",
+                    "precision",
+                    "unconscious"
                 ]
             },
             "dr": [
                 {
-                    "exceptions": "force, ghost touch, positive, 10 to non-magical",
-                    "label": "All",
+                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
                     "type": "all",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [],
@@ -126,25 +127,22 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "U4NIHIMLFG2QZoP1",
+            "_id": "GMhOH686EV6bqjdE",
             "data": {
                 "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This delicate and elegant diadem is woven of intricate silver wires set with three tear-shaped pearlescent moonstones. You gain a +1 item bonus to Religion checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">T</span> focus</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> You are within 10 feet of a <em>moonstone pool</em></p>\n<p><strong>Effect</strong> You peer into the <em>moonstone pool</em> and gain access to all the visual history recorded within the receptacle by concentrating on the specific subject you wish to see. Conversely, you can choose to deposit your own memories into the pool by concentrating for 1 hour on the information you wish to impart.</p>"
+                    "value": "<p>This delicate and elegant diadem is woven of intricate silver wires set with three tear-shaped pearlescent moonstones. You gain a +1 item bonus to Religion checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">T</span> focus</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> You are within 10 feet of a <em>moonstone pool</em></p>\n<p><strong>Effect</strong> You peer into the <em>moonstone pool</em> and gain access to all the visual history recorded within the receptacle by concentrating on the specific subject you wish to see. Conversely, you can choose to deposit your own memories into the pool by concentrating for 1 hour on the information you wish to impart.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Religion checks</li>\n</ul>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
-                    "invested": false
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -184,13 +182,20 @@
                     "value": "500 gp"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "religion",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
                 "size": "med",
-                "slug": null,
+                "slug": "moonstone-diadem",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #152: Legacy of the Lost God"
                 },
-                "stackGroup": null,
+                "stackGroup": "",
                 "traits": {
                     "custom": "",
                     "rarity": "rare",
@@ -207,8 +212,11 @@
                     "value": "L"
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.8x8zqH4pJKJRlyAj"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/moonstone-diadem.webp",
             "name": "Moonstone Diadem",
             "sort": 100000,
@@ -224,7 +232,7 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 19
+                    "value": 18
                 },
                 "damageRolls": {
                     "15oz8dsl1r4pmq4ximuf": {
@@ -253,12 +261,56 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Hand",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "65H1lnX2GYJaLpHs",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "LRKpdpQoppWvEcLr",
@@ -295,11 +347,62 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Site Bound",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "B1S8agx9nAGw4Bxt",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -315,7 +418,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. Creatures entering the aura or starting their turn in the aura must succeed at a @Check[type:will|dc:26] save or be stupefied 1 for 1 minute. On a critical failure, the creature is also stunned 3. As a reflection of Ulthadar's emotional state, this aura is active when Ulthadar is agitated or angry and is suppressed when he is calm.</p>\n<p>Rejuvenation (divine, necromancy) Ulthadar can't move on to the afterlife until Moonstone Hall is restored to a position of prominence within Escadar and staffed with new priests.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Creatures entering the aura or starting their turn in the aura must succeed at a @Check[type:will|dc:26] save or be @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute. On a critical failure, the creature is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}. As a reflection of Ulthadar's emotional state, this aura is active when Ulthadar is agitated or angry and is suppressed when he is calm.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -342,11 +445,59 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Existential Agony",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "Xmcr4PwRCrFQgjVC",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": true,
+                "description": {
+                    "value": "<p>Ulthadar can't move on to the afterlife until Moonstone Hall is restored to a position of prominence within Escadar and staffed with new priests.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "requirements": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.unR8VVR4yyRnsmnB"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -362,7 +513,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Ulthadar attempts to drain a living creature's life force. He makes a ghostly hand Strike but deals no damage on a hit. Instead, the target is @Compendium[pf2e.conditionitems.Drained]{Drained 1} for 1 day and Ulthadar regains 4 Hit Points.</p>"
+                    "value": "<p>Ulthadar attempts to drain a living creature's life force. He makes a ghostly hand Strike but deals no damage on a hit. Instead, the target is @Compendium[pf2e.conditionitems.Drained]{Drained 1} for 1 day and Ulthadar regains [[/r 4]]{4 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -384,11 +535,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draining Touch",
-            "sort": 500000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -414,11 +564,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -444,11 +593,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Aroden Lore",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -474,11 +622,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -504,11 +651,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -534,11 +680,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -564,11 +709,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],

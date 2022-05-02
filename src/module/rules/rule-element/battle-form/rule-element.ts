@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementData, RuleElementOptions } from "../";
-import { BattleFormAC, BattleFormOverrides, BattleFormSource } from "./types";
+import { BattleFormAC, BattleFormOverrides, BattleFormSource, BattleFormStrike } from "./types";
 import { CreatureSizeRuleElement } from "../creature-size";
 import { ImmunityRuleElement } from "../iwr/immunity";
 import { ResistanceRuleElement } from "../iwr/resistance";
@@ -12,8 +12,7 @@ import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
 import { ItemPF2e } from "@item";
-import { WEAPON_CATEGORIES } from "@item/weapon/data";
-import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@module/modifiers";
+import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
 import { sluggify } from "@util";
@@ -180,7 +179,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     }
 
     private setRollOptions(): void {
-        const { rollOptions } = this.actor;
+        const { attributes, rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
         rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
@@ -194,6 +193,23 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!(key in this.overrides.skills)) continue;
             const longForm = SKILL_DICTIONARY[key];
             rollOptions.all[`battle-form:${longForm}`] = true;
+        }
+
+        // Reestablish hands free
+        attributes.handsFree = Math.max(
+            Object.values(this.overrides.strikes ?? {}).reduce(
+                (count, s) => (s.category === "unarmed" ? count : count - 1),
+                2
+            ),
+            0
+        );
+
+        for (const num of [0, 1, 2]) {
+            if (attributes.handsFree === num) {
+                rollOptions.all[`hands-free:${num}`] = true;
+            } else {
+                delete rollOptions.all[`hands-free:${num}`];
+            }
         }
     }
 
@@ -306,6 +322,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
     /** Clear out existing strikes and replace them with the form's stipulated ones, if any */
     private prepareStrikes(): void {
         const { synthetics } = this.actor;
+
         const ruleData = Object.entries(this.overrides.strikes).map(([slug, strikeData]) => ({
             key: "Strike",
             label: strikeData.label ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
@@ -336,14 +353,21 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!datum.traits.includes("magical")) datum.traits.push("magical");
             new StrikeRuleElement(datum, this.item).beforePrepareData();
         }
-        this.actor.data.data.actions = this.data.ownUnarmed
-            ? this.actor.data.data.actions.filter((action) => action.traits.some((trait) => trait.name === "unarmed"))
-            : synthetics.strikes.map((weapon) =>
-                  this.actor.prepareStrike(weapon, { categories: [...WEAPON_CATEGORIES] })
-              );
-        for (const action of this.actor.data.data.actions) {
-            const strike = this.overrides.strikes[action.slug!];
-            if (!this.data.ownUnarmed && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
+
+        const strikeActions = (this.actor.data.data.actions = this.actor
+            .prepareStrikes({
+                includeBasicUnarmed: this.data.ownUnarmed,
+            })
+            .filter(
+                (a) =>
+                    (a.slug && a.slug in this.overrides.strikes) ||
+                    (this.data.ownUnarmed && a.item.category === "unarmed")
+            ));
+
+        for (const action of strikeActions) {
+            const strike = (this.overrides.strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
+
+            if (!this.data.ownUnarmed && strike && (strike.modifier >= action.totalModifier || !strike.ownIfHigher)) {
                 // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.suppressModifiers(action);

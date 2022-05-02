@@ -96,7 +96,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "force or ghost touch or positive; double resistance vs. non-magical",
+                    "exceptions": "except force, ghost touch or positive; double resistance vs. non-magical",
                     "type": "all",
                     "value": 10
                 }
@@ -129,7 +129,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -140,6 +139,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -172,7 +172,6 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Ghostly Hand",
@@ -180,7 +179,7 @@
             "type": "melee"
         },
         {
-            "_id": "qL1gWAKM9ruFs2KH",
+            "_id": "ZU5jisN3KgoM2kPq",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -192,13 +191,13 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>(area <strong>D18</strong>)</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -214,15 +213,63 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
+            "name": "Darkvision",
             "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "RQ3BuxG98457rrFk",
+            "_id": "eP5tBspqEqP18oTY",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Area <strong>D18</strong></p>\n<hr />\n<p>A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location.</p>"
+                },
+                "requirements": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-site-bound",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.BcSlVpaN72LoQ5BV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "QOG4x5d8jOfeGb6l",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -234,13 +281,20 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Securing the four icons of the Roseguard and placing them on the altar in area <strong>D13</strong> allows Otari to move on to the afterlife.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
@@ -256,11 +310,62 @@
                     "value": ""
                 }
             },
-            "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "oeWKbVvK3lP66J9I",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Securing the four icons of the Roseguard and placing them on the altar in area <strong>D13</strong> allows Otari to move on to the afterlife.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "requirements": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghost-rejuvenation",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.unR8VVR4yyRnsmnB"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -276,7 +381,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\">The @Compendium[pf2e.conditionitems.Sickened]{Sickened} and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #hours]]{1d4 hours}),</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day),</p>\n<p><strong>Stage 3</strong> Sickened 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day),</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day),</p>\n<p><strong>Stage 5</strong> dead</p>\n</div>"
+                    "value": "<p>The @Compendium[pf2e.conditionitems.Sickened]{Sickened} and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #Incubation]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> Sickened 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as the affected creature remains sickened (1 day)</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -300,11 +405,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Filth Fever",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -320,7 +424,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Otari fades away, momentarily emerges from the shadow of another creature within 30 feet, and makes a ghostly hand Strike against a single target within reach of this creature (but not against the creature whose shadow he infests). On a successful Strike, the target is also flat-footed until the start of Otari's next turn. Otari then reappears at his starting point. The creature whose shadow Otari infests is exposed to filth fever.</p>"
+                    "value": "<p>Otari fades away, momentarily emerges from the shadow of another creature within 30 feet, and makes a ghostly hand Strike against a single target within reach of this creature (but not against the creature whose shadow he infests).</p>\n<p>On a successful Strike, the target is also @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Otari's next turn. Otari then reappears at his starting point.</p>\n<p>The creature whose shadow Otari infests is exposed to filth fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -346,15 +450,14 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Infested Shadow",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "lNKQM0XOvem6jAVl",
+            "_id": "aUiw4yrSZnbmjXeR",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -366,7 +469,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Otari deals [[/r {2d6}[precision]]]{2d6 extra precision damage} to flat-footed creatures.</p>"
+                    "value": "<p>Otari deals [[/r {2d6}[precision]]]{2d6 extra precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -376,10 +479,10 @@
                         "category": "precision",
                         "diceNumber": 2,
                         "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
+                        "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:flatFooted"
+                                "target:condition:flat-footed"
                             ],
                             "any": [
                                 "finesse",
@@ -406,15 +509,14 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -440,11 +542,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -470,11 +571,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -500,11 +600,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -530,11 +629,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

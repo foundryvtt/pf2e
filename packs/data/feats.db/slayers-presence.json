@@ -1,0 +1,67 @@
+{
+    "_id": "qo6oKL8mE32hSjSC",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "description": {
+            "value": "<p>Your very presence strikes fear into the undead. When you use @Compendium[pf2e.actionspf2e.Slayer's Identification]{Slayer's Identification} and succeed at your check, you can @Compendium[pf2e.feats-srd.Frighten Undead]{Frighten Undead} as a free action, targeting the creature you identified. Any time you get a critical success to Frighten Undead, if the target's level is lower than yours, the target is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 10
+        },
+        "location": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Frighten Undead"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "action:demoralize",
+                        "target:trait:undead",
+                        {
+                            "gt": [
+                                "self:level",
+                                "target:level"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "skill-check",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.UndeadSlayer.SlayersPresence.Note"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Book of the Dead"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Slayer's Presence",
+    "type": "feat"
+}

@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import { getActionGlyph } from "../util";
+import { getActionGlyph, ordinal } from "../util";
 
 export function registerHandlebarsHelpers() {
     Handlebars.registerHelper("pad", (value, length, character) => {
@@ -119,6 +119,11 @@ export function registerHandlebarsHelpers() {
         return strip_tags(String(value));
     });
 
+    Handlebars.registerHelper("ordinal", function (value: number | string) {
+        value = Number(value);
+        return isNaN(value) ? null : ordinal(value);
+    });
+
     Handlebars.registerHelper("enrichHTML", (html, options) => {
         const item: ItemPF2e = options?.hash.item;
         const rollData = item?.getRollData();
@@ -164,5 +169,9 @@ export function registerHandlebarsHelpers() {
         }
 
         return "";
+    });
+
+    Handlebars.registerHelper("isNullish", function (value: unknown) {
+        return value === null || value === undefined;
     });
 }

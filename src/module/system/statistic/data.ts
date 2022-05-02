@@ -1,6 +1,6 @@
 import { AbilityString } from "@actor/data";
 import { ZeroToFour } from "@module/data";
-import { ModifierPF2e, RawModifier } from "@module/modifiers";
+import { ModifierPF2e, RawModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "@module/rules/rule-element";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
@@ -33,6 +33,8 @@ export interface BaseStatisticData {
     slug: string;
     ability?: AbilityString;
     rank?: ZeroToFour;
+    /** If given and rank is omitted, declares if the statistic is with proficiency */
+    proficient?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     modifiers?: ModifierPF2e[];

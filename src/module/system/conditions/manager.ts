@@ -1,4 +1,4 @@
-import { ModifierPF2e } from "@module/modifiers";
+import { ModifierPF2e } from "@actor/modifiers";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { ConditionData, ConditionSlug, ConditionSource } from "@item/condition/data";
 import { ConditionPF2e } from "@item";
@@ -10,6 +10,8 @@ import { CONDITION_SLUGS } from "@actor/data/values";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
+    static #initialized = false;
+
     static conditions: Map<ConditionSlug, ConditionPF2e> = new Map();
 
     /** Gets a list of condition slugs. */
@@ -17,11 +19,14 @@ export class ConditionManager {
         return [...this.conditions.keys()];
     }
 
-    static async init(): Promise<void> {
+    static async initialize(force = false): Promise<void> {
+        if (this.#initialized && !force) return;
+
         type ConditionCollection = CompendiumCollection<ConditionPF2e>;
         const content = await game.packs.get<ConditionCollection>("pf2e.conditionitems")?.getDocuments();
         const entries = content?.map((c): [ConditionSlug, ConditionPF2e] => [c.slug, c]) ?? [];
         this.conditions = new Map(entries);
+        this.#initialized = true;
     }
 
     /**

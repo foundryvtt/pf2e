@@ -44,7 +44,8 @@ declare global {
 
         static override REGEXP: RegExp;
 
-        static override SERIALIZE_ATTRIBUTES: ["number", "faces", "modifiers", "results"];
+        /** System note: contents are ["number", "faces", "modifiers", "results"] */
+        static override SERIALIZE_ATTRIBUTES: string[];
 
         /* -------------------------------------------- */
         /*  Dice Term Attributes                        */

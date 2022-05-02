@@ -23,7 +23,57 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "baseType": "fist",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.fist",
+                "predicate": {
+                    "all": [
+                        "deity:primary:favored-weapon:fist"
+                    ]
+                },
+                "range": null,
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "nonlethal",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": {
+                    "all": [
+                        "weapon:deity-favored"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        {
+                            "and": [
+                                "weapon:category:unarmed",
+                                "weapon:damage:die:faces:4"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "strike-damage"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -35,7 +85,6 @@
             ]
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/deific-weapon.webp",
     "name": "Deific Weapon",

@@ -25,7 +25,7 @@ import {
     MODIFIER_TYPE,
     ProficiencyModifier,
     StatisticModifier,
-} from "./module/modifiers";
+} from "@actor/modifiers";
 import { UserPF2e } from "@module/user";
 import {
     AmbientLightDocumentPF2e,
@@ -50,7 +50,6 @@ import { UserVisibility } from "@scripts/ui/user-visibility";
 
 declare global {
     interface Game {
-        actors: ActorsPF2e;
         pf2e: {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
@@ -65,6 +64,7 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
             };
             system: {
+                moduleArt: Map<ActorUUID, { actor: ImagePath; token: ImagePath }>;
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
             };
@@ -104,12 +104,27 @@ declare global {
     const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, EncounterPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<
+            ActorPF2e,
+            ActorsPF2e,
+            ChatMessagePF2e,
+            EncounterPF2e,
+            FolderPF2e,
+            ItemPF2e,
+            MacroPF2e,
+            ScenePF2e,
+            UserPF2e
+        >;
+    }
+
+    interface Window {
+        AutomaticBonusProgression: typeof AutomaticBonusProgression;
     }
 
     interface ClientSettings {
         get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
+        get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
         get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
@@ -143,6 +158,8 @@ declare global {
         get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
+        get(module: "pf2e", setting: "campaignFeats"): boolean;
+
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
@@ -153,14 +170,15 @@ declare global {
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
+        get(module: "pf2e", setting: "nathMode"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
     }
 
     interface ClientSettingsMap {
-        get(key: "pf2e.worldClock.worldCreatedOn"): ClientSettingsData & { default: string };
-        get(key: "core.chatBubblesPan"): ClientSettingsData & { default: boolean };
+        get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & { default: string };
+        get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
     }
 
     const BUILD_MODE: "development" | "production";

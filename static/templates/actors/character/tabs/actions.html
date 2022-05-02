@@ -1,8 +1,6 @@
 <div class="tab actions actions-pane" data-group="primary" data-tab="actions">
     <div class="actions-container">
-
         <div class="actions-tabs-wrapper">
-
             <nav class="actions-nav" data-group="actions-tabs">
                 <a class="tab" data-tab="encounter" data-group="actions-tabs">{{localize "PF2E.TabActionsEncounterLabel"}}</a>
                 <a class="tab" data-tab="exploration" data-group="actions-tabs">{{localize "PF2E.TabActionsExplorationLabel"}}</a>
@@ -11,10 +9,10 @@
             <section class="actions-panels">
                 <div class="actions-panel" data-tab="encounter" data-group="actions-tabs">
                     <div class="actions-options item-list">
-                        {{#each data.toggles.actions as |toggle idx|}}
-                            <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+                        {{#each data.toggles as |toggle idx|}}
+                            <div class="actions-option item"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} >
                                 <label>
-                                    <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}} {{disabled (not toggle.enabled)}} />
+                                    <input type="checkbox" data-action="toggle-roll-option"{{#if toggle.itemId}} data-item-id="{{toggle.itemId}}"{{/if}} data-domain="{{toggle.domain}}" data-option="{{toggle.option}}" {{disabled (not toggle.enabled)}} {{checked toggle.checked}} />
                                     <span{{#if (not (or toggle.checked toggle.enabled))}} class="unchecked-disabled"{{/if}}>{{localize toggle.label}}</span>
                                 </label>
                             </div>
@@ -30,7 +28,7 @@
                             </div>
                         </li>
                         {{#each actor.data.actions as |action ai|}}
-                            <li class="item expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
+                            <li class="item action strike expandable {{#if action.ready}}ready{{/if}}" data-action-index="{{ai}}">
                                 <div class="item-name rollable">
                                     <div class="item-image variant-strike" data-action="strike-attack" data-variant-index="0" style="background-image: url({{action.imageUrl}})">
                                         <i class="fas fa-dice-d20"></i>
@@ -66,7 +64,7 @@
                                 {{/if}}
                                 <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
                                     {{#each action.auxiliaryActions as |aux aid|}}
-                                        <button type="button" class="" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
+                                        <button type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{aid}}">
                                             <span class="activity-icon">{{aux.img}}</span>
                                             <span>{{aux.label}}</span>
                                         </button>
@@ -85,7 +83,7 @@
                                     </div>
                                     <div class="item-properties tags">
                                         {{#each action.traits as |trait|}}
-                                            <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.description}}data-description="{{trait.description}}"{{/if}} {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{localize trait.label}}</span>
+                                            <span class="tag tag_secondary {{trait.cssClass}}"{{#if trait.description}} data-description="{{trait.description}}"{{/if}}>{{localize trait.label}}</span>
                                         {{/each}}
                                     </div>
                                 </div>
@@ -106,7 +104,7 @@
                             </li>
                             {{#each section.actions as |action aid|}}
                                 {{#if action.encounter}}
-                                    <li class="item" data-item-id="{{action._id}}">
+                                    <li class="item action" data-item-id="{{action._id}}">
                                         <div class="item-name rollable">
                                             <div class="item-image" style="background-image: url({{action.img}})">
                                                 <i class="fas fa-comment-alt"></i>
@@ -141,7 +139,7 @@
                         </li>
                         {{#each actor.actions.free.actions as |action aid|}}
                             {{#if action.exploration}}
-                                <li class="item" data-item-id="{{action._id}}">
+                                <li class="action item" data-item-id="{{action._id}}">
                                     <div class="item-name rollable">
                                         <div class="item-image" style="background-image: url({{action.img}})">
                                             <i class="fas fa-comment-alt"></i>
@@ -175,7 +173,7 @@
                         </li>
                         {{#each actor.actions.free.actions as |action aid|}}
                             {{#if action.downtime}}
-                                <li class="item" data-item-id="{{action._id}}">
+                                <li class="action item" data-item-id="{{action._id}}">
                                     <div class="item-name rollable">
                                         <div class="item-image" style="background-image: url({{action.img}})">
                                             <i class="fas fa-comment-alt"></i>

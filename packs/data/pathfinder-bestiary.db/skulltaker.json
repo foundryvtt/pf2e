@@ -101,12 +101,10 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
                     "type": "piercing",
                     "value": 15
                 },
                 {
-                    "exceptions": "",
                     "type": "slashing",
                     "value": 15
                 }
@@ -134,7 +132,6 @@
             }
         }
     },
-    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -161,9 +158,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -245,7 +239,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
@@ -275,9 +268,6 @@
                 },
                 "showUnpreparedSpells": {
                     "value": true
-                },
-                "signatureSpells": {
-                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -359,7 +349,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Rituals",
@@ -379,9 +368,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -414,13 +400,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 8
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 8
                 },
                 "location": {
+                    "heightenedLevel": 8,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "Msmv4qRjU8FEJbcm"
                 },
                 "materials": {
@@ -439,12 +434,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -485,7 +474,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
@@ -494,136 +482,6 @@
             "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
             "name": "Horrid Wilting",
             "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "L0D0EnpblaWqXMz1",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "negative"
-                            },
-                            "value": "10d10"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 8
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "Msmv4qRjU8FEJbcm"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "horrid-wilting",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "any number of living creatures"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "negative"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
-            "name": "Horrid Wilting",
-            "sort": 400000,
             "type": "spell"
         },
         {
@@ -639,9 +497,6 @@
                 "areasize": {
                     "value": "30-foot radius, 100-foot-tall cylinder"
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -666,13 +521,15 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 8
-                },
                 "level": {
                     "value": 8
                 },
                 "location": {
+                    "heightenedLevel": 8,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "Msmv4qRjU8FEJbcm"
                 },
                 "materials": {
@@ -730,7 +587,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.wi405lBjPcbF1DeR"
@@ -738,122 +594,7 @@
             },
             "img": "systems/pf2e/icons/spells/punishing-winds.webp",
             "name": "Punishing Winds",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "C0KEfaPHhHzkq6la",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "30-foot radius, 100-foot-tall cylinder"
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>Violent winds and a powerful downdraft fill the area, forming a cyclone. All flying creatures in the area descend 40 feet. The entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing. Any creature that ends its turn Flying within the area descends 20 feet. Any creature pushed into a surface by this spell's winds takes bludgeoning damage as though it had fallen. The squares at the outside vertical edges of the cylinder prevent creatures from leaving. These squares are greater difficult terrain, and a creature attempting to push through must succeed at an Athletics check or Acrobatics check to Maneuver in Flight against your spell DC to get through. A creature that fails ends its current action but can try again.</p>"
-                },
-                "duration": {
-                    "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 8
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "Msmv4qRjU8FEJbcm"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "100 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "punishing-winds",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "air"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.wi405lBjPcbF1DeR"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/punishing-winds.webp",
-            "name": "Punishing Winds",
-            "sort": 600000,
+            "sort": 400000,
             "type": "spell"
         },
         {
@@ -869,9 +610,6 @@
                 "areasize": {
                     "value": ""
                 },
-                "autoHeightenLevel": {
-                    "value": null
-                },
                 "category": {
                     "value": "spell"
                 },
@@ -906,13 +644,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightenedLevel": {
-                    "value": 8
+                "heightening": {
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 7
                 },
                 "location": {
+                    "heightenedLevel": 8,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "Msmv4qRjU8FEJbcm"
                 },
                 "materials": {
@@ -931,12 +678,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -977,7 +718,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Z9OrRXKgAPv6Hn5l"
@@ -985,139 +725,7 @@
             },
             "img": "systems/pf2e/icons/spells/finger-of-death.webp",
             "name": "Finger of Death",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "mKd54cpf5IowHoua",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "negative"
-                            },
-                            "value": "70"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightenedLevel": {
-                    "value": 8
-                },
-                "level": {
-                    "value": 7
-                },
-                "location": {
-                    "value": "Msmv4qRjU8FEJbcm"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "10"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "finger-of-death",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 living creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "death"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Z9OrRXKgAPv6Hn5l"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/finger-of-death.webp",
-            "name": "Finger of Death",
-            "sort": 800000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -1132,9 +740,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "ritual"
@@ -1218,7 +823,6 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.hp6Q64dl7xbdn4gQ"
@@ -1226,7 +830,7 @@
             },
             "img": "systems/pf2e/icons/spells/legend-lore.webp",
             "name": "Legend Lore",
-            "sort": 900000,
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -1241,9 +845,6 @@
                 },
                 "areasize": {
                     "value": ""
-                },
-                "autoHeightenLevel": {
-                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1269,13 +870,11 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
-                "heightenedLevel": {
-                    "value": 6
-                },
                 "level": {
                     "value": 6
                 },
                 "location": {
+                    "heightenedLevel": 6,
                     "value": "Msmv4qRjU8FEJbcm"
                 },
                 "materials": {
@@ -1336,7 +935,6 @@
                     ]
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
@@ -1344,7 +942,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
-            "sort": 1000000,
+            "sort": 700000,
             "type": "spell"
         },
         {
@@ -1393,11 +991,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 1100000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -1447,11 +1044,10 @@
                     "value": "melee"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1200000,
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -1496,11 +1092,10 @@
                     "value": "ranged"
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Bone Javelin",
-            "sort": 1300000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
@@ -1538,7 +1133,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -1546,7 +1140,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1400000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1587,11 +1181,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Skeletal Lore",
-            "sort": 1500000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1629,7 +1222,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
@@ -1637,7 +1229,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1600000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1687,7 +1279,6 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
@@ -1695,7 +1286,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs Positive",
-            "sort": 1700000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1738,11 +1329,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shard Storm",
-            "sort": 1800000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1783,11 +1373,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bonetaker",
-            "sort": 1900000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1828,11 +1417,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Energy Drain",
-            "sort": 2000000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1870,11 +1458,10 @@
                     "value": ""
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Splintered Ground",
-            "sort": 2100000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1900,11 +1487,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2200000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1930,11 +1516,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2300000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1960,11 +1545,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2400000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1990,11 +1574,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Skeletal Lore",
-            "sort": 2500000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2020,11 +1603,10 @@
                     "value": []
                 }
             },
-            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2600000,
+            "sort": 2300000,
             "type": "lore"
         }
     ],
