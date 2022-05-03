@@ -27,6 +27,15 @@
             <textarea name="data.rules.{{@index}}" spellcheck="false">{{json rule}}</textarea>
             <hr/>
         {{/each}}
-        <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.ItemNewRuleElement"}}</a>
+        <div class="create-rule-element">
+            <select data-action="select-rule-element">
+                {{#select ruleSelection.selected}}
+                    {{#each ruleSelection.types}}
+                        <option value="{{@this}}">{{@this}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.ItemNewRuleElement"}}</a>
+        </div>
     </div>
 </div>
