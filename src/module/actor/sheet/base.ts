@@ -80,7 +80,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         );
         (actorData as { items: unknown }).items = items;
 
-        const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
+        const inventoryItems = items.filter((itemData): itemData is InventoryItem => isPhysicalData(itemData));
         for (const itemData of inventoryItems) {
             itemData.isContainer = itemData.type === "backpack";
         }

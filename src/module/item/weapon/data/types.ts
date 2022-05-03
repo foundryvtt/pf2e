@@ -8,6 +8,7 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data";
 import { BaseMaterial, PreciousMaterialGrade } from "@item/physical/types";
+import { UsageDetails } from "@item/physical/usage";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { OneToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize, DamageType } from "@system/damage";
@@ -142,7 +143,9 @@ export interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-export interface WeaponSystemData extends WeaponSystemSource, Investable<PhysicalSystemData> {
+export interface WeaponSystemData
+    extends Omit<WeaponSystemSource, "temporary" | "usage">,
+        Investable<PhysicalSystemData> {
     baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     runes: {
@@ -152,7 +155,7 @@ export interface WeaponSystemData extends WeaponSystemSource, Investable<Physica
         effects: [];
     };
     material: WeaponMaterialData;
-    usage: WeaponSystemSource["usage"];
+    usage: UsageDetails & WeaponSystemSource["usage"];
 }
 
 export interface WeaponMaterialData {

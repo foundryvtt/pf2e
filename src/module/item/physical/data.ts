@@ -28,18 +28,7 @@ type BasePhysicalItemSource<
 class BasePhysicalItemData<
     TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
     TSystemData extends PhysicalSystemData = PhysicalSystemData
-> extends BaseItemDataPF2e<TItem> {
-    /** Prepared data */
-    readonly isPhysical: true = true;
-    isEquipped!: boolean;
-    isIdentified!: boolean;
-    isAlchemical!: boolean;
-    isMagical!: boolean;
-    isInvested!: boolean | null;
-    isCursed!: boolean;
-    isTemporary!: boolean;
-    usage!: UsageDetails;
-}
+> extends BaseItemDataPF2e<TItem> {}
 
 interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
     extends Omit<BasePhysicalItemSource, "effects" | "flags"> {
@@ -93,6 +82,8 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
 
 interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
     traits: PhysicalItemTraits;
+    temporary: boolean;
+    usage: UsageDetails;
 }
 
 type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData & {

@@ -24,6 +24,8 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { SkillAbbreviation } from "@actor/creature/data";
+import { isEquipped } from "@item/physical/usage";
+import { isPhysicalData } from "@item/data/helpers";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -248,7 +250,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
+            items: actorData.items.filter(isPhysicalData),
             bulkItemsById,
             bulkConfig,
             actorSize: this.actor.size,
@@ -260,15 +262,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
-            if (physicalData.isPhysical) {
-                itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
+            if (isPhysicalData(physicalData)) {
+                const isIdentified = physicalData.data.identification.status === "identified";
+                const isInvested = isIdentified && !!physicalData.data.equipped.invested;
+                itemData.isIdentified = isIdentified;
+                itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
 
                 const containerData = containers.get(itemData._id)!;
                 itemData.containerData = containerData;
                 itemData.isInContainer = containerData.isInContainer;
+                itemData.isEquipped = isEquipped(physicalData.data.usage, physicalData.data.equipped);
                 itemData.isInvestable =
-                    physicalData.isEquipped && physicalData.isIdentified && physicalData.isInvested !== null;
+                    itemData.isEquipped && isIdentified && typeof physicalData.data.equipped.invested === "boolean";
 
                 // Read-Only Equipment
                 if (
@@ -284,7 +290,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.canBeEquipped = !containerData.isInContainer;
                 itemData.isSellableTreasure =
                     itemData.showEdit && physicalData.type === "treasure" && physicalData.data.stackGroup !== "coins";
-                if (physicalData.isInvested) {
+                if (isInvested) {
                     investedCount += 1;
                 }
 
@@ -393,7 +399,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    protected prepareSpellcasting(sheetData: CharacterSheetData) {
+    private prepareSpellcasting(sheetData: CharacterSheetData) {
         sheetData.spellcastingEntries = [];
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {

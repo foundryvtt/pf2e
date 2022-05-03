@@ -27,7 +27,7 @@ export class KitPF2e extends ItemPF2e {
             const prepared = await promise;
             const clone = item.clone({ _id: randomID() }, { keepId: true });
             const entry = entries[index];
-            if (clone.data.isPhysical) {
+            if (clone instanceof PhysicalItemPF2e) {
                 clone.data.update({
                     "data.quantity": entry.quantity,
                     "data.containerId": containerId,

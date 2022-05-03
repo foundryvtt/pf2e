@@ -20,10 +20,7 @@ interface BaseItemSourcePF2e<
 abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extends foundry.data.ItemData<
     TItem,
     ActiveEffectPF2e
-> {
-    /** Is this physical item data? */
-    abstract isPhysical: boolean;
-}
+> {}
 
 interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
     type: ItemType;

@@ -36,7 +36,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isEquipped(): boolean {
-        return this.data.isEquipped;
+        return isEquipped(this.data.data.usage, this.data.data.equipped);
     }
 
     get carryType(): ItemCarryType {
@@ -60,11 +60,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isIdentified(): boolean {
-        return this.data.isIdentified;
+        return this.data.data.identification.status === "identified";
     }
 
     get isAlchemical(): boolean {
-        return this.data.isAlchemical;
+        return this.traits.has("alchemical");
     }
 
     get isMagical(): boolean {
@@ -76,15 +76,15 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.data.isEquipped && this.data.isIdentified && this.data.data.equipped.invested === true;
+        return this.isEquipped && this.isIdentified && this.data.data.equipped.invested === true;
     }
 
     get isCursed(): boolean {
-        return this.data.isCursed;
+        return this.traits.has("cursed");
     }
 
     get isTemporary(): boolean {
-        return this.data.data.temporary === true;
+        return this.data.data.temporary;
     }
 
     get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
@@ -164,23 +164,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         // Normalize price string
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
 
-        this.data.isIdentified = systemData.identification.status === "identified";
-
-        const traits = this.traits;
-        this.data.isAlchemical = traits.has("alchemical");
-        this.data.isCursed = traits.has("cursed");
-
-        this.data.usage = getUsageDetails(systemData.usage.value);
-        this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
+        this.data.data.usage = getUsageDetails(systemData.usage.value);
         if (!systemData.equipped.carryType) {
             systemData.equipped.carryType = systemData.containerId ? "stowed" : "worn";
         }
-
-        // Magic and invested status is determined at the class-instance level since it can be updated later in data
-        // preparation
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
-        this.data.isTemporary = this.isTemporary;
 
         if (this.isTemporary) {
             systemData.price.value = "0 gp";
@@ -201,8 +188,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     /** Refresh certain derived properties in case of special data preparation from subclasses */
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
 
         const systemData = this.data.data;
         systemData.identification.identified = {
@@ -355,19 +340,19 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         });
 
         if (this.actor) {
-            const isSlottedItem = this.data.usage.type === "worn" && !!this.data.usage.where;
+            const isSlottedItem = this.data.data.usage.type === "worn" && !!this.data.data.usage.where;
             if (this.actor.isOfType("character", "npc") && isSlottedItem) {
                 this.data.update({ "data.equipped.inSlot": false });
             }
         }
     }
 
-    /** Clamp hit points to between zero and max */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Clamp hit points to between zero and max
         if (typeof changed.data?.hp?.value === "number") {
             changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.hp.max);
         }

@@ -122,7 +122,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
         }
 
         // Remove temporary crafted items
-        const temporaryItems = actor.physicalItems.filter((i) => i.data.isTemporary).map((i) => i.id);
+        const temporaryItems = actor.physicalItems.filter((i) => i.isTemporary).map((i) => i.id);
         if (temporaryItems.length > 0) await ItemPF2e.deleteDocuments(temporaryItems);
 
         // Hit-point restoration

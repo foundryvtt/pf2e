@@ -22,9 +22,7 @@ export type BaseNonPhysicalItemSource<
     TSystemData extends ItemSystemData = ItemSystemData
 > = BaseItemSourcePF2e<TItemType, TSystemData>;
 
-export class BaseNonPhysicalItemData<TItem extends ItemPF2e> extends BaseItemDataPF2e<TItem> {
-    readonly isPhysical: false = false;
-}
+export class BaseNonPhysicalItemData<TItem extends ItemPF2e> extends BaseItemDataPF2e<TItem> {}
 
 export interface BaseNonPhysicalItemData<TItem extends ItemPF2e>
     extends Omit<BaseNonPhysicalItemSource, "effects" | "flags"> {
