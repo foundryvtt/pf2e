@@ -42,6 +42,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** Maintain selected rule element at the sheet level (do not persist) */
     private selectedRuleElement: string | null = Object.keys(RuleElements.all).at(0) ?? null;
 
+    /** If we are currently editing an RE, this is the index */
+    private editingRuleElementIndex: number | null = null;
+
     override async getData(options?: Partial<DocumentSheetOptions>) {
         const data: any = this.getBaseData(options);
         data.abilities = CONFIG.PF2E.abilities;
@@ -141,9 +144,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.classes?.push(this.item.type);
 
         const itemData = this.item.clone({}, { keepId: true }).data;
-        itemData.data.rules = itemData.toObject().data.rules;
+        const rules = itemData.toObject().data.rules;
+        itemData.data.rules = rules;
 
         const isEditable = this.isEditable;
+
+        const editingRule = this.editingRuleElementIndex === null ? null : rules[this.editingRuleElementIndex];
+
         return {
             itemType: null,
             hasSidebar: false,
@@ -159,6 +166,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
+            ruleEditing: editingRule ? JSON.stringify(editingRule, null, 2) : null,
             ruleSelection: {
                 selected: this.selectedRuleElement,
                 types: Object.keys(RuleElements.all),
@@ -277,6 +285,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.item.update({ "data.rules": rulesData.concat({ key }) });
         });
 
+        $html.find(".edit-rule-element").on("click", async (event) => {
+            const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN") ?? null;
+            this.editingRuleElementIndex = index;
+            this.render(true);
+        });
+
         $html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
@@ -287,6 +301,39 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (rules && Number.isInteger(index) && rules.length > index) {
                 rules.splice(index, 1);
                 this.item.update({ "data.rules": rules });
+            }
+        });
+
+        $html.find('.rule-editing [data-action="close"]').on("click", (event) => {
+            event.preventDefault();
+            this.editingRuleElementIndex = null;
+            this.render(true);
+        });
+
+        $html.find('.rule-editing [data-action="apply"]').on("click", (event) => {
+            event.preventDefault();
+            const value = $html.find(".rule-editing textarea").val();
+
+            // Close early if the editing index is invalid
+            if (this.editingRuleElementIndex === null) {
+                this.editingRuleElementIndex = null;
+                this.render(true);
+                return;
+            }
+
+            try {
+                const rules = this.item.toObject().data.rules;
+                rules[this.editingRuleElementIndex] = JSON.parse(value as string);
+                this.editingRuleElementIndex = null;
+                this.item.update({ "data.rules": rules });
+            } catch (error) {
+                if (error instanceof Error) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                    );
+                    console.warn("Syntax error in rule element definition.", error.message, value);
+                    throw error;
+                }
             }
         });
 
@@ -373,24 +420,29 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         // ensure all rules objects are parsed and saved as objects before proceeding to update
-        try {
-            const rules: object[] = [];
-            Object.entries(formData)
-                .filter(([key, _]) => key.startsWith("data.rules."))
-                .forEach(([_, value]) => {
-                    try {
-                        rules.push(JSON.parse(value as string));
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(`Syntax error in rule element definition: ${error.message}`);
-                            console.warn("Syntax error in rule element definition.", error.message, value);
-                            throw error;
+        const rulesVisible = !!this.form.querySelector(".rules");
+        if (rulesVisible) {
+            try {
+                const rules: object[] = [];
+                Object.entries(formData)
+                    .filter(([key, _]) => key.startsWith("data.rules."))
+                    .forEach(([_, value]) => {
+                        try {
+                            rules.push(JSON.parse(value as string));
+                        } catch (error) {
+                            if (error instanceof Error) {
+                                ui.notifications.error(
+                                    game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                                );
+                                console.warn("Syntax error in rule element definition.", error.message, value);
+                                throw error;
+                            }
                         }
-                    }
-                });
-            formData["data.rules"] = rules;
-        } catch (e) {
-            return;
+                    });
+                formData["data.rules"] = rules;
+            } catch (e) {
+                return;
+            }
         }
 
         super._updateObject(event, formData);
