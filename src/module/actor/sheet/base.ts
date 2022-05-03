@@ -1,6 +1,6 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e } from "@item/data";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -44,6 +44,8 @@ import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CreaturePF2e } from "@actor/creature";
 import { createSheetTags } from "@module/sheet/helpers";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -217,10 +219,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         const toggleSelector = "input[type=checkbox][data-action=toggle-roll-option]";
         $html.find<HTMLInputElement>(toggleSelector).on("change", async (event) => {
-            const { domain, option } = event.target.dataset;
+            const { domain, option, itemId } = event.target.dataset;
             if (domain && option) {
-                const value = event.target.checked;
-                await this.actor.toggleRollOption(domain.trim(), option.trim(), value);
+                const value = !!event.target.checked;
+                await RollOptionRuleElement.toggleOption({
+                    domain,
+                    option,
+                    actor: this.actor,
+                    itemId: itemId ?? null,
+                    value,
+                });
             }
         });
 
@@ -414,41 +422,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             event.preventDefault();
 
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const itemToEdit = this.actor.items.get(itemId)?.data;
-            if (itemToEdit?.type !== "spellcastingEntry")
-                throw new Error("Tried to toggle prepared spells on a non-spellcasting entry");
-            const bool = !(itemToEdit.data.showUnpreparedSpells || {}).value;
+            const entry = this.actor.items.get(itemId);
 
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId ?? "",
-                    "data.showUnpreparedSpells.value": bool,
-                },
-            ]);
-        });
-
-        $html.find(".level-prepared-toggle").on("click", async (event) => {
-            event.preventDefault();
-
-            const parentNode = $(event.currentTarget).parents(".spellbook-header");
-            const itemId = parentNode.attr("data-item-id") ?? "";
-            const lvl = Number(parentNode.attr("data-level") ?? "");
-            if (!Number.isInteger(lvl)) {
-                return;
+            if (entry instanceof SpellcastingEntryPF2e) {
+                const sheet = new SpellPreparationSheet(entry, { top: event.clientY - 80, left: event.clientX + 200 });
+                sheet.render(true);
             }
-
-            const itemToEdit = this.actor.items.get(itemId)?.data;
-            if (itemToEdit?.type !== "spellcastingEntry")
-                throw new Error("Tried to toggle prepared spells on a non-spellcasting entry");
-            const currentDisplayLevels = itemToEdit.data.displayLevels || {};
-            currentDisplayLevels[lvl] = currentDisplayLevels[lvl] === undefined ? false : !currentDisplayLevels[lvl];
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId,
-                    "data.displayLevels": currentDisplayLevels,
-                },
-            ]);
-            this.render();
         });
 
         $html.find(".slotless-level-toggle").on("click", async (event) => {
@@ -591,12 +570,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         const $target = $(event.currentTarget);
-        const $li = $target.closest(".item");
+        const $itemRef = $target.closest(".item");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
         const targetElement = $target.get(0);
-        const previewElement = $li.get(0);
+        const previewElement = $itemRef.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
             event.dataTransfer.setDragImage(previewElement, 0, 0);
             mergeObject(targetElement.dataset, previewElement.dataset);
@@ -609,21 +588,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         };
 
         // Owned Items
-        const itemUuid = $li.attr("data-item-id");
-        if (itemUuid) {
-            const item = this.actor.items.get(itemUuid);
-            if (item && "data" in item) {
-                baseDragData.type = "Item";
-                baseDragData.data = item.data;
-            }
+        const itemId = $itemRef.attr("data-item-id");
+        const item = this.actor.items.get(itemId ?? "");
+        if (item) {
+            baseDragData.type = "Item";
+            baseDragData.data = item.data;
         }
 
         // Dragging ...
         const supplementalData = (() => {
-            const actionIndex = $li.attr("data-action-index");
-            const toggleProperty = $li.attr("data-toggle-property");
-            const toggleLabel = $li.attr("data-toggle-label");
-            const itemType = $li.attr("data-item-type");
+            const actionIndex = $itemRef.attr("data-action-index");
+            const rollOptionData = {
+                ...($itemRef.find("input[type=checkbox][data-action=toggle-roll-option]").get(0)?.dataset ?? {}),
+            };
+            const itemType = $itemRef.attr("data-item-type");
 
             // ... an action?
             if (actionIndex) {
@@ -635,14 +613,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 };
             }
 
-            // ... a toggle?
-            if (toggleProperty) {
+            // ... a roll-option toggle?
+            if (item && Object.keys(rollOptionData).length > 0) {
+                const label = $itemRef.text().trim();
+                delete rollOptionData.action;
                 return {
-                    pf2e: {
-                        type: "Toggle",
-                        property: toggleProperty,
-                        label: toggleLabel,
-                    },
+                    type: "RollOption",
+                    label,
+                    img: item.img,
+                    ...rollOptionData,
                 };
             }
 
@@ -651,7 +630,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 return {
                     pf2e: {
                         type: "CraftingFormula",
-                        itemUuid: itemUuid,
+                        itemUuid: itemId,
                     },
                 };
             }
@@ -853,7 +832,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
 
                 const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
-                this.actor._setShowUnpreparedSpells(entry.id, itemSource.data.level?.value);
                 return [(await entry.addSpell(item, level)) ?? []].flat();
             } else if (dropContainerType === "actorInventory" && itemSource.data.level.value > 0) {
                 const popup = new ScrollWandPopup(
@@ -1020,9 +998,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             mergeObject(data, { "data.weaponType.value": data.actionType });
         } else if (data.type === "spell") {
             data.level = Number(data.level ?? 1);
-            // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
-            this.actor._setShowUnpreparedSpells(data.location, data.level);
-
             const newLabel = game.i18n.localize("PF2E.NewLabel");
             const levelLabel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);
             const spellLabel = data.level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
@@ -1031,16 +1006,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 "data.level.value": data.level,
                 "data.location.value": data.location,
             });
-            // Show the spellbook pages if you're adding a new spell
-            const currentLvlToDisplay: Record<number, boolean> = {};
-            currentLvlToDisplay[data.level] = true;
-            this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: data.location,
-                    "data.showUnpreparedSpells.value": true,
-                    "data.displayLevels": currentLvlToDisplay,
-                },
-            ]);
         } else if (data.type === "lore") {
             data.name =
                 this.actor.type === "npc"
@@ -1074,21 +1039,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const actor = this.actor;
                 if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
 
-                const spellcastingEntity = {
-                    ability: { value: ability },
-                    spelldc: { value: 0, dc: 0, mod: 0 },
-                    tradition: { value: tradition },
-                    prepared: { value: spellcastingType, flexible: flexible ?? undefined },
-                    showUnpreparedSpells: { value: true },
-                };
-
-                const data = {
+                const data: PreCreate<SpellcastingEntrySource> = {
                     name,
                     type: "spellcastingEntry",
-                    data: spellcastingEntity,
+                    data: {
+                        ability: { value: ability },
+                        spelldc: { value: 0, dc: 0, mod: 0 },
+                        tradition: { value: tradition },
+                        prepared: { value: spellcastingType, flexible: flexible ?? undefined },
+                    },
                 };
 
-                this.actor.createEmbeddedDocuments("Item", [data] as unknown as ItemDataPF2e[]);
+                this.actor.createEmbeddedDocuments("Item", [data]);
             },
         });
     }

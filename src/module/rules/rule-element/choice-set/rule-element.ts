@@ -2,7 +2,7 @@ import { RuleElementPF2e, REPreCreateParameters, RuleElementOptions } from "../"
 import { FeatPF2e, ItemPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
-import { isObject, objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
 import { ChoiceSetData, ChoiceSetItemQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
@@ -16,6 +16,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     /** Allow the user to make no selection without suppressing all other rule elements on the parent item */
     allowNoSelection: boolean;
 
+    /** An optional roll option to be set from the selection */
+    rollOption: string | null;
+
     constructor(data: ChoiceSetSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
@@ -24,7 +27,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.data.recordSlug = Boolean(this.data.recordSlug ?? false);
         this.data.allowedDrops = new PredicatePF2e(this.data.allowedDrops);
         this.allowNoSelection = Boolean(this.data.allowNoSelection);
-        const rollOption = (this.data.rollOption = this.data.rollOption ?? null);
+        this.rollOption = typeof data.rollOption === "string" && data.rollOption ? data.rollOption : null;
 
         const { selection } = this.data;
         const selectionMade =
@@ -39,7 +42,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         // the same item. If a roll option is specified, assign that as well.
         if (selectionMade) {
             item.data.flags.pf2e.rulesSelections[this.data.flag] = selection;
-            if (rollOption) this.actor.rollOptions.all[`${rollOption}:${selection}`] = true;
+            if (this.rollOption) this.setRollOption(selection.toString());
         } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
             for (const ruleData of this.item.data.data.rules) {
@@ -91,6 +94,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             // Set the item flag in case other preCreate REs need it
             this.item.data.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
+            // Likewise with the roll option, if requested
+            if (this.rollOption) this.setRollOption(selection.value.toString());
+
             for (const rule of this.item.rules) {
                 // Now that a selection is made, other rule elements can be set back to unignored
                 rule.ignored = false;
@@ -127,8 +133,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             for (let i = 0; i < choices.length; i++) {
                 const item = itemChoices[i];
                 if (item instanceof ItemPF2e) {
-                    choices[i].label = item.name;
-                    choices[i].img = item.img;
+                    choices[i].label ??= item.name;
+                    choices[i].img ??= item.img;
                 }
             }
             this.data.containsUUIDs = true;
@@ -232,6 +238,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         const { selection } = this.data;
         const choice = Array.isArray(this.data.choices) ? this.data.choices.find((c) => c.value === selection) : null;
         return choice ?? null;
+    }
+
+    private setRollOption(selection: string): void {
+        if (!this.rollOption) throw ErrorPF2e("There is no roll option to set");
+        this.actor.rollOptions.all[`${this.rollOption}:${selection}`] = true;
     }
 }
 

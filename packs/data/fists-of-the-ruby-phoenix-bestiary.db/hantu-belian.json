@@ -105,9 +105,8 @@
             "dr": [
                 {
                     "exceptions": "except force or ghost touch; double resistance vs. non-magical",
-                    "label": "All",
                     "type": "all",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -157,7 +156,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -256,7 +255,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -354,133 +353,8 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/possession.webp",
-            "name": "Possession",
+            "name": "Possession (Greater Possession)",
             "sort": 200000,
-            "type": "spell"
-        },
-        {
-            "_id": "VPhqehElr7tqeqom",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "varies"
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "positive"
-                            },
-                            "value": "6d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "lZUnB7d6Laq58nWv"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "heal",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "1 to 3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "positive"
-                    ]
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/heal.webp",
-            "name": "Heal",
-            "sort": 300000,
             "type": "spell"
         },
         {
@@ -589,7 +463,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse",
-            "sort": 400000,
+            "sort": 300000,
             "type": "spell"
         },
         {
@@ -702,7 +576,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 500000,
+            "sort": 400000,
             "type": "spell"
         },
         {
@@ -811,7 +685,7 @@
             },
             "img": "systems/pf2e/icons/spells/remove-disease.webp",
             "name": "Remove Disease",
-            "sort": 600000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -860,6 +734,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -882,12 +763,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -938,6 +813,135 @@
             },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
+            "sort": 600000,
+            "type": "spell"
+        },
+        {
+            "_id": "sSSbkkBehg84JQUw",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "positive"
+                            },
+                            "value": "1d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[positive]+@item.level*8[healing]]]{2-Action Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 6,
+                    "value": "lZUnB7d6Laq58nWv"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "healing",
+                        "positive"
+                    ]
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/heal.webp",
+            "name": "Heal",
             "sort": 700000,
             "type": "spell"
         },
@@ -1212,6 +1216,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1234,12 +1245,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1392,6 +1397,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -1437,6 +1443,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:will|dc:27] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Confused]{Confused} until the end of its next turn (1 minute on a critical failure). During this confusion, the creature attempts to cause turmoil, using its actions to create disarray in its general vicinity by throwing around objects or scaring passersby. A creature that succeeds at its save is immune to all hantu belians' unrest auras for 1 hour. A hantu belian can suppress or resume the effects of this aura as an action, which has the concentrate trait.</p>"
                 },
@@ -1483,6 +1490,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>A hantu belian can use its possession innate spell to possess a creature for up to 1 hour rather than 1 minute. While possessing a creature, the hantu uses its own Acrobatics, Athletics, and Stealth modifiers unless those of the possessed creature are higher.</p>"
                 },

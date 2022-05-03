@@ -14,6 +14,7 @@ export function feint(options: SkillActionOptions) {
         traits: ["mental"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [

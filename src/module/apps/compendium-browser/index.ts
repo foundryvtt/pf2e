@@ -15,6 +15,8 @@ import {
 import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
 import { CheckBoxdata, RangesData } from "./tabs/data";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import noUiSlider from "nouislider";
+import { SpellcastingEntryPF2e } from "@item";
 
 class PackLoader {
     loadedPacks: {
@@ -238,6 +240,37 @@ export class CompendiumBrowser extends Application {
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
+    async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null) {
+        const filter: string[] = [];
+
+        if (entry.isRitual || entry.isFocusPool) {
+            filter.push("category-".concat(entry.data.data.prepared.value));
+        }
+
+        if (level || level === 0) {
+            filter.push(level ? `level-${level}` : "category-cantrip");
+
+            if (level > 0) {
+                if (!entry.isPrepared) {
+                    while (level > 1) {
+                        level -= 1;
+                        filter.push("level-".concat(level.toString()));
+                    }
+                }
+
+                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
+                    filter.push("category-spell");
+                }
+            }
+        }
+
+        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
+            filter.push("traditions-".concat(entry.data.data.tradition.value));
+        }
+
+        this.openTab("spell", filter);
+    }
+
     async loadTab(tab: TabName): Promise<void> {
         this.activeTab = tab;
         // Settings tab
@@ -276,8 +309,8 @@ export class CompendiumBrowser extends Application {
                 }
             }
             if (this.initialMaxLevel) {
-                if (currentTab.filterData.ranges) {
-                    const level = currentTab.filterData.ranges.level;
+                if (currentTab.filterData.sliders) {
+                    const level = currentTab.filterData.sliders.level;
                     if (level) {
                         level.values.max = this.initialMaxLevel;
                     }
@@ -336,14 +369,25 @@ export class CompendiumBrowser extends Application {
             event.stopImmediatePropagation();
             const filterType = event.currentTarget.parentElement?.parentElement?.dataset.filterType;
             const filterName = event.currentTarget.parentElement?.parentElement?.dataset.filterName ?? "";
-            if (filterType === "checkboxes") {
-                const checkboxes = currentTab.filterData.checkboxes;
-                if (objectHasKey(checkboxes, filterName)) {
-                    for (const option of Object.values(checkboxes[filterName].options)) {
-                        option.selected = false;
+            switch (filterType) {
+                case "checkboxes": {
+                    const checkboxes = currentTab.filterData.checkboxes;
+                    if (objectHasKey(checkboxes, filterName)) {
+                        for (const option of Object.values(checkboxes[filterName].options)) {
+                            option.selected = false;
+                        }
+                        checkboxes[filterName].selected = [];
+                        this.render(true);
                     }
-                    checkboxes[filterName].selected = [];
-                    this.render(true);
+                    break;
+                }
+                case "ranges": {
+                    const ranges = currentTab.filterData.ranges!;
+                    if (objectHasKey(ranges, filterName)) {
+                        ranges[filterName].values = currentTab.defaultFilterData.ranges![filterName].values;
+                        ranges[filterName].changed = false;
+                        this.render(true);
+                    }
                 }
             }
         });
@@ -352,7 +396,7 @@ export class CompendiumBrowser extends Application {
         $controlArea.find(".filtercontainer div.title").on("click", (event) => {
             const filterType = event.currentTarget.parentElement?.dataset.filterType;
             const filterName = event.currentTarget.parentElement?.dataset.filterName ?? "";
-            if (filterType === "checkboxes" || filterType === "ranges") {
+            if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
                 const filters = currentTab.filterData[filterType];
                 if (filters && objectHasKey(filters, filterName)) {
                     // This needs a type assertion because it resolves to never for some reason
@@ -414,7 +458,7 @@ export class CompendiumBrowser extends Application {
             }
         });
 
-        // Filter for levels
+        // Filter for ranges
         $controlArea.find<HTMLInputElement>("input[name*=Bound]").on("keyup", (event) => {
             if (event.key !== "Enter") return;
             const $parent = $(event.target).closest("div");
@@ -422,14 +466,63 @@ export class CompendiumBrowser extends Application {
             const ranges = currentTab.filterData.ranges;
             if (ranges && objectHasKey(ranges, name)) {
                 const range = ranges[name];
-                const $lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]");
-                const $upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]");
-                range.values.min = Number($lowerBound.val()) || 0;
-                range.values.max = Number($upperBound.val()) || 0;
+                const lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]")?.val() ?? "";
+                const upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]")?.val() ?? "";
+                if (!(typeof lowerBound === "string") || !(typeof upperBound === "string")) return;
+                const values = currentTab.parseRangeFilterInput(name, lowerBound, upperBound);
+                range.values = values;
+                range.changed = true;
                 this.clearScrollLimit();
                 this.render(true);
             }
         });
+
+        if (!currentTab) return;
+        // Slider filters
+        for (const [name, data] of Object.entries(currentTab.filterData.sliders ?? {})) {
+            const $slider = $html.find(`div.slider-${name}`);
+            if (!$slider) continue;
+
+            const slider = noUiSlider.create($slider[0], {
+                range: {
+                    min: data.values.lowerLimit,
+                    max: data.values.upperLimit,
+                },
+                start: [data.values.min, data.values.max],
+                tooltips: {
+                    to(value: number) {
+                        return Math.floor(value).toString();
+                    },
+                },
+                connect: [false, true, false],
+                behaviour: "snap",
+                step: data.values.step,
+            });
+
+            slider.on("change", (values) => {
+                const [min, max] = values.map((value) => Number(value));
+                data.values.min = min;
+                data.values.max = max;
+
+                const $minLabel = $html.find(`label.${name}-min-label`);
+                const $maxLabel = $html.find(`label.${name}-max-label`);
+                $minLabel.text(min);
+                $maxLabel.text(max);
+
+                this.clearScrollLimit();
+                this.render(true);
+            });
+
+            // Set styling
+            $slider.find(".noUi-handle").each((_index, handle) => {
+                const $handle = $(handle);
+                $handle.addClass("handle");
+            });
+
+            $slider.find(".noUi-connect").each((_index, connect) => {
+                $(connect).addClass("range_selected");
+            });
+        }
     }
 
     /** Activate click listeners on loaded actors and items */
@@ -520,34 +613,46 @@ export class CompendiumBrowser extends Application {
             return;
         }
 
-        let purchaseSuccess = false;
+        let purchasesSucceeded = 0;
 
         for (const actor of actors) {
             const itemValue = extractPriceFromItem(item.data, 1);
-            purchaseSuccess = await attemptToRemoveCoinsByValue({ actor, coinsToRemove: itemValue });
-            if (purchaseSuccess) {
+            if (await attemptToRemoveCoinsByValue({ actor, coinsToRemove: itemValue })) {
+                purchasesSucceeded = purchasesSucceeded + 1;
                 await actor.createEmbeddedDocuments("Item", [item.toObject()]);
             }
         }
 
-        if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
-            if (purchaseSuccess) {
+        if (actors.length === 1) {
+            if (purchasesSucceeded === 1) {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
                         item: item.name,
-                        character: game.user.character.name,
+                        character: actors[0].name,
                     })
                 );
             } else {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
                         item: item.name,
-                        character: game.user.character.name,
+                        character: actors[0].name,
                     })
                 );
             }
         } else {
-            ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.BoughtItem", { item: item.name }));
+            if (purchasesSucceeded === actors.length) {
+                ui.notifications.info(
+                    game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
+                        item: item.name,
+                    })
+                );
+            } else {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
+                        item: item.name,
+                    })
+                );
+            }
         }
     }
 

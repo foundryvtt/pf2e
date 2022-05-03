@@ -29,6 +29,7 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 import { preImportJSON } from "@module/doc-helpers";
+import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -313,9 +314,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
-        // Setup the basic structure of pf2e flags with roll options
-        const defaultOptions = { [`self:type:${this.type}`]: true };
-        this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        // Setup the basic structure of pf2e flags with roll options, but remember flat-footed
+        const { flags } = this.data;
+        const targetFlagFooted = flags.pf2e?.rollOptions?.all?.["target:condition:flat-footed"];
+        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
+        flags.pf2e.rollOptions = { all: { [`self:type:${this.type}`]: true } };
+        if (targetFlagFooted) flags.pf2e.rollOptions.all["target:condition:flat-footed"] = true;
+
         this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
@@ -535,14 +540,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
-    async toggleRollOption(domain: string, option: string, value = !this.rollOptions[domain]?.[option]): Promise<this> {
-        domain = domain.replace(/[^-\w]/g, "");
-        option = option.replace(/[^-:\w]/g, "");
+    async toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | null,
+        value?: boolean
+    ): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | boolean | null = null,
+        value?: boolean
+    ): Promise<boolean | null> {
+        value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
+        if (typeof itemId === "string") {
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        } else {
+            /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
+            const match = this.rules.find(
+                (rule) => rule instanceof RollOptionRuleElement && rule.domain === domain && rule.option === option
+            );
 
-        if (domain && option) {
-            return this.update({ [`flags.pf2e.rollOptions.${domain}.${option}`]: value });
+            /** If a matching item is found toggle this option. */
+            const itemId = match?.item.id ?? null;
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
         }
-        return this;
     }
 
     /**
@@ -565,7 +588,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             await this.applyDamage(-value, tokens[0]);
             return this;
         }
-
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
@@ -674,34 +696,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
-    }
-
-    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
-        if (!entryId || !spellLevel) {
-            // TODO: Consider throwing an error on null inputs in the future.
-            return;
-        }
-
-        const spellcastingEntry = this.items.get(entryId);
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
-
-        if (
-            spellcastingEntry.data.data?.prepared?.value === "prepared" &&
-            spellcastingEntry.data.data?.showUnpreparedSpells?.value === false
-        ) {
-            if (CONFIG.debug.hooks === true) {
-                console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-            }
-
-            const displayLevels: Record<number, boolean> = {};
-            displayLevels[spellLevel] = true;
-            await spellcastingEntry.update({
-                "data.showUnpreparedSpells.value": true,
-                "data.displayLevels": displayLevels,
-            });
-        }
     }
 
     isLootableBy(user: UserPF2e) {

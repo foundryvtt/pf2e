@@ -1,5 +1,5 @@
-import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/data/values";
-import { PreciousMaterialGrade } from "@item/physical/data";
+import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values";
+import { PreciousMaterialGrade } from "@item/physical/types";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
@@ -81,6 +81,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         delete preciousMaterials[""];
         delete preciousMaterials["dragonhide"];
         delete preciousMaterials["grisantian-pelt"];
+        const { material } = this.item;
         for (const materialKey of PRECIOUS_MATERIAL_TYPES) {
             const materialData = preciousMaterials[materialKey];
             if (materialData) {
@@ -90,7 +91,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                     if (grade) {
                         grade.label = game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[gradeKey]);
                         grade.selected =
-                            this.item.material?.type === materialKey && this.item.material.grade === gradeKey;
+                            material.precious?.type === materialKey && material.precious?.grade === gradeKey;
                     }
                 }
             }

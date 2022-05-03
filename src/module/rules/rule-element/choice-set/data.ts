@@ -29,8 +29,6 @@ export interface ChoiceSetData extends RuleElementData {
     allowedDrops: PredicatePF2e;
     /** Allow no selection to be made */
     allowNoSelection?: unknown;
-    /** An optional roll option to be set from the selection */
-    rollOption: string | null;
 }
 
 export interface ChoiceSetSource extends RuleElementSource {

@@ -47,7 +47,7 @@ interface BattleFormSkill {
 }
 export type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
 
-interface BattleFormStrike {
+export interface BattleFormStrike {
     label: string;
     img?: ImagePath;
     ability: AbilityString;

@@ -930,6 +930,16 @@ class CharacterPF2e extends CreaturePF2e {
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
+        for (const key of ARMOR_CATEGORIES) {
+            const rank = this.data.data.martial[key].rank;
+            rollOptionsAll[`defense:${key}:rank:${rank}`] = true;
+        }
+
+        for (const key of WEAPON_CATEGORIES) {
+            const rank = this.data.data.martial[key].rank;
+            rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
+        }
+
         for (const key of SAVE_TYPES) {
             const rank = this.data.data.saves[key].rank;
             rollOptionsAll[`save:${key}:rank:${rank}`] = true;
@@ -1305,7 +1315,9 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwrapsSlug = "handwraps-of-mighty-blows";
-        const handwraps = itemTypes.weapon.find((w) => w.slug === handwrapsSlug && w.category === "unarmed");
+        const handwraps = itemTypes.weapon.find(
+            (w) => w.slug === handwrapsSlug && w.category === "unarmed" && w.isEquipped
+        );
         const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
             const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
                 handwraps?.data._source.data ?? {};
@@ -1340,6 +1352,7 @@ class CharacterPF2e extends CreaturePF2e {
                               inSlot: true,
                               handsHeld: 0,
                           },
+                          group: "brawling",
                           traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                           usage: { value: "worngloves" },
                           ...(unarmedRunes ?? {}),
@@ -1394,10 +1407,10 @@ class CharacterPF2e extends CreaturePF2e {
         const { categories } = options;
         const ammos = options.ammos ?? [];
 
-        // Apply strike adjustments
+        // Apply strike adjustments affecting the weapon
         const weaponRollOptions = weapon.getRollOptions();
         for (const adjustment of strikeAdjustments) {
-            adjustment.adjustStrike(weapon);
+            adjustment.adjustWeapon?.(weapon);
         }
 
         const weaponTraits = weapon.traits;
@@ -1818,13 +1831,15 @@ class CharacterPF2e extends CreaturePF2e {
                     options,
                     rollNotes,
                     weaponPotency,
-                    synthetics.striking
+                    synthetics.striking,
+                    synthetics.strikeAdjustments
                 );
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
                 if (args.getFormula) {
                     return damage.formula[outcome].formula;
                 } else {
                     const { self, target, options } = context;
+
                     const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
 
                     await DamageRollPF2e.roll(damage, damageContext, args.callback);

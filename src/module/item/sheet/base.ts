@@ -1,6 +1,6 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { RuleElements, RuleElementSource } from "@module/rules";
 import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
@@ -38,6 +38,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         return options;
     }
+
+    /** Maintain selected rule element at the sheet level (do not persist) */
+    private selectedRuleElement: string | null = Object.keys(RuleElements.all).at(0) ?? null;
 
     override async getData(options?: Partial<DocumentSheetOptions>) {
         const data: any = this.getBaseData(options);
@@ -156,6 +159,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
+            ruleSelection: {
+                selected: this.selectedRuleElement,
+                types: Object.keys(RuleElements.all),
+            },
         };
     }
 
@@ -254,16 +261,22 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.deleteDamageRoll(ev);
         });
 
+        $html.find('[data-action="select-rule-element"]').on("change", async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            this.selectedRuleElement = (event.target as HTMLSelectElement).value;
+        });
+
         $html.find(".add-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rulesData: Partial<RuleElementSource>[] = this.item.data.data.rules;
-            this.item.update({
-                "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
-            });
+            const rulesData = this.item.toObject().data.rules;
+            const key = this.selectedRuleElement ?? "NewRuleElement";
+            this.item.update({ "data.rules": rulesData.concat({ key }) });
         });
+
         $html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
@@ -285,6 +298,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 [`data.variants.${index}`]: { label: "+X in terrain", options: "" },
             });
         });
+
         $html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });

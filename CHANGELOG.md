@@ -1,5 +1,125 @@
 # Changelog
 
+## Version 3.9.2
+
+### Data Updates
+* (InfamousSky) Brush up FotRP book 1 toolbox, continued
+* (InfamousSky) Brush up FotRP book 2, chapter 1
+* (Shandyan) Automate several dwarf ancestry feats
+* (SpartanCPA) Add Book of the Dead NPCs
+* (Tikael) Add new traits and localizations for Book of the Dead NPCs
+* (Tikael) Add Cloud Dragon to the choices for Dragon Disciple
+
+
+## Version 3.9.1
+
+### New Features
+* (Cerapter) Allow equipment to be purchased directly from compendium browser
+
+### Core System Improvements
+* (Telekenunes) Add more versatile traits
+* (Tikael) Add armor and weapon proficiencies to roll options, automate proficiency feats
+* (Vyklade) expand `SpellPF2e#rollAttack()` method to allow more arguments to be passed from macros
+
+### Bugfixes
+* (stwlam) Fix draggable roll option toggles from PC sheet
+* (stwlam) Add brawling group to basic unarmed strike
+* (stwlam) Clean up and localize item identification
+* (stwlam) Hide strike damage roll buttons on chat cards if the user can't roll them
+
+### Data Updates
+* (Abaddon) Brush up Belcorra from AV book 3
+* (Benyar, Doc Burns, Soldier C4, SpartanCPA, Tikael) Add BotD PC options
+* (InfamousSky) Review FotRP book 1 toolbox
+* (InfamousSky, Tikael) Add _Punks in a Powderkeg_ content
+* (rectulo) Fix the Breach ability of the megalodon
+* (Shandyan) Automate Dhampir and Duskwalker feats
+* (SpartanCPA) Add Book of the Dead Creature Abilities
+* (stwlam) Fix name of Janatimo's Lessons feat
+
+
+## Version 3.9.0
+
+### Core System Improvements
+* (In3luki) Sort core skills on the character sheet by localized label
+* (nikolaj-a) Add Avoid Notice, Arcane Slam, and Treat Poison action macros
+* (nikolaj-a) Add tooltip with trait description in action macro chat cards
+* (nikolaj-a) Allow Rest for the Night to work with multiple actors
+* (SoldierC4) Add means of sending NPC "death effect" messages to chat
+* (Supe) Allow swapping prepared spells without first needing to clear them
+* (Supe) Add more responsive drag and drop behavior for spellcasting entries
+* (stwlam) Add a TokenName rule element
+
+### Bugfixes
+* (Friz) Fix issue causing Unstable trait description to not appear on mouse hover
+* (Friz) Fix styling quirks for action summaries on PC/NPC actions
+* (In3luki) Fix measured template preview remaining on the canvas after cancelling the placement
+* (JDCalvert) Only show ammunition selection box if weapon requires ammunition
+* (stwlam) Fix battleform RE not checking if caster's own unarmed attack bonus is better than the form's
+* (stwlam) Fix aberrant behavior when editing PFS player/character numbers
+* (stwlam) Fix issue causing some effects to not modify AC on PC actors
+* (Supe) Make it easier to drop feats into campaign feats section
+* (Supe) Fix dragging from another sheet into campaign feats moving all campaign feats into bonus feats
+* (Supe) Fix character alignment bleeding into the portrait on Firefox
+* (Supe) Fix styling of item-sheet and compendium-browser scrollbars on Firefox
+* (Supe) Set granted item's sourceId to its uuid so re-evaluation works for imported world items
+* (Tikael) Fix visbility of elements in journals
+* (Tikael) Fix the level of the Greater Hauling rune
+
+### Data Updates
+* (Abaddon) Add missing hazards for Beginner Box, unify actor names in the compendium
+* (Abaddon) Brushup AV book 1, chapters 2 & 3
+* (Abaddon) Fix Seelah's weapons
+* (Arthana) Allow Recovery Checks DC to be set by AE-likes instead of hardcoded feats
+* (cepvep) Fix action cost on Tooth Fairy
+* (Cora) Add TokenLight rule element for hooded lantern
+* (Delzoun) Added Spell Effect for Ant Haul
+* (Delzoun) Added inline roll to Cataclyism, Goodberry, and Scorching Ray
+* (Friz) Add reflex save button to explode action based on classDC
+* (Friz) Brush up Yaganty (Extinction Curse bestiary)
+* (Friz) Fix text on various Inventor actions/feats
+* (Friz) Fix usage of Miter of Communion item
+* (Friz) Replace spell effect links for ooze form with shorter versions
+* (In3luki) Add bonus type to Dangerous Sorcery bonus damage
+* (InfamousSky) Clean up FotRP actors book 1, chapters 2 & 3
+* (JDCalvert) Improve toggles when multiple Hunt Pray abilities are acquired
+* (LebombJames) Added compendium links to various spells
+* (LebombJames) Corrected Roaring Applause duration to be sustained
+* (LebombJames) Corrected prerequisite of Captivating Intensity
+* (NullWolf) Correct Usage for Genius Diadem
+* (rectulo) Removed Telepathy from Street Skelm
+* (Roxim) Brushup EC book 2 NPCs
+* (Shandyan) Add effects and add rule elements for aasimar, android, aphorite, beastkin, and automaton ancestry feats
+* (Shandyan) Add inline checks and effect links to android and aphorite feats
+* (SpartanCPA) Assign icon to Kusarigama
+* (SpartanCPA) Fix the em tags on Whip of Compliance
+* (SpartanCPA) Minor Fixes to EC2 NPCs
+* (SpartanCPA) Remove Negative Healing from the Beginner Box Zombie
+* (SpartanCPA) Show Dread Marshall Stance effect on token
+* (stwlam) Add Druidic language from Druidic Language class feature
+* (stwlam) Fix predicate on Inured to Alchemy
+* (TMun) Correct healing font for BB Kyra and fix prepared spell lists for BB casters
+* (Tikael) Add "Other" usage and apply it to Walking Cauldron
+* (Tikael) Add AdjustDegreeOfSuccess RE to Adroit Manipulation
+* (Tikael) Add ChoiceSet REs to Virtuosic Performer and Saloon Entertainer
+* (Tikael) Add rule elements to Torch item
+* (Tikael) Add the changes from the APG second printing
+* (Tikael) Automate Physical Training feat
+* (Tikael) Automate Skill Training feat
+* (Tikael) Automate Sparkling Targe
+* (Tikael) Brushup Dragon Disciple Dedication and Scales of the Dragon
+* (Tikael) Cleanup previously done April data entry
+* (Tikael) Fix Battle Oracle armor proficiencies
+* (Tikael) Fix item grant in Idyllkin
+* (Tikael) Fix rule elements on Resounding Bravery Effect
+* (Tikael) Fix several non-functional inline checks
+* (Tikael) Give Automaton a choice of creature size
+* (Tikael) Make BB kobold sneak attack match text exactly.
+* (Tikael) Set variable action feats to show the minimum number of actions
+* (Tikael) Standardize rogue debilitation note visibility
+* (Vindico) Automated Death Warden Dwarf heritage
+
+
 ## Version 3.8.4
 
 ### Core System Improvements

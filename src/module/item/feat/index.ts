@@ -52,6 +52,29 @@ export class FeatPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        const traits = this.data.data.traits.value;
+
+        // Add the General trait if of the general feat type
+        if (this.featType === "general" && !traits.includes("general")) {
+            traits.push("general");
+        }
+
+        if (this.featType === "skill") {
+            // Add the Skill trait
+            if (!traits.includes("skill")) traits.push("skill");
+
+            // Add the General trait only if the feat is not an archetype skill feat
+            if (!traits.includes("general") && !traits.includes("archetype")) {
+                traits.push("general");
+            }
+        }
+
+        // Only archetype feats can have the dedication trait
+        if (traits.includes("dedication")) {
+            this.featType === "archetype";
+            if (!traits.includes("archetype")) traits.push("archetype");
+        }
+
         // Feats with the Lineage trait can only ever be taken at level 1
         if (this.data.data.traits.value.includes("lineage")) {
             this.data.data.onlyLevel1 = true;

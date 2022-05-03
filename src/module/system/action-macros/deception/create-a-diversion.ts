@@ -37,6 +37,7 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         traits: traits.sort(),
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [

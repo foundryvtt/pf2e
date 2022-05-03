@@ -1,9 +1,10 @@
 import { AlignmentTrait } from "@actor/creature/types";
 import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
-import { PreciousMaterialType } from "@item/physical/data";
+import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool } from "@item/spell/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
+import { OtherWeaponTag } from "@item/weapon/data";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits
@@ -48,6 +49,7 @@ const ancestryTraits = {
     ratfolk: "PF2E.TraitRatfolk",
     shisk: "PF2E.TraitShisk",
     shoony: "PF2E.TraitShoony",
+    skeleton: "PF2E.TraitSkeleton",
     sprite: "PF2E.TraitSprite",
     strix: "PF2E.TraitStrix",
     suli: "PF2E.TraitSuli",
@@ -112,6 +114,7 @@ const creatureTraits = {
     construct: "PF2E.TraitConstruct",
     couatl: "PF2E.TraitCouatl",
     daemon: "PF2E.TraitDaemon",
+    darvakka: "PF2E.TraitDarvakka",
     demon: "PF2E.TraitDemon",
     dero: "PF2E.TraitDero",
     devil: "PF2E.TraitDevil",
@@ -451,11 +454,21 @@ const weaponTraits = {
     "two-hand-d10": "PF2E.TraitTwoHandD10",
     "two-hand-d12": "PF2E.TraitTwoHandD12",
     unarmed: "PF2E.TraitUnarmed",
-    "versatile-s": "PF2E.TraitVersatileS",
+    "versatile-acid": "PF2E.TraitVersatileAcid",
+    "versatile-b": "PF2E.TraitVersatileB",
+    "versatile-chaotic": "PF2E.TraitVersatileChaotic",
+    "versatile-cold": "PF2E.TraitVersatileCold",
+    "versatile-electricity": "PF2E.TraitVersatileElectricity",
+    "versatile-evil": "PF2E.TraitVersatileEvil",
+    "versatile-fire": "PF2E.TraitVersatileFire",
+    "versatile-force": "PF2E.TraitVersatileForce",
+    "versatile-good": "PF2E.TraitVersatileGood",
+    "versatile-lawful": "PF2E.TraitVersatileLawful",
+    "versatile-negative": "PF2E.TraitVersatileNegative",
     "versatile-p": "PF2E.TraitVersatileP",
     "versatile-positive": "PF2E.TraitVersatilePositive",
-    "versatile-fire": "PF2E.TraitVersatileFire",
-    "versatile-b": "PF2E.TraitVersatileB",
+    "versatile-s": "PF2E.TraitVersatileS",
+    "versatile-sonic": "PF2E.TraitVersatileSonic",
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
@@ -473,16 +486,16 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     mithral: "PF2E.PreciousMaterialMithral",
     noqual: "PF2E.PreciousMaterialNoqual",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
+    peachwood: "PF2E.PreciousMaterialPeachwood",
     siccatite: "PF2E.PreciousMaterialSiccatite",
     silver: "PF2E.PreciousMaterialSilver",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
-const otherWeaponTags = {
+const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
     improvised: "PF2E.Item.Weapon.Improvised",
-    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -627,6 +640,7 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...npcAttackTraits,
+    circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
 

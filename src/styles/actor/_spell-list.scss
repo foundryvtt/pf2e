@@ -154,19 +154,36 @@ ol.spell-list {
 
             .item-image {
                 @include frame-icon;
+                position: relative;
                 height: 1.5rem;
                 width: 1.5rem;
                 margin: 2px 0;
                 border-radius: 0;
                 cursor: pointer;
+
                 .item-icon {
                     max-width: 23px;
                 }
 
                 &:hover {
-                    background: url("../../../icons/svg/d20-black.svg") no-repeat center, #f1eee9;
+                    background: #f1eee9;
                     background-size: contain;
                     padding: 11px;
+                    &::before {
+                        content: "\f27a";
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        font-size: 16px;
+                        color: black;
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                     img {
                         display: none;
                     }
@@ -198,6 +215,7 @@ ol.spell-list {
         }
 
         .spell-components {
+            grid-area: components;
             justify-self: right;
             padding: 0 0.5em;
 
@@ -207,6 +225,7 @@ ol.spell-list {
         }
 
         .item-controls {
+            grid-area: controls;
             display: flex;
             gap: 0.3em;
             justify-self: end;
@@ -244,6 +263,7 @@ ol.spell-list {
             .item-buttons {
                 button {
                     @include p-reset;
+                    padding: 0 8px;
                     font-family: var(--serif);
                     font-weight: 500;
                     margin-top: 8px;

@@ -8,6 +8,7 @@ import {
     WeaponCategory,
     WeaponData,
     WeaponGroup,
+    WeaponMaterialData,
     WeaponPropertyRuneType,
     WeaponRangeIncrement,
     WeaponSource,
@@ -25,12 +26,16 @@ import { NPCPF2e } from "@actor";
 import { ConsumablePF2e } from "@item";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
-export class WeaponPF2e extends PhysicalItemPF2e {
+class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
         return WeaponData;
     }
 
     override isStackableWith(item: PhysicalItemPF2e): boolean {
+        if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
+            return false;
+        }
+
         const equippedButStackable = ["bomb", "dart"].includes(this.group ?? "");
         if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
         return super.isStackableWith(item);
@@ -80,6 +85,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.rangeIncrement !== null;
     }
 
+    override get material(): WeaponMaterialData {
+        return this.data.data.material;
+    }
+
     /** Does this weapon require ammunition in order to make a strike? */
     get requiresAmmo(): boolean {
         return this.isRanged && ![null, "-"].includes(this.reload);
@@ -107,7 +116,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
-                [`material:${this.material?.type}`]: !!this.material?.type,
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:die:faces:${damageDieFaces}`]: true,
@@ -139,6 +147,17 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         systemData.reload.value ||= null;
         systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
+
+        const preciousMaterial =
+            systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
+                ? { type: systemData.preciousMaterial.value, grade: systemData.preciousMaterialGrade.value }
+                : null;
+
+        systemData.material = {
+            base: [{ type: "steel", thickness: "thin" }], // Stand-in until this data is utilized
+            precious: preciousMaterial,
+        };
+
         AutomaticBonusProgression.cleanupRunes(this);
 
         // Force a weapon to be ranged if it is one of a certain set of groups or has the "unqualified" thrown trait
@@ -162,6 +181,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
+        // Make unarmed "weapons" always equipped with the exception of handwraps
+        if (systemData.category === "unarmed" && systemData.slug !== "handwraps-of-mighty-blows") {
+            this.data.isEquipped = true;
+        }
         // Allow jousting weapons to be usable when held in one hand
         this.data.isEquipped ||= this.handsHeld === 1 && traitsArray.some((t) => /^jousting-d\d{1,2}$/.test(t));
 
@@ -188,6 +211,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is WeaponPropertyRuneType => !!rune
             ),
+            effects: [],
         };
     }
 
@@ -267,7 +291,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     getMaterialData(): MaterialGradeData | null {
         const material = this.material;
-        return MATERIAL_VALUATION_DATA[material?.type ?? ""][material?.grade ?? "low"];
+        return MATERIAL_VALUATION_DATA[material.precious?.type ?? ""][material.precious?.grade ?? "low"];
     }
 
     override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
@@ -301,9 +325,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             3: systemData.propertyRune3?.value ?? null,
             4: systemData.propertyRune4?.value ?? null,
         };
+        const { material } = this;
         const params = {
             base: this.baseType ? baseWeapons[this.baseType] : this.name,
-            material: this.material && game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
+            material: material.precious && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.precious.type]),
             potency: potencyRune,
             striking: strikingRune && game.i18n.localize(CONFIG.PF2E.weaponStrikingRunes[strikingRune]),
             property1: propertyRunes[1] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[propertyRunes[1]]),
@@ -419,8 +444,10 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 }
 
-export interface WeaponPF2e {
+interface WeaponPF2e {
     readonly data: WeaponData;
 
     get traits(): Set<WeaponTrait>;
 }
+
+export { WeaponPF2e };

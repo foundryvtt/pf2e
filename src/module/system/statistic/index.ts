@@ -72,6 +72,8 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
     rank: ZeroToFour | null = null;
 
+    proficient = true;
+
     modifiers: ModifierPF2e[];
 
     slug: string;
@@ -84,7 +86,10 @@ export class Statistic<T extends BaseStatisticData = StatisticData> {
 
         if (typeof data.rank === "number") {
             this.rank = data.rank;
+            this.proficient = this.rank > 0;
             this.modifiers.unshift(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+        } else {
+            this.proficient = data.proficient === undefined ? true : !!data.proficient;
         }
 
         if (actor instanceof CharacterPF2e && data.ability) {

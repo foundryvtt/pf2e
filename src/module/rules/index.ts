@@ -40,6 +40,7 @@ import { TokenImageRuleElement } from "./rule-element/token-image";
 import { TokenLightRuleElement } from "./rule-element/token-light";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
 import type { ItemPF2e } from "@item";
+import { TokenNameRuleElement } from "./rule-element/token-name";
 
 /**
  * @category RuleElement
@@ -75,6 +76,7 @@ class RuleElements {
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
         TokenLight: TokenLightRuleElement,
+        TokenName: TokenNameRuleElement,
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
@@ -83,6 +85,10 @@ class RuleElements {
     };
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
+
+    static get all() {
+        return { ...this.builtin, ...this.custom };
+    }
 
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];

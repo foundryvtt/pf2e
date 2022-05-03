@@ -51,7 +51,7 @@ class StrikeRuleElement extends RuleElementPF2e {
             !this.data.predicate ||
             ((): boolean => {
                 const rollOptions = this.actor.getRollOptions(["attack", "attack-roll", "strike-attack-roll"]);
-                return this.data.predicate.test(rollOptions);
+                return this.resolveInjectedProperties(this.data.predicate).test(rollOptions);
             })();
 
         if (predicatePassed) this.actor.synthetics.strikes.push(this.constructWeapon());

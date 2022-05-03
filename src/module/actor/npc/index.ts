@@ -20,6 +20,7 @@ import { NPCData, NPCSource, NPCStrike } from "./data";
 import { NPCSheetPF2e } from "./sheet";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { VariantCloneParams } from "./types";
+import { StrikeAttackTraits } from "./strike-attack-traits";
 
 class NPCPF2e extends CreaturePF2e {
     static override get schema(): typeof NPCData {
@@ -442,6 +443,7 @@ class NPCPF2e extends CreaturePF2e {
                     "all",
                 ];
                 modifiers.push(...extractModifiers(statisticsModifiers, domains));
+                modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
                 notes.push(...domains.flatMap((key) => duplicate(rollNotes[key] ?? [])));
 
                 // action image

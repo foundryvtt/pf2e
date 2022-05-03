@@ -96,7 +96,6 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
         const linkDefault = !["hazard", "loot"].includes(this.actor.type ?? "");
         this.data.flags.pf2e ??= { linkToActorSize: linkDefault };
         this.data.flags.pf2e.linkToActorSize ??= linkDefault;
-        if (this.linkToActorSize) this.data.scale = 1;
 
         // Vision
         if (this.scene?.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {

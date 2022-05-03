@@ -1,12 +1,21 @@
 <div class="rules">
     <div class="nerd-details">
         <div class="form-group">
-            <label>UUID:</label>
+            <label>{{localize "PF2E.ItemUUIDLabel"}}</label>
             <input disabled value="{{@root.document.uuid}}"/>
             <div class="item-controls">
                 <a data-clipboard="{{@root.document.uuid}}"><i class="fas fa-clipboard"></i></a>
             </div>
         </div>
+        {{#if @root.document.sourceId}}
+            <div class="form-group">
+                <label>{{localize "PF2E.ItemSourceIDLabel"}}</label>
+                <input disabled value="{{@root.document.sourceId}}"/>
+                <div class="item-controls">
+                    <a data-clipboard="{{@root.document.sourceId}}"><i class="fas fa-clipboard"></i></a>
+                </div>
+            </div>
+        {{/if}}
     </div>
 
     <div>
@@ -18,6 +27,15 @@
             <textarea name="data.rules.{{@index}}" spellcheck="false">{{json rule}}</textarea>
             <hr/>
         {{/each}}
-        <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.ItemNewRuleElement"}}</a>
+        <div class="create-rule-element">
+            <select data-action="select-rule-element">
+                {{#select ruleSelection.selected}}
+                    {{#each ruleSelection.types}}
+                        <option value="{{@this}}">{{@this}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.ItemNewRuleElement"}}</a>
+        </div>
     </div>
 </div>

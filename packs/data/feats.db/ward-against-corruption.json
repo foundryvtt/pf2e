@@ -19,10 +19,50 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "death",
+                        "disease",
+                        "origin:trait:undead",
+                        "origin:trait:sakhil"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "ward-plus-one",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        {
+                            "or": [
+                                "disease",
+                                "death"
+                            ]
+                        },
+                        {
+                            "or": [
+                                "origin:trait:undead",
+                                "origin:trait:sakhil"
+                            ]
+                        }
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "ward-plus-two",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

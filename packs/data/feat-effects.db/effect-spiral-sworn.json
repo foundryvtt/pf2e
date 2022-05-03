@@ -1,0 +1,77 @@
+{
+    "_id": "2gVP04ZWYbQdX3uS",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>For 3 rounds, your Strikes and spells deal additional damage against undead, creatures in possession of an imprisoned soul, or creatures you have witnessed create or command undead. You gain a status bonus to damage with your Strikes against these creatures equal to the number of weapon damage dice. Spells you cast from spell slots gain a status bonus to damage against these creatures equal to the level of the spell; this bonus applies only to spells that deal damage and don't have a duration.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SoulWarden.SpiralSworn.Label",
+                "option": "target:imprisoned-soul",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "any": [
+                        "target:trait:undead",
+                        "target:imprisoned-soul"
+                    ]
+                },
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "1+@weapon.runes.striking"
+            },
+            {
+                "key": "FlatModifier",
+                "phase": "afterDerived",
+                "predicate": {
+                    "all": [
+                        "item:spell-slot",
+                        "item:duration:0",
+                        "damaging-effect"
+                    ],
+                    "any": [
+                        "target:trait:undead",
+                        "target:imprisoned-soul"
+                    ]
+                },
+                "selector": "spell-damage",
+                "type": "status",
+                "value": "@spell.level"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Spiral Sworn",
+    "type": "effect"
+}

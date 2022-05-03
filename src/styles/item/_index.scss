@@ -20,6 +20,7 @@
         @import "activations";
         @import "identify-item";
         @import "tagify";
+        @import "rules";
 
         display: flex;
         flex-direction: column;
@@ -123,7 +124,7 @@
                     /** Details */
                     &.item-details {
                         padding: 0.5rem 0.5rem 0;
-                        overflow-y: auto;
+                        @include scrollbar;
 
                         label {
                             color: #353535;
@@ -137,25 +138,13 @@
                         }
                     }
 
-                    /** Rule Elements */
-                    &.item-rules {
-                        overflow-y: scroll;
+                    &.item-mystification {
+                        padding: 8px 8px 0;
+                        @include scrollbar;
 
-                        .rules {
-                            padding: 7px;
-
-                            .rule-element-header {
-                                display: flex;
-                                justify-content: space-between;
-
-                                h3.unrecognized {
-                                    color: #880000;
-                                }
-                            }
-
-                            .add-rule-element {
-                                text-align: right;
-                            }
+                        label {
+                            color: #353535;
+                            font-weight: bold;
                         }
                     }
                 }
@@ -182,10 +171,15 @@
             flex: 0 1 auto;
         }
 
+        .form-section {
+            margin-top: 8px;
+        }
+
         .form-list {
             border: 1px solid var(--secondary-background);
             border-radius: 5px;
             padding: 0.25em;
+            margin: 0.5em 0;
             h3 {
                 font-size: 1.05em;
                 margin-bottom: 0.25em;
@@ -280,6 +274,22 @@
             }
         }
 
+        .toggle-button-list {
+            display: flex;
+            gap: 2px;
+            margin: 4px 0;
+
+            button {
+                margin: 0;
+                font-size: 10px;
+                line-height: 16px;
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+                padding: 3px 4px;
+            }
+        }
+
         .consumable-details {
             flex: 0 0 24px;
 
@@ -337,16 +347,6 @@
             }
         }
 
-        .item-mystify {
-            padding: 8px 8px 0;
-            overflow-y: auto;
-
-            label {
-                color: #353535;
-                font-weight: bold;
-            }
-        }
-
         .spell-components {
             input {
                 margin-left: 0;
@@ -387,14 +387,6 @@
                 font-weight: 700;
                 color: $adjusted-higher;
             }
-        }
-    }
-
-    .nerd-details {
-        margin-bottom: 10px;
-        label {
-            flex: 0;
-            margin-right: 4px;
         }
     }
 }

@@ -11,23 +11,21 @@
                 </div>
                 <div class="rarity tags">
                     {{#unless (eq item.rarity "common")}}
-                    <span class="tag {{item.rarity}}">
-                        {{lookup (lookup ../filterData.checkboxes.rarity.options item.rarity) "label"}}
-                    </span>
+                        <span class="tag {{item.rarity}}">
+                            {{lookup (lookup ../filterData.checkboxes.rarity.options item.rarity) "label"}}
+                        </span>
                     {{/unless}}
                 </div>
-                <div class="price" title="Item Price">
-                    {{item.price}}
-                </div>
+                <div class="price" title="Item Price">{{item.price}}</div>
                 <div class="level">
                     <span title="Item level">{{item.level}}</span>
                 </div>
-                <a class="equipment-controls" data-action="take-item" title="{{localize 'PF2E.CompendiumBrowser.TakeLabel'}}">
+                <a class="equipment-controls" data-action="take-item" title="{{localize "PF2E.CompendiumBrowser.TakeLabel"}}">
                     <i class="far fa-hand-rock"></i>
                 </a>
-                <a class="equipment-controls" data-action="buy-item" title="{{localize 'PF2E.CompendiumBrowser.BuyLabel'}}">
-                    <i class="fas fa-coins"></i>
-                </a>
+                    <a class="equipment-controls" data-action="buy-item" title="{{localize "PF2E.CompendiumBrowser.BuyLabel"}}">
+                        <i class="fas fa-coins"></i>
+                    </a>
             </li>
         {{/each}}
     </ul>

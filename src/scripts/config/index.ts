@@ -24,7 +24,7 @@ import {
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
-import { PreciousMaterialGrade } from "@item/physical/data";
+import { PreciousMaterialGrade } from "@item/physical/types";
 import { DamageCategory, DamageType } from "@system/damage/calculation";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
@@ -368,6 +368,7 @@ const traitsDescriptions = {
     cursebound: "PF2E.TraitDescriptionCursebound",
     cursed: "PF2E.TraitDescriptionCursed",
     darkness: "PF2E.TraitDescriptionDarkness",
+    darvakka: "PF2E.TraitDescriptionDarvakka",
     "deadly-2d10": "PF2E.TraitDescriptionDeadly",
     "deadly-2d12": "PF2E.TraitDescriptionDeadly",
     "deadly-2d8": "PF2E.TraitDescriptionDeadly",
@@ -507,6 +508,7 @@ const traitsDescriptions = {
     orc: "PF2E.TraitDescriptionOrc",
     oread: "PF2E.TraitDescriptionOread",
     parry: "PF2E.TraitDescriptionParry",
+    peachwood: "PF2E.PreciousMaterialPeachwoodDescription",
     plant: "PF2E.TraitDescriptionPlant",
     poison: "PF2E.TraitDescriptionPoison",
     polymorph: "PF2E.TraitDescriptionPolymorph",
@@ -558,6 +560,7 @@ const traitsDescriptions = {
     shisk: "PF2E.TraitDescriptionShisk",
     shoony: "PF2E.TraitDescriptionShoony",
     shove: "PF2E.TraitDescriptionShove",
+    skeleton: "PF2E.TraitDescriptionSkeleton",
     skill: "PF2E.TraitDescriptionSkill",
     sleep: "PF2E.TraitDescriptionSleep",
     snare: "PF2E.TraitDescriptionSnare",
@@ -612,11 +615,21 @@ const traitsDescriptions = {
     undine: "PF2E.TraitDescriptionUndine",
     unique: "PF2E.TraitDescriptionUnique",
     unstable: "PF2E.TraitDescriptionUnstable",
+    "versatile-acid": "PF2E.TraitDescriptionVersatile",
     "versatile-b": "PF2E.TraitDescriptionVersatile",
+    "versatile-chaotic": "PF2E.TraitDescriptionVersatile",
+    "versatile-cold": "PF2E.TraitDescriptionVersatile",
+    "versatile-electricity": "PF2E.TraitDescriptionVersatile",
+    "versatile-evil": "PF2E.TraitDescriptionVersatile",
     "versatile-fire": "PF2E.TraitDescriptionVersatile",
+    "versatile-force": "PF2E.TraitDescriptionVersatile",
+    "versatile-good": "PF2E.TraitDescriptionVersatile",
+    "versatile-lawful": "PF2E.TraitDescriptionVersatile",
+    "versatile-negative": "PF2E.TraitDescriptionVersatile",
     "versatile-p": "PF2E.TraitDescriptionVersatile",
     "versatile-positive": "PF2E.TraitDescriptionVersatile",
     "versatile-s": "PF2E.TraitDescriptionVersatile",
+    "versatile-sonic": "PF2E.TraitDescriptionVersatile",
     virulent: "PF2E.TraitDescriptionVirulent",
     visual: "PF2E.TraitDescriptionVisual",
     "volley-20": "PF2E.TraitDescriptionVolley",
@@ -1262,6 +1275,9 @@ export const PF2ECONFIG = {
         90: "PF2E.AreaSize90",
         100: "PF2E.AreaSize100",
         120: "PF2E.AreaSize120",
+        500: "PF2E.AreaSize500",
+        1000: "PF2E.AreaSize1000",
+        1320: "PF2E.AreaSizeQuarterMile",
         5280: "PF2E.AreaSize1Mile",
     },
 

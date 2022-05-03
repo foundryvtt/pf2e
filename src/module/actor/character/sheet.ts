@@ -38,7 +38,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
                 { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
             ],
-            showUnpreparedSpells: false,
         });
     }
 
@@ -101,7 +100,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
-        sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
         // Update dying icon and container width
         sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
@@ -524,12 +522,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // filter strikes
         $actions.find(".toggle-unready-strikes").on("click", () => {
             this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.data.flags.pf2e.showUnreadyStrikes);
-        });
-
-        $actions.find(".actions-list span[data-roll-option]").on("click", (event) => {
-            const { rollName, rollOption } = event.currentTarget.dataset;
-            if (!(rollName && rollOption)) return;
-            this.actor.toggleRollOption(rollName, rollOption);
         });
 
         const $strikesList = $actions.find(".strikes-list");
