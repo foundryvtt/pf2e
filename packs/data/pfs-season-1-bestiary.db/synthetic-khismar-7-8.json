@@ -437,21 +437,28 @@
                 },
                 "rules": [
                     {
+                        "key": "FlatModifier",
+                        "selector": "ac",
+                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.data.data.attributes.hp.max),1)-1)",
+                        "predicate": {
+                            "not": ["broken-armor"]
+                        }
+                    },
+                    {
                         "domain": "ac",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.AnimatedObjectsConstructArmor",
-                        "option": "constructArmor",
-                        "toggleable": true
+                        "option": "broken-armor",
+                        "toggleable": true,
+                        "label": "PF2E.ConstructArmor.CriticalHit"
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "constructArmor"
-                            ]
-                        },
+                        "label": "PF2E.ConstructArmor.BrokenArmor",
                         "selector": "ac",
-                        "value": -4
+                        "value": -4,
+                        "predicate": {
+                            "all": ["broken-armor"]
+                        }
                     }
                 ],
                 "slug": null,
@@ -470,11 +477,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.7Rg3TQGFjt5uWzLw"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Construct Armor (Hardness 10)",
             "sort": 500000,
@@ -493,7 +496,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> Synthetic Khismar takes electricity damage</div>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened} for [[/br {1d4}[rounds]]]{1d4 rounds}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Synthetic Khismar takes electricity damage</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -512,11 +515,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.5ib8kbfq4mi5nvjt"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Overcharge",
             "sort": 600000,
@@ -554,11 +553,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.1ss5qypuju7sem9o"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Programmed Combo",
             "sort": 700000,
@@ -577,7 +572,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Requirements</strong> Synthetic Khismar has 20 HP or fewer</div>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar explodes in a ball of burning plasma, destroying himself completely and dealing [[/r {10d6}[electricity]]]{10d6 electricity damage} to all creatures within @Template[type:emanation|distance:10]{10 feet} (@Check[type:reflex|dc:26|basic:true])</p>\n<hr />\n<p><strong>Special</strong> Synthetic Khismar automatically activates this ability as a free action when brought to 0 Hit Points.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> Synthetic Khismar has 20 HP or fewer</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar explodes in a ball of burning plasma, destroying himself completely and dealing [[/r {10d6}[electricity]]]{10d6 electricity damage} to all creatures within @Template[type:emanation|distance:10] (@Check[type:reflex|dc:26|basic:true])</p>\n<hr />\n<p><strong>Special</strong> Synthetic Khismar automatically activates this ability as a free action when brought to 0 Hit Points.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -596,11 +591,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.f0pgwkudf2q8lg8n"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Self-Destruct",
             "sort": 800000,
@@ -619,7 +610,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Frequency</strong> once per turn</div>\n<p><strong>Range</strong> 100 feet;</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per turn</p>\n<p><strong>Range</strong> 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -640,11 +631,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.35j0ecc24cmv4xws"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Technology Control",
             "sort": 900000,
