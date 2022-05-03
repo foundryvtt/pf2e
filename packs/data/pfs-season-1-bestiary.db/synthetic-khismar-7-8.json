@@ -384,6 +384,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -429,6 +430,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Like normal objects, Synthetic Khismar has Hardness. This Hardness reduces any damage he takes by an amount equal to his Hardness. Once Synthetic Khismar is reduced to fewer than half his Hit Points, or immediately upon being damaged by a critical hit, his construct armor breaks and his AC is reduced to 23.</p>"
                 },
@@ -438,27 +440,31 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "selector": "ac",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.data.data.attributes.hp.max),1)-1)",
                         "predicate": {
-                            "not": ["broken-armor"]
-                        }
+                            "not": [
+                                "broken-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.data.data.attributes.hp.max),1)-1)"
                     },
                     {
                         "domain": "ac",
                         "key": "RollOption",
+                        "label": "PF2E.ConstructArmor.CriticalHit",
                         "option": "broken-armor",
-                        "toggleable": true,
-                        "label": "PF2E.ConstructArmor.CriticalHit"
+                        "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.ConstructArmor.BrokenArmor",
-                        "selector": "ac",
-                        "value": -4,
                         "predicate": {
-                            "all": ["broken-armor"]
-                        }
+                            "all": [
+                                "broken-armor"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -495,6 +501,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Synthetic Khismar takes electricity damage</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}.</p>"
                 },
@@ -533,6 +540,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Synthetic Khismar makes two storm-fist Strikes against a single target. If either of the attacks deals damage, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Synthetic Khismar's next turn. His multiple attack penalty increases after making both attacks.</p>"
                 },
@@ -571,6 +579,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> Synthetic Khismar has 20 HP or fewer</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar explodes in a ball of burning plasma, destroying himself completely and dealing [[/r {10d6}[electricity]]]{10d6 electricity damage} to all creatures within @Template[type:emanation|distance:10] (@Check[type:reflex|dc:26|basic:true])</p>\n<hr />\n<p><strong>Special</strong> Synthetic Khismar automatically activates this ability as a free action when brought to 0 Hit Points.</p>"
                 },
@@ -609,6 +618,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per turn</p>\n<p><strong>Range</strong> 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>"
                 },
