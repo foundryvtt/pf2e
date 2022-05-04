@@ -163,25 +163,25 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Normalize price string
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
+        if (this.isTemporary) systemData.price.value = "0 gp";
 
+        // Fill out usage and equipped status
         this.data.data.usage = getUsageDetails(systemData.usage.value);
-        if (!systemData.equipped.carryType) {
-            systemData.equipped.carryType = systemData.containerId ? "stowed" : "worn";
-        }
+        const { equipped, usage } = this.data.data;
 
-        if (this.isTemporary) {
-            systemData.price.value = "0 gp";
+        equipped.handsHeld ??= 0;
+        equipped.carryType ??= "worn";
+        if (usage.type === "worn" && usage.where) equipped.inSlot ??= false;
+
+        // Unequip items on loot actors
+        if (this.actor instanceof LootPF2e) {
+            equipped.carryType = "worn";
+            equipped.inSlot = false;
         }
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId) {
             this._container = null;
-        }
-
-        // Unequip items on loot actors so that rule elements are not initialized
-        if (this.actor instanceof LootPF2e) {
-            this.data.data.equipped.carryType = "worn";
-            this.data.data.equipped.inSlot = false;
         }
     }
 
