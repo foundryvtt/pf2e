@@ -6,6 +6,7 @@ import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e, PhysicalItemData } from "@item/data";
 import { PhysicalItemType } from "@item/physical/data";
 import { VehicleTrait } from "./data";
+import { isPhysicalData } from "@item/data/helpers";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -93,7 +94,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
+            items: actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData)),
             bulkItemsById,
             bulkConfig,
             actorSize: actorData.data.traits.size.value,
@@ -101,8 +102,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         for (const itemData of actorData.items) {
             const physicalData: ItemDataPF2e = itemData;
-            if (physicalData.isPhysical) {
-                itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
+            if (isPhysicalData(physicalData)) {
+                itemData.showEdit = sheetData.user.isGM || physicalData.data.identification.status === "identified";
                 itemData.img ||= CONST.DEFAULT_TOKEN;
 
                 const containerData = containers.get(itemData._id)!;
@@ -145,7 +146,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
             for (const itemData of sheetData.items) {
                 const physicalData: ItemDataPF2e = itemData;
-                if (physicalData.isPhysical) {
+                if (isPhysicalData(physicalData)) {
                     itemData.showEdit = true;
                 }
             }

@@ -31,6 +31,17 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return WeaponData;
     }
 
+    override get isEquipped(): boolean {
+        const { category, slug, traits } = this.data.data;
+        // Make unarmed "weapons" always equipped with the exception of handwraps
+        if (category === "unarmed" && slug !== "handwraps-of-mighty-blows") {
+            return true;
+        }
+
+        // Allow jousting weapons to be usable when held in one hand
+        return super.isEquipped || (this.handsHeld === 1 && traits.value.some((t) => /^jousting-d\d{1,2}$/.test(t)));
+    }
+
     override isStackableWith(item: PhysicalItemPF2e): boolean {
         if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
             return false;
@@ -180,13 +191,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 this.data.data.traits.otherTags.push("crossbow");
             }
         }
-
-        // Make unarmed "weapons" always equipped with the exception of handwraps
-        if (systemData.category === "unarmed" && systemData.slug !== "handwraps-of-mighty-blows") {
-            this.data.isEquipped = true;
-        }
-        // Allow jousting weapons to be usable when held in one hand
-        this.data.isEquipped ||= this.handsHeld === 1 && traitsArray.some((t) => /^jousting-d\d{1,2}$/.test(t));
 
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
         const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
