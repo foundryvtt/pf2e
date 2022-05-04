@@ -78,7 +78,7 @@ class DeityPF2e extends ItemPF2e {
 interface DeityPF2e extends ItemPF2e {
     readonly data: DeityData;
 
-    readonly _sheet: DeitySheetPF2e;
+    readonly _sheet: DeitySheetPF2e<this>;
 }
 
 export { DeityPF2e };

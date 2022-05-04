@@ -11,7 +11,7 @@ import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
+import { BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -413,8 +413,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken() {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault =
-            this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
+        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.webp`;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
@@ -1040,6 +1039,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        if (this.data._source.img === "icons/svg/mystery-man.svg") {
+            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        }
+
         await super._preCreate(data, options, user);
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));

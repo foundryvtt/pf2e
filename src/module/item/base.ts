@@ -16,7 +16,7 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { preImportJSON } from "@module/doc-helpers";
 
-export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
         ready?: boolean;
     };
@@ -69,7 +69,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext = {}) {
+    override async delete(context: DocumentModificationContext<this> = {}): Promise<this> {
         if (this.actor) {
             await this.actor.deleteEmbeddedDocuments("Item", [this.id], context);
             return this;
@@ -687,7 +687,7 @@ interface ItemPF2e {
 
     readonly parent: ActorPF2e | null;
 
-    _sheet: ItemSheetPF2e<ItemPF2e> | null;
+    _sheet: ItemSheetPF2e<this> | null;
 
     get sheet(): ItemSheetPF2e<this>;
 
@@ -696,4 +696,4 @@ interface ItemPF2e {
     prepareActorData?(this: Embedded<ItemPF2e>): void;
 }
 
-export { ItemPF2e };
+export { ItemPF2e, ItemConstructionContextPF2e };
