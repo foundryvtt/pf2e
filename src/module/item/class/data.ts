@@ -1,24 +1,16 @@
 import { AbilityString } from "@actor/data/base";
 import { ABCSystemData } from "@item/abc/data";
-import { ItemTraits } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { ZeroToFour } from "@module/data";
 import type { ClassPF2e } from ".";
 import { CLASS_TRAITS } from "./values";
 
-type ClassSource = BaseNonPhysicalItemSource<"class", ClassSystemData>;
+type ClassSource = BaseItemSourcePF2e<"class", ClassSystemSource>;
 
-class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/class.svg";
-}
+type ClassData = Omit<ClassSource, "effects" | "flags"> &
+    BaseItemDataPF2e<ClassPF2e, "class", ClassSystemData, ClassSource>;
 
-interface ClassData extends Omit<ClassSource, "effects" | "flags"> {
-    type: ClassSource["type"];
-    data: ClassSource["data"];
-    readonly _source: ClassSource;
-}
-
-interface ClassSystemData extends ABCSystemData {
+interface ClassSystemSource extends ABCSystemData {
     traits: ItemTraits;
     keyAbility: { value: AbilityString[] };
     hp: number;
@@ -52,6 +44,8 @@ interface ClassSystemData extends ABCSystemData {
     skillFeatLevels: { value: number[] };
     skillIncreaseLevels: { value: number[] };
 }
+
+type ClassSystemData = ClassSystemSource;
 
 type ClassTrait = SetElement<typeof CLASS_TRAITS>;
 

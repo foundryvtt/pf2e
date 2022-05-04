@@ -28,11 +28,7 @@ interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
 }
 
-export class SpellPF2e extends ItemPF2e {
-    static override get schema(): typeof SpellData {
-        return SpellData;
-    }
-
+class SpellPF2e extends ItemPF2e {
     readonly isFromConsumable: boolean;
 
     /** The original spell. Only exists if this is a variant */
@@ -49,7 +45,7 @@ export class SpellPF2e extends ItemPF2e {
      * Heightened level of the spell if heightened, otherwise base.
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
-    get level() {
+    get level(): number {
         return this.data.data.location.heightenedLevel ?? this.baseLevel;
     }
 
@@ -607,6 +603,8 @@ export class SpellPF2e extends ItemPF2e {
     }
 }
 
-export interface SpellPF2e {
+interface SpellPF2e {
     readonly data: SpellData;
 }
+
+export { SpellPF2e };

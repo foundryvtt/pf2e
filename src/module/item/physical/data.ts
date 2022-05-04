@@ -21,23 +21,16 @@ import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 
 type BasePhysicalItemSource<
-    TItemType extends PhysicalItemType = PhysicalItemType,
+    TType extends PhysicalItemType = PhysicalItemType,
     TSystemSource extends PhysicalSystemSource = PhysicalSystemSource
-> = BaseItemSourcePF2e<TItemType, TSystemSource>;
+> = BaseItemSourcePF2e<TType, TSystemSource>;
 
-class BasePhysicalItemData<
+type BasePhysicalItemData<
     TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
-    TSystemData extends PhysicalSystemData = PhysicalSystemData
-> extends BaseItemDataPF2e<TItem> {}
-
-interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
-    extends Omit<BasePhysicalItemSource, "effects" | "flags"> {
-    type: PhysicalItemType;
-    data: BasePhysicalItemSource["data"];
-
-    readonly document: TItem;
-    readonly _source: BasePhysicalItemSource;
-}
+    TType extends PhysicalItemType = PhysicalItemType,
+    TSystemData extends PhysicalSystemData = PhysicalSystemData,
+    TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
+> = Omit<BasePhysicalItemSource, "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
 
 type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
 
