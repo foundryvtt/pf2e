@@ -1,31 +1,28 @@
-import { ItemPF2e } from "@item/base";
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
+import { SkillAbbreviation } from "@actor/creature/data";
+import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ItemPF2e, ConditionPF2e, FeatPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { AncestryBackgroundClassManager } from "@item/abc/manager";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { getContainerMap } from "@item/container/helpers";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
+import { isPhysicalData } from "@item/data/helpers";
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
+import { PhysicalItemType } from "@item/physical/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
-import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
+import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
+import { restForTheNight } from "@scripts/macros/rest-for-the-night";
+import { craft } from "@system/action-macros/crafting/craft";
+import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
+import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
-import { PhysicalItemType } from "@item/physical/data";
-import { craft } from "@system/action-macros/crafting/craft";
-import { CheckDC } from "@system/degree-of-success";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { LocalizePF2e } from "@system/localize";
-import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { isEquipped } from "@item/physical/usage";
-import { isPhysicalData } from "@item/data/helpers";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
@@ -262,19 +259,20 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
-            if (isPhysicalData(physicalData)) {
-                const isIdentified = physicalData.data.identification.status === "identified";
-                const isInvested = isIdentified && !!physicalData.data.equipped.invested;
+            const item = this.actor.items.get(itemData._id, { strict: true });
+            if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
+                const { isEquipped, isIdentified, isInvested, isTemporary } = item;
+                itemData.isEquipped = isEquipped;
                 itemData.isIdentified = isIdentified;
+                itemData.isInvested = isInvested;
+                itemData.isTemporary = isTemporary;
                 itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
 
                 const containerData = containers.get(itemData._id)!;
                 itemData.containerData = containerData;
                 itemData.isInContainer = containerData.isInContainer;
-                itemData.isEquipped = isEquipped(physicalData.data.usage, physicalData.data.equipped);
-                itemData.isInvestable =
-                    itemData.isEquipped && isIdentified && typeof physicalData.data.equipped.invested === "boolean";
+                itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
 
                 // Read-Only Equipment
                 if (
@@ -525,7 +523,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // ACTIONS
         const $actions = $html.find(".tab.actions");
 
-        // filter strikes
+        // Filter strikes
         $actions.find(".toggle-unready-strikes").on("click", () => {
             this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.data.flags.pf2e.showUnreadyStrikes);
         });
