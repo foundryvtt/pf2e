@@ -17,12 +17,12 @@ declare module foundry {
          * @property [permission] An object which configures user permissions to this Item
          * @property [flags={}]   An object of optional key/value flags
          */
-        interface ItemSource {
+        interface ItemSource<TType extends string = string, TSystemSource extends object = object> {
             _id: string;
             name: string;
-            type: string;
+            type: TType;
             img: ImagePath;
-            data: object;
+            data: TSystemSource;
             effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;

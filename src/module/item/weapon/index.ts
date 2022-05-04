@@ -27,10 +27,6 @@ import { ConsumablePF2e } from "@item";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 class WeaponPF2e extends PhysicalItemPF2e {
-    static override get schema(): typeof WeaponData {
-        return WeaponData;
-    }
-
     override get isEquipped(): boolean {
         const { category, slug, traits } = this.data.data;
         // Make unarmed "weapons" always equipped with the exception of handwraps

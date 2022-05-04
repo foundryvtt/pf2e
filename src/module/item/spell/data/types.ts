@@ -1,24 +1,23 @@
 import { SaveType } from "@actor/data";
 import { AbilityString } from "@actor/data/base";
-import { ItemLevelData, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import {
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    ItemLevelData,
+    ItemSystemData,
+    ItemSystemSource,
+    ItemTraits,
+} from "@item/data/base";
 import { MagicTradition } from "@item/spellcasting-entry/data";
 import { DamageType } from "@system/damage";
 import { ValuesList, OneToTen, ValueAndMax } from "@module/data";
 import type { SpellPF2e } from "@item";
 import { MAGIC_SCHOOLS } from "./values";
 
-export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemSource>;
+type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
-export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spell.svg";
-}
-
-export interface SpellData extends Omit<SpellSource, "effects" | "flags"> {
-    type: SpellSource["type"];
-    data: SpellSource["data"];
-    readonly _source: SpellSource;
-}
+type SpellData = Omit<SpellSource, "effects" | "flags"> &
+    BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
 export type MagicSchool = typeof MAGIC_SCHOOLS[number];
 
@@ -54,7 +53,7 @@ export interface SpellHeightenLayer {
     data: Partial<SpellSystemData>;
 }
 
-export interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
+interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     traits: SpellTraits;
     level: {
         value: OneToTen;
@@ -129,4 +128,6 @@ export interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     };
 }
 
-export type SpellSystemData = SpellSystemSource & ItemSystemData;
+type SpellSystemData = SpellSystemSource & Omit<ItemSystemData, "traits">;
+
+export { SpellData, SpellSource, SpellSystemData, SpellSystemSource };

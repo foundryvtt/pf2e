@@ -17,11 +17,7 @@ import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 
-export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
-    static override get schema(): typeof SpellcastingEntryData {
-        return SpellcastingEntryData;
-    }
-
+class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     private _spells: Collection<Embedded<SpellPF2e>> | null = null;
 
     /** A collection of all spells contained in this entry regardless of organization */
@@ -491,6 +487,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 }
 
-export interface SpellcastingEntryPF2e {
+interface SpellcastingEntryPF2e {
     readonly data: SpellcastingEntryData;
 }
+
+export { SpellcastingEntryPF2e };

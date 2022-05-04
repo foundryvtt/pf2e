@@ -3,11 +3,7 @@ import { objectHasKey } from "@util";
 import { PhysicalItemPF2e } from "../physical";
 import { EquipmentData, EquipmentTrait } from "./data";
 
-export class EquipmentPF2e extends PhysicalItemPF2e {
-    static override get schema(): typeof EquipmentData {
-        return EquipmentData;
-    }
-
+class EquipmentPF2e extends PhysicalItemPF2e {
     override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
@@ -36,8 +32,10 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
     }
 }
 
-export interface EquipmentPF2e {
+interface EquipmentPF2e {
     readonly data: EquipmentData;
 
     get traits(): Set<EquipmentTrait>;
 }
+
+export { EquipmentPF2e };
