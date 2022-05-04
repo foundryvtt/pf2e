@@ -6,10 +6,6 @@ import { DeityData } from "./data";
 import { DeitySheetPF2e } from "./sheet";
 
 class DeityPF2e extends ItemPF2e {
-    static override get schema(): typeof DeityData {
-        return DeityData;
-    }
-
     get favoredWeapons(): BaseWeaponType[] {
         return [...this.data.data.weapons];
     }

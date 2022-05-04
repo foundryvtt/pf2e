@@ -589,6 +589,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Set default icon
+        if (this.data._source.img === "icons/svg/item-bag.svg") {
+            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        }
+
         await super._preCreate(data, options, user);
 
         if (!options.parent) {

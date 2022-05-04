@@ -1,11 +1,7 @@
 import { PhysicalItemPF2e } from "@item/physical";
 import { TreasureData } from "./data";
 
-export class TreasurePF2e extends PhysicalItemPF2e {
-    static override get schema(): typeof TreasureData {
-        return TreasureData;
-    }
-
+class TreasurePF2e extends PhysicalItemPF2e {
     get isCoinage(): boolean {
         return this.data.data.stackGroup === "coins";
     }
@@ -31,6 +27,8 @@ export class TreasurePF2e extends PhysicalItemPF2e {
     }
 }
 
-export interface TreasurePF2e {
+interface TreasurePF2e {
     readonly data: TreasureData;
 }
+
+export { TreasurePF2e };

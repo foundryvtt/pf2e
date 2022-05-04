@@ -6,11 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 
-export class ConsumablePF2e extends PhysicalItemPF2e {
-    static override get schema(): typeof ConsumableData {
-        return ConsumableData;
-    }
-
+class ConsumablePF2e extends PhysicalItemPF2e {
     get consumableType(): ConsumableType {
         return this.data.data.consumableType.value;
     }
@@ -200,6 +196,8 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
     }
 }
 
-export interface ConsumablePF2e {
+interface ConsumablePF2e {
     readonly data: ConsumableData;
 }
+
+export { ConsumablePF2e };
