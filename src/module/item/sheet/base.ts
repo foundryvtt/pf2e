@@ -159,6 +159,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             editable: isEditable,
             document: this.item,
             item: itemData,
+            isPhysical: false,
             data: itemData.data,
             limited: this.item.limited,
             options: this.options,
