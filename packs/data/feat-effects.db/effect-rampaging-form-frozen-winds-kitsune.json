@@ -1,0 +1,120 @@
+{
+    "_id": "WRe8qbemruWxkN8d",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Your battle form is Huge and your attacks have 15-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 20 temporary HP, AC = 18 + your level, attack modifier +18, damage bonus +7 and double the number of damage dice, and Athletics +20.</p>\n<p>You become living ice, giving you cold immunity, resistance 10 to precision damage, and weakness 5 to fire and to water. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes 3d6 cold damage. Your unarmed attacks deal 1d4 additional cold damage, and your cold spells deal one additional die of cold damage (of the same damage die the spell uses). You can cast produce flame as an innate spell; the casting is reduced from 2 actions to 1. In cold form, you have a fly Speed of 40 feet and don't need to breathe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "18 + @actor.level"
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "huge",
+                    "skills": {
+                        "ath": {
+                            "modifier": 20
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 4,
+                                "die": "d8",
+                                "modifier": 7
+                            },
+                            "group": "brawling",
+                            "label": "PF2E.Weapon.Base.jaws",
+                            "modifier": 18,
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        }
+                    },
+                    "tempHP": 20,
+                    "traits": [
+                        "animal"
+                    ]
+                }
+            },
+            {
+                "key": "Immunity",
+                "type": "cold"
+            },
+            {
+                "key": "Resistance",
+                "type": "precision",
+                "value": 10
+            },
+            {
+                "key": "Weakness",
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "Weakness",
+                "type": "water",
+                "value": 5
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": {
+                    "all": [
+                        "unarmed"
+                    ]
+                },
+                "selector": "strike-damage"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/mantle-of-the-frozen-heart.webp",
+    "name": "Effect: Rampaging Form (Frozen Winds Kitsune)",
+    "type": "effect"
+}
