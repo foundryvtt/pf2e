@@ -11,11 +11,6 @@ import { MAGIC_SCHOOLS } from "./values";
 export type SpellSource = BaseNonPhysicalItemSource<"spell", SpellSystemSource>;
 
 export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
-    /** Prepared data */
-    isCantrip!: boolean;
-    isFocusSpell!: boolean;
-    isRitual!: boolean;
-
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spell.svg";
 }
 

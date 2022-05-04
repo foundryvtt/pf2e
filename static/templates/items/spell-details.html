@@ -3,18 +3,18 @@
         <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
         <select name="data.category.value" data-dtype="String">
             {{#select data.category.value}}
-            {{#each spellCategories as |label key|}}
-                <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+                {{#each spellCategories as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
 
-    {{#unless item.isRitual}}
-    <div class="form-group">
-        <label>{{localize "PF2E.TraitCantrip"}}</label>
-        <input class="toggle-trait" type="checkbox" {{checked item.isCantrip}} data-trait="cantrip"/>
-    </div>
+    {{#unless isRitual}}
+        <div class="form-group">
+            <label>{{localize "PF2E.TraitCantrip"}}</label>
+            <input class="toggle-trait" type="checkbox" {{checked isCantrip}} data-trait="cantrip"/>
+        </div>
     {{/unless}}
 </ol>
 
@@ -97,7 +97,7 @@
     </div>
 </ol>
 
-{{#if item.isRitual}}
+{{#if isRitual}}
     <ol class="form-list">
         <h3>{{localize "PF2E.SpellRitualLabel"}}</h3>
 

@@ -80,6 +80,9 @@ export interface SpellSheetOverlayData {
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
+    isCantrip: boolean;
+    isFocusSpell: boolean;
+    isRitual: boolean;
     magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];

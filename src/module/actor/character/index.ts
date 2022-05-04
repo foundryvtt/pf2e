@@ -1571,7 +1571,7 @@ class CharacterPF2e extends CreaturePF2e {
             const traitsArray = weapon.data.data.traits.value;
             const hasFatalAimTrait = traitsArray.some((t) => t.startsWith("fatal-aim"));
             const hasTwoHandTrait = traitsArray.some((t) => t.startsWith("two-hand"));
-            const usage = weapon.data.usage;
+            const { usage } = weapon.data.data;
             const canWield2H = (usage.type === "held" && usage.hands === 2) || hasFatalAimTrait || hasTwoHandTrait;
 
             switch (weapon.carryType) {
