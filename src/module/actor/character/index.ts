@@ -103,10 +103,6 @@ class CharacterPF2e extends CreaturePF2e {
     pfsBoons!: FeatData[];
     deityBoonsCurses!: FeatData[];
 
-    static override get schema(): typeof CharacterData {
-        return CharacterData;
-    }
-
     get keyAbility(): AbilityString {
         return this.data.data.details.keyability.value || "str";
     }

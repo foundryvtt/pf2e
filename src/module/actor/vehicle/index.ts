@@ -8,10 +8,6 @@ import { ActorPF2e, HitPointsSummary } from "../base";
 import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
-    static override get schema(): typeof VehicleData {
-        return VehicleData;
-    }
-
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
     override get dimensions(): ActorDimensions {
         return {

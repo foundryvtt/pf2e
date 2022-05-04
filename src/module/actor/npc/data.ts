@@ -23,22 +23,14 @@ import { StatisticModifier } from "@actor/modifiers";
 import type { NPCPF2e } from ".";
 import { Alignment } from "@actor/creature/types";
 
-export interface NPCSource extends BaseCreatureSource<"npc", NPCSystemData> {
+interface NPCSource extends BaseCreatureSource<"npc", NPCSystemData> {
     flags: DeepPartial<NPCFlags>;
 }
 
-export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/npc.svg";
-}
-
-export interface NPCData extends Omit<NPCSource, "effects" | "flags" | "items" | "token"> {
-    readonly type: NPCSource["type"];
-
-    data: NPCSource["data"];
-
+interface NPCData
+    extends Omit<NPCSource, "data" | "effects" | "items" | "token" | "type">,
+        BaseCreatureData<NPCPF2e, "npc", NPCSystemData, NPCSource> {
     flags: NPCFlags;
-
-    readonly _source: NPCSource;
 }
 
 type NPCFlags = ActorFlagsPF2e & {
@@ -46,7 +38,7 @@ type NPCFlags = ActorFlagsPF2e & {
 };
 
 /** The raw information contained within the actor data object for NPCs. */
-export interface NPCSystemData extends CreatureSystemData {
+interface NPCSystemData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -89,7 +81,7 @@ export interface NPCSystemData extends CreatureSystemData {
 }
 
 /** The full data for a NPC action (used primarily for strikes.) */
-export type NPCStrike = StatisticModifier &
+type NPCStrike = StatisticModifier &
     Omit<StrikeData, "item"> & {
         item?: Embedded<MeleePF2e>;
         /** The type of attack as a localization string */
@@ -105,12 +97,12 @@ export type NPCStrike = StatisticModifier &
     };
 
 /** AC data with an additional "base" value */
-export interface NPCArmorClass extends StatisticModifier, ArmorClassData {
+interface NPCArmorClass extends StatisticModifier, ArmorClassData {
     base?: number;
 }
 
 /** Save data with an additional "base" value */
-export interface NPCSaveData extends SaveData {
+interface NPCSaveData extends SaveData {
     ability: AbilityString;
     base?: number;
     saveDetail: string;
@@ -122,24 +114,24 @@ interface NPCSaves {
     will: NPCSaveData;
 }
 
-export interface NPCHitPoints extends CreatureHitPoints {
+interface NPCHitPoints extends CreatureHitPoints {
     base?: number;
 }
 
 /** Perception data with an additional "base" value */
-export interface NPCPerception extends PerceptionData {
+interface NPCPerception extends PerceptionData {
     base?: number;
 }
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
-export interface NPCSkillData extends SkillData {
+interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
     label: string;
     expanded: string;
 }
 
-export interface NPCAttributes extends CreatureAttributes {
+interface NPCAttributes extends CreatureAttributes {
     ac: NPCArmorClass;
     hp: NPCHitPoints;
     perception: NPCPerception;
@@ -158,3 +150,16 @@ export interface NPCAttributes extends CreatureAttributes {
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;
 }
+
+export {
+    NPCArmorClass,
+    NPCAttributes,
+    NPCData,
+    NPCHitPoints,
+    NPCPerception,
+    NPCSaveData,
+    NPCSkillData,
+    NPCSource,
+    NPCStrike,
+    NPCSystemData,
+};

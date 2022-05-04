@@ -20,14 +20,18 @@ declare module foundry {
          * @property [permission] An object which configures user permissions to this Actor
          * @property [flags={}]   An object of optional key/value flags
          */
-        interface ActorSource<TType extends string = string, TSystemData extends object = object> {
+        interface ActorSource<
+            TType extends string = string,
+            TSystemSource extends object = object,
+            TItemSource extends ItemSource = ItemSource
+        > {
             _id: string;
             name: string;
             type: TType;
             img: ImagePath;
-            data: TSystemData;
+            data: TSystemSource;
             token: PrototypeTokenSource;
-            items: ItemSource[];
+            items: TItemSource[];
             effects: ActiveEffectSource[];
             folder: string | null;
             sort: number;
