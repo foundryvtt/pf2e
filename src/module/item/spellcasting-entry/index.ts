@@ -360,7 +360,6 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
-                // todo: innate spells should be able to expend like prep spells do
                 if (alwaysShowHeader || spells.length) {
                     const uses = this.isSpontaneous && level !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
@@ -370,8 +369,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
                         uses: this.isInnate && !spell.unlimited ? spell.data.data.location.uses : undefined,
                     }));
 
-                    // Spontaneous spellbooks hide their levels if there are no uses for them. Innate hide if there are no active spells.
-                    const hideForSpontaneous = this.isSpontaneous && uses?.max === 0;
+                    // These entries hide if there are no active spells at that level, or if there are no spell slots
+                    const hideForSpontaneous = this.isSpontaneous && uses?.max === 0 && active.length === 0;
                     const hideForInnate = this.isInnate && active.length === 0;
                     if (!this.data.data.showSlotlessLevels.value && (hideForSpontaneous || hideForInnate)) continue;
 
