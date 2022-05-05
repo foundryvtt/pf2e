@@ -3,7 +3,7 @@
     "data": {
         "badge": null,
         "description": {
-            "value": "<p>Your battle form is Huge and your attacks have 15-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 20 temporary HP, AC = 18 + your level, attack modifier +18, damage bonus +7 and double the number of damage dice, and Athletics +20.</p>\n<p>You become living ice, giving you cold immunity, resistance 10 to precision damage, and weakness 5 to fire and to water. Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes 3d6 cold damage. Your unarmed attacks deal 1d4 additional cold damage, and your cold spells deal one additional die of cold damage (of the same damage die the spell uses). You can cast produce flame as an innate spell; the casting is reduced from 2 actions to 1. In cold form, you have a fly Speed of 40 feet and don't need to breathe.</p>"
+            "value": "<p>You Change Shape into a form of living ice for 1 minute or until you shift back. Your battle form is Huge and has the following statistics:</p>\n<ul>\n<li>AC = 18 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>20 temporary Hit Points.</li>\n<li>Low-light vision and imprecise scent 30 feet.</li>\n<li>A Speed of 30, a Fly speed of 40, and you don't need to breathe</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">a</span> jaws, <strong>Damage</strong> 2d8 piercing + 1d4 cold damage.</li>\n<li>Your unarmed attacks deal 1d4 additional cold damage, and your cold spells deal one additional die of cold damage (of the same damage die the spell uses).</li>\n<li>You can cast <em>@Compendium[pf2e.spells-srd.Ray of Frost]{Ray of Frost}</em> as an innate spell; the casting is reduced from 2 actions to 1.</li>\n<li>Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon takes [[/r {3d6}[cold]]]{3d6 cold} damage.</li>\n<li>Athletics modifier of +20, unless your own modifier is higher.</li>\n</ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,6 +21,17 @@
                     "armorClass": {
                         "modifier": "18 + @actor.level"
                     },
+                    "immunities": [
+                        {
+                            "type": "cold"
+                        }
+                    ],
+                    "resistances": [
+                        {
+                            "type": "precision",
+                            "value": 10
+                        }
+                    ],
                     "senses": {
                         "lowLightVision": {},
                         "scent": {
@@ -61,27 +72,18 @@
                     "tempHP": 20,
                     "traits": [
                         "animal"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "fire",
+                            "value": 5
+                        },
+                        {
+                            "type": "water",
+                            "value": 5
+                        }
                     ]
                 }
-            },
-            {
-                "key": "Immunity",
-                "type": "cold"
-            },
-            {
-                "key": "Resistance",
-                "type": "precision",
-                "value": 10
-            },
-            {
-                "key": "Weakness",
-                "type": "fire",
-                "value": 5
-            },
-            {
-                "key": "Weakness",
-                "type": "water",
-                "value": 5
             },
             {
                 "damageType": "cold",
@@ -90,7 +92,8 @@
                 "key": "DamageDice",
                 "predicate": {
                     "all": [
-                        "unarmed"
+                        "unarmed",
+                        "battle-form"
                     ]
                 },
                 "selector": "strike-damage"
