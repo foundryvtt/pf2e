@@ -512,7 +512,7 @@
             "type": "action"
         },
         {
-            "_id": "ltpBtn2SCm60Eoyu",
+            "_id": "5leCAJThxoV2gjjH",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -534,7 +534,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": {
-                            "any": [
+                            "all": [
                                 "emotion"
                             ]
                         },
@@ -542,7 +542,7 @@
                         "value": -1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -558,7 +558,11 @@
                     "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "-1 to Saves vs Emotion Effects",
             "sort": 700000,
@@ -746,7 +750,18 @@
                         "domain": "all",
                         "key": "RollOption",
                         "option": "punishing-strike",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "punishing-strike"
+                            ]
+                        },
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.NPCAbility.PunishingStrike.Note</p>"
                     }
                 ],
                 "slug": null,
