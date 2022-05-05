@@ -430,7 +430,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      */
     prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
-        return {
+        const inventory: SheetInventory = {
             weapon: {
                 label: game.i18n.localize("PF2E.InventoryWeaponsHeader"),
                 type: "weapon",
@@ -466,6 +466,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 ),
             },
         };
+
+        for (const itemType of ["armor", "consumable", "equipment", "treasure", "weapon"] as const) {
+            for (const itemData of inventory[itemType].items) {
+                itemData.isIdentified = itemData.data.identification.status === "identified";
+            }
+        }
+
+        return inventory;
     }
 
     private get isWeak(): boolean {
