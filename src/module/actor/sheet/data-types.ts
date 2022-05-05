@@ -13,6 +13,7 @@ export type InventoryItem<D extends PhysicalItemData = PhysicalItemData> = D & {
     canBeEquipped: boolean;
     containerData: SheetContainerData;
     isContainer: boolean;
+    isIdentified: boolean;
     isInContainer: boolean;
     isSellableTreasure?: boolean;
     showEdit: boolean;
