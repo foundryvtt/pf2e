@@ -1,22 +1,32 @@
-<ol class="currency">
-    <li class="label">{{localize "PF2E.StackGroupCoins"}}</li>
-    {{#each totalCoinage as |value denomination|}}
-        <li class="denomination {{denomination}}">
-            <div class="currency-image" title="{{localize value.label}}"></div>
-            <span>{{value.value}}</span>
-        </li>
-    {{/each}}
-    {{#if owner}}
-        <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
-            <button type="button"><i class="fas fa-plus"></i></button>
-        </li>
-        <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
-            <button type="button"><i class="fas fa-minus"></i></button>
-        </li>
-        {{#if isLoot}}
-            <li class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
-                <button type="button"><i class="fas fa-coins"></i></button>
+<div class="coinage">
+    <div class="currency">
+        <li class="label">{{localize "PF2E.StackGroupCoins"}}</li>
+        {{#each totalCoinage as |value denomination|}}
+            <li class="denomination {{denomination}}">
+                <div class="currency-image" title="{{localize value.label}}"></div>
+                <span>{{value.value}}</span>
             </li>
+        {{/each}}
+        {{#if @root.owner}}
+            <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
+                <button type="button"><i class="fas fa-plus"></i></button>
+            </li>
+            <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
+                <button type="button"><i class="fas fa-minus"></i></button>
+            </li>
+            {{#if (or isLoot (eq @root.document.type "character"))}}
+                <li class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
+                    <button type="button"><i class="fas fa-coins"></i></button>
+                </li>
+            {{/if}}
         {{/if}}
-    {{/if}}
-</ol>
+    </div>
+    <div class="wealth">
+        <h3 class="item-name">
+            {{localize "PF2E.TotalCoinage"}}
+            <span>{{totalCoinageGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+        </h3>
+        <h3 class="item-name">{{localize "PF2E.TotalWealth"}} <span>{{totalWealthGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span></h3>
+    </div>
+</div>
+
