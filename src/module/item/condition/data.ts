@@ -1,21 +1,13 @@
 import { CONDITION_SLUGS } from "@actor/data/values";
-import { ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { ConditionPF2e } from ".";
 
-export type ConditionSource = BaseNonPhysicalItemSource<"condition", ConditionSystemSource>;
+type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 
-export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/condition.svg";
-}
+type ConditionData = Omit<ConditionSource, "effects" | "flags"> &
+    BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSystemData, ConditionSource>;
 
-export interface ConditionData extends Omit<ConditionSource, "effects" | "flags"> {
-    type: ConditionSource["type"];
-    data: ConditionSystemData;
-    readonly _source: ConditionSource;
-}
-
-export interface ConditionSystemSource extends ItemSystemSource {
+interface ConditionSystemSource extends ItemSystemSource {
     slug: ConditionSlug;
     active: boolean;
     removable: boolean;
@@ -107,4 +99,6 @@ type ConditionValueData =
           ];
       };
 
-export type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
+type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
+
+export { ConditionData, ConditionSource, ConditionSlug };

@@ -86,6 +86,10 @@ class RuleElements {
 
     static custom: Record<string, RuleElementConstructor | undefined> = {};
 
+    static get all() {
+        return { ...this.builtin, ...this.custom };
+    }
+
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
         for (const data of item.data.data.rules) {

@@ -1,8 +1,9 @@
-import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { coinStringToCoins, coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { EquipmentFilters } from "./data";
+import { EquipmentFilters, RangesData } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     override filterData!: EquipmentFilters;
@@ -150,10 +151,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, ranges, search } = this.filterData;
+        const { checkboxes, ranges, search, sliders } = this.filterData;
 
         // Level
-        if (!(entry.level >= ranges.level.values.min && entry.level <= ranges.level.values.max)) return false;
+        if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
+        // Price
+        if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
+            return false;
         // Name
         if (search.text) {
             if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
@@ -191,7 +195,28 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         return true;
     }
 
+    override parseRangeFilterInput(name: string, lower: string, upper: string): RangesData["values"] {
+        if (name === "price") {
+            const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
+            for (const [english, translated] of Object.entries(coins)) {
+                lower = lower.replaceAll(translated, english);
+                upper = upper.replaceAll(translated, english);
+            }
+            const min = coinValueInCopper(coinStringToCoins(lower));
+            const max = coinValueInCopper(coinStringToCoins(upper));
+            return {
+                min,
+                max,
+                inputMin: lower,
+                inputMax: upper,
+            };
+        }
+
+        return super.parseRangeFilterInput(name, lower, upper);
+    }
+
     protected override prepareFilterData(): void {
+        const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
         this.filterData = {
             checkboxes: {
                 itemtypes: {
@@ -247,12 +272,28 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 },
             },
             ranges: {
+                price: {
+                    changed: false,
+                    isExpanded: false,
+                    label: "PF2E.PriceLabel",
+                    values: {
+                        min: 0,
+                        max: 20_000_000,
+                        inputMin: `0${coins.cp}`,
+                        inputMax: `200,000${coins.gp}`,
+                    },
+                },
+            },
+            sliders: {
                 level: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterLevels",
                     values: {
+                        lowerLimit: 0,
+                        upperLimit: 30,
                         min: 0,
                         max: 30,
+                        step: 1,
                     },
                 },
             },

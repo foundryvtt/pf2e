@@ -144,10 +144,10 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, ranges, search } = this.filterData;
+        const { checkboxes, search, sliders } = this.filterData;
 
         // Level
-        if (!(entry.level >= ranges.level.values.min && entry.level <= ranges.level.values.max)) return false;
+        if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
         // Name
         if (search.text) {
             if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
@@ -238,13 +238,16 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     level: "PF2E.BrowserSortyByLevelLabel",
                 },
             },
-            ranges: {
+            sliders: {
                 level: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterLevels",
                     values: {
+                        lowerLimit: 0,
+                        upperLimit: 20,
                         min: 0,
                         max: 20,
+                        step: 1,
                     },
                 },
             },

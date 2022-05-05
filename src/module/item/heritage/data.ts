@@ -1,21 +1,13 @@
 import { CreatureTraits } from "@item/ancestry/data";
-import { ItemSystemData } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
 import type { HeritagePF2e } from "./document";
 
-export type HeritageSource = BaseNonPhysicalItemSource<"heritage", HeritageSystemSource>;
+type HeritageSource = BaseItemSourcePF2e<"heritage", HeritageSystemSource>;
 
-export class HeritageData extends BaseNonPhysicalItemData<HeritagePF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/heritage.svg";
-}
+type HeritageData = Omit<HeritageSource, "heritages" | "flags"> &
+    BaseItemDataPF2e<HeritagePF2e, "heritage", HeritageSystemData, HeritageSource>;
 
-export interface HeritageData extends Omit<HeritageSource, "effects" | "flags"> {
-    type: "heritage";
-    data: HeritageSystemData;
-    readonly _source: HeritageSource;
-}
-
-export interface HeritageSystemSource extends ItemSystemData {
+interface HeritageSystemSource extends ItemSystemData {
     ancestry: {
         name: string;
         uuid: ItemUUID;
@@ -24,3 +16,5 @@ export interface HeritageSystemSource extends ItemSystemData {
 }
 
 export type HeritageSystemData = HeritageSystemSource;
+
+export { HeritageData, HeritageSource, HeritageSystemSource };

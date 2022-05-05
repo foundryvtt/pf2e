@@ -1,4 +1,4 @@
-<li class="item list-row {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
+<li class="item list-row {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}" data-item-rarity="{{item.data.traits.rarity}}">
     <div class="item-name rollable{{#if (and lootsheet (not owner))}} long{{/if}}">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>
@@ -44,7 +44,7 @@
 
             {{#if item.canBeEquipped}}
                 {{#if item.isInvestable}}
-                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
+                    <a class="item-control item-toggle-invest {{#if item.data.equipped.invested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
                 {{/if}}
             {{/if}}
             {{#if (not lootsheet)}}

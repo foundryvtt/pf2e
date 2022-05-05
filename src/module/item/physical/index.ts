@@ -9,6 +9,7 @@ import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait }
 import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -35,7 +36,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isEquipped(): boolean {
-        return this.data.isEquipped;
+        return isEquipped(this.data.data.usage, this.data.data.equipped);
     }
 
     get carryType(): ItemCarryType {
@@ -59,11 +60,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isIdentified(): boolean {
-        return this.data.isIdentified;
+        return this.data.data.identification.status === "identified";
     }
 
     get isAlchemical(): boolean {
-        return this.data.isAlchemical;
+        return this.traits.has("alchemical");
     }
 
     get isMagical(): boolean {
@@ -75,25 +76,27 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.data.isEquipped && this.data.isIdentified && this.data.data.equipped.invested === true;
+        return this.isEquipped && this.isIdentified && this.data.data.equipped.invested === true;
     }
 
     get isCursed(): boolean {
-        return this.data.isCursed;
+        return this.traits.has("cursed");
     }
 
     get isTemporary(): boolean {
-        return this.data.data.temporary === true;
+        return this.data.data.temporary;
     }
 
-    get material() {
+    get material(): { precious: { type: PreciousMaterialType; grade: PreciousMaterialGrade } | null } {
         const systemData = this.data.data;
         return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
             ? {
-                  type: systemData.preciousMaterial.value,
-                  grade: systemData.preciousMaterialGrade.value,
+                  precious: {
+                      type: systemData.preciousMaterial.value,
+                      grade: systemData.preciousMaterialGrade.value,
+                  },
               }
-            : null;
+            : { precious: null };
     }
 
     get isInContainer(): boolean {
@@ -136,7 +139,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             equipped: this.isEquipped,
             magical: this.isMagical,
             uninvested: this.isInvested === false,
-            [`material:${this.material?.type}`]: !!this.material,
+            [`material:${this.material.precious?.type}`]: !!this.material,
         })
             .filter(([_key, isTrue]) => isTrue)
             .map(([key]) => key)
@@ -160,46 +163,31 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Normalize price string
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
+        if (this.isTemporary) systemData.price.value = "0 gp";
 
-        this.data.isIdentified = systemData.identification.status === "identified";
+        // Fill out usage and equipped status
+        this.data.data.usage = getUsageDetails(systemData.usage.value);
+        const { equipped, usage } = this.data.data;
 
-        const traits = this.traits;
-        this.data.isAlchemical = traits.has("alchemical");
-        this.data.isCursed = traits.has("cursed");
+        equipped.handsHeld ??= 0;
+        equipped.carryType ??= "worn";
+        if (usage.type === "worn" && usage.where) equipped.inSlot ??= false;
 
-        this.data.usage = getUsageDetails(systemData.usage.value);
-        this.data.isEquipped = isEquipped(this.data.usage, this.data.data.equipped);
-        if (!systemData.equipped.carryType) {
-            systemData.equipped.carryType = systemData.containerId ? "stowed" : "worn";
-        }
-
-        // Magic and invested status is determined at the class-instance level since it can be updated later in data
-        // preparation
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
-        this.data.isTemporary = this.isTemporary;
-
-        if (this.isTemporary) {
-            systemData.price.value = "0 gp";
+        // Unequip items on loot actors
+        if (this.actor instanceof LootPF2e) {
+            equipped.carryType = "worn";
+            equipped.inSlot = false;
         }
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId) {
             this._container = null;
         }
-
-        // Unequip items on loot actors so that rule elements are not initialized
-        if (this.actor instanceof LootPF2e) {
-            this.data.data.equipped.carryType = "worn";
-            this.data.data.equipped.inSlot = false;
-        }
     }
 
     /** Refresh certain derived properties in case of special data preparation from subclasses */
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
 
         const systemData = this.data.data;
         systemData.identification.identified = {
@@ -277,10 +265,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     override getChatData(): Record<string, unknown> {
-        const material = this.material
+        const { precious } = this.material;
+        const material = precious
             ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
-                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[this.material.type]),
-                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[this.material.grade]),
+                  type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[precious.type]),
+                  grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[precious.grade]),
               })
             : null;
 
@@ -351,19 +340,19 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         });
 
         if (this.actor) {
-            const isSlottedItem = this.data.usage.type === "worn" && !!this.data.usage.where;
+            const isSlottedItem = this.data.data.usage.type === "worn" && !!this.data.data.usage.where;
             if (this.actor.isOfType("character", "npc") && isSlottedItem) {
                 this.data.update({ "data.equipped.inSlot": false });
             }
         }
     }
 
-    /** Clamp hit points to between zero and max */
     protected override async _preUpdate(
         changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Clamp hit points to between zero and max
         if (typeof changed.data?.hp?.value === "number") {
             changed.data.hp.value = Math.clamped(changed.data.hp.value, 0, this.data.data.hp.max);
         }

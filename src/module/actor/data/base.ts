@@ -13,31 +13,27 @@ import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActorSizePF2e } from "@actor/data/size";
 import { SkillAbbreviation } from "@actor/creature/data";
 
-export interface BaseActorSourcePF2e<
-    TActorType extends ActorType = ActorType,
+/** Base interface for all actor data */
+interface BaseActorSourcePF2e<
+    TType extends ActorType = ActorType,
     TSystemSource extends ActorSystemSource = ActorSystemSource
-> extends foundry.data.ActorSource {
-    type: TActorType;
-    data: TSystemSource;
-    items: ItemSourcePF2e[];
+> extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
     flags: DeepPartial<ActorFlagsPF2e>;
 }
 
-/** Base class for all actor data */
-export abstract class BaseActorDataPF2e<TActor extends ActorPF2e = ActorPF2e> extends foundry.data.ActorData<
-    TActor,
-    ActiveEffectPF2e,
-    ItemPF2e
-> {}
-
-export interface BaseActorDataPF2e
-    extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, "effects" | "items" | "token"> {
-    type: BaseActorSourcePF2e["type"];
-    data: ActorSystemData;
+interface BaseActorDataPF2e<
+    TActor extends ActorPF2e = ActorPF2e,
+    TType extends ActorType = ActorType,
+    TSystemData extends ActorSystemData = ActorSystemData,
+    TSource extends BaseActorSourcePF2e<TType> = BaseActorSourcePF2e<TType>
+> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "token">,
+        foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
+    readonly type: TType;
+    readonly data: TSystemData;
     token: PrototypeTokenDataPF2e;
     flags: ActorFlagsPF2e;
 
-    readonly _source: BaseActorSourcePF2e;
+    readonly _source: TSource;
 }
 
 export interface ActorSystemSource {
@@ -272,10 +268,12 @@ export interface Rollable {
     roll: RollFunction;
 }
 
-export interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
+interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
     flags: foundry.data.PrototypeTokenData["flags"] & {
         pf2e: {
             linkToActorSize: boolean;
         };
     };
 }
+
+export { BaseActorDataPF2e, BaseActorSourcePF2e, PrototypeTokenDataPF2e };

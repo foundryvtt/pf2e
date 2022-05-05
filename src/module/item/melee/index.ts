@@ -2,10 +2,6 @@ import { ItemPF2e } from "@item/base";
 import { MeleeData, NPCAttackTrait } from "./data";
 
 export class MeleePF2e extends ItemPF2e {
-    static override get schema(): typeof MeleeData {
-        return MeleeData;
-    }
-
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.data.data.traits.value);
     }

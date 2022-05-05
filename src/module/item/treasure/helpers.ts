@@ -92,8 +92,12 @@ export function extractPriceFromItem(
     itemData: { data: { price: { value: string }; quantity?: number } },
     quantity = itemData.data.quantity ?? 1
 ): Coins {
+    return coinStringToCoins(itemData.data.price.value, quantity);
+}
+
+export function coinStringToCoins(coinString: string, quantity = 1): Coins {
     // This requires preprocessing, as large gold values contain , for their value
-    const priceTag = String(itemData.data.price.value).trim().replace(/,/g, "");
+    const priceTag = String(coinString).trim().replace(/,/g, "");
     return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
         .map((match) => {
             const [value, denomination] = match.slice(1, 3);

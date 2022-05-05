@@ -1,7 +1,7 @@
 import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from "./";
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@actor/modifiers";
 import { AbilityString, ActorType } from "@actor/data";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { setHasElement, sluggify } from "@util";
 import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 
@@ -36,11 +36,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.failValidation(`A flat modifier must have one of the following types: ${validTypes}`);
         }
 
-        this.fromEquipment = this.item.data.isPhysical
-            ? true
-            : this.type === "item"
-            ? !!(data.fromEquipment ?? true)
-            : false;
+        this.fromEquipment =
+            this.item instanceof PhysicalItemPF2e || (this.type === "item" && !!(data.fromEquipment ?? true));
 
         if (this.type === "ability") {
             if (setHasElement(ABILITY_ABBREVIATIONS, data.ability)) {
@@ -79,6 +76,10 @@ class FlatModifierRuleElement extends RuleElementPF2e {
 
                 if (game.pf2e.variantRules.AutomaticBonusProgression.suppressRuleElement(this, finalValue)) {
                     return null;
+                }
+
+                if (this.data.predicate) {
+                    this.data.predicate = this.resolveInjectedProperties(this.data.predicate);
                 }
 
                 const modifier = new ModifierPF2e({

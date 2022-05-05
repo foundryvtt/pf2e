@@ -6,30 +6,25 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-    PreciousMaterialGrade,
-    PreciousMaterialType,
 } from "@item/physical/data";
+import { BaseMaterial, PreciousMaterialGrade } from "@item/physical/types";
+import { UsageDetails } from "@item/physical/usage";
 import { WEAPON_PROPERTY_RUNES } from "@item/runes";
 import { OneToFour, ZeroToThree } from "@module/data";
 import { DamageDieSize, DamageType } from "@system/damage";
 import type { LocalizePF2e } from "@system/localize";
 import type { WeaponPF2e } from "..";
+import { WeaponMaterialType } from "../types";
 import { MELEE_WEAPON_GROUPS, RANGED_WEAPON_GROUPS, WEAPON_CATEGORIES, WEAPON_GROUPS, WEAPON_RANGES } from "./values";
 
-export interface WeaponSource extends BasePhysicalItemSource<"weapon", WeaponSystemSource> {
+type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
-}
+};
 
-export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/weapon.svg";
-}
-
-export interface WeaponData extends Omit<WeaponSource, "effects" | "flags"> {
-    type: WeaponSource["type"];
-    data: WeaponSystemData;
-    flags: WeaponFlags;
-    readonly _source: WeaponSource;
-}
+type WeaponData = Omit<WeaponSource, "effects" | "flags"> &
+    BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSystemData, WeaponSource> & {
+        flags: WeaponFlags;
+    };
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
@@ -60,7 +55,6 @@ export interface WeaponDamage {
 export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 export type WeaponPropertyRuneType = keyof typeof WEAPON_PROPERTY_RUNES[number];
-export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
     striking: StrikingRuneType | null;
@@ -82,11 +76,11 @@ type SpecificWeaponData =
           runes: Omit<WeaponRuneData, "property">;
       };
 
-export interface WeaponPropertyRuneSlot {
+interface WeaponPropertyRuneSlot {
     value: WeaponPropertyRuneType | null;
 }
 
-export interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
+interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     traits: WeaponSourceTraits;
     category: WeaponCategory;
     group: WeaponGroup | null;
@@ -143,23 +137,47 @@ export interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-export interface WeaponSystemData extends WeaponSystemSource, Investable<PhysicalSystemData> {
+interface WeaponSystemData extends Omit<WeaponSystemSource, "temporary" | "usage">, Investable<PhysicalSystemData> {
     baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     runes: {
         potency: number;
         striking: ZeroToThree;
         property: WeaponPropertyRuneType[];
+        effects: [];
     };
-    usage: WeaponSystemSource["usage"];
+    material: WeaponMaterialData;
+    usage: UsageDetails & WeaponSystemSource["usage"];
 }
 
-export type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
+interface WeaponMaterialData {
+    /** The "base material" or category: icon/steel (metal), wood, rope, etc. */
+    base: BaseMaterial[];
+    /** The precious material of which this weapon is composed */
+    precious: {
+        type: WeaponMaterialType;
+        grade: PreciousMaterialGrade;
+    } | null;
+}
 
-export interface ComboWeaponMeleeUsage {
+type WeaponRangeIncrement = typeof WEAPON_RANGES[number];
+
+interface ComboWeaponMeleeUsage {
     damage: { type: DamageType; die: DamageDieSize };
     group: MeleeWeaponGroup;
     traits: WeaponTrait[];
 }
 
-export type OtherWeaponTag = "crossbow" | "ghost-touch";
+type OtherWeaponTag = "crossbow" | "improvised";
+
+export {
+    ComboWeaponMeleeUsage,
+    OtherWeaponTag,
+    WeaponData,
+    WeaponMaterialData,
+    WeaponPropertyRuneSlot,
+    WeaponRangeIncrement,
+    WeaponSource,
+    WeaponSystemData,
+    WeaponSystemSource,
+};

@@ -11,7 +11,7 @@ import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
+import { BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -314,9 +314,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
-        // Setup the basic structure of pf2e flags with roll options
-        const defaultOptions = { [`self:type:${this.type}`]: true };
-        this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        // Setup the basic structure of pf2e flags with roll options, but remember flat-footed
+        const { flags } = this.data;
+        const targetFlagFooted = flags.pf2e?.rollOptions?.all?.["target:condition:flat-footed"];
+        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
+        flags.pf2e.rollOptions = { all: { [`self:type:${this.type}`]: true } };
+        if (targetFlagFooted) flags.pf2e.rollOptions.all["target:condition:flat-footed"] = true;
+
         this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
@@ -409,8 +413,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken() {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault =
-            this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
+        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.webp`;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
@@ -536,13 +539,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
+    async toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
     async toggleRollOption(
         domain: string,
         option: string,
-        itemId: string | null = null,
-        value = !this.rollOptions[domain]?.[option]
+        itemId: string | null,
+        value?: boolean
+    ): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | boolean | null = null,
+        value?: boolean
     ): Promise<boolean | null> {
-        return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
+        if (typeof itemId === "string") {
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        } else {
+            /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
+            const match = this.rules.find(
+                (rule) => rule instanceof RollOptionRuleElement && rule.domain === domain && rule.option === option
+            );
+
+            /** If a matching item is found toggle this option. */
+            const itemId = match?.item.id ?? null;
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        }
     }
 
     /**
@@ -565,7 +587,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             await this.applyDamage(-value, tokens[0]);
             return this;
         }
-
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
@@ -674,34 +695,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
-    }
-
-    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
-        if (!entryId || !spellLevel) {
-            // TODO: Consider throwing an error on null inputs in the future.
-            return;
-        }
-
-        const spellcastingEntry = this.items.get(entryId);
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
-
-        if (
-            spellcastingEntry.data.data?.prepared?.value === "prepared" &&
-            spellcastingEntry.data.data?.showUnpreparedSpells?.value === false
-        ) {
-            if (CONFIG.debug.hooks === true) {
-                console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-            }
-
-            const displayLevels: Record<number, boolean> = {};
-            displayLevels[spellLevel] = true;
-            await spellcastingEntry.update({
-                "data.showUnpreparedSpells.value": true,
-                "data.displayLevels": displayLevels,
-            });
-        }
     }
 
     isLootableBy(user: UserPF2e) {
@@ -1046,6 +1039,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        if (this.data._source.img === "icons/svg/mystery-man.svg") {
+            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        }
+
         await super._preCreate(data, options, user);
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));

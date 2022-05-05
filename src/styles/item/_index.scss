@@ -20,6 +20,7 @@
         @import "activations";
         @import "identify-item";
         @import "tagify";
+        @import "rules";
 
         display: flex;
         flex-direction: column;
@@ -146,28 +147,6 @@
                             font-weight: bold;
                         }
                     }
-
-                    /** Rule Elements */
-                    &.item-rules {
-                        @include scrollbar;
-
-                        .rules {
-                            padding: 7px;
-
-                            .rule-element-header {
-                                display: flex;
-                                justify-content: space-between;
-
-                                h3.unrecognized {
-                                    color: #880000;
-                                }
-                            }
-
-                            .add-rule-element {
-                                text-align: right;
-                            }
-                        }
-                    }
                 }
 
                 .editor {
@@ -192,10 +171,15 @@
             flex: 0 1 auto;
         }
 
+        .form-section {
+            margin-top: 8px;
+        }
+
         .form-list {
             border: 1px solid var(--secondary-background);
             border-radius: 5px;
             padding: 0.25em;
+            margin: 0.5em 0;
             h3 {
                 font-size: 1.05em;
                 margin-bottom: 0.25em;
@@ -287,6 +271,22 @@
             input[type="checkbox"]:first-child:last-child {
                 margin-left: auto;
                 justify-self: flex-end;
+            }
+        }
+
+        .toggle-button-list {
+            display: flex;
+            gap: 2px;
+            margin: 4px 0;
+
+            button {
+                margin: 0;
+                font-size: 10px;
+                line-height: 16px;
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+                padding: 3px 4px;
             }
         }
 
@@ -387,14 +387,6 @@
                 font-weight: 700;
                 color: $adjusted-higher;
             }
-        }
-    }
-
-    .nerd-details {
-        margin-bottom: 10px;
-        label {
-            flex: 0;
-            margin-right: 4px;
         }
     }
 }

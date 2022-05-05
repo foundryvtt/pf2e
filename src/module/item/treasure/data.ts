@@ -8,17 +8,8 @@ import { TreasurePF2e } from ".";
 
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 
-class TreasureData extends BasePhysicalItemData<TreasurePF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/treasure.svg";
-}
-
-interface TreasureData extends Omit<TreasureSource, "effects" | "flags"> {
-    type: TreasureSource["type"];
-    data: TreasureSystemData;
-    readonly _source: TreasureSource;
-
-    isInvested: null;
-}
+type TreasureData = Omit<TreasureSource, "effects" | "flags"> &
+    BasePhysicalItemData<TreasurePF2e, "treasure", TreasureSystemData, TreasureSource>;
 
 interface TreasureSystemSource extends PhysicalSystemSource {
     denomination: {

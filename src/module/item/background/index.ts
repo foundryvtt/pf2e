@@ -4,11 +4,7 @@ import { OneToFour } from "@module/data";
 import { ABCItemPF2e } from "../abc";
 import { BackgroundData } from "./data";
 
-export class BackgroundPF2e extends ABCItemPF2e {
-    static override get schema(): typeof BackgroundData {
-        return BackgroundData;
-    }
-
+class BackgroundPF2e extends ABCItemPF2e {
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */
     override prepareSiblingData(this: Embedded<BackgroundPF2e>): void {
         if (Object.keys(this.data.data.items).length > 0) return;
@@ -43,6 +39,8 @@ export class BackgroundPF2e extends ABCItemPF2e {
     }
 }
 
-export interface BackgroundPF2e {
+interface BackgroundPF2e {
     readonly data: BackgroundData;
 }
+
+export { BackgroundPF2e };
