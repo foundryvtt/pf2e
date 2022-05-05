@@ -170,7 +170,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ruleEditing: editingRule ? JSON.stringify(editingRule, null, 2) : null,
             ruleSelection: {
                 selected: this.selectedRuleElement,
-                types: Object.keys(RuleElements.all),
+                types: Object.keys(RuleElements.all).reduce((result, key) => {
+                    const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                    result[key] = translations[key] ?? key;
+                    return result;
+                }, {} as Record<string, string>),
             },
         };
     }
