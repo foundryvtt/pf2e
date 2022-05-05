@@ -25,7 +25,7 @@ export const Init = {
 
             // Support v10 `system` property in v9
             if (game.release.generation === 9) {
-                for (const Document of [ActiveEffect, Actor, Item, TokenDocument]) {
+                for (const Document of [Actor, Item]) {
                     Object.defineProperty(Document.prototype, "system", {
                         get() {
                             return this.data.data;
