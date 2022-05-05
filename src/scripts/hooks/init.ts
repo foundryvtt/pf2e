@@ -23,7 +23,7 @@ export const Init = {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
 
-            // Support v10 system data structure in v9
+            // Support v10 `system` property in v9
             if (game.release.generation === 9) {
                 for (const Document of [ActiveEffect, Actor, Item, TokenDocument]) {
                     Object.defineProperty(Document.prototype, "system", {
