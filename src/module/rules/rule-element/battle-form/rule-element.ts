@@ -11,11 +11,11 @@ import { CharacterPF2e } from "@actor";
 import { SENSE_TYPES } from "@actor/creature/sense";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { BaseRawModifier, DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
-import { sluggify } from "@util";
+import { sluggify, tupleHasValue } from "@util";
 
 export class BattleFormRuleElement extends RuleElementPF2e {
     overrides: this["data"]["overrides"];
@@ -428,7 +428,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
-    override applyDamageExclusion(modifiers: BaseRawModifier[]): void {
+    override applyDamageExclusion(weapon: WeaponPF2e, modifiers: BaseRawModifier[]): void {
         if (this.data.ownUnarmed) return;
         for (const modifier of modifiers) {
             if (modifier.predicate?.not?.includes("battle-form")) continue;
@@ -436,8 +436,14 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
             const isExtraDice = modifier instanceof DiceModifierPF2e;
             const isStatusOrCircumstance = ["status", "circumstance"].includes(modifier.type ?? "untyped");
+            const isDamageTrait =
+                isExtraDice &&
+                /^(?:deadly|fatal)-\d?d\d{1,2}$/.test(modifier.slug) &&
+                tupleHasValue(this.overrides.strikes[weapon.slug ?? ""]?.traits ?? [], modifier.slug);
             const isBattleFormModifier = !!(
-                modifier.predicate?.any?.includes("battle-form") || modifier.predicate?.all?.includes("battle-form")
+                modifier.predicate?.any?.includes("battle-form") ||
+                modifier.predicate?.all?.includes("battle-form") ||
+                isDamageTrait
             );
 
             if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
