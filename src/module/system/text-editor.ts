@@ -161,6 +161,8 @@ class TextEditorPF2e extends TextEditor {
         if (!params.type) return error(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
 
         const traits: string[] = [];
+
+        // Set item traits
         const itemTraits = item?.data.data.traits;
         if (itemTraits && params.overrideTraits !== "true") {
             traits.push(...itemTraits.value);
@@ -168,6 +170,13 @@ class TextEditorPF2e extends TextEditor {
                 traits.push(...itemTraits.custom.split(",").map((trait) => trait.trim()));
             }
         }
+
+        // Set origin actor traits.
+        const actorTraits = item?.actor?.getSelfRollOptions("origin");
+        if (actorTraits && params.overrideTraits !== "true") {
+            traits.push(...actorTraits);
+        }
+
         // Add traits for basic checks
         if (params.basic === "true") traits.push("damaging-effect");
 
@@ -218,7 +227,14 @@ class TextEditorPF2e extends TextEditor {
                     }
                     return;
                 })();
-                const skillLabel = shortForm ? game.i18n.localize(CONFIG.PF2E.skills[shortForm]) : params.type;
+                const skillLabel = shortForm
+                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
+                    : params.type
+                          .split("-")
+                          .map((word) => {
+                              return word.slice(0, 1).toUpperCase() + word.slice(1);
+                          })
+                          .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
                 html.setAttribute("data-pf2-check", params.type);
             }
