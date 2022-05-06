@@ -11,7 +11,7 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Oathkeeper Dwarf (Sense Motive)",
+                "label": "PF2E.SkillVariant.SenseMotive",
                 "predicate": {
                     "all": [
                         "action:sense-motive"
@@ -19,11 +19,12 @@
                 },
                 "selector": "perception",
                 "type": "circumstance",
-                "value": 1
+                "value": 1,
+                "slug": "oathkeeper-dwarf-to-sense-motive"
             },
             {
                 "key": "FlatModifier",
-                "label": "Oathkeeper Dwarf (Tell the truth)",
+                "label": "PF2E.SkillVariant.TellTheTruth",
                 "predicate": {
                     "all": [
                         "tell-truth"
@@ -31,11 +32,12 @@
                 },
                 "selector": "diplomacy",
                 "type": "circumstance",
-                "value": 2
+                "value": 2,
+                "slug": "oathkeeper-dwarf-tell-the-truth"
             },
             {
                 "key": "FlatModifier",
-                "label": "Oathkeeper Dwarf (Lie)",
+                "label": "PF2E.SkillVariant.Lie",
                 "predicate": {
                     "all": [
                         "action:lie"
@@ -43,7 +45,32 @@
                 },
                 "selector": "deception",
                 "type": "circumstance",
-                "value": -4
+                "value": -4,
+                "slug": "oathkeeper-dwarf-lie"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:lie"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1,
+                "hideIfDisabled": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:sense-motive"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": -4,
+                "hideIfDisabled": true
             }
         ],
         "source": {
