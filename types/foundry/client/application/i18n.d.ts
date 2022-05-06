@@ -25,7 +25,7 @@ declare class Localization {
      * Initialize the Localization module
      * Discover available language translations and apply the current language setting
      */
-    initialize(): Promise<any>;
+    initialize(): Promise<void>;
 
     /**
      * Discover the available supported languages from the set of packages which are provided
@@ -36,13 +36,13 @@ declare class Localization {
      * Prepare the dictionary of translation strings for the requested language
      * @param lang  The language for which to load translations
      */
-    protected _getTranslations(lang: string): Promise<any>;
+    protected _getTranslations(lang: string): Promise<Record<string, TranslationDictionaryValue>>;
 
     /**
      * Load a single translation file and return its contents as processed JSON
      * @param src   The translation file path to load
      */
-    protected _loadTranslationFile(src: string): Promise<any>;
+    protected _loadTranslationFile(src: string): Promise<Record<string, TranslationDictionaryValue>>;
 
     /**
      * Set a language as the active translation source for the session

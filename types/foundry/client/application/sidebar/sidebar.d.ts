@@ -1,17 +1,10 @@
-/**
- * Render the Sidebar container, and after rendering insert Sidebar tabs
- */
+/** Render the Sidebar container, and after rendering insert Sidebar tabs */
 declare class Sidebar extends Application {
-    /** Sidebar application instance */
-    apps: Application[];
-
-    /** Sidebar navigation tabs */
+    /** Singleton application instances for each sidebar tab */
     tabs: Tabs;
 
-    /** Reference the name of the active tab */
-    activeTab: string;
-
-    constructor(...args: any[]);
+    /** Track whether the sidebar container is currently collapsed */
+    _collapsed: boolean;
 
     /**
      * Return an Array of pop-out sidebar tab Application instances

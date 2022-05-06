@@ -1,3 +1,4 @@
+import { isObject } from "@util";
 import {
     FeatData,
     ItemDataPF2e,
@@ -12,8 +13,13 @@ import {
 import { ItemSystemData, ItemTraits } from "./base";
 import { PHYSICAL_ITEM_TYPES } from "./values";
 
-export function isItemSystemData(data: Record<string, any>): data is ItemSystemData {
-    return data["description"] instanceof Object && typeof data["description"]["value"] === "string";
+export function isItemSystemData(data: unknown): data is ItemSystemData {
+    return (
+        isObject<Record<"type" | "description", unknown>>(data) &&
+        typeof data.type === "string" &&
+        isObject<{ value?: unknown }>(data.description) &&
+        typeof data.description.value === "string"
+    );
 }
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
