@@ -1,28 +1,29 @@
+import { SaveType } from "@actor/data";
 import {
+    AbilityBasedStatistic,
     AbilityString,
     ActorSystemData,
     ActorSystemSource,
+    BaseActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseTraitsData,
     HitPointsData,
-    AbilityBasedStatistic,
+    InitiativeData,
     Rollable,
     StrikeData,
-    InitiativeData,
-    BaseActorAttributes,
 } from "@actor/data/base";
 import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from "@actor/data/values";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
-import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
-import type { CreaturePF2e } from ".";
-import { SaveType } from "@actor/data";
-import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
-import { RollDataPF2e, RollParameters } from "@system/rolls";
-import { CombatantPF2e } from "@module/encounter";
-import { Statistic, StatisticCompatData } from "@system/statistic";
+import { ActorAlliance } from "@actor/types";
 import { CreatureTraits } from "@item/ancestry/data";
-import { CreatureAlliance, Alignment, AlignmentTrait } from "./types";
+import { LabeledValue, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
+import { CombatantPF2e } from "@module/encounter";
+import { RollDataPF2e, RollParameters } from "@system/rolls";
+import { Statistic, StatisticCompatData } from "@system/statistic";
+import type { CreaturePF2e } from ".";
+import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
+import { Alignment, AlignmentTrait } from "./types";
 
 type BaseCreatureSource<
     TType extends CreatureType = CreatureType,
@@ -41,7 +42,11 @@ interface BaseCreatureData<
 type CreatureSkills = Record<SkillAbbreviation, Statistic> & Partial<Record<string, Statistic>>;
 
 interface CreatureSystemSource extends ActorSystemSource {
-    details: Record<string, unknown>;
+    details?: {
+        level?: { value: number };
+        alliance?: ActorAlliance;
+        [key: string]: unknown;
+    };
 
     /** Traits, languages, and other information. */
     traits?: CreatureTraitsData;
@@ -57,7 +62,7 @@ type CreatureDetails = {
     /** The alignment this creature has */
     alignment: { value: Alignment };
     /** The alliance this NPC belongs to: relevant to mechanics like flanking */
-    alliance: CreatureAlliance;
+    alliance: ActorAlliance;
     /** The creature level for this actor */
     level: { value: number };
 };

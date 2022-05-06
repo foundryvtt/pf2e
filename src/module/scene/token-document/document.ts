@@ -112,6 +112,15 @@ export class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends Tok
                 ? "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp"
                 : "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
         }
+
+        // Alliance coloration, appropriating core token dispositions
+        const { alliance } = this.actor.data.data.details;
+        this.data.disposition = alliance
+            ? {
+                  party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                  opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
+              }[alliance]
+            : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
     override prepareDerivedData(): void {

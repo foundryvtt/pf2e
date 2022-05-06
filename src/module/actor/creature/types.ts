@@ -13,8 +13,6 @@ import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
 
-type CreatureAlliance = "party" | "opposition" | null;
-
 type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
 
 interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
@@ -79,7 +77,6 @@ interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends 
 type SpellcastingSheetData = SpellcastingEntryData & SpellcastingEntryListData;
 
 export {
-    CreatureAlliance,
     Alignment,
     AlignmentTrait,
     AttackItem,
