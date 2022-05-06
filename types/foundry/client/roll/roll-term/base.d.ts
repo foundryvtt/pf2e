@@ -127,7 +127,7 @@ declare global {
          * @param json A serialized JSON representation of a DiceTerm
          * @return A reconstructed RollTerm from the provided JSON
          */
-        static fromJSON<T extends RollTerm<any>>(this: ConstructorOf<T>, json: string): T;
+        static fromJSON<D extends RollTermData, T extends RollTerm<D>>(this: ConstructorOf<T>, json: string): T;
 
         /**
          * Serialize the RollTerm to a JSON string which allows it to be saved in the database or embedded in text.

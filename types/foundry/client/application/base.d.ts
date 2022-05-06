@@ -345,7 +345,7 @@ declare global {
         /** A context-providing string which suggests what event triggered the render */
         renderContext?: string;
         /** The data change which motivated the render request */
-        renderData?: any;
+        renderData?: Record<string, unknown>;
     }
 
     interface ApplicationPosition {
