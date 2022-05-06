@@ -363,6 +363,9 @@ class CharacterPF2e extends CreaturePF2e {
         // Size
         this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
 
+        // Alliance
+        this.data.data.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
+
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<MartialProficiencies> = this.data.data.martial;
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {

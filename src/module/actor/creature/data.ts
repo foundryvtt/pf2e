@@ -22,7 +22,7 @@ import { RollDataPF2e, RollParameters } from "@system/rolls";
 import { CombatantPF2e } from "@module/encounter";
 import { Statistic, StatisticCompatData } from "@system/statistic";
 import { CreatureTraits } from "@item/ancestry/data";
-import { Alignment, AlignmentTrait } from "./types";
+import { CreatureAlliance, Alignment, AlignmentTrait } from "./types";
 
 type BaseCreatureSource<
     TType extends CreatureType = CreatureType,
@@ -53,11 +53,17 @@ interface CreatureSystemSource extends ActorSystemSource {
     saves?: Record<SaveType, { value?: number; mod?: number }>;
 }
 
+type CreatureDetails = {
+    /** The alignment this creature has */
+    alignment: { value: Alignment };
+    /** The alliance this NPC belongs to: relevant to mechanics like flanking */
+    alliance: CreatureAlliance;
+    /** The creature level for this actor */
+    level: { value: number };
+};
+
 interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
-    details: {
-        alignment: { value: Alignment };
-        level: { value: number };
-    };
+    details: CreatureDetails;
 
     /** Traits, languages, and other information. */
     traits: CreatureTraitsData;
@@ -220,6 +226,7 @@ export {
     BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
+    CreatureDetails,
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSaves,

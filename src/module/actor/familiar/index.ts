@@ -45,6 +45,8 @@ export class FamiliarPF2e extends CreaturePF2e {
         const systemData: PartialSystemData = this.data.data;
         systemData.details.alignment = { value: "N" };
         systemData.details.level = { value: 0 };
+        systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
+
         systemData.traits = {
             senses: [{ type: "lowLightVision", label: "PF2E.SensesLowLightVision", value: "" }],
             size: new ActorSizePF2e({ value: "tiny" }),
