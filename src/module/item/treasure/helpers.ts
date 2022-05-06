@@ -155,6 +155,7 @@ function calculateWealthForCategory(items: ItemDataPF2e[], category: ItemType): 
  * @param items
  */
 export function calculateTotalWealth(items: PhysicalItemData[]): Coins {
+    items = game.user.isGM ? items : items.filter((i) => i.data.identification.status === "identified");
     const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack"] as const;
 
     return itemTypes
