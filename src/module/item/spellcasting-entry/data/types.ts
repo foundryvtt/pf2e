@@ -1,7 +1,6 @@
 import { AbilityString } from "@actor/data/base";
 import { SpellPF2e } from "@item";
-import { ItemSystemData } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { OneToFour, OneToTen, ZeroToEleven } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
@@ -17,17 +16,10 @@ export interface SpellcastingEntry {
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 export type SlotKey = `slot${ZeroToEleven}`;
 
-export type SpellcastingEntrySource = BaseNonPhysicalItemSource<"spellcastingEntry", SpellcastingEntrySystemData>;
+type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemData>;
 
-export class SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingEntryPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spellcastingEntry.svg";
-}
-
-export interface SpellcastingEntryData extends Omit<SpellcastingEntrySource, "effects" | "flags"> {
-    type: SpellcastingEntrySource["type"];
-    data: SpellcastingEntrySource["data"];
-    readonly _source: SpellcastingEntrySource;
-}
+type SpellcastingEntryData = Omit<SpellcastingEntrySource, "effects" | "flags"> &
+    BaseItemDataPF2e<SpellcastingEntryPF2e, "spellcastingEntry", SpellcastingEntrySystemData, SpellcastingEntrySource>;
 
 export interface SpellAttackRollModifier {
     breakdown: string;
@@ -75,18 +67,16 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: PreparationType;
         flexible?: boolean;
     };
-    showUnpreparedSpells: {
-        value: boolean;
-    };
     showSlotlessLevels: {
         value: boolean;
     };
     proficiency: {
         value: OneToFour;
     };
-    displayLevels: Record<number, boolean>;
     slots: Record<SlotKey, SpellSlotData>;
     autoHeightenLevel: {
         value: OneToTen | null;
     };
 }
+
+export { SpellcastingEntryData, SpellcastingEntrySource };

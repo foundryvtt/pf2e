@@ -7,11 +7,7 @@ import { sluggify } from "@util";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { SIZE_TO_REACH } from "@actor/creature/values";
 
-export class AncestryPF2e extends ABCItemPF2e {
-    static override get schema(): typeof AncestryData {
-        return AncestryData;
-    }
-
+class AncestryPF2e extends ABCItemPF2e {
     get traits(): Set<CreatureTrait> {
         return new Set(this.data.data.traits.value);
     }
@@ -42,13 +38,14 @@ export class AncestryPF2e extends ABCItemPF2e {
 
     /** Prepare a character's data derived from their ancestry */
     override prepareActorData(this: Embedded<AncestryPF2e>): void {
-        if (!(this.actor instanceof CharacterPF2e)) {
+        const { actor } = this;
+        if (!(actor instanceof CharacterPF2e)) {
             console.error("PF2e System | Only a character can have an ancestry");
             return;
         }
 
-        this.actor.ancestry = this;
-        const actorData = this.actor.data;
+        actor.ancestry = this;
+        const actorData = actor.data;
         const systemData = actorData.data;
 
         systemData.attributes.ancestryhp = this.hitPoints;
@@ -75,7 +72,7 @@ export class AncestryPF2e extends ABCItemPF2e {
         const { vision } = this.data.data;
         if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
             senses.push(new CreatureSensePF2e({ type: vision, value: "", source: this.name }));
-            const senseRollOptions = (this.actor.rollOptions["sense"] ??= {});
+            const senseRollOptions = (actor.rollOptions["sense"] ??= {});
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
         }
 
@@ -86,13 +83,15 @@ export class AncestryPF2e extends ABCItemPF2e {
         systemData.details.ancestry = { name: this.name, trait: slug };
 
         // Set self: roll option for this ancestry and its associated traits
-        this.actor.rollOptions.all[`self:ancestry:${slug}`] = true;
+        actor.rollOptions.all[`self:ancestry:${slug}`] = true;
         for (const trait of this.traits) {
-            this.actor.rollOptions.all[`self:trait:${trait}`] = true;
+            actor.rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
 }
 
-export interface AncestryPF2e {
+interface AncestryPF2e {
     readonly data: AncestryData;
 }
+
+export { AncestryPF2e };

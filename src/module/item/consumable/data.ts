@@ -9,20 +9,13 @@ import {
 import { SpellSource } from "@item/spell/data";
 import type { ConsumablePF2e } from ".";
 
-export type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
+type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
-export class ConsumableData extends BasePhysicalItemData<ConsumablePF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/consumable.svg";
-}
+type ConsumableData = Omit<ConsumableSource, "effects" | "flags"> &
+    BasePhysicalItemData<ConsumablePF2e, "consumable", ConsumableSystemData, ConsumableSource>;
 
-export interface ConsumableData extends Omit<ConsumableSource, "effects" | "flags"> {
-    type: ConsumableSource["type"];
-    data: ConsumableSystemData;
-    readonly _source: ConsumableSource;
-}
-
-export type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
-export type ConsumableTrait = keyof ConfigPF2e["PF2E"]["consumableTraits"];
+type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
+type ConsumableTrait = keyof ConfigPF2e["PF2E"]["consumableTraits"];
 type ConsumableTraits = PhysicalItemTraits<ConsumableTrait>;
 
 interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectData {
@@ -60,3 +53,5 @@ interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectDa
 }
 
 type ConsumableSystemData = ConsumableSystemSource & PhysicalSystemData;
+
+export { ConsumableData, ConsumableSource, ConsumableTrait, ConsumableType };

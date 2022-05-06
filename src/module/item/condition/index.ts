@@ -3,11 +3,7 @@ import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { ConditionData, ConditionSlug } from "./data";
 
-export class ConditionPF2e extends ItemPF2e {
-    static override get schema(): typeof ConditionData {
-        return ConditionData;
-    }
-
+class ConditionPF2e extends ItemPF2e {
     /** Forthcoming universal "effect badge" */
     get badge(): { value: number } | null {
         return this.data.data.value.value ? { value: this.data.data.value.value } : null;
@@ -118,12 +114,14 @@ export class ConditionPF2e extends ItemPF2e {
     }
 }
 
-export interface ConditionPF2e {
+interface ConditionPF2e {
     readonly data: ConditionData;
 
     get slug(): ConditionSlug;
 }
 
-export interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
+interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
     conditionValue?: number | null;
 }
+
+export { ConditionPF2e, ConditionModificationContext };

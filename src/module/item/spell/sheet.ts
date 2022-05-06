@@ -24,30 +24,35 @@ const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(): Promise<SpellSheetData> {
-        const data: ItemSheetDataPF2e<SpellPF2e> = await super.getData();
+        const sheetData: ItemSheetDataPF2e<SpellPF2e> = await super.getData();
+
+        const { isCantrip, isFocusSpell, isRitual } = this.item;
 
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
         const itemType =
-            this.item.isCantrip && this.item.isFocusSpell
+            isCantrip && isFocusSpell
                 ? game.i18n.localize("PF2E.SpellCategoryFocusCantrip")
                 : this.item.isCantrip
                 ? game.i18n.localize("PF2E.TraitCantrip")
                 : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
 
         return {
-            ...data,
+            ...sheetData,
             itemType,
+            isCantrip,
+            isFocusSpell,
+            isRitual,
             spellCategories: CONFIG.PF2E.spellCategories,
             spellTypes: CONFIG.PF2E.spellTypes,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
-            magicTraditions: createSheetOptions(CONFIG.PF2E.magicTraditions, data.data.traditions),
+            magicTraditions: createSheetOptions(CONFIG.PF2E.magicTraditions, sheetData.data.traditions),
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
-            traits: createSheetTags(CONFIG.PF2E.spellTraits, data.data.traits),
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [data.data.traits.rarity] }),
-            spellComponents: this.formatSpellComponents(data.data),
+            traits: createSheetTags(CONFIG.PF2E.spellTraits, sheetData.data.traits),
+            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
+            spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             heightenIntervals: [1, 2, 3, 4],

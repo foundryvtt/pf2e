@@ -1,11 +1,11 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
     <ol class="spellcastingEntry-list directory-list">
         {{#each spellcastingEntries as |entry eid|}}
-            <li class="item item-container spellcasting-entry" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
+            <li class="item item-container spellcasting-entry" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
                 <div class="action-header">
                     <a class="drag-handle"><i class="fas fa-bars"></i></a>
                     {{#if entry.isPrepared}}
-                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
+                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas fa-book"></i></a>
                     {{/if}}
 
                     <h3 class="item-name">

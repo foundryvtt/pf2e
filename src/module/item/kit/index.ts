@@ -4,11 +4,7 @@ import { ErrorPF2e } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 import { KitData, KitEntryData } from "./data";
 
-export class KitPF2e extends ItemPF2e {
-    static override get schema(): typeof KitData {
-        return KitData;
-    }
-
+class KitPF2e extends ItemPF2e {
     get entries(): KitEntryData[] {
         return Object.values(this.data.data.items);
     }
@@ -27,7 +23,7 @@ export class KitPF2e extends ItemPF2e {
             const prepared = await promise;
             const clone = item.clone({ _id: randomID() }, { keepId: true });
             const entry = entries[index];
-            if (clone.data.isPhysical) {
+            if (clone instanceof PhysicalItemPF2e) {
                 clone.data.update({
                     "data.quantity": entry.quantity,
                     "data.containerId": containerId,
@@ -64,6 +60,8 @@ export class KitPF2e extends ItemPF2e {
     }
 }
 
-export interface KitPF2e {
+interface KitPF2e {
     readonly data: KitData;
 }
+
+export { KitPF2e };

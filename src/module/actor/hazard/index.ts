@@ -7,10 +7,6 @@ import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 
 export class HazardPF2e extends ActorPF2e {
-    static override get schema(): typeof HazardData {
-        return HazardData;
-    }
-
     get rarity(): Rarity {
         return this.data.data.traits.rarity;
     }

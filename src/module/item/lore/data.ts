@@ -1,21 +1,12 @@
-import { ItemSystemData } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
 import { ZeroToFour } from "@module/data";
 import type { LorePF2e } from ".";
 
-export type LoreSource = BaseNonPhysicalItemSource<"lore", LoreSystemData>;
+type LoreSource = BaseItemSourcePF2e<"lore", LoreSystemSource>;
 
-export class LoreData extends BaseNonPhysicalItemData<LorePF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/lore.svg";
-}
+type LoreData = Omit<LoreSource, "effects" | "flags"> & BaseItemDataPF2e<LorePF2e, "lore", LoreSystemData, LoreSource>;
 
-export interface LoreData extends Omit<LoreSource, "effects" | "flags"> {
-    type: LoreSource["type"];
-    data: LoreSource["data"];
-    readonly _source: LoreSource;
-}
-
-interface LoreSystemData extends ItemSystemData {
+interface LoreSystemSource extends ItemSystemSource {
     mod: {
         value: number;
     };
@@ -24,3 +15,7 @@ interface LoreSystemData extends ItemSystemData {
     };
     variants?: Record<string, { label: string; options: string }>;
 }
+
+type LoreSystemData = LoreSystemSource;
+
+export { LoreData, LoreSource };
