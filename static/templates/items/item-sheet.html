@@ -10,7 +10,7 @@
             <span class="level">
                 {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                 <span>{{itemType}}</span>
-                <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if item.isPhysical}}data-property="data.level.value"{{else}}name="data.level.value"{{/if}} value="{{data.level.value}}" />
+                <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if isPhysical}}data-property="data.level.value"{{else}}name="data.level.value"{{/if}} value="{{data.level.value}}" />
             </span>
         {{/if}}
     </header>
@@ -38,11 +38,11 @@
                     {{/if}}
                 {{/if}}
                 {{#developMode}}
-                    {{#if item.isPhysical}}
+                    {{#if isPhysical}}
                         <a class="list-row" data-tab="activations">{{localize "PF2E.Item.Activation.Label"}}</a>
                     {{/if}}
                 {{/developMode}}
-                {{#if (and item.isPhysical user.isGM)}}
+                {{#if (and isPhysical user.isGM)}}
                     <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
                 {{/if}}
                 {{#if enabledRulesUI}}
@@ -67,7 +67,7 @@
             {{/if}}
 
             {{#developMode}}
-                {{#if item.isPhysical}}
+                {{#if isPhysical}}
                     <div class="tab item-activations" data-tab="activations">
                         {{> systems/pf2e/templates/items/activation-panel.html}}
                     </div>
@@ -75,13 +75,14 @@
             {{/developMode}}
 
             <!-- Mystification Details -->
-            {{#if (and item.isPhysical user.isGM)}}
+            {{#if (and isPhysical user.isGM)}}
                 {{> systems/pf2e/templates/items/mystify-panel.html}}
             {{/if}}
 
             <!-- Rules -->
             <div class="tab item-rules" data-tab="rules">
-                {{> systems/pf2e/templates/items/rules-panel.html item=item}}
+                {{!-- Use ~ so that text areas don't add further indentation --}}
+                {{~> systems/pf2e/templates/items/rules-panel.html item=item}}
             </div>
         </section>
     </article>

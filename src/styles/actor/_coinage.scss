@@ -1,11 +1,12 @@
 .currency {
+    display: flex;
     padding: 3px;
     @include button;
     background-color: var(--sub);
     margin: 0;
-    display: flex;
     align-items: center;
     list-style: none;
+    font-size: var(--font-size-13);
 
     .label {
         margin-right: 10px;
@@ -113,4 +114,51 @@
             }
         }
     }
+}
+
+.wealth {
+    @include micro;
+    align-items: center;
+    background-color: var(--alt);
+    display: flex;
+    margin-bottom: 10px;
+    min-height: 22px;
+    justify-content: flex-end;
+    @include button;
+
+    h3 {
+        font-size: 13px;
+        text-transform: capitalize;
+        text-shadow: 0 0 2px rgba(black, 0.75);
+        margin: 2px;
+        margin-left: 4px;
+        cursor: default;
+        &:hover {
+            color: white;
+        }
+    }
+
+    h3.item-name {
+        flex-grow: 1;
+        line-height: 1;
+        color: white;
+        margin-bottom: 0;
+        font-weight: bold;
+        margin: 0 5px;
+        margin-left: 5px;
+
+        span {
+            margin-left: 5px;
+            font-size: 12px;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+    }
+
+    ol {
+        padding-right: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        margin-right: 0;
+    };
 }

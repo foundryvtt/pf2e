@@ -101,6 +101,25 @@
         "AccessoryPropertyRuneSoftLanding": "Soft-Landing",
         "AccessoryPropertyRuneSpellBastion": "Spell-Bastion",
         "AccessoryPropertyRuneWindCatcher": "Wind-Catcher",
+        "Action": {
+            "RestForTheNight": {
+                "Label": "Rest for the Night",
+                "Prompt": "Rest for the night?",
+                "Message": {
+                    "Awakens": "{actor} awakens well-rested.",
+                    "ConditionReduced": "{condition} reduced by 1.",
+                    "ConditionRemoved": "No longer {condition}.",
+                    "FocusPoints": "Focus points restored.",
+                    "HitPoints": "{hitPoints} hit points restored.",
+                    "InfusedReagents": "Infused reagents restored.",
+                    "Resolve": "Resolve restored.",
+                    "SpellSlots": "All spell slots restored.",
+                    "StaminaPoints": "Stamina points restored.",
+                    "TemporaryItems": "Temporary items removed.",
+                    "WandsCharges": "Wands recharged."
+                }
+            }
+        },
         "ActionActionTypeLabel": "Action Type",
         "ActionActionsLabel": "Actions",
         "ActionBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
@@ -1199,10 +1218,12 @@
             "CantMoveItemSource": "You are not allowed to move items from this character.",
             "MinimumProfLevelSetByFeatures": "The selected proficiency is below proficiency set by features.",
             "NoTokenSelected": "Select at least one token.",
+            "NoPCTokenSelected": "Select at least one token associated with a PC.",
             "NoUpdatePermission": "You lack permission to update this actor.",
             "NotEnoughAmmo": "You don't have enough ammo to make this strike.",
             "SubV9Module": "{module} does not support Foundry V9 and may introduce stability issues to your game.",
-            "WeaponQuantityZero": "You have no more of these weapons equipped."
+            "WeaponQuantityZero": "You have no more of these weapons equipped.",
+            "RuleElementSyntax": "Syntax error in rule element definition: {message}"
         },
         "Ethnicity": "Ethnicity",
         "ExpendSpellTitle": "Expend Spell",
@@ -1768,6 +1789,10 @@
                     "Label": "Specific Magic Weapon",
                     "Hint": "Marking this weapon as a <i>specific magic weapon</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from a precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades."
                 }
+            },
+            "Rules": {
+                "Apply": "Apply",
+                "Close": "Close"
             }
         },
         "ItemBonus0": "0",
@@ -2763,10 +2788,12 @@
         "SpellDurationLabel": "Duration",
         "SpellFocusLabel": "Focus",
         "SpellFlexibleLabel": "Flexible",
+        "SpellFlexibleAvailable": "Flexible: {value} / {max}",
         "SpellCollectionAdd": "Add to Spell Collection",
         "SpellCollectionRemove": "Remove from Spell Collection",
         "SpellLabel": "Spell",
         "SpellLabelPlural": "Spells",
+        "SpellLevel": "{level} Level",
         "SpellLevel1": "1st Level",
         "SpellLevel10": "10th Level",
         "SpellLevel2": "2nd Level",
@@ -3881,7 +3908,7 @@
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
-        "UnpreparedSpellsLabel": "{label}: Preparation Shortlist",
+        "UnpreparedSpellsLabel": "{label}: Preparation Spells Available",
         "UpdateActorLabel": "Update Actor",
         "UpdateLabelUniversal": "Update",
         "UserSettings": {

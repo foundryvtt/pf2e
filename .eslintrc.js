@@ -4,7 +4,13 @@ module.exports = {
         es6: true,
         "jest/globals": true,
     },
-    extends: ["prettier", "plugin:import/errors", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    extends: [
+        "prettier",
+        "plugin:import/errors",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:json/recommended"
+    ],
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: "module",

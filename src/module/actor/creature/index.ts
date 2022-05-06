@@ -526,6 +526,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         handsHeld = 0,
         inSlot = false
     ): Promise<void> {
+        const { usage } = item.data.data;
         if (carryType === "stowed") {
             // since there's still an "items need to be in a tree" view, we
             // need to actually put the item in a container when it's stowed.
@@ -534,18 +535,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 "data.containerId": container?.id ?? "",
                 "data.equipped.carryType": "stowed",
                 "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": item.data.usage.type === "worn" && item.data.usage.where ? false : undefined,
+                "data.equipped.inSlot": usage.type === "worn" && usage.where ? false : undefined,
             });
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,
                 handsHeld: carryType === "held" ? handsHeld : 0,
-                inSlot: item.data.usage.type === "worn" && item.data.usage.where ? inSlot : undefined,
+                inSlot: usage.type === "worn" && usage.where ? inSlot : undefined,
             };
 
             const updates: (DeepPartial<ArmorSource> & { _id: string })[] = [];
 
-            if (isEquipped(item.data.usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
+            if (isEquipped(usage, equipped) && item instanceof ArmorPF2e && item.isArmor) {
                 // see if they have another set of armor equipped
                 const wornArmors = this.itemTypes.armor.filter((a) => a !== item && a.isEquipped && a.isArmor);
                 for (const armor of wornArmors) {

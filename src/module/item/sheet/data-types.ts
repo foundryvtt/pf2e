@@ -17,11 +17,18 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     detailsTemplate?: () => string;
     item: TItem["data"];
     data: TItem["data"]["data"];
+    isPhysical: boolean;
     user: { isGM: boolean };
     enabledRulesUI: boolean;
+    ruleEditing: string | null;
+    ruleSelection: {
+        selected: string | null;
+        types: Record<string, string>;
+    };
 }
 
 export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    isPhysical: true;
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
@@ -76,6 +83,9 @@ export interface SpellSheetOverlayData {
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
+    isCantrip: boolean;
+    isFocusSpell: boolean;
+    isRitual: boolean;
     magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];

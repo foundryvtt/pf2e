@@ -3,11 +3,7 @@ import { sluggify } from "@util";
 import { ItemPF2e } from "../base";
 import { EffectData } from "./data";
 
-export class EffectPF2e extends ItemPF2e {
-    static override get schema(): typeof EffectData {
-        return EffectData;
-    }
-
+class EffectPF2e extends ItemPF2e {
     static DURATION_UNITS: Readonly<Record<string, number>> = {
         rounds: 6,
         minutes: 60,
@@ -155,6 +151,8 @@ export class EffectPF2e extends ItemPF2e {
     }
 }
 
-export interface EffectPF2e {
+interface EffectPF2e {
     readonly data: EffectData;
 }
+
+export { EffectPF2e };

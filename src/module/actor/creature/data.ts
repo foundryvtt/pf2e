@@ -24,26 +24,23 @@ import { Statistic, StatisticCompatData } from "@system/statistic";
 import { CreatureTraits } from "@item/ancestry/data";
 import { Alignment, AlignmentTrait } from "./types";
 
-export type BaseCreatureSource<
-    TCreatureType extends CreatureType = CreatureType,
+type BaseCreatureSource<
+    TType extends CreatureType = CreatureType,
     TSystemSource extends CreatureSystemSource = CreatureSystemSource
-> = BaseActorSourcePF2e<TCreatureType, TSystemSource>;
+> = BaseActorSourcePF2e<TType, TSystemSource>;
 
-export class BaseCreatureData<
-    TActor extends CreaturePF2e = CreaturePF2e,
-    TSystemData extends CreatureSystemData = CreatureSystemData
-> extends BaseActorDataPF2e<TActor> {}
-
-export interface BaseCreatureData extends Omit<BaseCreatureSource, "effects" | "flags" | "items" | "token"> {
-    readonly type: CreatureType;
-    data: CreatureSystemData;
-    readonly _source: BaseCreatureSource;
-}
+interface BaseCreatureData<
+    TItem extends CreaturePF2e = CreaturePF2e,
+    TType extends CreatureType = CreatureType,
+    TSystemData extends CreatureSystemData = CreatureSystemData,
+    TSource extends BaseCreatureSource<TType> = BaseCreatureSource<TType>
+> extends Omit<BaseCreatureSource<TType>, "data" | "effects" | "flags" | "items" | "token" | "type">,
+        BaseActorDataPF2e<TItem, TType, TSystemData, TSource> {}
 
 /** Skill and Lore statistics for rolling */
-export type CreatureSkills = Record<SkillAbbreviation, Statistic> & Partial<Record<string, Statistic>>;
+type CreatureSkills = Record<SkillAbbreviation, Statistic> & Partial<Record<string, Statistic>>;
 
-export interface CreatureSystemSource extends ActorSystemSource {
+interface CreatureSystemSource extends ActorSystemSource {
     details: Record<string, unknown>;
 
     /** Traits, languages, and other information. */
@@ -56,7 +53,7 @@ export interface CreatureSystemSource extends ActorSystemSource {
     saves?: Record<SaveType, { value?: number; mod?: number }>;
 }
 
-export interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
+interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
     details: {
         alignment: { value: Alignment };
         level: { value: number };
@@ -78,9 +75,9 @@ export interface CreatureSystemData extends CreatureSystemSource, ActorSystemDat
     actions?: StrikeData[];
 }
 
-export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
+type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
 
-export interface SenseData {
+interface SenseData {
     type: SenseType;
     acuity?: SenseAcuity;
     value: string;
@@ -88,23 +85,23 @@ export interface SenseData {
 }
 
 /** Data describing the value & modifier for a base ability score. */
-export interface AbilityData {
+interface AbilityData {
     /** The raw value of this ability score; computed from the mod for npcs automatically. */
     value: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;
 }
 
-export type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
+type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
 
-export type Abilities = Record<AbilityString, AbilityData>;
+type Abilities = Record<AbilityString, AbilityData>;
 
 /** A type representing the possible ability strings. */
-export type Language = keyof ConfigPF2e["PF2E"]["languages"];
-export type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
-export type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
+type Language = keyof ConfigPF2e["PF2E"]["languages"];
+type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
+type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
-export interface CreatureTraitsData extends BaseTraitsData {
+interface CreatureTraitsData extends BaseTraitsData {
     traits: BaseTraitsData["traits"] & {
         /** Actual Pathfinder traits */
         traits: CreatureTraits;
@@ -117,15 +114,15 @@ export interface CreatureTraitsData extends BaseTraitsData {
     attitude: { value: Attitude };
 }
 
-export type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
+type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
 
 /** The full save data for a character; including its modifiers and other details */
-export type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetail?: string };
+type SaveData = StatisticCompatData & AbilityBasedStatistic & { saveDetail?: string };
 
-export type CreatureSaves = Record<SaveType, SaveData>;
+type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
-export interface CreatureAttributes extends BaseActorAttributes {
+interface CreatureAttributes extends BaseActorAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };
     hardness?: { value: number };
@@ -142,7 +139,7 @@ export interface CreatureAttributes extends BaseActorAttributes {
     speed: CreatureSpeeds;
 }
 
-export interface CreatureSpeeds extends StatisticModifier {
+interface CreatureSpeeds extends StatisticModifier {
     /** The actor's primary speed (usually walking/stride speed). */
     value: string;
     /** Other speeds that this actor can use (such as swim, climb, etc). */
@@ -151,29 +148,29 @@ export interface CreatureSpeeds extends StatisticModifier {
     total: number;
 }
 
-export type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
-export interface LabeledSpeed extends LabeledValue {
+type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
+interface LabeledSpeed extends LabeledValue {
     type: Exclude<MovementType, "land">;
     value: string;
     label: string;
 }
 
-export interface CreatureHitPoints extends HitPointsData {
+interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
 }
 
-export interface InitiativeRollParams extends RollParameters {
+interface InitiativeRollParams extends RollParameters {
     /** Whether the encounter tracker should be updated with the roll result */
     updateTracker?: boolean;
     skipDialog: boolean;
 }
 
-export interface InitiativeRollResult {
+interface InitiativeRollResult {
     combatant: CombatantPF2e;
     roll: Rolled<Roll<RollDataPF2e>>;
 }
 
-export type CreatureInitiative = InitiativeData &
+type CreatureInitiative = InitiativeData &
     CheckModifier & {
         roll: (parameters: InitiativeRollParams) => Promise<InitiativeRollResult | null>;
         /**
@@ -183,17 +180,17 @@ export type CreatureInitiative = InitiativeData &
         tiebreakPriority: ZeroToTwo;
     };
 
-export enum VisionLevels {
+enum VisionLevels {
     BLINDED,
     NORMAL,
     LOWLIGHT,
     DARKVISION,
 }
 
-export type VisionLevel = ZeroToThree;
+type VisionLevel = ZeroToThree;
 
 /** A PC's or NPC's held shield. An NPC's values can be stored directly on the actor or come from a shield item. */
-export interface HeldShieldData {
+interface HeldShieldData {
     /** The item ID of the shield if in use or otherwise `null` */
     itemId: string | null;
     /** The name of the shield (defaulting to "Shield" if not from a shield item) */
@@ -215,3 +212,34 @@ export interface HeldShieldData {
     /** An effect icon to use when the shield is raised */
     icon: ImagePath;
 }
+
+export {
+    Abilities,
+    AbilityData,
+    Attitude,
+    BaseCreatureData,
+    BaseCreatureSource,
+    CreatureAttributes,
+    CreatureHitPoints,
+    CreatureInitiative,
+    CreatureSaves,
+    CreatureSkills,
+    CreatureSpeeds,
+    CreatureSystemData,
+    CreatureSystemSource,
+    CreatureTrait,
+    CreatureTraitsData,
+    CreatureType,
+    HeldShieldData,
+    InitiativeRollParams,
+    InitiativeRollResult,
+    LabeledSpeed,
+    Language,
+    MovementType,
+    SaveData,
+    SenseData,
+    SkillAbbreviation,
+    SkillData,
+    VisionLevel,
+    VisionLevels,
+};

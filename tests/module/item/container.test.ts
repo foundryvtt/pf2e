@@ -35,12 +35,11 @@ function createItem({
                 value: bulkCapacity,
             },
             containerId,
-            equipped: {
-                value: equipped,
-            },
+            equipped: { carryType: equipped ? "worn" : "stowed" },
             weight: {
                 value: weight,
             },
+            usage: { value: "worn" },
             equippedBulk: {
                 value: equippedBulk,
             },

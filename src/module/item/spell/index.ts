@@ -28,11 +28,7 @@ interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
 }
 
-export class SpellPF2e extends ItemPF2e {
-    static override get schema(): typeof SpellData {
-        return SpellData;
-    }
-
+class SpellPF2e extends ItemPF2e {
     readonly isFromConsumable: boolean;
 
     /** The original spell. Only exists if this is a variant */
@@ -49,7 +45,7 @@ export class SpellPF2e extends ItemPF2e {
      * Heightened level of the spell if heightened, otherwise base.
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
-    get level() {
+    get level(): number {
         return this.data.data.location.heightenedLevel ?? this.baseLevel;
     }
 
@@ -73,15 +69,15 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     get isCantrip(): boolean {
-        return this.data.isCantrip;
+        return this.traits.has("cantrip") && !this.isRitual;
     }
 
     get isFocusSpell() {
-        return this.data.isFocusSpell;
+        return this.data.data.category.value === "focus";
     }
 
     get isRitual(): boolean {
-        return this.data.isRitual;
+        return this.data.data.category.value === "ritual";
     }
 
     get components() {
@@ -268,10 +264,6 @@ export class SpellPF2e extends ItemPF2e {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.data.data.level.value = Math.clamped(this.data.data.level.value, 1, 10) as OneToTen;
-
-        this.data.isFocusSpell = this.data.data.category.value === "focus";
-        this.data.isRitual = this.data.data.category.value === "ritual";
-        this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
@@ -611,6 +603,8 @@ export class SpellPF2e extends ItemPF2e {
     }
 }
 
-export interface SpellPF2e {
+interface SpellPF2e {
     readonly data: SpellData;
 }
+
+export { SpellPF2e };

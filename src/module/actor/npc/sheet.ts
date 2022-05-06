@@ -37,7 +37,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             classes: options.classes.concat("npc"),
             width: 650,
             height: 680,
-            showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
             scrollY: [".tab.main", ".tab.inventory", ".tab.spells", ".tab.effects", ".tab.notes"],
         });
@@ -431,7 +430,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      */
     prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
-        return {
+        const inventory: SheetInventory = {
             weapon: {
                 label: game.i18n.localize("PF2E.InventoryWeaponsHeader"),
                 type: "weapon",
@@ -467,6 +466,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 ),
             },
         };
+
+        for (const itemType of ["armor", "consumable", "equipment", "treasure", "weapon"] as const) {
+            for (const itemData of inventory[itemType].items) {
+                itemData.isIdentified = itemData.data.identification.status === "identified";
+            }
+        }
+
+        return inventory;
     }
 
     private get isWeak(): boolean {

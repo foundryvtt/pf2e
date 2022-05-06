@@ -425,11 +425,6 @@
                 }
             }
         },
-        "Dwarf": {
-            "ElementalHeart": {
-                "Prompt": "Pick the type of your Elemental Heart"
-            }
-        }
         "Mutagens": {
             "BestialMutagen": {
                 "FeralPrompt": "Increase penalty to AC to increase damage dice size?"
@@ -473,6 +468,9 @@
                 "MultiAttackLabel": "Telekinetic Storm - Multiple Targets",
                 "SingleAttackLabel": "Telekinetic Storm - Single Target",
                 "SingleAttackEffect": "The attack deals [[/r {1d12}]]{1d12 damage} on a failure."
+            },
+            "PunishingStrike": {
+                "Note": "The reckless attack makes the user @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of their next turn. If they hit, they can add @Compendium[pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl]{Push} to the strike"
             },
             "TreerazerPlantAttack": "Attack a Plant",
             "Vampire": {
@@ -607,7 +605,7 @@
             },
             "Mental1d6": {
                 "success": "[[/r {1d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}"
+                "criticalSuccess": "[[/r {2*1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}"
             },
             "Mental2d6": {
                 "success": "[[/r {2d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}",
@@ -710,6 +708,7 @@
             "Swamps": "In Swamps",
             "Swim": "To Swim",
             "TarPit": "In Tar Pits",
+            "TellTheTruth": "To Tell the Truth",
             "TrackBleedingCreature": "To Track a Bleeding Creature",
             "Track": "To Track",
             "Traps": "Traps",
@@ -839,23 +838,35 @@
                 "Prompt": "Select a Dragon"
             },
             "Dwarf": {
-                "KneelForNoGod": {
-                    "Note": "When you roll a success against a divine effect, you get a critical success instead."
-                },
                 "DeathWardenDwarf": {
                     "Note": "When you roll a success against a necromancy effect, you get a critical success instead."
                 },
-                "SparkFist": {
-                    "Note": "Each time you succeed on a fist Strike, you take [[/r (1+@weapon.data.data.runes.striking)[fire]]]{fire damage}."
+                "ElementalHeart": {
+                    "Prompt": "Pick the type of your Elemental Heart"
                 },
                 "ForgeBlessedShot": {
                     "Note": "Ignore your target's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition, as well as your target's lesser, standard, and greater cover."
                 },
+                "KneelForNoGod": {
+                    "Note": "When you roll a success against a divine effect, you get a critical success instead."
+                },
                 "RockRunner": {
                     "Note": "When you use the Acrobatics skill to Balance on narrow surfaces or uneven ground made of stone or earth, you aren't flat-footed, and when you roll a success at one of these Acrobatics checks, you get a critical success instead."
                 },
+                "SparkFist": {
+                    "Note": "Each time you succeed on a fist Strike, you take [[/r (1+@weapon.data.data.runes.striking)[fire]]]{fire damage}."
+                },
                 "TombWatchersGlare": {
                     "Note": "When you critically hit an undead creature, they are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round"
+                }
+            },
+            "Elf": {
+                "BrightnessSeeker": {
+                    "Label": "Call Upon the Brightness",
+                    "Prompt": "Select the outcome of your Augury.",
+                    "Weal": "Weal",
+                    "WealAndWoe": "Weal and Woe",
+                    "Woe": "Woe"
                 }
             },
             "FighterWeaponMasteryLegend": {
@@ -1025,6 +1036,7 @@
                 "AdvancedMulticlassFeat": "Select a class feat up to half your character level.",
                 "CreatureSize": "Select a creature size.",
                 "DeitysDomain": "Select a deity's domain.",
+                "EvolutionFeat": "Select your first Evolution Feat.",
                 "Lesson": "Select a lesson.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
                 "LevelOneOrTwoClassFeat": "Select a 1st or 2nd-level class feat.",

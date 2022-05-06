@@ -9,28 +9,24 @@ import { NPCAttackTrait } from "@item/melee/data";
 import { ActionTrait } from "@item/action/data";
 
 interface BaseItemSourcePF2e<
-    TItemType extends ItemType = ItemType,
+    TType extends ItemType = ItemType,
     TSystemSource extends ItemSystemSource = ItemSystemSource
-> extends foundry.data.ItemSource {
-    type: TItemType;
-    data: TSystemSource;
+> extends foundry.data.ItemSource<TType, TSystemSource> {
     flags: DeepPartial<ItemFlagsPF2e>;
 }
 
-abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extends foundry.data.ItemData<
-    TItem,
-    ActiveEffectPF2e
-> {
-    /** Is this physical item data? */
-    abstract isPhysical: boolean;
-}
-
-interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, "effects"> {
-    type: ItemType;
-    data: ItemSystemData;
+interface BaseItemDataPF2e<
+    TItem extends ItemPF2e = ItemPF2e,
+    TType extends ItemType = ItemType,
+    TSystemData extends ItemSystemData = ItemSystemData,
+    TSource extends BaseItemSourcePF2e<TType> = BaseItemSourcePF2e<TType>
+> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "effects">,
+        foundry.data.ItemData<TItem, ActiveEffectPF2e> {
+    readonly type: TType;
+    readonly data: TSystemData;
     flags: ItemFlagsPF2e;
 
-    readonly _source: BaseItemSourcePF2e;
+    readonly _source: TSource;
 }
 
 type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait;

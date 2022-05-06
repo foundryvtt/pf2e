@@ -13,10 +13,6 @@ import { SaveType } from "@actor/data";
 import { extractModifiers } from "@module/rules/util";
 
 export class FamiliarPF2e extends CreaturePF2e {
-    static override get schema(): typeof FamiliarData {
-        return FamiliarData;
-    }
-
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | null {
         // The Actors world collection needs to be initialized for data preparation

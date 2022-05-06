@@ -23,10 +23,6 @@ import { VariantCloneParams } from "./types";
 import { StrikeAttackTraits } from "./strike-attack-traits";
 
 class NPCPF2e extends CreaturePF2e {
-    static override get schema(): typeof NPCData {
-        return NPCData;
-    }
-
     /** This NPC's ability scores */
     get abilities() {
         return deepClone(this.data.data.abilities);

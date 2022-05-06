@@ -11,10 +11,6 @@ import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
 
 export class LootPF2e extends ActorPF2e {
-    static override get schema(): typeof LootData {
-        return LootData;
-    }
-
     get isLoot(): boolean {
         return this.data.data.lootSheetType === "Loot";
     }

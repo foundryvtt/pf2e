@@ -485,7 +485,7 @@ export class StatisticModifier {
     }
 
     private applyAdjustments(rollOptions: string[]): void {
-        const modifiers = this._modifiers.filter((m) => m.enabled);
+        const modifiers = this._modifiers.filter((m) => !m.ignored);
         for (const modifier of modifiers) {
             const adjustments = modifier.adjustments.filter((a) => a.predicate.test(rollOptions));
 

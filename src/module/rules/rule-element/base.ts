@@ -29,6 +29,12 @@ abstract class RuleElementPF2e {
 
     protected suppressWarnings: boolean;
 
+    /** Must the parent item be equipped for this rule element to apply (`null` for non-physical items)? */
+    requiresEquipped: boolean | null = null;
+
+    /** Must the parent item be invested for this rule element to apply (`null` unless an investable physical item)? */
+    requiresInvestment: boolean | null = null;
+
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
 
@@ -53,8 +59,6 @@ abstract class RuleElementPF2e {
             data.ignored = true;
         }
 
-        if (item instanceof PhysicalItemPF2e) data.requiresInvestment ??= item.isInvested !== null;
-
         this.data = {
             priority: 100,
             ...data,
@@ -69,6 +73,11 @@ abstract class RuleElementPF2e {
         }
 
         this.slug = this.data.slug ?? null;
+
+        if (item instanceof PhysicalItemPF2e) {
+            this.requiresEquipped = !!(data.requiresEquipped ?? true);
+            this.requiresInvestment = item.isInvested === null ? null : !!(data.requiresInvestment ?? true);
+        }
     }
 
     get actor(): ActorPF2e {
@@ -107,7 +116,9 @@ abstract class RuleElementPF2e {
             return (this.data.ignored = true);
         }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
-        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
+
+        return (this.data.ignored =
+            (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested));
     }
 
     set ignored(value: boolean) {

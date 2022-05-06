@@ -10,7 +10,7 @@ import Tagify from "@yaireo/tagify";
 import { fromUUIDs } from "@util/from-uuids";
 import { Alignment } from "@actor/creature/types";
 
-export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
+export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemSheetPF2e<TItem> {
     #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];
 
     static override get defaultOptions() {

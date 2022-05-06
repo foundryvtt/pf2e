@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
-import { PhysicalSystemData } from "@item/physical/data";
+import { PhysicalSystemSource } from "@item/physical/data";
 import { MigrationBase } from "../base";
 
 /** Remove the `invested` property from uninvestable item types */
@@ -8,7 +8,7 @@ export class Migration648RemoveInvestedProperty extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (!(itemSource.type === "treasure" || itemSource.type === "consumable")) return;
-        const systemData: NotInvestableData = itemSource.data;
+        const systemData: NotInvestableSource = itemSource.data;
         delete systemData.invested;
         if ("game" in globalThis) {
             systemData["-=invested"] = null;
@@ -16,7 +16,7 @@ export class Migration648RemoveInvestedProperty extends MigrationBase {
     }
 }
 
-interface NotInvestableData extends PhysicalSystemData {
+interface NotInvestableSource extends PhysicalSystemSource {
     invested?: unknown;
     "-=invested"?: null;
 }
