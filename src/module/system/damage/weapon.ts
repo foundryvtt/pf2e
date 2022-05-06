@@ -381,27 +381,23 @@ export class WeaponDamagePF2e {
         }
 
         // Deadly trait
-        const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
-        traits
-            .filter((t) => t.name.startsWith("deadly-"))
-            .forEach((t) => {
-                const deadly = t.name.substring(t.name.indexOf("-") + 1);
-                const diceNumber = (() => {
-                    if (deadly.match(/\d+d\d+/)) {
-                        return parseInt(deadly.substring(0, deadly.indexOf("d")), 10);
-                    } else {
-                        return strikingDice > 1 ? strikingDice : 1;
-                    }
-                })();
-                diceModifiers.push(
-                    new DiceModifierPF2e({
-                        label: weaponTraits[t.name],
-                        diceNumber,
-                        dieSize: deadly.substring(deadly.indexOf("d")) as DamageDieSize,
-                        critical: true,
-                    })
-                );
-            });
+        const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;
+        const deadlyTraits = traits.filter((t) => t.name.startsWith("deadly-"));
+        for (const trait of deadlyTraits) {
+            const slug = trait.name;
+            const diceNumber = (() => {
+                const baseNumber = Number(/-(\d)d\d{1,2}$/.exec(slug)?.at(1)) || 1;
+                return strikingDice > 1 ? strikingDice * baseNumber : baseNumber;
+            })();
+            diceModifiers.push(
+                new DiceModifierPF2e({
+                    label: traitLabels[slug],
+                    diceNumber,
+                    dieSize: (/-(d\d{1,2})$/.exec(slug)?.at(1) ?? weapon.data.damage.die) as DamageDieSize,
+                    critical: true,
+                })
+            );
+        }
 
         // Fatal trait
         traits
@@ -410,7 +406,7 @@ export class WeaponDamagePF2e {
                 const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        label: weaponTraits[t.name],
+                        label: traitLabels[t.name],
                         diceNumber: 1,
                         dieSize,
                         critical: true,
@@ -546,7 +542,8 @@ export class WeaponDamagePF2e {
             d.ignored = !d.enabled;
         });
 
-        this.excludeDamage(actor, [...numericModifiers, ...diceModifiers], options);
+        const excludeFrom = weapon.document instanceof WeaponPF2e ? weapon.document : null;
+        this.excludeDamage({ actor, weapon: excludeFrom, modifiers: [...numericModifiers, ...diceModifiers], options });
 
         return {
             ...damage,
@@ -812,10 +809,12 @@ export class WeaponDamagePF2e {
      * Retrieve exclusion terms from rule elements. Any term is not in the `any` or `all` predicate,
      * it is added to the `not` predicate
      */
-    private static excludeDamage(actor: ActorPF2e, modifiers: BaseRawModifier[], options: string[]): void {
+    private static excludeDamage({ actor, modifiers, weapon, options }: ExcludeDamageParams): void {
+        if (!weapon) return;
+
         const notIgnored = modifiers.filter((modifier) => !modifier.ignored);
         for (const rule of actor.rules) {
-            rule.applyDamageExclusion?.(notIgnored);
+            rule.applyDamageExclusion?.(weapon, notIgnored);
         }
         for (const modifier of notIgnored) {
             modifier.ignored = !new PredicatePF2e(modifier.predicate ?? {}).test(options);
@@ -862,4 +861,11 @@ export class WeaponDamagePF2e {
         const traits = weaponData.data.traits.value;
         return isMelee || (!traits.includes("splash") && traits.some((t) => /^thrown(?:-\d{1,2})?/.test(t)));
     }
+}
+
+interface ExcludeDamageParams {
+    actor: ActorPF2e;
+    modifiers: BaseRawModifier[];
+    weapon: WeaponPF2e | null;
+    options: string[];
 }
