@@ -9,6 +9,11 @@ import type { ItemPF2e } from "@item/base";
 import { sluggify } from "@util";
 import systemJSON from "system.json";
 import templateJSON from "static/template.json";
+import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
+import { NPCSystemData } from "@actor/npc/data";
+import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
+import { isPhysicalData } from "@item/data/helpers";
+import { ActorSourcePF2e } from "@actor/data";
 
 declare global {
     interface Global {
@@ -20,13 +25,8 @@ declare global {
 const { window } = new JSDOM();
 global.document = window.document;
 global.window = global.document.defaultView!;
+
 import $ from "jquery";
-import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
-import { NPCSystemData } from "@actor/npc/data";
-import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
-import { isPhysicalData } from "@item/data/helpers";
-import { IdentificationData } from "@item/physical/data";
-import { ActorSourcePF2e } from "@actor/data";
 
 // Show error message without needless stack trace
 const PackError = (message: string) => {
@@ -175,21 +175,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
 
                     docSource.data.description = { value: docSource.data.description.value };
                     if (isPhysicalData(docSource)) {
-                        const systemData: { identification: DeepPartial<IdentificationData> } = docSource.data;
-                        // Reset identification status
-                        systemData.identification = {
-                            status: "identified",
-                            unidentified: {
-                                name: "",
-                                img: "",
-                                data: {
-                                    description: {
-                                        value: "",
-                                    },
-                                },
-                            },
-                            misidentified: {},
-                        };
+                        delete (docSource.data as { identification?: unknown }).identification;
                     } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
                         delete (docSource.data as { ability?: unknown }).ability;
                     } else if (docSource.type === "feat") {
