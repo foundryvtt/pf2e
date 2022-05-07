@@ -81,7 +81,7 @@ interface RuleElementSynthetics {
     senses: SenseSynthetic[];
     statisticsModifiers: Record<string, DeferredModifier[]>;
     strikeAdjustments: StrikeAdjustment[];
-    strikes: Embedded<WeaponPF2e>[];
+    strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingPF2e[]>;
     weaponPotency: Record<string, WeaponPotencyPF2e[]>;
     preparationWarnings: {
