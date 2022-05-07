@@ -19,10 +19,35 @@
         "level": {
             "value": 1
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "sleep"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "sleep"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Elf.UnwaveringMien.Note]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
