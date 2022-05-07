@@ -171,9 +171,9 @@ class TextEditorPF2e extends TextEditor {
             }
         }
 
-        // Set action name as a roll option
-        if (item?.name) {
-            const actionName = "action:" + item?.name.slugify();
+        // Set action slug as a roll option
+        if (item?.slug) {
+            const actionName = "action:" + item?.slug;
             traits.push(actionName);
         }
 
