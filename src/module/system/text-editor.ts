@@ -227,14 +227,7 @@ class TextEditorPF2e extends TextEditor {
                     }
                     return;
                 })();
-                const skillLabel = shortForm
-                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                    : params.type
-                          .split("-")
-                          .map((word) => {
-                              return word.slice(0, 1).toUpperCase() + word.slice(1);
-                          })
-                          .join(" ");
+                const skillLabel = shortForm ? game.i18n.localize(CONFIG.PF2E.skills[shortForm]) : params.type;
                 html.innerHTML = inlineLabel ?? skillLabel;
                 html.setAttribute("data-pf2-check", params.type);
             }
