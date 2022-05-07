@@ -1003,7 +1003,7 @@
             "type": "melee"
         },
         {
-            "_id": "udjQ5yBXeUkTyfSo",
+            "_id": "7SNUgV6SLqC5TzXJ",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1014,6 +1014,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -1048,7 +1049,7 @@
             "type": "action"
         },
         {
-            "_id": "TBdYRcS0ksv5LN2M",
+            "_id": "mE1G6otJjruqyHkD",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1059,51 +1060,7 @@
                 "actions": {
                     "value": null
                 },
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Light Blindness",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "SLSaqsPAeFZlQ4U8",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -1134,7 +1091,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1100000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1178,14 +1135,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Death Flame",
-            "sort": 1200000,
+            "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "fgS2IQfUU9zxC7AC",
+            "_id": "BmQOyLxye6DAZpWI",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1193,6 +1150,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
                 },
@@ -1223,7 +1181,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
-            "sort": 1300000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1238,6 +1196,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The caligni stalker makes two Strikes against the same target, one with each of their shortswords. The stalker combines the damage of any attacks that hit and applies precision damage, resistances, and weaknesses only once. Both attacks count toward the stalker's multiple attack penalty, but the penalty increases only after both attacks.</p>"
                 },
@@ -1264,7 +1223,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Double Slice",
-            "sort": 1400000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1279,6 +1238,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Each caligni creeper within @Template[type:emanation|distance:30]{30 feet} of the stalker can Step. Each creeper can benefit from Encircling Command only once per round.</p>"
                 },
@@ -1307,11 +1267,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Encircling Command",
-            "sort": 1500000,
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "maDrDEZzxU5On8gn",
+            "_id": "MjvAem9y7U9Z9AnV",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1322,6 +1282,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The caligni stalker deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to flat‑footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -1336,12 +1297,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1370,7 +1340,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1600000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1399,7 +1369,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1428,7 +1398,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1800000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1457,7 +1427,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1486,7 +1456,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],
