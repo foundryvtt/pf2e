@@ -1,15 +1,15 @@
 {
-    "_id": "AKNY8155nYQ1WsmG",
+    "_id": "xKanh4M6QEF39bvd",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
-                "mod": 2
+                "mod": 4
             },
             "dex": {
-                "mod": 3
+                "mod": -3
             },
             "int": {
                 "mod": -5
@@ -18,33 +18,32 @@
                 "mod": 5
             },
             "wis": {
-                "mod": 2
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 15
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "negative healing",
-                "max": 33,
+                "max": 70,
                 "temp": 0,
-                "value": 33
+                "value": 70
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 8
+                "value": 4
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
-                "value": "40"
+                "value": "25"
             }
         },
         "details": {
@@ -52,12 +51,12 @@
                 "value": "NE"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Undead",
             "level": {
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Necromantic augmentations have granted this zombie increased size and power.</p>\n<hr />\n<p>A zombie's only desire is to consume the living. Unthinking and ever-shambling harbingers of death, zombies stop only when they're destroyed.</p>",
             "source": {
                 "value": "Pathfinder Society Scenario 1-18: Lodge of the Living God"
             }
@@ -66,18 +65,21 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 6
+                "value": 10
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 3
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 6
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -90,34 +92,17 @@
                     "unconscious"
                 ]
             },
-            "dr": [
+            "dr": [],
+            "dv": [
                 {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 5
+                    "type": "positive",
+                    "value": 10
                 },
                 {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
                     "type": "slashing",
-                    "value": 5
+                    "value": 10
                 }
             ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -134,8 +119,8 @@
                 "custom": "",
                 "value": [
                     "mindless",
-                    "skeleton",
-                    "undead"
+                    "undead",
+                    "zombie"
                 ]
             }
         }
@@ -144,21 +129,92 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "v4ohj80e9zsjl14a",
+            "_id": "9j9kz8bv8i4ae8b7",
+            "data": {
+                "active": true,
+                "alsoApplies": {
+                    "linked": [],
+                    "unlinked": []
+                },
+                "base": "Slowed",
+                "description": {
+                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
+                },
+                "duration": {
+                    "perpetual": true,
+                    "text": "",
+                    "value": 0
+                },
+                "group": "",
+                "hud": {
+                    "img": {
+                        "useStatusName": true,
+                        "value": "systems/pf2e/icons/conditions-2/slowed.webp"
+                    },
+                    "selectable": true,
+                    "statusName": "slowed"
+                },
+                "modifiers": [],
+                "overrides": [],
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "removable": true,
+                "rules": [],
+                "slug": "slowed",
+                "source": {
+                    "value": ""
+                },
+                "sources": {
+                    "hud": true,
+                    "values": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "value": {
+                    "immutable": false,
+                    "isValued": true,
+                    "modifiers": [],
+                    "value": 1
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
+                },
+                "pf2e": {
+                    "condition": true
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/slowed.webp",
+            "name": "Slowed",
+            "sort": 100000,
+            "type": "condition"
+        },
+        {
+            "_id": "wdsdNrRHG7tMUw5P",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "improved-push"
+                    ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 11
                 },
                 "damageRolls": {
-                    "AWj0c3rEFAEY7LhY": {
-                        "damage": "1d8+5",
+                    "izwzbwakdx5r2d8gxlh7": {
+                        "damage": "1d12+5",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -173,7 +229,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "reach-10"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -181,12 +239,12 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Hoof",
-            "sort": 100000,
+            "name": "Fist",
+            "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "mk7icUbwGLEHSKgW",
+            "_id": "QWBpk7SbuXW6RHU1",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -228,11 +286,53 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "KhQqgEJBa5lp9hFR",
+            "_id": "TtcFIJZjrZ4Vaaml",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slow",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "BOFFwI5nKDfABluP",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -281,11 +381,11 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "JRbT9ykVW8Rkojc9",
+            "_id": "IKKlqoLTFtO3pbQV",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -296,17 +396,67 @@
                 "actions": {
                     "value": null
                 },
-                "deathNote": true,
+                "deathNote": false,
                 "description": {
-                    "value": "<p>When the skeleton is destroyed, its bones shatter and explode as the necromantic energy holding it together is released.</p>\n<p>Adjacent creatures take [[/r {2d6}[slashing]]]{2d6 slashing damage} with a @Check[type:reflex|dc:13|basic:true] save.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The zombie emits an aura of rot and disease that causes wounds to fester and turn sour.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and is not at full Hit Points takes [[/r {1d6}]]{1d6 damage} as its wounds fester. Creatures that take a critical hit from the zombie also take this damage immediately.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "skeleton-explosive-death",
+                "slug": "zombie-rotting-aura",
                 "source": {
                     "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "disease",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.CxiEpXt7Gw3tSIOh"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rotting Aura",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "Is4V63biDtNBVpi2",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-push",
+                "source": {
+                    "value": ""
                 },
                 "traits": {
                     "custom": "",
@@ -322,123 +472,16 @@
             },
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.W77QhVNE46WDyMXi"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.6l7e7CHQLESlI57U"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Explosive Death",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "9kx4ldpmlvtr3m4m",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "deathNote": false,
-                "description": {
-                    "value": "<p>The mount Strides twice, with its Speed increased by 10 feet.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Gallop",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "ohjbjl90iaap4rj2",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "deathNote": false,
-                "description": {
-                    "value": "<p>Undead and creatures allied with them can Command a skeletal mount without needing to attempt a skill check.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Undead Steed",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "o31gn8nwnwp2abu6",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Push 5 feet",
             "sort": 700000,
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "6dhbr8rmzevyg4a2",
+            "_id": "WHbE7viCeLXEGocR",
             "data": {
                 "description": {
                     "value": ""
@@ -467,13 +510,13 @@
             "type": "lore"
         }
     ],
-    "name": "Skeletal Mount",
+    "name": "Zombie Brute (1-18)",
     "token": {
         "disposition": -1,
-        "height": 1,
+        "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Skeletal Mount",
-        "width": 1
+        "name": "Zombie Brute",
+        "width": 2
     },
     "type": "npc"
 }
