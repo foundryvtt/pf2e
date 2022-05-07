@@ -3,7 +3,7 @@
     "data": {
         "badge": null,
         "description": {
-            "value": "<p><strong>Trigger</strong> You attempt an attack roll, skill check, or saving throw while performing the course of action from your <em>@Compendium[pf2e.spells-srd.Augury]{Augury}</em>, but you haven't rolled yet.</p><p><strong>Effect</strong>You gain a +1 status bonus to the triggering check, or a +2 status bonus if the result of the augury was woe and you proceeded anyway.</p>"
+            "value": "<p><strong>Trigger</strong> You attempt an attack roll, skill check, or saving throw while performing the course of action from your <em>@Compendium[pf2e.spells-srd.Augury]{Augury}</em>, but you haven't rolled yet.</p>\n<p><strong>Effect</strong> You gain a +1 status bonus to the triggering check, or a +2 status bonus if the result of the augury was woe and you proceeded anyway.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,113 +14,113 @@
         "level": {
             "value": 9
         },
-    "rules": [
-      {
-        "key": "FlatModifier",
-        "predicate": {
-          "all": [
-            "call-upon-the-brightness",
-            "brightness-seeker:weal"
-          ]
-        },
-        "selector": "attack",
-        "type": "status",
-        "value": 1,
-        "slug": "weal-attack"
-      },
-      {
-        "key": "FlatModifier",
-        "predicate": {
-          "all": [
-            "call-upon-the-brightness",
-            "brightness-seeker:weal"
-          ]
-        },
-        "selector": "skill-check",
-        "type": "status",
-        "value": 1,
-        "slug": "weal-skill"
-      },
-      {
-        "key": "FlatModifier",
-        "predicate": {
-          "all": [
-            "call-upon-the-brightness",
-            "brightness-seeker:weal"
-          ]
-        },
-        "selector": "saving-throw",
-        "type": "status",
-        "value": 1,
-        "slug": "weal-save"
-      },
-      {
-        "key": "ChoiceSet",
-        "choices": [
-          {
-            "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Weal",
-            "value": "weal"
-          },
-          {
-            "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Woe",
-            "value": "woe"
-          },
-          {
-            "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.WealAndWoe",
-            "value": "weal"
-          }
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness",
+                        "brightness-seeker:weal"
+                    ]
+                },
+                "selector": "attack",
+                "slug": "weal-attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness",
+                        "brightness-seeker:weal"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "weal-skill",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness",
+                        "brightness-seeker:weal"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "weal-save",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Weal",
+                        "value": "weal"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Woe",
+                        "value": "woe"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.WealAndWoe",
+                        "value": "weal"
+                    }
+                ],
+                "flag": "brightness-seeker",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Elf.BrightnessSeeker.Prompt",
+                "rollOption": "brightness-seeker"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness",
+                        "brightness-seeker:woe"
+                    ]
+                },
+                "selector": "attack",
+                "slug": "woe-attack",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness",
+                        "brightness-seeker:woe"
+                    ]
+                },
+                "selector": "skill-check",
+                "slug": "woe-skill",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "call-upon-the-brightness",
+                        "brightness-seeker:woe"
+                    ]
+                },
+                "selector": "saving-throw",
+                "slug": "woe-save",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Label",
+                "option": "call-upon-the-brightness",
+                "toggleable": true
+            }
         ],
-        "flag": "brightness-seeker",
-        "prompt": "PF2E.SpecificRule.Elf.BrightnessSeeker.Prompt",
-        "rollOption": "brightness-seeker"
-      },
-      {
-        "key": "FlatModifier",
-        "predicate": {
-          "all": [
-            "call-upon-the-brightness",
-            "brightness-seeker:woe"
-          ]
-        },
-        "selector": "attack",
-        "type": "status",
-        "value": 2,
-        "slug": "woe-attack"
-      },
-      {
-        "key": "FlatModifier",
-        "predicate": {
-          "all": [
-            "call-upon-the-brightness",
-            "brightness-seeker:woe"
-          ]
-        },
-        "selector": "skill-check",
-        "type": "status",
-        "value": 2,
-        "slug": "woe-skill"
-      },
-      {
-        "key": "FlatModifier",
-        "predicate": {
-          "all": [
-            "call-upon-the-brightness",
-            "brightness-seeker:woe"
-          ]
-        },
-        "selector": "saving-throw",
-        "type": "status",
-        "value": 2,
-        "slug": "woe-save"
-      },
-      {
-        "domain": "all",
-        "key": "RollOption",
-        "option": "call-upon-the-brightness",
-        "toggleable": true,
-        "label": "PF2E.SpecificRule.Elf.BrightnessSeeker.Label"
-      }
-    ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },

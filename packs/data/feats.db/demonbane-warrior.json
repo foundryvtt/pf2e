@@ -11,7 +11,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You gain a +1 circumstance bonus to damage with weapons and unarmed attacks against demons. If your attack would deal more than one weapon die of damage (as is common at higher levels than 1st), the bonus is equal to the number of weapon dice or unarmed attack dice. If your actions force a demon to take damage from its sin vulnerability, increase that damage by 2.</p>\n<hr />\n<p>Automatically implements +1 damage to weapons and unarmed strikes against demons</p>"
+            "value": "<p>You gain a +1 circumstance bonus to damage with weapons and unarmed attacks against demons. If your attack would deal more than one weapon die of damage (as is common at higher levels than 1st), the bonus is equal to the number of weapon dice or unarmed attack dice. If your actions force a demon to take damage from its sin vulnerability, increase that damage by 2.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -19,7 +19,7 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -29,12 +29,22 @@
                 "label": "Demonbane Warrior",
                 "predicate": {
                     "all": [
-                        "target:demon"
+                        "target:trait:demon"
                     ]
                 },
                 "selector": "strike-damage",
                 "type": "circumstance",
-                "value": 1
+                "value": "1+@weapon.data.data.runes.striking"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "target:trait:demon"
+                    ]
+                },
+                "selector": "strike-damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Elf.DemonbaneWarrior.Note]</p>"
             }
         ],
         "source": {
