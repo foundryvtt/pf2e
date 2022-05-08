@@ -333,7 +333,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             senses: [],
             statisticsModifiers: {},
             strikeAdjustments: [],
-            strikes: [],
+            strikes: new Map(),
             striking: {},
             weaponPotency: {},
             preparationWarnings: {

@@ -339,10 +339,12 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
         if (this.data.ownUnarmed) {
-            synthetics.strikes = synthetics.strikes.filter((weapon) => weapon.category === "unarmed");
+            for (const [slug, weapon] of synthetics.strikes.entries()) {
+                if (weapon.category !== "unarmed") synthetics.strikes.delete(slug);
+            }
             this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
-            synthetics.strikes.length = 0;
+            synthetics.strikes.clear();
             for (const striking of Object.values(synthetics.striking).flat()) {
                 const predicate = (striking.predicate ??= new PredicatePF2e());
                 predicate.not.push("battle-form");
