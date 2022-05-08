@@ -19,6 +19,7 @@
         "level": {
             "value": 13
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-falchion.rank",
+                "value": "@actor.data.data.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-greataxe.rank",
+                "value": "@actor.data.data.martial.unarmed.rank"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
