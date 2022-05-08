@@ -23,12 +23,13 @@ export class HazardPF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { attributes } = this;
+        const { attributes, details } = this.data.data;
         attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
+        details.alliance = null;
     }
 
     override prepareDerivedData(): void {

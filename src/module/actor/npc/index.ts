@@ -100,13 +100,17 @@ class NPCPF2e extends CreaturePF2e {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
 
-        const { attributes } = systemData;
+        const { attributes, details } = systemData;
         attributes.perception.ability = "wis";
         attributes.dexCap = [{ value: Infinity, source: "" }];
         attributes.reach = {
             general: SIZE_TO_REACH[this.size],
             manipulate: SIZE_TO_REACH[this.size],
         };
+
+        if (details.alliance === undefined) {
+            details.alliance = this.hasPlayerOwner ? "party" : "opposition";
+        }
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
