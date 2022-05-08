@@ -18,6 +18,7 @@ import { senseMotive } from "./basic/sense-motive";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
+import { track } from "./exploration/track";
 import { balance } from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
@@ -111,6 +112,7 @@ export class ActionMacros {
         // Exploration
         avoidNotice,
         senseDirection,
+        track,
 
         // Acrobatics
         balance,
