@@ -21,23 +21,16 @@ interface HazardData
 
 /** The raw information contained within the actor data object for hazards. */
 interface HazardSystemSource extends ActorSystemSource {
-    details: {
-        isComplex: boolean;
-        level: {
-            value: number;
-        };
-        disable: string;
-        description: string;
-        reset: string;
-        routine: string;
-    };
+    details: HazardDetailsSource;
     attributes: HazardAttributes;
     saves: HazardSaves;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;
 }
 
-type HazardSystemData = HazardSystemSource & ActorSystemData;
+interface HazardSystemData extends HazardSystemSource, Omit<ActorSystemData, "attributes"> {
+    details: HazardDetailsData;
+}
 
 interface HazardAttributes extends BaseActorAttributes {
     ac: {
@@ -54,6 +47,19 @@ interface HazardAttributes extends BaseActorAttributes {
         value: number;
         details: string;
     };
+}
+
+interface HazardDetailsSource {
+    isComplex: boolean;
+    level: { value: number };
+    disable: string;
+    description: string;
+    reset: string;
+    routine: string;
+}
+
+interface HazardDetailsData extends HazardDetailsSource {
+    alliance: null;
 }
 
 interface HazardHitPoints extends Required<BaseHitPointsData> {
