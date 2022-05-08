@@ -39,7 +39,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": null
+            "value": 0
         },
         "preciousMaterial": {
             "value": null
@@ -81,7 +81,47 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage-roll",
+                "key": "RollOption",
+                "label": "Fire both barrels",
+                "option": "use-double-barrel",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "DamageDice",
+                "label": "Double Barrel Damage Die",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": {
+                    "all": [
+                        "weapon:trait:double-barrel",
+                        "use-double-barrel"
+                    ]
+                },
+                "selector": "double-barreled-musket-damage"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:base:double-barreled-musket"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "label": "Double Barrel Fatal",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "use-double-barrel"
+                    ]
+                },
+                "property": "traits",
+                "value": "fatal-d12"
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Guns & Gears"
@@ -114,6 +154,6 @@
     },
     "flags": {},
     "img": "systems/pf2e/icons/equipment/weapons/double-barreled-musket.webp",
-    "name": "Double Barreled Musket",
+    "name": "Double-Barreled Musket",
     "type": "weapon"
 }

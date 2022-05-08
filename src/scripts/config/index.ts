@@ -390,7 +390,7 @@ const traitsDescriptions = {
     disease: "PF2E.TraitDescriptionDisease",
     divination: "PF2E.TraitDescriptionDivination",
     divine: "PF2E.TraitDescriptionDivine",
-    "double-barrel": "TraitDescriptionDoubleBarrel",
+    "double-barrel": "PF2E.TraitDescriptionDoubleBarrel",
     downtime: "PF2E.TraitDescriptionDowntime",
     drug: "PF2E.TraitDescriptionDrug",
     druid: "PF2E.TraitDescriptionDruid",
