@@ -27,6 +27,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData } from "./types";
 import { CreatureSheetData } from "@actor/creature/types";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values";
+import { NPCConfig } from "./config";
 
 export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
@@ -235,6 +236,35 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 await actor.increaseCondition(effect);
             }
         });
+    }
+
+    /** Replace sheet config with a special NPC config form application */
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+
+        if (this.isEditable) {
+            const index = buttons.findIndex((b) => b.class === "close");
+            buttons.splice(index, 0, {
+                label: "Configure", // Top-level foundry localization key
+                class: "configure-npc",
+                icon: "fas fa-cog",
+                onclick: (event) => this._onConfigureSheet(event),
+            });
+        }
+
+        return buttons;
+    }
+
+    /**
+     * Shim for {@link DocumentSheet#_onConfigureSheet} that will be replaced in v10 when this class subclasses it.
+     */
+    protected override _onConfigureSheet(event: Event): void {
+        event.preventDefault();
+        const [top, left, width] = [this.position.top ?? 0, this.position.left ?? 0, this.position.width ?? 0];
+        new NPCConfig(this.actor, {
+            top: top + 40,
+            left: (left + (width - Number(TokenConfig.defaultOptions.width ?? 0))) / 2,
+        }).render(true);
     }
 
     private prepareAbilities(abilities: Abilities): void {

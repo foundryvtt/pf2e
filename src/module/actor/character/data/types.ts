@@ -10,6 +10,7 @@ import {
     SkillData,
     CreatureInitiative,
     HeldShieldData,
+    CreatureDetails,
 } from "@actor/creature/data";
 import {
     AbilityString,
@@ -35,7 +36,6 @@ import { FeatData, ProficiencyRank } from "@item/data";
 import { FeatPF2e, WeaponPF2e } from "@item";
 import { CharacterSheetTabVisibility } from "./sheet";
 import { DeitySystemData } from "@item/deity/data";
-import { Alignment } from "@actor/creature/types";
 import { FeatType } from "@item/feat/data";
 import { DeityDomain } from "@item/deity/types";
 
@@ -225,12 +225,10 @@ interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-type CharacterDetails = {
+type CharacterDetails = CreatureDetails & {
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AbilityString };
 
-    /** Character alignment (LN, N, NG, etc.) */
-    alignment: { value: Alignment };
     /** How old the character is (user-provided field). */
     age: { value: string };
     /** Character height (user-provided field). */
@@ -281,12 +279,6 @@ type CharacterDetails = {
         max: number;
         /** COMPUTED: The percentage completion of the current level (value / max). */
         pct: number;
-    };
-
-    /** Information about the current character level. */
-    level: {
-        /** The current level of this character. */
-        value: number;
     };
 
     /** Convenience information for easy access when the item class instance isn't available */
