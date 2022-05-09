@@ -20,18 +20,25 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyFlamingRune}-damage"
             },
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "Note",
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "selector": "{item|data.target}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyFlamingRune}-damage",
                 "text": "<p class='compact-text'>@Localize[PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess]</p>"
             }
         ],

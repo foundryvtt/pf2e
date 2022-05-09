@@ -23,8 +23,14 @@
                 "value": 1
             },
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "damageType": "fire",
@@ -32,7 +38,7 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Oath of the Devoted",
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectOathOfTheDevoted}-damage"
             }
         ],
         "source": {

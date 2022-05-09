@@ -15,15 +15,30 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": {
+                        "all": [
+                            "item:equipped"
+                        ],
+                        "any": [
+                            "item:damage:type:slashing",
+                            "item:damage:type:piercing"
+                        ]
+                    },
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "damageType": "poison",
                 "diceNumber": 2,
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectImprovedPoisonWeapon}-damage"
             }
         ],
         "source": {
