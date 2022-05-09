@@ -1,55 +1,51 @@
 {
-    "_id": "rCErTabCxzPbR0ON",
+    "_id": "unfgNRDtbFivlOEJ",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 0
             },
             "con": {
                 "mod": 3
             },
             "dex": {
-                "mod": 2
+                "mod": 0
             },
             "int": {
-                "mod": -4
+                "mod": -2
             },
             "str": {
-                "mod": 5
+                "mod": 4
             },
             "wis": {
-                "mod": 2
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 22
+                "value": 14
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 125,
+                "max": 30,
                 "temp": 0,
-                "value": 125
+                "value": 30
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 12
+                "value": 9
             },
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "climb",
-                        "value": "10"
-                    },
-                    {
                         "type": "swim",
-                        "value": "10"
+                        "value": "20"
                     }
                 ],
                 "value": "20"
@@ -57,44 +53,59 @@
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "N"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Elemental",
             "level": {
-                "value": 6
+                "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>In its resting form, a mudwretch looks like a large puddle of thick, dark mud, heaped at the center in a slightly drier patch of loam. When a living creature approaches, though, the mudwretch lurches upward, piling its muddy flesh upon itself to form a roughly humanoid shape, often in vague mockery of the approaching creature's general form in cases where the creature is a humanoid itself.</p>\n<p>Mudwretches possess a low level of intellect, and while they do not form societies or cultures of their own, they are attracted to ruins or abandoned settlements. They have little need to eat, but without a constant source of moisture, a mudwretch dries out, suffering from low throbbing aches until it can resaturate. Often, blood from living creatures has to do-a dried mudwretch is more dangerous to intruders than one that's comfortably wallowing on a river bank.</p>",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-06: The Crashing Wave"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 17
+                "value": 9
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 13
+                "value": 2
             },
             "will": {
                 "saveDetail": "",
-                "value": 13
+                "value": 7
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "bleed",
+                    "critical-hits",
+                    "paralyzed",
+                    "poison",
+                    "sleep"
+                ]
             },
             "dr": [
                 {
-                    "type": "poison",
-                    "value": 5
+                    "label": "Acid",
+                    "type": "acid",
+                    "value": "3"
+                },
+                {
+                    "exceptions": "except bludgeoning",
+                    "type": "physical",
+                    "value": 3
                 }
             ],
             "dv": [
@@ -107,9 +118,11 @@
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "terran"
+                ]
             },
-            "rarity": "uncommon",
+            "rarity": "common",
             "senses": {
                 "value": "darkvision"
             },
@@ -119,7 +132,9 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "aberration"
+                    "earth",
+                    "elemental",
+                    "water"
                 ]
             }
         }
@@ -128,22 +143,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2fw4H5Q9NB0Lq7DQ",
+            "_id": "lt0GXB5vawxWhRLk",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "grab"
+                    ]
                 },
                 "bonus": {
-                    "total": 14,
-                    "value": 17
+                    "value": 8
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d10+9",
-                        "damageType": "slashing"
+                        "damage": "1d8+2",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -157,7 +173,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -165,12 +183,12 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tree Claws",
+            "name": "Fist",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "U845IJKZpNBSVKwx",
+            "_id": "xomzu6MJJ9pOCVdY",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -216,7 +234,51 @@
             "type": "action"
         },
         {
-            "_id": "nmiINLl4XQwyT4oE",
+            "_id": "8wrcvKK8xk5AIIva",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The ground in the area is difficult terrain for all non-mudwretch creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Muddy Field",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "FlbbYL5EQllXYKjc",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -229,7 +291,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>If the forest rot takes fire damage, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its turn.</p>"
+                    "value": "<p>If a mudwretch takes any damage from <em>@Compendium[pf2e.spells-srd.Horrid Wilting]{Horrid Wilting}</em> or a similar effect, takes 10 or more fire damage from a single effect, or spends more than 24 hours outside of a source of sufficient hydration (such as a swamp, river, well, or recent rainfall), it becomes dehydrated.</p>\n<p>While dehydrated, the mudwretch can't Spew Mud, is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}, and is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until it either fully immerses in water, spends 1 minute in the rain, or rehydrates in another way (such as via Gory Hydration).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -253,15 +315,61 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Flame-Scorched",
-            "sort": 300000,
+            "name": "Susceptible to Desiccation",
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "oEduKuW4WaDIp98Z",
+            "_id": "zWcMhsfvgxLXuw4D",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>[[/r {1d8}[bludgeoning]]]{1d8 bludgeoning damage}, @Check[type:fortitude|dc:16|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "wdSBw6qGzwcD9eZu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -271,7 +379,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature damages the dragon forest rot.</p>\n<p><strong>Effect</strong> The dragon forest rot sprays spores on the triggering creature. The spores deal [[/r {2d6+9}[piercing]]] piercing damage with a @Check[type:fortitude|dc:23|basic:true] save. On a critical failure, the triggering creature gains weakness to slashing 5 for the next 4 rounds.</p>"
+                    "value": "<p><strong>Requirements</strong> The mudwretch is dehydrated</p>\n<p><strong>Trigger</strong> The mudwretch deals Constrict damage to a living creature that has blood</p>\n<p><strong>Effect</strong> The mudwretch squeezes harder, dealing [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target. The mudwretch absorbs this blood, removing any penalties it had as a result of being dehydrated.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -295,25 +403,25 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spores",
-            "sort": 400000,
+            "name": "Gory Hydration",
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "b3SbLDyYjM3QmXhM",
+            "_id": "gmtlsmLh9eNdpNrk",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:23] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. On a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to the of all dragon forest rots for 1 minute.</p>"
+                    "value": "<p>Until it next acts, the mudwretch appears to be an ordinary puddle of mud. It has an automatic result of 20 on Deception checks to pass as a mud puddle and can make a fist Strike against a creature that walks onto the mud puddle as a reaction.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -327,8 +435,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "aura",
-                        "olfactory"
+                        "concentrate"
                     ]
                 },
                 "trigger": {
@@ -339,13 +446,13 @@
                 }
             },
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 500000,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Mud Puddle",
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "WDttWBnICVwt2mYo",
+            "_id": "EDGqAUdAUwkbCzQK",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -358,7 +465,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>The dragon forest rot breathes a toxic cloud that deals [[/r {7d6}[poison]]] poison damage in a 15-foot cone (@Check[type:fortitude|dc:23|basic:true] save).</p>\n<p>It can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The mudwretch spews a @Template[type:line|distance:20] of pressurized mud that deals [[/r {2d8}[bludgeoning]]]{2d8 bludgeoning damage} (@Check[type:reflex|dc:16|basic:true] save). On a critical failure, a creature also takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>The mudwretch can't Spew Mud again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -372,9 +479,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "arcane",
-                        "evocation",
-                        "poison"
+                        "conjuration",
+                        "primal"
                     ]
                 },
                 "trigger": {
@@ -386,18 +492,64 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
-            "sort": 600000,
+            "name": "Spew Mud",
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "ldXfL2I2YBAW4zH0",
+            "_id": "lvSGUnxmrOKOF2tT",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "7uRsuCKXumJJZRex",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 15
+                    "value": 6
                 },
                 "proficient": {
                     "value": 0
@@ -416,17 +568,17 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
-            "_id": "hTeQyuEffMowJLJO",
+            "_id": "xkdJTU02c9QmRrna",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 13
+                    "value": 4
                 },
                 "proficient": {
                     "value": 0
@@ -444,17 +596,17 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 800000,
+            "name": "Stealth",
+            "sort": 1100000,
             "type": "lore"
         }
     ],
-    "name": "Insidious Dragon Forest Rot",
+    "name": "Weak Mudwretch",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Insidious Dragon Forest Rot",
+        "name": "Weak Mudwretch",
         "width": 1
     },
     "type": "npc"

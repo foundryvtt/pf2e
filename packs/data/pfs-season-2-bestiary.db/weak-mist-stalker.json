@@ -1,55 +1,55 @@
 {
-    "_id": "rCErTabCxzPbR0ON",
+    "_id": "mREQ0kbYYSYsYb4e",
     "data": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 0
             },
             "con": {
-                "mod": 3
+                "mod": 2
             },
             "dex": {
-                "mod": 2
+                "mod": 4
             },
             "int": {
-                "mod": -4
+                "mod": 1
             },
             "str": {
-                "mod": 5
+                "mod": 4
             },
             "wis": {
-                "mod": 2
+                "mod": 5
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 22
+                "value": 18
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 125,
+                "max": 43,
                 "temp": 0,
-                "value": 125
+                "value": 43
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 12
+                "value": 13
             },
             "speed": {
                 "otherSpeeds": [
                     {
                         "type": "climb",
-                        "value": "10"
+                        "value": "20"
                     },
                     {
                         "type": "swim",
-                        "value": "10"
+                        "value": "30"
                     }
                 ],
                 "value": "20"
@@ -57,61 +57,60 @@
         },
         "details": {
             "alignment": {
-                "value": "NE"
+                "value": "N"
             },
             "blurb": "",
-            "creatureType": "",
+            "creatureType": "Elemental",
             "level": {
-                "value": 6
+                "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>The tentacled mist stalker shrouds itself in a cloak of mist through which its single, never-blinking eye can see with clarity, allowing it an advantage when stalking its prey.</p>\n<hr />\n<p>Water elementals that become infused with cold or mist have increased mobility in regions outside of bodies of water.</p>",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-06: The Crashing Wave"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 17
+                "value": 8
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 13
+                "value": 10
             },
             "will": {
                 "saveDetail": "",
-                "value": 13
+                "value": 9
             }
         },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "bleed",
+                    "paralyzed",
+                    "poison",
+                    "sleep"
+                ]
             },
-            "dr": [
-                {
-                    "type": "poison",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
+            "dr": [],
+            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "aquan"
+                ]
             },
-            "rarity": "uncommon",
+            "rarity": "common",
             "senses": {
-                "value": "darkvision"
+                "value": "darkvision, mist vision"
             },
             "size": {
                 "value": "med"
@@ -119,7 +118,9 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "aberration"
+                    "amphibious",
+                    "elemental",
+                    "water"
                 ]
             }
         }
@@ -128,22 +129,23 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2fw4H5Q9NB0Lq7DQ",
+            "_id": "Pvp0MGWk24EJhPud",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "grab"
+                    ]
                 },
                 "bonus": {
-                    "total": 14,
-                    "value": 17
+                    "value": 12
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "2d10+9",
-                        "damageType": "slashing"
+                        "damage": "2d8+2",
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -157,7 +159,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse",
+                        "sweep",
+                        "reach-10"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -165,12 +171,12 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tree Claws",
+            "name": "Tentacle",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "U845IJKZpNBSVKwx",
+            "_id": "BA1HIu1Y9Xs74B9s",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -216,10 +222,10 @@
             "type": "action"
         },
         {
-            "_id": "nmiINLl4XQwyT4oE",
+            "_id": "2PLVvoyanKPQQdYK",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -229,91 +235,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>If the forest rot takes fire damage, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Flame-Scorched",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "oEduKuW4WaDIp98Z",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "deathNote": false,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature damages the dragon forest rot.</p>\n<p><strong>Effect</strong> The dragon forest rot sprays spores on the triggering creature. The spores deal [[/r {2d6+9}[piercing]]] piercing damage with a @Check[type:fortitude|dc:23|basic:true] save. On a critical failure, the triggering creature gains weakness to slashing 5 for the next 4 rounds.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spores",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "b3SbLDyYjM3QmXhM",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "deathNote": false,
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:23] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. On a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to the of all dragon forest rots for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @Compendium[pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -328,7 +250,9 @@
                     "rarity": "common",
                     "value": [
                         "aura",
-                        "olfactory"
+                        "conjuration",
+                        "primal",
+                        "water"
                     ]
                 },
                 "trigger": {
@@ -340,12 +264,54 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
-            "sort": 500000,
+            "name": "Mist Cloud",
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "WDttWBnICVwt2mYo",
+            "_id": "sc9sTDDxNEMsTklK",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>The mist stalker ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from mist and fog.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mist Vision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "y5b7lQEAyBanNTYQ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -354,11 +320,57 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>The dragon forest rot breathes a toxic cloud that deals [[/r {7d6}[poison]]] poison damage in a 15-foot cone (@Check[type:fortitude|dc:23|basic:true] save).</p>\n<p>It can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>[[/r {1d8+2}[bludgeoning]]]{1d8+2 bludgeoning damage}, @Check[type:fortitude|dc:19|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "r62684lc4BkUMn7p",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>The mist stalker makes its mist cloud congeal, causing the aura to be difficult terrain until the start of the mist stalker's next turn.</p>\n<p>In addition, the mist stalker can make the mist even thicker around a single Medium or smaller creature within the cloud. The creature must succeed at a @Check[type:reflex|dc:18] save or become @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} or it is no longer in the mist cloud's emanation.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -372,9 +384,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "arcane",
-                        "evocation",
-                        "poison"
+                        "primal",
+                        "transmutation",
+                        "water"
                     ]
                 },
                 "trigger": {
@@ -385,19 +397,65 @@
                 }
             },
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath Weapon",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Solidify Mist",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "ldXfL2I2YBAW4zH0",
+            "_id": "y9b4KGpxjtDbtBFO",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "TKDl5Dc4IJMmgbyS",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 15
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -416,17 +474,17 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
-            "_id": "hTeQyuEffMowJLJO",
+            "_id": "QQrIUazz6cEu0DNY",
             "data": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 13
+                    "value": 10
                 },
                 "proficient": {
                     "value": 0
@@ -444,17 +502,17 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 800000,
+            "name": "Stealth",
+            "sort": 900000,
             "type": "lore"
         }
     ],
-    "name": "Insidious Dragon Forest Rot",
+    "name": "Weak Mist Stalker",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Insidious Dragon Forest Rot",
+        "name": "Mist Stalker",
         "width": 1
     },
     "type": "npc"
