@@ -4,7 +4,7 @@ import { WeaponRangeIncrement } from "@item/weapon/data";
 import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
 import { AELikeRuleElement, AELikeData, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
 
@@ -23,7 +23,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
         super({ ...data, predicate: data.predicate ?? {}, phase: "beforeDerived", priority: 110 }, item, options);
 
         this.property = setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, data.property) ? data.property : null;
-        this.definition = new PredicatePF2e(data.definition instanceof Object ? data.definition : {});
+        this.definition = new PredicatePF2e(isObject(data.definition) ? data.definition : {});
     }
 
     protected override validateData(): void {
@@ -50,6 +50,8 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
         const adjustment = ((): StrikeAdjustment => {
             if (!this.property) throw ErrorPF2e("Unexpected error applying adjustment");
 
+            const definition = this.resolveInjectedProperties(this.definition);
+
             switch (this.property) {
                 case "materials":
                     return {
@@ -62,7 +64,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                     'A strike adjustment of material effects must be used with "add" mode.'
                                 );
                             }
-                            if (!this.definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("weapon"))) {
                                 return;
                             }
                             if (!setHasElement(WEAPON_MATERIAL_EFFECTS, change)) {
@@ -79,7 +81,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (typeof change !== "number") {
                                 return this.failValidation("Change value is not a number.");
                             }
-                            if (!this.definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("weapon"))) {
                                 return;
                             }
 
@@ -106,7 +108,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (!objectHasKey(CONFIG.PF2E.weaponTraits, change)) {
                                 return this.failValidation(`"${change} is not a recognized strike trait.`);
                             }
-                            if (!this.definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("weapon"))) {
                                 return;
                             }
 
