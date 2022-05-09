@@ -3108,7 +3108,28 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "twoHanded",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -3128,49 +3149,6 @@
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Staff",
             "sort": 2400000,
-            "type": "melee"
-        },
-        {
-            "_id": "neyNIslPOaVA4dDa",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 18
-                },
-                "damageRolls": {
-                    "oycb7ngpfbew4mvb07ga": {
-                        "damage": "2d8+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "two-hand-d8"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Staff (Two-handed)",
-            "sort": 2500000,
             "type": "melee"
         },
         {
@@ -3216,7 +3194,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 2600000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -3311,7 +3289,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Steadying Stone",
-            "sort": 2700000,
+            "sort": 2600000,
             "type": "action"
         },
         {
@@ -3340,7 +3318,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2800000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -3369,7 +3347,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2900000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -3398,7 +3376,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Darklands Lore",
-            "sort": 3000000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -3427,7 +3405,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 3100000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -3456,7 +3434,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3200000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -3485,7 +3463,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3300000,
+            "sort": 3200000,
             "type": "lore"
         }
     ],
