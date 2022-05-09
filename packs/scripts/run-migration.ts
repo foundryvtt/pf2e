@@ -30,6 +30,7 @@ import { Migration741RollOptionToggleToItem } from "@module/migration/migrations
 import { Migration742RMAbilityBoostLevels } from "@module/migration/migrations/742-rm-class-ability-boost-levels";
 import { Migration743FixWeaknessStructure } from "@module/migration/migrations/743-fix-weakness-structure";
 import { Migration744MigrateSpellHeighten } from "@module/migration/migrations/744-migrate-spell-heighten";
+import { Migration745EffectTargetToChoiceSet } from "@module/migration/migrations/745-effect-target-to-choice-set";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -56,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration742RMAbilityBoostLevels(),
     new Migration743FixWeaknessStructure(),
     new Migration744MigrateSpellHeighten(),
+    new Migration745EffectTargetToChoiceSet(),
 ];
 
 global.deepClone = <T>(original: T): T => {

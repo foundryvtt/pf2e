@@ -24,7 +24,11 @@ class WeaponPotencyRuleElement extends RuleElementPF2e {
                 game.settings.get("pf2e", "automaticBonusVariant") === "noABP"
                     ? MODIFIER_TYPE.ITEM
                     : MODIFIER_TYPE.POTENCY;
-            const potency: WeaponPotencyPF2e = { label: this.label, bonus: value, type: bonusType };
+
+            const label = this.data.label.includes(":")
+                ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
+                : this.data.label;
+            const potency: WeaponPotencyPF2e = { label, bonus: value, type: bonusType };
             if (this.data.predicate) {
                 potency.predicate = this.data.predicate;
             }
