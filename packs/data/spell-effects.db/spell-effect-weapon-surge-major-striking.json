@@ -15,12 +15,23 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": {
+                        "all": [
+                            "item:equipped"
+                        ]
+                    },
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "FlatModifier",
-                "selector": "{item|data.target}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurgeMajorStriking}-attack",
                 "type": "status",
                 "value": 1
             }

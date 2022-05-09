@@ -15,8 +15,14 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "damageType": "acid",
@@ -29,7 +35,7 @@
                         "acid-domain"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponAcid}-damage"
             },
             {
                 "damageType": "acid",
@@ -42,7 +48,7 @@
                         "acid-domain"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponAcid}-damage"
             }
         ],
         "source": {
