@@ -99,13 +99,18 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 * Guns and Gears
     * Pathfinder Guns & Gears © 2021, Paizo Inc.; Authors: Logan Bonner, Jessica Catalan, John Compton, Andrew D. Geels, Steven Hammond, Sen H.H.S., Brent Holtsberry, Jason Keeley, Dustin Knight, Luis Loza, Ron Lundeen, Chris Mastey, Liane Merciel, Jacob W. Michaels, Dave Nelson, Samantha Phelan, Mikhail Rekun, Stephen Radney-MacFarland, Sydney Meeker, Kendra Leigh Speedling, Michael Sayre., Mark Seifter, Andrew Stoeckle, Calliope Lee Taylor, Andrew White, and Scott D. Young.
 
+* Book of the Dead
+    * Demon Lord, Orcus from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene and Clark Peterson, based on material by Gary Gygax.
+    * Pathfinder Book of the Dead © 2022, Paizo Inc.; Authors: Brian Bauman, Tineke Bolleman. Logan Bonner, Jason Bulmahn, Jessica Catalan, John Compton, Chris Eng, Logan Harper, Michelle Jones, Jason Keeley, Luis Loza, Ron Lundeen, Liane Merciel, Patchen Mortimer, Quinn Murphy, Jessica Redekop, Mikhail Rekun, Solomon St. John, Michael Sayre, Mark Seifter, Sen.H.H.S., Kendra Leigh Speedling, Jason Tondro, Andrew White.
+
+
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
     *  Pathfinder Adventure: The Slithering © 2020, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: Troubles in Otari © 2020, Paizo Inc.; Author: Jason Keeley, Liz Liddell, and Ron Lundeen.
     *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
     *  Pathfinder Adventure: Night of the Gray Death © 2021, Paizo Inc.; Author: Ron Lundeen.
-    *  Pathfinder Adventure: Shadows at Sundown © 2022, Paizo Inc.; Author: Unannounced.
+    *  Pathfinder Adventure: Shadows at Sundown © 2022, Paizo Inc.; Author: Landon Winkler.
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -148,6 +153,16 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #176: Lost Mammoth Valley © 2022, Paizo Inc.; Author: Jessica Catalan.
     *  Pathfinder Adventure Path #177: Burning Tundra © 2022, Paizo Inc.; Author: Jason Tondro.
     *  Outlaws of Alkenstar Player's Guide © 2022, Paizo Inc.; Author: Patrick Renie.
+    *  Pathfinder Adventure Path #178: Punks in a Powderkeg © 2022, Paizo Inc.; Author: Vanessa Hoskins.
+    *  Pathfinder Adventure Path #179: Cradle of Quartz © 2022, Paizo Inc.; Author: Scott D. Young.
+    *  Pathfinder Adventure Path #180: The Smoking Gun © 2022, Paizo Inc.; Author: Cole Kronewitter.
+    *  Pathfinder Adventure Path #181: Zombie Feast © 2022, Paizo Inc.; Author: Mike Kimmel.
+    *  Pathfinder Adventure Path #181: Graveclaw © 2022, Paizo Inc.; Author: Jason Tondro.
+    *  Pathfinder Adventure Path #182: Field of Maidens © 2022, Paizo Inc.; Author: Jenny Jarzabski.
+    *  Pathfinder Adventure Path #183: The Ghouls Hunger © 2022, Paizo Inc.; Author: Leo Glass.
+    *  Pathfinder Adventure Path #184: A Taste of Ashes © 2022, Paizo Inc.; Author: Brian Duckwitz.
+    *  Pathfinder Adventure Path #185: Ghost King's Rage © 2022, Paizo Inc.; Author: Jessica Catalan.
+
 
 * Society
     * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.
@@ -181,6 +196,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Bounty #15: Treasure Off the Coast © 2021, Paizo Inc.; Author: Brent Bowser
     * Pathfinder Society Bounty #16: Boom Town Betrayal © 2021, Paizo Inc.; Author: Logan Harper
     * Pathfinder Society Bounty #17: Sodden Stories © 2021, Paizo Inc.; Author: Michael Bramnik
+    * Pathfinder Society Bounty #18: From Family Lost © 2022, Paizo Inc.; Author: Alexi Greer
+    * Pathfinder Society Bounty #19: Grim Tidings © 2021, Paizo Inc.; Author: Cat Evans
 
     * Pathfinder Society Intro #1: The Second Confirmation © 2021, Paizo Inc.; Author: Thurston Hillman.
     * Pathfinder Society Intro #2: United In Purpose © 2021, Paizo Inc.; Author: Brian Duckwitz.
@@ -238,7 +255,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination © 2021, Paizo Inc.; Authors: Nicholas Wasko
 	* Pathfinder Society Scenario #2-23: An Agent's Obligation © 2021, Paizo Inc.; Authors: Joshua Hennington
 	* Pathfinder Society Scenario #2-24: Breaking the Storm: Parting Clouds © 2021, Paizo Inc.; Authors: Tineke Bolleman
-	* Pathfinder Society Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
+	* Pathfinder Society Scenario #3-01: Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
 	* Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
 	* Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
     * Pathfinder Society Scenario #3-04: The Devil-Wrought Disappearance © 2021, Paizo Inc.; Authors: Joseph Blomquist
@@ -246,7 +263,20 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #3-06: Struck by Shadows © 2021, Paizo Inc.; Authors: Luis Loza
     * Pathfinder Society Scenario #3-07: The Locked Lodge © 2021, Paizo Inc.; Authors: Kalervo Oikarinen
     * Pathfinder Society Scenario #3-08: Foundation's Price © 2022, Paizo Inc.; Authors: Letterio Mammoliti
-	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
+    * Pathfinder Society Scenario #3-09: The Secluded Siege © 2022, Paizo Inc.; Authors: Lysle Kapp
+	* Pathfinder Society Scenario #3-10: Delve the Pallid Depths © 2022, Paizo Inc.; Authors: Caryn DiMarco
+    * Pathfinder Society Scenario #3-11: No Time for Treason © 2022, Paizo Inc.; Authors: Rigby Bendele
+    * Pathfinder Society Scenario #3-12: Fury's Toll © 2022, Paizo Inc.; Authors: Solomon St. John
+    * Pathfinder Society Scenario #3-13: Guardian's Covenant © 2022, Paizo Inc.; Authors: Christopher Wasko
+    * Pathfinder Society Scenario #3-14: The Tomb Between Worlds © 2022, Paizo Inc.; Authors: Jacob W. Michaels
+    * Pathfinder Society Scenario #3-15: Cavern of the Sundered Song © 2022, Paizo Inc.; Authors: Kate Baker
+    * Pathfinder Society Scenario #3-16: Escape from Oppara © 2022, Paizo Inc.; Authors: Brent Bowser
+    * Pathfinder Society Scenario #3-17: Dream of a Dustbound Isle © 2022, Paizo Inc.; Authors: Matt Duval
+    * Pathfinder Society Scenario #3-18: Dacilane Academy's Delightful Disaster © 2022, Paizo Inc.; Authors: Matt Morris
+    * Pathfinder Society Scenario #3-19: Mean Streets of Shadow Absalom © 2022, Paizo Inc.; Authors: Amber Stewart
+    * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 1-4) © 2022, Paizo Inc.; Authors: Rigby Bendele
+    * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 3-6) © 2022, Paizo Inc.; Authors: Rigby Bendele
+    * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
 	* Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
@@ -289,12 +319,14 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder One-Shot #2: Dinner at Lionlodge Pregenerated Characters © 2021, Paizo Inc.; Author: James Jacobs
     *  Pathfinder One-Shot #3: Head Shot the Rot © 2021, Paizo Inc.; Author: Michael Sayre
     *  Pathfinder One-Shot #3: Head Shot the Rot Pregenerated Characters © 2021, Paizo Inc.; Author: Michael Sayre
+    *  Pathfinder One-Shot #4: Mark of the Mantis © 2022, Paizo Inc.; Author: John Compton
+    *  Pathfinder One-Shot #4: Mark of the Mantis Pregenerated Characters © 2022, Paizo Inc.; Author: John Compton
 
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.
     *  Pathfinder Critical Fumble Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.
     *  Pathfinder Critical Hit Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.
-    * Pathfinder Hero Point Deck © 2021, Paizo Inc.; Author: Jason Bulmahn
+    *  Pathfinder Hero Point Deck © 2021, Paizo Inc.; Author: Jason Bulmahn
 
 *  Paizo Blog
     *  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
