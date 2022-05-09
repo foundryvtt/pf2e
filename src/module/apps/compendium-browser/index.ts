@@ -1,7 +1,7 @@
 import { Progress } from "./progress";
 import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
-import { attemptToRemoveCoinsByValue, extractPriceFromItem } from "@item/treasure/helpers";
+import { extractPriceFromItem } from "@item/treasure/helpers";
 import { ErrorPF2e, objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -617,7 +617,7 @@ export class CompendiumBrowser extends Application {
 
         for (const actor of actors) {
             const itemValue = extractPriceFromItem(item.data, 1);
-            if (await attemptToRemoveCoinsByValue({ actor, coinsToRemove: itemValue })) {
+            if (await actor.removeCoins(itemValue)) {
                 purchasesSucceeded = purchasesSucceeded + 1;
                 await actor.createEmbeddedDocuments("Item", [item.toObject()]);
             }

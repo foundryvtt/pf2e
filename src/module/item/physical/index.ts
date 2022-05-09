@@ -6,7 +6,7 @@ import { LootPF2e } from "@actor";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait } from "./data";
-import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
+import { coinsToString, coinStringToCoins, extractPriceFromItem, multiplyCoinValue } from "@item/treasure/helpers";
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
@@ -53,6 +53,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get price(): string {
         return this.data.data.price.value;
+    }
+
+    get stackPrice() {
+        return multiplyCoinValue(coinStringToCoins(this.price), this.quantity);
     }
 
     get identificationStatus(): IdentificationStatus {
