@@ -45,6 +45,7 @@ import { request } from "./diplomacy/request";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatPoison } from "./medicine/treat-poison";
+import { commandAnAnimal } from "./nature/command-an-animal";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
@@ -153,6 +154,9 @@ export class ActionMacros {
 
         // Medicine
         treatPoison,
+
+        // Nature
+        commandAnAnimal,
 
         // Stealth
         hide,
