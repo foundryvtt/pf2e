@@ -64,6 +64,16 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         $html.find("i.fas").tooltipster({ theme: "crb-hover" });
     }
 
+    /** Return early if there is only one choice */
+    override async resolveSelection(): Promise<PickableThing<string | number | object> | null> {
+        const firstChoice = this.choices.at(0);
+        if (!this.containsUUIDs && firstChoice && this.choices.length === 1) {
+            return (this.selection = firstChoice);
+        }
+
+        return super.resolveSelection();
+    }
+
     /** Handle a dropped homebrew item */
     override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();

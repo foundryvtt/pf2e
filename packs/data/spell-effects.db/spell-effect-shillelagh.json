@@ -15,18 +15,24 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "WeaponPotency",
-                "selector": "{item|data.target}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-attack",
                 "value": 1
             },
             {
                 "key": "Striking",
                 "label": "Shillelagh",
-                "selector": "{item|data.target}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
                 "value": 1
             },
             {
@@ -44,7 +50,7 @@
                         "shillelagh-third-die"
                     ]
                 },
-                "selector": "{item|data.target}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
                 "value": 2
             }
         ],

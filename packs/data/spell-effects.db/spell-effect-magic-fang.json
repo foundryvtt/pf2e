@@ -1,8 +1,8 @@
 {
-    "_id": "GnWkI3T3LYRlm3X8",
+    "_id": "MqZ6FScbfGtXB8tt",
     "data": {
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Magic Weapon]{Magic Weapon}</em></p>\n<p>The weapon glimmers with magic and energy. The target becomes a +1 <em>striking</em> weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>"
+            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Magic Fang]{Magic Fang}</em></p>\n<p>The unarmed attack becomes a +1 striking unarmed attack, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two if it had only one.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,27 +16,25 @@
         "rules": [
             {
                 "choices": {
-                    "ownedItems": true,
-                    "types": [
-                        "weapon"
-                    ]
+                    "unarmedAttacks": true
                 },
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+                "flag": "magicFang",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack"
             },
             {
                 "key": "WeaponPotency",
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectMagicWeapon}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.magicFang}-attack",
                 "value": 1
             },
             {
                 "key": "Striking",
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectMagicWeapon}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.magicFang}-damage",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -53,7 +51,7 @@
         }
     },
     "flags": {},
-    "img": "systems/pf2e/icons/spells/magic-weapon.webp",
-    "name": "Spell Effect: Magic Weapon",
+    "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+    "name": "Spell Effect: Magic Fang",
     "type": "effect"
 }

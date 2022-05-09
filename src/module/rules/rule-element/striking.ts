@@ -20,7 +20,10 @@ export class StrikingRuleElement extends RuleElementPF2e {
                 : 0;
         const value = this.resolveValue(strikingValue);
         if (selector && typeof value === "number") {
-            const striking: StrikingPF2e = { label: this.label, bonus: value };
+            const label = this.data.label.includes(":")
+                ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")
+                : this.data.label;
+            const striking: StrikingPF2e = { label, bonus: value };
             if (this.data.predicate) {
                 striking.predicate = this.data.predicate;
             }
