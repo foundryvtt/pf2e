@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/named
 import { DateTime, HourNumbers, MinuteNumbers, SecondNumbers } from "luxon";
 
 enum TimeChangeMode {
@@ -13,11 +12,13 @@ class TimeOfDay {
         public readonly second: SecondNumbers
     ) {}
 
-    static DAWN = new TimeOfDay(6, 0, 0);
+    /** Point in morning twilight where dim light begins */
+    static DAWN = new TimeOfDay(4, 58, 54);
 
     static NOON = new TimeOfDay(12, 0, 0);
 
-    static DUSK = new TimeOfDay(18, 0, 0);
+    /** Point in evening twilight where dim light begins */
+    static DUSK = new TimeOfDay(18, 34, 6);
 
     static MIDNIGHT = new TimeOfDay(0, 0, 0);
 
