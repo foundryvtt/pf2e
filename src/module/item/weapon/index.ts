@@ -109,7 +109,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "weapon"): string[] {
         const delimitedPrefix = prefix ? `${prefix}:` : "";
-        const damageDieFaces = Number(this.data.data.damage.die.replace(/^d/, ""));
+        const damage = {
+            type: this.data.data.damage.damageType,
+            dieFaces: Number(this.data.data.damage.die.replace(/^d/, "")),
+        };
         const actorSize = this.actor?.data.data.traits.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const isDeityFavored =
@@ -125,7 +128,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`usage:hands:${this.hands}`]: this.hands !== "0",
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
-                [`damage:die:faces:${damageDieFaces}`]: true,
+                [`damage:type:${damage.type}`]: true,
+                [`damage:die:faces:${damage.dieFaces}`]: true,
                 [`damage-dice:${1 + this.data.data.runes.striking}`]: true,
                 ["deity-favored"]: isDeityFavored,
                 oversized,

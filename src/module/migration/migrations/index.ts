@@ -144,3 +144,4 @@ export { Migration741RollOptionToggleToItem } from "./741-roll-option-toggle-to-
 export { Migration742RMAbilityBoostLevels } from "./742-rm-class-ability-boost-levels";
 export { Migration743FixWeaknessStructure } from "./743-fix-weakness-structure";
 export { Migration744MigrateSpellHeighten } from "./744-migrate-spell-heighten";
+export { Migration745EffectTargetToChoiceSet } from "./745-effect-target-to-choice-set";

@@ -18,7 +18,6 @@ import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap";
-import { EffectTargetRuleElement } from "./rule-element/effect-target/rule-element";
 import { HealingRuleElement } from "./rule-element/fast-healing";
 import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency";
 import { FlatModifierRuleElement } from "./rule-element/flat-modifier";
@@ -60,7 +59,6 @@ class RuleElements {
         CreatureSize: CreatureSizeRuleElement,
         DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
-        EffectTarget: EffectTargetRuleElement,
         FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
         GrantItem: GrantItemRuleElement,
