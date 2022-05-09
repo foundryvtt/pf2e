@@ -246,8 +246,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
         for (const denomination of DENOMINATIONS) {
-            const quantity = coins[denomination];
-            if (quantity && quantity > 0) {
+            const quantity = coins[denomination] ?? 0;
+            if (quantity > 0) {
                 const item = coinsByDenomination.get(denomination)?.[0];
                 if (item) {
                     await item.update({ "data.quantity": item.quantity + quantity });
