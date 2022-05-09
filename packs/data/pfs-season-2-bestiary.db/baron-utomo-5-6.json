@@ -63,7 +63,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-06: The Crashing Wave"
             }
         },
         "resources": {},
@@ -93,7 +93,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "Shark Commune (150ft)",
+                "custom": "Shark Commune 150 feet",
                 "selected": [],
                 "value": [
                     "aquan"
@@ -101,7 +101,7 @@
             },
             "rarity": "unique",
             "senses": {
-                "value": "darkvision, wavesense 30ft"
+                "value": "darkvision, wavesense 30 ft"
             },
             "size": {
                 "value": "med"
@@ -543,7 +543,7 @@
             "type": "melee"
         },
         {
-            "_id": "bSlFKX4mwuZmRkV9",
+            "_id": "qcKCHeMY9h6KwBqb",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -554,6 +554,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -588,7 +589,7 @@
             "type": "action"
         },
         {
-            "_id": "kifMfGaob9mMEDFB",
+            "_id": "WwoCaWq7HAx9EFGE",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -599,6 +600,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The sea devil can communicate telepathically with sharks within range. It can communicate only simple concepts like \"come,\" \"guard,\" or \"attack.\"</p>"
                 },
@@ -624,14 +626,18 @@
                     "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Item.kifMfGaob9mMEDFB"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shark Commune",
+            "name": "Shark Commune 150 feet",
             "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "kZW0AYOoA6oVMqvO",
+            "_id": "NHqoypPyVlaAIlar",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -642,6 +648,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Wavesense]</p>"
                 },
@@ -671,12 +678,12 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Wavesense",
+            "name": "Wavesense 30 feet",
             "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "59rYmGuqfG3pPfsH",
+            "_id": "1dcLTL7lo0aLhicS",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -687,44 +694,41 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The sea devil is not fatigued or already in a frenzy.</p>\n<p><strong>Trigger</strong> The sea devil deals bleed damage to a living creature.</p>\n<p><strong>Effect</strong> The sea devil flies into a frenzy that lasts 1 minute. While frenzied, the sea devil gains a +1 status bonus to attack rolls with its claws and jaws, gains a +4 status bonus to damage rolls with its claws and jaws, gains 11 temporary HP until the end of the frenzy, and takes a -2 status penalty to AC. The sea devil can't voluntarily stop its frenzy. After its frenzy, the sea devil is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+                    "value": "<p><strong>Requirements</strong> The sea devil is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or already in a frenzy</p>\n<p><strong>Trigger</strong> The sea devil deals bleed damage to a living creature.</p>\n<p><strong>Effect</strong> The sea devil flies into a frenzy that lasts 1 minute. While frenzied, the sea devil gains a +1 status bonus to attack rolls with its claws and jaws, gains a +4 status bonus to damage rolls with its claws and jaws, gains 15 temporary HP until the end of the frenzy, and takes a -2 status penalty to AC. The sea devil can't voluntarily stop its frenzy. After its frenzy, the sea devil is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Blood Frenzy]{Effect: Blood Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "key": "TempHP",
-                        "predicate": {
-                            "all": [
-                                "blood-frenzy"
-                            ]
-                        },
-                        "value": 15
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "blood-frenzy",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
                             ]
                         },
-                        "selector": "jaws-damage",
+                        "selector": "claw-attack",
                         "type": "status",
-                        "value": 4
+                        "value": 1
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
+                            ]
+                        },
+                        "selector": "jaws-attack",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "self:effect:blood-frenzy"
                             ]
                         },
                         "selector": "claw-damage",
@@ -735,7 +739,24 @@
                         "key": "FlatModifier",
                         "predicate": {
                             "all": [
-                                "blood-frenzy"
+                                "self:effect:blood-frenzy"
+                            ]
+                        },
+                        "selector": "jaws-damage",
+                        "type": "status",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.custom.modifiers.frenzyMod",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "self:effect:blood-frenzy"
                             ]
                         },
                         "selector": "ac",
@@ -761,14 +782,18 @@
                     "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Item.zHIioB6mgFk3W6Uz"
+                }
+            },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Blood Frenzy",
             "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "O6jpC08kjDmAk28j",
+            "_id": "b5dsWTGoSBPtQTnr",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -779,13 +804,38 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When the sea devil deals piercing or slashing damage, it also deals [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} if the target was @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} or if the attack was a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": {
+                            "all": [
+                                "target:condition:flat-footed"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "not": [
+                                "target:condition:flat-footed"
+                            ]
+                        },
+                        "selector": "attack",
+                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -802,7 +852,11 @@
                     "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Item.6bt34Jgx0jymQKsU"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bloodletting",
             "sort": 1100000,
@@ -820,6 +874,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Requirement</strong> The sea devil baron is in a blood frenzy.</p>\n<p><strong>Effect</strong> The sea devil baron unleashes a whirlwind of attacks against its foes, making a single melee Strike with its claws or jaws against each opponent within reach.</p>"
                 },
