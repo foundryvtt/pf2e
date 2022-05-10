@@ -14,6 +14,7 @@ import {
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ItemSheetDataPF2e } from "./data-types";
 import Tagify from "@yaireo/tagify";
+import type * as TinyMCE from "tinymce";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -372,6 +373,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollLinks.listen($html);
+    }
+
+    /** Ensure the source description is edited rather than a prepared one */
+    override activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, _initialContent?: string): void {
+        super.activateEditor(name, options, this.item.data._source.data.description.value);
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
