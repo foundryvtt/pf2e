@@ -806,7 +806,20 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Twisting Tail",
+                        "predicate": {
+                            "all": [
+                                "twisting-tail"
+                            ]
+                        },
+                        "selector": "{item|_id}-attack",
+                        "type": "untyped",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1090,12 +1103,21 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using</p>\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the creature's action.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Twisting Tail]{Effect: Twisting Tail}</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using</p>\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the creature's action.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack",
+                        "key": "RollOption",
+                        "label": "Using the Twisting Tail Reaction",
+                        "option": "twisting-tail",
+                        "toggleable": true,
+                        "value": false
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
