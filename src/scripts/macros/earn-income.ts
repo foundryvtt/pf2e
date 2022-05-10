@@ -3,14 +3,16 @@
  */
 
 import { ProficiencyRank } from "@item/data";
-import { Coins } from "@item/treasure/helpers";
+import type { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
+import { multiplyCoins } from "@item/treasure/helpers";
 import { calculateDC, DCOptions } from "@module/dc";
 import { DegreeIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-success";
 
 // you have to be at least trained to earn income
 export type TrainedProficiencies = Exclude<ProficiencyRank, "untrained">;
 type Rewards = {
-    [rank in TrainedProficiencies]: Partial<Coins>;
+    [rank in TrainedProficiencies]: Coins;
 };
 
 /**
@@ -18,7 +20,7 @@ type Rewards = {
  * rank. If you go over that, it does not matter what rank
  * you actually performed
  */
-function buildRewards(...rewards: Partial<Coins>[]): Rewards {
+function buildRewards(...rewards: Coins[]): Rewards {
     const [trained, expert, master, legendary] = rewards;
     return {
         trained: trained,
@@ -62,8 +64,8 @@ export function getIncomeForLevel(level: number): IncomeForLevel {
 
 export interface EarnIncomeResult {
     rewards: {
-        perDay: Partial<Coins>;
-        combined: Partial<Coins>;
+        perDay: Coins;
+        combined: Coins;
     };
     degreeOfSuccess: DegreeIndex;
     daysSpentWorking: number;
@@ -73,7 +75,7 @@ export interface EarnIncomeResult {
 }
 
 export interface PerDayEarnIncomeResult {
-    rewards: Partial<Coins>;
+    rewards: Coins;
     degreeOfSuccess: DegreeIndex;
 }
 
@@ -83,14 +85,6 @@ export interface EarnIncomeOptions {
     // If you're an expert in Lore, you gain twice as much income from a failed check to Earn Income,
     // unless it was originally a critical failure.
     useLoreAsExperiencedProfessional: boolean;
-}
-
-export function multiplyIncome(income: Partial<Coins>, factor: number): Partial<Coins> {
-    const result: Partial<Coins> = {};
-    for (const [key, value] of Object.entries(income)) {
-        result[key as keyof Partial<Coins>] = value! * factor;
-    }
-    return result;
 }
 
 function applyIncomeOptions(
@@ -104,9 +98,18 @@ function applyIncomeOptions(
             result.degreeOfSuccess = DegreeOfSuccess.FAILURE;
             result.rewards = getIncomeForLevel(level).failure;
         } else if (result.degreeOfSuccess === DegreeOfSuccess.FAILURE && proficiency !== "trained") {
-            result.rewards = multiplyIncome(result.rewards, 2);
+            result.rewards = stripCoins(multiplyCoins(result.rewards, 2));
         }
     }
+}
+
+function stripCoins(coins: Coins): Coins {
+    for (const denomination of DENOMINATIONS) {
+        if (coins[denomination] === 0) {
+            delete coins[denomination];
+        }
+    }
+    return coins;
 }
 
 /**
@@ -142,7 +145,7 @@ export function earnIncome(
     return {
         rewards: {
             perDay: result.rewards,
-            combined: multiplyIncome(result.rewards, days),
+            combined: stripCoins(multiplyCoins(result.rewards, days)),
         },
         degreeOfSuccess: result.degreeOfSuccess,
         daysSpentWorking: days,

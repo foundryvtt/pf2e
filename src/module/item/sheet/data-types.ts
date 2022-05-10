@@ -29,6 +29,8 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
 
 export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     isPhysical: true;
+    basePriceString: string;
+    priceString: string;
     actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];

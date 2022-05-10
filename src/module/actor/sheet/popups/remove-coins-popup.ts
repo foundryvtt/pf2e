@@ -1,4 +1,4 @@
-import { Coins } from "@item/treasure/helpers";
+import { Coins } from "@item/physical/data";
 import { ActorPF2e } from "../../base";
 
 interface PopupFormData extends Coins {

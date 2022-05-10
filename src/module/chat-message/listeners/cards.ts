@@ -1,7 +1,7 @@
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { StatisticModifier } from "@actor/modifiers";
-import { coinsToString, extractPriceFromItem, multiplyCoinValue } from "@item/treasure/helpers";
+import { coinsToString, multiplyCoins, multiplyPrice } from "@item/treasure/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { craftSpellConsumable } from "@actor/character/crafting/helpers";
@@ -129,10 +129,8 @@ export const ChatCards = {
                     const item = await fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = extractPriceFromItem({ data: { quantity, price: item.data.data.price } });
-                    const coinsToRemove = $button.hasClass("full")
-                        ? craftingCost
-                        : multiplyCoinValue(craftingCost, 0.5);
+                    const craftingCost = multiplyPrice(item.price, quantity);
+                    const coinsToRemove = $button.hasClass("full") ? craftingCost : multiplyCoins(craftingCost, 0.5);
                     if (!(await actor.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                         return;
@@ -177,11 +175,9 @@ export const ChatCards = {
                     const item = await fromUuid(itemUuid);
                     if (item === null || !(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
-                    const craftingCost = extractPriceFromItem({
-                        data: { quantity, price: item.data.data.price },
-                    });
-                    const materialCosts = multiplyCoinValue(craftingCost, 0.5);
-                    const coinsToRemove = multiplyCoinValue(materialCosts, 0.1);
+                    const craftingCost = multiplyPrice(item.price, quantity);
+                    const materialCosts = multiplyCoins(craftingCost, 0.5);
+                    const coinsToRemove = multiplyCoins(materialCosts, 0.1);
                     if (!(await actor.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     } else {
