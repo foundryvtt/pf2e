@@ -24,12 +24,7 @@
             "selectable": true,
             "statusName": "frightened"
         },
-        "modifiers": [
-            {
-                "group": "all",
-                "type": "status"
-            }
-        ],
+        "modifiers": [],
         "overrides": [],
         "references": {
             "children": [],
@@ -38,7 +33,14 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
         "source": {
             "value": ""
         },
