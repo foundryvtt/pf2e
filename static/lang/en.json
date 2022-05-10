@@ -232,6 +232,14 @@
                     "LoseMaterials": "{actorName} loses {cost} of materials."
                 }
             },
+            "CommandAnAnimal": {
+                "Notes": {
+                    "success": "<strong>Success</strong> The animal does as you command on its next turn.",
+                    "failure": "<strong>Failure</strong> The animal is hesitant or resistant, and it does nothing.",
+                    "criticalFailure": "<strong>Critical Failure</strong> The animal misbehaves or misunderstands, and it takes some other action determined by the GM."
+                },
+                "Title": "Command an Animal"
+            },
             "CreateADiversion": {
                 "DistractingWords": "Create a Diversion - Distracting Words",
                 "Gesture": "Create a Diversion - Gesture",
@@ -504,6 +512,14 @@
                 },
                 "Title": "Swim"
             },
+            "Track": {
+                "Notes": {
+                    "success": "<strong>Success</strong> You find the trail or continue to follow the one you're already following.",
+                    "failure": "<strong>Failure</strong> You lose the trail but can try again after a 1-hour delay.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You lose the trail and can't try again for 24 hours."
+                },
+                "Title": "Track"
+            },
             "TreatPoison": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You grant the creature a +4 circumstance bonus to its next saving throw against the poison.<br/>@Compendium[pf2e.equipment-effects.XwCBalKJf3CiEiFa]{Effect: Treat Poison (Critical Success)}",
@@ -582,12 +598,33 @@
                     "Label": "Rest for the Night"
                 }
             },
+            "Creature": {
+                "Alliance": {
+                    "Opposition": "Opposition",
+                    "Party": "Party",
+                    "Neutral": "Neutral"
+                }
+            },
             "Dead": "Dead",
             "Hazard": {
                 "Level": "Hazard {level}"
             },
             "NPC": {
-                "IsLootableOnDeathLabel": "Make this NPC lootable on death"
+                "Configure": {
+                    "Title": "Configure NPC",
+                    "Alliance": {
+                        "Label": "Alliance",
+                        "Hint": "An NPC can be in opposition to the party, allied with it, or neutral. This impacts some mechanics during an encounter, such as flanking."
+                    },
+                    "Lootable": {
+                        "Label": "Lootable?",
+                        "Hint": "Set whether this NPC becomes lootable by players upon its demise. The global default can be configured in <a>Automation Settings</a>.",
+                        "DefaultLootable": "Global Default (Lootable)",
+                        "DefaultNotLootable": "Global Default (Not Lootable)",
+                        "Lootable": "Lootable",
+                        "NotLootable": "Not Lootable"
+                    }
+                }
             },
             "Plural": "Actors"
         },
@@ -1231,6 +1268,7 @@
             "NoPCTokenSelected": "Select at least one token associated with a PC.",
             "NoUpdatePermission": "You lack permission to update this actor.",
             "NotEnoughAmmo": "You don't have enough ammo to make this strike.",
+            "NotEnoughCoins": "Insufficient Coins",
             "SubV9Module": "{module} does not support Foundry V9 and may introduce stability issues to your game.",
             "WeaponQuantityZero": "You have no more of these weapons equipped.",
             "RuleElementSyntax": "Syntax error in rule element definition: {message}"

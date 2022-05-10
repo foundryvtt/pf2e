@@ -12,6 +12,7 @@ import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActorSizePF2e } from "@actor/data/size";
 import { SkillAbbreviation } from "@actor/creature/data";
+import { ActorAlliance } from "@actor/types";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<
@@ -37,6 +38,10 @@ interface BaseActorDataPF2e<
 }
 
 export interface ActorSystemSource {
+    details?: {
+        level?: { value: number };
+        alliance?: ActorAlliance;
+    };
     attributes: {
         hp?: ValueAndMaybeMax;
     };

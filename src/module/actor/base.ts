@@ -1,9 +1,9 @@
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e, TreasurePF2e } from "@item";
 import { ArmorPF2e, type ConditionPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, isObject, objectHasKey } from "@util";
+import { ErrorPF2e, groupBy, isObject, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -30,6 +30,14 @@ import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 import { preImportJSON } from "@module/doc-helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import {
+    coinCompendiumIds,
+    Coins,
+    coinValueInCopper,
+    combineCoins,
+    DENOMINATIONS,
+    noCoins,
+} from "@item/treasure/helpers";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -170,6 +178,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return true;
     }
 
+    get coins(): Coins {
+        return this.physicalItems
+            .filter((i) => i.isOfType("treasure") && i.isCoinage)
+            .map((item) => item.stackPrice)
+            .reduce(combineCoins, noCoins());
+    }
+
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (data: ConditionData) => {
@@ -224,6 +239,143 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             {}
         );
         return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
+    }
+
+    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+        const topLevelCoins = this.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
+        const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
+
+        for (const denomination of DENOMINATIONS) {
+            const quantity = coins[denomination] ?? 0;
+            if (quantity > 0) {
+                const item = coinsByDenomination.get(denomination)?.[0];
+                if (item) {
+                    await item.update({ "data.quantity": item.quantity + quantity });
+                } else {
+                    const compendiumId = coinCompendiumIds[denomination];
+                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
+                        (p) => p.collection === "pf2e.equipment-srd"
+                    );
+                    if (!pack) {
+                        throw Error("unable to get pack!");
+                    }
+                    const item = await pack.getDocument(compendiumId);
+                    if (item?.data.type === "treasure") {
+                        item.data.update({ "data.quantity": quantity });
+                        await this.createEmbeddedDocuments("Item", [item.toObject()]);
+                    }
+                }
+            }
+        }
+    }
+
+    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
+        const coinsToRemove = mergeObject(noCoins(), coins);
+        const actorCoins = mergeObject(noCoins(), this.coins);
+        const coinsToAdd = noCoins();
+
+        if (byValue) {
+            let valueToRemoveInCopper = coinValueInCopper(coinsToRemove);
+            if (valueToRemoveInCopper > coinValueInCopper(this.coins)) {
+                return false;
+            }
+
+            //  Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation where we need to break a coin that has already been "removed"
+            if (valueToRemoveInCopper % 10 > actorCoins.cp) {
+                coinsToAdd.cp = 10;
+                coinsToRemove.cp = valueToRemoveInCopper % 10;
+                valueToRemoveInCopper += 10 - coinsToRemove.cp;
+            } else {
+                coinsToRemove.cp = valueToRemoveInCopper % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.cp;
+                const newCopper = actorCoins.cp - coinsToRemove.cp;
+                const extraCopper = Math.min(valueToRemoveInCopper / 10, Math.trunc(newCopper / 10)) * 10;
+                coinsToRemove.cp += extraCopper;
+                valueToRemoveInCopper -= extraCopper;
+            }
+
+            if ((valueToRemoveInCopper / 10) % 10 > actorCoins.sp) {
+                coinsToAdd.sp = 10;
+                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10;
+                valueToRemoveInCopper += 100 - coinsToRemove.sp * 10;
+            } else {
+                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.sp * 10;
+                const newSilver = actorCoins.sp - coinsToRemove.sp;
+                const extraSilver = Math.min(valueToRemoveInCopper / 100, Math.trunc(newSilver / 10)) * 10;
+                coinsToRemove.sp += extraSilver;
+                valueToRemoveInCopper -= extraSilver * 10;
+            }
+
+            if ((valueToRemoveInCopper / 100) % 10 > actorCoins.gp) {
+                coinsToAdd.gp = 10;
+                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10;
+                valueToRemoveInCopper += 1000 - coinsToRemove.gp * 100;
+            } else {
+                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.gp * 100;
+                const newGold = actorCoins.gp - coinsToRemove.gp;
+                const extraGold = Math.min(valueToRemoveInCopper / 1000, Math.trunc(newGold / 10)) * 10;
+                coinsToRemove.gp += extraGold;
+                valueToRemoveInCopper -= extraGold * 100;
+            }
+
+            coinsToRemove.pp = valueToRemoveInCopper / 1000;
+        }
+
+        // Test if the actor has enough coins to pull
+        const coinsToPull = combineCoins(actorCoins, coinsToAdd);
+        const sufficient =
+            coinsToRemove.pp <= coinsToPull.pp &&
+            coinsToRemove.gp <= coinsToPull.gp &&
+            coinsToRemove.sp <= coinsToPull.sp &&
+            coinsToRemove.cp <= coinsToPull.cp;
+        if (!sufficient) {
+            return false;
+        }
+
+        // If there are coins to add (because of rollover), add them first
+        if (Object.values(coinsToAdd).some((value) => value !== 0)) {
+            await this.addCoins(coinsToAdd);
+        }
+
+        // Begin reducing item quantities and deleting coinage
+        const topLevelCoins = this.itemTypes.treasure.filter((item) => item.isCoinage);
+        const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
+        for (const denomination of DENOMINATIONS) {
+            let quantityToRemove = coinsToRemove[denomination];
+            const coinItems = coinsByDenomination.get(denomination);
+            if (!!quantityToRemove && coinItems) {
+                const itemsToUpdate: EmbeddedDocumentUpdateData<TreasurePF2e>[] = [];
+                const itemsToDelete: string[] = [];
+                for (const item of coinItems) {
+                    if (quantityToRemove === 0) break;
+                    if (item.quantity > quantityToRemove) {
+                        itemsToUpdate.push({ _id: item.id, "data.quantity": item.quantity - quantityToRemove });
+                        quantityToRemove = 0;
+                        break;
+                    } else {
+                        quantityToRemove -= item.quantity;
+                        itemsToDelete.push(item.id);
+                    }
+                }
+
+                if (itemsToUpdate.length > 0) {
+                    await this.updateEmbeddedDocuments("Item", itemsToUpdate);
+                }
+
+                if (itemsToDelete.length > 0) {
+                    await this.deleteEmbeddedDocuments("Item", itemsToDelete);
+                }
+
+                // If there any remaining, show a warning. This should probably be validated in a future version
+                if (quantityToRemove > 0) {
+                    console.warn("Attempted to remove more coinage than exists");
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -333,7 +485,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             senses: [],
             statisticsModifiers: {},
             strikeAdjustments: [],
-            strikes: [],
+            strikes: new Map(),
             striking: {},
             weaponPotency: {},
             preparationWarnings: {

@@ -1,9 +1,9 @@
 export {};
 
 declare global {
-    interface DocumentSheetConfigData {
+    interface DocumentSheetConfigData<TDocument extends ClientDocument> extends FormApplicationData<TDocument> {
         isGM: boolean;
-        object: foundry.abstract.DocumentData;
+        object: TDocument;
         options: FormApplicationOptions;
         sheetClass: string;
         sheetClasses: Record<string, string>;
@@ -18,7 +18,7 @@ declare global {
     }
 
     /** Document Sheet Configuration Application */
-    class DocumentSheetConfig extends FormApplication<foundry.abstract.DocumentData> {
+    class DocumentSheetConfig<TDocument extends ClientDocument = ClientDocument> extends FormApplication<TDocument> {
         static override get defaultOptions(): FormApplicationOptions;
 
         /** An array of pending sheet assignments which are submitted before other elements of the framework are ready. */
@@ -26,7 +26,9 @@ declare global {
 
         override get title(): string;
 
-        override getData(options?: Partial<FormApplicationOptions>): DocumentSheetConfigData;
+        override getData(
+            options?: Partial<FormApplicationOptions>
+        ): DocumentSheetConfigData<TDocument> | Promise<DocumentSheetConfigData<TDocument>>;
 
         protected override _updateObject(event: Event, formData: FormApplicationData): Promise<void>;
 
@@ -42,7 +44,7 @@ declare global {
          */
         static initializeSheets(): void;
 
-        protected static _getDocumentTypes(cls: foundry.abstract.Document, types?: string[]): string[];
+        protected static _getDocumentTypes(cls: ClientDocument, types?: string[]): string[];
 
         /**
          * Register a sheet class as a candidate which can be used to display documents of a given type

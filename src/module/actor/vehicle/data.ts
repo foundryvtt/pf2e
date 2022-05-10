@@ -38,6 +38,7 @@ interface VehicleSystemData extends ActorSystemData {
         level: {
             value: number;
         };
+        alliance: null;
         price: number;
         space: {
             long: number;

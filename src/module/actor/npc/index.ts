@@ -100,13 +100,17 @@ class NPCPF2e extends CreaturePF2e {
             systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
 
-        const { attributes } = systemData;
+        const { attributes, details } = systemData;
         attributes.perception.ability = "wis";
         attributes.dexCap = [{ value: Infinity, source: "" }];
         attributes.reach = {
             general: SIZE_TO_REACH[this.size],
             manipulate: SIZE_TO_REACH[this.size],
         };
+
+        if (details.alliance === undefined) {
+            details.alliance = this.hasPlayerOwner ? "party" : "opposition";
+        }
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
@@ -331,7 +335,7 @@ class NPCPF2e extends CreaturePF2e {
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        const generatedMelee = strikes.map((weapon) => weapon.toNPCAttack());
+        const generatedMelee = Array.from(strikes.values()).map((w) => w.toNPCAttack());
         const items = this.items.contents.concat(generatedMelee);
         for (const item of items) {
             const itemData = item.data;

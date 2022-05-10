@@ -18,6 +18,7 @@ import { senseMotive } from "./basic/sense-motive";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
+import { track } from "./exploration/track";
 import { balance } from "./acrobatics/balance";
 import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
 import { squeeze } from "./acrobatics/squeeze";
@@ -44,6 +45,7 @@ import { request } from "./diplomacy/request";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatPoison } from "./medicine/treat-poison";
+import { commandAnAnimal } from "./nature/command-an-animal";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { pickALock } from "./thievery/pick-a-lock";
@@ -111,6 +113,7 @@ export class ActionMacros {
         // Exploration
         avoidNotice,
         senseDirection,
+        track,
 
         // Acrobatics
         balance,
@@ -151,6 +154,9 @@ export class ActionMacros {
 
         // Medicine
         treatPoison,
+
+        // Nature
+        commandAnAnimal,
 
         // Stealth
         hide,

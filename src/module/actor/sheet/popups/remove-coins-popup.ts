@@ -1,4 +1,4 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from "@item/treasure/helpers";
+import { Coins } from "@item/treasure/helpers";
 import { ActorPF2e } from "../../base";
 
 interface PopupFormData extends Coins {
@@ -27,22 +27,9 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
             sp: formData.sp,
             cp: formData.cp,
         };
-        if (formData.removeByValue) {
-            if (!(await attemptToRemoveCoinsByValue({ actor, coinsToRemove }))) {
-                ui.notifications.warn("Insufficient coins");
-            }
-        } else {
-            const actorCoins = calculateValueOfCurrency(actor.items.map((item) => item.data));
-            if (
-                coinsToRemove.pp <= actorCoins.pp &&
-                coinsToRemove.gp <= actorCoins.gp &&
-                coinsToRemove.sp <= actorCoins.sp &&
-                coinsToRemove.cp <= actorCoins.cp
-            ) {
-                removeCoins(actor, { coins: coinsToRemove });
-            } else {
-                ui.notifications.warn("Insufficient coins");
-            }
+
+        if (!(await actor.removeCoins(coinsToRemove, { byValue: formData.removeByValue }))) {
+            ui.notifications.warn("PF2E.ErrorMessage.NotEnoughCoins", { localize: true });
         }
     }
 }

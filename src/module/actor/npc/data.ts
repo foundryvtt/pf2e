@@ -3,6 +3,7 @@ import {
     BaseCreatureData,
     BaseCreatureSource,
     CreatureAttributes,
+    CreatureDetails,
     CreatureHitPoints,
     CreatureInitiative,
     CreatureSystemData,
@@ -21,7 +22,6 @@ import {
 import { MeleePF2e } from "@item";
 import { StatisticModifier } from "@actor/modifiers";
 import type { NPCPF2e } from ".";
-import { Alignment } from "@actor/creature/types";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemData> {
     flags: DeepPartial<NPCFlags>;
@@ -46,25 +46,7 @@ interface NPCSystemData extends CreatureSystemData {
     saves: NPCSaves;
 
     /** Details about this actor, such as alignment or ancestry. */
-    details: {
-        /** The alignment this creature has. */
-        alignment: { value: Alignment };
-        /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
-        level: { base?: number; value: number };
-        /** Which sourcebook this creature comes from. */
-        source: {
-            value: string;
-            author?: string;
-        };
-        /** The type of this creature (such as 'undead') */
-        creatureType: string;
-        /** A very brief description */
-        blurb: string;
-        /** The in depth descripton and any other public notes */
-        publicNotes: string;
-        /** The private GM notes */
-        privateNotes: string;
-    };
+    details: NPCDetails;
 
     /** Any special attributes for this NPC, such as AC or health. */
     attributes: NPCAttributes;
@@ -79,6 +61,26 @@ interface NPCSystemData extends CreatureSystemData {
         focus?: { value: number; max: number };
     };
 }
+
+type NPCDetails = CreatureDetails & {
+    /** The presence of a `base` that is different from the `value` indicates the level was automatically adjusted. */
+    level: {
+        base?: number;
+    };
+    /** Which sourcebook this creature comes from. */
+    source: {
+        value: string;
+        author?: string;
+    };
+    /** The type of this creature (such as 'undead') */
+    creatureType: string;
+    /** A very brief description */
+    blurb: string;
+    /** The in depth descripton and any other public notes */
+    publicNotes: string;
+    /** The private GM notes */
+    privateNotes: string;
+};
 
 /** The full data for a NPC action (used primarily for strikes.) */
 type NPCStrike = StatisticModifier &

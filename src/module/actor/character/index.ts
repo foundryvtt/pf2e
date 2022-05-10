@@ -363,6 +363,9 @@ class CharacterPF2e extends CreaturePF2e {
         // Size
         this.data.data.traits.size = new ActorSizePF2e({ value: "med" });
 
+        // Alliance
+        this.data.data.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
+
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<MartialProficiencies> = this.data.data.martial;
         for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
@@ -1360,15 +1363,16 @@ class CharacterPF2e extends CreaturePF2e {
               })()
             : null;
 
-        // Regenerate the strikes from the handwraps so that all runes are included
+        // Regenerate unarmed strikes from handwraps so that all runes are included
         if (unarmedRunes) {
-            synthetics.strikes = synthetics.strikes.map((w) =>
-                w.category === "unarmed" ? w.clone({ data: unarmedRunes }, { keepId: true }) : w
-            );
+            for (const [slug, weapon] of synthetics.strikes.entries()) {
+                if (weapon.category === "unarmed") {
+                    synthetics.strikes.set(slug, weapon.clone({ data: unarmedRunes }, { keepId: true }));
+                }
 
-            // Prevent unarmed synthetic strikes from being renamed by runes
-            for (const strike of synthetics.strikes) {
-                strike.data.name = strike.data._source.name;
+                // Prevent synthetic strikes from being renamed by runes
+                const clone = synthetics.strikes.get(slug)!;
+                clone.data.name = clone.data._source.name;
             }
         }
 
@@ -1379,7 +1383,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Exclude handwraps as a strike
         const weapons = [
             itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
-            synthetics.strikes,
+            Array.from(synthetics.strikes.values()),
             basicUnarmed ?? [],
         ].flat();
 

@@ -15,12 +15,18 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "FlatModifier",
-                "selector": "{item|data.target}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonArmamentWeapon}-damage",
                 "type": "status",
                 "value": 1
             }
