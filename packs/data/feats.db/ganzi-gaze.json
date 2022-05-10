@@ -19,11 +19,27 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Sense",
+                "label": "PF2E.SensesLowLightVision",
+                "selector": "lowLightVision"
+            },
+            {
+                "key": "Sense",
+                "label": "PF2E.SensesDarkvision",
+                "predicate": {
+                    "all": [
+                        "self:low-light-vision:from-ancestry"
+                    ]
+                },
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },

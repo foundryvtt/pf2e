@@ -19,11 +19,37 @@
         "level": {
             "value": 1
         },
-        "location": "",
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "{item|name} @Localize[PF2E.SpecificRule.Ganzi.Irrepressible.SaveNote]"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
