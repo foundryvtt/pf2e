@@ -12,6 +12,7 @@ import {
 } from "@module/canvas";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
@@ -150,12 +151,14 @@ export const Init = {
             const schema = foundry.data.PrototypeTokenData.schema;
             schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
-            PlayerConfigPF2e.hookOnRenderSettings();
-            MystifiedTraits.compile();
-
+            // Register stuff with the Foundry client
             registerSettings();
+            registerKeybindings();
             registerTemplates();
             registerHandlebarsHelpers();
+
+            PlayerConfigPF2e.hookOnRenderSettings();
+            MystifiedTraits.compile();
 
             // Create and populate initial game.pf2e interface
             SetGamePF2e.onInit();
