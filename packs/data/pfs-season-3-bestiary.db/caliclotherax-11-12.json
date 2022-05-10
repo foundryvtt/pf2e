@@ -808,20 +808,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Twisting Tail",
-                        "predicate": {
-                            "all": [
-                                "twisting-tail"
-                            ]
-                        },
-                        "selector": "{item|_id}-attack",
-                        "type": "untyped",
-                        "value": -2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1114,10 +1101,19 @@
                     {
                         "domain": "attack",
                         "key": "RollOption",
-                        "label": "Using the Twisting Tail Reaction",
                         "option": "twisting-tail",
                         "toggleable": true,
                         "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "twisting-tail"
+                            ]
+                        },
+                        "selector": "tail-attack",
+                        "value": -2
                     }
                 ],
                 "slug": null,
@@ -1138,11 +1134,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.so21bQRtejWVxF5S"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Twisting Tail",
             "sort": 1400000,
