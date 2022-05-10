@@ -113,20 +113,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             }
 
                             const { traits } = weapon.data.data;
-                            // If the weapon already has this trait, we don't need to do anything else
-                            if (traits.value.includes(change)) return;
-
-                            // If the weapon already has a trait of the same type but a different value,
-                            // as the one we're adding, remove that one before adding the new one
-                            const regexp = new RegExp(/([a-z-]*)-\d*d?\d+/);
-                            const match = regexp.exec(change);
-                            if (match !== null) {
-                                const changeBaseTrait = match[1];
-                                traits.value.findSplice((trait) =>
-                                    new RegExp(`${changeBaseTrait}-\\d*d?\\d*`).test(trait)
-                                );
-                            }
-                            traits.value.push(change);
+                            if (!traits.value.includes(change)) traits.value.push(change);
                             return;
                         },
                     };
