@@ -1,0 +1,143 @@
+{
+    "_id": "ITvyvbB234bxceRK",
+    "data": {
+        "badge": null,
+        "description": {
+            "value": "<p>Select one unarmed attack you gained with Living Weapon. The damage die for that attack increases by one step until the end of your turn. In addition, choose to either have the attack gain a reach of 10 feet until the end of your turn or for you to gain a +1 status bonus to attack rolls with the chosen unarmed attack until the end of your turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": {
+                            "all": [
+                                "living-weapon:claw"
+                            ]
+                        },
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "predicate": {
+                            "all": [
+                                "living-weapon:horn"
+                            ]
+                        },
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": {
+                            "all": [
+                                "living-weapon:jaws"
+                            ]
+                        },
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tusk",
+                        "predicate": {
+                            "all": [
+                                "living-weapon:tusk"
+                            ]
+                        },
+                        "value": "tusk"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": {
+                            "all": [
+                                "living-weapon:tail"
+                            ]
+                        },
+                        "value": "tail"
+                    }
+                ],
+                "flag": "mutateWeaponTarget",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Target",
+                "rollOption": "mutate-weapon-target"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.mutateWeaponTarget}-damage"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Reach",
+                        "value": "reach"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Accuracy",
+                        "value": "accuracy"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Fleshwarp.MutateWeapon.Bonus",
+                "rollOption": "mutate-weapon-bonus"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:{item|flags.pf2e.rulesSelections.mutateWeaponTarget}"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "mutate-weapon-bonus:reach"
+                    ]
+                },
+                "property": "traits",
+                "value": "reach"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "mutate-weapon-bonus:accuracy"
+                    ]
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.mutateWeaponTarget}-attack-roll",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/unarmed-attacks/vine.webp",
+    "name": "Effect: Mutate Weapon",
+    "type": "effect"
+}
