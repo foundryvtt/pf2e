@@ -11,14 +11,10 @@
         {{/if}}
     </div>
     {{#if lootsheet}}
-        {{#if (eq item.type "treasure")}}
-            <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}{{/if}}</span>
-        {{else}}
-            <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.price.value}}{{/if}}</span>
-        {{/if}}
+        <span class="item-sell-value">{{item.price.label}}</span>
     {{else}}
         {{#if (eq item.type "treasure")}}
-            <span class="item-sell-value">{{item.assetValue}}</span>
+            <span class="item-sell-value">{{item.assetValue.label}}</span>
         {{/if}}
     {{/if}}
     <span class="item-quantity">
