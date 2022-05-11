@@ -1,17 +1,9 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasurePF2e } from "@item";
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import {
-    calculateTotalWealth,
-    calculateValueOfCurrency,
-    Coins,
-    coinValueInCopper,
-    DENOMINATIONS,
-    sellAllTreasure,
-    sellTreasure,
-} from "@item/treasure/helpers";
+import { calculateTotalWealth, coinValueInCopper, sellAllTreasure } from "@item/treasure/helpers";
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
@@ -46,6 +38,8 @@ import { CreaturePF2e } from "@actor/creature";
 import { createSheetTags } from "@module/sheet/helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -86,7 +80,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         // Calculate financial and total wealth
-        const coins = calculateValueOfCurrency(inventoryItems);
+        const coins = this.actor.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
         const totalCoinageGold = (coinValueInCopper(coins) / 100).toFixed(2);
 
@@ -328,9 +322,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         $html.find(".item-toggle-container").on("click", (event) => this.toggleContainer(event));
 
         // Sell treasure item
-        $html.find(".item-sell-treasure").on("click", (event) => {
+        $html.find(".item-sell-treasure").on("click", async (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            sellTreasure(this.actor, itemId);
+            const item = this.actor.physicalItems.get(itemId);
+            if (item instanceof TreasurePF2e && !item.isCoinage) {
+                await item.delete();
+                await this.actor.addCoins(item.assetValue);
+            }
         });
 
         // Update an embedded item
