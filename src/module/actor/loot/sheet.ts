@@ -10,6 +10,7 @@ import { PhysicalItemType } from "@item/physical/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { ItemPF2e } from "@item";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { coinsToString } from "@item/treasure/helpers";
 
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -92,6 +93,8 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             itemData.isIdentified = itemData.data.identification.status === "identified";
             itemData.showEdit = this.isEditable && (game.user.isGM || itemData.isIdentified);
             itemData.img ??= CONST.DEFAULT_TOKEN;
+            const priceLabel = coinsToString(itemData.data.price.value);
+            itemData.price = mergeObject(itemData.data.price, { label: priceLabel });
             const containerData = containers.get(itemData._id);
             if (!containerData) continue;
 
