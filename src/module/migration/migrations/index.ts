@@ -146,3 +146,4 @@ export { Migration743FixWeaknessStructure } from "./743-fix-weakness-structure";
 export { Migration744MigrateSpellHeighten } from "./744-migrate-spell-heighten";
 export { Migration745EffectTargetToChoiceSet } from "./745-effect-target-to-choice-set";
 export { Migration746StandardizePricing } from "./746-standardize-pricing";
+export { Migration747FixedHeightening } from "./747-fixed-heightening";
