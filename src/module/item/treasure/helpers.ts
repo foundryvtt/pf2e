@@ -85,6 +85,11 @@ export function multiplyCoins(coins: Coins, factor: number): Coins {
         result.gp += (result.pp % 1) * 10;
         result.sp += (result.gp % 1) * 10;
         result.cp += (result.sp % 1) * 10;
+
+        // Some computations like 2.8 % 1 evaluate to 0.79999, so we can't just floor
+        for (const denomination of DENOMINATIONS) {
+            result[denomination] = Math.floor(Number(result[denomination].toFixed(1)));
+        }
     }
 
     return result;
