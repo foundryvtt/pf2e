@@ -233,7 +233,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
             return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
         })();
-        const magicTraits: "magical"[] = hasRunes ? ["magical"] : [];
+        const magicTraits: ("evocation" | "magical")[] = hasRunes ? ["evocation", "magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
