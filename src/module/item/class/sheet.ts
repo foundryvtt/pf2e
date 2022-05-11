@@ -1,5 +1,5 @@
 import { ClassPF2e } from "@item/class";
-import { createSheetOptions } from "@module/sheet/helpers";
+import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 import { ABCSheetPF2e } from "../abc/sheet";
 import { ClassSheetData } from "./types";
 
@@ -19,13 +19,13 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
             skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
             selectedKeyAbility: this.getLocalizedAbilities(itemData.data.keyAbility),
-            ancestryTraits: createSheetOptions(CONFIG.PF2E.ancestryItemTraits, itemData.data.traits),
-            trainedSkills: createSheetOptions(CONFIG.PF2E.skills, itemData.data.trainedSkills),
-            ancestryFeatLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.ancestryFeatLevels),
-            classFeatLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.classFeatLevels),
-            generalFeatLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.generalFeatLevels),
-            skillFeatLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.skillFeatLevels),
-            skillIncreaseLevels: createSheetOptions(CONFIG.PF2E.levels, itemData.data.skillIncreaseLevels),
+            ancestryTraits: createSheetTags(CONFIG.PF2E.ancestryItemTraits, itemData.data.traits),
+            trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.data.trainedSkills),
+            ancestryFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.ancestryFeatLevels),
+            classFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.classFeatLevels),
+            generalFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.generalFeatLevels),
+            skillFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.skillFeatLevels),
+            skillIncreaseLevels: createSheetTags(CONFIG.PF2E.levels, itemData.data.skillIncreaseLevels),
         };
     }
 }

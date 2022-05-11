@@ -139,7 +139,7 @@
             <i class="fas fa-ankh"></i>
             <h4>{{localize "PF2E.ImmunitiesLabel"}}</h4>
         </div>
-        {{#if options.editable }}
+        {{#if options.editable}}
             <div class="immunities-controls controls">
                 <a class="trait-edit edit" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fas {{#if hasImmunities}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
             </div>
@@ -148,7 +148,7 @@
 
     <div class="side-bar-section-content">
         {{#each immunities as |immunity type|}}
-            <div class="tag-legacy immunity" data-weakness="{{type}}">{{localize immunity.label}}</div>
+            <div class="tag-legacy immunity" data-weakness="{{type}}">{{immunity.label}}</div>
         {{/each}}
     </div>
 </div>
