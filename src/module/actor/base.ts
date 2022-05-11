@@ -436,6 +436,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     protected override _initialize(): void {
         super._initialize();
+        this.rules = [];
         this.initialized = true;
 
         // Send any accrued warnings to the console
