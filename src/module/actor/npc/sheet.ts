@@ -174,6 +174,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
+        sheetData.allSaves = this.actor.data.data.attributes.allSaves.value;
+
         // Return data for rendering
         return sheetData as NPCSheetData;
     }
@@ -236,6 +238,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 await actor.increaseCondition(effect);
             }
         });
+
+        $html.find(".saves-edit").on("click", () => this.onClickAddAllSaves());
     }
 
     /** Replace sheet config with a special NPC config form application */
@@ -608,6 +612,28 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 ? String($input.val())
                 : Number($input.val());
         await this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [key]: value }]);
+    }
+
+    // Dialog for editing "all saves" attribute
+    private async onClickAddAllSaves() {
+        const actor = this.actor;
+        new Dialog({
+            title: game.i18n.localize("PF2E.AllSavesLabel"),
+            content: await renderTemplate("./systems/pf2e/templates/actors/npc/partials/dialog-saves.html"),
+            buttons: {
+                ok: {
+                    icon: '<i class="fa fa-save"></i>',
+                    label: game.i18n.localize("PF2E.UpdateActorLabel"),
+                    callback: async (dialogHtml: JQuery) => {
+                        await actor.update({
+                            "data.attributes.allSaves.value": String(dialogHtml.find('[name="allSaves"]').val()).trim(),
+                        });
+                    },
+                },
+            },
+            default: "ok",
+            close: () => {},
+        }).render(true);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

@@ -100,6 +100,7 @@ interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
     notAdjusted: boolean;
     inventory: SheetInventory;
     hasShield?: boolean;
+    allSaves?: string;
     hasHardness?: boolean;
     configLootableNpc?: boolean;
     isSpellcaster?: boolean;
