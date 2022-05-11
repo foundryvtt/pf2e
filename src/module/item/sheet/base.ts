@@ -460,6 +460,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         }
 
-        super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }
