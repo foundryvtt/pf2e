@@ -18,7 +18,7 @@
         {{/if}}
     {{else}}
         {{#if (eq item.type "treasure")}}
-            <span class="item-sell-value">{{multiply item.data.value.value item.data.quantity}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}</span>
+            <span class="item-sell-value">{{item.assetValue}}</span>
         {{/if}}
     {{/if}}
     <span class="item-quantity">

@@ -3,8 +3,7 @@ import { LootPF2e } from "@actor/loot";
 import { BookData } from "@item/book";
 import { getContainerMap } from "@item/container/helpers";
 import { ArmorData, ConsumableData, EquipmentData, PhysicalItemData, TreasureData, WeaponData } from "@item/data";
-import { IdentificationData, MystifiedData } from "@item/physical/data";
-import { Coins } from "@item/treasure/helpers";
+import { Coins, IdentificationData, MystifiedData } from "@item/physical/data";
 import { SheetOptions } from "@module/sheet/helpers";
 
 type ContainerMap = ReturnType<typeof getContainerMap>;

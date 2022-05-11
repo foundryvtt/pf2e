@@ -1,5 +1,6 @@
 import { KitPF2e } from "@item/kit";
 import { PhysicalItemPF2e } from "@item/physical";
+import { coinsToString, coinStringToCoins, noCoins } from "@item/treasure/helpers";
 import { createSheetTags } from "@module/sheet/helpers";
 import { ItemSheetPF2e } from "../sheet/base";
 
@@ -22,6 +23,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         return {
             ...sheetData,
             type: "kit",
+            priceString: coinsToString(this.item.price.value, { reduce: false }),
             hasSidebar: true,
             sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",
             hasDetails: true,
@@ -93,5 +95,15 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         $html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
+    }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Convert price from a string to an actual object
+        if (formData["data.price.value"]) {
+            const coins = coinStringToCoins(String(formData["data.price.value"]));
+            formData["data.price.value"] = mergeObject(noCoins(), coins);
+        }
+
+        super._updateObject(event, formData);
     }
 }

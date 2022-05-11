@@ -30,14 +30,9 @@ import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 import { preImportJSON } from "@module/doc-helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
-import {
-    coinCompendiumIds,
-    Coins,
-    coinValueInCopper,
-    combineCoins,
-    DENOMINATIONS,
-    noCoins,
-} from "@item/treasure/helpers";
+import { coinCompendiumIds, coinValueInCopper, combineCoins, noCoins } from "@item/treasure/helpers";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -181,7 +176,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     get coins(): Coins {
         return this.physicalItems
             .filter((i) => i.isOfType("treasure") && i.isCoinage)
-            .map((item) => item.stackPrice)
+            .map((item) => item.assetValue)
             .reduce(combineCoins, noCoins());
     }
 
@@ -241,7 +236,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
-    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+    async addCoins(coins: Coins, { combineStacks = true }: { combineStacks?: boolean } = {}) {
         const topLevelCoins = this.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
@@ -269,7 +264,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
+    async removeCoins(coins: Coins, { byValue = true }: { byValue?: boolean } = {}) {
         const coinsToRemove = mergeObject(noCoins(), coins);
         const actorCoins = mergeObject(noCoins(), this.coins);
         const coinsToAdd = noCoins();

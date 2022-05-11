@@ -49,9 +49,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     unequippedBulk: {
         value: string;
     };
-    price: {
-        value: string;
-    };
+    price: Price;
     equipped: EquippedData;
     identification: IdentificationData;
     stackGroup: string | null;
@@ -170,10 +168,22 @@ interface PhysicalItemHitPoints {
     brokenThreshold: number;
 }
 
+interface Coins {
+    pp?: number;
+    gp?: number;
+    sp?: number;
+    cp?: number;
+}
+
+interface Price {
+    value: Coins;
+}
+
 export {
     ActivatedEffectData,
     BasePhysicalItemData,
     BasePhysicalItemSource,
+    Coins,
     EquippedData,
     IdentificationData,
     IdentificationStatus,
@@ -188,4 +198,5 @@ export {
     PhysicalItemType,
     PhysicalSystemData,
     PhysicalSystemSource,
+    Price,
 };
