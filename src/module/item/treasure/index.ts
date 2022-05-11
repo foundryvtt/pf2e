@@ -1,30 +1,23 @@
 import { PhysicalItemPF2e } from "@item/physical";
+import { DENOMINATIONS } from "@item/physical/values";
 import { TreasureData } from "./data";
 
 class TreasurePF2e extends PhysicalItemPF2e {
-    override get price(): string {
-        const value = this.data.data.value.value;
-        return `${value} ${this.denomination}`;
-    }
-
     get isCoinage(): boolean {
         return this.data.data.stackGroup === "coins";
     }
 
     get denomination() {
-        return this.data.data.denomination.value;
+        if (!this.isCoinage) return null;
+        const options = DENOMINATIONS.filter((denomination) => !!this.price.value[denomination]);
+        return options.length === 1 ? options[0] : null;
     }
 
     /** Set non-coinage treasure price from its numeric value and denomination */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData = this.data.data;
         if (this.isCoinage) {
-            systemData.size = "med";
-        } else {
-            const value = systemData.value.value;
-            const denomination = systemData.denomination.value.trim();
-            systemData.price.value = `${value} ${denomination}`;
+            this.data.data.size = "med";
         }
     }
 

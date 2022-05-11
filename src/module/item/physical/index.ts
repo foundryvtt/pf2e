@@ -5,11 +5,13 @@ import { Rarity, Size } from "@module/data";
 import { LootPF2e } from "@actor";
 import { MystifiedTraits } from "@item/data/values";
 import { getUnidentifiedPlaceholderImage } from "../identification";
-import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait } from "./data";
-import { coinsToString, coinStringToCoins, extractPriceFromItem, multiplyCoinValue } from "@item/treasure/helpers";
+import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
+import { multiplyCoins } from "@item/treasure/helpers";
+import { DENOMINATIONS } from "./values";
+import { isObject } from "@util";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -51,12 +53,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.handsHeld > 0;
     }
 
-    get price(): string {
-        return this.data.data.price.value;
+    get price(): Price {
+        return this.data.data.price;
     }
 
-    get stackPrice() {
-        return multiplyCoinValue(coinStringToCoins(this.price), this.quantity);
+    /** The monetary value of the entire item stack */
+    get assetValue(): Coins {
+        return multiplyCoins(this.price.value, this.quantity);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -166,8 +169,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.stackGroup ||= null;
 
         // Normalize price string
-        systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
-        if (this.isTemporary) systemData.price.value = "0 gp";
+        if (this.isTemporary) systemData.price.value = { gp: 0 };
 
         // Fill out usage and equipped status
         this.data.data.usage = getUsageDetails(systemData.usage.value);
@@ -367,6 +369,16 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const equipped: Record<string, unknown> = mergeObject(changed, { data: { equipped: {} } }).data.equipped;
         const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
         if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
+
+        // Clear 0 price denominations
+        if (isObject<Record<string, unknown>>(changed.data?.price)) {
+            const price: Record<string, unknown> = changed.data.price;
+            for (const denomination of DENOMINATIONS) {
+                if (price[denomination] === 0) {
+                    price[`-=denomination`] = null;
+                }
+            }
+        }
 
         const newUsage = getUsageDetails(String(changed.data.usage?.value ?? this.data.data.usage.value));
         const hasSlot = newUsage.type === "worn" && newUsage.where;

@@ -1,4 +1,4 @@
-import { coinStringToCoins, coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { coinsToString, coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
@@ -21,7 +21,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const inventoryItems: CompendiumIndexData[] = [];
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
-        const kitFields = ["img", "data.price.value", "data.traits"];
+        const kitFields = ["img", "data.price", "data.traits"];
         const baseFields = [...kitFields, "data.stackGroup", "data.level.value", "data.source.value"];
         const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
         const consumableFields = [...baseFields, "data.consumableType.value"];
@@ -59,33 +59,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     }
 
                     // Store price as a number for better sorting
-                    const coinValue = (() => {
-                        if (itemData.type === "kit") {
-                            const coinValues: string[] = (itemData.data?.price?.value ?? "0 gp").split(/,\s*/);
-                            const total = coinValues
-                                .map((coinValue) =>
-                                    coinValueInCopper(
-                                        extractPriceFromItem({ data: { price: { value: coinValue }, quantity: 1 } })
-                                    )
-                                )
-                                .reduce((total, part) => total + part, 0);
-                            return total;
-                        } else if (itemData.type === "treasure") {
-                            const coinValue = `${itemData.data.value.value} ${itemData.data.denomination.value}`;
-                            itemData.data.price = {
-                                value: `${itemData.data.value.value} ${itemData.data.denomination.value}`,
-                            };
-                            return coinValueInCopper(
-                                extractPriceFromItem({ data: { price: { value: coinValue }, quantity: 1 } })
-                            );
-                        }
-                        return coinValueInCopper(
-                            extractPriceFromItem({
-                                data: { price: { value: itemData.data?.price?.value ?? "0 gp" }, quantity: 1 },
-                            })
-                        );
-                    })();
-                    if (coinValue === 0) itemData.data.price = { value: "0 gp" };
+                    const coinValue = coinValueInCopper(itemData.data.price.value);
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
@@ -109,7 +83,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         category: itemData.data.category ?? "",
                         group: itemData.data.group ?? "",
                         consumableType: itemData.data.consumableType?.value ?? "",
-                        price: itemData.data.price.value,
+                        price: coinsToString(itemData.data.price.value, { reduce: false }),
                         priceInCopper: coinValue,
                         traits: itemData.data.traits.value,
                         rarity: itemData.data.traits.rarity,
