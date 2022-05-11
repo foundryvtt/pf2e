@@ -247,6 +247,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             formData["data.-=meleeUsage"] = null;
         }
 
-        super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

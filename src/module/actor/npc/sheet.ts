@@ -626,7 +626,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 "data.hp.value": formData["data.attributes.shield.value"],
             });
         }
-        await super._updateObject(event, formData);
+
+        return super._updateObject(event, formData);
     }
 }
 
