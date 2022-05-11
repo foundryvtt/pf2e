@@ -89,15 +89,13 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
         const itemsData: InventoryItem[] = actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData));
         for (const itemData of itemsData) {
-            const isIdentified = itemData.data.identification.status === "identified";
-            itemData.showEdit = game.user.isGM || (isIdentified && this.actor.isOwner);
-
+            itemData.isIdentified = itemData.data.identification.status === "identified";
+            itemData.showEdit = this.isEditable && (game.user.isGM || itemData.isIdentified);
             itemData.img ??= CONST.DEFAULT_TOKEN;
             const containerData = containers.get(itemData._id);
             if (!containerData) continue;
 
             itemData.containerData = containerData;
-            itemData.showEdit = game.user.isGM || (isIdentified && this.actor.isOwner);
             itemData.isInContainer = containerData.isInContainer;
             itemData.isSellableTreasure =
                 itemData.showEdit && itemData.type === "treasure" && itemData.data.stackGroup !== "coins";
