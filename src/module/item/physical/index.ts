@@ -9,7 +9,7 @@ import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItem
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { multiplyCoins } from "@item/treasure/helpers";
+import { coinStringToCoins, multiplyCoins } from "@item/treasure/helpers";
 import { DENOMINATIONS } from "./values";
 import { isObject } from "@util";
 
@@ -167,6 +167,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.preciousMaterialGrade.value ||= null;
         systemData.containerId ||= null;
         systemData.stackGroup ||= null;
+
+        // Temporary: prevent noise from items pre migration 746
+        if (typeof systemData.price.value === "string") {
+            systemData.price.value = coinStringToCoins(systemData.price.value);
+        }
 
         // Normalize price string
         if (this.isTemporary) systemData.price.value = { gp: 0 };
