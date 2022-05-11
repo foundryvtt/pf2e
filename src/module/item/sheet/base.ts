@@ -376,8 +376,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** Ensure the source description is edited rather than a prepared one */
-    override activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, _initialContent?: string): void {
-        super.activateEditor(name, options, this.item.data._source.data.description.value);
+    override activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, initialContent?: string): void {
+        super.activateEditor(
+            name,
+            options,
+            name === "data.description.value" ? this.item.data._source.data.description.value : initialContent
+        );
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
