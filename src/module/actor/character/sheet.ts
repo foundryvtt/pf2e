@@ -269,7 +269,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.isTemporary = isTemporary;
                 itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
-                itemData.assetValue = coinsToString(item.assetValue);
+                itemData.assetValue = mergeObject(item.assetValue, { label: coinsToString(item.assetValue) });
 
                 const containerData = containers.get(itemData._id)!;
                 itemData.containerData = containerData;
