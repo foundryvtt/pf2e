@@ -47,7 +47,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellTypes: CONFIG.PF2E.spellTypes,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
-            magicTraditions: createSheetOptions(CONFIG.PF2E.magicTraditions, sheetData.data.traditions),
+            magicTraditions: createSheetTags(CONFIG.PF2E.magicTraditions, sheetData.data.traditions),
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
             traits: createSheetTags(CONFIG.PF2E.spellTraits, sheetData.data.traits),
