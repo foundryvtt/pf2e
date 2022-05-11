@@ -13,7 +13,7 @@ import { Alignment } from "@actor/creature/types";
 export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemSheetPF2e<TItem> {
     #sidebarText = ["data.anathema", "data.edicts", "data.areasOfConcern"];
 
-    static override get defaultOptions() {
+    static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
             scrollY: [".item-details"],
@@ -170,7 +170,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
     }
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
-    override async _updateObject(event: Event, formData: Record<string, unknown>) {
+    override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Null out empty strings for some properties
         for (const property of ["data.alignment.own", "data.skill"]) {
             if (typeof formData[property] === "string") formData[property] ||= null;
@@ -191,7 +191,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             }
         }
 
-        await super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }
 

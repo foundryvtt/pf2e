@@ -116,6 +116,6 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             if (action.frequency && !action.frequency?.duration) action.frequency.duration = null;
         }
 
-        super._updateObject(event, flattenObject(expanded));
+        return super._updateObject(event, flattenObject(expanded));
     }
 }
