@@ -19,10 +19,97 @@
         "level": {
             "value": 5
         },
+        "location": null,
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        {
+                            "lte": [
+                                "self:level",
+                                10
+                            ]
+                        }
+                    ]
+                },
+                "selector": "mundane-attack",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmed.rank",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                11
+                            ]
+                        }
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.simple.rank",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                11
+                            ]
+                        }
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.martial.rank",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                11
+                            ]
+                        }
+                    ]
+                },
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.advanced.rank",
+                "phase": "beforeDerived",
+                "predicate": {
+                    "all": [
+                        {
+                            "gte": [
+                                "self:level",
+                                11
+                            ]
+                        }
+                    ]
+                },
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
