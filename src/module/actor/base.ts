@@ -1173,17 +1173,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported actors are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Set default portrait and token images
         if (this.data._source.img === "icons/svg/mystery-man.svg") {
-            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+            this.data._source.img =
+                this.data._source.token.img =
+                data.img =
+                data.token.img =
+                    `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
         await super._preCreate(data, options, user);
+
+        // Ensure imported actors are current on their schema version
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }
