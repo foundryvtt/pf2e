@@ -86,6 +86,14 @@ class StrikeWeaponTraits {
                         predicate: new PredicatePF2e({ all: ["self:sweep-bonus"] }),
                     });
                 }
+                case "backswing": {
+                    return new ModifierPF2e({
+                        label: getLabel(trait),
+                        modifier: 1,
+                        type: MODIFIER_TYPE.CIRCUMSTANCE,
+                        predicate: new PredicatePF2e({ all: ["self:backswing-bonus"] }),
+                    });
+                }
                 default:
                     return [];
             }
