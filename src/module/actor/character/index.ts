@@ -545,7 +545,13 @@ class CharacterPF2e extends CreaturePF2e {
                     notes: stat.notes,
                 };
 
-                return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                }
+
+                return roll;
             };
 
             systemData.attributes.perception = stat;
@@ -756,7 +762,13 @@ class CharacterPF2e extends CreaturePF2e {
                     notes: stat.notes,
                 };
 
-                return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                }
+
+                return roll;
             };
 
             skills[shortForm] = stat;
@@ -813,7 +825,13 @@ class CharacterPF2e extends CreaturePF2e {
                     notes: stat.notes,
                 };
 
-                return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions: options });
+                }
+
+                return roll;
             };
 
             skills[shortForm] = stat;
@@ -900,7 +918,7 @@ class CharacterPF2e extends CreaturePF2e {
         })();
 
         // Initiative
-        this.prepareInitiative(statisticsModifiers, rollNotes);
+        this.prepareInitiative();
 
         // Resources
         const { resources } = this.data.data;
@@ -1815,7 +1833,18 @@ class CharacterPF2e extends CreaturePF2e {
 
                     if (!this.consumeAmmo(item, args)) return null;
 
-                    return CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
+                    const roll = await CheckPF2e.roll(
+                        constructModifier(otherModifiers),
+                        checkContext,
+                        args.event,
+                        args.callback
+                    );
+
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: finalRollOptions });
+                    }
+
+                    return roll;
                 },
             }));
         action.attack = action.roll = action.variants[0].roll;
@@ -1974,9 +2003,9 @@ class CharacterPF2e extends CreaturePF2e {
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollRecovery(event: JQuery.TriggeredEvent) {
+    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
         const dying = this.data.data.attributes.dying.value;
-        if (!dying) return;
+        if (!dying) return null;
 
         const translations = LocalizePF2e.translations.PF2E;
         const { Recovery } = translations;
@@ -2003,7 +2032,7 @@ class CharacterPF2e extends CreaturePF2e {
         const modifier = new StatisticModifier(game.i18n.localize(translations.Check.Specific.Recovery), []);
         const token = this.getActiveTokens(false, true).shift();
 
-        CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
+        return CheckPF2e.roll(modifier, { actor: this, token, dc, notes }, event);
 
         // No automated update yet, not sure if Community wants that.
         // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});

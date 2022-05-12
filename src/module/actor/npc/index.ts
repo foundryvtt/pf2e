@@ -263,13 +263,10 @@ class NPCPF2e extends CreaturePF2e {
                 ...extractModifiers(statisticsModifiers, domains),
             ];
 
-            const rollOptions = this.getRollOptions(domains);
             const stat = mergeObject(
-                new StatisticModifier("perception", modifiers, rollOptions),
+                new StatisticModifier("perception", modifiers, this.getRollOptions(domains)),
                 data.attributes.perception,
-                {
-                    overwrite: false,
-                }
+                { overwrite: false }
             );
             stat.base = base;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
@@ -280,9 +277,10 @@ class NPCPF2e extends CreaturePF2e {
                 .join(", ");
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
+                const rollOptions = args.options ?? [];
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
 
-                return CheckPF2e.roll(
+                const roll = await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     {
                         actor: this,
@@ -295,6 +293,12 @@ class NPCPF2e extends CreaturePF2e {
                     args.event,
                     args.callback
                 );
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                }
+
+                return roll;
             };
 
             data.attributes.perception = stat;
@@ -311,10 +315,9 @@ class NPCPF2e extends CreaturePF2e {
             ];
             const notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
-            const rollOptions = this.getRollOptions(domains);
 
             const stat = mergeObject(
-                new StatisticModifier(name, modifiers, rollOptions),
+                new StatisticModifier(name, modifiers, this.getRollOptions(domains)),
                 {
                     ability,
                     expanded: skill,
@@ -323,14 +326,21 @@ class NPCPF2e extends CreaturePF2e {
                     visible: false,
                     roll: async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
-                        const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, args.options ?? []);
+                        const rollOptions = args.options ?? [];
+                        const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
 
-                        return CheckPF2e.roll(
+                        const roll = await CheckPF2e.roll(
                             new CheckModifier(label, stat),
                             { actor: this, type: "skill-check", options: args.options, dc: args.dc, rollTwice, notes },
                             args.event,
                             args.callback
                         );
+
+                        for (const rule of this.rules.filter((r) => !r.ignored)) {
+                            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                        }
+
+                        return roll;
                     },
                     lore: false,
                 },
@@ -374,9 +384,8 @@ class NPCPF2e extends CreaturePF2e {
                     extractModifiers(statisticsModifiers, domains),
                 ].flat();
 
-                const rollOptions = this.getRollOptions(domains);
                 const stat = mergeObject(
-                    new StatisticModifier(itemData.name, modifiers, rollOptions),
+                    new StatisticModifier(itemData.name, modifiers, this.getRollOptions(domains)),
                     data.skills[shortform],
                     { overwrite: false }
                 );
@@ -395,17 +404,29 @@ class NPCPF2e extends CreaturePF2e {
                     .join(", ");
                 stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
-                    const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, args.options ?? []);
+                    const rollOptions = args.options ?? [];
+                    const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
                     const context: CheckRollContext = {
                         actor: this,
                         type: "skill-check",
-                        options: args.options,
+                        options: rollOptions,
                         dc: args.dc,
                         rollTwice,
                         notes: stat.notes,
                     };
 
-                    return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
+                    const roll = await CheckPF2e.roll(
+                        new CheckModifier(label, stat),
+                        context,
+                        args.event,
+                        args.callback
+                    );
+
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                    }
+
+                    return roll;
                 };
 
                 const variants = itemData.data.variants;
@@ -476,8 +497,7 @@ class NPCPF2e extends CreaturePF2e {
                     return { tag, label };
                 });
 
-                const rollOptions = this.getRollOptions(domains);
-                const statistic = new StatisticModifier(meleeData.name, modifiers, rollOptions);
+                const statistic = new StatisticModifier(meleeData.name, modifiers, this.getRollOptions(domains));
 
                 const attackTrait: StrikeTrait = {
                     name: "attack",
@@ -580,7 +600,7 @@ class NPCPF2e extends CreaturePF2e {
                             const rollNotes = notes.concat(attackEffects);
                             const context = this.getAttackRollContext({ item, viewOnly: false });
                             // Always add all weapon traits as options
-                            const options = (args.options ?? [])
+                            const rollOptions = (args.options ?? [])
                                 .concat(context.options)
                                 .concat(meleeData.data.traits.value);
 
@@ -588,21 +608,27 @@ class NPCPF2e extends CreaturePF2e {
                             const rangePenalty = this.getRangePenalty(rangeIncrement, domains, rollOptions);
                             const otherModifiers = [map, rangePenalty].filter((m): m is ModifierPF2e => !!m);
 
-                            return CheckPF2e.roll(
+                            const roll = await CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, otherModifiers),
                                 {
                                     actor: context.self.actor,
                                     item: context.self.item,
                                     target: context.target,
                                     type: "attack-roll",
-                                    options,
+                                    options: rollOptions,
                                     notes: rollNotes,
                                     dc: args.dc ?? context.dc,
-                                    rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, options),
+                                    rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, rollOptions),
                                     traits: action.traits,
                                 },
                                 args.event
                             );
+
+                            for (const rule of this.rules.filter((r) => !r.ignored)) {
+                                await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                            }
+
+                            return roll;
                         },
                     };
                 });
@@ -709,7 +735,7 @@ class NPCPF2e extends CreaturePF2e {
         }
 
         // Initiative
-        this.prepareInitiative(statisticsModifiers, rollNotes);
+        this.prepareInitiative();
 
         // Call post-data-preparation RuleElement hooks
         for (const rule of this.rules) {
