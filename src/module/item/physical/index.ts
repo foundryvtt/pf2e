@@ -376,12 +376,15 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
         if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
 
-        // Clear 0 price denominations
+        // Clear 0 price denominations and per fields with values 0 or 1
         if (isObject<Record<string, unknown>>(changed.data?.price)) {
             const price: Record<string, unknown> = changed.data.price;
-            for (const denomination of DENOMINATIONS) {
-                if (price[denomination] === 0) {
-                    price[`-=denomination`] = null;
+            if (isObject<Record<string, number | null>>(price.value)) {
+                const coins = price.value;
+                for (const denomination of DENOMINATIONS) {
+                    if (coins[denomination] === 0) {
+                        coins[`-=${denomination}`] = null;
+                    }
                 }
             }
 
