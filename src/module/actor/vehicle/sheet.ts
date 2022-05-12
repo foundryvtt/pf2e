@@ -6,6 +6,7 @@ import { ItemDataPF2e, PhysicalItemData } from "@item/data";
 import { PhysicalItemType } from "@item/physical/data";
 import { VehicleTrait } from "./data";
 import { isPhysicalData } from "@item/data/helpers";
+import { PhysicalItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -88,7 +89,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         for (const itemData of actorData.items) {
             const physicalData: ItemDataPF2e = itemData;
-            if (isPhysicalData(physicalData)) {
+            const item = this.actor.items.get(itemData._id, { strict: true });
+            if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
                 itemData.showEdit = sheetData.user.isGM || physicalData.data.identification.status === "identified";
                 itemData.img ||= CONST.DEFAULT_TOKEN;
 
@@ -97,6 +99,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                 itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = false;
                 itemData.isIdentified = physicalData.data.identification.status === "identified";
+                itemData.assetValue = item.assetValue;
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
