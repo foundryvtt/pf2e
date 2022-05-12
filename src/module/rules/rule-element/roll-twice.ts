@@ -9,12 +9,23 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
 
     keep: "higher" | "lower" = "higher";
 
+    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
+    removeAfterRoll = this.item.isOfType("effect");
+
     constructor(data: RollTwiceSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         if (this.#isValid(data)) {
             this.selector = data.selector;
             this.keep = data.keep;
+
+            const expireEffects = game.settings.get("pf2e", "automation.effectExpiration");
+            const removeExpired = game.settings.get("pf2e", "automation.removeExpiredEffects");
+
+            this.removeAfterRoll =
+                (expireEffects || removeExpired) && item.isOfType("effect")
+                    ? Boolean(data.removeAfterRoll ?? true)
+                    : false;
         }
     }
 
@@ -41,14 +52,33 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
         const synthetics = (this.actor.synthetics.rollTwice[this.selector] ??= []);
         synthetics.push(synthetic);
     }
+
+    override async afterRoll({ selectors, roll, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+        const rolledTwice = roll?.dice.some((d) => ["kh", "kl"].some((m) => d.modifiers.includes(m))) ?? false;
+        if (!(rolledTwice && this.removeAfterRoll && selectors.includes(this.selector) && this.test(rollOptions))) {
+            return;
+        }
+
+        for (const rule of this.item.rules) {
+            rule.ignored = true;
+        }
+
+        if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+            await this.item.delete();
+        } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
+            await this.item.update({ "data.duration.value": 0, "data.expired": true });
+        }
+    }
 }
 
 interface RollTwiceSource extends RuleElementSource {
     keep?: unknown;
+    removeAfterRoll?: unknown;
 }
 
 interface RollTwiceData {
     key: "RollTwice";
     selector: string;
     keep: "higher" | "lower";
+    removeAfterRoll?: boolean;
 }

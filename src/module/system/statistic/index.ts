@@ -338,10 +338,21 @@ class StatisticCheck {
             type: data.check.type,
             secret,
             skipDialog,
-            rollTwice: extractRollTwice(actor.synthetics.rollTwice, this.domains, options),
+            rollTwice: extractRollTwice(actor.synthetics.rollTwice, domains, options),
         };
 
-        return CheckPF2e.roll(new CheckModifier(this.label, this.#stat, extraModifiers), context, null, args.callback);
+        const roll = await CheckPF2e.roll(
+            new CheckModifier(this.label, this.#stat, extraModifiers),
+            context,
+            null,
+            args.callback
+        );
+
+        for (const rule of actor.rules.filter((r) => !r.ignored)) {
+            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions: options });
+        }
+
+        return roll;
     }
 
     get breakdown() {
