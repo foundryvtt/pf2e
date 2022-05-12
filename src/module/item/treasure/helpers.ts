@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from "@item/data";
+import type { PhysicalItemData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins, Price } from "@item/physical/data";
 
@@ -95,26 +95,9 @@ export function multiplyCoins(coins: Coins, factor: number): Coins {
     return result;
 }
 
-// TODO: This function will handle things like "per" eventually.
 export function multiplyPrice(price: Price, factor: number): Coins {
-    return multiplyCoins(price.value, factor);
-}
-
-/**
- * Utility function to be used with various categories
- * @param items
- * @param category
- */
-function calculateWealthForCategory(items: ItemDataPF2e[], category: ItemType): Coins {
-    const toCalculate = items.filter(
-        (itemData): itemData is PhysicalItemData =>
-            isPhysicalData(itemData) && (game.user.isGM || itemData.data.identification.status === "identified")
-    );
-
-    return toCalculate
-        .filter((item) => item.type === category)
-        .map((item) => multiplyCoins(item.data.price.value, item.data.quantity))
-        .reduce(combineCoins, noCoins());
+    const per = Math.max(1, price.per ?? 1);
+    return multiplyCoins(price.value, factor / per);
 }
 
 /**
@@ -123,22 +106,10 @@ function calculateWealthForCategory(items: ItemDataPF2e[], category: ItemType): 
  */
 export function calculateTotalWealth(items: PhysicalItemData[]): Coins {
     items = game.user.isGM ? items : items.filter((i) => i.data.identification.status === "identified");
-    const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack"] as const;
-
-    return itemTypes
-        .map((itemType) => {
-            return calculateWealthForCategory(items, itemType);
-        })
+    return items
+        .filter((itemData) => isPhysicalData(itemData))
+        .map((item) => multiplyPrice(item.data.price, item.data.quantity))
         .reduce(combineCoins, noCoins());
-}
-
-/**
- * Sums up all treasures in an actor's inventory
- * @param items
- */
-export function calculateWealth(items: ItemDataPF2e[]): Coins {
-    const treasureData = items.filter((itemData): itemData is TreasureData => itemData.type === "treasure");
-    return calculateWealthForCategory(treasureData, "treasure");
 }
 
 export const coinCompendiumIds = {

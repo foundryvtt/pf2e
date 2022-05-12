@@ -175,6 +175,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Normalize price string
         if (this.isTemporary) systemData.price.value = { gp: 0 };
+        systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status
         this.data.data.usage = getUsageDetails(systemData.usage.value);
@@ -382,6 +383,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 if (price[denomination] === 0) {
                     price[`-=denomination`] = null;
                 }
+            }
+
+            if ("per" in price && (!price.per || Number(price.per) <= 1)) {
+                price["-=per"] = null;
             }
         }
 
