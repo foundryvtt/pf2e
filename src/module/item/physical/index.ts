@@ -9,7 +9,7 @@ import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItem
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { coinStringToCoins, multiplyCoins } from "@item/treasure/helpers";
+import { coinStringToCoins, multiplyPrice } from "@item/treasure/helpers";
 import { DENOMINATIONS } from "./values";
 import { isObject } from "@util";
 
@@ -59,7 +59,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** The monetary value of the entire item stack */
     get assetValue(): Coins {
-        return multiplyCoins(this.price.value, this.quantity);
+        return multiplyPrice(this.price, this.quantity);
     }
 
     get identificationStatus(): IdentificationStatus {
