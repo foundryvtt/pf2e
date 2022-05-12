@@ -13,6 +13,7 @@ import {
     REPreDeleteParameters,
 } from "./data";
 import { isObject } from "@util";
+import { CheckRoll } from "@system/check/roll";
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -303,6 +304,16 @@ abstract class RuleElementPF2e {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace RuleElementPF2e {
+    export interface AfterRollParams {
+        roll: Rolled<CheckRoll> | null;
+        selectors: string[];
+        domains: string[];
+        rollOptions: string[];
+    }
+}
+
 interface RuleElementOptions {
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
@@ -333,6 +344,14 @@ interface RuleElementPF2e {
      * @param rollOptions Currently accumulated roll options for the pending check
      */
     beforeRoll?(domains: string[], rollOptions: string[]): void;
+
+    /**
+     * Run following a check roll, passing along roll options already accumulated
+     * @param domains Applicable selectors for the pending check
+     * @param domains Applicable predication domains for pending check
+     * @param rollOptions Currently accumulated roll options for the pending check
+     */
+    afterRoll?(params: RuleElementPF2e.AfterRollParams): Promise<void>;
 
     /** Runs before the rule's parent item's owning actor is updated */
     preUpdateActor?(): Promise<void>;

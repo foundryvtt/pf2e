@@ -206,12 +206,18 @@ export class FamiliarPF2e extends CreaturePF2e {
                 roll: async ({ event, options = [], callback }: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, options);
 
-                    return CheckPF2e.roll(
+                    const roll = await CheckPF2e.roll(
                         new CheckModifier("Attack Roll", stat),
                         { actor: this, type: "attack-roll", options, rollTwice },
                         event,
                         callback
                     );
+
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions: options });
+                    }
+
+                    return roll;
                 },
             });
             stat.value = stat.totalModifier;
@@ -248,12 +254,18 @@ export class FamiliarPF2e extends CreaturePF2e {
                 const rollOptions = args.options ?? [];
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, rollOptions);
 
-                return CheckPF2e.roll(
+                const roll = await CheckPF2e.roll(
                     new CheckModifier(label, stat),
                     { actor: this, type: "perception-check", options: rollOptions, dc: args.dc, rollTwice },
                     args.event,
                     args.callback
                 );
+
+                for (const rule of this.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions });
+                }
+
+                return roll;
             };
             systemData.attributes.perception = stat;
         }
@@ -286,12 +298,18 @@ export class FamiliarPF2e extends CreaturePF2e {
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, rollOptions);
 
-                    return CheckPF2e.roll(
+                    const roll = await CheckPF2e.roll(
                         new CheckModifier(label, stat),
                         { actor: this, type: "skill-check", options: rollOptions, dc: args.dc, rollTwice },
                         args.event,
                         args.callback
                     );
+
+                    for (const rule of this.rules.filter((r) => !r.ignored)) {
+                        await rule.afterRoll?.({ roll, selectors, domains: selectors, rollOptions });
+                    }
+
+                    return roll;
                 },
             });
             stat.value = stat.totalModifier;
