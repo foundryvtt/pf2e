@@ -40,6 +40,7 @@ import { TokenLightRuleElement } from "./rule-element/token-light";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
 import type { ItemPF2e } from "@item";
 import { TokenNameRuleElement } from "./rule-element/token-name";
+import { RollTwiceRuleElement } from "./rule-element/roll-twice";
 
 /**
  * @category RuleElement
@@ -70,6 +71,7 @@ class RuleElements {
         Note: RollNoteRuleElement,
         Resistance: ResistanceRuleElement,
         RollOption: RollOptionRuleElement,
+        RollTwice: RollTwiceRuleElement,
         TempHP: TempHPRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,
