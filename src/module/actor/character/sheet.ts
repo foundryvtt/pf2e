@@ -10,7 +10,6 @@ import { isPhysicalData } from "@item/data/helpers";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { PhysicalItemType } from "@item/physical/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
-import { coinsToString } from "@item/treasure/helpers";
 import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
@@ -269,7 +268,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.isTemporary = isTemporary;
                 itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
-                itemData.assetValue = mergeObject(item.assetValue, { label: coinsToString(item.assetValue) });
+                itemData.assetValue = item.assetValue;
 
                 const containerData = containers.get(itemData._id)!;
                 itemData.containerData = containerData;

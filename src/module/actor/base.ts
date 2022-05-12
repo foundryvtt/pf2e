@@ -397,7 +397,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
 
             // Set default token dimensions for familiars and vehicles
-            const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
+            const dimensionMap: { [K in ActorType]?: number } = { familiar: 0.5, vehicle: 2 };
             merged.token.height ??= dimensionMap[datum.type] ?? 1;
             merged.token.width ??= merged.token.height;
 
@@ -407,22 +407,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.token.actorLink = true;
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
                     merged.token.vision = true;
                     break;
                 case "loot":
-                    // Make loot actors linked, interactable and neutral disposition
+                    // Make loot actors linked and interactable
                     merged.token.actorLink = true;
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                     break;
-                case "npc":
-                    if (!merged.flags?.core?.sourceId) {
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
-                    }
-                    break;
-                default:
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
             }
         }
 
@@ -478,6 +469,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
+            rollTwice: {},
             senses: [],
             statisticsModifiers: {},
             strikeAdjustments: [],
@@ -559,7 +551,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Set defaults for this actor's prototype token */
-    private preparePrototypeToken() {
+    private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
         const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.webp`;
         const tokenImgIsActorImg = this.data.token.img === this.img;
@@ -1181,17 +1173,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported actors are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Set default portrait and token images
         if (this.data._source.img === "icons/svg/mystery-man.svg") {
-            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+            this.data._source.img =
+                this.data._source.token.img =
+                data.img =
+                data.token.img =
+                    `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
         await super._preCreate(data, options, user);
+
+        // Ensure imported actors are current on their schema version
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }

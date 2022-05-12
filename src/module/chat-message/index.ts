@@ -82,7 +82,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does this message include a check (1d20 + c) roll? */
     get isCheckRoll(): boolean {
-        return this.isRoll && !!this.data.flags.pf2e.context;
+        return this.roll instanceof CheckRoll;
     }
 
     /** Does the message include a rerolled check? */
@@ -92,9 +92,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a check that hasn't been rerolled? */
     get isRerollable(): boolean {
-        const actorId = this.data.speaker.actor ?? "";
-        const isOwner = !!game.actors.get(actorId)?.isOwner;
-        return this.isCheckRoll && !this.isReroll && isOwner && this.canUserModify(game.user, "update");
+        const { roll } = this;
+        return !!(
+            this.actor?.isOwner &&
+            this.canUserModify(game.user, "update") &&
+            roll instanceof CheckRoll &&
+            roll.isRerollable
+        );
     }
 
     /** Get the owned item associated with this chat message */

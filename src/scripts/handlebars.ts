@@ -1,4 +1,6 @@
 import { ItemPF2e } from "@item";
+import { Coins } from "@item/physical/data";
+import { coinsToString } from "@item/treasure/helpers";
 import { getActionGlyph, ordinal } from "../util";
 
 export function registerHandlebarsHelpers() {
@@ -173,5 +175,10 @@ export function registerHandlebarsHelpers() {
 
     Handlebars.registerHelper("isNullish", function (value: unknown) {
         return value === null || value === undefined;
+    });
+
+    Handlebars.registerHelper("coinLabel", function (value: Coins) {
+        if (!value) return null;
+        return coinsToString(value);
     });
 }
