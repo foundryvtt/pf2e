@@ -1,7 +1,6 @@
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
 import { ActorSheetPF2e } from "../sheet/base";
-import { calculateWealth } from "@item/treasure/helpers";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e, PhysicalItemData } from "@item/data";
 import { PhysicalItemType } from "@item/physical/data";
@@ -50,19 +49,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         );
 
         this.prepareItems(sheetData);
-
-        // update currency based on items
-        if (sheetData.actor.items !== undefined) {
-            const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = {};
-            for (const denomination of ["cp", "sp", "gp", "pp"] as const) {
-                const value = treasure[denomination];
-                sheetData.totalTreasure[denomination] = {
-                    value,
-                    label: CONFIG.PF2E.currencies[denomination],
-                };
-            }
-        }
 
         return sheetData;
     }
