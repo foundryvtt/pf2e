@@ -553,7 +553,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.webp`;
+        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.svg`;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
