@@ -478,6 +478,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
+            rollTwice: {},
             senses: [],
             statisticsModifiers: {},
             strikeAdjustments: [],

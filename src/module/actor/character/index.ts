@@ -73,7 +73,7 @@ import { UserPF2e } from "@module/user";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractRollTwice, extractModifiers, extractNotes } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -87,6 +87,7 @@ import { LocalizePF2e } from "@system/localize";
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams } from "./types";
 import { FamiliarPF2e } from "@actor/familiar";
+import { CheckRoll } from "@system/check/roll";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -521,25 +522,30 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.notes = domains.flatMap((d) => duplicate(rollNotes[d] ?? []));
             stat.value = stat.totalModifier;
-            stat.roll = async (args: RollParameters): Promise<void> => {
+            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
-                const options = args.options ?? [];
-                ensureProficiencyOption(options, proficiencyRank);
+                const rollOptions = args.options ?? [];
+                ensureProficiencyOption(rollOptions, proficiencyRank);
                 if (args.dc && stat.adjustments) {
                     args.dc.adjustments = stat.adjustments;
                 }
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(domains, options);
+                    rule.beforeRoll?.(domains, rollOptions);
                 }
 
-                await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    { actor: this, type: "perception-check", options, dc: args.dc, notes: stat.notes },
-                    args.event,
-                    args.callback
-                );
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
+                const context: CheckRollContext = {
+                    actor: this,
+                    type: "perception-check",
+                    options: rollOptions,
+                    dc: args.dc,
+                    rollTwice,
+                    notes: stat.notes,
+                };
+
+                return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
             };
 
             systemData.attributes.perception = stat;
@@ -725,7 +731,7 @@ class CharacterPF2e extends CreaturePF2e {
             stat.value = stat.totalModifier;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
             stat.rank = skill.rank;
-            stat.roll = async (args: RollParameters): Promise<void> => {
+            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
@@ -740,12 +746,17 @@ class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
-                    args.event,
-                    args.callback
-                );
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, options);
+                const context: CheckRollContext = {
+                    actor: this,
+                    type: "skill-check",
+                    options,
+                    dc: args.dc,
+                    rollTwice,
+                    notes: stat.notes,
+                };
+
+                return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
             };
 
             skills[shortForm] = stat;
@@ -782,7 +793,7 @@ class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            stat.roll = async (args: RollParameters): Promise<void> => {
+            stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, rank);
@@ -792,12 +803,17 @@ class CharacterPF2e extends CreaturePF2e {
                     rule.beforeRoll?.(domains, options);
                 }
 
-                await CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    { actor: this, type: "skill-check", options, dc: args.dc, notes: stat.notes },
-                    args.event,
-                    args.callback
-                );
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, options);
+                const context: CheckRollContext = {
+                    actor: this,
+                    type: "skill-check",
+                    options,
+                    dc: args.dc,
+                    rollTwice,
+                    notes: stat.notes,
+                };
+
+                return CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
             };
 
             skills[shortForm] = stat;
@@ -1738,12 +1754,12 @@ class CharacterPF2e extends CreaturePF2e {
             ])
             .map(([label, constructModifier]) => ({
                 label,
-                roll: async (args: StrikeRollParams): Promise<void> => {
+                roll: async (args: StrikeRollParams): Promise<Rolled<CheckRoll> | null> => {
                     if (weapon.requiresAmmo && !weapon.ammo) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
                         );
-                        return;
+                        return null;
                     }
 
                     const context = this.getAttackRollContext({
@@ -1772,7 +1788,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                     // Get just-in-time roll options from rule elements
                     for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        rule.beforeRoll?.(baseSelectors, options);
+                        rule.beforeRoll?.(selectors, options);
                     }
                     const finalRollOptions = Array.from(new Set(options));
 
@@ -1783,7 +1799,7 @@ class CharacterPF2e extends CreaturePF2e {
 
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
-                    const rollTwice = args.rollTwice ?? "no";
+                    const rollTwice = extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
@@ -1797,9 +1813,9 @@ class CharacterPF2e extends CreaturePF2e {
                         rollTwice,
                     };
 
-                    if (!this.consumeAmmo(item, args)) return;
+                    if (!this.consumeAmmo(item, args)) return null;
 
-                    await CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
+                    return CheckPF2e.roll(constructModifier(otherModifiers), checkContext, args.event, args.callback);
                 },
             }));
         action.attack = action.roll = action.variants[0].roll;
