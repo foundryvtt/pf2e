@@ -110,6 +110,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                 itemData.containerData = containerData;
                 itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = false;
+                itemData.isIdentified = physicalData.data.identification.status === "identified";
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
