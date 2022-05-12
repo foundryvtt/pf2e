@@ -177,6 +177,7 @@ interface Coins {
 
 interface Price {
     value: Coins;
+    per?: number;
 }
 
 export {
