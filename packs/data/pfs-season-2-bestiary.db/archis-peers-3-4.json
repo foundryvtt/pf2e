@@ -24,16 +24,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 39
+                "value": 18
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 18,
+                "max": 39,
                 "temp": 0,
-                "value": 18
+                "value": 39
             },
             "initiative": {
                 "ability": "perception"
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario #2-13: A Gilded Test"
             }
         },
         "resources": {},
@@ -115,7 +115,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "o46zZXR2eQZPRQcR",
+            "_id": "cPDtWTXlrggq30QC",
             "data": {
                 "MAP": {
                     "value": ""
@@ -163,10 +163,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -188,16 +188,16 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -208,7 +208,7 @@
                 "size": "med",
                 "slug": "kukri",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -218,7 +218,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": "striking"
+                    "value": ""
                 },
                 "traits": {
                     "custom": "",
@@ -242,7 +242,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/kukri.webp",
-            "name": "+1 Kukri",
+            "name": "Kukri",
             "sort": 100000,
             "type": "weapon"
         },
@@ -377,7 +377,7 @@
             "type": "action"
         },
         {
-            "_id": "wkXr7RioVwPqxNaq",
+            "_id": "imyisYg5h4c41Nto",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -390,7 +390,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>Archis Peers deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>Archis deals 1d6 extra precision damage to flatfooted creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -403,21 +403,7 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"
