@@ -2338,6 +2338,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -2383,6 +2384,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -2428,6 +2430,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
                 },
@@ -2473,6 +2476,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
                 },
@@ -2518,6 +2522,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": ""
                 },
@@ -2579,6 +2584,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
@@ -2622,15 +2628,22 @@
                     "value": "passive"
                 },
                 "actions": {
-                    "value": ""
+                    "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When Tatterthread rolls initiative, enemies she can see within 120 feet that are also rolling initiative automatically roll a 1.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "<p><strong>{item|name}</strong></p><p>{item|data.description.value}</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2664,6 +2677,7 @@
                 "actions": {
                     "value": ""
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When a creature is subject to a fortune effect from a norn and a misfortune effect from any source other than a norn (or vice versa), the norn's effect automatically counteracts the other effect and then takes place normally, rather than the two effects canceling each other out. If both the fortune and misfortune effect are from a norn, then the two cancel each other out as normal. At the GM's discretion, powerful entities related to fate or luck, like Desna, Magdh, or Pharasma, count as a norn for the purpose of this ability.</p>"
                 },
@@ -2702,6 +2716,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>When Tatterthread deals acid damage with a Strike, she regains [[/r 10 #Hit Points]] Hit Points. The target must succeed at a @Check[type:fortitude|dc:39] save or become @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} (@Compendium[pf2e.conditionitems.Doomed]{Doomed 2} on a critical failure).</p>"
                 },
@@ -2744,6 +2759,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Frequency</strong> three times per day</p>\n<p><strong>Effect</strong> Tatterthread produces a scrap of shadow linked to the fate of a creature within 100 feet of her, then snips it with her caustic shears. The target takes [[/r {100}[acid]]]{100 acid Damage} (@Check[type:fortitude|dc:42|basic:true]). If the target is reduced to 0 Hit Points from this damage, it melts into a puddle of fetid acid and dies immediately. If the target failed the saving throw, it loses any acid resistance it has for 1 minute (1 day on a critical failure). A creature slain by Shadow Snip can't be restored to life except by miracle, wish, or similarly powerful magic, or by divine intervention. Regardless of the outcome of its save, a creature targeted by Shadow Snip becomes temporarily immune for 24 hours. The norn can't use Shadow Snip again for [[/br 1d4 #Shadow Snip Cooldown]]{1d4 rounds}.</p>"
                 },
@@ -2788,6 +2804,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within 120 feet attempts a saving throw</p>\n<p><strong>Effect</strong> The creature rolls the save twice, and then Tatterthread decides which result applies. If she chooses the lower roll, this is a misfortune effect; if she chooses the higher roll, it's a fortune effect; if they're the same, she decides which trait to apply.</p>"
                 },
