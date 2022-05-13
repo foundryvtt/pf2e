@@ -17,7 +17,7 @@ export class Migration746StandardizePricing extends MigrationBase {
             if (systemData.denomination || systemData.value) {
                 const value = systemData.value?.value ?? 0;
                 const denomination = systemData.denomination?.value ?? "gp";
-                systemData.price = { value: stripCoins({ [denomination]: value }) };
+                systemData.price = { value: { [denomination]: value } };
 
                 systemData["-=denomination"] = null;
                 delete systemData.denomination;
@@ -27,20 +27,20 @@ export class Migration746StandardizePricing extends MigrationBase {
         } else {
             const systemData: PhysicalDataOld = item.data;
             if (typeof systemData.price.value === "string") {
-                const coins = coinStringToCoins(systemData.price.value);
-                systemData.price.value = stripCoins(coins);
+                systemData.price.value = coinStringToCoins(systemData.price.value);
+            }
+        }
+
+        // strip all zero value denominations from the result
+        if (item.data.price.value) {
+            const coins = item.data.price.value;
+            for (const denomination of DENOMINATIONS) {
+                if (coins[denomination] === 0) {
+                    delete coins[denomination];
+                }
             }
         }
     }
-}
-
-function stripCoins(coins: Coins): Coins {
-    for (const denomination of DENOMINATIONS) {
-        if (coins[denomination] === 0) {
-            delete coins[denomination];
-        }
-    }
-    return coins;
 }
 
 interface PhysicalDataOld {

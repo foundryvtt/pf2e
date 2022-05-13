@@ -1,3 +1,5 @@
+import { sortLabeledRecord } from "@util";
+
 /** Prepare form options on an item or actor sheet */
 function createSheetOptions(
     options: Record<string, string>,
@@ -10,7 +12,7 @@ function createSheetOptions(
         const isSelected = selectionList.includes(key);
         if (isSelected || !selected) {
             compiledOptions[key] = {
-                label,
+                label: game.i18n.localize(label),
                 value: stringKey,
                 selected: isSelected,
             };
@@ -23,7 +25,7 @@ function createSheetOptions(
         sheetOptions.custom = { label: selections.custom, value: "", selected: true };
     }
 
-    return sheetOptions;
+    return sortLabeledRecord(sheetOptions);
 }
 
 function createSheetTags(options: Record<string, string>, selections: SheetSelections): SheetOptions {

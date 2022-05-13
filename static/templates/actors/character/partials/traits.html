@@ -38,7 +38,7 @@
         <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
         <ol class="tags">
             {{#each data.attributes.speed.otherSpeeds as |speed|}}
-                <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{localize speed.label}} ({{speed.total}})</li>
+                <li class="tag tag_alt" data-slug="{{speed.type}}" title="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
             {{/each}}
             {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
@@ -68,7 +68,7 @@
         <span class="details-label">{{localize "PF2E.Languages"}}</span>
         <ul class="tags">
             {{#each languages as |language slug|}}
-                <li class="tag tag_alt" data-slug="{{slug}}">{{localize language.label}}</li>
+                <li class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</li>
             {{/each}}
             {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
@@ -84,7 +84,7 @@
         <span class="details-label">{{localize "PF2E.Traits"}}</span>
         <ul class="tags">
             {{#each traits as |trait slug|}}
-                <li class="tag tag_alt" data-slug="{{slug}}">{{localize trait.label}}</li>
+                <li class="tag tag_alt" data-slug="{{slug}}">{{trait.label}}</li>
             {{/each}}
             {{#if @root.options.editable}}
                 <li class="tag tag_secondary edit-btn">
