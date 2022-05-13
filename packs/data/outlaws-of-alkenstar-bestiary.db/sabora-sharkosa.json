@@ -845,6 +845,85 @@
             "type": "action"
         },
         {
+            "_id": "u81y3oK61ZhSGxUA",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>Sharkosa's supernatural connection to gold allows her to alter the trajectory of her gold-cased bullets in flight. As long as her target is within 120 feet, Sharkosa gains a +1 circumstance bonus to ranged Strikes against targets with lesser cover and a +2 circumstance bonus to ranged Strikes against targets with standard or greater cover.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                {
+                                    "lte": [
+                                        "target:distance",
+                                        120
+                                    ]
+                                }
+                            ],
+                            "any": [
+                                "target:cover-bonus:2",
+                                "target:cover-bonus:4"
+                            ]
+                        },
+                        "selector": "dueling-pistol-attack",
+                        "slug": "golden-bullets",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                {
+                                    "lte": [
+                                        "target:distance",
+                                        120
+                                    ]
+                                },
+                                "target:cover-bonus:1"
+                            ]
+                        },
+                        "selector": "dueling-pistol-attack",
+                        "slug": "golden-bullets-lesser",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Golden Bullets",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
             "_id": "rerHlLMsQdMsCKCG",
             "data": {
                 "actionCategory": {
@@ -880,7 +959,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "One-Two Punch",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -919,7 +998,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Reload Trick",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -992,85 +1071,6 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1200000,
-            "type": "action"
-        },
-        {
-            "_id": "u81y3oK61ZhSGxUA",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "deathNote": false,
-                "description": {
-                    "value": "<p>Sharkosa's supernatural connection to gold allows her to alter the trajectory of her gold-cased bullets in flight. As long as her target is within 120 feet, Sharkosa gains a +1 circumstance bonus to ranged Strikes against targets with lesser cover and a +2 circumstance bonus to ranged Strikes against targets with standard or greater cover.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                {
-                                    "lte": [
-                                        "target:distance",
-                                        120
-                                    ]
-                                }
-                            ],
-                            "any": [
-                                "target:cover-bonus:2",
-                                "target:cover-bonus:4"
-                            ]
-                        },
-                        "selector": "dueling-pistol-attack",
-                        "slug": "golden-bullets",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                {
-                                    "lte": [
-                                        "target:distance",
-                                        120
-                                    ]
-                                },
-                                "target:cover-bonus:1"
-                            ]
-                        },
-                        "selector": "dueling-pistol-attack",
-                        "slug": "golden-bullets-lesser",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Golden Bullets",
             "sort": 1300000,
             "type": "action"
         },

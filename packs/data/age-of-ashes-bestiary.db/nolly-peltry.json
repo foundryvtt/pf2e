@@ -838,7 +838,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Frequency</strong> once per day\n<p><strong>Trigger</strong> Nolly fails a skill check or a saving throw.</p>\n<p><strong>Effect</strong> Nolly rerolls the triggering check, but she must use the new result, even if it's worse.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Nolly fails a skill check or a saving throw.</p>\n<p><strong>Effect</strong> Nolly rerolls the triggering check, but she must use the new result, even if it's worse.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1065,12 +1065,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
