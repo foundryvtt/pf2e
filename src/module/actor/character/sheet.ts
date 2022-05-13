@@ -26,7 +26,10 @@ import { PCSheetTabManager } from "./tab-manager";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
-    private knownFormulas!: Map<string, CraftingFormula>;
+    private knownFormulas: Record<string, CraftingFormula> = {};
+
+    // Non-persisted tweaks to formula data
+    private formulaQuantities: Record<string, number> = {};
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -155,11 +158,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             entries: await this.prepareCraftingEntries(),
         };
 
-        this.knownFormulas = new Map(
-            Object.values(formulasByLevel)
-                .flat()
-                .map((formula): [string, CraftingFormula] => [formula.uuid, formula])
-        );
+        this.knownFormulas = Object.values(formulasByLevel)
+            .flat()
+            .reduce((result, entry) => {
+                entry.batchSize = this.formulaQuantities[entry.uuid] ?? entry.batchSize;
+                result[entry.uuid] = entry;
+                return result;
+            }, {} as Record<string, CraftingFormula>);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -733,7 +738,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const { itemUuid } = event.currentTarget.dataset;
             const itemQuantity =
                 Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
-            const formula = this.knownFormulas.get(itemUuid ?? "");
+            const formula = this.knownFormulas[itemUuid ?? ""];
             if (!formula) return;
 
             if (this.actor.data.flags.pf2e.quickAlchemy) {
@@ -767,6 +772,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
         });
 
+        $formulas.find(".formula-number").on("change", (event) => {
+            const $target = $(event.currentTarget);
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+            if (entrySelector) return;
+
+            const formula = this.knownFormulas[itemUUID ?? ""];
+            if (!formula) throw ErrorPF2e("Formula not found");
+            this.formulaQuantities[formula.uuid] = Math.max(formula.minimumBatchSize, Number($target.val()));
+            this.render(true);
+        });
+
         $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {
             const $target = $(event.currentTarget);
 
@@ -782,13 +799,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return;
             }
 
-            const formula = this.knownFormulas.get(itemUUID ?? "");
+            const formula = this.knownFormulas[itemUUID ?? ""];
             if (!formula) throw ErrorPF2e("Formula not found");
 
-            const batchSize = formula.minimumBatchSize;
-            const step = $target.text().trim() === "+" ? batchSize : -batchSize;
-            const value = Number($target.siblings("input").val()) || step;
-            $target.siblings("input").val(Math.max(value + step, batchSize));
+            const minBatchSize = formula.minimumBatchSize;
+            const step = $target.text().trim() === "+" ? minBatchSize : -minBatchSize;
+            const newValue = (Number($target.siblings("input").val()) || step) + step;
+            this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
+            this.render(true);
         });
 
         $formulas.find(".formula-unprepare").on("click", async (event) => {
