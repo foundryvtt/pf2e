@@ -171,6 +171,12 @@ class TextEditorPF2e extends TextEditor {
             }
         }
 
+        // Set action slug as a roll option
+        if (item?.slug) {
+            const actionName = "action:" + item?.slug;
+            traits.push(actionName);
+        }
+
         // Set origin actor traits.
         const actorTraits = item?.actor?.getSelfRollOptions("origin");
         if (actorTraits && params.overrideTraits !== "true") {
