@@ -959,7 +959,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Trigger</strong> The Gray Gardener assassin rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait\n<strong>Requirements</strong> The Gray Gardener assassin's features are obscured by a mask or hood\n<hr />\n<p><strong>Effect</strong> The Gray Gardener assassin takes [[/r {3d8}[mental]]]{3d8 mental damage}, and the saving throw is a success.</p>"
+                    "value": "<p><strong>Trigger</strong> The Gray Gardener assassin rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait\n<strong>Requirements</strong> The Gray Gardener assassin's features are obscured by a mask or hood</p><hr />\n<p><strong>Effect</strong> The Gray Gardener assassin takes [[/r {3d8}[mental]]]{3d8 mental damage}, and the saving throw is a success.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1107,7 +1107,7 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<strong>Requirements</strong> The Gray Gardener assassin is wielding a piercing or slashing weapon and has a free hand <hr /><p><strong>Effect</strong> The assassin applies a poison to the weapon.</p>"
+                    "value": "<p><strong>Requirements</strong> The Gray Gardener assassin is wielding a piercing or slashing weapon and has a free hand</p><hr /><p><strong>Effect</strong> The assassin applies a poison to the weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1198,12 +1198,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

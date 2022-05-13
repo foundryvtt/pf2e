@@ -1375,7 +1375,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<strong>Trigger</strong> The sun hunter is targeted with a melee or ranged attack by an attacker they can see <hr /><p><strong>Effect</strong> The sun hunter gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> The sun hunter is targeted with a melee or ranged attack by an attacker they can see</p><hr /><p><strong>Effect</strong> The sun hunter gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1445,12 +1445,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
