@@ -46,10 +46,10 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
-        if (changed.defeated) {
+        if (changed.defeated && game.user.isGM) {
             this.actor?.items
                 .filter((item) => "deathNote" in item.data.data && item.data.data.deathNote)
-                .forEach((item) => item.toMessage(undefined, { rollMode: "gmroll" }));
+                .forEach((item) => item.toMessage(undefined, { rollMode: "blindroll" }));
         }
     }
 
