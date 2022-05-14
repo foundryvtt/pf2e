@@ -125,6 +125,19 @@ class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
         return super._onDropItemCreate(spellSources);
     }
 
+    /** Allow transferring spells between open windows */
+    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        if (itemData.type !== "spell") return [];
+
+        const spell = this.actor.items.get(itemData._id);
+        if (itemData.data.location.value !== this.item.id && spell instanceof SpellPF2e) {
+            const addedSpell = await this.item.addSpell(spell);
+            return [addedSpell ?? []].flat();
+        }
+
+        return super._onSortItem(event, itemData);
+    }
+
     /** Override of inner render function to maintain item summary state */
     protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
         return this.itemRenderer.saveAndRestoreState(() => {
