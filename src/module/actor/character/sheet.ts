@@ -806,7 +806,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const step = $target.text().trim() === "+" ? minBatchSize : -minBatchSize;
             const newValue = (Number($target.siblings("input").val()) || step) + step;
             this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
-            this.render(true);
+            this.render();
         });
 
         $formulas.find(".formula-unprepare").on("click", async (event) => {
