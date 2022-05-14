@@ -418,14 +418,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Update max slots for Spell Items
         $html.find(".prepared-toggle").on("click", async (event) => {
             event.preventDefault();
-
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const entry = this.actor.items.get(itemId);
-
-            if (entry instanceof SpellcastingEntryPF2e) {
-                const sheet = new SpellPreparationSheet(entry, { top: event.clientY - 80, left: event.clientX + 200 });
-                sheet.render(true);
-            }
+            this.openSpellPreparationSheet(itemId);
         });
 
         $html.find(".slotless-level-toggle").on("click", async (event) => {
@@ -457,6 +451,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (match) target.value = match[0];
             else target.value = "";
         });
+    }
+
+    /** Opens the spell preparation sheet, but only if its a prepared entry */
+    openSpellPreparationSheet(entryId: string) {
+        const entry = this.actor.items.get(entryId);
+        if (entry instanceof SpellcastingEntryPF2e && entry.isPrepared) {
+            const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
+            const offset = $book.offset() ?? { left: 0, top: 0 };
+            const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
+            sheet.render(true);
+        }
     }
 
     async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
@@ -671,6 +676,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (dropSlotType === "spellLevel") {
                 const { level } = $dropItemEl.data();
                 const spell = await entry.addSpell(item, level);
+                this.openSpellPreparationSheet(entry.id);
                 return [spell ?? []].flat();
             } else if ($dropItemEl.attr("data-slot-id")) {
                 const dropId = Number($dropItemEl.attr("data-slot-id"));
@@ -702,6 +708,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         return [target];
                     } else {
                         const spell = await entry.addSpell(item, target.level);
+                        this.openSpellPreparationSheet(entry.id);
                         return [spell ?? []].flat();
                     }
                 }
@@ -830,6 +837,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
 
                 const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
+                this.openSpellPreparationSheet(entry.id);
                 return [(await entry.addSpell(item, level)) ?? []].flat();
             } else if (dropContainerType === "actorInventory" && itemSource.data.level.value > 0) {
                 const popup = new ScrollWandPopup(

@@ -78,6 +78,8 @@ interface RuleElementSynthetics {
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
+    rollSubstitutions: Record<string, RollSubstitution[]>;
+    rollTwice: Record<string, RollTwiceSynthetic[]>;
     senses: SenseSynthetic[];
     statisticsModifiers: Record<string, DeferredModifier[]>;
     strikeAdjustments: StrikeAdjustment[];
@@ -92,10 +94,24 @@ interface RuleElementSynthetics {
     };
 }
 
+interface RollSubstitution {
+    slug: string;
+    label: string;
+    predicate: PredicatePF2e | null;
+    value: number;
+    ignored: boolean;
+    effectType: "fortune" | "misfortune";
+}
+
+interface RollTwiceSynthetic {
+    keep: "higher" | "lower";
+    predicate?: PredicatePF2e;
+}
+
 interface SenseSynthetic {
     sense: CreatureSensePF2e;
     predicate: PredicatePF2e | null;
     force: boolean;
 }
 
-export { DeferredModifier, RuleElementSynthetics, StrikeAdjustment };
+export { DeferredModifier, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics, StrikeAdjustment };

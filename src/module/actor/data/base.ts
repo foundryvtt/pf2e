@@ -161,7 +161,9 @@ export interface AbilityBasedStatistic {
 }
 
 /** A roll function which can be called to roll a given skill. */
-export type RollFunction<T extends RollParameters = RollParameters> = (params: T) => Promise<string | void>;
+export type RollFunction<T extends RollParameters = RollParameters> = (
+    params: T
+) => Promise<Rolled<Roll> | null | string | void>;
 
 /** Basic initiative-relevant data. */
 export interface InitiativeData {

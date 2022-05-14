@@ -1757,19 +1757,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1895,19 +1882,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 0
@@ -2222,7 +2196,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} or @Compendium[pf2e.conditionitems.Blinded]{Blinded} creature, or a creature with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness}, ends its move adjacent to Dulac</p>\n<p><strong>Effect</strong> Dulac Steps.</p>"
+                    "value": "<p><strong>Trigger</strong> A @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} or @Compendium[pf2e.conditionitems.Blinded]{Blinded} creature, or a creature with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness}, ends its move adjacent to Dulac</p>\n<p><strong>Effect</strong> Dulac Steps.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2263,7 +2237,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An ally within Dulac's reach is targeted with a ranged or melee attack by an attacker she can see</p>\n<p><strong>Effect</strong> The ally gains a +2 circumstance bonus to AC against the triggering attack, and the ally can Step after the attack.</p>"
+                    "value": "<p><strong>Trigger</strong> An ally within Dulac's reach is targeted with a ranged or melee attack by an attacker she can see</p>\n<p><strong>Effect</strong> The ally gains a +2 circumstance bonus to AC against the triggering attack, and the ally can Step after the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2317,12 +2291,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

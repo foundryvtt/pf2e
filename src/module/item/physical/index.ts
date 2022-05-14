@@ -9,7 +9,7 @@ import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItem
 import { UserPF2e } from "@module/user";
 import { getUsageDetails, isEquipped } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { multiplyCoins } from "@item/treasure/helpers";
+import { coinStringToCoins, multiplyPrice } from "@item/treasure/helpers";
 import { DENOMINATIONS } from "./values";
 import { isObject } from "@util";
 
@@ -59,7 +59,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** The monetary value of the entire item stack */
     get assetValue(): Coins {
-        return multiplyCoins(this.price.value, this.quantity);
+        return multiplyPrice(this.price, this.quantity);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -168,8 +168,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.containerId ||= null;
         systemData.stackGroup ||= null;
 
+        // Temporary: prevent noise from items pre migration 746
+        if (typeof systemData.price.value === "string") {
+            systemData.price.value = coinStringToCoins(systemData.price.value);
+        }
+
         // Normalize price string
         if (this.isTemporary) systemData.price.value = { gp: 0 };
+        systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status
         this.data.data.usage = getUsageDetails(systemData.usage.value);
@@ -370,13 +376,20 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const newCarryType = String(equipped.carryType ?? this.data.data.equipped.carryType);
         if (!newCarryType.startsWith("held")) equipped.handsHeld = 0;
 
-        // Clear 0 price denominations
+        // Clear 0 price denominations and per fields with values 0 or 1
         if (isObject<Record<string, unknown>>(changed.data?.price)) {
             const price: Record<string, unknown> = changed.data.price;
-            for (const denomination of DENOMINATIONS) {
-                if (price[denomination] === 0) {
-                    price[`-=denomination`] = null;
+            if (isObject<Record<string, number | null>>(price.value)) {
+                const coins = price.value;
+                for (const denomination of DENOMINATIONS) {
+                    if (coins[denomination] === 0) {
+                        coins[`-=${denomination}`] = null;
+                    }
                 }
+            }
+
+            if ("per" in price && (!price.per || Number(price.per) <= 1)) {
+                price["-=per"] = null;
             }
         }
 

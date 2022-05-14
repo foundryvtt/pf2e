@@ -932,6 +932,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "athletics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -2323,6 +2343,7 @@
                     "value": ""
                 },
                 "price": {
+                    "per": 10,
                     "value": {
                         "sp": 1
                     }
@@ -3731,7 +3752,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the <em>@Compendium[pf2e.spells-srd.Guidance]{Guidance}</em> cantrip as an occult innate spell.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li> +1 item bonus to Occultism checks</li>\n</ul>"
+                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the <em>@Compendium[pf2e.spells-srd.Guidance]{Guidance}</em> cantrip as an occult innate spell.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",

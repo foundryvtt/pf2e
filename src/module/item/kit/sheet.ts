@@ -73,12 +73,10 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             id = randomID(5);
         } while (items[id]);
 
-        await this.item.update({
-            [`${pathPrefix}.${id}`]: entry,
-        });
+        await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    removeItem(event: JQuery.ClickEvent) {
+    removeItem(event: JQuery.ClickEvent): Promise<KitPF2e> {
         event.preventDefault();
         const target = $(event.target).parents("li");
         const containerId = target.parents("[data-container-id]").data("containerId");
@@ -87,9 +85,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             path = `${containerId}.items.${path}`;
         }
 
-        this.item.update({
-            [`data.items.${path}`]: null,
-        });
+        return this.item.update({ [`data.items.${path}`]: null });
     }
 
     override activateListeners($html: JQuery): void {
@@ -104,6 +100,6 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             formData["data.price.value"] = mergeObject(noCoins(), coins);
         }
 
-        super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

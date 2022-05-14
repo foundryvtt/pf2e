@@ -863,11 +863,7 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.LDICCpy7gURprIf5"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deadly Disarm",
             "sort": 900000,
@@ -899,12 +895,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

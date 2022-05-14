@@ -208,6 +208,9 @@ class ItemPF2e extends Item<ActorPF2e> {
         } else if (currentSource.type === "spell") {
             // Preserve spellcasting entry location
             mergeObject(updates, expandObject({ "data.location.value": currentSource.data.location.value }));
+        } else if (currentSource.type === "feat") {
+            // Preserve feat location
+            mergeObject(updates, expandObject({ "data.location": currentSource.data.location }));
         }
 
         // Preserve precious material and runes

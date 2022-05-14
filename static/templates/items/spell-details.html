@@ -48,9 +48,7 @@
         </label>
         <ul class="traits-list" style="margin: 3px 0; padding: 0;">
             {{#each magicTraditions as |tradition|}}
-                {{#if tradition.selected}}
-                    <li class="tag-legacy" data-tradition="{{tradition.value}}">{{localize tradition.label}}</li>
-                {{/if}}
+                <li class="tag-legacy" data-tradition="{{tradition.value}}">{{tradition.label}}</li>
             {{/each}}
         </ul>
     </div>
@@ -61,7 +59,7 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.SpellTimeLabel"}}</label>
-        <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="String"/>
+        <input type="text" name="data.time.value" value="{{data.time.value}}" />
     </div>
 
     <div class="form-group">

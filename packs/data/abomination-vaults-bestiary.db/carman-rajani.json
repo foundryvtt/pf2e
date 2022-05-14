@@ -150,19 +150,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -293,19 +280,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 6
@@ -452,19 +426,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 5
                 },
@@ -560,19 +521,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -642,19 +590,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 0
@@ -850,7 +785,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Carman is targeted with a ranged attack by a thrown weapon and has a hand free</p>\n<p><strong>Effect</strong> Carman gains a +2 circumstance bonus to his AC against the triggering attack. If the attack misses, Carman catches the weapon and can immediately make a ranged Strike with it.</p>"
+                    "value": "<p><strong>Trigger</strong> Carman is targeted with a ranged attack by a thrown weapon and has a hand free</p>\n<p><strong>Effect</strong> Carman gains a +2 circumstance bonus to his AC against the triggering attack. If the attack misses, Carman catches the weapon and can immediately make a ranged Strike with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -922,12 +857,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

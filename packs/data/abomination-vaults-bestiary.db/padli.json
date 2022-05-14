@@ -1757,19 +1757,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1897,19 +1884,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2003,19 +1977,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 1
@@ -2111,19 +2072,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 7
@@ -2549,7 +2497,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Padli attempts a saving throw against a spell cast by a creature he can see</p>\n<p><strong>Effect</strong> Padli gains a +2 circumstance bonus to the triggering save.</p>"
+                    "value": "<p><strong>Trigger</strong> Padli attempts a saving throw against a spell cast by a creature he can see</p>\n<p><strong>Effect</strong> Padli gains a +2 circumstance bonus to the triggering save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2621,12 +2569,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

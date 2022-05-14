@@ -603,19 +603,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 1
                 },
@@ -746,19 +733,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -885,19 +859,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -990,19 +951,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 0
@@ -1100,19 +1048,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 4
@@ -1238,19 +1173,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 0
@@ -1686,7 +1608,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> The shootist fails a save</p>\n<p><strong>Frequency</strong> once per day</p>\n</div>\n<p><strong>Effect</strong> The shootist rerolls the save and uses the better result.</p>"
+                    "value": "<p><strong>Trigger</strong> The shootist fails a save</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The shootist rerolls the save and uses the better result.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1772,7 +1694,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The shootist is holding an unloaded repeating hand crossbow</p>\n<p><strong>Effect</strong> The shootist Interacts to reload the repeating hand crossbow and Strikes with it.</p>"
+                    "value": "<p><strong>Requirements</strong> The shootist is holding an unloaded repeating hand crossbow</p>\n<p><strong>Effect</strong> The shootist Interacts to reload the repeating hand crossbow and Strikes with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1814,7 +1736,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The shootist Interacts to draw a repeating hand crossbow and Strikes with it, or Strikes with a loaded repeating hand crossbow they're holding then Interacts to stow it.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The shootist Interacts to draw a repeating hand crossbow and Strikes with it, or Strikes with a loaded repeating hand crossbow they're holding then Interacts to stow it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1869,12 +1791,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

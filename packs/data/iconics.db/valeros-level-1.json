@@ -931,6 +931,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "athletics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -2550,6 +2570,7 @@
                     "value": ""
                 },
                 "price": {
+                    "per": 10,
                     "value": {
                         "sp": 1
                     }

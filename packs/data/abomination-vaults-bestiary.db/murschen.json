@@ -151,19 +151,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -300,19 +287,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -426,19 +400,6 @@
                     "brokenThreshold": 0,
                     "max": 0,
                     "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
                 },
                 "level": {
                     "value": 0
@@ -567,11 +528,7 @@
                     "value": "melee"
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Item.WoAsAorLNzTTlV1e"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Red Claw",
             "sort": 500000,
@@ -780,7 +737,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> Murschen makes two unarmed Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses. Murschen's multiple attack penalty applies normally to these Strikes.</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> Murschen makes two unarmed Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses. Murschen's multiple attack penalty applies normally to these Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -821,7 +778,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> Murschen is unarmored</p>\n<p><strong>Effect</strong> Murschen takes the stance of the red ruin, designed to tear away chunks of flesh like a ferocious beast. Murschen can make red claw unarmed attacks. These attacks deal [[/r {1d10}[slashing]]]{1d10 slashing damage}; are in the brawling group; and have the finesse, sweep, and unarmed traits.</p>\n<p>While in this stance, when Murschen would reduce his @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition value by 1, he reduces it to 0.</p>"
+                    "value": "<p><strong>Requirement</strong> Murschen is unarmored</p>\n<p><strong>Effect</strong> Murschen takes the stance of the red ruin, designed to tear away chunks of flesh like a ferocious beast. Murschen can make red claw unarmed attacks. These attacks deal [[/r {1d10}[slashing]]]{1d10 slashing damage}; are in the brawling group; and have the finesse, sweep, and unarmed traits.</p>\n<p>While in this stance, when Murschen would reduce his @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition value by 1, he reduces it to 0.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -877,12 +834,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

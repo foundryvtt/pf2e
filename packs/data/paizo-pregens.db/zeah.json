@@ -367,7 +367,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+5 untyped bonus to land speed</li>\n</ul>"
+                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
                 },
                 "featType": {
                     "value": "general"
@@ -2410,6 +2410,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "stealth"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
