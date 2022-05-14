@@ -90,27 +90,22 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
                     "type": "cold",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "electricity",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "fire",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "piercing",
                     "value": 5
                 },
                 {
-                    "exceptions": "",
                     "type": "slashing",
                     "value": 5
                 }
@@ -513,19 +508,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -542,7 +524,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -622,9 +606,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -641,19 +622,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -667,7 +635,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {
+                        "gp": 10
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -684,9 +654,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 10
                 },
                 "weight": {
                     "value": "-"
@@ -729,7 +696,8 @@
                         "key": "RollOption",
                         "label": "Use Dwarven War Axe Two-Handed",
                         "option": "twoHanded",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "key": "DamageDice",
@@ -780,6 +748,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -825,6 +794,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -877,8 +847,9 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The forged bones calls on the power contained in its mask to shoot a burst of forge-hot flames at intruders, dealing [[/r {3d6}[fire]]]{3d6 fire damage} in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p data-visibility=\"gm\">The forged bones can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The forged bones calls on the power contained in its mask to shoot a burst of forge-hot flames at intruders, dealing [[/r {3d6}[fire]]]{3d6 fire damage} in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The forged bones can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

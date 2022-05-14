@@ -27,7 +27,7 @@
                 "value": 33
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. disease"
             },
             "hp": {
                 "details": "",
@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "LG"
             },
-            "blurb": "",
+            "blurb": "Male Tian-Shu paladin of Irori",
             "creatureType": "",
             "level": {
                 "value": 13
@@ -63,8 +63,8 @@
         },
         "resources": {
             "focus": {
-                "max": 1,
-                "value": 1
+                "max": 3,
+                "value": 3
             }
         },
         "saves": {
@@ -231,14 +231,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "OsHS53pN5oUSCXmR",
+            "_id": "wWq7ugtLA6Ce3ARn",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": ""
+                    "areaType": "cone",
+                    "value": "15"
                 },
                 "areasize": {
                     "value": "15-foot cone"
@@ -258,16 +258,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "force"
                             },
-                            "value": "6d6"
+                            "value": "2d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You unleash your ki as a powerful blast of force that deals 2d6 force damage.</p>\n<p>If you use 2 actions to cast ki blast, increase the size of the cone to 30 feet and the damage to [[/r {3d6}[force]]].</p>\n<p>If you use 3 actions to cast ki blast, increase the size of the cone to 60 feet and the damage to [[/r {4d6}[force]]].</p>\n<p>Each creature in the area must attempt a Fortitude saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed 5 feet.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pushed 10 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6, or by [[/r 2d6]] if you use 2 or 3 actions.</p>"
+                    "value": "<p>You unleash your ki as a powerful blast of force that deals 2d6 force damage.</p>\n<p>If you use 2 actions to cast ki blast, increase the size of the cone to @Template[type:cone|distance:30]{30 feet} and the damage to [[/r {3d6}[force]]]{3d6}.</p>\n<p>If you use 3 actions to cast ki blast, increase the size of the cone to @Template[type:cone|distance:60]{60 feet} and the damage to [[/r {4d6}[force]]]{4d6}.</p>\n<p>Each creature in the area must attempt a Fortitude saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed 5 feet.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pushed 10 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6, or by [[/r 2d6]] if you use 2 or 3 actions.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -275,8 +277,15 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
-                    "value": 7
+                    "value": 3
                 },
                 "location": {
                     "value": "JwTHNda4LwzqStWL"
@@ -298,12 +307,6 @@
                     "basic": "",
                     "value": "fortitude"
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -315,7 +318,7 @@
                 },
                 "slug": "ki-blast",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -352,7 +355,7 @@
             "type": "spell"
         },
         {
-            "_id": "s8p9vwdR2KO1eb7F",
+            "_id": "Uu2I5xP3gn9WtnBd",
             "data": {
                 "ability": {
                     "value": ""
@@ -379,8 +382,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "1d6"
@@ -388,7 +393,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Force)]{Spell Effect: Ki Strike (Force)}</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Lawful)]{Spell Effect: Ki Strike (Lawful)}</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Negative)]{Spell Effect: Ki Strike (Negative)}</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike (Positive)]{Spell Effect: Ki Strike (Positive)}</p>"
+                    "value": "<p>You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn).</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ki Strike]{Spell Effect: Ki Strike}</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -396,8 +401,15 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 4,
+                    "type": "interval"
+                },
                 "level": {
-                    "value": 7
+                    "value": 1
                 },
                 "location": {
                     "value": "JwTHNda4LwzqStWL"
@@ -419,12 +431,6 @@
                     "basic": "",
                     "value": ""
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 4
-                },
                 "school": {
                     "value": "transmutation"
                 },
@@ -436,7 +442,7 @@
                 },
                 "slug": "ki-strike",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -472,14 +478,14 @@
             "type": "spell"
         },
         {
-            "_id": "EbYeYcrwu5Xlekji",
+            "_id": "3TgnxTHSbzmsRKBu",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": ""
+                    "value": null
                 },
                 "areasize": {
                     "value": ""
@@ -503,7 +509,7 @@
                                 "categories": [],
                                 "value": "positive"
                             },
-                            "value": "42"
+                            "value": "6"
                         }
                     }
                 },
@@ -516,8 +522,15 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
-                    "value": 7
+                    "value": 1
                 },
                 "location": {
                     "value": "JwTHNda4LwzqStWL"
@@ -539,12 +552,6 @@
                     "basic": "",
                     "value": "fortitude"
                 },
-                "scaling": {
-                    "damage": {
-                        "0": "6"
-                    },
-                    "interval": 1
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -556,7 +563,7 @@
                 },
                 "slug": "lay-on-hands",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "heal"
@@ -592,153 +599,6 @@
             "name": "Lay on Hands",
             "sort": 400000,
             "type": "spell"
-        },
-        {
-            "_id": "5inflR1rrsem1Y0r",
-            "data": {
-                "MAP": {
-                    "value": ""
-                },
-                "baseItem": null,
-                "bonus": {
-                    "value": 1
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "category": "unarmed",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d4",
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "group": "brawling",
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 12
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 2
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": "2000 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
-                "propertyRune1": {
-                    "value": null
-                },
-                "propertyRune2": {
-                    "value": null
-                },
-                "propertyRune3": {
-                    "value": null
-                },
-                "propertyRune4": {
-                    "value": null
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "size": "med",
-                "slug": "handwraps-of-mighty-blows",
-                "source": {
-                    "value": ""
-                },
-                "specific": {
-                    "value": false
-                },
-                "splashDamage": {
-                    "value": null
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": "greaterStriking"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "invested",
-                        "magical",
-                        "nonlethal",
-                        "transmutation",
-                        "unarmed"
-                    ]
-                },
-                "usage": {
-                    "value": "worngloves"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.FNDq4NFSN0g2HKWO"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-mighty-blows.webp",
-            "name": "+2 Greater Striking Handwraps of Mighty Blows",
-            "sort": 500000,
-            "type": "weapon"
         },
         {
             "_id": "HxcA5bb0pw4MLCP6",
@@ -779,19 +639,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -808,7 +655,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -879,6 +728,143 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/temple-sword.webp",
             "name": "Temple Sword",
+            "sort": 500000,
+            "type": "weapon"
+        },
+        {
+            "_id": "kyKFywK2AZ5Hgz4n",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "unarmed",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "brawling",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 2
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 35
+                    }
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "handwraps-of-mighty-blows",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": null
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": "greaterStriking"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "invested",
+                        "magical",
+                        "nonlethal",
+                        "transmutation",
+                        "unarmed"
+                    ]
+                },
+                "usage": {
+                    "value": "worngloves"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.FNDq4NFSN0g2HKWO"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-mighty-blows.webp",
+            "name": "+2 Greater Striking Handwraps of Mighty Blows",
             "sort": 600000,
             "type": "weapon"
         },
@@ -915,19 +901,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 8
                 },
@@ -944,7 +917,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "500 gp"
+                    "value": {
+                        "gp": 500
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1105,6 +1080,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": ""
                 },
@@ -1158,6 +1134,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Requirements</strong> Tino used Retributive Strike on a creature since the start of his previous turn, attempted the Strike it permitted, and didn't critically miss</p>\n<p><strong>Effect</strong> Tino throws his whole body into a powerful push. He moves the target 5 feet in any direction and can then attempt to @Compendium[pf2e.actionspf2e.Trip]{Trip} that creature. This is forced movement.</p>"
                 },
@@ -1199,6 +1176,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>If Tino hits with his Retributive Strike, the target takes [[/r 3 #persistent good damage]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Good Damage}.</p>"
                 },
@@ -1240,6 +1218,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Tino makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
                 },
@@ -1283,6 +1262,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Tino's fist Strikes don't take penalties when making lethal attacks.</p>"
                 },
@@ -1324,8 +1304,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<p>If Tino hits with his Retributive Strike, the target takes [[/r {3}[persistent,good]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Good Damage}.</p>\n<p>If Tino's Retributive Strike against the triggering creature doesn't critically miss, that creature meets the requirements for Tino to use Defiant Shove until the end of his next turn.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy damages your ally, and both are within 15 feet of you</p>\n<hr />\n<p>You protect your ally and strike your foe. The ally gains resistance to all damage against the triggering damage equal to 2 + your level. If the foe is within reach, make a melee Strike against it.</p>\n<p>If Tino hits with his Retributive Strike, the target takes [[/r {3}[persistent,good]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Good Damage}.</p>\n<p>If Tino's Retributive Strike against the triggering creature doesn't critically miss, that creature meets the requirements for Tino to use Defiant Shove until the end of his next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -11,10 +11,49 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Oathkeeper Dwarf (Sense Motive)",
+                "label": "PF2E.SkillVariant.SenseMotive",
                 "predicate": {
                     "all": [
                         "action:sense-motive"
+                    ]
+                },
+                "selector": "perception",
+                "slug": "oathkeeper-dwarf-to-sense-motive",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.TellTheTruth",
+                "predicate": {
+                    "all": [
+                        "tell-truth"
+                    ]
+                },
+                "selector": "diplomacy",
+                "slug": "oathkeeper-dwarf-tell-the-truth",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.Lie",
+                "predicate": {
+                    "all": [
+                        "action:lie"
+                    ]
+                },
+                "selector": "deception",
+                "slug": "oathkeeper-dwarf-lie",
+                "type": "circumstance",
+                "value": -4
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:lie"
                     ]
                 },
                 "selector": "perception",
@@ -22,23 +61,11 @@
                 "value": 1
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "label": "Oathkeeper Dwarf (Tell the truth)",
                 "predicate": {
                     "all": [
-                        "tell-truth"
-                    ]
-                },
-                "selector": "diplomacy",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Oathkeeper Dwarf (Lie)",
-                "predicate": {
-                    "all": [
-                        "action:lie"
+                        "action:sense-motive"
                     ]
                 },
                 "selector": "deception",

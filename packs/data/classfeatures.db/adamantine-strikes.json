@@ -25,19 +25,33 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "predicate": {
+                "definition": {
                     "all": [
-                        "unarmed"
-                    ],
-                    "not": [
-                        "suppress-adamantine-strike"
+                        "weapon:category:unarmed"
                     ]
                 },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
                 "selector": "strike-damage",
-                "traits": [
-                    "adamantine"
-                ]
+                "value": "adamantine"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:trait:monk"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "feat:monastic-weaponry"
+                    ]
+                },
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "adamantine"
             }
         ],
         "source": {

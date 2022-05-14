@@ -931,6 +931,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "athletics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -1220,19 +1240,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1246,7 +1253,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1329,19 +1338,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1355,7 +1351,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4 sp"
+                    "value": {
+                        "sp": 4
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1429,19 +1427,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1455,7 +1440,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1508,19 +1495,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1534,7 +1508,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 10,
                 "rules": [],
@@ -1587,19 +1563,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1613,7 +1576,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1666,19 +1631,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1692,7 +1644,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 2,
                 "rules": [],
@@ -1745,19 +1699,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1771,7 +1712,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 5,
                 "rules": [],
@@ -1824,19 +1767,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1850,7 +1780,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1903,19 +1835,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1929,7 +1848,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1982,19 +1903,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2008,7 +1916,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2074,19 +1984,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2104,7 +2001,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "8 gp"
+                    "value": {
+                        "gp": 8
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2178,19 +2077,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2204,7 +2090,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2285,19 +2173,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 1
                 },
@@ -2311,7 +2186,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -2408,19 +2285,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2437,7 +2301,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2549,19 +2415,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2578,7 +2431,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2702,19 +2557,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2728,7 +2570,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -2814,19 +2659,6 @@
                     "max": 12,
                     "value": 12
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2844,7 +2676,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2936,19 +2770,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2965,7 +2786,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3044,9 +2867,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "sp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -3062,19 +2882,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3088,7 +2895,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 7,
                 "rules": [],
@@ -3105,9 +2914,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 1
                 },
                 "weight": {
                     "value": 0

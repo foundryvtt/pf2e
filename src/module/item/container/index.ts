@@ -2,13 +2,9 @@ import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ContainerData } from "./data";
 
-export class ContainerPF2e extends PhysicalItemPF2e {
+class ContainerPF2e extends PhysicalItemPF2e {
     /** This container's contents, reloaded every data preparation cycle */
     contents: Collection<Embedded<PhysicalItemPF2e>> = new Collection();
-
-    static override get schema(): typeof ContainerData {
-        return ContainerData;
-    }
 
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
@@ -30,8 +26,10 @@ export class ContainerPF2e extends PhysicalItemPF2e {
     }
 }
 
-export interface ContainerPF2e {
+interface ContainerPF2e {
     readonly data: ContainerData;
 
     get traits(): Set<EquipmentTrait>;
 }
+
+export { ContainerPF2e };

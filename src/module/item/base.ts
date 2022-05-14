@@ -16,7 +16,7 @@ import { GhostTemplate } from "@module/ghost-measured-template";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { preImportJSON } from "@module/doc-helpers";
 
-export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
         ready?: boolean;
     };
@@ -69,7 +69,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext = {}) {
+    override async delete(context: DocumentModificationContext<this> = {}): Promise<this> {
         if (this.actor) {
             await this.actor.deleteEmbeddedDocuments("Item", [this.id], context);
             return this;
@@ -208,6 +208,9 @@ class ItemPF2e extends Item<ActorPF2e> {
         } else if (currentSource.type === "spell") {
             // Preserve spellcasting entry location
             mergeObject(updates, expandObject({ "data.location.value": currentSource.data.location.value }));
+        } else if (currentSource.type === "feat") {
+            // Preserve feat location
+            mergeObject(updates, expandObject({ "data.location": currentSource.data.location }));
         }
 
         // Preserve precious material and runes
@@ -589,6 +592,11 @@ class ItemPF2e extends Item<ActorPF2e> {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Set default icon
+        if (this.data._source.img === "icons/svg/item-bag.svg") {
+            this.data._source.img = data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        }
+
         await super._preCreate(data, options, user);
 
         if (!options.parent) {
@@ -682,7 +690,7 @@ interface ItemPF2e {
 
     readonly parent: ActorPF2e | null;
 
-    _sheet: ItemSheetPF2e<ItemPF2e> | null;
+    _sheet: ItemSheetPF2e<this> | null;
 
     get sheet(): ItemSheetPF2e<this>;
 
@@ -691,4 +699,4 @@ interface ItemPF2e {
     prepareActorData?(this: Embedded<ItemPF2e>): void;
 }
 
-export { ItemPF2e };
+export { ItemPF2e, ItemConstructionContextPF2e };

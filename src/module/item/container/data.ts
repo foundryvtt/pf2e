@@ -11,15 +11,8 @@ import { ContainerPF2e } from ".";
 
 type ContainerSource = BasePhysicalItemSource<"backpack", ContainerSystemSource>;
 
-class ContainerData extends BasePhysicalItemData<ContainerPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/backpack.svg";
-}
-
-interface ContainerData extends Omit<ContainerSource, "effects" | "flags"> {
-    type: ContainerSource["type"];
-    data: ContainerSystemData;
-    readonly _source: ContainerSource;
-}
+type ContainerData = Omit<ContainerSource, "effects" | "flags"> &
+    BasePhysicalItemData<ContainerPF2e, "backpack", ContainerSystemData, ContainerSource>;
 
 type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;
 

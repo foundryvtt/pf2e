@@ -24,28 +24,7 @@
             "selectable": true,
             "statusName": "fatigued"
         },
-        "modifiers": [
-            {
-                "group": "ac",
-                "type": "status",
-                "value": -1
-            },
-            {
-                "group": "fortitude",
-                "type": "status",
-                "value": -1
-            },
-            {
-                "group": "reflex",
-                "type": "status",
-                "value": -1
-            },
-            {
-                "group": "will",
-                "type": "status",
-                "value": -1
-            }
-        ],
+        "modifiers": [],
         "overrides": [],
         "references": {
             "children": [],
@@ -54,7 +33,20 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            }
+        ],
         "source": {
             "value": ""
         },

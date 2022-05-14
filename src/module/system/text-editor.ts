@@ -4,7 +4,7 @@ import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { extractModifiers, extractNotes } from "@module/rules/util";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { objectHasKey } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { Statistic } from "./statistic";
 
 /** Censor enriched HTML according to metagame knowledge settings */
@@ -161,6 +161,8 @@ class TextEditorPF2e extends TextEditor {
         if (!params.type) return error(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
 
         const traits: string[] = [];
+
+        // Set item traits
         const itemTraits = item?.data.data.traits;
         if (itemTraits && params.overrideTraits !== "true") {
             traits.push(...itemTraits.value);
@@ -168,6 +170,19 @@ class TextEditorPF2e extends TextEditor {
                 traits.push(...itemTraits.custom.split(",").map((trait) => trait.trim()));
             }
         }
+
+        // Set action slug as a roll option
+        if (item?.slug) {
+            const actionName = "action:" + item?.slug;
+            traits.push(actionName);
+        }
+
+        // Set origin actor traits.
+        const actorTraits = item?.actor?.getSelfRollOptions("origin");
+        if (actorTraits && params.overrideTraits !== "true") {
+            traits.push(...actorTraits);
+        }
+
         // Add traits for basic checks
         if (params.basic === "true") traits.push("damaging-effect");
 
@@ -218,7 +233,14 @@ class TextEditorPF2e extends TextEditor {
                     }
                     return;
                 })();
-                const skillLabel = shortForm ? game.i18n.localize(CONFIG.PF2E.skills[shortForm]) : params.type;
+                const skillLabel = shortForm
+                    ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
+                    : params.type
+                          .split("-")
+                          .map((word) => {
+                              return word.slice(0, 1).toUpperCase() + word.slice(1);
+                          })
+                          .join(" ");
                 html.innerHTML = inlineLabel ?? skillLabel;
                 html.setAttribute("data-pf2-check", params.type);
             }
@@ -226,7 +248,7 @@ class TextEditorPF2e extends TextEditor {
 
         if (params.type && params.dc) {
             // Let the inline roll function handle level base DCs
-            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC(params, item);
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC(name, params, item);
             html.setAttribute("data-pf2-dc", checkDC);
             const text = html.innerHTML;
             if (checkDC !== "@self.level") {
@@ -238,6 +260,7 @@ class TextEditorPF2e extends TextEditor {
 }
 
 function getCheckDC(
+    name: string,
     params: { type: string; dc: string } & Record<string, string | undefined>,
     item: ItemPF2e | null = null
 ): string {
@@ -281,20 +304,24 @@ function getCheckDC(
             return base.toString();
         };
 
+        const slugName = sluggify(name);
+
         switch (type) {
             case "flat":
-                return params.immutable === "false" ? getStatisticValue(["inline-dc"]) : base.toString();
+                return params.immutable === "false"
+                    ? getStatisticValue(["inline-dc", `${slugName}-inline-dc`])
+                    : base.toString();
             case "perception":
-                return getStatisticValue(["all", "inline-dc"]);
+                return getStatisticValue(["all", "inline-dc", `${slugName}-inline-dc`]);
             case "fortitude":
             case "reflex":
             case "will": {
-                const selectors = ["all", "inline-dc"];
+                const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
                 return getStatisticValue(selectors);
             }
             default: {
                 // Skill or Lore
-                const selectors = ["all", "inline-dc"];
+                const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
                 if (SKILL_EXPANDED[type]) {
                     // Long form
                     selectors.push(...[type, `${SKILL_EXPANDED[type].ability}-based`]);

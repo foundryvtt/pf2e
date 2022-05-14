@@ -14,6 +14,7 @@ export function coerce(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [

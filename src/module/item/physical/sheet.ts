@@ -3,6 +3,7 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
+import { coinsToString, coinStringToCoins, noCoins } from "@item/treasure/helpers";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -17,9 +18,12 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
+            basePriceString: coinsToString(this.item.data._source.data.price.value),
+            priceString: coinsToString(this.item.price.value),
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
+            isPhysical: true,
             activations: this.item.activations.map((action) => ({
                 action,
                 id: action.id,
@@ -35,7 +39,11 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = getProperty(this.item.data._source, propertyPath);
+            const value = $input.val();
+            if (value !== undefined && !Array.isArray(value)) {
+                $input.attr("data-value", value);
+            }
+            const baseValue = $input.attr("data-value-base") ?? getProperty(this.item.data._source, propertyPath);
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
@@ -43,7 +51,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = getProperty(this.item.data, propertyPath);
+            const preparedValue = $input.attr("data-value") ?? getProperty(this.item.data, propertyPath);
             $input.val(preparedValue);
         });
 
@@ -73,8 +81,8 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         });
     }
 
-    /** Normalize nullable fields to actual `null`s */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Normalize nullable fields to actual `null`s
         const propertyPaths = [
             "data.baseItem",
             "data.preciousMaterial.value",
@@ -84,6 +92,12 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         ];
         for (const path of propertyPaths) {
             if (formData[path] === "") formData[path] = null;
+        }
+
+        // Convert price from a string to an actual object
+        if (formData["data.price.value"]) {
+            const coins = coinStringToCoins(String(formData["data.price.value"]));
+            formData["data.price.value"] = mergeObject(noCoins(), coins);
         }
 
         // Normalize nullable fields for embedded actions
@@ -102,6 +116,6 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             if (action.frequency && !action.frequency?.duration) action.frequency.duration = null;
         }
 
-        super._updateObject(event, flattenObject(expanded));
+        return super._updateObject(event, flattenObject(expanded));
     }
 }

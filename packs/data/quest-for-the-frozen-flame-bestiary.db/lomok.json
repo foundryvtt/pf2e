@@ -446,18 +446,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.XSujb7EsSwKl19Uu"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/bless.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Bless",
             "sort": 300000,
             "type": "spell"
@@ -507,6 +498,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -529,12 +527,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -690,18 +682,9 @@
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
-                },
-                "pf2e": {
-                    "grantedBy": null,
-                    "itemGrants": [],
-                    "rulesSelections": {}
                 }
             },
             "img": "systems/pf2e/icons/spells/light.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Light",
             "sort": 500000,
             "type": "spell"
@@ -745,19 +728,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -774,7 +744,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -886,19 +858,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -915,7 +874,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1021,19 +982,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -1051,7 +999,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "30 gp"
+                    "value": {
+                        "gp": 30
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1139,19 +1089,6 @@
                     "max": 80,
                     "value": 80
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 7
                 },
@@ -1168,7 +1105,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "360 gp"
+                    "value": {
+                        "gp": 360
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1403,7 +1342,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> An enemy damages one of Lomok's allies, and both combatants are within 15 feet of him</div> <hr /><p><strong>Effect</strong> Lomok shields his ally and calls for retribution upon the attacker. The ally reduces the triggering damage by 13. Lomok and any allies within reach of the triggering enemy can make melee Strikes against it.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy damages one of Lomok's allies, and both combatants are within 15 feet of him</p><hr /><p><strong>Effect</strong> Lomok shields his ally and calls for retribution upon the attacker. The ally reduces the triggering damage by 13. Lomok and any allies within reach of the triggering enemy can make melee Strikes against it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1479,7 +1418,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\"><strong>Trigger</strong> An ally within 30 feet reduces a creature to 0 HP</div> <hr /><p><strong>Effect</strong> Lomok Steps, Strides, or Strikes.</p>"
+                    "value": "<p><strong>Trigger</strong> An ally within 30 feet reduces a creature to 0 HP</p><hr /><p><strong>Effect</strong> Lomok Steps, Strides, or Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""

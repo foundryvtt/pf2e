@@ -14,6 +14,7 @@ export function forceOpen(options: SkillActionOptions) {
         traits: ["attack"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionMacros.note(selector, "PF2E.Actions.ForceOpen", "criticalSuccess"),

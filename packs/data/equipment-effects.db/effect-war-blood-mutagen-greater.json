@@ -16,12 +16,18 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "FlatModifier",
-                "selector": "{item|data.target}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.effectWarBloodMutagenGreater}-attack",
                 "type": "item",
                 "value": 3
             },

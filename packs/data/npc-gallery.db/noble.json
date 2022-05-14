@@ -149,19 +149,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -178,7 +165,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -259,7 +248,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns. You gain a +1 item bonus to checks to Make an Impression on nobility or other upper‑class folk while wearing high‑fashion fine clothing.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to checks to Make an Impression on nobility</li>\n</ul>"
+                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns. You gain a +1 item bonus to checks to Make an Impression on nobility or other upper‑class folk while wearing high‑fashion fine clothing.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -274,19 +263,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 3
                 },
@@ -300,7 +276,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "55 gp"
+                    "value": {
+                        "gp": 55
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -367,19 +345,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -393,7 +358,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -443,19 +408,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -469,7 +421,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -502,9 +454,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -520,19 +469,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -546,7 +482,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {
+                        "gp": 4
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -563,9 +501,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 4
                 },
                 "weight": {
                     "value": "-"
@@ -779,12 +714,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

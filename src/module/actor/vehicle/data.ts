@@ -10,18 +10,10 @@ import { ValuesList } from "@module/data";
 import { VehiclePF2e } from ".";
 
 /** The stored source data of a vehicle actor */
-export type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemData>;
+type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemData>;
 
-/** The boxed data object of the vehicle actor */
-export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/vehicle.svg";
-}
-
-export interface VehicleData extends Omit<VehicleSource, "effects" | "flags" | "items" | "token"> {
-    type: VehicleSource["type"];
-    data: VehicleSource["data"];
-    readonly _source: VehicleSource;
-}
+type VehicleData = Omit<VehicleSource, "effects" | "flags" | "items"> &
+    BaseActorDataPF2e<VehiclePF2e, "vehicle", VehicleSystemData, VehicleSource>;
 
 interface VehicleHitPointsData extends Required<BaseHitPointsData> {
     brokenThreshold: number;
@@ -46,6 +38,7 @@ interface VehicleSystemData extends ActorSystemData {
         level: {
             value: number;
         };
+        alliance: null;
         price: number;
         space: {
             long: number;
@@ -71,13 +64,17 @@ interface VehicleSystemData extends ActorSystemData {
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
-export type VehicleTrait = keyof ConfigPF2e["PF2E"]["vehicleTraits"];
+
+type VehicleTrait = keyof ConfigPF2e["PF2E"]["vehicleTraits"];
 type VehicleTraits = ValuesList<VehicleTrait>;
+
 interface VehicleTraitsData extends BaseTraitsData {
     traits: VehicleTraits;
 }
 
-export interface TokenDimensions {
+interface TokenDimensions {
     width: number;
     height: number;
 }
+
+export { VehicleData, VehicleSource, VehicleTrait, TokenDimensions };

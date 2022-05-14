@@ -1,6 +1,6 @@
 declare interface ItemSheetData<I extends Item> extends DocumentSheetData<I> {
-    item: any;
-    data: any;
+    item: object;
+    data: object;
 }
 
 /**

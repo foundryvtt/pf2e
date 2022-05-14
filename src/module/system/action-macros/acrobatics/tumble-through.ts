@@ -14,6 +14,7 @@ export function tumbleThrough(options: SkillActionOptions) {
         traits: ["move"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [

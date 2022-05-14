@@ -1,33 +1,35 @@
-import { ItemPF2e } from "@item/base";
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
+import { SkillAbbreviation } from "@actor/creature/data";
+import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
+import { ItemPF2e, ConditionPF2e, FeatPF2e, LorePF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { AncestryBackgroundClassManager } from "@item/abc/manager";
+import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { getContainerMap } from "@item/container/helpers";
 import { ItemDataPF2e, ItemSourcePF2e, LoreData, PhysicalItemData } from "@item/data";
+import { isPhysicalData } from "@item/data/helpers";
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
+import { PhysicalItemType } from "@item/physical/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
-import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
-import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
+import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
+import { restForTheNight } from "@scripts/macros/rest-for-the-night";
+import { craft } from "@system/action-macros/crafting/craft";
+import { CheckDC } from "@system/degree-of-success";
+import { LocalizePF2e } from "@system/localize";
+import { ErrorPF2e, groupBy, objectHasKey } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
-import { ErrorPF2e, groupBy, objectHasKey } from "@util";
-import { ConditionPF2e, FeatPF2e, LorePF2e } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { BaseWeaponType, WeaponGroup, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
-import { PhysicalItemType } from "@item/physical/data";
-import { craft } from "@system/action-macros/crafting/craft";
-import { CheckDC } from "@system/degree-of-success";
+import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, CraftingEntriesSheetData } from "./data/sheet";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { LocalizePF2e } from "@system/localize";
-import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { PCSheetTabManager } from "./tab-manager";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { SkillAbbreviation } from "@actor/creature/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     // A cache of this PC's known formulas, for use by sheet callbacks
-    private knownFormulas!: Map<string, CraftingFormula>;
+    private knownFormulas: Record<string, CraftingFormula> = {};
+
+    // Non-persisted tweaks to formula data
+    private formulaQuantities: Record<string, number> = {};
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -38,7 +40,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
                 { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
             ],
-            showUnpreparedSpells: false,
         });
     }
 
@@ -101,7 +102,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
-        sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
         // Update dying icon and container width
         sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
@@ -158,11 +158,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             entries: await this.prepareCraftingEntries(),
         };
 
-        this.knownFormulas = new Map(
-            Object.values(formulasByLevel)
-                .flat()
-                .map((formula): [string, CraftingFormula] => [formula.uuid, formula])
-        );
+        this.knownFormulas = Object.values(formulasByLevel)
+            .flat()
+            .reduce((result: Record<string, CraftingFormula>, entry) => {
+                entry.batchSize = this.formulaQuantities[entry.uuid] ?? entry.batchSize;
+                result[entry.uuid] = entry;
+                return result;
+            }, {});
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -250,7 +252,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
+            items: actorData.items.filter(isPhysicalData),
             bulkItemsById,
             bulkConfig,
             actorSize: this.actor.size,
@@ -262,15 +264,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
-            if (physicalData.isPhysical) {
-                itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
+            const item = this.actor.items.get(itemData._id, { strict: true });
+            if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
+                const { isEquipped, isIdentified, isInvested, isTemporary } = item;
+                itemData.isEquipped = isEquipped;
+                itemData.isIdentified = isIdentified;
+                itemData.isInvested = isInvested;
+                itemData.isTemporary = isTemporary;
+                itemData.showEdit = sheetData.user.isGM || isIdentified;
                 itemData.img ||= CONST.DEFAULT_TOKEN;
+                itemData.assetValue = item.assetValue;
 
                 const containerData = containers.get(itemData._id)!;
                 itemData.containerData = containerData;
                 itemData.isInContainer = containerData.isInContainer;
-                itemData.isInvestable =
-                    physicalData.isEquipped && physicalData.isIdentified && physicalData.isInvested !== null;
+                itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
 
                 // Read-Only Equipment
                 if (
@@ -286,7 +294,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.canBeEquipped = !containerData.isInContainer;
                 itemData.isSellableTreasure =
                     itemData.showEdit && physicalData.type === "treasure" && physicalData.data.stackGroup !== "coins";
-                if (physicalData.isInvested) {
+                if (isInvested) {
                     investedCount += 1;
                 }
 
@@ -395,7 +403,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    protected prepareSpellcasting(sheetData: CharacterSheetData) {
+    private prepareSpellcasting(sheetData: CharacterSheetData) {
         sheetData.spellcastingEntries = [];
         for (const itemData of sheetData.items) {
             if (itemData.type === "spellcastingEntry") {
@@ -521,7 +529,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // ACTIONS
         const $actions = $html.find(".tab.actions");
 
-        // filter strikes
+        // Filter strikes
         $actions.find(".toggle-unready-strikes").on("click", () => {
             this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.data.flags.pf2e.showUnreadyStrikes);
         });
@@ -730,7 +738,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const { itemUuid } = event.currentTarget.dataset;
             const itemQuantity =
                 Number($(event.currentTarget).parent().siblings(".formula-quantity").children("input").val()) || 1;
-            const formula = this.knownFormulas.get(itemUuid ?? "");
+            const formula = this.knownFormulas[itemUuid ?? ""];
             if (!formula) return;
 
             if (this.actor.data.flags.pf2e.quickAlchemy) {
@@ -764,6 +772,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
         });
 
+        $formulas.find(".formula-number").on("change", (event) => {
+            const $target = $(event.currentTarget);
+            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+            if (entrySelector) return;
+
+            const formula = this.knownFormulas[itemUUID ?? ""];
+            if (!formula) throw ErrorPF2e("Formula not found");
+            this.formulaQuantities[formula.uuid] = Math.max(formula.minimumBatchSize, Number($target.val()));
+            this.render(true);
+        });
+
         $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {
             const $target = $(event.currentTarget);
 
@@ -779,13 +799,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return;
             }
 
-            const formula = this.knownFormulas.get(itemUUID ?? "");
+            const formula = this.knownFormulas[itemUUID ?? ""];
             if (!formula) throw ErrorPF2e("Formula not found");
 
-            const batchSize = formula.minimumBatchSize;
-            const step = $target.text().trim() === "+" ? batchSize : -batchSize;
-            const value = Number($target.siblings("input").val()) || step;
-            $target.siblings("input").val(Math.max(value + step, batchSize));
+            const minBatchSize = formula.minimumBatchSize;
+            const step = $target.text().trim() === "+" ? minBatchSize : -minBatchSize;
+            const newValue = (Number($target.siblings("input").val()) || step) + step;
+            this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
+            this.render();
         });
 
         $formulas.find(".formula-unprepare").on("click", async (event) => {

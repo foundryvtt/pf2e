@@ -1,13 +1,7 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import {
-    Coins,
-    coinsToString,
-    coinValueInCopper,
-    extractPriceFromItem,
-    multiplyCoinValue,
-} from "@module/item/treasure/helpers";
+import { coinsToString, coinValueInCopper, multiplyCoins, multiplyPrice } from "@module/item/treasure/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiencies } from "@scripts/macros/earn-income";
@@ -15,6 +9,7 @@ import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { RollDataPF2e } from "@system/rolls";
 import { ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import type { Coins } from "@item/physical/data";
 
 interface Costs {
     reductionPerDay: Coins;
@@ -54,10 +49,8 @@ function calculateCosts(
     actor: CharacterPF2e,
     degreeOfSuccess: number
 ): Costs | undefined {
-    const itemPrice = extractPriceFromItem({
-        data: { quantity, price: item.data.data.price },
-    });
-    const materialCosts = multiplyCoinValue(itemPrice, 0.5);
+    const itemPrice = multiplyPrice(item.price, quantity);
+    const materialCosts = multiplyCoins(itemPrice, 0.5);
 
     const lostMaterials: Coins = {
         pp: 0,
@@ -84,7 +77,7 @@ function calculateCosts(
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         Object.assign(reductionPerDay, getIncomeForLevel(actor.level).rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
-        Object.assign(lostMaterials, multiplyCoinValue(materialCosts, 0.1));
+        Object.assign(lostMaterials, multiplyCoins(materialCosts, 0.1));
     }
 
     return {

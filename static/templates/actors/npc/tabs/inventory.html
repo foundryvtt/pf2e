@@ -1,16 +1,4 @@
 <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
-    {{#if user.isGM}}
-        <div class="inventory-toggles toggles section-container headerless">
-            <div class="section-body actions-options">
-                <div class="actions-option">
-                    <label>
-                        <input type="checkbox" name="flags.pf2e.lootable" {{checked (any configLootableNpc @root.actor.flags.pf2e.lootable)}} {{disabled configLootableNpc}}>
-                        <span>{{localize "PF2E.Actor.NPC.IsLootableOnDeathLabel"}}</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-    {{/if}}
     <div class="items inventory-section">
         {{#if @root.owner}}
             {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=@root.owner}}

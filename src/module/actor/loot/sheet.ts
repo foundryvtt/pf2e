@@ -5,7 +5,7 @@ import { getContainerMap } from "@item/container/helpers";
 import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup";
 import { ItemDataPF2e, PhysicalItemData } from "@item/data";
 import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup";
-import { ActorSheetDataPF2e, InventoryItem, LootSheetDataPF2e } from "../sheet/data-types";
+import { InventoryItem, LootSheetDataPF2e } from "../sheet/data-types";
 import { PhysicalItemType } from "@item/physical/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { ItemPF2e } from "@item";
@@ -34,7 +34,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     override async getData(): Promise<LootSheetDataPF2e> {
-        const sheetData: ActorSheetDataPF2e<LootPF2e> = await super.getData();
+        const sheetData = await super.getData();
         const isLoot = this.actor.data.data.lootSheetType === "Loot";
         return { ...sheetData, isLoot };
     }
@@ -82,21 +82,20 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
+            items: actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData)),
             bulkItemsById,
             bulkConfig,
         });
 
         const itemsData: InventoryItem[] = actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData));
         for (const itemData of itemsData) {
-            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.isOwner);
-
+            itemData.isIdentified = itemData.data.identification.status === "identified";
+            itemData.showEdit = this.isEditable && (game.user.isGM || itemData.isIdentified);
             itemData.img ??= CONST.DEFAULT_TOKEN;
             const containerData = containers.get(itemData._id);
             if (!containerData) continue;
 
             itemData.containerData = containerData;
-            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.isOwner);
             itemData.isInContainer = containerData.isInContainer;
             itemData.isSellableTreasure =
                 itemData.showEdit && itemData.type === "treasure" && itemData.data.stackGroup !== "coins";

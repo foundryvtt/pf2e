@@ -19,10 +19,12 @@ import { Check } from "./check";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TextEditorPF2e } from "./text-editor";
 import { CheckRoll } from "./check/roll";
+import { RollSubstitution } from "@module/rules/rule-element/data";
 
 export interface RollDataPF2e extends RollData {
     rollerId?: string;
     totalModifier?: number;
+    isReroll?: boolean;
     degreeOfSuccess?: ZeroToThree;
     strike?: {
         actor: ActorUUID | TokenDocumentUUID;
@@ -54,7 +56,7 @@ export interface StrikeRollParams extends RollParameters {
     rollTwice?: RollTwiceOption;
 }
 
-export type RollTwiceOption = "no" | "keep-higher" | "keep-lower";
+export type RollTwiceOption = "keep-higher" | "keep-lower" | false;
 
 export type AttackCheck = "attack-roll" | "spell-attack-roll";
 export type CheckType =
@@ -108,6 +110,8 @@ export interface CheckRollContext extends BaseRollContext {
     dc?: CheckDC | null;
     /** Is the roll a reroll? */
     isReroll?: boolean;
+    /** D20 results substituted for an actual roll */
+    substitutions?: RollSubstitution[];
 }
 
 interface CheckTargetFlag {
@@ -175,22 +179,46 @@ export class CheckPF2e {
             if (!rolled) return null;
         }
 
-        const options: string[] = [];
-        let dice = "1d20";
-        if (context.rollTwice === "keep-lower") {
-            dice = "2d20kl";
-            options.push("PF2E.TraitMisfortune");
-        } else if (context.rollTwice === "keep-higher") {
-            dice = "2d20kh";
-            options.push("PF2E.TraitFortune");
-        }
+        const extraTags: string[] = [];
+        const isReroll = context.isReroll ?? false;
+        if (isReroll) context.rollTwice = false;
+        const substitutions = context.substitutions ?? [];
+
+        const dice = ((): string => {
+            const substitution = substitutions.find(
+                (s) => (!s.ignored && s.predicate?.test(context.options ?? [])) ?? true
+            );
+
+            if (substitution) {
+                const effectType = {
+                    fortune: "PF2E.TraitFortune",
+                    misfortune: "PF2E.TraitMisfortune",
+                }[substitution.effectType];
+
+                extraTags.push(
+                    game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
+                        type: game.i18n.localize(effectType),
+                        substitution: game.i18n.localize(substitution.label),
+                    })
+                );
+                return substitution.value.toString();
+            } else if (context.rollTwice === "keep-lower") {
+                extraTags.push("PF2E.TraitMisfortune");
+                return "2d20kl";
+            } else if (context.rollTwice === "keep-higher") {
+                extraTags.push("PF2E.TraitFortune");
+                return "2d20kh";
+            } else {
+                return "1d20";
+            }
+        })();
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
             .map((m) => `<span class="tag tag_alt">${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`)
             .join("");
 
-        const optionBreakdown = options
+        const optionBreakdown = extraTags
             .map((o) => `<span class="tag tag_secondary">${game.i18n.localize(o)}</span>`)
             .join("");
 
@@ -200,7 +228,7 @@ export class CheckPF2e {
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
         const rollData: RollDataPF2e = (() => {
-            const data: RollDataPF2e = { rollerId: game.userId, totalModifier: check.totalModifier };
+            const data: RollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
 
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
@@ -308,10 +336,11 @@ export class CheckPF2e {
             notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, context.options ?? [])),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
-            rollTwice: context.rollTwice ?? "no",
+            rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
             traits: context.traits ?? [],
+            substitutions,
             dc: context.dc ?? null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,
@@ -328,7 +357,6 @@ export class CheckPF2e {
             const flags = {
                 core: coreFlags,
                 pf2e: {
-                    canReroll: !["keep-higher", "keep-lower"].includes(context.rollTwice ?? ""),
                     context: contextFlag,
                     unsafe: flavor,
                     modifierName: check.name,
@@ -399,7 +427,8 @@ export class CheckPF2e {
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
         const RollCls = message.roll.constructor as typeof Check.Roll;
-        const newRoll = await new RollCls(oldRoll.formula, oldRoll.data).evaluate({ async: true });
+        const newData = { ...oldRoll.data, isReroll: true };
+        const newRoll = await new RollCls(oldRoll.formula, newData).evaluate({ async: true });
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;

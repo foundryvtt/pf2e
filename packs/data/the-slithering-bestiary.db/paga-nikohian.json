@@ -717,6 +717,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -739,12 +746,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -843,6 +844,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -865,12 +873,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10+4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -967,6 +969,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -989,12 +998,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -2092,6 +2095,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2114,12 +2124,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -2881,19 +2885,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2910,7 +2901,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3025,19 +3018,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 7
                 },
@@ -3054,7 +3034,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3166,19 +3148,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3196,7 +3165,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -3438,7 +3409,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Paga fails or critically fails a skill check or a saving throw</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Paga rerolls the saving throw and must take the new result.</p>"
+                    "value": "<p><strong>Trigger</strong> Paga fails or critically fails a skill check or a saving throw</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Paga rerolls the saving throw and must take the new result.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3479,7 +3450,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Paga cringes and cowers before a creature within 10 feet that can see her. The target must attempt a @Check[type:will|dc:28] save.</p>\n<div data-visibility=\"gm\"><p>The target is then temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by Paga until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is fascinated by Paga and can't use hostile actions against her until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature isn't temporarily immune to Feign Harmlessness.</p></div>"
+                    "value": "<p>Paga cringes and cowers before a creature within 10 feet that can see her. The target must attempt a @Check[type:will|dc:28] save.</p>\n<p>The target is then temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by Paga until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is fascinated by Paga and can't use hostile actions against her until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature isn't temporarily immune to Feign Harmlessness.</p>"
                 },
                 "requirements": {
                     "value": ""

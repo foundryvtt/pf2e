@@ -6,7 +6,7 @@ import {
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
-import { CheckPF2e, CheckType } from "@system/rolls";
+import { CheckPF2e, CheckRollContext, CheckType } from "@system/rolls";
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import {
     BaseStatisticData,
@@ -23,6 +23,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { ZeroToFour } from "@module/data";
 import { AbilityString } from "@actor/data";
+import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 
 export * from "./data";
 
@@ -327,7 +328,7 @@ class StatisticCheck {
         }
 
         // Create parameters for the check roll function
-        const context = {
+        const context: CheckRollContext = {
             actor,
             item,
             target: rollContext?.target ?? null,
@@ -337,9 +338,22 @@ class StatisticCheck {
             type: data.check.type,
             secret,
             skipDialog,
+            rollTwice: extractRollTwice(actor.synthetics.rollTwice, domains, options),
+            substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
         };
 
-        return CheckPF2e.roll(new CheckModifier(this.label, this.#stat, extraModifiers), context, null, args.callback);
+        const roll = await CheckPF2e.roll(
+            new CheckModifier(this.label, this.#stat, extraModifiers),
+            context,
+            null,
+            args.callback
+        );
+
+        for (const rule of actor.rules.filter((r) => !r.ignored)) {
+            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions: options });
+        }
+
+        return roll;
     }
 
     get breakdown() {

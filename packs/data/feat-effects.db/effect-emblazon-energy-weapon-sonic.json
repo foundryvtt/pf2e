@@ -15,8 +15,14 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "damageType": "sonic",
@@ -29,7 +35,7 @@
                         "sonic-domain"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponSonic}-damage"
             },
             {
                 "damageType": "sonic",
@@ -42,7 +48,7 @@
                         "sonic-domain"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponSonic}-damage"
             }
         ],
         "source": {

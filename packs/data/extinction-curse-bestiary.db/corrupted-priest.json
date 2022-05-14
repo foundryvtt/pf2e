@@ -420,6 +420,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -442,12 +449,6 @@
                 "save": {
                     "basic": "",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -763,6 +764,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -785,12 +793,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1002,6 +1004,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1024,12 +1033,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1570,19 +1573,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1599,7 +1589,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1705,19 +1697,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1735,7 +1714,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1810,19 +1791,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1836,7 +1804,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1886,19 +1854,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1912,7 +1867,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2042,7 +1999,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p>\n<p><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p>\n<p><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2051,7 +2008,7 @@
                     {
                         "key": "Note",
                         "selector": "will",
-                        "text": "<div data-visibility='gm'><p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p></div>"
+                        "text": "<p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p>"
                     },
                     {
                         "key": "Note",
@@ -2061,7 +2018,7 @@
                             ]
                         },
                         "selector": "fortitude",
-                        "text": "<div data-visibility='gm'><p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p></div>"
+                        "text": "<p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p>"
                     },
                     {
                         "key": "Note",
@@ -2071,7 +2028,7 @@
                             ]
                         },
                         "selector": "reflex",
-                        "text": "<div data-visibility='gm'><p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p></div>"
+                        "text": "<p class='compact-text'><strong>Trigger</strong> The corrupted priest is targeted by an effect with the mental trait or that requires a Will save</p><p class='compact-text'><strong>Effect</strong> The hermit's mind is a storm of chaos due to demonic influences. The creator of the triggering effect takes [[/r {3d8}[mental]]]{3d8 mental damage} (@Check[type:will|dc:20|basic:true] save).</p>"
                     }
                 ],
                 "slug": null,

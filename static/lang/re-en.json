@@ -48,6 +48,7 @@
                 "Tentacle": "Tentacle",
                 "TentacleArm": "Tentacle Arm",
                 "Tongue": "Tongue",
+                "Tusk": "Tusk",
                 "Vine": "Vine",
                 "WaterSpout": "Water Spout",
                 "Wave": "Wave",
@@ -469,6 +470,9 @@
                 "SingleAttackLabel": "Telekinetic Storm - Single Target",
                 "SingleAttackEffect": "The attack deals [[/r {1d12}]]{1d12 damage} on a failure."
             },
+            "PunishingStrike": {
+                "Note": "The reckless attack makes the user @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of their next turn. If they hit, they can add @Compendium[pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl]{Push} to the strike"
+            },
             "TreerazerPlantAttack": "Attack a Plant",
             "Vampire": {
                 "JiangShi": {
@@ -568,6 +572,10 @@
                 "success": "[[/r {2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}",
                 "criticalSuccess": "[[/r {2*2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}"
             },
+            "Cold1d8": {
+                "success": "[[/r {1d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}",
+                "criticalSuccess": "[[/r {2*1d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}"
+            },
             "Fire1d4": {
                 "success": "[[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}",
                 "criticalSuccess": "[[/r {2*1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}"
@@ -602,7 +610,7 @@
             },
             "Mental1d6": {
                 "success": "[[/r {1d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}"
+                "criticalSuccess": "[[/r {2*1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}"
             },
             "Mental2d6": {
                 "success": "[[/r {2d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Mental Damage}",
@@ -629,23 +637,24 @@
             "CraftingEntry": "Crafting Entry",
             "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
-            "EffectTarget": "Effect Target",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
             "FastHealing": "Fast Healing/Regeneration",
-            "FlatModifier": "Flat Modifier",
             "FixedProficiency": "Fixed Proficiency",
+            "FlatModifier": "Flat Modifier",
             "GrantItem": "Grant Item",
             "Immunity": "Immunity",
-            "MartialProficiency": "Martial Proficiency",
             "LoseHitPoints": "Lose Hit Points",
+            "MartialProficiency": "Martial Proficiency",
             "MultipleAttackPenalty": "Multiple Attack Penalty",
             "Note": "Note",
+            "Resistance": "Resistance",
+            "RollOption": "Roll Option",
+            "SubstituteRoll": "Substitute Roll",
+            "RollTwice": "Roll Twice",
             "Sense": "Sense",
             "Strike": "Strike",
             "Striking": "Striking",
-            "Resistance": "Resistance",
-            "RollOption": "Roll Option",
             "TempHP": "Temporary Hit Points",
             "TempHPShortLabel": "Temp",
             "TokenEffectIcon": "Token Effect Icon",
@@ -654,13 +663,13 @@
             "TokenName": "Token Name",
             "Weakness": "Weakness",
             "WeaponPotency": "Weapon Potency",
-            "NewRuleElement": "New Rule Element",
             "Unrecognized": "Unrecognized Rule Element"
         },
         "SkillVariant": {
             "AboutCaves": "About Caves",
             "Aid": "To Aid",
             "Blacksmithing": "For Blacksmithing",
+            "Buried": "Buried",
             "Climb": "To Climb",
             "ClimbOrSwim": "To Climb or Swim",
             "CommandAnAnimal": "To Command a Animal",
@@ -670,6 +679,7 @@
             "Demoralize": "To Demoralize",
             "Deserts": "In Deserts",
             "Disarm": "To Disarm",
+            "DisarmGrapple": "To Disarm or Grapple",
             "DisarmMetal": "To Disarm a Metal Item",
             "DisarmStoneMetal": "To Disarm Stone or Metal Objects",
             "Escape": "To Escape",
@@ -702,14 +712,17 @@
             "Steal": "To Steal",
             "StonyOrIcyAreas": "In Stony or Icy Areas",
             "Squeeze": "To Squeeze",
+            "Subsist": "To Subsist",
             "Swamps": "In Swamps",
             "Swim": "To Swim",
             "TarPit": "In Tar Pits",
+            "TellTheTruth": "To Tell the Truth",
             "TrackBleedingCreature": "To Track a Bleeding Creature",
             "Track": "To Track",
             "Traps": "Traps",
             "TrashAndRubbish": "In Trash and Rubbish",
             "Trip": "To Trip",
+            "TripTangle": "To Trip and Tangle",
             "Underground": "Underground",
             "Undergrowth": "In Undergrowth",
             "Vegetation": "In Vegetation",
@@ -779,15 +792,19 @@
             "CelestialResistance": {
                 "Prompt": "Select a type of energy associated with your bloodline."
             },
-            "CeremonyEvenedHand": {
-                            "Prompt": "Select an unarmed attack."
-                        },
             "ClanWeapon": {
                 "Label": "Clan Weapon",
                 "Prompt": "Select a clan weapon.",
                 "ClanPistol": "Clan Pistol (Ancestry Feat)"
             },
-            "Cover": {
+            "Conrasu": {
+                "CeremonyEvenedHand": {
+                    "Prompt": "Select an unarmed attack."
+                 },
+                "RiteOfPassage": {
+                    "Note": "When you use the Acrobatics skill to Balance on narrow surfaces or uneven ground within forests, and you roll a success, you get a critical success instead."
+                }
+            },            "Cover": {
                 "Prompt": "Select a level of cover.",
                 "Lesser": "Lesser",
                 "Standard": "Standard",
@@ -834,23 +851,52 @@
                 "Prompt": "Select a Dragon"
             },
             "Dwarf": {
-                "KneelForNoGod": {
-                    "Note": "When you roll a success against a divine effect, you get a critical success instead."
-                },
                 "DeathWardenDwarf": {
                     "Note": "When you roll a success against a necromancy effect, you get a critical success instead."
                 },
-                "SparkFist": {
-                    "Note": "Each time you succeed on a fist Strike, you take [[/r (1+@weapon.data.data.runes.striking)[fire]]]{fire damage}."
+                "ElementalHeart": {
+                    "Prompt": "Pick the type of your Elemental Heart"
                 },
                 "ForgeBlessedShot": {
                     "Note": "Ignore your target's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition, as well as your target's lesser, standard, and greater cover."
                 },
+                "KneelForNoGod": {
+                    "Note": "When you roll a success against a divine effect, you get a critical success instead."
+                },
                 "RockRunner": {
                     "Note": "When you use the Acrobatics skill to Balance on narrow surfaces or uneven ground made of stone or earth, you aren't flat-footed, and when you roll a success at one of these Acrobatics checks, you get a critical success instead."
                 },
+                "SparkFist": {
+                    "Note": "Each time you succeed on a fist Strike, you take [[/r (1+@weapon.data.data.runes.striking)[fire]]]{fire damage}."
+                },
                 "TombWatchersGlare": {
                     "Note": "When you critically hit an undead creature, they are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round"
+                },
+                "VengefulHatred": {
+                    "Prompt": "Choose an ancestral foe."
+                }
+            },
+            "Elf": {
+                "BrightnessSeeker": {
+                    "Label": "Call Upon the Brightness",
+                    "Prompt": "Select the outcome of your Augury.",
+                    "Weal": "Weal",
+                    "WealAndWoe": "Weal and Woe",
+                    "Woe": "Woe"
+                },
+                "DemonbaneWarrior": {
+                    "Note": "If your actions force a demon to take damage from its sin vulnerability, increase that damage by [[/r 2]]"
+                },
+                "UnwaveringMien": {
+                    "Note": "Treat your saving throws against effects that would cause you to fall asleep as one degree of success better."
+                },
+                "Woodcraft": {
+                    "Note": "When in a forest or jungle environment, if you roll a critical failure on a Survival skill check to Sense Direction, Subsist, or Cover Tracks, you get a failure instead, and if you roll a success, you get a critical success instead."
+                }
+            },
+            "Fetchling": {
+                "DeepFetchling": {
+                    "Prompt": "Select a type of energy to resist"
                 }
             },
             "FighterWeaponMasteryLegend": {
@@ -891,6 +937,20 @@
                     "sword": "Simple & Martial Swords"
                 }
             },
+            "Fleshwarp": {
+                "CoatingOfSlime": {
+                    "CriticalHit": "On a critical hit, the target takes [[/r {1d4}[persistent,acid]]]  @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}."
+                },
+                "LivingWeapon": {
+                    "Prompt": "Select a part of your form to use as a weapon."
+                },
+                "MutateWeapon": {
+                    "Target": "Select one of your living weapons.",
+                    "Bonus": "Select a bonus",
+                    "Reach": "Gain reach 10",
+                    "Accuracy": "Gain +1 status bonus to attacks"
+                }
+            },
             "GameHunterDedication": {
                 "TargetHuntedPrey": "Target is your Hunted Prey (Animal, Beast, or Dragon Only)"
             },
@@ -898,12 +958,28 @@
                 "AllowedDrops": "1st-level general feat",
                 "Prompt": "Select a 1st-level general feat."
             },
+            "Ganzi": {
+                "Irrepressible": {
+                    "SaveNote": "When you roll a success on a save against an emotion or fear effect, you get a critical success instead."
+                }
+            },
             "Ghoul": {
                 "FullySatiated": "Fully Satiated",
                 "Satiated": "Satiated",
                 "SickeningBite": {
                     "criticalSuccess": "When you critically hit a creature with your jaws, the creature is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}. This is a disease effect.",
                     "success": "You can end your satiation to make the target @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                }
+            },
+            "HarrowDeck": {
+                "Prompt": "Select a Harrow Suit",
+                "HarrowSuits": {
+                    "Books": "Books",
+                    "Crowns": "Crowns",
+                    "Hammers": "Hammers",
+                    "Keys": "Keys",
+                    "Shields": "Shields",
+                    "Stars": "Stars"
                 }
             },
             "HuntPrey": {
@@ -1019,14 +1095,18 @@
             "Prompt": {
                 "AdvancedMulticlassFeat": "Select a class feat up to half your character level.",
                 "CreatureSize": "Select a creature size.",
+                "Deity": "Select a deity.",
                 "DeitysDomain": "Select a deity's domain.",
+                "EvolutionFeat": "Select your first Evolution Feat.",
                 "Lesson": "Select a lesson.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
                 "LevelOneOrTwoClassFeat": "Select a 1st or 2nd-level class feat.",
-                "Deity": "Select a deity.",
                 "PathToPerfection": "Select a path to perfection.",
+                "Shillelagh": "Select a club or staff.",
                 "Skill": "Select a skill.",
-                "WeaponGroup": "Select a weapon group."
+                "Weapon": "Select a weapon.",
+                "WeaponGroup": "Select a weapon group.",
+                "UnarmedAttack": "Select an unarmed attack"
             },
             "SpecialtyCrafting": {
                 "Alchemy": "Alchemy",
@@ -1062,6 +1142,10 @@
                     "Label": "Target possesses an imprisoned soul or has created undead"
                 },
                 "UndeadNearby": "Undead Nearby"
+            },
+            "SubstituteRoll": {
+                "Assurance": "Assurance",
+                "EffectType": "{type} ({substitution})"
             },
             "ToggleProperty": {
                 "Triangulate": "Spotter can see target",

@@ -2,6 +2,7 @@ import { SaveData } from "@actor/creature/data";
 import { SaveType } from "@actor/data";
 import {
     ActorSystemData,
+    ActorSystemSource,
     BaseActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
@@ -12,17 +13,23 @@ import { ZeroToTwo } from "@module/data";
 import { HazardPF2e } from ".";
 
 /** The stored source data of a hazard actor */
-export type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemData>;
+type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemData>;
 
-export class HazardData extends BaseActorDataPF2e<HazardPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/hazard.svg";
+interface HazardData
+    extends Omit<HazardSource, "data" | "effects" | "flags" | "items" | "token" | "type">,
+        BaseActorDataPF2e<HazardPF2e, "hazard", HazardSystemData, HazardSource> {}
+
+/** The raw information contained within the actor data object for hazards. */
+interface HazardSystemSource extends ActorSystemSource {
+    details: HazardDetailsSource;
+    attributes: HazardAttributes;
+    saves: HazardSaves;
+    /** Traits, languages, and other information. */
+    traits: BaseTraitsData;
 }
 
-/** Wrapper type for hazard-specific data. */
-export interface HazardData extends Omit<HazardSource, "effects" | "flags" | "items" | "token"> {
-    type: HazardSource["type"];
-    data: HazardSource["data"];
-    readonly _source: HazardSource;
+interface HazardSystemData extends HazardSystemSource, Omit<ActorSystemData, "attributes"> {
+    details: HazardDetailsData;
 }
 
 interface HazardAttributes extends BaseActorAttributes {
@@ -42,27 +49,24 @@ interface HazardAttributes extends BaseActorAttributes {
     };
 }
 
+interface HazardDetailsSource {
+    isComplex: boolean;
+    level: { value: number };
+    disable: string;
+    description: string;
+    reset: string;
+    routine: string;
+}
+
+interface HazardDetailsData extends HazardDetailsSource {
+    alliance: null;
+}
+
 interface HazardHitPoints extends Required<BaseHitPointsData> {
     negativeHealing: boolean;
     brokenThreshold: number;
 }
 
-/** The raw information contained within the actor data object for hazards. */
-export interface HazardSystemData extends ActorSystemData {
-    details: {
-        isComplex: boolean;
-        level: {
-            value: number;
-        };
-        disable: string;
-        description: string;
-        reset: string;
-        routine: string;
-    };
-    attributes: HazardAttributes;
-    saves: HazardSaves;
-    /** Traits, languages, and other information. */
-    traits: BaseTraitsData;
-}
-
 type HazardSaves = Record<SaveType, SaveData>;
+
+export { HazardData, HazardSource, HazardSystemData };

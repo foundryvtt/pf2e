@@ -485,19 +485,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -514,7 +501,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -629,19 +618,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -658,7 +634,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4 sp"
+                    "value": {
+                        "sp": 4
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -883,6 +861,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterDarkvision]</p>"
                 },
@@ -930,7 +909,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the dancer dies, their body combusts in a flare of white light. All creatures in a @Template[type:emanation|distance:10] must succeed at a @Check[type:fortitude|dc:17] save<span data-visibility=\"gm\"> or be @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for [[/br 1d4 #rounds]]{1d4 rounds}</span>.</p>\n<p data-visibility=\"gm\">Calignis that fail this save are also @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. The dancer's gear and treasure are left in a pile where they died. As this isn't a magical effect, the light has no effect within magical darkness.</p>"
+                    "value": "<p>When the dancer dies, their body combusts in a flare of white light. All creatures in a @Template[type:emanation|distance:10] must succeed at a @Check[type:fortitude|dc:17] save or be @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Calignis that fail this save are also @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. The dancer's gear and treasure are left in a pile where they died. As this isn't a magical effect, the light has no effect within magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -972,8 +951,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An ally within 10 feet of the dancer rolls a saving throw against a mental or illusion effect.</p>\n<p><strong>Effect</strong> The target ally can roll the save twice and take the better result.</p>"
+                    "value": "<p><strong>Trigger</strong> An ally within 10 feet of the dancer rolls a saving throw against a mental or illusion effect.</p>\n<hr />\n<p><strong>Effect</strong> The target ally can roll the save twice and take the better result.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Distracting Frolic]{Effect: Distracting Frolic}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1016,6 +996,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LightBlindness]</p>"
                 },
@@ -1061,8 +1042,9 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The caligni dancer touches a foe and curses it.</p>\n<div data-visibility=\"gm\">\n<p>If the target fails a @Check[type:will|dc:18] save, it gains @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1}.</p>\n<p>The target is then temporarily immune for 24 hours.</p>\n<p>These conditions persist until the curse is removed. The victim can attempt a new @Check[type:will|dc:18] save once per hour to end the curse.</p>\n</div>"
+                    "value": "<p>The caligni dancer touches a foe and curses it.</p>\n<p>If the target fails a @Check[type:will|dc:18] save, it gains @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1}.</p>\n<p>The target is then temporarily immune for 24 hours.</p>\n<p>These conditions persist until the curse is removed. The victim can attempt a new @Check[type:will|dc:18] save once per hour to end the curse.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1107,6 +1089,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The caligni dancer deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
@@ -1121,12 +1104,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

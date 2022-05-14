@@ -9,33 +9,39 @@ import { AbilityString } from "./base";
 import { SAVE_TYPES } from "./values";
 import { DCSlug, SaveType } from "./types";
 
-export type CreatureData = CharacterData | NPCData | FamiliarData;
-export type ActorType = CreatureType | "hazard" | "loot" | "vehicle";
+type CreatureData = CharacterData | NPCData | FamiliarData;
+type ActorType = CreatureType | "hazard" | "loot" | "vehicle";
 
-export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
-export type ActorSourcePF2e = ActorDataPF2e["_source"];
+type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
+type ActorSourcePF2e = ActorDataPF2e["_source"];
 
-export type ModeOfBeing = "living" | "undead" | "construct" | "object";
+type ModeOfBeing = "living" | "undead" | "construct" | "object";
 
-export interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
+interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
     secret?: boolean;
     skipDialog?: boolean;
 }
 export {
     AbilityString,
+    ActorDataPF2e,
+    ActorSourcePF2e,
+    ActorType,
     CharacterData,
     CharacterSource,
+    CreatureData,
     DCSlug,
-    NPCData,
-    NPCSource,
     FamiliarData,
     FamiliarSource,
     HazardData,
     HazardSource,
     LootData,
     LootSource,
-    SaveType,
+    ModeOfBeing,
+    NPCData,
+    NPCSource,
+    RollInitiativeOptionsPF2e,
     SAVE_TYPES,
+    SaveType,
     VehicleData,
     VehicleSource,
 };

@@ -89,10 +89,8 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
-                    "label": "Mental",
                     "type": "mental",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [],
@@ -495,6 +493,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -518,12 +523,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -731,6 +730,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
@@ -754,12 +760,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -1733,6 +1733,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -1756,12 +1763,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -2299,6 +2300,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2321,12 +2329,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -2647,6 +2649,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2674,12 +2683,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -2887,6 +2890,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2909,12 +2919,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -3005,19 +3009,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3034,7 +3025,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3140,19 +3133,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3170,7 +3150,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -3641,7 +3623,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:will|dc:36] save.</p>\n<div data-visibility=\"gm\">\n<p>On a failure, the creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute (@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} and also @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune to psychogenic secretions for 1 minute.</p>\n</div>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:will|dc:36] save.</p>\n<p>On a failure, the creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 minute (@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} and also @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune to psychogenic secretions for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3682,7 +3664,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The thoughtmaw invades the mind of a creature within 100 feet and attempts to swallow its capacity for higher thought. The creature must attempt a @Check[type:will|dc:42] save.</p>\n<div data-visibility=\"gm\">\n<p>Using Consume Knowledge immediately ends any of the ability's previous effects on a different creature.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is slowed 1 and can take no actions other than basic actions for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the thoughtmaw is @Compendium[pf2e.conditionitems.Quickened]{Quickened 1} for 1 minute. It can use this extra action to Stride, Strike, or Cast a Spell if the target had prepared spells or a spell repertoire.</p>\n</div>"
+                    "value": "<p>The thoughtmaw invades the mind of a creature within 100 feet and attempts to swallow its capacity for higher thought. The creature must attempt a @Check[type:will|dc:42] save.</p>\n<p>Using Consume Knowledge immediately ends any of the ability's previous effects on a different creature.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is slowed 1 and can take no actions other than basic actions for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the thoughtmaw is @Compendium[pf2e.conditionitems.Quickened]{Quickened 1} for 1 minute. It can use this extra action to Stride, Strike, or Cast a Spell if the target had prepared spells or a spell repertoire.</p>"
                 },
                 "requirements": {
                     "value": ""

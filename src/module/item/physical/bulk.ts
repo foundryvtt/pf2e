@@ -2,6 +2,7 @@ import { Size, SIZES } from "@module/data";
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@util";
 import { ItemDataPF2e, PhysicalItemData } from "../data";
 import { isPhysicalData } from "../data/helpers";
+import { isEquipped } from "./usage";
 
 interface StackDefinition {
     size: number;
@@ -565,23 +566,17 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
     return stringWeight.toLowerCase().trim();
 }
 
-/**
- * @param item
- * @param nestedItems
- * @return
- */
-export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = []): BulkItem {
-    const id = item._id;
-    const weight = item.data?.weight?.value;
-    const quantity = item.data?.quantity ?? 0;
-    const isEquipped = item.isEquipped;
-    const equippedBulk = item.data?.equippedBulk?.value;
-    const unequippedBulk = item.data?.unequippedBulk?.value;
-    const stackGroup = item.data.stackGroup;
-    const negateBulk = item.data.negateBulk?.value;
-    const traits: string[] = item.data.traits.value;
+export function toBulkItem(itemData: PhysicalItemData, nestedItems: BulkItem[] = []): BulkItem {
+    const id = itemData._id;
+    const weight = itemData.data?.weight?.value;
+    const quantity = itemData.data?.quantity ?? 0;
+    const equippedBulk = itemData.data?.equippedBulk?.value;
+    const unequippedBulk = itemData.data?.unequippedBulk?.value;
+    const stackGroup = itemData.data.stackGroup;
+    const negateBulk = itemData.data.negateBulk?.value;
+    const traits: string[] = itemData.data.traits.value;
     const extraDimensionalContainer = traits.includes("extradimensional");
-    const size = item.data.size || "med";
+    const size = itemData.data.size || "med";
 
     return new BulkItem({
         id,
@@ -592,7 +587,7 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
         equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
         holdsItems: nestedItems,
         stackGroup,
-        isEquipped,
+        isEquipped: isEquipped(itemData.data.usage, itemData.data.equipped),
         quantity,
         extraDimensionalContainer,
         size,

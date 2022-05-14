@@ -27,6 +27,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSystemSheetData, NPCSheetItemData } from "./types";
 import { CreatureSheetData } from "@actor/creature/types";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values";
+import { NPCConfig } from "./config";
 
 export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
@@ -37,7 +38,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             classes: options.classes.concat("npc"),
             width: 650,
             height: 680,
-            showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
             scrollY: [".tab.main", ".tab.inventory", ".tab.spells", ".tab.effects", ".tab.notes"],
         });
@@ -238,7 +238,36 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         });
     }
 
-    private prepareAbilities(abilities: Abilities) {
+    /** Replace sheet config with a special NPC config form application */
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+
+        if (this.isEditable) {
+            const index = buttons.findIndex((b) => b.class === "close");
+            buttons.splice(index, 0, {
+                label: "Configure", // Top-level foundry localization key
+                class: "configure-npc",
+                icon: "fas fa-cog",
+                onclick: (event) => this._onConfigureSheet(event),
+            });
+        }
+
+        return buttons;
+    }
+
+    /**
+     * Shim for {@link DocumentSheet#_onConfigureSheet} that will be replaced in v10 when this class subclasses it.
+     */
+    protected override _onConfigureSheet(event: Event): void {
+        event.preventDefault();
+        const [top, left, width] = [this.position.top ?? 0, this.position.left ?? 0, this.position.width ?? 0];
+        new NPCConfig(this.actor, {
+            top: top + 40,
+            left: (left + (width - Number(TokenConfig.defaultOptions.width ?? 0))) / 2,
+        }).render(true);
+    }
+
+    private prepareAbilities(abilities: Abilities): void {
         for (const key of ABILITY_ABBREVIATIONS) {
             interface SheetAbilityData extends AbilityData {
                 localizedCode?: string;
@@ -254,7 +283,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private prepareSize(sheetSystemData: NPCSystemSheetData) {
+    private prepareSize(sheetSystemData: NPCSystemSheetData): void {
         const size = sheetSystemData.traits.size.value;
         const localizationKey = this.getSizeLocalizedKey(size);
         const localizedName = game.i18n.localize(localizationKey);
@@ -262,14 +291,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetSystemData.traits.size.localizedName = localizedName;
     }
 
-    private prepareAlignment(sheetSystemData: NPCSystemSheetData) {
+    private prepareAlignment(sheetSystemData: NPCSystemSheetData): void {
         const alignmentCode = sheetSystemData.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
         sheetSystemData.details.alignment.localizedName = localizedName;
     }
 
-    private prepareSkills(sheetSystemData: NPCSystemSheetData) {
+    private prepareSkills(sheetSystemData: NPCSystemSheetData): void {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
         const sortedSkillsIds = Object.keys(sheetSystemData.skills);
@@ -303,7 +332,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetSystemData.sortedSkills = sortedSkills;
     }
 
-    private prepareSpeeds(sheetData: NPCSystemSheetData) {
+    private prepareSpeeds(sheetData: NPCSystemSheetData): void {
         const configSpeedTypes = CONFIG.PF2E.speedTypes;
         sheetData.attributes.speed.otherSpeeds.forEach((speed) => {
             // Try to convert it to a recognizable speed name
@@ -322,7 +351,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private prepareSaves(systemData: NPCSystemSheetData) {
+    private prepareSaves(systemData: NPCSystemSheetData): void {
         for (const saveType of SAVE_TYPES) {
             const save = systemData.saves[saveType];
             save.labelShort = game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`);
@@ -431,7 +460,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      */
     prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
-        return {
+        const inventory: SheetInventory = {
             weapon: {
                 label: game.i18n.localize("PF2E.InventoryWeaponsHeader"),
                 type: "weapon",
@@ -467,6 +496,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 ),
             },
         };
+
+        for (const itemType of ["armor", "consumable", "equipment", "treasure", "weapon"] as const) {
+            for (const itemData of inventory[itemType].items) {
+                itemData.isIdentified = itemData.data.identification.status === "identified";
+            }
+        }
+
+        return inventory;
     }
 
     private get isWeak(): boolean {
@@ -488,22 +525,19 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     // ROLLS
 
-    private rollPerception(event: JQuery.ClickEvent) {
+    private async rollPerception(event: JQuery.ClickEvent): Promise<void> {
         const options = this.actor.getRollOptions(["all", "perception-check"]);
-        const perception = this.actor.data.data.attributes.perception;
-        if (perception?.roll) {
-            perception.roll({ event, options });
-        }
+        await this.actor.attributes.perception.roll({ event, options });
     }
 
-    private rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString) {
+    private async rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString): Promise<void> {
         const bonus = this.actor.data.data.abilities[abilityId].mod;
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
         const data = { bonus };
         const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
 
-        DicePF2e.d20Roll({
+        await DicePF2e.d20Roll({
             event,
             parts,
             data,
@@ -512,7 +546,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         });
     }
 
-    private onClickRollable(event: JQuery.ClickEvent) {
+    private async onClickRollable(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
         const $label = $(event.currentTarget).closest(".rollable");
 
@@ -542,40 +576,26 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private onClickToChat(event: JQuery.ClickEvent): void {
+    private async onClickToChat(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
 
         const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-        const item = this.actor.items.get(itemId);
-
-        if (item) {
-            if (item instanceof PhysicalItemPF2e && !item.isIdentified) {
-                return;
-            }
-
-            item.toChat(event);
-        } else {
-            console.error(`Clicked item with ID ${itemId}, but unable to find item with that ID.`);
-        }
+        const item = this.actor.items.get(itemId, { strict: true });
+        if (item instanceof PhysicalItemPF2e && !item.isIdentified) return;
+        await item.toChat(event);
     }
 
-    private onClickMakeWeak() {
-        if (this.actor.isWeak) {
-            this.actor.applyAdjustment("normal");
-        } else {
-            this.actor.applyAdjustment("weak");
-        }
+    private onClickMakeWeak(): Promise<void> {
+        return this.actor.applyAdjustment(this.actor.isWeak ? "normal" : "weak");
     }
 
-    private onClickMakeElite() {
-        if (this.actor.isElite) {
-            this.actor.applyAdjustment("normal");
-        } else {
-            this.actor.applyAdjustment("elite");
-        }
+    private onClickMakeElite(): Promise<void> {
+        return this.actor.applyAdjustment(this.actor.isElite ? "normal" : "elite");
     }
 
-    private async onChangeSpellcastingEntry(event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    private async onChangeSpellcastingEntry(
+        event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ): Promise<void> {
         event.preventDefault();
 
         const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
@@ -587,12 +607,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 : $input.is("select")
                 ? String($input.val())
                 : Number($input.val());
-        await this.actor.updateEmbeddedDocuments("Item", [
-            {
-                _id: itemId,
-                [key]: value,
-            },
-        ]);
+        await this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [key]: value }]);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -611,7 +626,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 "data.hp.value": formData["data.attributes.shield.value"],
             });
         }
-        await super._updateObject(event, formData);
+
+        return super._updateObject(event, formData);
     }
 }
 

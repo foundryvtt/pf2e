@@ -603,19 +603,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -632,7 +619,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -742,19 +731,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -771,7 +747,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "9 sp"
+                    "value": {
+                        "sp": 9
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -879,19 +857,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -909,7 +874,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1012,19 +979,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1038,7 +992,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -1141,19 +1098,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -1167,7 +1111,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "7 gp"
+                    "value": {
+                        "gp": 7
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1586,7 +1532,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirement</strong> A drow rogue can't use this reaction while @Compendium[pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> The drow rogue is hit or critically hit by an attack made by a creature the drow rogue can see.</p>\n</div>\n<p><strong>Effect</strong> The drow rogue gains a +2 circumstance bonus to their Armor Class against the triggering attack.</p>"
+                    "value": "<p><strong>Requirement</strong> A drow rogue can't use this reaction while @Compendium[pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> The drow rogue is hit or critically hit by an attack made by a creature the drow rogue can see.</p>\n<p><strong>Effect</strong> The drow rogue gains a +2 circumstance bonus to their Armor Class against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1696,12 +1642,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

@@ -1,9 +1,10 @@
 import { AlignmentTrait } from "@actor/creature/types";
 import { ClassTrait } from "@item/class/data";
 import { RANGE_TRAITS } from "@item/data/values";
-import { PreciousMaterialType } from "@item/physical/data";
+import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool } from "@item/spell/data";
 import { MagicTradition } from "@item/spellcasting-entry/data";
+import { OtherWeaponTag } from "@item/weapon/data";
 import { sluggify } from "@util";
 
 // Ancestry and heritage traits
@@ -485,16 +486,16 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     mithral: "PF2E.PreciousMaterialMithral",
     noqual: "PF2E.PreciousMaterialNoqual",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
+    peachwood: "PF2E.PreciousMaterialPeachwood",
     siccatite: "PF2E.PreciousMaterialSiccatite",
     silver: "PF2E.PreciousMaterialSilver",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
-const otherWeaponTags = {
+const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
     improvised: "PF2E.Item.Weapon.Improvised",
-    "ghost-touch": "PF2E.WeaponPropertyRuneGhostTouch",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -639,6 +640,7 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...npcAttackTraits,
+    circus: "PF2E.TraitCircus",
     summon: "PF2E.TraitSummon",
 };
 

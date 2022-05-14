@@ -4,11 +4,7 @@ import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { sluggify } from "@util";
 
-export class FeatPF2e extends ItemPF2e {
-    static override get schema(): typeof FeatData {
-        return FeatData;
-    }
-
+class FeatPF2e extends ItemPF2e {
     get featType(): FeatType {
         return this.data.data.featType.value;
     }
@@ -183,6 +179,8 @@ export class FeatPF2e extends ItemPF2e {
     }
 }
 
-export interface FeatPF2e {
+interface FeatPF2e {
     readonly data: FeatData;
 }
+
+export { FeatPF2e };

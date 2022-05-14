@@ -15,8 +15,14 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "damageType": "cold",
@@ -29,7 +35,7 @@
                         "cold-domain"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponCold}-damage"
             },
             {
                 "damageType": "cold",
@@ -42,7 +48,7 @@
                         "cold-domain"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponCold}-damage"
             }
         ],
         "source": {

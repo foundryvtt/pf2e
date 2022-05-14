@@ -3,7 +3,7 @@ import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
 class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
-    get encounter() {
+    get encounter(): EncounterPF2e | null {
         return this.parent;
     }
 
@@ -38,19 +38,6 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
 
         this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { overridePriority: {} });
         this.data.flags.pf2e.roundOfLastTurn ??= null;
-    }
-
-    protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentUpdateContext<this>,
-        userId: string
-    ): void {
-        super._onUpdate(changed, options, userId);
-        if (changed.defeated) {
-            this.actor?.items
-                .filter((item) => "deathNote" in item.data.data && item.data.data.deathNote)
-                .forEach((item) => item.toMessage(undefined, { rollMode: "gmroll" }));
-        }
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
@@ -96,10 +83,6 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         return parts.join("+");
     }
 
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
     /** Toggle the visibility of names to players */
     async toggleNameVisibility(): Promise<void> {
         if (!this.token) return;
@@ -116,6 +99,27 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
         };
 
         await this.token.update({ displayName: visibilityToggles[currentVisibility] });
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Send out a message with information on an automatic effect that occurs upon an actor's death */
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentUpdateContext<this>,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        if (changed.defeated && game.user.id === userId) {
+            for (const action of this.actor?.itemTypes.action ?? []) {
+                if (action.data.data.deathNote) {
+                    action.toMessage(undefined, { rollMode: this.actor?.hasPlayerOwner ? "publicroll" : "gmroll" });
+                }
+            }
+        }
     }
 }
 

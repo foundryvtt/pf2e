@@ -12,6 +12,7 @@ import {
 } from "@module/canvas";
 import { PlayerConfigPF2e } from "@module/user/player-config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
@@ -22,6 +23,19 @@ export const Init = {
     listen: (): void => {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
+
+            // Support v10 `system` property in v9
+            if (game.release.generation === 9) {
+                for (const Document of [Actor, Item]) {
+                    Object.defineProperty(Document.prototype, "system", {
+                        get() {
+                            return this.data.data;
+                        },
+                        configurable: true,
+                        enumerable: true,
+                    });
+                }
+            }
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
@@ -137,12 +151,14 @@ export const Init = {
             const schema = foundry.data.PrototypeTokenData.schema;
             schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
-            PlayerConfigPF2e.hookOnRenderSettings();
-            MystifiedTraits.compile();
-
+            // Register stuff with the Foundry client
             registerSettings();
+            registerKeybindings();
             registerTemplates();
             registerHandlebarsHelpers();
+
+            PlayerConfigPF2e.hookOnRenderSettings();
+            MystifiedTraits.compile();
 
             // Create and populate initial game.pf2e interface
             SetGamePF2e.onInit();

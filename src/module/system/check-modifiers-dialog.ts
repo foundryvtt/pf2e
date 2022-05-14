@@ -1,6 +1,7 @@
 import { ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { CheckRollContext, RollTwiceOption } from "./rolls";
 import { LocalizePF2e } from "./localize";
+import { RollSubstitution } from "@module/rules/rule-element/data";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -13,6 +14,8 @@ export class CheckModifiersDialog extends Application {
     context: CheckRollContext;
     /** A Promise resolve method */
     resolve: (value: boolean) => void;
+    /** Pre-determined D20 roll results */
+    substitutions: RollSubstitution[];
     /** Has the promise been resolved? */
     isResolved = false;
 
@@ -29,6 +32,7 @@ export class CheckModifiersDialog extends Application {
         this.check = check;
         this.context = context ?? {}; // might include a reference to actor, so do not do mergeObject or similar
         this.resolve = resolve;
+        this.substitutions = context?.substitutions ?? [];
         if (this.context.secret) {
             this.context.rollMode = "blindroll";
         } else {
@@ -36,7 +40,7 @@ export class CheckModifiersDialog extends Application {
         }
     }
 
-    override getData() {
+    override getData(): object {
         const fortune = this.context.rollTwice === "keep-higher";
         const misfortune = this.context.rollTwice === "keep-lower";
         const none = fortune === misfortune;
@@ -47,6 +51,7 @@ export class CheckModifiersDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
             showRollDialogs: game.user.settings.showRollDialogs,
+            substitutions: this.substitutions,
             fortune,
             none,
             misfortune,
@@ -55,15 +60,34 @@ export class CheckModifiersDialog extends Application {
 
     override activateListeners($html: JQuery): void {
         $html.find(".roll").on("click", () => {
-            this.context.rollTwice = $html.find("input[type=radio][name=rollTwice]:checked").val() as RollTwiceOption;
+            const rollTwice = $html.find("input[type=radio][name=rollTwice]:checked");
+            this.context.rollTwice = (rollTwice.val() || null) as RollTwiceOption;
             this.resolve(true);
             this.isResolved = true;
             this.close();
         });
 
-        $html.find(".modifier-container").on("click", "input[type=checkbox]", (event) => {
-            const index = Number(event.currentTarget.getAttribute("data-modifier-index"));
-            this.check.modifiers[index].ignored = event.currentTarget.checked;
+        $html.find<HTMLInputElement>(".substitutions input[type=checkbox]").on("click", (event) => {
+            const checkbox = event.currentTarget;
+            const index = Number(checkbox.dataset.subIndex);
+            const substitution = this.substitutions.at(index);
+            if (!substitution) return;
+
+            substitution.ignored = !checkbox.checked;
+            if (substitution.ignored) {
+                this.context.options?.findSplice((o) => o === `substitute:${substitution.slug}`);
+            } else {
+                this.context.options?.push(`substitute:${substitution.slug}`);
+            }
+
+            this.check.calculateTotal(this.context.options);
+            this.render();
+        });
+
+        $html.find<HTMLInputElement>(".modifier-container input[type=checkbox]").on("click", (event) => {
+            const checkbox = event.currentTarget;
+            const index = Number(checkbox.dataset.modifierIndex);
+            this.check.modifiers[index].ignored = !checkbox.checked;
             this.check.calculateTotal();
             this.render();
         });
@@ -91,12 +115,12 @@ export class CheckModifiersDialog extends Application {
         });
     }
 
-    override async close(options?: { force?: boolean }) {
+    override async close(options?: { force?: boolean }): Promise<void> {
         if (!this.isResolved) this.resolve(false);
         super.close(options);
     }
 
-    onAddModifier(event: JQuery.ClickEvent) {
+    async onAddModifier(event: JQuery.ClickEvent): Promise<void> {
         const parent = $(event.currentTarget).parents(".add-modifier-panel");
         const value = Number(parent.find(".add-modifier-value").val());
         const type = `${parent.find(".add-modifier-type").val()}`;
@@ -117,11 +141,11 @@ export class CheckModifiersDialog extends Application {
             ui.notifications.error(errors.join(" "));
         } else {
             this.check.push(new ModifierPF2e(name, value, type));
-            this.render();
+            await this.render();
         }
     }
 
-    onChangeRollMode(event: JQuery.ChangeEvent) {
+    onChangeRollMode(event: JQuery.ChangeEvent): void {
         this.context.rollMode = ($(event.currentTarget).val() ?? "publicroll") as RollMode;
     }
 

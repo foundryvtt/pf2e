@@ -156,19 +156,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -185,7 +172,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -306,19 +295,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -332,7 +308,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -673,7 +652,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.</p>\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of its next turn.</p>\n<p><strong>Failure</strong> The target takes [[/r {2d10}[bludgeoning]]]{2d10 bludgeoning damage} and is flat-footed until the start of its next turn.</p>\n<p><strong>Critical failure</strong> As failure, and the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n</div>"
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.</p>\n<p><strong>Effect</strong> The triggering creature must attempt a @Check[type:reflex|dc:32|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of its next turn.</p>\n<p><strong>Failure</strong> The target takes [[/r {2d10}[bludgeoning]]]{2d10 bludgeoning damage} and is flat-footed until the start of its next turn.</p>\n<p><strong>Critical failure</strong> As failure, and the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -764,7 +743,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirement</strong> The gimmerling's last action was a success with a Strike that has Disarm in its damage entry.</p>\n<p><strong>Effect</strong> The gimmerling knocks a held or carried weapon to the ground in the target's space.</p>"
+                    "value": "<p><strong>Requirement</strong> The gimmerling's last action was a success with a Strike that has Disarm in its damage entry.</p>\n<p><strong>Effect</strong> The gimmerling knocks a held or carried weapon to the ground in the target's space.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -818,12 +797,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

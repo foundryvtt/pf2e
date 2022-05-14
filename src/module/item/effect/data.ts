@@ -1,19 +1,11 @@
-import { ItemLevelData, ItemSystemData } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData } from "@item/data/base";
 import { OneToFour } from "@module/data";
 import { EffectPF2e } from ".";
 
-export type EffectSource = BaseNonPhysicalItemSource<"effect", EffectSystemSource>;
+type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource>;
 
-export class EffectData extends BaseNonPhysicalItemData<EffectPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/effect.svg";
-}
-
-export interface EffectData extends Omit<EffectSource, "effects" | "flags"> {
-    type: EffectSource["type"];
-    data: EffectSystemData;
-    readonly _source: EffectSource;
-}
+type EffectData = Omit<EffectSource, "effects" | "flags"> &
+    BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource>;
 
 interface EffectSystemSource extends ItemSystemData, ItemLevelData {
     start: {
@@ -34,19 +26,21 @@ interface EffectSystemSource extends ItemSystemData, ItemLevelData {
     badge: EffectBadge | null;
 }
 
-export interface EffectBadge {
+interface EffectSystemData extends ItemSystemData, EffectSystemSource {
+    expired: boolean;
+    remaining: string;
+}
+
+interface EffectBadge {
     value: number | DiceExpression;
     tickRule: EffectTickType;
 }
 
-export type EffectExpiryType = "turn-start" | "turn-end";
+type EffectExpiryType = "turn-start" | "turn-end";
 
-export type EffectTickType = "turn-start";
+type EffectTickType = "turn-start";
 
 type DieFaceCount = 4 | 6 | 8 | 10 | 12 | 20;
-export type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
+type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
 
-export interface EffectSystemData extends ItemSystemData, EffectSystemSource {
-    expired: boolean;
-    remaining: string;
-}
+export { EffectBadge, EffectData, EffectExpiryType, EffectSource, EffectSystemData, EffectTickType, DiceExpression };

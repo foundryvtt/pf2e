@@ -1482,6 +1482,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -1504,12 +1511,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -4180,7 +4181,7 @@
                             ]
                         },
                         "selector": "stealth",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
                     }
                 ],
                 "slug": null,
@@ -4374,7 +4375,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a cloud of poison gas continues to emanate from its body for 1 round. Any creature that ends its turn in the miasma takes [[/r {4d6}[poison]]]{4d6 poison damage} (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p data-visibility=\"gm\">Any creature in the miasma is @Compendium[pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. The dragon can see through this concealment.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a cloud of poison gas continues to emanate from its body for 1 round. Any creature that ends its turn in the miasma takes [[/r {4d6}[poison]]]{4d6 poison damage} (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p>Any creature in the miasma is @Compendium[pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. The dragon can see through this concealment.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4418,7 +4419,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the creature's action.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the creature's action.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4487,7 +4488,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {18d6}[poison]]]{18d6 poison damage} in a @Template[type:cone|distance:60]{60-foot cone} (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<div data-visibility=\"gm\">\n<p>The Breath Weapon also creates a miasma.</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n</div>"
+                    "value": "<p>The dragon breathes a toxic cloud that deals [[/r {18d6}[poison]]]{18d6 poison damage} in a @Template[type:cone|distance:60]{60-foot cone} (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p>The Breath Weapon also creates a miasma.</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

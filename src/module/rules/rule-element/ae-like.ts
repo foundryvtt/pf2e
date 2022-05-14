@@ -75,12 +75,7 @@ class AELikeRuleElement extends RuleElementPF2e {
 
     protected applyAELike(rollOptions = this.actor.getRollOptions()): void {
         this.validateData();
-        if (this.ignored) return;
-
-        // Test predicate if present. AE-Like predicates are severely limited: at their default phase, they can only be
-        // tested against roll options set by `ItemPF2e#prepareActorData` and higher-priority AE-Likes.
-        const { predicate } = this.data;
-        if (predicate && !predicate.test(rollOptions)) return;
+        if (!this.test(rollOptions)) return;
 
         this.data.path = this.resolveInjectedProperties(this.data.path);
         // Do not proceed if injected-property resolution failed

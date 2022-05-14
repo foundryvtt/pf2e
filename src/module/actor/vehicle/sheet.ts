@@ -1,11 +1,12 @@
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
 import { ActorSheetPF2e } from "../sheet/base";
-import { calculateWealth } from "@item/treasure/helpers";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e, PhysicalItemData } from "@item/data";
 import { PhysicalItemType } from "@item/physical/data";
 import { VehicleTrait } from "./data";
+import { isPhysicalData } from "@item/data/helpers";
+import { PhysicalItemPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -50,19 +51,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         this.prepareItems(sheetData);
 
-        // update currency based on items
-        if (sheetData.actor.items !== undefined) {
-            const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = {};
-            for (const denomination of ["cp", "sp", "gp", "pp"] as const) {
-                const value = treasure[denomination];
-                sheetData.totalTreasure[denomination] = {
-                    value,
-                    label: CONFIG.PF2E.currencies[denomination],
-                };
-            }
-        }
-
         return sheetData;
     }
 
@@ -93,7 +81,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
+            items: actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalData(itemData)),
             bulkItemsById,
             bulkConfig,
             actorSize: actorData.data.traits.size.value,
@@ -101,14 +89,17 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         for (const itemData of actorData.items) {
             const physicalData: ItemDataPF2e = itemData;
-            if (physicalData.isPhysical) {
-                itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
+            const item = this.actor.items.get(itemData._id, { strict: true });
+            if (item instanceof PhysicalItemPF2e && isPhysicalData(physicalData)) {
+                itemData.showEdit = sheetData.user.isGM || physicalData.data.identification.status === "identified";
                 itemData.img ||= CONST.DEFAULT_TOKEN;
 
                 const containerData = containers.get(itemData._id)!;
                 itemData.containerData = containerData;
                 itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = false;
+                itemData.isIdentified = physicalData.data.identification.status === "identified";
+                itemData.assetValue = item.assetValue;
 
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
@@ -145,7 +136,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
             for (const itemData of sheetData.items) {
                 const physicalData: ItemDataPF2e = itemData;
-                if (physicalData.isPhysical) {
+                if (isPhysicalData(physicalData)) {
                     itemData.showEdit = true;
                 }
             }

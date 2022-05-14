@@ -27,9 +27,32 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.ath.rank",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Titan Wrestler"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:swallow-whole"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
         },
         "traits": {
             "custom": "",

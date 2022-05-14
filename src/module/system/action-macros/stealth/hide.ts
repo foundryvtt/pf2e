@@ -14,6 +14,7 @@ export function hide(options: SkillActionOptions) {
         traits: ["secret"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [ActionMacros.note(selector, "PF2E.Actions.Hide", "success")],

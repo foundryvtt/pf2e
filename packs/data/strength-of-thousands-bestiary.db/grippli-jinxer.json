@@ -485,10 +485,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Paralyze",
             "sort": 300000,
             "type": "spell"
@@ -648,6 +644,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -671,12 +674,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -882,6 +879,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -904,12 +908,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -958,10 +956,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Chill Touch",
             "sort": 700000,
             "type": "spell"
@@ -1185,10 +1179,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Forbidding Ward",
             "sort": 900000,
             "type": "spell"
@@ -1301,10 +1291,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/know-direction.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Know Direction",
             "sort": 1000000,
             "type": "spell"
@@ -1415,10 +1401,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Ray of Enfeeblement",
             "sort": 1100000,
             "type": "spell"
@@ -1530,10 +1512,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/shield.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Shield",
             "sort": 1200000,
             "type": "spell"
@@ -1651,10 +1629,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/spider-sting.webp",
-            "isCantrip": false,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Spider Sting",
             "sort": 1300000,
             "type": "spell"
@@ -1813,6 +1787,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1835,12 +1816,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1888,10 +1863,6 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
-            "isCantrip": true,
-            "isFocusSpell": false,
-            "isPhysical": false,
-            "isRitual": false,
             "name": "Telekinetic Projectile",
             "sort": 1500000,
             "type": "spell"
@@ -1935,19 +1906,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1964,7 +1922,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2077,19 +2037,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2106,7 +2053,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "property1": {
                     "critDamage": "",
@@ -2351,7 +2298,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A hostile creature targets the jinxer with a melee Strike</p>\n<p><strong>Effect</strong> Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a @Check[type:will|dc:22|name:Hypnotic Pattern|traits:grippli,humanoid] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Concealed]{Concealed} until the end of its turn.</p>\n<p><strong>Critical Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Hidden]{Hidden} until the end of its turn.</p>\n</div>"
+                    "value": "<p><strong>Trigger</strong> A hostile creature targets the jinxer with a melee Strike</p>\n<p><strong>Effect</strong> Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a @Check[type:will|dc:22|name:Hypnotic Pattern|traits:grippli,humanoid] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Concealed]{Concealed} until the end of its turn.</p>\n<p><strong>Critical Failure</strong> The creature treats the jinxer as @Compendium[pf2e.conditionitems.Hidden]{Hidden} until the end of its turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2392,7 +2339,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d4}[poison]]]{2d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d4}[poison]]]{2d4 poison damage}, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d4}[poison]]]{1d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d4}[poison]]]{2d4 poison damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d4}[poison]]]{2d4 poison damage}, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3}, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""

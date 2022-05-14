@@ -89,10 +89,8 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
-                    "label": "Poison",
                     "type": "poison",
-                    "value": "12"
+                    "value": 12
                 }
             ],
             "dv": [],
@@ -424,6 +422,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -446,12 +451,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -658,6 +657,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -680,12 +686,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -2263,6 +2263,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2285,12 +2292,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -2589,19 +2590,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2618,7 +2606,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2723,19 +2713,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2753,7 +2730,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2854,19 +2833,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 4
                 },
@@ -2880,7 +2846,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "90 gp"
+                    "value": {
+                        "gp": 90
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3084,8 +3052,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The venom mage is reduced to 0 Hit Points</p>\n<p><strong>Effect</strong> The venom mage explodes into a cloud of poison within a @Template[type:burst|distance:20]. The venom mage then reforms at a point they choose within the burst, avoids being knocked out, and remains at 1 Hit Point. The venom mage's wounded value increases by 1 when they use this ability, and they can't use this ability when they're wounded 3 or more. Creatures other than the venom mage within the burst must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature is sickened 1.</p>\n<p><strong>Failure</strong> The creature is sickened 2 and cannot recover from the sickened condition while within 20 feet of the venom mage.</p>\n<p><strong>Critical Failure</strong> As failure, but sickened 4.</p>"
+                    "value": "<p><strong>Trigger</strong> The venom mage is reduced to 0 Hit Points</p>\n<p><strong>Effect</strong> The venom mage explodes into a cloud of poison within a @Template[type:burst|distance:20]. The venom mage then reforms at a point they choose within the burst, avoids being knocked out, and remains at 1 Hit Point. The venom mage's wounded value increases by 1 when they use this ability, and they can't use this ability when they're wounded 3 or more. Creatures other than the venom mage within the burst must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature is sickened 1.</p>\n<p><strong>Failure</strong> The creature is sickened 2 and cannot recover from the sickened condition while within 20 feet of the venom mage.</p>\n<p><strong>Critical Failure</strong> As failure, but sickened 4.</p>"
                 },
                 "requirements": {
                     "value": ""

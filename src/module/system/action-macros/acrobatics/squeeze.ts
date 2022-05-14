@@ -14,6 +14,7 @@ export function squeeze(options: SkillActionOptions) {
         traits: ["exploration", "move"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionMacros.note(selector, "PF2E.Actions.Squeeze", "criticalSuccess"),

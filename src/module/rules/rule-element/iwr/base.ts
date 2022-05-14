@@ -25,11 +25,7 @@ abstract class IWRRuleElement extends RuleElementPF2e {
     abstract getIWR(value?: unknown): string | object | null;
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
-        if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions())) {
-            this.ignored = true;
-            return;
-        }
+        if (!this.test()) return;
 
         this.data.type = this.resolveInjectedProperties(this.data.type);
 

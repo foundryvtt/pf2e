@@ -30,7 +30,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 30,
                 "temp": 0,
                 "value": 30
@@ -58,7 +58,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-06: The Crashing Wave"
             }
         },
         "resources": {},
@@ -92,16 +92,12 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "exceptions": "",
-                    "label": "Slashing",
                     "type": "slashing",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
@@ -248,6 +244,52 @@
             "type": "melee"
         },
         {
+            "_id": "kdeascUpSMEfwxhb",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "UUaxUn8e1vkuaaXd",
             "data": {
                 "actionCategory": {
@@ -259,6 +301,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
@@ -285,7 +328,60 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "QlwahCGrnDnwJgMH",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "data.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -300,8 +396,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong><span class=\"fontstyle2\">A creature attempts a melee attack against a zombie grindylow with a bludgeoning or slashing weapon</span></p>\n<p><strong>Effect</strong><span class=\"fontstyle2\">The creature must succeed at a @Check[type:reflex|dc:13] saving throw or become tangled in the kelp that surrounds the zombie grindylow, giving the creature a -10 circumstance penalty to its Speeds until it spends a manipulate action to remove the kelp.</span></p>"
+                    "value": "<p><strong>Trigger</strong><span class=\"fontstyle2\">A creature attempts a melee attack against a zombie grindylow with a bludgeoning or slashing weapon</span></p>\n<p><strong>Effect</strong><span class=\"fontstyle2\">The creature must succeed at a @Check[type:reflex|dc:13] saving throw or become tangled in the kelp that surrounds the zombie grindylow, giving the creature a -10 circumstance penalty to its Speeds until it spends a manipulate action to remove the kelp.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -326,7 +423,53 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Tangling Kelp",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "80vT321mZrbayuTu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -355,7 +498,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 800000,
             "type": "lore"
         }
     ],

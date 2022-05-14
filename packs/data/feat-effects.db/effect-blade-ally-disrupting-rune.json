@@ -15,8 +15,15 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "Note",
@@ -28,7 +35,7 @@
                         "target:trait:undead"
                     ]
                 },
-                "selector": "{item|data.target}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyDisruptingRune}-damage",
                 "text": "<strong>Disrupting</strong> On a critical hit, the undead is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until the end of your next turn."
             },
             {
@@ -41,7 +48,7 @@
                         "target:trait:undead"
                     ]
                 },
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyDisruptingRune}-damage"
             }
         ],
         "source": {

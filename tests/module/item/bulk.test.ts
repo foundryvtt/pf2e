@@ -41,7 +41,6 @@ function createItem({
     return {
         _id: id,
         type: type,
-        isEquipped: equipped,
         data: {
             size,
             traits: {
@@ -57,6 +56,8 @@ function createItem({
             weight: {
                 value: weight,
             },
+            usage: { type: "worn" },
+            equipped: { carryType: equipped ? "worn" : "stowed" },
             equippedBulk: {
                 value: equippedBulk,
             },

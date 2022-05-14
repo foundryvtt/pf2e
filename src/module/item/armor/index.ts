@@ -1,16 +1,12 @@
 import { PhysicalItemHitPoints } from "@item/physical/data";
 import { MAGIC_TRADITIONS } from "@item/spell/data";
 import { LocalizePF2e } from "@module/system/localize";
-import { addSign } from "@util";
+import { addSign, ErrorPF2e } from "@util";
 import { PhysicalItemPF2e } from "../physical";
 import { getResiliencyBonus } from "../runes";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
 
-export class ArmorPF2e extends PhysicalItemPF2e {
-    static override get schema(): typeof ArmorData {
-        return ArmorData;
-    }
-
+class ArmorPF2e extends PhysicalItemPF2e {
     override isStackableWith(item: PhysicalItemPF2e): boolean {
         if (this.isEquipped || item.isEquipped) return false;
         return super.isStackableWith(item);
@@ -127,8 +123,10 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         };
     }
 
-    override prepareActorData(this: Embedded<ArmorPF2e>): void {
+    override prepareActorData(): void {
         const { actor } = this;
+        if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
+
         const ownerIsPCOrNPC = actor.data.type === "character" || actor.data.type === "npc";
         const shieldIsAssigned = ownerIsPCOrNPC && actor.data.data.attributes.shield.itemId !== null;
 
@@ -141,11 +139,11 @@ export class ArmorPF2e extends PhysicalItemPF2e {
                 ["noisy", "skill-check"],
             ] as const) {
                 if (traits.has(trait)) {
-                    const checkOptions = (this.actor.rollOptions[domain] ??= {});
+                    const checkOptions = (actor.rollOptions[domain] ??= {});
                     checkOptions[`self:armor:trait:${trait}`] = true;
                 }
             }
-        } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && this.actor.heldShield === this) {
+        } else if (ownerIsPCOrNPC && !shieldIsAssigned && this.isEquipped && actor.heldShield === this) {
             // Set actor-shield data from this shield item
             const { hitPoints } = this;
             actor.data.data.attributes.shield = {
@@ -197,6 +195,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 }
 
-export interface ArmorPF2e {
+interface ArmorPF2e {
     readonly data: ArmorData;
 }
+
+export { ArmorPF2e };

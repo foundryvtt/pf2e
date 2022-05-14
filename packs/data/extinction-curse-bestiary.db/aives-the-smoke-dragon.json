@@ -379,19 +379,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -408,7 +395,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -517,19 +506,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -547,7 +523,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -621,19 +599,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -647,7 +612,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -915,7 +882,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons.</p>\n<p>Until the cloud dissipates at the start of his next turn, Aives is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, his Strikes deal an extra [[/r {1d8}[poison]]]{1d8 poison damage}, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</span></p>"
+                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons.</p>\n<p>Until the cloud dissipates at the start of his next turn, Aives is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, his Strikes deal an extra [[/r {1d8}[poison]]]{1d8 poison damage}, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -947,7 +914,7 @@
                             ]
                         },
                         "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> Until the cloud dissipates<span data-visibility='gm'> at the start of his next turn</span>, Aives is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, his Strikes deal an extra [[/r {1d8}[poison]]]{1d8 poison damage}, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save<span data-visibility='gm'> or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}</span>.</p>"
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> Until the cloud dissipates at the start of his next turn, Aives is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, his Strikes deal an extra [[/r {1d8}[poison]]]{1d8 poison damage}, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                     }
                 ],
                 "slug": null,
@@ -1000,12 +967,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

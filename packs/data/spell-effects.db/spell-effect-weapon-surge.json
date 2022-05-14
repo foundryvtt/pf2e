@@ -15,19 +15,30 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": {
+                        "all": [
+                            "item:equipped"
+                        ]
+                    },
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "FlatModifier",
-                "selector": "{item|data.target}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "diceNumber": 1,
                 "key": "DamageDice",
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-damage"
             }
         ],
         "source": {

@@ -1,27 +1,26 @@
 import { EquippedData } from "./data";
 
-interface Held {
+interface HeldUsage {
+    value: string;
     type: "held";
     hands: number;
 }
 
-interface Worn {
+interface WornUsage {
+    value: string;
     type: "worn";
     where?: string | null;
     hands?: 0;
 }
 
-type Usage = Held | Worn;
-type NoUsage = { type: null };
-
-export type UsageDetails = Usage | NoUsage;
+export type UsageDetails = HeldUsage | WornUsage;
 
 export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean {
     if (usage.type !== equipped.carryType) {
         return false;
     }
 
-    if (usage.type === "worn" && equipped.inSlot === false) {
+    if (usage.type === "worn" && usage.where && !equipped.inSlot) {
         return false;
     } else if (usage.type === "held") {
         return (equipped.handsHeld ?? 0) >= (usage.hands ?? 1);
@@ -30,17 +29,17 @@ export function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean
     return true;
 }
 
-export function getUsageDetails(usage: string | null): UsageDetails {
+export function getUsageDetails(usage: string): UsageDetails {
     switch (usage) {
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
-            return { type: "held", hands: 1 };
+            return { value: usage, type: "held", hands: 1 };
         case "held-in-two-hands":
-            return { type: "held", hands: 2 };
+            return { value: usage, type: "held", hands: 2 };
 
         case "worn":
         case "worn-under-armor":
-            return { type: "worn" };
+            return { value: usage, type: "worn" };
 
         case "wornarmor":
         case "wornamulet":
@@ -70,7 +69,7 @@ export function getUsageDetails(usage: string | null): UsageDetails {
         case "wornhorseshoes":
         case "wornsaddle":
         case "wornwrist":
-            return { type: "worn", where: usage.substring(4) };
+            return { value: usage, type: "worn", where: usage.substring(4) };
 
         // all of these are treated as "equipped" if they are attached to another item which is
         // for now, just treat these as "worn"
@@ -111,13 +110,10 @@ export function getUsageDetails(usage: string | null): UsageDetails {
         case "etched-onto-clan-dagger":
         case "etched-onto-lm-nonmetal-armor":
         case "sewn-into-clothing":
-            return { type: "worn" };
-
         case "":
-        case null:
-            return { type: null };
+            return { value: usage, type: "worn" };
     }
 
     console.warn(`PF2E System | Unknown usage: [${usage}]`);
-    return { type: "worn", where: null };
+    return { value: usage, type: "worn", where: null };
 }

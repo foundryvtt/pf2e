@@ -556,6 +556,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
@@ -578,12 +585,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -790,6 +791,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d12"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
@@ -812,12 +820,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d12"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1130,6 +1132,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -1152,12 +1161,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "evocation"
@@ -1706,6 +1709,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1728,12 +1738,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -2494,19 +2498,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2523,7 +2514,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2629,19 +2622,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2658,7 +2638,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -2735,19 +2717,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2761,7 +2730,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2815,19 +2786,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2841,7 +2799,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -3016,7 +2976,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra [[/r {2d6}]]{2d6 damage}.</p>\n<p>Roll [[/r {1d20} type]] to determine the type:</p>\n<ul>\n<li>1-7 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Acid]{Effect: Breach the Abyss - Acid}</li>\n<li>8-9 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Cold]{Effect: Breach the Abyss - Cold}</li>\n<li>10-11 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Electricity]{Effect: Breach the Abyss - Electricity}</li>\n<li>12-18 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Fire]{Effect: Breach the Abyss - Fire}</li>\n<li>19-20 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Negative]{Effect: Breach the Abyss - Negative}</li>\n</ul>"
+                    "value": "<p><strong>Requirements</strong> The demonologist's last action was to cast a non-cantrip spell</p>\n<p><strong>Effect</strong> The demonologist siphons energy drawn from the Abyss into their weapon. Until the end of the turn, the weapon deals an extra [[/r {2d6}]]{2d6 damage}.</p>\n<p>Roll [[/r {1d20} type]] to determine the type:</p>\n<ul>\n<li>1-7 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Acid]{Effect: Breach the Abyss - Acid}</li>\n<li>8-9 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Cold]{Effect: Breach the Abyss - Cold}</li>\n<li>10-11 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Electricity]{Effect: Breach the Abyss - Electricity}</li>\n<li>12-18 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Fire]{Effect: Breach the Abyss - Fire}</li>\n<li>19-20 @Compendium[pf2e.bestiary-effects.Effect: Breach the Abyss - Negative]{Effect: Breach the Abyss - Negative}</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""

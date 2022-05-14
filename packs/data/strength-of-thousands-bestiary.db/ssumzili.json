@@ -276,6 +276,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -299,10 +304,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {},
-                    "interval": 1
                 },
                 "school": {
                     "value": "transmutation"
@@ -398,6 +399,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -421,12 +429,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -621,6 +623,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -644,10 +651,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {},
-                    "interval": 1
                 },
                 "school": {
                     "value": "abjuration"
@@ -741,6 +744,13 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -764,12 +774,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "abjuration"
@@ -1460,12 +1464,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1510,7 +1523,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The ssumzili makes a melee Strike. If the Strike damages the target, the target must also attempt a @Check[type:fortitude|dc:32] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes soaked, causing them to treat the environmental temperature as one step colder (mild to severe, severe to extreme, and so on) until they dry off.</p>\n<p><strong>Failure</strong> As success, and the creature is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure but the fatigue lasts until the target gets a full night's rest.</p>\n</div>"
+                    "value": "<p>The ssumzili makes a melee Strike. If the Strike damages the target, the target must also attempt a @Check[type:fortitude|dc:32] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes soaked, causing them to treat the environmental temperature as one step colder (mild to severe, severe to extreme, and so on) until they dry off.</p>\n<p><strong>Failure</strong> As success, and the creature is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure but the fatigue lasts until the target gets a full night's rest.</p>"
                 },
                 "requirements": {
                     "value": ""

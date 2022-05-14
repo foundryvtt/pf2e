@@ -277,6 +277,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -299,12 +306,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -507,19 +508,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -536,7 +524,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -651,19 +641,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -680,7 +657,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -801,19 +780,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 1
                 },
@@ -827,7 +793,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "4 gp"
+                    "value": {
+                        "gp": 4
+                    }
                 },
                 "quantity": 4,
                 "range": {
@@ -935,19 +903,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -961,7 +916,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 20,
                 "range": {
@@ -1209,7 +1167,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> The dero stalker is not @Compendium[pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> A creature targets the dero with an attack and the dero can see the attacker.</p>\n</div>\n<p><strong>Effect</strong> The dero dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Requirements</strong> The dero stalker is not @Compendium[pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> A creature targets the dero with an attack and the dero can see the attacker.</p>\n<p><strong>Effect</strong> The dero dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1319,12 +1277,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

@@ -9,9 +9,9 @@
     </strong>
 </a>
 <div class="hover-content carry-hover-content" id="inventory-{{item._id}}-carryType" data-item-id="{{item._id}}">
-    <!-- {{item.usage.type}} / {{item.usage.where}} / {{item.usage.hands}} / {{item.usage.value}} -->
+    <!-- {{item.data.usage.type}} / {{item.data.usage.where}} / {{item.data.usage.hands}} / {{item.data.usage.value}} -->
     <ul>
-        {{#if (eq item.usage.type "held")}}
+        {{#if (eq item.data.usage.type "held")}}
             <li>
                 <a class="item-control item-location-option{{#if (and (eq item.data.equipped.carryType "held") (eq item.data.equipped.handsHeld 1))}} selected{{/if}}"
                     data-carry-type="held"
@@ -27,15 +27,15 @@
             <i class="fas fa-hand-rock"></i>{{localize "PF2E.CarryType.held2"}}
         </a>
     </li>
-    {{#if (and (eq item.usage.type "worn") item.usage.where)}}
+    {{#if (and (eq item.data.usage.type "worn") item.data.usage.where)}}
         <li>
             <a class="item-control item-location-option{{#if item.data.equipped.inSlot}} selected{{/if}}" data-carry-type="worn" data-in-slot="true">
-                <i class="fas fa-tshirt"></i>{{localize "PF2E.Item.Physical.Usage.WornParenthetical" where=(localize (concat "PF2E.Item.Physical.Usage.WornSlot." item.usage.where))}}
+                <i class="fas fa-tshirt"></i>{{localize "PF2E.Item.Physical.Usage.WornParenthetical" where=(localize (concat "PF2E.Item.Physical.Usage.WornSlot." item.data.usage.where))}}
             </a>
         </li>
     {{/if}}
     <li>
-        <a class="item-control item-location-option{{#if (and (eq item.data.equipped.carryType "worn") (or (not item.usage.where) (eq item.data.equipped.inSlot false)))}} selected{{/if}}"
+        <a class="item-control item-location-option{{#if (and (eq item.data.equipped.carryType "worn") (or (not item.data.usage.where) (eq item.data.equipped.inSlot false)))}} selected{{/if}}"
             data-carry-type="worn"
             data-in-slot="false"><i class="fas fa-tshirt"></i>{{localize "PF2E.CarryType.worn"}}</a>
     </li>

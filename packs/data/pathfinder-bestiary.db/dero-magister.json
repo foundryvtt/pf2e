@@ -609,6 +609,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
@@ -632,12 +639,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1067,6 +1068,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -1090,12 +1098,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1410,6 +1412,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1432,12 +1441,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1648,6 +1651,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1670,12 +1680,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -2106,6 +2110,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2129,12 +2140,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -2472,6 +2477,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4",
+                        "1": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2495,13 +2508,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d4",
-                        "1": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -2597,6 +2603,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2620,12 +2633,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10+4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -2716,19 +2723,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2745,7 +2739,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3055,7 +3051,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The magister focuses their gaze on a creature they can see within 30 feet. The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round and must succeed at a @Check[type:will|dc:24] saving throw or be @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The magister focuses their gaze on a creature they can see within 30 feet. The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round and must succeed at a @Check[type:will|dc:24] saving throw or be @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""

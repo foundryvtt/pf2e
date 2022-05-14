@@ -2,8 +2,8 @@
     <label>{{localize "PF2E.Rarity"}}</label>
     <select name="data.traits.rarity" data-dtype="String">
         {{#select data.traits.rarity}}
-            {{#each rarities}}
-                <option value="{{@key}}">{{localize this.label}}</option>
+            {{#each rarities as |rarity slug|}}
+                <option value="{{slug}}">{{rarity.label}}</option>
             {{/each}}
         {{/select}}
     </select>
@@ -193,7 +193,7 @@
     <ul class="abc-traits-list">
         {{#each trainedSkills}}
             {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
+                <span class="tag-legacy {{@key}}">{{this.label}}</span>
             {{/if}}
         {{/each}}
     </ul>
@@ -215,7 +215,7 @@
     <ul class="abc-traits-list">
         {{#each ancestryFeatLevels}}
             {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
+                <span class="tag-legacy {{@key}}">{{this.label}}</span>
             {{/if}}
         {{/each}}
     </ul>
@@ -229,9 +229,7 @@
 
     <ul class="abc-traits-list">
         {{#each classFeatLevels}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
-            {{/if}}
+            <span class="tag-legacy {{@key}}">{{this.label}}</span>
         {{/each}}
     </ul>
 </div>
@@ -244,9 +242,7 @@
 
     <ul class="abc-traits-list">
         {{#each generalFeatLevels}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
-            {{/if}}
+            <span class="tag-legacy {{@key}}">{{this.label}}</span>
         {{/each}}
     </ul>
 </div>
@@ -259,9 +255,7 @@
 
     <ul class="abc-traits-list">
         {{#each skillFeatLevels}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
-            {{/if}}
+            <span class="tag-legacy {{@key}}">{{this.label}}</span>
         {{/each}}
     </ul>
 </div>
@@ -274,9 +268,7 @@
 
     <ul class="abc-traits-list">
         {{#each skillIncreaseLevels}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
-            {{/if}}
+            <span class="tag-legacy {{@key}}">{{this.label}}</span>
         {{/each}}
     </ul>
 </div>
@@ -307,9 +299,7 @@
 {{~/inline~}}
 
 <div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
-    <label for="data.traits">
-        {{localize "PF2E.ClassFeatures"}}
-    </label>
+    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
     {{#> abcItems}}{{/abcItems}}
     {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
 </div>

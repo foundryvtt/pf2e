@@ -30,7 +30,7 @@
     <footer class="card-footer">
         {{#if item.isIdentified}}
             <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
-            <span>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price}}</span>
+            <span>{{localize "PF2E.Item.Physical.PriceLabel" price=(coinLabel item.price)}}</span>
         {{/if}}
     </footer>
 </div>

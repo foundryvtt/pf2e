@@ -101,6 +101,25 @@
         "AccessoryPropertyRuneSoftLanding": "Soft-Landing",
         "AccessoryPropertyRuneSpellBastion": "Spell-Bastion",
         "AccessoryPropertyRuneWindCatcher": "Wind-Catcher",
+        "Action": {
+            "RestForTheNight": {
+                "Label": "Rest for the Night",
+                "Prompt": "Rest for the night?",
+                "Message": {
+                    "Awakens": "{actor} awakens well-rested.",
+                    "ConditionReduced": "{condition} reduced by 1.",
+                    "ConditionRemoved": "No longer {condition}.",
+                    "FocusPoints": "Focus points restored.",
+                    "HitPoints": "{hitPoints} hit points restored.",
+                    "InfusedReagents": "Infused reagents restored.",
+                    "Resolve": "Resolve restored.",
+                    "SpellSlots": "All spell slots restored.",
+                    "StaminaPoints": "Stamina points restored.",
+                    "TemporaryItems": "Temporary items removed.",
+                    "WandsCharges": "Wands recharged."
+                }
+            }
+        },
         "ActionActionTypeLabel": "Action Type",
         "ActionActionsLabel": "Actions",
         "ActionBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
@@ -212,6 +231,14 @@
                     "ReceiveItem": "{actorName} receives {quantity}x {itemName}.",
                     "LoseMaterials": "{actorName} loses {cost} of materials."
                 }
+            },
+            "CommandAnAnimal": {
+                "Notes": {
+                    "success": "<strong>Success</strong> The animal does as you command on its next turn.",
+                    "failure": "<strong>Failure</strong> The animal is hesitant or resistant, and it does nothing.",
+                    "criticalFailure": "<strong>Critical Failure</strong> The animal misbehaves or misunderstands, and it takes some other action determined by the GM."
+                },
+                "Title": "Command an Animal"
             },
             "CreateADiversion": {
                 "DistractingWords": "Create a Diversion - Distracting Words",
@@ -423,6 +450,16 @@
                 },
                 "Title": "Seek"
             },
+            "SenseDirection": {
+                "Modifier": {
+                    "NoCompass": "No Compass"
+                },
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You get an excellent sense of where you are. If you are in an environment with cardinal directions, you know them exactly.",
+                    "success": "<strong>Success</strong> You gain enough orientation to avoid becoming hopelessly lost. If you are in an environment with cardinal directions, you have a sense of those directions."
+                },
+                "Title": "Sense Direction"
+            },
             "SenseMotive": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You determine the creature's true intentions and get a solid idea of any mental magic affecting it.",
@@ -474,6 +511,14 @@
                     "criticalFailure": "<strong>Critical Failure</strong> You make no progress, and if you're holding your breath, you lose 1 round of air."
                 },
                 "Title": "Swim"
+            },
+            "Track": {
+                "Notes": {
+                    "success": "<strong>Success</strong> You find the trail or continue to follow the one you're already following.",
+                    "failure": "<strong>Failure</strong> You lose the trail but can try again after a 1-hour delay.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You lose the trail and can't try again for 24 hours."
+                },
+                "Title": "Track"
             },
             "TreatPoison": {
                 "Notes": {
@@ -553,12 +598,37 @@
                     "Label": "Rest for the Night"
                 }
             },
+            "Creature": {
+                "Alliance": {
+                    "Opposition": "Opposition",
+                    "Party": "Party",
+                    "Neutral": "Neutral"
+                },
+                "SpellPreparation": {
+                    "Title": "{actor}: Spell Preparation",
+                    "Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet."
+                }
+            },
             "Dead": "Dead",
             "Hazard": {
                 "Level": "Hazard {level}"
             },
             "NPC": {
-                "IsLootableOnDeathLabel": "Make this NPC lootable on death"
+                "Configure": {
+                    "Title": "Configure NPC",
+                    "Alliance": {
+                        "Label": "Alliance",
+                        "Hint": "An NPC can be in opposition to the party, allied with it, or neutral. This impacts some mechanics during an encounter, such as flanking."
+                    },
+                    "Lootable": {
+                        "Label": "Lootable?",
+                        "Hint": "Set whether this NPC becomes lootable by players upon its demise. The global default can be configured in <a>Automation Settings</a>.",
+                        "DefaultLootable": "Global Default (Lootable)",
+                        "DefaultNotLootable": "Global Default (Not Lootable)",
+                        "Lootable": "Lootable",
+                        "NotLootable": "Not Lootable"
+                    }
+                }
             },
             "Plural": "Actors"
         },
@@ -603,6 +673,7 @@
         "AreaLabel": "Area",
         "AreaSize10": "10 Foot",
         "AreaSize100": "100 Foot",
+        "AreaSize1000": "1000 Foot",
         "AreaSize120": "120 Foot",
         "AreaSize15": "15 Foot",
         "AreaSize20": "20 Foot",
@@ -611,11 +682,13 @@
         "AreaSize45": "45 Foot",
         "AreaSize5": "5 Foot",
         "AreaSize50": "50 Foot",
+        "AreaSize500": "500 Foot",
         "AreaSize60": "60 Foot",
         "AreaSize75": "75 Foot",
         "AreaSize80": "80 Foot",
         "AreaSize90": "90 Foot",
         "AreaSize1Mile": "1 Mile",
+        "AreaSizeQuarterMile": "Quarter Mile",
         "AreaTypeBurst": "Burst",
         "AreaTypeCone": "Cone",
         "AreaTypeEmanation": "Emanation",
@@ -820,7 +893,7 @@
                 "Label": {
                     "AdjustedTarget": "<target>Target: {target}</target> <dc>({dcType} <preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>",
                     "NoChangeTarget": "<target>Target: {target}</target> <dc>({dcType} <adjusted>{adjusted}</adjusted>)</dc>",
-                    "NoTarget": "{dcType} {dc}",
+                    "NoTarget": "<dc>{dcType} {dc}</dc>",
                     "WithTarget": "<target>Target: {target}</target> <dc>({dcType} {dc})</dc>"
                 },
                 "Specific": {
@@ -1196,10 +1269,13 @@
             "CantMoveItemSource": "You are not allowed to move items from this character.",
             "MinimumProfLevelSetByFeatures": "The selected proficiency is below proficiency set by features.",
             "NoTokenSelected": "Select at least one token.",
+            "NoPCTokenSelected": "Select at least one token associated with a PC.",
             "NoUpdatePermission": "You lack permission to update this actor.",
             "NotEnoughAmmo": "You don't have enough ammo to make this strike.",
+            "NotEnoughCoins": "Insufficient Coins",
             "SubV9Module": "{module} does not support Foundry V9 and may introduce stability issues to your game.",
-            "WeaponQuantityZero": "You have no more of these weapons equipped."
+            "WeaponQuantityZero": "You have no more of these weapons equipped.",
+            "RuleElementSyntax": "Syntax error in rule element definition: {message}"
         },
         "Ethnicity": "Ethnicity",
         "ExpendSpellTitle": "Expend Spell",
@@ -1765,6 +1841,10 @@
                     "Label": "Specific Magic Weapon",
                     "Hint": "Marking this weapon as a <i>specific magic weapon</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from a precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades."
                 }
+            },
+            "Rules": {
+                "Apply": "Apply",
+                "Close": "Close"
             }
         },
         "ItemBonus0": "0",
@@ -1785,7 +1865,9 @@
         "ItemNewRuleElement": "New Rule Element",
         "ItemNewSkillVariant": "New Skill Variant",
         "ItemRemoveRuleElement": "Remove Rule Element",
+        "ItemSourceIDLabel": "Source ID:",
         "ItemTitle": "Item",
+        "ItemUUIDLabel": "UUID:",
         "ItemsLabel": "Items",
         "JournalEntry": {
             "Plural": "Journal Entries",
@@ -1794,6 +1876,12 @@
         },
         "KeyAbility": "Key Ability Score",
         "KeyAbilityLabel": "Key Ability",
+        "Keybinding": {
+            "CycleTokenStack": {
+                "Label": "Cycle Token Stack",
+                "Hint": "Cycle the Z indices of a mouse-hovered stack of tokens, pushing the top to the bottom."
+            }
+        },
         "KitItems": "Items",
         "KitWorldItem": "This item is not found in a Compendium and will not work in other worlds",
         "LackCastConsumableCapability": "You lack the proficiency to use {name} and do not have the Trick Magic Item Feat",
@@ -2131,6 +2219,8 @@
         "PreciousMaterialNoqualDescription": "Light and strong, noqual also demonstrates a powerful resistance to magic. A side effect of this resistance is that making magical weapons out of noqual requires complex and expensive alchemical treatments. Kevoth‑Kul, the Black Sovereign of Numeria, has developed an alloy of noqual and cold iron known as sovereign steel to help mitigate this property. The metal's crystalline appearance might suggest that it's fragile, but the pale‑green material can be worked similarly to iron. Objects made of noqual have a +4 circumstance bonus on saves against magic that the item attempts and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).",
         "PreciousMaterialOrichalcum": "Orichalcum",
         "PreciousMaterialOrichalcumDescription": "The most rare and valuable skymetal, orichalcum is coveted for its incredible time-related magical properties. This dull, coppery metal isn't as physically sturdy as adamantine, but orichalcum's time-bending properties protect it, granting it greater Hardness and Hit Points. If an orichalcum item takes damage but isn't destroyed, it repairs itself completely 24 hours later.",
+        "PreciousMaterialPeachwood": "Peachwood",
+        "PreciousMaterialPeachwoodDescription": "Peachwood weapons have a particularly auburn tinge to them when under direct sunlight. Peachwood is treated as darkwood for any undead creatures' resistances or weaknesses related to darkwood (allowing a peachwood weapon to bypass a jiang-shi's resistance, for example). In addition, peachwood weapons bypass a small portion of the resistances of any undead creature. Strikes with a peachwood weapon treat an undead's resistances against physical damage as 2 lower for standard-grade peachwood, and 4 lower for high-grade.",
         "PreciousMaterialSiccatite": "Siccatite",
         "PreciousMaterialSiccatiteDescription": "In its raw state, this silvery ore is either scalding hot or freezing cold. Metallurgists disagree over whether siccatite is two related substances or one substance that determines its temperature output via some unknown process. Whatever the reason, the extreme temperature of the material means it must be handled carefully. Hot siccatite can easily ignite flammables such as paper and dry brush, and cold siccatite left in moist areas quickly surrounds itself with a thick layer of ice. A creature that comes into physical contact with a significant amount of siccatite takes 1 energy Damage for each round of continued contact (either fire or cold damage, for hot and cold siccatite respectively).",
         "PreciousMaterialSilver": "Silver",
@@ -2756,10 +2846,12 @@
         "SpellDurationLabel": "Duration",
         "SpellFocusLabel": "Focus",
         "SpellFlexibleLabel": "Flexible",
+        "SpellFlexibleAvailable": "Flexible: {value} / {max}",
         "SpellCollectionAdd": "Add to Spell Collection",
         "SpellCollectionRemove": "Remove from Spell Collection",
         "SpellLabel": "Spell",
         "SpellLabelPlural": "Spells",
+        "SpellLevel": "{level} Level",
         "SpellLevel1": "1st Level",
         "SpellLevel10": "10th Level",
         "SpellLevel2": "2nd Level",
@@ -2782,7 +2874,12 @@
             "Header": "Scaling (Interval)",
             "Label": "Interval",
             "Selection": "Heightened (+{interval})",
-            "Add": "Add Interval Scaling"
+            "Add": "Add Heightening (Interval)"
+        },
+        "SpellScalingOverlay": {
+            "Label": "Heightened Level",
+            "Selection": "Heightened ({level})",
+            "Add": "Add Heightening (Fixed)"
         },
         "SpellScalingLabel": "Scaling",
         "SpellSchoolLabel": "School",
@@ -2893,9 +2990,8 @@
         },
         "TogglesLabel": "Toggles",
         "ToggleSignatureSpellTitle": "Toggle Signature Spell",
-        "ToggleSpellVisibilityLevelTitle": "Toggle a chapter of your Spellbook",
-        "ToggleSpellVisibilityTitle": "Toggle your Spellbook",
-        "ToggleSlotlessSpellLevelsTitle": "Toggle visibility of spell levels without slots in your Spellbook",
+        "ToggleSpellVisibilityTitle": "Spell Preparation",
+        "ToggleSlotlessSpellLevelsTitle": "Toggle visibility of spell levels without slots",
         "ToggleUnreadyStrikes": "Toggle unequipped weapons",
         "ToggleWithName": "Toggle: {property}",
         "Token": {
@@ -3011,6 +3107,7 @@
         "TraitChaotic": "Chaotic",
         "TraitCharauKa": "Charau-ka",
         "TraitCharm": "Charm",
+        "TraitCircus": "Circus",
         "TraitCleric": "Cleric",
         "TraitClimbing": "Climbing",
         "TraitClockwork": "Clockwork",
@@ -3248,6 +3345,7 @@
         "TraitDescriptionOread": "A type of geniekin descended from a being from the Plane of Earth.",
         "TraitDescriptionOrc": "A creature with this trait is a member of the orc ancestry. A weapon with this trait is a weapon which orcs craft and use.",
         "TraitDescriptionParry": "This weapon can be used defensively to block attacks. While wielding this weapon, if your proficiency with it is trained or better, you can spend an Interact action to position your weapon defensively, gaining a +1 circumstance bonus to AC until the start of your next turn.",
+        "TraitDescriptionPeachwood": "Peachwood weapons have a particularly auburn tinge to them when under direct sunlight. Peachwood is treated as darkwood for any undead creatures' resistances or weaknesses related to darkwood (allowing a peachwood weapon to bypass a jiang-shi's resistance, for example). In addition, peachwood weapons bypass a small portion of the resistances of any undead creature. Strikes with a peachwood weapon treat an undead's resistances against physical damage as 2 lower for standard-grade peachwood, and 4 lower for high-grade.",
         "TraitDescriptionPlant": "Vegetable creatures have the plant trait. They are distinct from normal plants. Magical effects with this trait manipulate or conjure plants or plant matter in some way. Those that manipulate plants have no effect in an area with no plants.",
         "TraitDescriptionPoison": "An effect with this trait delivers a poison or deals poison damage. An item with this trait is poisonous and might cause an affliction.",
         "TraitDescriptionPolymorph": "These effects transform the target into a new form. A target can't be under the effect of more than one polymorph effect at a time. If it comes under the effect of a second polymorph effect, the second polymorph effect attempts to counteract the first. If it succeeds, it takes effect, and if it fails, the spell has no effect on that target. Any Strikes specifically granted by a polymorph effect are magical. Unless otherwise stated, polymorph spells don't allow the target to take on the appearance of a specific individual creature, but rather just a generic creature of a general type or ancestry. If you take on a battle form with a polymorph spell, the special statistics can be adjusted only by circumstance bonuses, status bonuses, and penalties. Unless otherwise noted, the battle form prevents you from casting spells, speaking, and using most manipulate actions that require hands. (If there's doubt about whether you can use an action, the GM decides.) Your gear is absorbed into you; the constant abilities of your gear still function, but you can't activate any items.",
@@ -3867,7 +3965,6 @@
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
-        "UnpreparedSpellsLabel": "{label}: Preparation Shortlist",
         "UpdateActorLabel": "Update Actor",
         "UpdateLabelUniversal": "Update",
         "UserSettings": {
@@ -4948,12 +5045,12 @@
             "Abilities": {
                 "Glossary": {
                     "AllAroundVision": "<p>This monster can see in all directions simultaneously, and therefore can't be flanked.</p>",
-                    "AquaticAmbush": "<p data-visibility=\"gm\"><strong>Requirements</strong> The monster is hiding in water and a creature that hasn't detected it is within the listed number of feet.</p>\n<p><strong>Effect</strong> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike.</p>",
-                    "AttackOfOpportunity": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
+                    "AquaticAmbush": "<p><strong>Requirements</strong> The monster is hiding in water and a creature that hasn't detected it is within the listed number of feet.</p>\n<p><strong>Effect</strong> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike.</p>",
+                    "AttackOfOpportunity": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
                     "AtWillSpells": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>",
                     "Aura": "<p>A monster's aura automatically affects everything within a specified emanation around that monster. The monster doesn't need to spend actions on the aura; rather, the aura's effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.</p>\n<p>If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.</p>\n<p>The GM might determine that a monster's aura doesn't affect its own allies. For example, a creature might be immune to a monster's frightful presence if they have been around each other for a long time.</p>",
-                    "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> A creature @Compendium[pf2e.actionspf2e.Mount]{Mounts} or uses the @Compendium[pf2e.actionspf2e.Command an Animal]{Command an Animal} action while riding the monster.</p>\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @Compendium[pf2e.conditionitems.Prone]{Prone}. If the save is a critical failure, the triggering creature also takes [[/roll {1d6}[bludgeoning]]]{1d6 bludgeoning damage} in addition to the normal damage for the fall.</p>",
-                    "CatchRock": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> The monster must have a free hand but can @Compendium[pf2e.actionspf2e.Release]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n</div>\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>",
+                    "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @Compendium[pf2e.actionspf2e.Mount]{Mounts} or uses the @Compendium[pf2e.actionspf2e.Command an Animal]{Command an Animal} action while riding the monster.</p>\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @Compendium[pf2e.conditionitems.Prone]{Prone}. If the save is a critical failure, the triggering creature also takes [[/roll {1d6}[bludgeoning]]]{1d6 bludgeoning damage} in addition to the normal damage for the fall.</p>",
+                    "CatchRock": "<p><strong>Requirements</strong> The monster must have a free hand but can @Compendium[pf2e.actionspf2e.Release]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>",
                     "ChangeShape": "<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @Compendium[pf2e.actionspf2e.Impersonate]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>",
                     "ConstantSpells": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>",
                     "Constrict": "<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>",
@@ -4962,28 +5059,28 @@
                     "Disease": "<p>When a creature is exposed to a monster's disease, it attempts a Fortitude save or succumbs to the disease. The level of a disease is the level of the monster inflicting the disease. The disease follows the rules for afflictions.</p>",
                     "Engulf": "<p>The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster's size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster's path) or pushed in front of the monster to the end of the monster's movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.</p>\n<p>A creature that fails its save is pulled into the monster's body. It is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it's engulfed. An engulfed creature can get free by @Compendium[pf2e.actionspf2e.Escape]{Escaping} against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, all creatures it has engulfed are automatically released as the monster's form loses cohesion.</p>",
                     "FastHealing": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>",
-                    "Ferocity": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>",
+                    "Ferocity": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>",
                     "FormUp": "<p>The troop chooses one of the squares it currently occupies and redistributes its squares to any configuration in which all squares are contiguous and within 15 feet of the chosen square. The troop can't share its space with other creatures.</p>",
-                    "FrightfulPresence": "<p>A creature that first enters the area must attempt a Will save.</p>\n<div data-visibility=\"gm\">\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>\n</div>",
-                    "Grab": "<p data-visibility=\"gm\"><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>",
+                    "FrightfulPresence": "<p>A creature that first enters the area must attempt a Will save.</p>\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>",
+                    "Grab": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>",
                     "GreaterConstrict": "<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, and a creature that succeeds is then temporarily immune to falling unconscious from Greater Constrict for 1 minute.</p>",
                     "GreaterDarkvision": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level <em>@Compendium[pf2e.spells-srd.Darkness]{Darkness}</em> spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>",
                     "ImprovedGrab": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>",
                     "ImprovedKnockdown": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown} as a free action triggered by a hit with its initial attack.</p>",
                     "ImprovedPush": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Push]{Push} as a free action triggered by a hit with its initial attack.</p>",
-                    "Knockdown": "<p data-visibility=\"gm\"><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>",
+                    "Knockdown": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>",
                     "Lifesense": "<p>Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors.</p>",
                     "LightBlindness": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>",
                     "LowLightVision": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>",
                     "NegativeHealing": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>",
                     "Poison": "<p>When a creature is exposed to a monster's poison, it attempts a Fortitude save to avoid becoming poisoned. The level of a poison is the level of the monster inflicting the poison. The poison follows the rules for afflictions.</p>",
-                    "PowerAttack": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The monster makes a melee Strike. This counts as two attacks when calculating the monster's multiple attack penalty. If this Strike hits, the monster deals an extra die of weapon damage.</p>",
-                    "Push": "<p data-visibility=\"gm\"><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>",
+                    "PowerAttack": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The monster makes a melee Strike. This counts as two attacks when calculating the monster's multiple attack penalty. If this Strike hits, the monster deals an extra die of weapon damage.</p>",
+                    "Push": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>",
                     "Regeneration": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>",
-                    "Rend": "<p>A Rend entry lists a Strike the monster has.</p>\n<p data-visibility=\"gm\"><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>",
-                    "RetributiveStrike": "<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>",
+                    "Rend": "<p>A Rend entry lists a Strike the monster has.</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>",
+                    "RetributiveStrike": "<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>",
                     "Scent": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>",
-                    "ShieldBlock": "<p data-visibility=\"gm\"><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>",
+                    "ShieldBlock": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>",
                     "SneakAttack": "<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>",
                     "SwallowWhole": "<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @Compendium[pf2e.actionspf2e.Escape]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>",
                     "SwarmMind": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>",

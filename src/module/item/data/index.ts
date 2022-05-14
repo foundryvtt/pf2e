@@ -22,9 +22,24 @@ import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemTraits, PhysicalItemType } from "../physical/data";
 import { ItemTraits } from "./base";
-import { NonPhysicalItemType } from "./non-physical";
 
 export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
+
+export type NonPhysicalItemType =
+    | "action"
+    | "ancestry"
+    | "background"
+    | "class"
+    | "condition"
+    | "deity"
+    | "effect"
+    | "feat"
+    | "heritage"
+    | "kit"
+    | "lore"
+    | "melee"
+    | "spell"
+    | "spellcastingEntry";
 
 export type ItemType = NonPhysicalItemType | PhysicalItemType;
 

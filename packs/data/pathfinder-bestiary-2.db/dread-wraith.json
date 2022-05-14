@@ -30,7 +30,7 @@
                 "value": "+1 status to all saves vs. positive"
             },
             "hp": {
-                "details": "(negative healing)",
+                "details": "negative healing",
                 "max": 130,
                 "temp": 0,
                 "value": 130
@@ -100,9 +100,8 @@
             "dr": [
                 {
                     "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "label": "All",
                     "type": "all",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -182,7 +181,7 @@
             "type": "melee"
         },
         {
-            "_id": "7KzbzFV96YELFVZA",
+            "_id": "yn2c3QvZMZCfu55r",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -193,6 +192,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
@@ -227,7 +227,7 @@
             "type": "action"
         },
         {
-            "_id": "DnurghQjCJRhyW00",
+            "_id": "u12odfdEyxk5GPY5",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -238,6 +238,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
@@ -267,12 +268,12 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense",
+            "name": "Lifesense 60 feet",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "KxJ1GZ31oVRmv1XD",
+            "_id": "yH19s0CEMs71KZgv",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -283,6 +284,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": ""
                 },
@@ -298,10 +300,11 @@
                             ]
                         },
                         "selector": "saving-throw",
+                        "type": "status",
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
                     "value": ""
                 },
@@ -317,14 +320,18 @@
                     "value": ""
                 }
             },
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs Positive",
+            "name": "+1 Status to All Saves vs Positive",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "qwdqondeCGj9321E",
+            "_id": "UjEJBgE9VWnbTMRQ",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -335,6 +342,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
@@ -376,7 +384,7 @@
             "type": "action"
         },
         {
-            "_id": "ZKbT5kDUoOwBrcCA",
+            "_id": "flCrHBNNesdvv5af",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -387,6 +395,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
@@ -432,8 +441,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>10 feet.</p>\n<p>A creature entering the aura must succeed at a @Check[type:fortitude|dc:26] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. It recovers after it has been out of the aura for 1 minute. This drained condition value is cumulative with the drained value caused by drain life, but not with multiple draining presence auras.</p>\n<p>A creature that succeeds at its save is temporarily immune to draining presence for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering the aura must succeed at a @Check[type:fortitude|dc:26] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. It recovers after it has been out of the aura for 1 minute. This drained condition value is cumulative with the drained value caused by drain life, but not with multiple draining presence auras.</p>\n<p>A creature that succeeds at its save is temporarily immune to draining presence for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -476,6 +486,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>A dread wraith caught in sunlight is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}.</p>"
                 },
@@ -517,8 +528,9 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The dread wraith extends its hand toward another wraith creature within 100 feet. The target wraith dissolves and streaks toward the dread wraith in a straight line, dealing [[/r {6d10}[negative]]]{6d10 negative damage} to each creature along the line (@Check[type:fortitude|dc:28|basic:true] save).</p>\n<p>The dread wraith absorbs the essence of the target wraith, becoming @Compendium[pf2e.conditionitems.Quickened]{Quickened} and gaining a +10-foot status bonus to its fly Speed for a number of rounds equal to the level of the absorbed wraith. It can use its extra action only to Fly or Strike.</p>\n<p>An unwilling target can attempt a @Check[type:will|dc:28|traits:damaging-effect] save to resist being absorbed.</p>"
+                    "value": "<p>The dread wraith extends its hand toward another wraith creature within 100 feet. The target wraith dissolves and streaks toward the dread wraith in a straight line, dealing [[/r {6d10}[negative]]]{6d10 negative damage} to each creature along the line (@Check[type:fortitude|dc:28|basic:true] save).</p>\n<p>The dread wraith absorbs the essence of the target wraith, becoming @Compendium[pf2e.conditionitems.Quickened]{Quickened} and gaining a +10-foot status bonus to its fly Speed for a number of rounds equal to the level of the absorbed wraith. It can use its extra action only to Fly or Strike.</p>\n<p>An unwilling target can attempt a @Check[type:will|dc:28] save to resist being absorbed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -560,8 +572,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>When the dread wraith damages a living creature with its spectral hand Strike, the wraith gains 10 temporary Hit Points and the target must succeed at a @Check[type:fortitude|dc:28] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt by the wraith increases the drained condition value by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When the dread wraith damages a living creature with its spectral hand Strike, the wraith gains [[/r 10 #Temporary Hit Points]]{10 temporary Hit Points} and the target must succeed at a @Check[type:fortitude|dc:28] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt by the wraith increases the drained condition value by 1 on a failed save, to a maximum of drained 4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -604,8 +617,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>A living humanoid slain by a wraith's spectral hand Strike rises as a wraith spawn after [[/br 1d4 #rounds]]{1d4 rounds}. This wraith spawn is under the command of the dread wraith that killed it. It doesn't have drain life or wraith spawn. If the creator of the wraith spawn dies, the wraith spawn becomes a full-fledged, autonomous wraith; it regains its free will and gains drain life and wraith spawn.</p>"
+                    "value": "<p>A living humanoid slain by a wraith's spectral hand Strike rises as a @Compendium[pf2e.pathfinder-bestiary.Wraith]{Wraith Spawn} after [[/br 1d4 #Wraith Spawn Transformation]]{1d4 rounds}. This wraith spawn is under the command of the dread wraith that killed it. It doesn't have drain life or wraith spawn. If the creator of the wraith spawn dies, the wraith spawn becomes a full-fledged, autonomous wraith; it regains its free will and gains drain life and wraith spawn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -620,8 +634,7 @@
                     "rarity": "common",
                     "value": [
                         "divine",
-                        "necromancy",
-                        "humanoid"
+                        "necromancy"
                     ]
                 },
                 "trigger": {

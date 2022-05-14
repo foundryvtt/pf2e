@@ -1,19 +1,5 @@
 <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
     {{> "systems/pf2e/templates/actors/partials/coinage.html" owner=@root.owner}}
-    <div class="wealth">
-        <div class="wealth-label inventory-header">
-            <h3 class="item-name">
-                {{localize "PF2E.TotalCoinage"}}
-                <span>{{totalCoinageGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
-                {{#if @root.owner}}
-                    <span class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
-                        <button type="button"><i class="fas fa-coins"></i></button>
-                    </span>
-                {{/if}}
-            </h3>
-            <h3 class="item-name">{{localize "PF2E.TotalWealth"}} <span>{{totalWealthGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span></h3>
-        </div>
-    </div>
 
     <ol class="inventory-list directory-list inventory-pane">
         {{#each actor.inventory as |section sid|}}

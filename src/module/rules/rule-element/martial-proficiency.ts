@@ -26,7 +26,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
             !(
                 typeof data.slug === "string" &&
                 data.definition instanceof Object &&
-                new PredicatePF2e(data.definition).isValid &&
+                PredicatePF2e.validate(data.definition) &&
                 ((typeof data.sameAs === "string" && data.sameAs in CONFIG.PF2E.weaponCategories) ||
                     !("sameAs" in data)) &&
                 ((typeof data.maxRank === "string" && validRanks.includes(data.maxRank)) || !("maxRank" in data))
@@ -38,30 +38,16 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
 
     override onApplyActiveEffects(): void {
         this.validateData();
-        if (this.ignored) return;
-
-        if (this.data.predicate && !this.data.predicate.test(this.actor.getRollOptions())) {
-            return;
-        }
+        if (!this.test()) return;
 
         this.actor.data.data.martial[this.data.slug] = this.createValue();
     }
 
     /** Set this martial proficiency as an AELike value  */
     private createValue(): MartialProficiency {
-        // Run the definition through resolveInjectedProperties
-        for (const quantifier of ["all", "any", "not"] as const) {
-            const statements = (this.data.definition[quantifier] ??= []);
-            for (const statement of statements) {
-                if (typeof statement === "string") {
-                    statements[statements.indexOf(statement)] = this.resolveInjectedProperties(statement);
-                }
-            }
-        }
-
         const rank = Math.clamped(Number(this.resolveValue()), 1, 4) as ZeroToFour;
         const proficiency: MartialProficiency = {
-            definition: new PredicatePF2e(this.data.definition),
+            definition: new PredicatePF2e(this.resolveInjectedProperties(this.data.definition)),
             immutable: this.data.immutable ?? true,
             label: this.label,
             rank,

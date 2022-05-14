@@ -8,10 +8,6 @@ import { ActorPF2e, HitPointsSummary } from "../base";
 import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
-    static override get schema(): typeof VehicleData {
-        return VehicleData;
-    }
-
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
     override get dimensions(): ActorDimensions {
         return {
@@ -32,7 +28,9 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareBaseData();
 
         // Vehicles never have negative healing
-        this.data.data.attributes.hp.negativeHealing = false;
+        const { attributes, details } = this.data.data;
+        attributes.hp.negativeHealing = false;
+        details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
         const { size } = this.data.data.traits;

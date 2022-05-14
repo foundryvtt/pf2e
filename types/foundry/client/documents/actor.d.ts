@@ -75,7 +75,7 @@ declare global {
         ): NonNullable<TParent["object"]>[] | NonNullable<TParent["object"]>[];
 
         /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
-        getRollData(): object;
+        getRollData(): Record<string, unknown>;
 
         protected override _getSheetClass(): ConstructorOf<NonNullable<this["_sheet"]>>;
 

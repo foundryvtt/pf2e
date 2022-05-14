@@ -29,6 +29,11 @@ import { Migration740MaxTakable } from "@module/migration/migrations/740-fix-max
 import { Migration741RollOptionToggleToItem } from "@module/migration/migrations/741-roll-option-toggle-to-item";
 import { Migration742RMAbilityBoostLevels } from "@module/migration/migrations/742-rm-class-ability-boost-levels";
 import { Migration743FixWeaknessStructure } from "@module/migration/migrations/743-fix-weakness-structure";
+import { Migration744MigrateSpellHeighten } from "@module/migration/migrations/744-migrate-spell-heighten";
+import { Migration745EffectTargetToChoiceSet } from "@module/migration/migrations/745-effect-target-to-choice-set";
+import { Migration746StandardizePricing } from "@module/migration/migrations/746-standardize-pricing";
+import { Migration748BatchConsumablePricing } from "@module/migration/migrations/748-batch-consumable-pricing";
+import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -54,6 +59,11 @@ const migrations: MigrationBase[] = [
     new Migration741RollOptionToggleToItem(),
     new Migration742RMAbilityBoostLevels(),
     new Migration743FixWeaknessStructure(),
+    new Migration744MigrateSpellHeighten(),
+    new Migration745EffectTargetToChoiceSet(),
+    new Migration746StandardizePricing(),
+    new Migration748BatchConsumablePricing(),
+    new Migration749AssuranceREs(),
 ];
 
 global.deepClone = <T>(original: T): T => {

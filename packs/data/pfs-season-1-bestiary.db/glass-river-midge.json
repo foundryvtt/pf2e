@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
                 "mod": 0
@@ -12,7 +12,7 @@
                 "mod": 3
             },
             "int": {
-                "mod": 0
+                "mod": -5
             },
             "str": {
                 "mod": -4
@@ -48,6 +48,7 @@
                         "value": "30"
                     }
                 ],
+                "special": "",
                 "value": "10"
             }
         },
@@ -63,7 +64,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-18: Lodge of the Living God"
             }
         },
         "resources": {},
@@ -113,12 +114,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "2ziw49lpdx46Thvv",
+            "_id": "iw8o2tst9hmuzzlq",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "attach"
                     ]
@@ -153,7 +155,99 @@
             "type": "melee"
         },
         {
-            "_id": "AdZUdErq3lHVAY8S",
+            "_id": "Qbd5qnOSAAf3O8st",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "AchPfxaPVunf8mFD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "bq76jqjayvhmedu4",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -164,8 +258,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>When a Glass River midge hits a target larger than itself, its barbed legs attach it to that creature. This is similar to Grabbing the creature, but the midge moves with that creature rather than holding it in place. The midge is flat-footed while attached. If the midge is killed or pushed away while attached to a creature it has drained blood from, that creature takes [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. Escaping the attach or removing the midge in other ways doesn't cause bleed damage.</p>"
+                    "value": "<p>When a Glass River midge hits a target larger than itself, its barbed legs attach it to that creature. This is similar to Grabbing the creature, but the midge moves with that creature rather than holding it in place. The midge is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} while attached. If the midge is killed or pushed away while attached to a creature it has drained blood from, that creature takes [[/r {1}[persistent,bleed]]]{1} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. @Compendium[pf2e.actionspf2e.Escape]{Escaping} the attach or removing the midge in other ways doesn't cause bleed damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -182,19 +277,16 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Attach",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "3xc6ufArqBkVsCRw",
+            "_id": "kgv7degr3lhh4seo",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -205,8 +297,9 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The Glass River midge is attached to a creature</p>\n<p><strong>Effect</strong> The midge uses its proboscis to drain blood from the creature it's attached to. This deals [[/r {1d4}]]{1d4 damage}, and the midge gains temporary Hit Points equal to the damage dealt. A creature that has its blood drained by a midge is drained 1 until it receives healing (of any kind or amount).</p>"
+                    "value": "<p><strong>Requirements</strong> The Glass River midge is attached to a creature</p><hr /><p><strong>Effect</strong> The midge uses its proboscis to drain blood from the creature it's attached to. This deals [[/r {1d4}]]{1d4 damage}, and the midge gains temporary Hit Points equal to the damage dealt. A creature that has its blood drained by a midge is @Compendium[pf2e.conditionitems.Drained]{Drained 1} until it receives healing (of any kind or amount).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -223,19 +316,16 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Blood Drain",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "AS0J0yNc9PTqJEmN",
+            "_id": "bj89p5g5bjbg5yxr",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -246,8 +336,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The Glass River midge can Hide in natural environments even if it doesn't have cover</p>"
+                    "value": "<p>The Glass River midge can @Compendium[pf2e.actionspf2e.Hide]{Hide} in natural environments even if it doesn't have cover.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -264,19 +355,16 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Camouflage",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "Eezl64pcCQ89rxOD",
+            "_id": "4w837eynx775aobz",
             "data": {
                 "description": {
                     "value": ""
@@ -301,11 +389,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         },
         {
-            "_id": "5BGRflYEuYTx7PvO",
+            "_id": "cic355mija84dx6b",
             "data": {
                 "description": {
                     "value": ""
@@ -330,17 +418,17 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
     "name": "Glass River Midge",
     "token": {
         "disposition": -1,
-        "height": 0.5,
+        "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Glass River Midge",
-        "width": 0.5
+        "name": "Glass River Midges",
+        "width": 1
     },
     "type": "npc"
 }

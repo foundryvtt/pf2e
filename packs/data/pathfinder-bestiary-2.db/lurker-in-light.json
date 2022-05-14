@@ -508,6 +508,13 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
@@ -530,12 +537,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1399,7 +1400,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> The lurker in light uses a move action</p>\n<p><strong>Requirements</strong> The lurker in light is in an area of bright light</p>\n</div>\n<p><strong>Effect</strong> The lurker in light becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible} until it enters an area of dim light or darkness, or until it uses a hostile action.</p>"
+                    "value": "<p><strong>Trigger</strong> The lurker in light uses a move action</p>\n<p><strong>Requirements</strong> The lurker in light is in an area of bright light</p>\n<p><strong>Effect</strong> The lurker in light becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible} until it enters an area of dim light or darkness, or until it uses a hostile action.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1442,7 +1443,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that takes damage from a lurker in light's mote of light must attempt a @Check[type:will|dc:22] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to lurker's glow for 24 hours.</p>\n<p><strong>Failure</strong> The creature is lined in golden light for 1 minute and can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} during this time. If the creature becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}, it is concealed rather than being @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature sheds bright light in a 20-foot emanation for the duration of the effect. In addition, the creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} on its first turn after failing this save.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Lurker's Glow (Critical Failure)]{Effect: Lurker's Glow (Critical Failure)}</p>\n</div>"
+                    "value": "<p>A creature that takes damage from a lurker in light's mote of light must attempt a @Check[type:will|dc:22] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to lurker's glow for 24 hours.</p>\n<p><strong>Failure</strong> The creature is lined in golden light for 1 minute and can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} during this time. If the creature becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}, it is concealed rather than being @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature sheds bright light in a 20-foot emanation for the duration of the effect. In addition, the creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} on its first turn after failing this save.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Lurker's Glow (Critical Failure)]{Effect: Lurker's Glow (Critical Failure)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1487,7 +1488,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The lurker in light has reduced a living creature to 0 Hit Points on this turn or its previous turn and has a <em>@Compendium[pf2e.spells-srd.Summon Fey]{Summon Fey}</em> innate spell available</p>\n<p><strong>Effect</strong> The lurker in light casts <em>summon fey</em> with only a verbal component, using the act of slaughter to replace the normal material and somatic components for the spell. If the fey creature summoned has the same alignment as the lurker in light, the lurker in light can sustain the <em>summon fey</em> spell for up to 1 hour instead of 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The lurker in light has reduced a living creature to 0 Hit Points on this turn or its previous turn and has a <em>@Compendium[pf2e.spells-srd.Summon Fey]{Summon Fey}</em> innate spell available</p>\n<p><strong>Effect</strong> The lurker in light casts <em>summon fey</em> with only a verbal component, using the act of slaughter to replace the normal material and somatic components for the spell. If the fey creature summoned has the same alignment as the lurker in light, the lurker in light can sustain the <em>summon fey</em> spell for up to 1 hour instead of 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1544,12 +1545,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

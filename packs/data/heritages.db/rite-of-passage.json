@@ -8,7 +8,32 @@
         "description": {
             "value": "<p>Your exoskeleton remains connected with the plants that created it. You can ignore difficult terrain and uneven ground caused by undergrowth. In addition, when you use the Acrobatics skill to Balance on narrow surfaces or uneven ground within forests, you aren't flat-footed. When you roll a success attempting one of these Acrobatics checks, you get a critical success instead.</p>"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:balance",
+                        "terrain:forest"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "skill"
+            },
+            {
+                "key": "Note",
+                "predicate": {
+                    "all": [
+                        "action:balance"
+                    ]
+                },
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> @Localize[PF2E.SpecificRule.Conrasu.RiteOfPassage.Note]</p>"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: The Mwangi Expanse"
         },

@@ -317,6 +317,19 @@ function isObject(value: unknown): boolean {
     return typeof value === "object" && value !== null;
 }
 
+/** Create a copy of a record with its insertion order sorted by label */
+function sortLabeledRecord<T extends Record<string, { label: string }>>(record: T): T {
+    return Object.entries(record)
+        .sort((a, b) => a[1].label.localeCompare(b[1].label, game.i18n.lang))
+        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+}
+
+function sortStringRecord<T extends Record<string, string>>(record: T): T {
+    return Object.entries(record)
+        .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
+        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+}
+
 /** JSON.stringify with recursive key sorting */
 function sortObjByKey(value: unknown): unknown {
     return isObject<Record<string | number, unknown>>(value)
@@ -339,6 +352,7 @@ function sortedStringify(obj: object): string {
 export {
     ErrorPF2e,
     Fraction,
+    Optional,
     add,
     addSign,
     applyNTimes,
@@ -352,12 +366,13 @@ export {
     localizeList,
     objectHasKey,
     ordinal,
-    Optional,
     padArray,
     parseHTML,
     setHasElement,
     sluggify,
+    sortLabeledRecord,
     sortObjByKey,
+    sortStringRecord,
     sortedStringify,
     sum,
     tupleHasValue,

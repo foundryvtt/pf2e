@@ -297,43 +297,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const levelString = $(event.currentTarget).attr("data-level") ?? null;
-
+        const level = Number($(event.currentTarget).attr("data-level")) ?? null;
         const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
         const entry = this.actor.spellcasting.get(spellcastingIndex);
         if (!(entry instanceof SpellcastingEntryPF2e)) {
             return;
         }
 
-        const filter: string[] = [];
-
-        if (entry.isRitual || entry.isFocusPool) {
-            filter.push("category-".concat(entry.data.data.prepared.value));
-        }
-
-        if (levelString) {
-            let level = Number(levelString) || null;
-            filter.push(level ? `level-${level}` : "category-cantrip");
-
-            if (level) {
-                if (!entry.isPrepared) {
-                    while (level > 1) {
-                        level -= 1;
-                        filter.push("level-".concat(level.toString()));
-                    }
-                }
-
-                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                    filter.push("category-spell");
-                }
-            }
-        }
-
-        if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.push("traditions-".concat(entry.data.data.tradition.value));
-        }
-
-        game.pf2e.compendiumBrowser.openTab("spell", filter);
+        game.pf2e.compendiumBrowser.openSpellTab(entry, level);
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max
@@ -365,6 +336,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         }
         delete formData["data.attributes.shield.hp.value"];
 
-        await super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

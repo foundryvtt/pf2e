@@ -492,19 +492,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -521,7 +508,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -647,19 +636,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -673,7 +649,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 gp"
+                    "value": {
+                        "gp": 5
+                    }
                 },
                 "quantity": 3,
                 "range": {
@@ -931,7 +909,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the caligni creeper dies, their body combusts in a flash of bright light.</p>\n<p>All creatures in a @Template[type:emanation|distance:10] must succeed at a @Check[type:fortitude|dc:17] save <span data-visibility=\"gm\">or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d6 #rounds]]{1d6 rounds}</span>.</p>\n<div data-visibility=\"gm\">\n<p>Creatures with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness} who successfully save are still blinded for 1 round.</p>\n<p>The creeper's gear and treasure are left in a pile where they died. As this isn't a magical effect, the light has no effect within magical darkness.</p>\n</div>"
+                    "value": "<p>When the caligni creeper dies, their body combusts in a flash of bright light.</p>\n<p>All creatures in a @Template[type:emanation|distance:10] must succeed at a @Check[type:fortitude|dc:17] save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d6 #rounds]]{1d6 rounds}.</p>\n<p>Creatures with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness} who successfully save are still blinded for 1 round.</p>\n<p>The creeper's gear and treasure are left in a pile where they died. As this isn't a magical effect, the light has no effect within magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1032,12 +1010,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

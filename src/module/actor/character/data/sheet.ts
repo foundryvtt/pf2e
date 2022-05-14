@@ -8,9 +8,7 @@ import { CharacterSystemData } from ".";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { CHARACTER_SHEET_TABS } from "./values";
 
-interface CharacterSheetOptions extends ActorSheetOptions {
-    showUnpreparedSpells: boolean;
-}
+type CharacterSheetOptions = ActorSheetOptions;
 
 type CharacterSystemSheetData = CharacterSystemData & {
     attributes: {
@@ -78,7 +76,6 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     options: CharacterSheetOptions;
     preparationType: Object;
     showPFSTab: boolean;
-    showUnpreparedSpells: boolean;
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
 }

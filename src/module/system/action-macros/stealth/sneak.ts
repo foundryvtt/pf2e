@@ -14,6 +14,7 @@ export function sneak(options: SkillActionOptions) {
         traits: ["move", "secret"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [

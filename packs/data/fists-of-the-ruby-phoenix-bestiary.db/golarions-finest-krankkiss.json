@@ -382,6 +382,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -404,12 +411,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -609,6 +610,13 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -631,12 +639,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -840,6 +842,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 4,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -862,12 +871,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 4
                 },
                 "school": {
                     "value": "transmutation"
@@ -954,19 +957,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -983,7 +973,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1098,19 +1090,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1127,7 +1106,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1241,19 +1222,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -1270,7 +1238,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "35 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1355,7 +1325,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li> +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5.</li>\n</ul>"
+                    "value": "<p>These stiff leather armguards grant you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1371,19 +1341,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 8
                 },
@@ -1397,7 +1354,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "450 gp"
+                    "value": {
+                        "gp": 450
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -1606,7 +1565,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature hits Krankkiss with an unarmed attack.</p>\n<p><strong>Effect</strong> Krankkiss focuses his ki power to produce electricity. The triggering creature takes [[/r {2d6}[electricity]]]{2d6 electricity damage}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature hits Krankkiss with an unarmed attack.</p>\n<p><strong>Effect</strong> Krankkiss focuses his ki power to produce electricity. The triggering creature takes [[/r {2d6}[electricity]]]{2d6 electricity damage}.</p>"
                 },
                 "requirements": {
                     "value": ""

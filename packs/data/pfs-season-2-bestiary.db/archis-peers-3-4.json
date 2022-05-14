@@ -153,19 +153,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -182,7 +169,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "6 sp"
+                    "value": {
+                        "sp": 6
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -357,8 +346,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature targets Archis with a melee attack and Archis can see the attacker</p>\n<p><strong>Effect</strong> Archis dodges out of the way, gaining a +1 circumstance bonus to AC against the triggering attack. If the attack misses, Archis makes a melee Strike against that creature.</p>\n<p>This Strike doesn't count toward Archis' multiple attack penalty, and his multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature targets Archis with a melee attack and Archis can see the attacker</p>\n<p><strong>Effect</strong> Archis dodges out of the way, gaining a +1 circumstance bonus to AC against the triggering attack. If the attack misses, Archis makes a melee Strike against that creature.</p>\n<p>This Strike doesn't count toward Archis' multiple attack penalty, and his multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -398,6 +388,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Archis Peers deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
@@ -412,12 +403,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

@@ -101,6 +101,18 @@ declare global {
         /** A flag for whether the Game has successfully reached the "ready" hook */
         ready: boolean;
 
+        /** The Release data for this version of Foundry */
+        release: {
+            build: number;
+            channel: string;
+            download: string;
+            generation: number;
+            node_version?: number;
+            notes: string;
+            suffix?: string;
+            time: number;
+        };
+
         /* -------------------------------------------- */
         /*  Entities                                    */
         /* -------------------------------------------- */
