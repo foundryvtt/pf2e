@@ -29,6 +29,7 @@ import { WeaknessRuleElement } from "./rule-element/iwr/weakness";
 import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
+import { SubstituteRollRuleElement } from "./rule-element/substitute-roll";
 import { RollNoteRuleElement } from "./rule-element/roll-note";
 import { RollOptionRuleElement } from "./rule-element/roll-option";
 import { RollTwiceRuleElement } from "./rule-element/roll-twice";
@@ -75,6 +76,7 @@ class RuleElements {
         Sense: SenseRuleElement,
         Strike: StrikeRuleElement,
         Striking: StrikingRuleElement,
+        SubstituteRoll: SubstituteRollRuleElement,
         TempHP: TempHPRuleElement,
         TokenEffectIcon: TokenEffectIconRuleElement,
         TokenImage: TokenImageRuleElement,

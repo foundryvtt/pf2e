@@ -23,7 +23,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckRoll } from "@system/check/roll";
 import { ZeroToFour } from "@module/data";
 import { AbilityString } from "@actor/data";
-import { extractRollTwice } from "@module/rules/util";
+import { extractRollSubstitutions, extractRollTwice } from "@module/rules/util";
 
 export * from "./data";
 
@@ -339,6 +339,7 @@ class StatisticCheck {
             secret,
             skipDialog,
             rollTwice: extractRollTwice(actor.synthetics.rollTwice, domains, options),
+            substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
         };
 
         const roll = await CheckPF2e.roll(

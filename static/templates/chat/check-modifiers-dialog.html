@@ -1,19 +1,38 @@
 <form class="check-modifiers-content" autocomplete="off" spellcheck="off">
+    {{#if substitutions}}
+        <div class="dialog-row header">
+            <span class="mod">Substitution</span>
+            <span class="type">Roll</span>
+            <span class="exclude">Utilize?</span>
+        </div>
+        <div class="substitutions">
+            {{#each substitutions as |sub idx|}}
+                <div class="dialog-row{{#if sub.ignored}} disabled{{/if}}">
+                    <span class="mod">{{sub.label}}</span>
+                    <span class="type">{{sub.value}}</span>
+                    <label class="exclude toggle">
+                        <input type="checkbox" id="{{@root.appId}}-sub-{{idx}}" data-sub-index="{{idx}}" {{checked (not sub.ignored)}} />
+                        <label for="{{@root.appId}}-sub-{{idx}}"></label>
+                    </label>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+    <hr />
     <div class="dialog-row header">
         <span class="type">{{localize "PF2E.Roll.Type"}}</span>
         <span class="mod">{{localize "PF2E.Roll.Modifier"}}</span>
         <span class="exclude"></span>
     </div>
-    <hr />
     <div class="modifier-container">
         {{#each modifiers as |modifier idx|}}
-            <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
+            <div class="dialog-row{{#unless modifier.enabled}} disabled{{/unless}}">
                 <span class="type tag">{{localize (concat "PF2E.ModifierType."  modifier.type)}}</span>
                 <span class="mod">{{modifier.label}}</span>
                 <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                 <label class="exclude toggle">
-                    <input type="checkbox" id="{{../appId}}-modifier-{{idx}}" data-modifier-index="{{idx}}" {{checked modifier.ignored}} />
-                    <label for="{{../appId}}-modifier-{{idx}}"></label>
+                    <input type="checkbox" id="{{@root.appId}}-modifier-{{idx}}" data-modifier-index="{{idx}}" {{checked (not modifier.ignored)}} />
+                    <label for="{{@root.appId}}-modifier-{{idx}}"></label>
                 </label>
             </div>
         {{/each}}
@@ -40,7 +59,7 @@
             {{localize "PF2E.Roll.KeepHigher"}}
         </label>
         <label>
-            <input type="radio" name="rollTwice" value="no" {{checked none}} />
+            <input type="radio" name="rollTwice" value="" {{checked none}} />
             {{localize "PF2E.Roll.Normal"}}
         </label>
         <label>

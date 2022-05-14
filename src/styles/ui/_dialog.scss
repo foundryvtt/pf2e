@@ -73,7 +73,7 @@
                     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
                         0px 1px 0px rgba(255, 255, 255, 0.2);
                     &::after {
-                        content: 'OFF';
+                        content: "OFF";
                         color: #000;
                         position: absolute;
                         right: 5px;
@@ -81,7 +81,7 @@
                         text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
                     }
                     &::before {
-                        content: 'ON';
+                        content: "ON";
                         color: white;
                         position: absolute;
                         left: 6px;
@@ -113,9 +113,9 @@
                             0px 2px 5px 0px rgba(0, 0, 0, 0.3);
                         transition: all 0.4s ease;
                     }
-                    input[type='checkbox'] {
+                    input[type=checkbox] {
                         visibility: hidden;
-                        &:checked + label {
+                        &:not(:checked) + label {
                             right: 23px;
                         }
                     }
@@ -123,7 +123,7 @@
             }
         }
 
-        .modifier-container {
+        .substitutions, .modifier-container {
             display: flex;
             flex-direction: column;
 
@@ -147,14 +147,14 @@
                     box-shadow: inset 0 0 0 1px rgba(black, 0.25);
                 }
 
-                &.modifier-enabled {
+                &.disabled {
                     text-decoration: line-through;
                     span {
                         filter: opacity(0.5);
                     }
                     .toggle {
                         background: rgba(black, 0.5);
-                        input[type='checkbox'] + label {
+                        input[type=checkbox] + label {
                             right: 23px;
                         }
                     }

@@ -1,7 +1,7 @@
 import { DeferredValueParams, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { RollTwiceOption } from "@system/rolls";
-import { DeferredModifier, RollTwiceSynthetic } from "./rule-element/data";
+import { DeferredModifier, RollSubstitution, RollTwiceSynthetic } from "./rule-element/data";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -31,4 +31,14 @@ function extractRollTwice(
     return twices.at(0)?.keep === "higher" ? "keep-higher" : "keep-lower";
 }
 
-export { extractModifiers, extractNotes, extractRollTwice };
+function extractRollSubstitutions(
+    substitutions: Record<string, RollSubstitution[]>,
+    domains: string[],
+    rollOptions: string[]
+): RollSubstitution[] {
+    return domains
+        .flatMap((d) => deepClone(substitutions[d] ?? []))
+        .filter((s) => s.predicate?.test(rollOptions) ?? true);
+}
+
+export { extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice };

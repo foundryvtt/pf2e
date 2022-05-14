@@ -19,6 +19,7 @@ import { Check } from "./check";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { TextEditorPF2e } from "./text-editor";
 import { CheckRoll } from "./check/roll";
+import { RollSubstitution } from "@module/rules/rule-element/data";
 
 export interface RollDataPF2e extends RollData {
     rollerId?: string;
@@ -109,6 +110,8 @@ export interface CheckRollContext extends BaseRollContext {
     dc?: CheckDC | null;
     /** Is the roll a reroll? */
     isReroll?: boolean;
+    /** D20 results substituted for an actual roll */
+    substitutions?: RollSubstitution[];
 }
 
 interface CheckTargetFlag {
@@ -176,25 +179,46 @@ export class CheckPF2e {
             if (!rolled) return null;
         }
 
-        const options: string[] = [];
+        const extraTags: string[] = [];
         const isReroll = context.isReroll ?? false;
         if (isReroll) context.rollTwice = false;
+        const substitutions = context.substitutions ?? [];
 
-        let dice = "1d20";
-        if (context.rollTwice === "keep-lower") {
-            dice = "2d20kl";
-            options.push("PF2E.TraitMisfortune");
-        } else if (context.rollTwice === "keep-higher") {
-            dice = "2d20kh";
-            options.push("PF2E.TraitFortune");
-        }
+        const dice = ((): string => {
+            const substitution = substitutions.find(
+                (s) => (!s.ignored && s.predicate?.test(context.options ?? [])) ?? true
+            );
+
+            if (substitution) {
+                const effectType = {
+                    fortune: "PF2E.TraitFortune",
+                    misfortune: "PF2E.TraitMisfortune",
+                }[substitution.effectType];
+
+                extraTags.push(
+                    game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
+                        type: game.i18n.localize(effectType),
+                        substitution: game.i18n.localize(substitution.label),
+                    })
+                );
+                return substitution.value.toString();
+            } else if (context.rollTwice === "keep-lower") {
+                extraTags.push("PF2E.TraitMisfortune");
+                return "2d20kl";
+            } else if (context.rollTwice === "keep-higher") {
+                extraTags.push("PF2E.TraitFortune");
+                return "2d20kh";
+            } else {
+                return "1d20";
+            }
+        })();
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
             .map((m) => `<span class="tag tag_alt">${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}</span>`)
             .join("");
 
-        const optionBreakdown = options
+        const optionBreakdown = extraTags
             .map((o) => `<span class="tag tag_secondary">${game.i18n.localize(o)}</span>`)
             .join("");
 
@@ -316,6 +340,7 @@ export class CheckPF2e {
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
             traits: context.traits ?? [],
+            substitutions,
             dc: context.dc ?? null,
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
             isReroll: context.isReroll ?? false,

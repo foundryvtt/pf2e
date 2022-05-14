@@ -73,7 +73,7 @@ import { UserPF2e } from "@module/user";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import { ActorSizePF2e } from "@actor/data/size";
 import { FeatData, ItemSourcePF2e, PhysicalItemSource } from "@item/data";
-import { extractRollTwice, extractModifiers, extractNotes } from "@module/rules/util";
+import { extractRollTwice, extractModifiers, extractNotes, extractRollSubstitutions } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { CHARACTER_SHEET_TABS } from "./data/values";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -676,12 +676,16 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const shortForm of SKILL_ABBREVIATIONS) {
             const skill = systemData.skills[shortForm];
+            const longForm = SKILL_DICTIONARY[shortForm];
+
+            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             const modifiers = [
                 AbilityModifier.fromScore(skill.ability, systemData.abilities[skill.ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
-            // workaround for the shortform skill names
-            const longForm = SKILL_DICTIONARY[shortForm];
+            for (const modifier of modifiers) {
+                modifier.adjustments = this.getModifierAdjustments(domains, modifier.slug);
+            }
 
             // Indicate that the strength requirement of this actor's armor is met
             if (typeof wornArmor?.strength === "number" && this.data.data.abilities.str.value >= wornArmor.strength) {
@@ -699,7 +703,7 @@ class CharacterPF2e extends CreaturePF2e {
                     label: "PF2E.ArmorCheckPenalty",
                     modifier: wornArmor.checkPenalty,
                     type: MODIFIER_TYPE.UNTYPED,
-                    adjustments: this.getModifierAdjustments(["ac"], slug),
+                    adjustments: this.getModifierAdjustments(domains, slug),
                 });
 
                 // Set requirements for ignoring the check penalty according to skill
@@ -720,11 +724,9 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(armorCheckPenalty);
             }
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             modifiers.push(...extractModifiers(statisticsModifiers, domains));
 
-            const rollOptions = this.getRollOptions(domains);
-            const stat = mergeObject(new StatisticModifier(longForm, modifiers, rollOptions), skill, {
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
                 overwrite: false,
             });
             stat.breakdown = stat.modifiers
@@ -741,24 +743,26 @@ class CharacterPF2e extends CreaturePF2e {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
-                const options = args.options ?? [];
-                ensureProficiencyOption(options, skill.rank);
+                const rollOptions = args.options ?? [];
+                ensureProficiencyOption(rollOptions, skill.rank);
                 if (args.dc && stat.adjustments) {
                     args.dc.adjustments = stat.adjustments;
                 }
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(domains, options);
+                    rule.beforeRoll?.(domains, rollOptions);
                 }
 
-                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, options);
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(synthetics.rollSubstitutions, domains, rollOptions);
                 const context: CheckRollContext = {
                     actor: this,
                     type: "skill-check",
-                    options,
+                    options: rollOptions,
                     dc: args.dc,
                     rollTwice,
+                    substitutions,
                     notes: stat.notes,
                 };
 
@@ -789,10 +793,11 @@ class CharacterPF2e extends CreaturePF2e {
             ];
 
             const loreSkill = systemData.skills[shortForm];
-            const rollOptions = this.getRollOptions(domains);
-            const stat = mergeObject(new StatisticModifier(skill.name, modifiers, rollOptions), loreSkill, {
-                overwrite: false,
-            });
+            const stat = mergeObject(
+                new StatisticModifier(skill.name, modifiers, this.getRollOptions(domains)),
+                loreSkill,
+                { overwrite: false }
+            );
             stat.ability = "int";
             stat.itemID = skill._id;
             stat.notes = domains.flatMap((key) => duplicate(rollNotes[key] ?? []));
@@ -807,28 +812,30 @@ class CharacterPF2e extends CreaturePF2e {
                 .join(", ");
             stat.roll = async (args: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                 const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: skill.name });
-                const options = args.options ?? [];
-                ensureProficiencyOption(options, rank);
+                const rollOptions = args.options ?? [];
+                ensureProficiencyOption(rollOptions, rank);
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(domains, options);
+                    rule.beforeRoll?.(domains, rollOptions);
                 }
 
-                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, options);
+                const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(synthetics.rollSubstitutions, domains, rollOptions);
                 const context: CheckRollContext = {
                     actor: this,
                     type: "skill-check",
-                    options,
+                    options: rollOptions,
                     dc: args.dc,
                     rollTwice,
+                    substitutions,
                     notes: stat.notes,
                 };
 
                 const roll = await CheckPF2e.roll(new CheckModifier(label, stat), context, args.event, args.callback);
 
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions: options });
+                    await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
                 }
 
                 return roll;
