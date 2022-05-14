@@ -7,6 +7,7 @@ import { isObject, setHasElement } from "@util";
 import { RuleElementOptions } from "./";
 import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 
+/** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
 class AdjustModifierRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
@@ -15,32 +16,44 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
 
     selectors: string[];
 
+    damageType: string | null;
+
+    suppress: boolean;
+
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        if (data.suppress) {
+            data.mode = "override";
+            data.value = 0;
+        }
+
         super({ ...data, phase: "beforeDerived", priority: data.priority ?? 90 }, item, options);
 
         if (typeof data.relabel === "string") {
             this.relabel = data.relabel;
         }
 
-        this.data.predicate = new PredicatePF2e(this.data.predicate);
         this.selectors =
             typeof this.data.selector === "string"
                 ? [this.data.selector]
-                : Array.isArray(this.data.selectors)
-                ? this.data.selectors
+                : Array.isArray(data.selectors) && data.selectors.every((s): s is string => typeof s === "string")
+                ? data.selectors
                 : [];
+
+        this.damageType = typeof data.damageType === "string" ? data.damageType : null;
+        this.suppress = !!data.suppress;
     }
 
     protected override validateData(): void {
         if (this.ignored) return;
+
         const tests = {
             selectors:
                 Array.isArray(this.selectors) &&
                 this.selectors.length > 0 &&
                 this.selectors.every((s) => typeof s === "string"),
             slug: typeof this.slug === "string" || this.slug === null,
-            predicate: this.predicate.isValid,
-            mode: AELikeRuleElement.CHANGE_MODES.includes(String(this.mode)),
+            predicate: this.predicate?.isValid ?? false,
+            mode: AELikeRuleElement.CHANGE_MODES.includes(this.mode),
             value: ["string", "number"].includes(typeof this.value) || isObject(this.value),
         };
 
@@ -56,7 +69,8 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
 
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
-            predicate: this.predicate,
+            predicate: this.predicate ?? new PredicatePF2e({}),
+            suppress: this.suppress,
             getNewValue: (current: number): number => {
                 const change = this.resolveValue();
                 if (typeof change !== "number") {
@@ -67,9 +81,9 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
                 return this.getNewValue(current, change);
             },
             getDamageType: (current: DamageType | null): DamageType | null => {
-                if (!this.data.damageType) return current;
+                if (!this.damageType) return current;
 
-                const damageType = this.resolveInjectedProperties(this.data.damageType);
+                const damageType = this.resolveInjectedProperties(this.damageType);
                 if (!setHasElement(DAMAGE_TYPES, damageType)) {
                     this.failValidation(`${damageType} is an unrecognized damage type.`);
                     return current;
@@ -80,7 +94,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
         };
         if (this.relabel) adjustment.relabel = this.relabel;
 
-        for (const selector of this.selectors) {
+        for (const selector of this.selectors.map((s) => this.resolveInjectedProperties(s))) {
             const adjustments = (this.actor.synthetics.modifierAdjustments[selector] ??= []);
             adjustments.push(adjustment);
         }
@@ -88,20 +102,14 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
 }
 
 interface AdjustModifierRuleElement extends AELikeRuleElement {
-    data: AdjustModifierData;
+    data: AELikeData;
 }
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
     relabel?: unknown;
     damageType?: unknown;
     selectors?: unknown;
-}
-
-interface AdjustModifierData extends Exclude<AELikeData, "path"> {
-    predicate: PredicatePF2e;
-    selectors: string[];
-    slug: string | null;
-    damageType?: DamageType;
+    suppress?: unknown;
 }
 
 export { AdjustModifierRuleElement };
