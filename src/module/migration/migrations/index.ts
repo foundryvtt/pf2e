@@ -148,3 +148,4 @@ export { Migration745EffectTargetToChoiceSet } from "./745-effect-target-to-choi
 export { Migration746StandardizePricing } from "./746-standardize-pricing";
 export { Migration747FixedHeightening } from "./747-fixed-heightening";
 export { Migration748BatchConsumablePricing } from "./748-batch-consumable-pricing";
+export { Migration749AssuranceREs } from "./749-assurance-res";
