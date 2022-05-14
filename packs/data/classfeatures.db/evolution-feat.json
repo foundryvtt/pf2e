@@ -23,7 +23,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "all": [
+                        "item:trait:evolution",
+                        "item:type:feat"
+                    ],
+                    "label": "PF2E.SpecificRule.Prompt.EvolutionFeat"
+                },
+                "choices": {
+                    "query": "{\"data.level.value\":{\"$lte\":1},\"data.traits.value\":{\"$elemMatch\":\"evolution\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EvolutionFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.evolutionFeat}"
+            }
+        ],
         "source": {
             "value": ""
         },

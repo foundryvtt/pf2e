@@ -1146,6 +1146,26 @@
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.Skill",
                         "selection": "survival"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
                     }
                 ],
                 "slug": "assurance",
@@ -1727,6 +1747,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1749,12 +1776,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -2075,6 +2096,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2098,12 +2126,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -2299,19 +2321,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2325,7 +2334,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2380,19 +2391,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2406,7 +2404,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 cp"
+                    "value": {
+                        "cp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2487,19 +2487,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2513,7 +2500,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -2587,19 +2576,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2613,7 +2589,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2695,19 +2673,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2721,7 +2686,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4 sp"
+                    "value": {
+                        "sp": 4
+                    }
                 },
                 "quantity": 3,
                 "range": {
@@ -2795,19 +2762,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2821,7 +2775,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2874,19 +2828,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2900,7 +2841,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "5 cp"
+                    "value": {
+                        "cp": 5
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2929,91 +2872,6 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
             "name": "Waterskin",
-            "sort": 0,
-            "type": "equipment"
-        },
-        {
-            "_id": "MNZUMkr2WcZIBAXT",
-            "data": {
-                "armor": {
-                    "value": 0
-                },
-                "baseItem": "explorers-clothing",
-                "containerId": "08xe6gxwDe2KQEho",
-                "description": {
-                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "group": "cloth",
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": "1 gp"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "writing-set",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "comfort"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.QJb8S927Yj81EgHH"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/writing-set.webp",
-            "name": "Writing Set",
             "sort": 0,
             "type": "equipment"
         },
@@ -3051,19 +2909,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3080,7 +2925,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -3184,19 +3031,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 1
                 },
@@ -3210,7 +3044,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3318,19 +3154,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 1
                 },
@@ -3344,7 +3167,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 3,
                 "range": {
@@ -3441,19 +3266,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3470,7 +3282,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -3581,19 +3395,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3610,7 +3411,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "property1": {
                     "critDamage": "",
@@ -3732,19 +3533,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -3758,7 +3546,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -4035,9 +3826,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "sp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -4053,19 +3841,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -4079,7 +3854,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 3,
                 "rules": [],
@@ -4096,9 +3873,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 1
                 },
                 "weight": {
                     "value": 0
@@ -4119,9 +3893,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "cp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -4137,19 +3908,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -4163,7 +3921,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "quantity": 8,
                 "rules": [],
@@ -4181,9 +3941,6 @@
                 "usage": {
                     "value": ""
                 },
-                "value": {
-                    "value": 1
-                },
                 "weight": {
                     "value": 0
                 }
@@ -4197,6 +3954,74 @@
             "name": "Copper Pieces",
             "sort": 0,
             "type": "treasure"
+        },
+        {
+            "_id": "AjDcHiXKPQspMVQH",
+            "data": {
+                "baseItem": null,
+                "containerId": "08xe6gxwDe2KQEho",
+                "description": {
+                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "writing-set",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.QJb8S927Yj81EgHH"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/writing-set.webp",
+            "name": "Writing Set",
+            "sort": 0,
+            "type": "equipment"
         }
     ],
     "name": "Seoni (Level 1)",

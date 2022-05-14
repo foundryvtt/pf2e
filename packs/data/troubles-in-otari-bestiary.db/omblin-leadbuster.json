@@ -147,19 +147,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -176,7 +163,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -282,19 +271,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -311,7 +287,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -415,19 +393,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -445,7 +410,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -574,19 +541,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -600,7 +554,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -804,12 +761,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

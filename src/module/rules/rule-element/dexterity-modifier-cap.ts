@@ -9,11 +9,7 @@ class DexterityModifierCapRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
-
-        const rollOptions = this.actor.getRollOptions();
-        const { predicate } = this.data;
-        if (predicate && !predicate.test(rollOptions)) return;
+        if (!this.test()) return;
 
         const value = this.resolveValue(this.data.value);
         if (typeof value === "number") {

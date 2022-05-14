@@ -152,19 +152,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 16
                 },
@@ -181,7 +168,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "10500 gp"
+                    "value": {
+                        "gp": 10500
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -310,19 +299,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 15
                 },
@@ -336,7 +312,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1,000 gp"
+                    "value": {
+                        "gp": 1000
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -650,7 +628,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Hakusa is targeted with a melee or ranged attack by an attacker she can see.</p>\n<p><strong>Effect</strong> Hakusa gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> Hakusa is targeted with a melee or ranged attack by an attacker she can see.</p>\n<p><strong>Effect</strong> Hakusa gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -806,12 +784,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

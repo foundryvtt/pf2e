@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Female vishkanya monk",
             "creatureType": "",
             "level": {
                 "value": 15
@@ -442,7 +442,7 @@
             "type": "spell"
         },
         {
-            "_id": "3W6foihTHi2aj6nR",
+            "_id": "BkUWq2do6knbcAmi",
             "data": {
                 "MAP": {
                     "value": ""
@@ -467,8 +467,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
-                    "invested": false
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -480,21 +481,8 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
-                    "value": 12
+                    "value": 2
                 },
                 "negateBulk": {
                     "value": "0"
@@ -509,7 +497,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2500 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -526,7 +516,7 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": null
+                    "value": "flaming"
                 },
                 "propertyRune2": {
                     "value": null
@@ -542,38 +532,11 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "fire",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Flaming",
-                        "predicate": {
-                            "all": [
-                                "unarmed"
-                            ]
-                        },
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "unarmed"
-                            ]
-                        },
-                        "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>Flaming Rune</strong> The target takes [[/r {1d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "handwraps-of-mighty-blows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -621,7 +584,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li> +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5.</li>\n</ul>"
+                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -637,19 +600,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 14
                 },
@@ -663,7 +613,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "4,000 gp"
+                    "value": {
+                        "gp": 4000
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -880,6 +832,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The monk makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
                 },
@@ -923,6 +876,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The monk lets loose a powerful breath of air, whose effect depends on the type of energy to which the monk is attuned. The monk can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Jivati's breath ignites a fire in the spirit of each creature within 10 feet of Jivati, dealing [[/r {8d6}[fire]]]{8d6 fire damage}. Each creature in the area must attempt a @Check[type:will|dc:33|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and [[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} and loses 1 Focus Point. If it has no Focus Points, the creature instead loses a random prepared spell or spell slot from the highest level it has left (maximum 6th level).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage and [[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
                 },
@@ -966,6 +920,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedKnockdown]</p>"
                 },

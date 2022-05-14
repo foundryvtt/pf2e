@@ -33,7 +33,7 @@ declare global {
         protected _controlled: boolean;
 
         /** An indicator for whether the object is currently a hover target */
-        protected _hover: false;
+        protected _hover: boolean;
 
         /** Identify the official EmbeddedEntity name for this PlaceableObject class */
         static embeddedName: string;

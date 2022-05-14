@@ -162,19 +162,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -191,7 +178,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -304,19 +293,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -333,7 +309,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -439,19 +417,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -469,7 +434,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -728,12 +695,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

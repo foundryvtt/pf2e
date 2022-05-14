@@ -495,6 +495,13 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 3
                 },
@@ -522,12 +529,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -955,6 +956,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -977,12 +985,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1193,6 +1195,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1220,12 +1229,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1315,19 +1318,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1344,7 +1334,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1619,7 +1611,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the caller dies, an explosion of shadow devours their body. Each creature in a @Template[type:emanation|distance:10] must attempt a @Check[type:fortitude|dc:22] save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n</div>"
+                    "value": "<p>When the caller dies, an explosion of shadow devours their body. Each creature in a @Template[type:emanation|distance:10] must attempt a @Check[type:fortitude|dc:22] save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1675,12 +1667,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

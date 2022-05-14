@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Solid ground gives way to a lake of bubbling mud that burns anyone who enters and routinely belches out sulfur.</p>",
-            "disable": "<p>@Check[type:survival|dc:17|name:Remove Stones|traits:complex,environmental,poison] (trained) to find and remove the stones blocking the flow of water to the mud pot. The water decreases the viscosity of the mud, allowing steam and sulfur to escape gradually, rather than in violent bursts, so creatures can pass through unharmed. The hazard requires two successful checks to disable. Attempting the check takes two actions</p>",
+            "disable": "<p>@Check[type:survival|dc:17|name:Remove Stones|traits:complex,environmental,poison] (trained) to find and remove the stones blocking the flow of water to the mud pot. The water decreases the viscosity of the mud, allowing steam and sulfur to escape gradually, rather than in violent bursts, so creatures can pass through unharmed. The hazard requires two successful checks to disable. Attempting the check takes two actions.</p>",
             "isComplex": true,
             "level": {
                 "value": 1
@@ -84,8 +84,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature other than a sulfuric slime comes within 10 feet of the mud pot</p>\n<p><strong>Effect</strong> The hazard rolls initiative as a gaseous cloud explodes out of the mud. The triggering creature takes [[/r {1d6+3}[acid]]]{1d6+3 acid damage} @Check[type:reflex|dc:17|basic:true]</p>"
+                    "value": "<p><strong>Trigger</strong> A creature other than a sulfuric slime comes within 10 feet of the mud pot</p>\n<p><strong>Effect</strong> The hazard rolls initiative as a gaseous cloud explodes out of the mud. The triggering creature takes [[/r {1d6+3}[acid]]]{1d6+3 acid damage} @Check[type:reflex|dc:17|basic:true]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -122,6 +123,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16];</p>\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage};</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Sickened]{Sickened2} (1 round)</p>"
                 },

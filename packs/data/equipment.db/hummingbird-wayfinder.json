@@ -15,19 +15,6 @@
             "max": 0,
             "value": 0
         },
-        "identification": {
-            "misidentified": {},
-            "status": "identified",
-            "unidentified": {
-                "data": {
-                    "description": {
-                        "value": ""
-                    }
-                },
-                "img": "",
-                "name": ""
-            }
-        },
         "level": {
             "value": 12
         },
@@ -41,10 +28,19 @@
             "value": ""
         },
         "price": {
-            "value": "1,750 gp"
+            "value": {
+                "gp": 1750
+            }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "compass-in-possession",
+                "requiresEquipped": false
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Lost Omens: Pathfinder Society Guide"

@@ -391,7 +391,6 @@ export const WEAPON_PROPERTY_RUNES: { [slug: string]: WeaponPropertyRuneData } =
         rarity: "common",
         slug: "ghostTouch",
         traits: ["magical", "transmutation"],
-        otherTags: ["ghost-touch"],
     },
     greaterAnchoring: {
         damage: {

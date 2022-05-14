@@ -149,19 +149,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -178,7 +165,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -367,12 +356,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -462,7 +460,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The prisoner reduces a creature to 0 hit points.</p>\n<p><strong>Effect</strong> The prisoner attempts an <strong>intimidation</strong> check with a +2 circumstance bonus to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} a single creature it can see and that can see them.</p>"
+                    "value": "<p><strong>Trigger</strong> The prisoner reduces a creature to 0 hit points.</p>\n<p><strong>Effect</strong> The prisoner attempts an <strong>intimidation</strong> check with a +2 circumstance bonus to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} a single creature it can see and that can see them.</p>"
                 },
                 "requirements": {
                     "value": ""

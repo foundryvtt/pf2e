@@ -1,18 +1,10 @@
-import { ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/data/base";
 import type { MeleePF2e } from ".";
 
-export type MeleeSource = BaseNonPhysicalItemSource<"melee", MeleeSystemSource>;
+export type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource>;
 
-export class MeleeData extends BaseNonPhysicalItemData<MeleePF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/melee.svg";
-}
-
-export interface MeleeData extends Omit<MeleeSource, "effects" | "flags"> {
-    type: MeleeSource["type"];
-    data: MeleeSystemData;
-    readonly _source: MeleeSource;
-}
+type MeleeData = Omit<MeleeSource, "effects" | "flags"> &
+    BaseItemDataPF2e<MeleePF2e, "melee", MeleeSystemData, MeleeSource>;
 
 export interface MeleeDamageRoll {
     damage: string;
@@ -40,3 +32,5 @@ export interface MeleeSystemSource extends ItemSystemSource {
 }
 
 export type MeleeSystemData = MeleeSystemSource & Omit<ItemSystemData, "traits">;
+
+export { MeleeData };

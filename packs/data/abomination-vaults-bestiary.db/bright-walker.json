@@ -33,7 +33,7 @@
                 "details": "negative healing",
                 "max": 115,
                 "temp": 0,
-                "value": "115"
+                "value": 115
             },
             "initiative": {
                 "ability": "perception"
@@ -62,7 +62,7 @@
                 "value": 9
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Those who encounter calignis quickly learn that their deaths involve burning out instead of bleeding out. At times, this dramatic immolation is denied to a caligni, so they arise as a bright walker. Tied to caligni society, these creatures don't understand that their glow damages and repels living calignis. Despite their name, these undead don't walk; they instead float a few inches above the ground.</p>",
             "source": {
                 "value": "Pathfinder #165: Eyes of Empty Death"
             }
@@ -98,9 +98,8 @@
             "dr": [
                 {
                     "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "label": "Air",
-                    "type": "air",
-                    "value": "10"
+                    "type": "all",
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -138,6 +137,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -226,7 +226,7 @@
             "type": "melee"
         },
         {
-            "_id": "78HXZIPKZQKdk540",
+            "_id": "rq016ZULtzeq5Jdo",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -271,7 +271,7 @@
             "type": "action"
         },
         {
-            "_id": "WMjX0ZPo3yJFKL9w",
+            "_id": "oviUeLIMpj5EZvoL",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -336,7 +336,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a bright walker is reduced to 0 Hit Points, they flash out in a burst of light, obtaining the blazing end they were denied at death. This blaze deals [[/r {10d6}[fire]]]{10d6 fire damage} (@Check[type:reflex|dc:25|basic:true] save) to creatures within 20 feet. Creatures who fail this save are also @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute (@Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute on a critical failure).</p>"
+                    "value": "<p>When a bright walker is reduced to 0 Hit Points, they flash out in a burst of light, obtaining the blazing end they were denied at death. This blaze deals [[/r {10d6}[fire]]]{10d6 fire damage} (@Check[type:reflex|dc:25|basic:true] save) to creatures within @Template[type:emanation|distance:20]{20 feet}.</p>\n<p>Creatures who fail this save are also @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute (@Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -385,7 +385,44 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "not": [
+                                "suppress-aura"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 30,
+                            "color": "#9b7337",
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "all": [
+                                "suppress-aura"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 30,
+                            "shadows": 0.1
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -430,7 +467,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "suppress-aura",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -509,7 +553,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The bright walker's Light Aura is suppressed</p>\n<p><strong>Effect</strong> The bright walker reignites their Light Aura with a burst of brightness that deals [[/r {5d6}[fire]]]{5d6 fire damage} (@Check[type:reflex|dc:25|basic:true] save) to creatures within a @Template[type:burst|distance:20]. Creatures who are @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} or with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness} find this flare particularly painful; such a creature's save result is one degree of success worse than the result it rolled.</p>"
+                    "value": "<p><strong>Requirement</strong> The bright walker's Light Aura is suppressed</p>\n<p><strong>Effect</strong> The bright walker reignites their Light Aura with a burst of brightness that deals [[/r {5d6}[fire]]]{5d6 fire damage} (@Check[type:reflex|dc:25|basic:true] save) to creatures within a @Template[type:burst|distance:20].</p>\n<p>Creatures who are @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} or with @Compendium[pf2e.bestiary-ability-glossary-srd.Light Blindness]{Light Blindness} find this flare particularly painful; such a creature's save result is one degree of success worse than the result it rolled.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -555,7 +599,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The bright walker's Light Aura is suppressed</p>\n<p><strong>Effect</strong> The bright walker teleports to a square it can see within 60 feet that is not in an area of bright light. The bright walker can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirement</strong> The bright walker's Light Aura is suppressed</p>\n<p><strong>Effect</strong> The bright walker teleports to a square it can see within 60 feet that is not in an area of bright light. The bright walker can't use again for [[/br 1d4 #Recharge Shadow Jump]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

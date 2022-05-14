@@ -155,19 +155,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -184,7 +171,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -576,7 +565,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> The sea devil is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or already in a frenzy</p>\n<p><strong>Trigger</strong> The sea devil deals bleed damage to a living creature.</p>\n</div>\n<p><strong>Effect</strong> The sea devil flies into a frenzy that lasts 1 minute. While frenzied, the sea devil gains a +1 status bonus to attack rolls with its claws and jaws, gains a +4 status bonus to damage rolls with its claws and jaws, gains 11 temporary HP until the end of the frenzy, and takes a -2 status penalty to AC. The sea devil can't voluntarily stop its frenzy. After its frenzy, the sea devil is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Blood Frenzy]{Effect: Blood Frenzy}</p>"
+                    "value": "<p><strong>Requirements</strong> The sea devil is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or already in a frenzy</p>\n<p><strong>Trigger</strong> The sea devil deals bleed damage to a living creature.</p>\n<p><strong>Effect</strong> The sea devil flies into a frenzy that lasts 1 minute. While frenzied, the sea devil gains a +1 status bonus to attack rolls with its claws and jaws, gains a +4 status bonus to damage rolls with its claws and jaws, gains 11 temporary HP until the end of the frenzy, and takes a -2 status penalty to AC. The sea devil can't voluntarily stop its frenzy. After its frenzy, the sea devil is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Blood Frenzy]{Effect: Blood Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -695,7 +684,7 @@
                             ]
                         },
                         "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
                     },
                     {
                         "key": "Note",
@@ -708,7 +697,7 @@
                             ]
                         },
                         "selector": "attack",
-                        "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|data.description.value}</div>"
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
                     }
                 ],
                 "slug": null,

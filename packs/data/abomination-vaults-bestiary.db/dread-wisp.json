@@ -33,7 +33,7 @@
                 "details": "negative healing",
                 "max": 90,
                 "temp": 0,
-                "value": "90"
+                "value": 90
             },
             "initiative": {
                 "ability": "perception"
@@ -92,9 +92,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
@@ -171,7 +170,7 @@
             "type": "melee"
         },
         {
-            "_id": "krpsRebqrlZmr9CT",
+            "_id": "yCKSVMhk8eLrvD0h",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -216,7 +215,7 @@
             "type": "action"
         },
         {
-            "_id": "6NnnVhfD9kWZP5iR",
+            "_id": "vhcL0ctFDySpLekK",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -285,7 +284,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": {
+                            "not": [
+                                "go-dark"
+                            ]
+                        },
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 20,
+                            "shadows": 0.1
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -365,7 +383,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> An enemy within 15 feet of the dread wisp is under a fear effect, @Compendium[pf2e.conditionitems.Drained]{Drained}, or @Compendium[pf2e.conditionitems.Dying]{Dying}</p>\n<p><strong>Effect</strong> The dread wisp feeds on the creature's despair. The dread wisp regains [[/r {2d8}[healing]]]{2d6 Hit Points} and deals [[/r {3d8}[negative]]]{3d8 negative damage} to the creature (@Check[type:fortitude|dc:25|basic:true] save), and if the dread wisp has Gone Dark, their Dread Flickering reignites.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> An enemy within 15 feet of the dread wisp is under a fear effect, @Compendium[pf2e.conditionitems.Drained]{Drained}, or @Compendium[pf2e.conditionitems.Dying]{Dying}</p>\n<p><strong>Effect</strong> The dread wisp feeds on the creature's despair. The dread wisp regains [[/r {2d8}[healing]]]{2d8 Hit Points} and deals [[/r {3d8}[negative]]]{3d8 negative damage} to the creature (@Check[type:fortitude|dc:25|basic:true] save), and if the dread wisp has Gone Dark, their Dread Flickering reignites.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -411,12 +429,19 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The dread wisp extinguishes their Dread Flickering, becoming invisible. They can end this effect with another use of this action. If the dread wisp uses their draining touch Strike while invisible, the arc of pale energy lets any observer determine their location, making them hidden to all observers only until the dread wisp moves.</p>"
+                    "value": "<p>The dread wisp extinguishes their Dread Flickering, becoming @Compendium[pf2e.conditionitems.Invisible]{Invisible}. They can end this effect with another use of this action. If the dread wisp uses their draining touch Strike while invisible, the arc of pale energy lets any observer determine their location, making them @Compendium[pf2e.conditionitems.Hidden]{Hidden} to all observers only until the dread wisp moves.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -454,7 +479,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The dread wisp teleports to a square they can see within 30 feet that isn't in an area of bright light. The dread wisp can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dread wisp teleports to a square they can see within 30 feet that isn't in an area of bright light. The dread wisp can't use again for [[/br 1d4 #Recharge Shadow Flitter]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

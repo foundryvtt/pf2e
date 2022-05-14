@@ -287,7 +287,7 @@ declare global {
                  * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
                  * const updated = await Document.update(data); // Returns an Array of Entities, updated in the database
                  */
-                update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this>;
+                update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this>;
 
                 /**
                  * Delete the current Document.
@@ -296,7 +296,7 @@ declare global {
                  * @param context Options which customize the deletion workflow
                  * @return The deleted Document
                  */
-                delete(context?: DocumentModificationContext): Promise<this>;
+                delete(context?: DocumentModificationContext<this>): Promise<this>;
 
                 /* -------------------------------------------- */
                 /*  Embedded Operations                         */
@@ -429,7 +429,7 @@ declare global {
                  */
                 protected _preCreate(
                     data: PreDocumentId<this["data"]["_source"]>,
-                    options: DocumentModificationContext,
+                    options: DocumentModificationContext<this>,
                     user: documents.BaseUser
                 ): Promise<void>;
 

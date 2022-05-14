@@ -97,9 +97,8 @@
             "dr": [
                 {
                     "exceptions": "except darkwood",
-                    "label": "Physical",
                     "type": "physical",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -285,6 +284,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
@@ -311,12 +317,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -528,6 +528,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
@@ -550,12 +557,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -653,6 +654,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -675,12 +683,6 @@
                 "save": {
                     "basic": "basic",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -776,6 +778,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -798,12 +807,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "necromancy"
@@ -1229,19 +1232,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1258,7 +1248,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1560,6 +1552,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>Unlike other undead, a jiang-shi isn't destroyed at 0 HP. Instead, they fall unconscious and awaken in 1 minute with 1 Hit Point. Scattering at least 1 Bulk of glutinous rice or hen eggs on an unconscious jiang-shi destroys them permanently. If the jiang-shi was reduced to 0 HP by an attack from a weapon made of darkwood, they're destroyed immediately.</p>"
                 },

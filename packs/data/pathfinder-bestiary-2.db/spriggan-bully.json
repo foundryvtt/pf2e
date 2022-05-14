@@ -275,6 +275,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -297,12 +304,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -617,19 +618,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -646,7 +634,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -756,19 +746,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -785,7 +762,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -908,19 +887,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -934,7 +900,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -1132,7 +1101,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The spriggan bully takes damage</p>\n<p><strong>Effect</strong> The spriggan bully grows to Large size, along with their equipment (which returns to natural size if removed). The spriggan bully's reach increases by 5 feet. They regain 5 Hit Points and gain a +2 status bonus to melee attacks and damage rolls. This effect continues until the end of the spriggan bully's next turn, but on any turn in which the spriggan bully deals damage to another creature and is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, the effect extends until the end of the following turn.</p>\n<p>When Enraged Growth ends, the spriggan bully is fatigued for 1 hour.</p>"
+                    "value": "<p><strong>Trigger</strong> The spriggan bully takes damage</p>\n<p><strong>Effect</strong> The spriggan bully grows to Large size, along with their equipment (which returns to natural size if removed). The spriggan bully's reach increases by 5 feet. They regain 5 Hit Points and gain a +2 status bonus to melee attacks and damage rolls. This effect continues until the end of the spriggan bully's next turn, but on any turn in which the spriggan bully deals damage to another creature and is not @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, the effect extends until the end of the following turn.</p>\n<p>When Enraged Growth ends, the spriggan bully is fatigued for 1 hour.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1280,12 +1249,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

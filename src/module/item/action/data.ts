@@ -1,24 +1,16 @@
-import { ActionType, ItemSystemData, ItemTraits } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { ActionType, BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource, ItemTraits } from "@item/data/base";
 import { ActionItemPF2e } from ".";
 import { OneToThree } from "@module/data";
 
-export type ActionSource = BaseNonPhysicalItemSource<"action", ActionSystemData>;
+type ActionSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 
-export class ActionData extends BaseNonPhysicalItemData<ActionItemPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/action.svg";
-}
+type ActionData = Omit<ActionSource, "effects" | "flags"> &
+    BaseItemDataPF2e<ActionItemPF2e, "action", ActionSystemData, ActionSource>;
 
-export interface ActionData extends Omit<ActionSource, "effects" | "flags"> {
-    type: ActionSource["type"];
-    data: ActionSource["data"];
-    readonly _source: ActionSource;
-}
+type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
+type ActionTraits = ItemTraits<ActionTrait>;
 
-export type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
-export type ActionTraits = ItemTraits<ActionTrait>;
-
-interface ActionSystemData extends ItemSystemData {
+interface ActionSystemSource extends ItemSystemSource {
     traits: ActionTraits;
     actionType: {
         value: ActionType;
@@ -37,3 +29,7 @@ interface ActionSystemData extends ItemSystemData {
     };
     deathNote: boolean;
 }
+
+type ActionSystemData = ActionSystemSource;
+
+export { ActionSource, ActionData, ActionTrait, ActionTraits };

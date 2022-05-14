@@ -151,19 +151,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -180,7 +167,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "6 sp"
+                    "value": {
+                        "sp": 6
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -288,19 +277,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -318,7 +294,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -392,19 +370,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -418,7 +383,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -508,7 +475,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Mirror Lelzeshin is targeted by a melee or ranged attack by an attacker he can see</p>\n<p><strong>Effect</strong> Mirror Lelzeshin gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> Mirror Lelzeshin is targeted by a melee or ranged attack by an attacker he can see</p>\n<p><strong>Effect</strong> Mirror Lelzeshin gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -562,12 +529,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

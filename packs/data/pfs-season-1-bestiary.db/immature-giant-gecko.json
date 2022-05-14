@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -2
             },
             "con": {
                 "mod": 1
@@ -48,6 +48,7 @@
                         "value": "30"
                     }
                 ],
+                "special": "",
                 "value": "30"
             }
         },
@@ -63,7 +64,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Scenario 1-18: Lodge of the Living God"
             }
         },
         "resources": {},
@@ -113,19 +114,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "nKyz3SkU23Rf9Pb7",
+            "_id": "vha4terjr768togz",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
                     "value": 6
                 },
                 "damageRolls": {
-                    "5removr5y0jyqh98tsrt": {
+                    "9y5NMgye8yvFRQnu": {
                         "damage": "1d6+2",
                         "damageType": "piercing"
                     }
@@ -154,7 +156,92 @@
             "type": "melee"
         },
         {
-            "_id": "9Iqx7M5HpUvcHx0J",
+            "_id": "MNJBaFH1ecSqoO7i",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "a4ul62b7grpr93vr",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>A giant gecko's feet allow it to climb virtually any surface, no matter how slick or sheer. If a giant gecko attempts an Athletics check to climb and critically fails, it gets a failure instead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Uncanny Climber",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "7iq9r08mnspyb2z3",
             "data": {
                 "description": {
                     "value": ""
@@ -179,11 +266,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 200000,
+            "sort": 400000,
             "type": "lore"
         },
         {
-            "_id": "JpdoK3Ecw561iaAO",
+            "_id": "o4t4g4kljrrbwh36",
             "data": {
                 "description": {
                     "value": ""
@@ -194,7 +281,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Climb",
+                        "predicate": {
+                            "all": [
+                                "action:climb"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "type": "untyped",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -203,16 +303,22 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 to climb",
+                        "options": "action:climb"
+                    }
                 }
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+7 to Climb)",
-            "sort": 300000,
+            "name": "Athletics",
+            "sort": 500000,
             "type": "lore"
         },
         {
-            "_id": "ITYdECL2a7r1iAXZ",
+            "_id": "rcyeaj9mqtrrk66r",
             "data": {
                 "description": {
                     "value": ""
@@ -237,7 +343,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 400000,
+            "sort": 600000,
             "type": "lore"
         }
     ],

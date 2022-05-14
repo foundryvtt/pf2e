@@ -276,6 +276,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -298,12 +305,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -507,19 +508,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 6
                 },
@@ -536,7 +524,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "240 gp"
+                    "value": {
+                        "gp": 240
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -646,19 +636,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -676,7 +653,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -735,7 +714,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns. You gain a +1 item bonus to checks to Make an Impression on nobility or other upper‑class folk while wearing high‑fashion fine clothing.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to checks to Make an Impression on nobility</li>\n</ul>"
+                    "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns. You gain a +1 item bonus to checks to Make an Impression on nobility or other upper‑class folk while wearing high‑fashion fine clothing.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -751,19 +730,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 3
                 },
@@ -777,7 +743,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "55 gp"
+                    "value": {
+                        "gp": 55
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -921,7 +889,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An attack from an attacker he can see would be a critical success against Lelzeshin</p>\n<p><strong>Effect</strong> Lelzeshin teleports to one of the mirrored walls, emerging adjacent to it.</p>\n<p>Meanwhile, a duplicate briefly remains, seemingly frozen in place for a second, before detonating as the critical hit connects with it. Each creature adjacent to his original location takes [[/r {6d6}[slashing]]]{6d6 slashing damage} (@Check[type:reflex|dc:25|basic:true]), and these adjacent squares becomes difficult terrain</p>\n<p><strong>Frequency</strong> Lelzeshin can use this reaction once per day.</p>"
+                    "value": "<p><strong>Trigger</strong> An attack from an attacker he can see would be a critical success against Lelzeshin</p>\n<p><strong>Effect</strong> Lelzeshin teleports to one of the mirrored walls, emerging adjacent to it.</p>\n<p>Meanwhile, a duplicate briefly remains, seemingly frozen in place for a second, before detonating as the critical hit connects with it. Each creature adjacent to his original location takes [[/r {6d6}[slashing]]]{6d6 slashing damage} (@Check[type:reflex|dc:25|basic:true]), and these adjacent squares becomes difficult terrain</p>\n<p><strong>Frequency</strong> Lelzeshin can use this reaction once per day.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -967,7 +935,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Lelzeshin is targeted by a melee or ranged attack by an attacker he can see</p>\n<p><strong>Effect</strong> Lelzeshin gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> Lelzeshin is targeted by a melee or ranged attack by an attacker he can see</p>\n<p><strong>Effect</strong> Lelzeshin gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1105,12 +1073,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

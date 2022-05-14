@@ -844,6 +844,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -867,12 +874,6 @@
                 "save": {
                     "basic": "basic",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -3073,6 +3074,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -3096,12 +3104,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10+4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -3199,6 +3201,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -3221,12 +3230,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -3328,19 +3331,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 13
                 },
@@ -3354,7 +3344,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3000 gp"
+                    "value": {
+                        "gp": 3000
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -3414,6 +3406,13 @@
                             "hasCounteractCheck": {
                                 "value": false
                             },
+                            "heightening": {
+                                "damage": {
+                                    "0": "2d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            },
                             "level": {
                                 "value": 6
                             },
@@ -3436,12 +3435,6 @@
                             "save": {
                                 "basic": "basic",
                                 "value": "fortitude"
-                            },
-                            "scaling": {
-                                "damage": {
-                                    "0": "2d6"
-                                },
-                                "interval": 1
                             },
                             "school": {
                                 "value": "necromancy"
@@ -3846,7 +3839,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> A creature within 30 feet casts a divine spell or uses a divine ability.</p>\n<p><strong>Requirements</strong> Vaklish has an unexpended spell slot that can be used to cast <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em>.</p>\n</div>\n<p><strong>Effect</strong> Vaklish expends a spell slot that could be used to cast <em>dispel magic</em> and attempts to counteract the triggering spell or ability.</p>\n<p data-visibility=\"gm\">Vaklish can't Scoff at the Divine for [[/br 1d4 #Recharge Scoff at the Divine]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet casts a divine spell or uses a divine ability.</p>\n<p><strong>Requirements</strong> Vaklish has an unexpended spell slot that can be used to cast <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em>.</p>\n<p><strong>Effect</strong> Vaklish expends a spell slot that could be used to cast <em>dispel magic</em> and attempts to counteract the triggering spell or ability.</p>\n<p>Vaklish can't Scoff at the Divine for [[/br 1d4 #Recharge Scoff at the Divine]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3937,7 +3930,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Vaklish's eyes flash green as it projects a telepathic wave in a @Template[type:emanation|distance:30]. All creatures in the area are assailed by a vision of evil decadence from one of the rakshasa's past lives. Each non-evil creature in the area must succeed at a @Check[type:will|dc:32] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (and @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} on a critical failure)</span>.</p>\n<div data-visibility=\"gm\">\n<p>The visions last [[/br 1d4 #Duration Disturbing Vision]]{1d4 rounds}, and while they do, Vaklish and all evil creatures in the area gain a +1 status bonus to all checks. Vaklish can use this ability again only once the previous visions end.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Disturbing Vision]{Effect: Disturbing Vision}</p>\n</div>"
+                    "value": "<p>Vaklish's eyes flash green as it projects a telepathic wave in a @Template[type:emanation|distance:30]. All creatures in the area are assailed by a vision of evil decadence from one of the rakshasa's past lives. Each non-evil creature in the area must succeed at a @Check[type:will|dc:32] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (and @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} on a critical failure).</p>\n<p>The visions last [[/br 1d4 #Duration Disturbing Vision]]{1d4 rounds}, and while they do, Vaklish and all evil creatures in the area gain a +1 status bonus to all checks. Vaklish can use this ability again only once the previous visions end.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Disturbing Vision]{Effect: Disturbing Vision}</p>"
                 },
                 "requirements": {
                     "value": ""

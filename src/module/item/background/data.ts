@@ -1,23 +1,15 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/data/base";
 import { ABCSystemData } from "@item/abc/data";
-import { ItemTraits } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { BackgroundPF2e } from ".";
 
-export type BackgroundSource = BaseNonPhysicalItemSource<"background", BackgroundSystemData>;
+type BackgroundSource = BaseItemSourcePF2e<"background", BackgroundSystemSource>;
 
-export class BackgroundData extends BaseNonPhysicalItemData<BackgroundPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/background.svg";
-}
+type BackgroundData = Omit<BackgroundSource, "effects" | "flags"> &
+    BaseItemDataPF2e<BackgroundPF2e, "background", BackgroundSystemData, BackgroundSource>;
 
-export interface BackgroundData extends Omit<BackgroundSource, "effects" | "flags"> {
-    type: BackgroundSource["type"];
-    data: BackgroundSource["data"];
-    readonly _source: BackgroundSource;
-}
-
-interface BackgroundSystemData extends ABCSystemData {
+interface BackgroundSystemSource extends ABCSystemData {
     traits: ItemTraits;
     boosts: { [key: string]: { value: AbilityString[] } };
     trainedLore: string;
@@ -25,3 +17,7 @@ interface BackgroundSystemData extends ABCSystemData {
         value: SkillAbbreviation[];
     };
 }
+
+type BackgroundSystemData = BackgroundSystemSource;
+
+export { BackgroundData, BackgroundSource };

@@ -4,7 +4,13 @@ module.exports = {
         es6: true,
         "jest/globals": true,
     },
-    extends: ["prettier", "plugin:import/errors", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    extends: [
+        "prettier",
+        "plugin:import/errors",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:json/recommended"
+    ],
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: "module",
@@ -13,6 +19,7 @@ module.exports = {
     ignorePatterns: ["dist/"],
     rules: {
         eqeqeq: ["error", "always"],
+        "import/named": "off",
         "import/no-default-export": "error",
         "prettier/prettier": "error",
         "no-console": "off",
@@ -34,7 +41,7 @@ module.exports = {
         "import/resolver": {
             node: {
                 paths: ["src", "types", "", "dist"],
-                extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+                extensions: [".css", ".js", ".json", ".jsx", ".scss", ".ts", ".tsx"],
             },
             "eslint-import-resolver-typescript": true,
             typescript: {

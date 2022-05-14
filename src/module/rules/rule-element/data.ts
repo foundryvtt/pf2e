@@ -7,6 +7,7 @@ import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e } from "./multiple-attack-penalty";
 import { StrikingPF2e } from "./striking";
 import { WeaponPotencyPF2e } from "./weapon-potency";
+import { StrikeAdjustment } from "./adjust-strike";
 
 export type RuleElementSource = {
     key: string;
@@ -21,6 +22,7 @@ export type RuleElementSource = {
     priority?: number;
     ignored?: unknown;
     requiresInvestment?: unknown;
+    requiresEquipped?: unknown;
     removeUponCreate?: unknown;
 };
 
@@ -35,7 +37,6 @@ export interface RuleElementData extends RuleElementSource {
     predicate?: PredicatePF2e;
     priority: number;
     ignored: boolean;
-    requiresInvestment?: boolean;
     removeUponCreate?: boolean;
 }
 
@@ -70,17 +71,19 @@ export interface REPreDeleteParameters {
     context: DocumentModificationContext<ItemPF2e>;
 }
 
-export type DeferredModifier = DeferredValue<ModifierPF2e | null>;
+type DeferredModifier = DeferredValue<ModifierPF2e | null>;
 
-export interface RuleElementSynthetics {
+interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     modifierAdjustments: Record<string, ModifierAdjustment[]>;
     multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
     rollNotes: Record<string, RollNotePF2e[]>;
+    rollSubstitutions: Record<string, RollSubstitution[]>;
+    rollTwice: Record<string, RollTwiceSynthetic[]>;
     senses: SenseSynthetic[];
     statisticsModifiers: Record<string, DeferredModifier[]>;
-    strikeAdjustments: { adjustStrike(weapon: Embedded<WeaponPF2e>): void }[];
-    strikes: Embedded<WeaponPF2e>[];
+    strikeAdjustments: StrikeAdjustment[];
+    strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingPF2e[]>;
     weaponPotency: Record<string, WeaponPotencyPF2e[]>;
     preparationWarnings: {
@@ -91,8 +94,24 @@ export interface RuleElementSynthetics {
     };
 }
 
+interface RollSubstitution {
+    slug: string;
+    label: string;
+    predicate: PredicatePF2e | null;
+    value: number;
+    ignored: boolean;
+    effectType: "fortune" | "misfortune";
+}
+
+interface RollTwiceSynthetic {
+    keep: "higher" | "lower";
+    predicate?: PredicatePF2e;
+}
+
 interface SenseSynthetic {
     sense: CreatureSensePF2e;
     predicate: PredicatePF2e | null;
     force: boolean;
 }
+
+export { DeferredModifier, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics, StrikeAdjustment };

@@ -1,9 +1,9 @@
-import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/data/values";
-import { PreciousMaterialGrade } from "@item/physical/data";
+import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values";
+import { PreciousMaterialGrade } from "@item/physical/types";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
-import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { coinsToString, coinValueInCopper, multiplyCoins } from "@item/treasure/helpers";
 import { OneToFour, OneToThree } from "@module/data";
 import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
@@ -57,12 +57,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                   })
                 : null;
         const adjustedPriceHint = (() => {
-            const basePrice = coinValueInCopper(extractPriceFromItem(baseData));
-            const derivedPrice = coinValueInCopper(extractPriceFromItem(sheetData.item));
+            const basePrice = coinValueInCopper(multiplyCoins(baseData.data.price.value, baseData.data.quantity));
+            const derivedPrice = coinValueInCopper(this.item.assetValue);
             return basePrice !== derivedPrice
                 ? game.i18n.format(hintText, {
                       property: game.i18n.localize("PF2E.PriceLabel"),
-                      value: this.item.price,
+                      value: coinsToString(this.item.price.value),
                   })
                 : null;
         })();
@@ -81,6 +81,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         delete preciousMaterials[""];
         delete preciousMaterials["dragonhide"];
         delete preciousMaterials["grisantian-pelt"];
+        const { material } = this.item;
         for (const materialKey of PRECIOUS_MATERIAL_TYPES) {
             const materialData = preciousMaterials[materialKey];
             if (materialData) {
@@ -90,7 +91,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                     if (grade) {
                         grade.label = game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[gradeKey]);
                         grade.selected =
-                            this.item.material?.type === materialKey && this.item.material.grade === gradeKey;
+                            material.precious?.type === materialKey && material.precious?.grade === gradeKey;
                     }
                 }
             }
@@ -150,7 +151,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             abpEnabled,
             baseLevel: baseData.data.level.value,
             baseRarity: baseData.data.traits.rarity,
-            basePrice: baseData.data.price.value,
+            basePrice: coinsToString(baseData.data.price.value),
             categories: CONFIG.PF2E.weaponCategories,
             groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
@@ -246,6 +247,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             formData["data.-=meleeUsage"] = null;
         }
 
-        super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

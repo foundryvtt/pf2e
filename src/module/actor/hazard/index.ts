@@ -7,10 +7,6 @@ import { extractNotes, extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 
 export class HazardPF2e extends ActorPF2e {
-    static override get schema(): typeof HazardData {
-        return HazardData;
-    }
-
     get rarity(): Rarity {
         return this.data.data.traits.rarity;
     }
@@ -27,12 +23,13 @@ export class HazardPF2e extends ActorPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { attributes } = this;
+        const { attributes, details } = this.data.data;
         attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
+        details.alliance = null;
     }
 
     override prepareDerivedData(): void {

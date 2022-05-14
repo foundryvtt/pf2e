@@ -401,6 +401,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
@@ -423,12 +430,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -845,19 +846,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 16
                 },
@@ -874,7 +862,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "10000 gp"
+                    "value": {
+                        "gp": 10000
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1294,7 +1284,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> A creature taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} within 30 feet of the Daemonic Skinner Casts a Spell with a verbal component or speaks</p>\n</div>\n<p><strong>Effect</strong> The Skinner wills the triggering creature's blood to gush from their mouth and constrict their throat. The target's spell is disrupted.</p>\n<p>The target must succeed at a @Check[type:fortitude|dc:20] save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}</span>.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} within 30 feet of the Daemonic Skinner Casts a Spell with a verbal component or speaks</p>\n<p><strong>Effect</strong> The Skinner wills the triggering creature's blood to gush from their mouth and constrict their throat. The target's spell is disrupted.</p>\n<p>The target must succeed at a @Check[type:fortitude|dc:20] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1393,12 +1383,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

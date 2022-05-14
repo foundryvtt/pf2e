@@ -1,9 +1,9 @@
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e, WeaponPF2e, TreasurePF2e } from "@item";
 import { ArmorPF2e, type ConditionPF2e } from "@item";
 import { ConditionData, ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
-import { ErrorPF2e, isObject, objectHasKey } from "@util";
+import { ErrorPF2e, groupBy, isObject, objectHasKey } from "@util";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { LocalizePF2e } from "@module/system/localize";
 import { ItemTransfer } from "./item-transfer";
@@ -11,7 +11,7 @@ import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { ActorSheetPF2e } from "./sheet/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { SaveData, VisionLevel, VisionLevels } from "./creature/data";
-import { BaseActorDataPF2e, BaseTraitsData, RollOptionFlags } from "./data/base";
+import { BaseTraitsData, RollOptionFlags } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType, ModeOfBeing, SaveType } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
@@ -30,6 +30,9 @@ import { ActorDimensions } from "./types";
 import { CombatantPF2e } from "@module/encounter";
 import { preImportJSON } from "@module/doc-helpers";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
+import { coinCompendiumIds, coinValueInCopper, combineCoins, noCoins } from "@item/treasure/helpers";
+import { Coins } from "@item/physical/data";
+import { DENOMINATIONS } from "@item/physical/values";
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -170,6 +173,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return true;
     }
 
+    get coins(): Coins {
+        return this.physicalItems
+            .filter((i) => i.isOfType("treasure") && i.isCoinage)
+            .map((item) => item.assetValue)
+            .reduce(combineCoins, noCoins());
+    }
+
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (data: ConditionData) => {
@@ -226,6 +236,143 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
+    async addCoins(coins: Coins, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+        const topLevelCoins = this.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
+        const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
+
+        for (const denomination of DENOMINATIONS) {
+            const quantity = coins[denomination] ?? 0;
+            if (quantity > 0) {
+                const item = coinsByDenomination.get(denomination)?.[0];
+                if (item) {
+                    await item.update({ "data.quantity": item.quantity + quantity });
+                } else {
+                    const compendiumId = coinCompendiumIds[denomination];
+                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
+                        (p) => p.collection === "pf2e.equipment-srd"
+                    );
+                    if (!pack) {
+                        throw Error("unable to get pack!");
+                    }
+                    const item = await pack.getDocument(compendiumId);
+                    if (item?.data.type === "treasure") {
+                        item.data.update({ "data.quantity": quantity });
+                        await this.createEmbeddedDocuments("Item", [item.toObject()]);
+                    }
+                }
+            }
+        }
+    }
+
+    async removeCoins(coins: Coins, { byValue = true }: { byValue?: boolean } = {}) {
+        const coinsToRemove = mergeObject(noCoins(), coins);
+        const actorCoins = mergeObject(noCoins(), this.coins);
+        const coinsToAdd = noCoins();
+
+        if (byValue) {
+            let valueToRemoveInCopper = coinValueInCopper(coinsToRemove);
+            if (valueToRemoveInCopper > coinValueInCopper(this.coins)) {
+                return false;
+            }
+
+            //  Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation where we need to break a coin that has already been "removed"
+            if (valueToRemoveInCopper % 10 > actorCoins.cp) {
+                coinsToAdd.cp = 10;
+                coinsToRemove.cp = valueToRemoveInCopper % 10;
+                valueToRemoveInCopper += 10 - coinsToRemove.cp;
+            } else {
+                coinsToRemove.cp = valueToRemoveInCopper % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.cp;
+                const newCopper = actorCoins.cp - coinsToRemove.cp;
+                const extraCopper = Math.min(valueToRemoveInCopper / 10, Math.trunc(newCopper / 10)) * 10;
+                coinsToRemove.cp += extraCopper;
+                valueToRemoveInCopper -= extraCopper;
+            }
+
+            if ((valueToRemoveInCopper / 10) % 10 > actorCoins.sp) {
+                coinsToAdd.sp = 10;
+                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10;
+                valueToRemoveInCopper += 100 - coinsToRemove.sp * 10;
+            } else {
+                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.sp * 10;
+                const newSilver = actorCoins.sp - coinsToRemove.sp;
+                const extraSilver = Math.min(valueToRemoveInCopper / 100, Math.trunc(newSilver / 10)) * 10;
+                coinsToRemove.sp += extraSilver;
+                valueToRemoveInCopper -= extraSilver * 10;
+            }
+
+            if ((valueToRemoveInCopper / 100) % 10 > actorCoins.gp) {
+                coinsToAdd.gp = 10;
+                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10;
+                valueToRemoveInCopper += 1000 - coinsToRemove.gp * 100;
+            } else {
+                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.gp * 100;
+                const newGold = actorCoins.gp - coinsToRemove.gp;
+                const extraGold = Math.min(valueToRemoveInCopper / 1000, Math.trunc(newGold / 10)) * 10;
+                coinsToRemove.gp += extraGold;
+                valueToRemoveInCopper -= extraGold * 100;
+            }
+
+            coinsToRemove.pp = valueToRemoveInCopper / 1000;
+        }
+
+        // Test if the actor has enough coins to pull
+        const coinsToPull = combineCoins(actorCoins, coinsToAdd);
+        const sufficient =
+            coinsToRemove.pp <= coinsToPull.pp &&
+            coinsToRemove.gp <= coinsToPull.gp &&
+            coinsToRemove.sp <= coinsToPull.sp &&
+            coinsToRemove.cp <= coinsToPull.cp;
+        if (!sufficient) {
+            return false;
+        }
+
+        // If there are coins to add (because of rollover), add them first
+        if (Object.values(coinsToAdd).some((value) => value !== 0)) {
+            await this.addCoins(coinsToAdd);
+        }
+
+        // Begin reducing item quantities and deleting coinage
+        const topLevelCoins = this.itemTypes.treasure.filter((item) => item.isCoinage);
+        const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
+        for (const denomination of DENOMINATIONS) {
+            let quantityToRemove = coinsToRemove[denomination];
+            const coinItems = coinsByDenomination.get(denomination);
+            if (!!quantityToRemove && coinItems) {
+                const itemsToUpdate: EmbeddedDocumentUpdateData<TreasurePF2e>[] = [];
+                const itemsToDelete: string[] = [];
+                for (const item of coinItems) {
+                    if (quantityToRemove === 0) break;
+                    if (item.quantity > quantityToRemove) {
+                        itemsToUpdate.push({ _id: item.id, "data.quantity": item.quantity - quantityToRemove });
+                        quantityToRemove = 0;
+                        break;
+                    } else {
+                        quantityToRemove -= item.quantity;
+                        itemsToDelete.push(item.id);
+                    }
+                }
+
+                if (itemsToUpdate.length > 0) {
+                    await this.updateEmbeddedDocuments("Item", itemsToUpdate);
+                }
+
+                if (itemsToDelete.length > 0) {
+                    await this.deleteEmbeddedDocuments("Item", itemsToDelete);
+                }
+
+                // If there any remaining, show a warning. This should probably be validated in a future version
+                if (quantityToRemove > 0) {
+                    console.warn("Attempted to remove more coinage than exists");
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
@@ -250,7 +397,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
 
             // Set default token dimensions for familiars and vehicles
-            const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
+            const dimensionMap: { [K in ActorType]?: number } = { familiar: 0.5, vehicle: 2 };
             merged.token.height ??= dimensionMap[datum.type] ?? 1;
             merged.token.width ??= merged.token.height;
 
@@ -260,22 +407,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.token.actorLink = true;
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
                     merged.token.vision = true;
                     break;
                 case "loot":
-                    // Make loot actors linked, interactable and neutral disposition
+                    // Make loot actors linked and interactable
                     merged.token.actorLink = true;
                     merged.permission.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                     break;
-                case "npc":
-                    if (!merged.flags?.core?.sourceId) {
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
-                    }
-                    break;
-                default:
-                    merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
             }
         }
 
@@ -284,6 +422,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     protected override _initialize(): void {
         super._initialize();
+        this.rules = [];
         this.initialized = true;
 
         // Send any accrued warnings to the console
@@ -314,9 +453,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const notTraits: BaseTraitsData | undefined = this.data.data.traits;
         if (notTraits?.size) notTraits.size = new ActorSizePF2e(notTraits.size);
 
-        // Setup the basic structure of pf2e flags with roll options
-        const defaultOptions = { [`self:type:${this.type}`]: true };
-        this.data.flags.pf2e = mergeObject({ rollOptions: { all: defaultOptions } }, this.data.flags.pf2e ?? {});
+        // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
+        const { flags } = this.data;
+        const rollOptionsAll = flags.pf2e?.rollOptions?.all ?? {};
+        rollOptionsAll[`self:type:${this.type}`] = true;
+        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
+        flags.pf2e.rollOptions = { all: rollOptionsAll };
+
         this.setEncounterRollOptions();
 
         const preparationWarnings: Set<string> = new Set();
@@ -326,10 +469,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
+            rollSubstitutions: {},
+            rollTwice: {},
             senses: [],
             statisticsModifiers: {},
             strikeAdjustments: [],
-            strikes: [],
+            strikes: new Map(),
             striking: {},
             weaponPotency: {},
             preparationWarnings: {
@@ -407,10 +552,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Set defaults for this actor's prototype token */
-    private preparePrototypeToken() {
+    private preparePrototypeToken(): void {
         // Synchronize the token image with the actor image, if the token does not currently have an image
-        const tokenImgIsDefault =
-            this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
+        const tokenImgIsDefault = this.data.token.img === `systems/pf2e/icons/default-icons/${this.type}.svg`;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
@@ -471,12 +615,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
-    getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
+    getModifierAdjustments(selectors: string[], slug: string): ModifierAdjustment[] {
         return Array.from(
             new Set(
                 selectors
                     .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
-                    .filter((a) => [a.slug, null].includes(slug))
+                    .filter((a) => [slug, null].includes(a.slug))
             )
         );
     }
@@ -536,13 +680,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
+    async toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
     async toggleRollOption(
         domain: string,
         option: string,
-        itemId: string | null = null,
-        value = !this.rollOptions[domain]?.[option]
+        itemId: string | null,
+        value?: boolean
+    ): Promise<boolean | null>;
+    async toggleRollOption(
+        domain: string,
+        option: string,
+        itemId: string | boolean | null = null,
+        value?: boolean
     ): Promise<boolean | null> {
-        return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
+        if (typeof itemId === "string") {
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        } else {
+            /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
+            const match = this.rules.find(
+                (rule) => rule instanceof RollOptionRuleElement && rule.domain === domain && rule.option === option
+            );
+
+            /** If a matching item is found toggle this option. */
+            const itemId = match?.item.id ?? null;
+            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        }
     }
 
     /**
@@ -565,7 +728,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             await this.applyDamage(-value, tokens[0]);
             return this;
         }
-
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
@@ -674,34 +836,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
-    }
-
-    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
-        if (!entryId || !spellLevel) {
-            // TODO: Consider throwing an error on null inputs in the future.
-            return;
-        }
-
-        const spellcastingEntry = this.items.get(entryId);
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
-
-        if (
-            spellcastingEntry.data.data?.prepared?.value === "prepared" &&
-            spellcastingEntry.data.data?.showUnpreparedSpells?.value === false
-        ) {
-            if (CONFIG.debug.hooks === true) {
-                console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-            }
-
-            const displayLevels: Record<number, boolean> = {};
-            displayLevels[spellLevel] = true;
-            await spellcastingEntry.update({
-                "data.showUnpreparedSpells.value": true,
-                "data.displayLevels": displayLevels,
-            });
-        }
     }
 
     isLootableBy(user: UserPF2e) {
@@ -1040,13 +1174,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure imported actors are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
+        // Set default portrait and token images
+        if (this.data._source.img === "icons/svg/mystery-man.svg") {
+            this.data._source.img =
+                this.data._source.token.img =
+                data.img =
+                data.token.img =
+                    `systems/pf2e/icons/default-icons/${data.type}.svg`;
+        }
+
         await super._preCreate(data, options, user);
+
+        // Ensure imported actors are current on their schema version
         if (!options.parent) {
             await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
         }

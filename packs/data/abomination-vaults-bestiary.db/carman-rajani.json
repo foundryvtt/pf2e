@@ -150,19 +150,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -179,7 +166,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "3 sp"
+                    "value": {
+                        "sp": 3
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -292,19 +281,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 6
                 },
@@ -321,7 +297,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "250 gp"
+                    "value": {
+                        "gp": 250
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -448,19 +426,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 5
                 },
@@ -478,7 +443,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "160 gp"
+                    "value": {
+                        "gp": 160
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -554,19 +521,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -580,7 +534,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
+                    "value": {
+                        "gp": 3
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -617,9 +573,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": null,
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -638,19 +591,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -664,7 +604,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "quantity": 110,
                 "rules": [],
@@ -681,9 +623,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 1
                 },
                 "weight": {
                     "value": 0
@@ -846,7 +785,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Carman is targeted with a ranged attack by a thrown weapon and has a hand free</p>\n<p><strong>Effect</strong> Carman gains a +2 circumstance bonus to his AC against the triggering attack. If the attack misses, Carman catches the weapon and can immediately make a ranged Strike with it.</p>"
+                    "value": "<p><strong>Trigger</strong> Carman is targeted with a ranged attack by a thrown weapon and has a hand free</p>\n<p><strong>Effect</strong> Carman gains a +2 circumstance bonus to his AC against the triggering attack. If the attack misses, Carman catches the weapon and can immediately make a ranged Strike with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -918,12 +857,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

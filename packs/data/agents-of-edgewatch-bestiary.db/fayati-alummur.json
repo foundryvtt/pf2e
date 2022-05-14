@@ -153,19 +153,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -182,7 +169,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "35 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -297,19 +286,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 4
                 },
@@ -326,7 +302,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "100 gp"
+                    "value": {
+                        "gp": 100
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -442,19 +420,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 4
                 },
@@ -471,7 +436,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "100 gp"
+                    "value": {
+                        "gp": 100
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -579,19 +546,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -609,7 +563,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 gp"
+                    "value": {
+                        "gp": 2
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -712,19 +668,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 4
                 },
@@ -738,7 +681,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "11 gp"
+                    "value": {
+                        "gp": 11
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -844,19 +789,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 8
                 },
@@ -870,7 +802,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "100 gp"
+                    "value": {
+                        "gp": 100
+                    }
                 },
                 "quantity": 1,
                 "range": {
@@ -1131,7 +1065,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature targets Fayati with an attack and she can see the attacker</p>\n<p><strong>Effect</strong> Fayati dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature targets Fayati with an attack and she can see the attacker</p>\n<p><strong>Effect</strong> Fayati dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1172,7 +1106,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within Fayati's reach is hit by a melee Strike from one of her allies</p>\n<p><strong>Effect</strong> Fayati makes a Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within Fayati's reach is hit by a melee Strike from one of her allies</p>\n<p><strong>Effect</strong> Fayati makes a Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1327,12 +1261,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

@@ -459,7 +459,7 @@ declare global {
 
         protected override _onClickRight2(event: PIXI.InteractionEvent): void;
 
-        protected override _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this["document"][]>;
+        protected override _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]>;
 
         protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
     }
@@ -503,5 +503,11 @@ declare global {
         value: number;
         max?: number;
         editable: boolean;
+    }
+
+    interface TokenInteractionEvent<T extends Token> extends PIXI.InteractionEvent {
+        data: PIXI.InteractionData & {
+            clones?: T[];
+        };
     }
 }

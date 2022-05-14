@@ -97,16 +97,12 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "15"
+                    "value": 15
                 },
                 {
-                    "exceptions": "",
-                    "label": "Poison",
                     "type": "poison",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [
@@ -298,6 +294,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -320,12 +323,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -533,6 +530,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -555,12 +559,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1087,19 +1085,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 12
                 },
@@ -1116,7 +1101,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2000 gp"
+                    "value": {
+                        "gp": 2000
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1490,7 +1477,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>@Check[type:fortitude|dc:33].</p>\n<p>Swirling winds of noxious, flammable gas surround a muurfeli. An open flame, spark, or similar fire effect in the area causes an explosion that deals [[/r {20d6}[fire]]]{20d6 fire damage} to all creatures in the aura (including the muurfeli) and temporarily disables the aura for 1 minute.</p>\n<p>When the muurfeli takes damage from an ability with the water trait or fails a saving throw against a water effect, their firedamp winds aura is disabled for 1 minute.</p>\n<p>A creature that enters or begins its turn in the aura must attempt a Fortitude save.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n</div>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>@Check[type:fortitude|dc:33].</p>\n<p>Swirling winds of noxious, flammable gas surround a muurfeli. An open flame, spark, or similar fire effect in the area causes an explosion that deals [[/r {20d6}[fire]]]{20d6 fire damage} to all creatures in the aura (including the muurfeli) and temporarily disables the aura for 1 minute.</p>\n<p>When the muurfeli takes damage from an ability with the water trait or fails a saving throw against a water effect, their firedamp winds aura is disabled for 1 minute.</p>\n<p>A creature that enters or begins its turn in the aura must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
                 },
                 "requirements": {
                     "value": ""

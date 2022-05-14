@@ -14,6 +14,7 @@ export function bonMot(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "emotion", "linguistic", "mental"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.will,
         extraNotes: (selector: string) => [

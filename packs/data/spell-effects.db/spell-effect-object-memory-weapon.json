@@ -15,13 +15,19 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "ability": "str",
                 "key": "FixedProficiency",
-                "selector": "{item|data.target}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectObjectMemoryWeapon}-attack",
                 "value": {
                     "brackets": [
                         {

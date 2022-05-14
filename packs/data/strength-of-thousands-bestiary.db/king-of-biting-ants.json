@@ -96,19 +96,16 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
                     "type": "physical",
                     "value": 15
                 }
             ],
             "dv": [
                 {
-                    "exceptions": "",
                     "type": "area-damage",
                     "value": 15
                 },
                 {
-                    "exceptions": "",
                     "type": "splash-damage",
                     "value": 15
                 }
@@ -1198,6 +1195,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -1221,12 +1225,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -1324,6 +1322,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -1347,12 +1352,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -2341,6 +2340,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -2364,12 +2370,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -4117,6 +4117,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -4139,12 +4146,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -4808,6 +4809,14 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4",
+                        "1": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -4831,13 +4840,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d4",
-                        "1": "1d4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -5132,19 +5134,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 17
                 },
@@ -5158,7 +5147,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "15,000 gp"
+                    "value": {
+                        "gp": 15000
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -5436,7 +5427,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature Casts a Spell the King of Biting Ants knows</p>\n<p><strong>Effect</strong> The King of Biting Ants expends a spell slot to counter the triggering creature's casting. The King of Biting Ants loses his spell slot as if he had cast the triggering spell. He then attempts to counteract the triggering spell.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature Casts a Spell the King of Biting Ants knows</p>\n<p><strong>Effect</strong> The King of Biting Ants expends a spell slot to counter the triggering creature's casting. The King of Biting Ants loses his spell slot as if he had cast the triggering spell. He then attempts to counteract the triggering spell.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -5473,6 +5464,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>When the King of Biting Ants is reduced to 0 HP, he discorporates, and the component ants that make up his body disperse in every direction. If even a single ant escapes, the King of Biting Ants will eventually re-form using a process that typically takes [[/br 1d10 #days]]{1d10 days}.</p>\n<p>Applying area damage immediately after the King of Biting Ants is killed prevents his return.</p>"
                 },

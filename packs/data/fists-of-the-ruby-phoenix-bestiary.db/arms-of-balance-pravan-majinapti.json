@@ -50,7 +50,7 @@
             "alignment": {
                 "value": "LN"
             },
-            "blurb": "",
+            "blurb": "Male human monk",
             "creatureType": "",
             "level": {
                 "value": 15
@@ -442,7 +442,7 @@
             "type": "spell"
         },
         {
-            "_id": "3W6foihTHi2aj6nR",
+            "_id": "7BVVramWGCbj0dc0",
             "data": {
                 "MAP": {
                     "value": ""
@@ -467,8 +467,9 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
-                    "invested": false
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -480,21 +481,8 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
-                    "value": 12
+                    "value": 2
                 },
                 "negateBulk": {
                     "value": "0"
@@ -509,7 +497,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2500 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -526,7 +516,7 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": null
+                    "value": "frost"
                 },
                 "propertyRune2": {
                     "value": null
@@ -542,38 +532,11 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "damageType": "cold",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "label": "Frost",
-                        "predicate": {
-                            "all": [
-                                "unarmed"
-                            ]
-                        },
-                        "selector": "strike-damage"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": {
-                            "all": [
-                                "unarmed"
-                            ]
-                        },
-                        "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>Frost Rune</strong> The target is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:24|name:Frost Rune]{<strong>DC 24</strong> Fortitude} save.</p>"
-                    }
-                ],
+                "rules": [],
                 "size": "med",
                 "slug": "handwraps-of-mighty-blows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -611,7 +574,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-mighty-blows.webp",
-            "name": "+2 Greater Striking Frost Handwraps of Mighty Blows",
+            "name": "+2 greater Striking Frost Handwraps of Mighty Blows",
             "sort": 400000,
             "type": "weapon"
         },
@@ -621,7 +584,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li> +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5.</li>\n</ul>"
+                    "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to <em>bracers of armor</em> as though they were light armor.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -637,19 +600,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 14
                 },
@@ -663,7 +613,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "4,000 gp"
+                    "value": {
+                        "gp": 4000
+                    }
                 },
                 "quantity": 1,
                 "rules": [
@@ -880,6 +832,7 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The monk lets loose a powerful breath of air, whose effect depends on the type of energy to which the monk is attuned. The monk can't use this ability again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Pravan blows icy winds in a @Template[type:cone|distance:30], dealing [[/r {10d6}[cold]]]{10d6 cold damage}. Creatures in the area must attempt a @Check[type:reflex|dc:33|traits:damaging-effect] save as ice forms around them. The Speed penalty or immobilized condition caused by this ability persist until a creature either Breaks Open the ice or Escapes (DC 37 in either case), or if the creature takes at least 30 fire damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and takes a -5- foot status penalty to its Speeds.</p>\n<p><strong>Failure</strong> The creature takes full damage and takes a -15-foot status penalty to its Speeds.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}.</p>"
                 },
@@ -923,6 +876,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The monk makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses.</p>"
                 },
@@ -966,6 +920,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedKnockdown]</p>"
                 },

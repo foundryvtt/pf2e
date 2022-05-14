@@ -395,6 +395,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 9
                 },
@@ -417,12 +424,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "abjuration"
@@ -519,6 +520,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 8
                 },
@@ -545,12 +553,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -646,6 +648,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -668,12 +677,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "reflex"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -882,6 +885,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -904,12 +914,6 @@
                 "save": {
                     "basic": "",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1002,6 +1006,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -1024,12 +1035,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1230,6 +1235,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -1252,12 +1264,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1896,19 +1902,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -1925,7 +1918,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2037,19 +2032,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2066,7 +2048,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2527,7 +2511,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\">@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Any creature that ends its turn in the aura while in possession of any crystals, gemstones, or other precious stones must attempt a @Check[type:fortitude|dc:39|traits:damaging-effect] save.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to the aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature's crystals reverberate with Ulressia's vengeful aura, sharpening at every corner and digging, as if powerfully magnetized, into the creature's flesh.</p>\n<p>The creature takes [[/r {4d6}[piercing]]]{4d6 piercing damage}, plus [[/r {5}[negative]]]{5 negative damage} for every 2,000 gp the crystals are cumulatively worth (maximum 40 damage).</p>\n<p>The creature can't discard the crystals until they leave the aura or roll a successful save against it.</p>\n<p><strong>Critical Failure</strong> As failure, but [[/r {8d6}[piercing]]]{8d6 piercing damage}, plus [[/r {10}[negative]]]{10 negative energy damage} for every 2,000 gp of the crystals' value (maximum 80 damage).</p>\n<hr />\n<p>Ulressia can deactivate or activate this aura using a single action, which has the concentrate trait.</p>\n</div>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Any creature that ends its turn in the aura while in possession of any crystals, gemstones, or other precious stones must attempt a @Check[type:fortitude|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to the aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature's crystals reverberate with Ulressia's vengeful aura, sharpening at every corner and digging, as if powerfully magnetized, into the creature's flesh.</p>\n<p>The creature takes [[/r {4d6}[piercing]]]{4d6 piercing damage}, plus [[/r {5}[negative]]]{5 negative damage} for every 2,000 gp the crystals are cumulatively worth (maximum 40 damage).</p>\n<p>The creature can't discard the crystals until they leave the aura or roll a successful save against it.</p>\n<p><strong>Critical Failure</strong> As failure, but [[/r {8d6}[piercing]]]{8d6 piercing damage}, plus [[/r {10}[negative]]]{10 negative energy damage} for every 2,000 gp of the crystals' value (maximum 80 damage).</p>\n<hr />\n<p>Ulressia can deactivate or activate this aura using a single action, which has the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2573,7 +2557,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Ulressia channels her warped powers over crystals through her blade and into a creature's body, partially crystallizing its blood.</p>\n<p>Ulressia makes a melee dagger Strike. On a hit, the creature takes damage as normal and must also roll a @Check[type:fortitude|dc:41] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}, plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 2}, plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n</div>"
+                    "value": "<p>Ulressia channels her warped powers over crystals through her blade and into a creature's body, partially crystallizing its blood.</p>\n<p>Ulressia makes a melee dagger Strike. On a hit, the creature takes damage as normal and must also roll a @Check[type:fortitude|dc:41] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}, plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 2}, plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -1,8 +1,9 @@
-import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { coinsToString, coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { EquipmentFilters } from "./data";
+import { EquipmentFilters, RangesData } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     override filterData!: EquipmentFilters;
@@ -20,7 +21,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const inventoryItems: CompendiumIndexData[] = [];
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
-        const kitFields = ["img", "data.price.value", "data.traits"];
+        const kitFields = ["img", "data.price", "data.traits"];
         const baseFields = [...kitFields, "data.stackGroup", "data.level.value", "data.source.value"];
         const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
         const consumableFields = [...baseFields, "data.consumableType.value"];
@@ -58,33 +59,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     }
 
                     // Store price as a number for better sorting
-                    const coinValue = (() => {
-                        if (itemData.type === "kit") {
-                            const coinValues: string[] = (itemData.data?.price?.value ?? "0 gp").split(/,\s*/);
-                            const total = coinValues
-                                .map((coinValue) =>
-                                    coinValueInCopper(
-                                        extractPriceFromItem({ data: { price: { value: coinValue }, quantity: 1 } })
-                                    )
-                                )
-                                .reduce((total, part) => total + part, 0);
-                            return total;
-                        } else if (itemData.type === "treasure") {
-                            const coinValue = `${itemData.data.value.value} ${itemData.data.denomination.value}`;
-                            itemData.data.price = {
-                                value: `${itemData.data.value.value} ${itemData.data.denomination.value}`,
-                            };
-                            return coinValueInCopper(
-                                extractPriceFromItem({ data: { price: { value: coinValue }, quantity: 1 } })
-                            );
-                        }
-                        return coinValueInCopper(
-                            extractPriceFromItem({
-                                data: { price: { value: itemData.data?.price?.value ?? "0 gp" }, quantity: 1 },
-                            })
-                        );
-                    })();
-                    if (coinValue === 0) itemData.data.price = { value: "0 gp" };
+                    const coinValue = coinValueInCopper(itemData.data.price.value);
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
@@ -108,7 +83,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         category: itemData.data.category ?? "",
                         group: itemData.data.group ?? "",
                         consumableType: itemData.data.consumableType?.value ?? "",
-                        price: itemData.data.price.value,
+                        price: coinsToString(itemData.data.price.value, { reduce: false }),
                         priceInCopper: coinValue,
                         traits: itemData.data.traits.value,
                         rarity: itemData.data.traits.rarity,
@@ -150,10 +125,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, ranges, search } = this.filterData;
+        const { checkboxes, ranges, search, sliders } = this.filterData;
 
         // Level
-        if (!(entry.level >= ranges.level.values.min && entry.level <= ranges.level.values.max)) return false;
+        if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
+        // Price
+        if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
+            return false;
         // Name
         if (search.text) {
             if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
@@ -191,7 +169,28 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         return true;
     }
 
+    override parseRangeFilterInput(name: string, lower: string, upper: string): RangesData["values"] {
+        if (name === "price") {
+            const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
+            for (const [english, translated] of Object.entries(coins)) {
+                lower = lower.replaceAll(translated, english);
+                upper = upper.replaceAll(translated, english);
+            }
+            const min = coinValueInCopper(coinStringToCoins(lower));
+            const max = coinValueInCopper(coinStringToCoins(upper));
+            return {
+                min,
+                max,
+                inputMin: lower,
+                inputMax: upper,
+            };
+        }
+
+        return super.parseRangeFilterInput(name, lower, upper);
+    }
+
     protected override prepareFilterData(): void {
+        const coins = LocalizePF2e.translations.PF2E.CurrencyAbbreviations;
         this.filterData = {
             checkboxes: {
                 itemtypes: {
@@ -247,12 +246,28 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 },
             },
             ranges: {
+                price: {
+                    changed: false,
+                    isExpanded: false,
+                    label: "PF2E.PriceLabel",
+                    values: {
+                        min: 0,
+                        max: 20_000_000,
+                        inputMin: `0${coins.cp}`,
+                        inputMax: `200,000${coins.gp}`,
+                    },
+                },
+            },
+            sliders: {
                 level: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterLevels",
                     values: {
+                        lowerLimit: 0,
+                        upperLimit: 30,
                         min: 0,
                         max: 30,
+                        step: 1,
                     },
                 },
             },

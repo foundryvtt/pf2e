@@ -1,0 +1,184 @@
+<div class="form-list" data-overlay-type="{{type}}" {{#if level}}data-level="{{level}}"{{/if}} {{#if id}}data-overlay-id="{{id}}"{{/if}}>
+    {{#if (eq type "heighten")}}
+        <h3 class="form-group">
+            <label>{{localize "PF2E.SpellScalingOverlay.Label"}}</label>
+            <div class="details-container-flex-row">
+                <select data-action="change-level">
+                    {{#select level}}
+                        {{#each heightenLevels as |key|}}
+                            <option value="{{key}}">{{localize "PF2E.SpellScalingOverlay.Selection" level=(ordinal key)}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <div class="item-controls">
+                    <a data-action="overlay-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                </div>
+            </div>
+        </h3>
+    {{else}}
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.NameLabel"}}</label>
+            <div class="details-container-flex-row">
+                <input type="text" name="{{base}}.name" value="{{overlay.name}}" data-dtype="String"/>
+                <div class="item-controls">
+                    <a data-action="overlay-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+
+    <div class="toggle-button-list">
+        {{#each missing}}
+            <button data-action="overlay-add-property" data-property="{{key}}">
+                <i class="fa fa-plus"></i>
+                {{localize label}}
+            </button>
+        {{/each}}
+    </div>
+
+    {{#if data.time}}
+    <div class="form-group">
+        <label>
+            <a data-action="overlay-remove-property" data-property="time"><i class="fa fa-times" ></i></a>
+            {{localize "PF2E.SpellTimeLabel"}}
+        </label>
+        <div>
+            <input type="text" name="{{dataPath}}.time.value" value="{{data.time.value}}" data-dtype="String"/>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if data.components}}
+    <div class="form-group">
+        <label>
+            <a data-action="overlay-remove-property" data-property="components"><i class="fa fa-times" ></i></a>
+            {{localize "PF2E.SpellComponentsLabel"}}
+        </label>
+        <div class="details-container-flex-row spell-components">
+            <label>
+                <input type="checkbox" name="{{dataPath}}.components.focus" {{checked data.components.focus}} data-dtype="Boolean"/>
+                <span>{{localize "PF2E.SpellComponentShortF"}}</span>
+            </label>
+            <label>
+                <input type="checkbox" name="{{dataPath}}.components.material" {{checked data.components.material}} data-dtype="Boolean"/>
+                <span>{{localize "PF2E.SpellComponentShortM"}}</span>
+            </label>
+            <label>
+                <input type="checkbox" name="{{dataPath}}.components.somatic" {{checked data.components.somatic}} data-dtype="Boolean"/>
+                <span>{{localize "PF2E.SpellComponentShortS"}}</span>
+            </label>
+            <label>
+                <input type="checkbox" name="{{dataPath}}.components.verbal" {{checked data.components.verbal}} data-dtype="Boolean"/>
+                <span>{{localize "PF2E.SpellComponentShortV"}}</span>
+            </label>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if data.target}}
+    <div class="form-group">
+        <label>
+            <a data-action="overlay-remove-property" data-property="target"><i class="fa fa-times" ></i></a>
+            {{localize "PF2E.SpellTargetLabel"}}
+        </label>
+        <div>
+            <input type="text" name="{{dataPath}}.target.value" value="{{data.target.value}}" data-dtype="String"/>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if data.area}}
+    <div class="form-group">
+        <label>
+            <a data-action="overlay-remove-property" data-property="area"><i class="fa fa-times" ></i></a>
+            {{localize "PF2E.AreaLabel"}}
+        </label>
+        <div class="details-container-two-columns">
+            <select name="{{dataPath}}.area.value" data-dtype="String">
+                <option value=""></option>
+                {{#select data.area.value}}
+                {{#each @root.areaSizes as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <select name="{{dataPath}}.area.areaType" data-dtype="String">
+                <option value=""></option>
+                {{#select data.area.areaType}}
+                {{#each @root.areaTypes as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if data.range}}
+    <div class="form-group">
+        <label>
+            <a data-action="overlay-remove-property" data-property="range"><i class="fa fa-times" ></i></a>
+            {{localize "PF2E.SpellRangeLabel"}}
+        </label>
+        <div>
+            <input type="text" name="{{dataPath}}.range.value" value="{{data.range.value}}" data-dtype="String"/>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if data.damage}}
+        <div class="damage-formulas">
+            <h3>
+                <a data-action="overlay-remove-property" data-property="damage"><i class="fa fa-times" ></i></a>
+                {{localize "PF2E.FormulaPlaceholder"}}
+                <div class="item-controls">
+                    <i class="fas fa-plus" data-action="damage-create"></i>
+                </div>
+            </h3>
+
+            {{#each data.damage.value as |damage id|}}
+                <div class="formula-section">
+                    <div class="details-container-flex-row">
+                        <input type="text" name="{{../dataPath}}.damage.value.{{id}}.value" value="{{damage.value}}" data-dtype="String" placeholder="{{localize "PF2E.FormulaPlaceholder"}}"/>
+                        <label>
+                            <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
+                            <input type="checkbox" name="{{../dataPath}}.damage.value.{{id}}.applyMod" {{checked damage.applyMod}} data-dtype="Boolean" }/>
+                        </label>
+                        <select name="{{../dataPath}}.damage.value.{{id}}.type.subtype" data-dtype="String">
+                            {{#select damage.type.subtype}}
+                                <option></option>
+                                {{#each @root.damageSubtypes as |name type|}}
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                        <select name="{{../dataPath}}.damage.value.{{id}}.type.value" data-dtype="String">
+                            {{#select damage.type.value}}
+                                <option value=""></option>
+                                {{#each @root.damageTypes as |name type|}}
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                        <div class="item-controls">
+                            <a class="trait-selector"
+                                data-trait-selector="basic"
+                                data-title="PF2E.DamageCategoriesLabel"
+                                data-config-types="damageCategories"
+                                data-property="{{../dataPath}}.damage.value.{{id}}.type.categories"
+                            ><i class="fas fa-edit"></i></a>
+                            <a data-action="damage-delete" data-id="{{id}}"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{#if damage.type.categories}}
+                        <div class="traits-list">
+                            {{#each damage.type.categories}}
+                                <div class="tag-legacy">{{localize (lookup @root.damageCategories this)}}</div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>

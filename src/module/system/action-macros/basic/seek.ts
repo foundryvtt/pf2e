@@ -14,6 +14,7 @@ export function seek(options: SkillActionOptions) {
         traits: ["concentrate", "secret"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionMacros.note(selector, "PF2E.Actions.Seek", "criticalSuccess"),

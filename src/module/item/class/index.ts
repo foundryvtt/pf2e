@@ -7,11 +7,7 @@ import { ZeroToFour } from "@module/data";
 import { sluggify } from "@util";
 import { ClassData, ClassTrait } from "./data";
 
-export class ClassPF2e extends ABCItemPF2e {
-    static override get schema(): typeof ClassData {
-        return ClassData;
-    }
-
+class ClassPF2e extends ABCItemPF2e {
     get hpPerLevel(): number {
         return this.data.data.hp;
     }
@@ -71,8 +67,10 @@ export class ClassPF2e extends ABCItemPF2e {
     }
 }
 
-export interface ClassPF2e {
+interface ClassPF2e {
     readonly data: ClassData;
 
     get slug(): ClassTrait | null;
 }
+
+export { ClassPF2e };

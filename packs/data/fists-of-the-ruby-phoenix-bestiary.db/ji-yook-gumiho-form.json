@@ -154,19 +154,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -183,7 +170,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": {
+                        "cp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -296,19 +285,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 16
                 },
@@ -325,7 +301,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "10000 gp"
+                    "value": {
+                        "gp": 10000
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -437,19 +415,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 14
                 },
@@ -466,7 +431,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4500 gp"
+                    "value": {
+                        "gp": 4500
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -571,19 +538,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 7
                 },
@@ -597,7 +551,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "53 gp"
+                    "value": {
+                        "gp": 53
+                    }
                 },
                 "quantity": 2,
                 "range": {
@@ -1126,12 +1082,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1176,7 +1141,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> An enemy within 60 feet is the target of a Strike or attempts a Will save</p>\n<p><strong>Effect</strong> Just when an enemy is preparing to defend itself, Ji-yook sends an illusion of herself to whisper a disquieting secret or threat into their ear. The enemy takes a -2 circumstance penalty to their AC or Will save against the triggering attack or effect.</p>"
+                    "value": "<p><strong>Trigger</strong> An enemy within 60 feet is the target of a Strike or attempts a Will save</p>\n<p><strong>Effect</strong> Just when an enemy is preparing to defend itself, Ji-yook sends an illusion of herself to whisper a disquieting secret or threat into their ear. The enemy takes a -2 circumstance penalty to their AC or Will save against the triggering attack or effect.</p>"
                 },
                 "requirements": {
                     "value": ""

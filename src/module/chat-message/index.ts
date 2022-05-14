@@ -14,6 +14,7 @@ import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/t
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
+import { TextEditorPF2e } from "@system/text-editor";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -81,7 +82,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does this message include a check (1d20 + c) roll? */
     get isCheckRoll(): boolean {
-        return this.isRoll && !!this.data.flags.pf2e.context;
+        return this.roll instanceof CheckRoll;
     }
 
     /** Does the message include a rerolled check? */
@@ -91,9 +92,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a check that hasn't been rerolled? */
     get isRerollable(): boolean {
-        const actorId = this.data.speaker.actor ?? "";
-        const isOwner = !!game.actors.get(actorId)?.isOwner;
-        return this.isCheckRoll && !this.isReroll && isOwner && this.canUserModify(game.user, "update");
+        const { roll } = this;
+        return !!(
+            this.actor?.isOwner &&
+            this.canUserModify(game.user, "update") &&
+            roll instanceof CheckRoll &&
+            roll.isRerollable
+        );
     }
 
     /** Get the owned item associated with this chat message */
@@ -149,6 +154,13 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return user.isGM;
     }
 
+    override prepareData(): void {
+        super.prepareData();
+
+        const rollData = this.actor?.getRollData();
+        this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
+    }
+
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
 
@@ -156,12 +168,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         UserVisibilityPF2e.process($html, { message: this, actor: this.actor });
 
         // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
-        const $targetDC = $html.find(".target-dc");
-        if ($targetDC.children().length === 0) $targetDC.remove();
-        const $dcResult = $html.find(".dc-result");
-        if ($dcResult.children().length === 0) $dcResult.remove();
+        const targetDC = $html[0].querySelector(".target-dc");
+        if (targetDC?.innerHTML.trim() === "") targetDC.remove();
+        const dcResult = $html[0].querySelector(".dc-result");
+        if (dcResult?.innerHTML.trim() === "") dcResult.remove();
 
-        if (this.isDamageRoll && this.isContentVisible) {
+        if (!this.data.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.append(this, $html);
 
             // Clean up styling of old damage messages
@@ -196,8 +208,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             if (error instanceof Error) console.error(error.message);
         }
 
-        // Trait tooltips
-        $html.find(".tag[data-trait]").each((_idx, span) => {
+        // Trait and material tooltips
+        $html.find(".tag[data-trait], .tag[data-material]").each((_idx, span) => {
             const $tag = $(span);
             const description = $tag.attr("data-description");
             if (description) {

@@ -258,7 +258,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within 30 feet that the fading fox is aware of either moves toward the fox or targets it with an ability</p>\n<p><strong>Requirements</strong> The fading fox is in natural surroundings</p>\n<p><strong>Effect</strong> The fading fox @Compendium[pf2e.actionspf2e.Hide]{Hides}. If its Stealth check result meets or exceeds the triggering creature's Perception DC, the fading fox is @Compendium[pf2e.conditionitems.Hidden]{Hidden} to that creature.</p>\n<p>The fading fox can use this reaction even if it is being observed.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet that the fading fox is aware of either moves toward the fox or targets it with an ability</p>\n<p><strong>Requirements</strong> The fading fox is in natural surroundings</p>\n<p><strong>Effect</strong> The fading fox @Compendium[pf2e.actionspf2e.Hide]{Hides}. If its Stealth check result meets or exceeds the triggering creature's Perception DC, the fading fox is @Compendium[pf2e.conditionitems.Hidden]{Hidden} to that creature.</p>\n<p>The fading fox can use this reaction even if it is being observed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -353,12 +353,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

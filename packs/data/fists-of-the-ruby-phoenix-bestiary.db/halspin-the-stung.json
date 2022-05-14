@@ -1042,6 +1042,13 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
@@ -1064,12 +1071,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -1275,6 +1276,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
@@ -1297,12 +1305,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -1398,6 +1400,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
@@ -1420,12 +1429,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "fortitude"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "necromancy"
@@ -1632,6 +1635,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -1654,12 +1664,6 @@
                 "save": {
                     "basic": "basic",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -4041,19 +4045,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -4070,7 +4061,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "20 gp"
+                    "value": {
+                        "gp": 20
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -4184,19 +4177,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -4213,7 +4193,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "35 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -4325,19 +4307,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 8
                 },
@@ -4355,7 +4324,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "500 gp"
+                    "value": {
+                        "gp": 500
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -4430,19 +4401,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -4456,7 +4414,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "8 sp"
+                    "value": {
+                        "sp": 8
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -4642,7 +4602,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Halspin fails or critically fails a Reflex saving throw</p>\n<p><strong>Effect</strong> Halspin rerolls the save and takes the better result.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Halspin fails or critically fails a Reflex saving throw</p>\n<p><strong>Effect</strong> Halspin rerolls the save and takes the better result.</p>"
                 },
                 "requirements": {
                     "value": ""

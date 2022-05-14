@@ -1,7 +1,7 @@
-<li class="list-item item npc-item rollable" data-item="{{item._id}}" data-item-id="{{item._id}}">
+<li class="list-item item npc-item rollable" data-item="{{item._id}}" data-item-id="{{item._id}}" data-item-rarity="{{item.data.traits.rarity}}">
     <div class="item-icon rollable" style="background-image: url({{item.img}})"></div>
     <div class="item-name rollable">
-        <h4 class="{{item.data.traits.rarity}}">
+        <h4>
             <a>
                 {{item.name}}
                 {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.data.identification.identified.name}})</span>{{/if}}

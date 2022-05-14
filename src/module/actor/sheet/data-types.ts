@@ -3,8 +3,7 @@ import { LootPF2e } from "@actor/loot";
 import { BookData } from "@item/book";
 import { getContainerMap } from "@item/container/helpers";
 import { ArmorData, ConsumableData, EquipmentData, PhysicalItemData, TreasureData, WeaponData } from "@item/data";
-import { IdentificationData, MystifiedData } from "@item/physical/data";
-import { Coins } from "@item/treasure/helpers";
+import { Coins, IdentificationData, MystifiedData, Price } from "@item/physical/data";
 import { SheetOptions } from "@module/sheet/helpers";
 
 type ContainerMap = ReturnType<typeof getContainerMap>;
@@ -13,9 +12,11 @@ export type InventoryItem<D extends PhysicalItemData = PhysicalItemData> = D & {
     canBeEquipped: boolean;
     containerData: SheetContainerData;
     isContainer: boolean;
+    isIdentified: boolean;
     isInContainer: boolean;
     isSellableTreasure?: boolean;
     showEdit: boolean;
+    price: Price & { label: string };
     totalWeight: string;
     data: D["data"] & {
         identification: IdentificationData & {

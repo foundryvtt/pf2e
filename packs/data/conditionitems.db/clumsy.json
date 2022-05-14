@@ -24,16 +24,7 @@
             "selectable": true,
             "statusName": "clumsy"
         },
-        "modifiers": [
-            {
-                "group": "dex-based",
-                "type": "status"
-            },
-            {
-                "group": "dex-damage",
-                "type": "status"
-            }
-        ],
+        "modifiers": [],
         "overrides": [],
         "references": {
             "children": [],
@@ -42,12 +33,26 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "dex-based",
+                "type": "status",
+                "value": "-@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "dex-damage",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": true
+            "hud": true,
+            "values": []
         },
         "traits": {
             "custom": "",

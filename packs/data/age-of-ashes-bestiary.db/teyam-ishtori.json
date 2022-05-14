@@ -100,28 +100,21 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "exceptions": "",
-                    "label": "Electricity",
                     "type": "electricity",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "10"
+                    "value": 10
                 },
                 {
                     "exceptions": "except bludgeoning",
-                    "label": "Physical",
                     "type": "physical",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [],
@@ -1083,6 +1076,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1105,12 +1105,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -1184,19 +1178,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 15
                 },
@@ -1210,7 +1191,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3000 gp"
+                    "value": {
+                        "gp": 3000
+                    }
                 },
                 "quantity": 2,
                 "rules": [],
@@ -1587,7 +1570,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Teyam has one permanent 8th-level <em>@Compendium[pf2e.spells-srd.Contingency]{Contingency}</em> spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically <em>@Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}</em>.</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> While Teyam is in torpor, a creature disturbs Teyam's remains, touches her treasure, or casts a spell that would affect Teyam.</p>\n<p><strong>Effect</strong> Teyam ends torpor, rolls initiative, and gains the effect of her contingency's companion spell. The contingency resets after 24 hours.</p>"
+                    "value": "<p>Teyam has one permanent 8th-level <em>@Compendium[pf2e.spells-srd.Contingency]{Contingency}</em> spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically <em>@Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}</em>.</p>\n<p><strong>Trigger</strong> While Teyam is in torpor, a creature disturbs Teyam's remains, touches her treasure, or casts a spell that would affect Teyam.</p>\n<p><strong>Effect</strong> Teyam ends torpor, rolls initiative, and gains the effect of her contingency's companion spell. The contingency resets after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1628,7 +1611,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Teyam's turn begins.</p>\n<p><strong>Effect</strong> Teyam casts <em>@Compendium[pf2e.spells-srd.Blink]{Blink}</em>, <em>@Compendium[pf2e.spells-srd.Fly]{Fly}</em>, <em>@Compendium[pf2e.spells-srd.Spell Turning]{Spell Turning}</em>, or <em>@Compendium[pf2e.spells-srd.True Seeing]{True Seeing}</em> on itself. It usually chooses spell turning unless it already has that spell in effect.</p>"
+                    "value": "<p><strong>Trigger</strong> Teyam's turn begins.</p>\n<p><strong>Effect</strong> Teyam casts <em>@Compendium[pf2e.spells-srd.Blink]{Blink}</em>, <em>@Compendium[pf2e.spells-srd.Fly]{Fly}</em>, <em>@Compendium[pf2e.spells-srd.Spell Turning]{Spell Turning}</em>, or <em>@Compendium[pf2e.spells-srd.True Seeing]{True Seeing}</em> on itself. It usually chooses spell turning unless it already has that spell in effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1714,7 +1697,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-level spell that targets one creature (usually one eye has <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em> and the other <em>@Compendium[pf2e.spells-srd.Polar Ray]{Polar Ray}</em>). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components.</p>\n<p data-visibility=\"gm\">When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/br 1d4 #rounds]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@Compendium[pf2e.equipment-srd.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
+                    "value": "<p>A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-level spell that targets one creature (usually one eye has <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em> and the other <em>@Compendium[pf2e.spells-srd.Polar Ray]{Polar Ray}</em>). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components.</p>\n<p>When the demilich casts a spell from a gemstone eye, that eye stops glowing for [[/br 1d4 #rounds]]{1d4 rounds}, during which time that eye's spell can't be used. Occasionally, one or both of the two <em>@Compendium[pf2e.equipment-srd.Demilich Eye Gem]{Demilich Eye Gems}</em> can be harvested from a destroyed demilich as magic items.</p>"
                 },
                 "requirements": {
                     "value": ""

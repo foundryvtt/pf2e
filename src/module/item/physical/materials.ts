@@ -1,5 +1,5 @@
 import { Rarity } from "@module/data";
-import { PreciousMaterialGrade, PreciousMaterialType } from "./data";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
 export interface MaterialGradeData {
     level: number;
@@ -151,6 +151,19 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 18,
             price: 24000,
             rarity: "rare",
+        },
+    },
+    peachwood: {
+        low: null,
+        standard: {
+            level: 12,
+            price: 2000,
+            rarity: "uncommon",
+        },
+        high: {
+            level: 18,
+            price: 19000,
+            rarity: "uncommon",
         },
     },
     orichalcum: {

@@ -25,20 +25,62 @@
         },
         "rules": [
             {
-                "key": "DamageDice",
-                "predicate": {
+                "definition": {
                     "all": [
-                        "unarmed"
-                    ],
-                    "not": [
-                        "suppress-metal-strike"
+                        "weapon:category:unarmed"
                     ]
                 },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
                 "selector": "strike-damage",
-                "traits": [
-                    "silver",
-                    "coldiron"
-                ]
+                "value": "coldIron"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:category:unarmed"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "silver"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:trait:monk"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "feat:monastic-weaponry"
+                    ]
+                },
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "coldIron"
+            },
+            {
+                "definition": {
+                    "all": [
+                        "weapon:trait:monk"
+                    ]
+                },
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": {
+                    "all": [
+                        "feat:monastic-weaponry"
+                    ]
+                },
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "silver"
             }
         ],
         "source": {

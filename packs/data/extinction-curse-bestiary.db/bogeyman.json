@@ -271,6 +271,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 5
                 },
@@ -294,10 +299,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {},
-                    "interval": 1
                 },
                 "school": {
                     "value": "divination"
@@ -613,6 +614,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -636,12 +644,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -1647,7 +1649,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The bogeyman has killed a creature within the last round and is adjacent to the creature</p>\n<p><strong>Effect</strong> The bogeyman consumes the creature's soul. The soul is utterly destroyed-nothing short of <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> or a similar effect can restore it to life, and only after the bogeyman has been slain. The bogeyman regains Hit Points equal to double the level of the consumed creature. Each time the bogeyman consumes 10 souls, it increases its level by 1, and its statistics improve accordingly.</p>"
+                    "value": "<p><strong>Requirements</strong> The bogeyman has killed a creature within the last round and is adjacent to the creature</p>\n<p><strong>Effect</strong> The bogeyman consumes the creature's soul. The soul is utterly destroyed-nothing short of <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> or a similar effect can restore it to life, and only after the bogeyman has been slain. The bogeyman regains Hit Points equal to double the level of the consumed creature. Each time the bogeyman consumes 10 souls, it increases its level by 1, and its statistics improve accordingly.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1745,12 +1747,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1795,7 +1806,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a bogeyman scores a critical hit with a claw Strike, the target must attempt a @Check[type:will|dc:29] save.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n</div>"
+                    "value": "<p>If a bogeyman scores a critical hit with a claw Strike, the target must attempt a @Check[type:will|dc:29] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""

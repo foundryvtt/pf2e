@@ -719,6 +719,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -742,10 +747,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {},
-                    "interval": 1
                 },
                 "school": {
                     "value": "divination"
@@ -941,19 +942,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -970,7 +958,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "5 sp"
+                    "value": {
+                        "sp": 5
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -1440,7 +1430,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the babau's reach successfully hits the babau with a Strike</p>\n<p><strong>Effect</strong> The babau excretes a gout of acidic, bloodlike slime against the attacker and its weapon. The attacker must attempt a @Check[type:reflex|dc:26|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The attacker avoids the reactive slime.</p>\n<p><strong>Success</strong> The attacker takes [[/r {1d6}[acid]]]{1d6 acid damage}.</p>\n<p><strong>Failure</strong> The attacker takes [[/r {2d6}[acid]]]{2d6 acid damage}.</p>\n<p><strong>Critical Failure</strong> As failure, except the weapon used to Strike the babau automatically becomes @Compendium[pf2e.conditionitems.Broken]{Broken} unless the weapon is made of a material that is immune to acid.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the babau's reach successfully hits the babau with a Strike</p>\n<p><strong>Effect</strong> The babau excretes a gout of acidic, bloodlike slime against the attacker and its weapon. The attacker must attempt a @Check[type:reflex|dc:26|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The attacker avoids the reactive slime.</p>\n<p><strong>Success</strong> The attacker takes [[/r {1d6}[acid]]]{1d6 acid damage}.</p>\n<p><strong>Failure</strong> The attacker takes [[/r {2d6}[acid]]]{2d6 acid damage}.</p>\n<p><strong>Critical Failure</strong> As failure, except the weapon used to Strike the babau automatically becomes @Compendium[pf2e.conditionitems.Broken]{Broken} unless the weapon is made of a material that is immune to acid.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1557,12 +1547,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

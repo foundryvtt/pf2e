@@ -6,10 +6,6 @@ import { sluggify } from "@util";
 import { HeritageData } from "./data";
 
 class HeritagePF2e extends ItemPF2e {
-    static override get schema(): typeof HeritageData {
-        return HeritageData;
-    }
-
     get traits(): Set<CreatureTrait> {
         return new Set(this.data.data.traits.value);
     }

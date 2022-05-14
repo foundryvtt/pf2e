@@ -155,19 +155,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -184,7 +171,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -299,19 +288,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -328,7 +304,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -434,19 +412,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -464,7 +429,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "4 gp"
+                    "value": {
+                        "gp": 4
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -808,7 +775,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Trigger</strong> Ajbal is targeted with a melee or ranged attack by an attacker he can see</p>\n<hr /></div>\n<p><strong>Effect</strong> Ajbal gains a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> Ajbal is targeted with a melee or ranged attack by an attacker he can see</p>\n<hr />\n<p><strong>Effect</strong> Ajbal gains a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -971,12 +938,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
@@ -1021,7 +997,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<div data-visibility=\"gm\">\n<p><strong>Requirements</strong> Ajbal's last action was a melee Strike that dealt sneak attack damage to a @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} target</p>\n<hr /></div>\n<p><strong>Effect</strong> Ajbal deals [[/r {6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target creature, and the target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as it's bleeding.</p>"
+                    "value": "<p><strong>Requirements</strong> Ajbal's last action was a melee Strike that dealt sneak attack damage to a @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} target</p>\n<hr />\n<p><strong>Effect</strong> Ajbal deals [[/r {6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target creature, and the target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as it's bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""

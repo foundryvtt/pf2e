@@ -14,6 +14,7 @@ export function impersonate(options: SkillActionOptions) {
         traits: ["concentrate", "exploration", "manipulate", "secret"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [

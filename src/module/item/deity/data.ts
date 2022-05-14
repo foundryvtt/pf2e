@@ -1,25 +1,17 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { Alignment } from "@actor/creature/types";
 import { AbilityString } from "@actor/data";
-import { ItemSystemData } from "@item/data/base";
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
 import { BaseWeaponType } from "@item/weapon/data";
 import type { DeityPF2e } from "./document";
 import { DeityDomain } from "./types";
 
-export type DeitySource = BaseNonPhysicalItemSource<"deity", DeitySystemSource>;
+type DeitySource = BaseItemSourcePF2e<"deity", DeitySystemSource>;
 
-export class DeityData extends BaseNonPhysicalItemData<DeityPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/deity.svg";
-}
+type DeityData = Omit<DeitySource, "effects" | "flags"> &
+    BaseItemDataPF2e<DeityPF2e, "deity", DeitySystemData, DeitySource>;
 
-export interface DeityData extends Omit<DeitySource, "effects" | "flags"> {
-    type: DeitySource["type"];
-    data: DeitySystemData;
-    readonly _source: DeitySource;
-}
-
-export interface DeitySystemSource extends ItemSystemData {
+interface DeitySystemSource extends ItemSystemSource {
     alignment: {
         own: Alignment | null;
         follower: Alignment[];
@@ -38,4 +30,6 @@ export interface DeitySystemSource extends ItemSystemData {
 
 type DivineFonts = ["harm"] | ["heal"] | ["harm", "heal"];
 
-export type DeitySystemData = DeitySystemSource;
+type DeitySystemData = DeitySystemSource;
+
+export { DeityData, DeitySource, DeitySystemData, DeitySystemSource };

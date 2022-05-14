@@ -17,11 +17,7 @@ import { ItemPF2e } from "../base";
 import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 
-export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
-    static override get schema(): typeof SpellcastingEntryData {
-        return SpellcastingEntryData;
-    }
-
+class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     private _spells: Collection<Embedded<SpellPF2e>> | null = null;
 
     /** A collection of all spells contained in this entry regardless of organization */
@@ -208,12 +204,13 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not.
      */
-    async addSpell(spell: SpellPF2e, targetLevel: number): Promise<SpellPF2e | null> {
+    async addSpell(spell: SpellPF2e, targetLevel?: number): Promise<SpellPF2e | null> {
         const actor = this.actor;
         if (!(actor instanceof CreaturePF2e)) {
             throw ErrorPF2e("Spellcasting entries can only exist on creatures");
         }
 
+        targetLevel ??= spell.level;
         const spellcastingEntryId = spell.data.data.location.value;
         if (spellcastingEntryId === this.id && spell.level === targetLevel) {
             return null;
@@ -332,10 +329,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                     },
                     isCantrip: level === 0,
                     active,
-                    displayPrepared:
-                        this.data.data.displayLevels && this.data.data.displayLevels[level] !== undefined
-                            ? this.data.data.displayLevels[level]
-                            : true,
                 });
             }
         } else if (this.isFocusPool) {
@@ -368,7 +361,6 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
-                // todo: innate spells should be able to expend like prep spells do
                 if (alwaysShowHeader || spells.length) {
                     const uses = this.isSpontaneous && level !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
@@ -378,8 +370,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                         uses: this.isInnate && !spell.unlimited ? spell.data.data.location.uses : undefined,
                     }));
 
-                    // Spontaneous spellbooks hide their levels if there are no uses for them. Innate hide if there are no active spells.
-                    const hideForSpontaneous = this.isSpontaneous && uses?.max === 0;
+                    // These entries hide if there are no active spells at that level, or if there are no spell slots
+                    const hideForSpontaneous = this.isSpontaneous && uses?.max === 0 && active.length === 0;
                     const hideForInnate = this.isInnate && active.length === 0;
                     if (!this.data.data.showSlotlessLevels.value && (hideForSpontaneous || hideForInnate)) continue;
 
@@ -454,7 +446,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
                 })) ?? [];
         }
 
-        return spellPrepList;
+        return Object.values(spellPrepList).some((s) => !!s.length) ? spellPrepList : null;
     }
 
     override getRollOptions(prefix = this.type): string[] {
@@ -495,6 +487,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry
     }
 }
 
-export interface SpellcastingEntryPF2e {
+interface SpellcastingEntryPF2e {
     readonly data: SpellcastingEntryData;
 }
+
+export { SpellcastingEntryPF2e };

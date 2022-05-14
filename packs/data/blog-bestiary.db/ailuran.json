@@ -92,10 +92,9 @@
             },
             "dr": [
                 {
-                    "exceptions": "Silver only",
-                    "label": "Physical",
+                    "exceptions": "except Silver only",
                     "type": "physical",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "dv": [
@@ -827,19 +826,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -856,7 +842,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "property1": {
                     "critDamage": "",
@@ -950,19 +936,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -976,7 +949,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1280,12 +1253,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

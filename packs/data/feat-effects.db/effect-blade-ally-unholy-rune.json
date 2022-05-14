@@ -15,12 +15,19 @@
         },
         "rules": [
             {
-                "key": "EffectTarget",
-                "scope": "weapon"
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "Note",
-                "selector": "{item|data.target}-damage",
+                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyUnholyRune}-damage",
                 "text": "<strong>Unholy</strong> <strong>Activate</strong> <span class=\"pf2-icon\">R</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon</p>\n<p><strong>Effect</strong> The target takes [[/r {1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} per weapon damage die of the etched weapon."
             },
             {
@@ -28,7 +35,7 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|data.target}-damage"
+                "selector": "{item|flags.pf2e.rulesSelections.effectBladeAllyUnholyRune}-damage"
             }
         ],
         "source": {

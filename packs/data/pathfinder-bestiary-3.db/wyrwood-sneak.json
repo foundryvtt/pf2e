@@ -154,19 +154,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -183,7 +170,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "9 sp"
+                    "value": {
+                        "sp": 9
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -291,19 +280,6 @@
                     "max": 6,
                     "value": 6
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -321,7 +297,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": {
+                        "gp": 1
+                    }
                 },
                 "propertyRune1": {
                     "value": ""
@@ -477,6 +455,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>Though their body is an organic construct, a wyrwood is a living creature. They're not immediately destroyed when reduced to 0 HP, but rather fall unconscious and eventually die. They don't need to eat or drink. They can be targeted by effects that target living creatures or that target constructs.</p>"
                 },
@@ -573,12 +552,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

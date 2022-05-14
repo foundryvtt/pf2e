@@ -1,16 +1,18 @@
 import { ActorPF2e } from "@actor/index";
 import { ContainerPF2e, ItemPF2e, PhysicalItemPF2e } from "@item/index";
-import { ErrorPF2e } from "@util";
+import { DENOMINATIONS } from "@item/physical/values";
+import { UserPF2e } from "@module/user";
+import { ErrorPF2e, isObject } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 import { KitData, KitEntryData } from "./data";
 
-export class KitPF2e extends ItemPF2e {
-    static override get schema(): typeof KitData {
-        return KitData;
-    }
-
+class KitPF2e extends ItemPF2e {
     get entries(): KitEntryData[] {
         return Object.values(this.data.data.items);
+    }
+
+    get price() {
+        return this.data.data.price;
     }
 
     /** Expand a tree of kit entry data into a list of physical items */
@@ -27,7 +29,7 @@ export class KitPF2e extends ItemPF2e {
             const prepared = await promise;
             const clone = item.clone({ _id: randomID() }, { keepId: true });
             const entry = entries[index];
-            if (clone.data.isPhysical) {
+            if (clone instanceof PhysicalItemPF2e) {
                 clone.data.update({
                     "data.quantity": entry.quantity,
                     "data.containerId": containerId,
@@ -51,6 +53,26 @@ export class KitPF2e extends ItemPF2e {
         }, []);
     }
 
+    protected override async _preUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        if (!changed.data) return await super._preUpdate(changed, options, user);
+
+        // Clear 0 price denominations
+        if (isObject<Record<string, unknown>>(changed.data?.price)) {
+            const price: Record<string, unknown> = changed.data.price;
+            for (const denomination of DENOMINATIONS) {
+                if (price[denomination] === 0) {
+                    price[`-=denomination`] = null;
+                }
+            }
+        }
+
+        await super._preUpdate(changed, options, user);
+    }
+
     /** Inflate this kit and add its items to the provided actor */
     async dumpContents({
         actor,
@@ -64,6 +86,8 @@ export class KitPF2e extends ItemPF2e {
     }
 }
 
-export interface KitPF2e {
+interface KitPF2e {
     readonly data: KitData;
 }
+
+export { KitPF2e };

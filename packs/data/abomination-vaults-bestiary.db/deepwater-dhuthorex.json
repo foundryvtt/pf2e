@@ -33,7 +33,7 @@
                 "details": "",
                 "max": 155,
                 "temp": 0,
-                "value": "155"
+                "value": 155
             },
             "initiative": {
                 "ability": "perception"
@@ -61,7 +61,7 @@
                 "value": 9
             },
             "privateNotes": "",
-            "publicNotes": "<p>Strange things swim in sunless seas, but few as fierce as the shark-like dhuthorexes. These beasts chase prey fearlessly and tenaciously.</p>\n<hr />\n<p>The typical dhuthorex is a dumb and hungry beast, chasing prey through the depths and venturing onto land only to pursue easy prey.</p>",
+            "publicNotes": "<p>The typical dhuthorex is a dumb and hungry beast, chasing prey through the depths and venturing onto land only to pursue easy prey.</p>\n<hr />\n<p>Strange things swim in sunless seas, but few as fierce as the shark-like dhuthorexes. These beasts chase prey fearlessly and tenaciously.</p>",
             "source": {
                 "value": "Pathfinder #165: Eyes of Empty Death"
             }
@@ -122,6 +122,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -168,6 +169,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "push"
                     ]
@@ -213,6 +215,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -251,7 +254,7 @@
             "type": "melee"
         },
         {
-            "_id": "xMhijWlOdI7TYoXF",
+            "_id": "huUPSBc3tD6r0B4N",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -296,7 +299,7 @@
             "type": "action"
         },
         {
-            "_id": "dDWhIjR57kch5XVl",
+            "_id": "cdTaJad7jDM2QE73",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -341,7 +344,7 @@
             "type": "action"
         },
         {
-            "_id": "ILoxNdSVDMUSsZ72",
+            "_id": "CH1wifIGckLBQDfe",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -393,7 +396,7 @@
             "type": "action"
         },
         {
-            "_id": "kjinVCubnSEYoqsa",
+            "_id": "FZlSN0F2oSrYwSf4",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -438,7 +441,7 @@
             "type": "action"
         },
         {
-            "_id": "gmBtDEwNmHOZxze6",
+            "_id": "iWHE4a4vmetksWd7",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -500,7 +503,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "selector": "jaws-attack",
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -524,7 +536,7 @@
             "type": "action"
         },
         {
-            "_id": "f36cOtyPYVIsp29G",
+            "_id": "0dO1DU5gt5v8bFwc",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -536,7 +548,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Medium, [[/r {2d6+7}[bludgeoning]]]{2d6+7 bludgeoning damage} plus [[/r {2d6}[acid]]]{2d6 acid damage}, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Medium, [[/r {2d6+7}[bludgeoning]+{2d6}[acid]]]{2d6+7 bludgeoning plus 2d6 acid damage}, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -571,7 +583,7 @@
             "type": "action"
         },
         {
-            "_id": "WeAeSX53hpTGL35M",
+            "_id": "za8ix1WE9HbNfHvg",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -616,7 +628,7 @@
             "type": "action"
         },
         {
-            "_id": "6YzDKS2rIYyHBGhf",
+            "_id": "9Eh0XQSnJ9rPgQ3d",
             "data": {
                 "actionCategory": {
                     "value": "offensive"

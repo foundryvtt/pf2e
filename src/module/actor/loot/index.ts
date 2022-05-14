@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor/base";
 import { PhysicalItemPF2e } from "@item/physical";
 import { ItemPF2e } from "@item/base";
-import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from "@item/treasure/helpers";
 import { ErrorPF2e } from "@util";
 import { UserPF2e } from "@module/user";
 import { LootData, LootSource } from "./data";
@@ -11,10 +10,6 @@ import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
 
 export class LootPF2e extends ActorPF2e {
-    static override get schema(): typeof LootData {
-        return LootData;
-    }
-
     get isLoot(): boolean {
         return this.data.data.lootSheetType === "Loot";
     }
@@ -63,9 +58,9 @@ export class LootPF2e extends ActorPF2e {
             return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
         }
         if (this.isMerchant && item instanceof PhysicalItemPF2e) {
-            const itemValue = extractPriceFromItem(item.data, quantity);
-            if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
-                await addCoins(item.actor, { coins: itemValue, combineStacks: true });
+            const itemValue = item.assetValue;
+            if (await targetActor.removeCoins(itemValue)) {
+                await item.actor.addCoins(itemValue);
                 return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
             } else if (this.isLoot) {
                 throw ErrorPF2e("Loot transfer failed");

@@ -223,6 +223,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
         if (!canvas.dimensions) return NaN;
 
+        if (this === target) return 0;
+
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
             return canvas.grid.measureDistance(this.position, target.position);
         }
@@ -298,6 +300,19 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         super._onUpdate(changed, options, userId);
+    }
+
+    /** If a single token (this one) was dropped, re-establish the hover status */
+    protected override async _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<this["document"][]> {
+        const clones = event.data.clones ?? [];
+        const dropped = await super._onDragLeftDrop(event);
+
+        if (clones.length === 1) {
+            this.emitHoverOut();
+            this.emitHoverIn();
+        }
+
+        return dropped;
     }
 }
 

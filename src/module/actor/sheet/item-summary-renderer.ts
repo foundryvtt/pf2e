@@ -1,5 +1,6 @@
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { coinsToString } from "@item/treasure/helpers";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -9,7 +10,7 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
 export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
-    constructor(protected sheet: ActorSheet<AType, ItemPF2e>) {}
+    constructor(protected sheet: Application & { get actor(): AType }) {}
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
@@ -87,7 +88,8 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         const $priceLabel =
             itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup !== "coins"
                 ? ((): JQuery => {
-                      const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: item.price });
+                      const price = coinsToString(item.price.value);
+                      const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
                       return $(`<p>${priceLabel}</p>`);
                   })()
                 : $();

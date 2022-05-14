@@ -90,23 +90,18 @@
             "dr": [
                 {
                     "exceptions": "except Adamantine and Orichalcum",
-                    "label": "Physical",
                     "type": "physical",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "dv": [
                 {
-                    "exceptions": "",
-                    "label": "Electricity",
                     "type": "electricity",
-                    "value": "15"
+                    "value": 15
                 },
                 {
-                    "exceptions": "",
-                    "label": "Orichalcum",
                     "type": "orichalcum",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "languages": {
@@ -243,7 +238,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -507,12 +502,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

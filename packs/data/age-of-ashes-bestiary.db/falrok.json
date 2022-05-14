@@ -95,10 +95,8 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
-                    "label": "Positive",
                     "type": "positive",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "dv": [],
@@ -409,7 +407,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within Falrok's melee reach is hit by a melee attack from one of his allies.</p>\n<p><strong>Effect</strong> When Falrok's enemy is hit by one of his allies, he capitalizes upon the distraction, making a Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within Falrok's melee reach is hit by a melee attack from one of his allies.</p>\n<p><strong>Effect</strong> When Falrok's enemy is hit by one of his allies, he capitalizes upon the distraction, making a Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -545,7 +543,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34]</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>\n</div>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {3d8}[negative]]]{3d8 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghast]{Ghast} the next midnight</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -593,7 +591,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any living creature hit by a ghast's attack must succeed at a @Check[type:fortitude|dc:34] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns<span data-visibility=\"gm\">, and the DC cumulatively decreases by 1 on each such save</span>.</p>"
+                    "value": "<p>Any living creature hit by a ghast's attack must succeed at a @Check[type:fortitude|dc:34] save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -696,12 +694,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

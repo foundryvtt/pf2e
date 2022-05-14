@@ -92,7 +92,7 @@ $light-text: #f5efe0;
     .side-bar {
         flex: 160px 0 0;
         height: 100%;
-        overflow: hidden scroll;
+        @include scrollbar;
 
         .armor-section {
             .armor-value {
@@ -234,7 +234,7 @@ $light-text: #f5efe0;
             }
         }
     }
-   
+
     .side-bar-section {
         display: flex;
         flex: auto;
@@ -308,7 +308,7 @@ $light-text: #f5efe0;
     .sheet-body {
         flex: auto;
         .tab {
-            overflow: hidden scroll;
+            @include scrollbar;
 
             .identification-skills {
                 ul {
@@ -361,7 +361,7 @@ $light-text: #f5efe0;
     .disabled {
         color: $color-disabled;
         border-color: $color-disabled;
-        
+
         &:hover, &.active {
             color: $color;
             border-color: $faded-color;

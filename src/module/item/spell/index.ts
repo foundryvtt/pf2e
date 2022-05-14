@@ -5,7 +5,7 @@ import { DamageCategorization, DamageType } from "@system/damage";
 import { OneToTen } from "@module/data";
 import { ordinal, objectHasKey, ErrorPF2e, isObject } from "@util";
 import { DicePF2e } from "@scripts/dice";
-import { MagicSchool, SpellData, SpellTrait } from "./data";
+import { MagicSchool, SpellData, SpellHeightenLayer, SpellTrait } from "./data";
 import { ItemSourcePF2e } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -28,12 +28,11 @@ interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
 }
 
-export class SpellPF2e extends ItemPF2e {
-    static override get schema(): typeof SpellData {
-        return SpellData;
-    }
-
+class SpellPF2e extends ItemPF2e {
     readonly isFromConsumable: boolean;
+
+    /** The original spell. Only exists if this is a variant */
+    original?: SpellPF2e;
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry?: TrickMagicItemEntry;
@@ -46,7 +45,7 @@ export class SpellPF2e extends ItemPF2e {
      * Heightened level of the spell if heightened, otherwise base.
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
-    get level() {
+    get level(): number {
         return this.data.data.location.heightenedLevel ?? this.baseLevel;
     }
 
@@ -70,15 +69,15 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     get isCantrip(): boolean {
-        return this.data.isCantrip;
+        return this.traits.has("cantrip") && !this.isRitual;
     }
 
     get isFocusSpell() {
-        return this.data.isFocusSpell;
+        return this.data.data.category.value === "focus";
     }
 
     get isRitual(): boolean {
-        return this.data.isRitual;
+        return this.data.data.category.value === "ritual";
     }
 
     get components() {
@@ -98,6 +97,10 @@ export class SpellPF2e extends ItemPF2e {
     get unlimited() {
         // In the future handle at will and constant
         return this.isCantrip;
+    }
+
+    get isVariant() {
+        return !!this.original;
     }
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
@@ -147,8 +150,15 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     /** Calculates the full damage formula for a specific spell level */
-    getDamageFormula(castLevel?: number, rollData: object = {}) {
+    getDamageFormula(castLevel?: number, rollData: object = {}): string {
         castLevel = this.computeCastLevel(castLevel);
+
+        // If this isn't a variant, it probably needs to be heightened via overlays
+        if (!this.isVariant) {
+            const variant = this.loadVariant(castLevel);
+            if (variant) return variant.getDamageFormula(castLevel, rollData);
+        }
+
         const formulas: string[] = [];
         for (const [id, damage] of Object.entries(this.data.data.damage.value ?? {})) {
             // Currently unable to handle display of perisistent and splash damage
@@ -168,12 +178,12 @@ export class SpellPF2e extends ItemPF2e {
                 }
             }
 
-            // Interval Spell scaling. Ensure it heightens first
-            const scaling = this.data.data.scaling;
-            if (scaling?.interval) {
-                const scalingFormula = scaling.damage[id];
-                if (scalingFormula && scalingFormula !== "0" && scaling.interval) {
-                    const partCount = Math.floor((castLevel - this.baseLevel) / scaling.interval);
+            // Check for and apply interval Spell scaling
+            const heightening = this.data.data.heightening;
+            if (heightening?.type === "interval" && heightening.interval) {
+                const scalingFormula = heightening.damage[id];
+                if (scalingFormula && scalingFormula !== "0" && heightening.interval) {
+                    const partCount = Math.floor((castLevel - this.baseLevel) / heightening.interval);
                     if (partCount > 0) {
                         const scalingParts = Array(partCount).fill(scalingFormula);
                         parts.push(scalingParts.join("+"));
@@ -214,14 +224,46 @@ export class SpellPF2e extends ItemPF2e {
         return formulas.join(" + ");
     }
 
+    /**
+     * Loads an alternative version of this spell, called a variant.
+     * The variant is created via the application of one or more overlays based on parameters.
+     * This handles heightening as well as alternative cast modes of spells.
+     * If there's nothing to apply, returns null.
+     */
+    loadVariant(this: SpellPF2e, castLevel: number): SpellPF2e | null {
+        if (this.original) {
+            return this.original.loadVariant(castLevel);
+        }
+
+        // Retrieve and apply variant overlays to override data
+        const heightenEntries = this.getHeightenLayers(castLevel);
+        if (heightenEntries.length === 0) return null;
+
+        const override = this.toObject(true);
+        for (const overlay of heightenEntries) {
+            mergeObject(override.data, overlay.data);
+        }
+
+        mergeObject(override.data, { heightenedLevel: { value: castLevel } });
+        const variantSpell = new SpellPF2e(override, { parent: this.actor });
+        variantSpell.original = this;
+        return variantSpell;
+    }
+
+    getHeightenLayers(level?: number): SpellHeightenLayer[] {
+        const heightening = this.data.data.heightening;
+        if (heightening?.type !== "fixed") return [];
+
+        return Object.entries(heightening.levels)
+            .map(([level, data]) => ({ level: Number(level), data }))
+            .filter((data) => !level || level >= data.level)
+            .sort((first, second) => first.level - second.level);
+    }
+
     override prepareBaseData() {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.data.data.level.value = Math.clamped(this.data.data.level.value, 1, 10) as OneToTen;
-
-        this.data.isFocusSpell = this.data.data.category.value === "focus";
-        this.data.isRitual = this.data.data.category.value === "ritual";
-        this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
@@ -279,11 +321,18 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     override getChatData(
-        this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
+        if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const level = this.computeCastLevel(Number(rollOptions?.spellLvl) || this.level);
+
+        // Load the heightened version of the spell if one exists
+        if (!this.isVariant) {
+            const variant = this.loadVariant(level);
+            if (variant) return variant.getChatData(htmlOptions, rollOptions);
+        }
+
         const rollData = htmlOptions.rollData ?? this.getRollData({ spellLvl: level });
         rollData.item ??= this;
 
@@ -554,6 +603,8 @@ export class SpellPF2e extends ItemPF2e {
     }
 }
 
-export interface SpellPF2e {
+interface SpellPF2e {
     readonly data: SpellData;
 }
+
+export { SpellPF2e };

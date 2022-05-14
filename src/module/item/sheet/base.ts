@@ -1,6 +1,6 @@
 import { ItemPF2e, LorePF2e } from "@item";
 import { ItemDataPF2e } from "@item/data";
-import { RuleElementSource } from "@module/rules";
+import { RuleElements, RuleElementSource } from "@module/rules";
 import { createSheetOptions, createSheetTags } from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
@@ -11,9 +11,10 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue } from "@util";
 import { ItemSheetDataPF2e } from "./data-types";
 import Tagify from "@yaireo/tagify";
+import type * as TinyMCE from "tinymce";
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -39,14 +40,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return options;
     }
 
+    /** Maintain selected rule element at the sheet level (do not persist) */
+    private selectedRuleElement: string | null = Object.keys(RuleElements.all).at(0) ?? null;
+
+    /** If we are currently editing an RE, this is the index */
+    private editingRuleElementIndex: number | null = null;
+
     override async getData(options?: Partial<DocumentSheetOptions>) {
-        const data: any = this.getBaseData(options);
-        data.abilities = CONFIG.PF2E.abilities;
-        data.saves = CONFIG.PF2E.saves;
+        const sheetData: any = this.getBaseData(options);
+        sheetData.abilities = CONFIG.PF2E.abilities;
+        sheetData.saves = CONFIG.PF2E.saves;
 
-        const itemData: ItemDataPF2e = data.item;
+        const itemData: ItemDataPF2e = sheetData.item;
 
-        mergeObject(data, {
+        mergeObject(sheetData, {
             hasSidebar: true,
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
@@ -69,58 +76,58 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === "spell") mergeObject(dt, CONFIG.PF2E.healingTypes);
-        data.damageTypes = dt;
+        sheetData.damageTypes = dt;
 
         // do not let user set bulk if in a stack group because the group determines bulk
-        const stackGroup = data.data?.stackGroup?.value;
-        data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== "";
-        data.rarity = CONFIG.PF2E.rarityTraits;
-        data.usage = CONFIG.PF2E.usageTraits; // usage data
-        data.stackGroups = CONFIG.PF2E.stackGroups;
+        const stackGroup = sheetData.data?.stackGroup?.value;
+        sheetData.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== "";
+        sheetData.rarity = CONFIG.PF2E.rarityTraits;
+        sheetData.usage = CONFIG.PF2E.usageTraits; // usage data
+        sheetData.stackGroups = CONFIG.PF2E.stackGroups;
 
         if (itemData.type === "treasure") {
-            data.currencies = CONFIG.PF2E.currencies;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.currencies = CONFIG.PF2E.currencies;
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "consumable") {
-            data.consumableTypes = CONFIG.PF2E.consumableTypes;
-            data.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.data.traits);
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.stackGroups = CONFIG.PF2E.stackGroups;
-            data.consumableTraits = CONFIG.PF2E.consumableTraits;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.consumableTypes = CONFIG.PF2E.consumableTypes;
+            sheetData.traits = createSheetTags(CONFIG.PF2E.consumableTraits, itemData.data.traits);
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.stackGroups = CONFIG.PF2E.stackGroups;
+            sheetData.consumableTraits = CONFIG.PF2E.consumableTraits;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "melee") {
             // Melee Data
-            data.hasSidebar = false;
-            data.detailsActive = true;
-            data.damageTypes = CONFIG.PF2E.damageTypes;
+            sheetData.hasSidebar = false;
+            sheetData.detailsActive = true;
+            sheetData.damageTypes = CONFIG.PF2E.damageTypes;
 
-            data.attackEffects = createSheetOptions(this.getAttackEffectOptions(), data.data.attackEffects);
-            data.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, data.data.traits);
+            sheetData.attackEffects = createSheetOptions(this.getAttackEffectOptions(), sheetData.data.attackEffects);
+            sheetData.traits = createSheetTags(CONFIG.PF2E.npcAttackTraits, sheetData.data.traits);
         } else if (itemData.type === "condition") {
             // Condition types
 
-            data.conditions = [];
+            sheetData.conditions = [];
         } else if (itemData.type === "equipment") {
             // Equipment data
-            data.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.stackGroups = CONFIG.PF2E.stackGroups;
-            data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.stackGroups = CONFIG.PF2E.stackGroups;
+            sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "backpack") {
             // Backpack data
-            data.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-            data.sizes = CONFIG.PF2E.actorSizes;
+            sheetData.traits = createSheetTags(CONFIG.PF2E.equipmentTraits, itemData.data.traits);
+            sheetData.bulkTypes = CONFIG.PF2E.bulkTypes;
+            sheetData.equipmentTraits = CONFIG.PF2E.equipmentTraits;
+            sheetData.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === "lore") {
             // Lore-specific data
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+            sheetData.proficiencies = CONFIG.PF2E.proficiencyLevels;
         }
 
         const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-        data.ruleLabels = itemData.data.rules.map((ruleData: RuleElementSource) => {
+        sheetData.ruleLabels = itemData.data.rules.map((ruleData: RuleElementSource) => {
             const key = ruleData.key.replace(/^PF2E\.RuleElement\./, "");
             const label = translations[key] ?? translations.Unrecognized;
             const recognized = label !== translations.Unrecognized;
@@ -130,7 +137,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             };
         });
 
-        return data;
+        return sheetData;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
@@ -138,9 +145,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.classes?.push(this.item.type);
 
         const itemData = this.item.clone({}, { keepId: true }).data;
-        itemData.data.rules = itemData.toObject().data.rules;
+        const rules = itemData.toObject().data.rules;
+        itemData.data.rules = rules;
 
         const isEditable = this.isEditable;
+
+        const editingRule = this.editingRuleElementIndex === null ? null : rules[this.editingRuleElementIndex];
+
         return {
             itemType: null,
             hasSidebar: false,
@@ -149,6 +160,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             editable: isEditable,
             document: this.item,
             item: itemData,
+            isPhysical: false,
             data: itemData.data,
             limited: this.item.limited,
             options: this.options,
@@ -156,6 +168,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
+            ruleEditing: editingRule ? JSON.stringify(editingRule, null, 2) : null,
+            ruleSelection: {
+                selected: this.selectedRuleElement,
+                types: sortStringRecord(
+                    Object.keys(RuleElements.all).reduce((result: Record<string, string>, key) => {
+                        const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+                        result[key] = game.i18n.localize(translations[key] ?? key);
+                        return result;
+                    }, {})
+                ),
+            },
         };
     }
 
@@ -236,7 +259,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        $html.find('li.trait-item input[type="checkbox"]').on("click", (event) => {
+        $html.find("li.trait-item input[type=checkbox]").on("click", (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
             }
@@ -254,16 +277,28 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.deleteDamageRoll(ev);
         });
 
+        $html.find("[data-action=select-rule-element]").on("change", async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            this.selectedRuleElement = (event.target as HTMLSelectElement).value;
+        });
+
         $html.find(".add-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rulesData: Partial<RuleElementSource>[] = this.item.data.data.rules;
-            this.item.update({
-                "data.rules": rulesData.concat([{ key: "NewRuleElement" }]),
-            });
+            const rulesData = this.item.toObject().data.rules;
+            const key = this.selectedRuleElement ?? "NewRuleElement";
+            this.item.update({ "data.rules": rulesData.concat({ key }) });
         });
+
+        $html.find(".edit-rule-element").on("click", async (event) => {
+            const index = Number(event.currentTarget.dataset.ruleIndex ?? "NaN") ?? null;
+            this.editingRuleElementIndex = index;
+            this.render(true);
+        });
+
         $html.find(".rules .remove-rule-element").on("click", async (event) => {
             event.preventDefault();
             if (event.originalEvent instanceof MouseEvent) {
@@ -277,6 +312,39 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             }
         });
 
+        $html.find(".rule-editing [data-action=close]").on("click", (event) => {
+            event.preventDefault();
+            this.editingRuleElementIndex = null;
+            this.render(true);
+        });
+
+        $html.find(".rule-editing [data-action=apply]").on("click", (event) => {
+            event.preventDefault();
+            const value = $html.find(".rule-editing textarea").val();
+
+            // Close early if the editing index is invalid
+            if (this.editingRuleElementIndex === null) {
+                this.editingRuleElementIndex = null;
+                this.render(true);
+                return;
+            }
+
+            try {
+                const rules = this.item.toObject().data.rules;
+                rules[this.editingRuleElementIndex] = JSON.parse(value as string);
+                this.editingRuleElementIndex = null;
+                this.item.update({ "data.rules": rules });
+            } catch (error) {
+                if (error instanceof Error) {
+                    ui.notifications.error(
+                        game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                    );
+                    console.warn("Syntax error in rule element definition.", error.message, value);
+                    throw error;
+                }
+            }
+        });
+
         $html.find(".add-skill-variant").on("click", (_event) => {
             if (!(this.item instanceof LorePF2e)) return;
             const variants = this.item.data.data.variants ?? {};
@@ -285,6 +353,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 [`data.variants.${index}`]: { label: "+X in terrain", options: "" },
             });
         });
+
         $html.find(".skill-variants .remove-skill-variant").on("click", (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
@@ -306,6 +375,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         InlineRollLinks.listen($html);
+    }
+
+    /** Ensure the source description is edited rather than a prepared one */
+    override activateEditor(name: string, options?: Partial<TinyMCE.EditorSettings>, initialContent?: string): void {
+        super.activateEditor(
+            name,
+            options,
+            name === "data.description.value" ? this.item.data._source.data.description.value : initialContent
+        );
     }
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
@@ -359,26 +437,31 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         // ensure all rules objects are parsed and saved as objects before proceeding to update
-        try {
-            const rules: object[] = [];
-            Object.entries(formData)
-                .filter(([key, _]) => key.startsWith("data.rules."))
-                .forEach(([_, value]) => {
-                    try {
-                        rules.push(JSON.parse(value as string));
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            ui.notifications.error(`Syntax error in rule element definition: ${error.message}`);
-                            console.warn("Syntax error in rule element definition.", error.message, value);
-                            throw error;
+        const rulesVisible = !!this.form.querySelector(".rules");
+        if (rulesVisible) {
+            try {
+                const rules: object[] = [];
+                Object.entries(formData)
+                    .filter(([key, _]) => key.startsWith("data.rules."))
+                    .forEach(([_, value]) => {
+                        try {
+                            rules.push(JSON.parse(value as string));
+                        } catch (error) {
+                            if (error instanceof Error) {
+                                ui.notifications.error(
+                                    game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message })
+                                );
+                                console.warn("Syntax error in rule element definition.", error.message, value);
+                                throw error;
+                            }
                         }
-                    }
-                });
-            formData["data.rules"] = rules;
-        } catch (e) {
-            return;
+                    });
+                formData["data.rules"] = rules;
+            } catch (e) {
+                return;
+            }
         }
 
-        super._updateObject(event, formData);
+        return super._updateObject(event, formData);
     }
 }

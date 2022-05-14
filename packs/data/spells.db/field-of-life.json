@@ -6,7 +6,7 @@
         },
         "area": {
             "areaType": "burst",
-            "value": 20
+            "value": "20"
         },
         "areasize": {
             "value": "20-foot burst"
@@ -15,6 +15,7 @@
             "value": "spell"
         },
         "components": {
+            "focus": false,
             "material": false,
             "somatic": true,
             "verbal": true
@@ -25,8 +26,10 @@
         "damage": {
             "value": {
                 "0": {
+                    "applyMod": false,
                     "type": {
                         "categories": [],
+                        "subtype": "",
                         "value": "healing"
                     },
                     "value": "1d8"
@@ -41,6 +44,41 @@
         },
         "hasCounteractCheck": {
             "value": false
+        },
+        "heightening": {
+            "levels": {
+                "8": {
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "healing"
+                                },
+                                "value": "1d10"
+                            }
+                        }
+                    }
+                },
+                "9": {
+                    "damage": {
+                        "value": {
+                            "0": {
+                                "applyMod": false,
+                                "type": {
+                                    "categories": [],
+                                    "subtype": "",
+                                    "value": "healing"
+                                },
+                                "value": "1d12"
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "fixed"
         },
         "level": {
             "value": 6

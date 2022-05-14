@@ -14,6 +14,7 @@ export function maneuverInFlight(options: SkillActionOptions) {
         traits: ["move"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
             ActionMacros.note(selector, "PF2E.Actions.ManeuverInFlight", "success"),

@@ -280,6 +280,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 2
                 },
@@ -302,12 +309,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "evocation"
@@ -732,19 +733,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -761,7 +749,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "9 sp"
+                    "value": {
+                        "sp": 9
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -886,19 +876,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -912,7 +889,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "7 gp"
+                    "value": {
+                        "gp": 7
+                    }
                 },
                 "quantity": 3,
                 "range": {
@@ -1077,7 +1056,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The quickling is targeted by a Strike</p>\n<p><strong>Effect</strong> The quickling darts aside, gaining a +2 circumstance bonus to AC, then Strides up to half their Speed after the Strike resolves.</p>"
+                    "value": "<p><strong>Trigger</strong> The quickling is targeted by a Strike</p>\n<p><strong>Effect</strong> The quickling darts aside, gaining a +2 circumstance bonus to AC, then Strides up to half their Speed after the Strike resolves.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1217,12 +1196,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

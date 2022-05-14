@@ -24,16 +24,7 @@
             "selectable": true,
             "statusName": "enfeebled"
         },
-        "modifiers": [
-            {
-                "group": "str-based",
-                "type": "status"
-            },
-            {
-                "group": "str-damage",
-                "type": "status"
-            }
-        ],
+        "modifiers": [],
         "overrides": [],
         "references": {
             "children": [],
@@ -42,12 +33,26 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "str-based",
+                "type": "status",
+                "value": "-@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "str-damage",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": true
+            "hud": true,
+            "values": []
         },
         "traits": {
             "custom": "",

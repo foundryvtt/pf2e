@@ -10,50 +10,56 @@ import {
 import { LootPF2e } from ".";
 
 /** The stored source data of a loot actor */
-export type LootSource = BaseActorSourcePF2e<"loot", LootSystemSource>;
+type LootSource = BaseActorSourcePF2e<"loot", LootSystemSource>;
 
-export class LootData extends BaseActorDataPF2e<LootPF2e> {
-    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/loot.svg";
-}
-
-/** Wrapper type for loot-specific data. */
-export interface LootData extends Omit<LootSource, "effects" | "flags" | "items" | "token"> {
-    type: LootSource["type"];
-    data: LootSystemData;
-    readonly _source: LootSource;
-}
+interface LootData
+    extends Omit<LootSource, "data" | "effects" | "flags" | "items" | "token" | "type">,
+        BaseActorDataPF2e<LootPF2e, "loot", LootSystemData, LootSource> {}
 
 /** The system-level data of loot actors. */
-export interface LootSystemSource extends ActorSystemSource {
-    attributes: {
-        ac?: never;
-        hp?: never;
-    };
-    details: {
-        description: {
-            value: string;
-        };
-        level: {
-            value: number;
-        };
-    };
+interface LootSystemSource extends ActorSystemSource {
+    attributes: LootAttributesSource;
+    details: LootDetailsSource;
     lootSheetType: "Merchant" | "Loot";
     hiddenWhenEmpty: boolean;
     traits: BaseTraitsSource;
 }
 
-export type LootSystemData = Omit<ActorSystemData, "attributes"> &
-    LootSystemSource & {
-        attributes: {
-            flanking: {
-                canFlank: false;
-                canGangUp: GangUpCircumstance[];
-                flankable: false;
-                flatFootable: false;
-            };
-        };
+interface LootSystemData extends LootSystemSource, Omit<ActorSystemData, "attributes"> {
+    attributes: LootAttributesData;
 
-        traits: BaseTraitsData;
-        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-        [key: string]: any;
+    details: LootDetailsData;
+
+    traits: BaseTraitsData;
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
+interface LootAttributesSource {
+    hp?: never;
+    ac?: never;
+}
+
+interface LootAttributesData extends LootAttributesSource {
+    flanking: {
+        canFlank: false;
+        canGangUp: GangUpCircumstance[];
+        flankable: false;
+        flatFootable: false;
     };
+}
+
+interface LootDetailsSource {
+    description: {
+        value: string;
+    };
+    level: {
+        value: number;
+    };
+}
+
+interface LootDetailsData extends LootDetailsSource {
+    alliance: null;
+}
+
+export { LootData, LootSource, LootSystemData, LootSystemSource };

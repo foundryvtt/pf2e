@@ -14,6 +14,7 @@ export function lie(options: SkillActionOptions) {
         traits: ["auditory", "concentrate", "linguistic", "mental", "secret"],
         checkType,
         event: options.event,
+        callback: options.callback,
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [

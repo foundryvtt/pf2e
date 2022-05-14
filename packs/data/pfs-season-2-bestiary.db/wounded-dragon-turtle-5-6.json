@@ -42,7 +42,12 @@
                 "value": 15
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": "30"
+                    }
+                ],
                 "value": "20"
             }
         },
@@ -53,12 +58,12 @@
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 5
+                "value": 7
             },
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-06: The Crashing Wave"
             }
         },
         "resources": {},
@@ -203,7 +208,53 @@
             "type": "melee"
         },
         {
-            "_id": "XzF99LVgYbgcg3jM",
+            "_id": "EKaeT9Vx90e0Yzuj",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "Ez6yZnRjFLYMw2uU",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -214,13 +265,33 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong><span class=\"fontstyle2\">A creature adjacent to the dragon turtle targets it with a melee attack. </span></p>\n<p><strong>Effect</strong><span class=\"fontstyle2\">The dragon turtle rolls its shell toward the triggering creature, gaining a +2 circumstance bonus to its AC against the triggering attack.</span></p>"
+                    "value": "<p><strong>Trigger</strong><span class=\"fontstyle2\">A creature adjacent to the dragon turtle targets it with a melee attack. </span></p>\n<p><strong>Effect</strong><span class=\"fontstyle2\">The dragon turtle rolls its shell toward the triggering creature, gaining a +2 circumstance bonus to its AC against the triggering attack.</span></p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "shell-block",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "shell-block"
+                            ]
+                        },
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -240,7 +311,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shell Block",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -255,8 +326,9 @@
                 "actions": {
                     "value": 2
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p>The dragon turtle breathes a massive blast of steam that deals [[/r {6d6}[fire]]]{6d6 fire damage} to creatures within a @Template[type:cone|distance:40] (@Check[type:reflex|dc:21|basic:true] save). This steam blast affects creatures within the water, as well as outside.</p>\n<p>The dragon turtle can't use its Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon turtle breathes a massive blast of steam that deals [[/r {8d6}[fire]]]{8d6 fire damage} to creatures within a @Template[type:cone|distance:40] (@Check[type:reflex|dc:24|basic:true] save). This steam blast affects creatures within the water, as well as outside.</p>\n<p>The dragon turtle can't use its Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -284,8 +356,8 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Breath weapon",
-            "sort": 400000,
+            "name": "Breath Weapon",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -300,6 +372,7 @@
                 "actions": {
                     "value": 1
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The dragon turtle tries to capsize an adjacent aquatic vessel of its size or smaller. The dragon turtle must succeed at an Athletics check with a DC of 27 or the pilot's Sailing Lore DC, whichever is higher.</p>"
                 },
@@ -329,7 +402,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Capsize",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -342,8 +415,9 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>The dragon turtle makes two claw Strikes and one jaws Strike in any order.</p>"
                 },
@@ -368,9 +442,9 @@
                 }
             },
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -399,7 +473,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -428,7 +502,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -457,7 +531,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidate",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -486,7 +560,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -515,7 +589,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Surival",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],

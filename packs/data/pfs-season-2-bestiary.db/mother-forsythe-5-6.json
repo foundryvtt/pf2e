@@ -544,6 +544,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 4
                 },
@@ -566,12 +573,6 @@
                 "save": {
                     "basic": "",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "illusion"
@@ -1103,6 +1104,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1125,12 +1133,6 @@
                 "save": {
                     "basic": "basic",
                     "value": "will"
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2
                 },
                 "school": {
                     "value": "enchantment"
@@ -2017,6 +2019,13 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2039,12 +2048,6 @@
                 "save": {
                     "basic": "",
                     "value": ""
-                },
-                "scaling": {
-                    "damage": {
-                        "0": "1d10+4"
-                    },
-                    "interval": 1
                 },
                 "school": {
                     "value": "enchantment"
@@ -2135,19 +2138,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2164,7 +2154,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": {
+                        "sp": 2
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -2261,19 +2253,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 7
                 },
@@ -2287,7 +2266,9 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "115 gp"
+                    "value": {
+                        "gp": 115
+                    }
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2328,9 +2309,6 @@
             "data": {
                 "baseItem": null,
                 "containerId": "null",
-                "denomination": {
-                    "value": "gp"
-                },
                 "description": {
                     "value": ""
                 },
@@ -2346,19 +2324,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -2372,7 +2337,7 @@
                     "value": null
                 },
                 "price": {
-                    "value": 0
+                    "value": {}
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2389,9 +2354,6 @@
                 },
                 "usage": {
                     "value": ""
-                },
-                "value": {
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -2506,6 +2468,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
                 },
@@ -2551,8 +2514,9 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p data-visibility=\"gm\"><strong>Trigger</strong> Mother Forsythe casts a non-cantrip occult spell</p>\n<p><strong>Effect</strong> Mother Forsythe gains 3 temporary Hit Points that last until the end of her next turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> Mother Forsythe casts a non-cantrip occult spell</p>\n<p><strong>Effect</strong> Mother Forsythe gains 3 temporary Hit Points that last until the end of her next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2592,6 +2556,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Mother Forsythe blends in with unnatural subtlety. When she is @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}, the DC of the flat check to target her is increased to 6 if she's concealed or 12 if she's hidden.</p>"
                 },
@@ -2633,6 +2598,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": false,
                 "description": {
                     "value": "<p>Mother Forsythe deals [[/r {2d6}[precision]]]{2d6 extra precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },

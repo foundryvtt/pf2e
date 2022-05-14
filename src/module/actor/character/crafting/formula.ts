@@ -1,5 +1,7 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { stackDefinitions } from "@item/physical/bulk";
+import { Coins, Price } from "@item/physical/data";
+import { multiplyPrice } from "@item/treasure/helpers";
 import { Rarity } from "@module/data";
 import { calculateDC } from "@module/dc";
 
@@ -51,8 +53,12 @@ export class CraftingFormula implements CraftingFormulaData {
         return this.item.rarity;
     }
 
-    get price(): string {
+    get price(): Price {
         return this.item.price;
+    }
+
+    get cost(): Coins {
+        return multiplyPrice(this.price, this.batchSize);
     }
 
     get minimumBatchSize(): number {

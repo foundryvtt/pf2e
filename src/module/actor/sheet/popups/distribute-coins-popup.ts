@@ -1,6 +1,6 @@
-import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from "@item/treasure/helpers";
 import { ActorPF2e } from "../../base";
 import { CharacterPF2e } from "@actor/character";
+import { coinValueInCopper, multiplyCoins, noCoins } from "@item/treasure/helpers";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     selection?: string[];
@@ -36,31 +36,29 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
             const maybeActor = game.actors.get(actorId);
             return maybeActor instanceof CharacterPF2e ? maybeActor : [];
         });
+
         const playerCount = selectedActors.length;
+        if (playerCount === 0) {
+            return;
+        }
+
         if (thisActor instanceof ActorPF2e) {
             const coinShare = { pp: 0, gp: 0, sp: 0, cp: 0 };
-            const thisActorCurrency = calculateValueOfCurrency(thisActor.items.map((item) => item.data));
             if (formData.breakCoins) {
-                const thisActorCopperValue =
-                    thisActorCurrency.cp +
-                    thisActorCurrency.sp * 10 +
-                    thisActorCurrency.gp * 100 +
-                    thisActorCurrency.pp * 1000;
+                const thisActorCopperValue = coinValueInCopper(thisActor.coins);
                 const copperToDistribute = Math.trunc(thisActorCopperValue / playerCount);
                 // return if there is nothing to distribute
                 if (copperToDistribute === 0) {
                     ui.notifications.warn("Nothing to distribute");
                     return;
                 }
-                attemptToRemoveCoinsByValue({
-                    actor: thisActor,
-                    coinsToRemove: { pp: 0, gp: 0, sp: 0, cp: copperToDistribute * playerCount },
-                });
+                thisActor.removeCoins({ cp: copperToDistribute * playerCount });
                 coinShare.cp = copperToDistribute % 10;
                 coinShare.sp = Math.trunc(copperToDistribute / 10) % 10;
                 coinShare.gp = Math.trunc(copperToDistribute / 100) % 10;
                 coinShare.pp = Math.trunc(copperToDistribute / 1000);
             } else {
+                const thisActorCurrency = mergeObject(noCoins(), thisActor.coins);
                 coinShare.pp = Math.trunc(thisActorCurrency.pp / playerCount);
                 coinShare.cp = Math.trunc(thisActorCurrency.cp / playerCount);
                 coinShare.gp = Math.trunc(thisActorCurrency.gp / playerCount);
@@ -70,14 +68,9 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
                     ui.notifications.warn("Nothing to distribute");
                     return;
                 }
-                removeCoins(thisActor, {
-                    coins: {
-                        pp: coinShare.pp * playerCount,
-                        gp: coinShare.gp * playerCount,
-                        sp: coinShare.sp * playerCount,
-                        cp: coinShare.cp * playerCount,
-                    },
-                });
+
+                const coinsToRemove = multiplyCoins(coinShare, playerCount);
+                thisActor.removeCoins(coinsToRemove, { byValue: false });
             }
             let message = `Distributed `;
             if (coinShare.pp !== 0) message += `${coinShare.pp} pp `;
@@ -87,7 +80,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
             const each = playerCount > 1 ? "each " : "";
             message += `${each}from ${thisActor.name} to `;
             for await (const actor of selectedActors) {
-                await addCoins(actor, { coins: coinShare, combineStacks: true });
+                await actor.addCoins(coinShare);
                 const index = selectedActors.indexOf(actor);
                 if (index === 0) message += `${actor.name}`;
                 else if (index < playerCount - 1) message += `, ${actor.name}`;

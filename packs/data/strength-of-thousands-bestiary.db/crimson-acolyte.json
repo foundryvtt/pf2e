@@ -151,19 +151,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 1
                 },
@@ -180,7 +167,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "12 gp"
+                    "value": {
+                        "gp": 12
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -294,19 +283,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 2
                 },
@@ -323,7 +299,9 @@
                     "value": null
                 },
                 "price": {
-                    "value": "35 gp"
+                    "value": {
+                        "gp": 35
+                    }
                 },
                 "property1": {
                     "critDamage": "",
@@ -452,19 +430,6 @@
                     "max": 0,
                     "value": 0
                 },
-                "identification": {
-                    "misidentified": {},
-                    "status": "identified",
-                    "unidentified": {
-                        "data": {
-                            "description": {
-                                "value": ""
-                            }
-                        },
-                        "img": "",
-                        "name": ""
-                    }
-                },
                 "level": {
                     "value": 0
                 },
@@ -478,7 +443,10 @@
                     "value": null
                 },
                 "price": {
-                    "value": "1 sp"
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 10,
                 "range": {
@@ -835,7 +803,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p data-visibility=\"gm\"><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> The acolyte makes two unarmed Strikes, or one unarmed Strike and a dueling pistol Strike. If both hit the same creature, combine their damages for the purposes of resistances and weaknesses.</p>\n<p>The acolyte's multiple attack penalty applies normally to these Strikes.</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Effect</strong> The acolyte makes two unarmed Strikes, or one unarmed Strike and a dueling pistol Strike. If both hit the same creature, combine their damages for the purposes of resistances and weaknesses.</p>\n<p>The acolyte's multiple attack penalty applies normally to these Strikes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -888,12 +856,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"

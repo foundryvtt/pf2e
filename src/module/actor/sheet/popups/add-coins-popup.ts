@@ -1,5 +1,5 @@
-import { addCoins, Coins } from "@item/treasure/helpers";
 import { ActorPF2e } from "@actor/base";
+import { Coins } from "@item/physical/data";
 
 interface AddCoinsFormData extends Coins {
     combineStacks: boolean;
@@ -20,15 +20,8 @@ export class AddCoinsPopup extends FormApplication<ActorPF2e> {
     }
 
     override async _updateObject(_event: Event, formData: Record<string, unknown> & AddCoinsFormData): Promise<void> {
-        const actor = this.object;
-        addCoins(actor, {
-            coins: {
-                pp: formData.pp,
-                gp: formData.gp,
-                sp: formData.sp,
-                cp: formData.cp,
-            },
-            combineStacks: formData.combineStacks,
-        });
+        const combineStacks = formData.combineStacks;
+        const coins = { pp: formData.pp, gp: formData.gp, sp: formData.sp, cp: formData.cp };
+        this.object.addCoins(coins, { combineStacks });
     }
 }

@@ -11,9 +11,16 @@
     padding: 0px;
     margin: 0px;
 
-    .currency {
-        background-color: $secondary-accent;
+    .coinage {
         margin-bottom: 8px;
+
+        .currency {
+            background-color: $secondary-accent;
+        }
+
+        .wealth {
+            background-color: $primary-accent;
+        }
     }
 
     .header {
@@ -59,7 +66,6 @@
 
             li.list-item {
                 display: grid;
-                padding: 0px;
                 grid-template-columns: 26px 3fr 1fr 2fr;
                 column-gap: 6px;
                 align-items: center;
@@ -82,27 +88,43 @@
 
                 .item-name {
                     h4 {
-                        margin: 0px;
+                        margin: 0;
                     }
+                }
 
-                    .common {
-                        border-color: $rarity-common;
-                        color: $rarity-common;
+                &[data-item-rarity="common"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-common;
+                            color: $rarity-common;
+                        }
                     }
+                }
 
-                    .uncommon {
-                        border-color: $rarity-uncommon;
-                        color: $rarity-uncommon;
+                &[data-item-rarity="uncommon"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-uncommon;
+                            color: $rarity-uncommon;
+                        }
                     }
+                }
 
-                    .rare {
-                        border-color: $rarity-rare;
-                        color: $rarity-rare;
+                &[data-item-rarity="rare"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-rare;
+                            color: $rarity-rare;
+                        }
                     }
+                }
 
-                    .unique {
-                        border-color: $rarity-unique;
-                        color: $rarity-unique;
+                &[data-item-rarity="unique"] {
+                    .item-name {
+                        h4 {
+                            border-color: $rarity-unique;
+                            color: $rarity-unique;
+                        }
                     }
                 }
 

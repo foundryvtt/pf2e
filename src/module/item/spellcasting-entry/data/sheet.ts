@@ -22,7 +22,7 @@ export interface SpellcastingEntryListData extends SpellListData {
     isFocusPool?: boolean;
     isRitual?: boolean;
     flexibleAvailable?: { value: number; max: number };
-    spellPrepList: Record<number, SpellPrepEntry[]>;
+    spellPrepList: Record<number, SpellPrepEntry[]> | null;
 }
 
 export interface SpellcastingSlotLevel {
@@ -40,7 +40,6 @@ export interface SpellcastingSlotLevel {
         max: number;
     };
 
-    displayPrepared?: boolean;
     active: (ActiveSpell | null)[];
 }
 
