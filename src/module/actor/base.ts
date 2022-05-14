@@ -469,6 +469,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
             modifierAdjustments: {},
             multipleAttackPenalties: {},
             rollNotes: {},
+            rollSubstitutions: {},
             rollTwice: {},
             senses: [],
             statisticsModifiers: {},
@@ -614,12 +615,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         rollOptionsAll[`self:participant:initiative:rank:${rank}`] = true;
     }
 
-    getModifierAdjustments(selectors: string[], slug: string | null): ModifierAdjustment[] {
+    getModifierAdjustments(selectors: string[], slug: string): ModifierAdjustment[] {
         return Array.from(
             new Set(
                 selectors
                     .flatMap((s) => this.synthetics.modifierAdjustments[s] ?? [])
-                    .filter((a) => [a.slug, null].includes(slug))
+                    .filter((a) => [slug, null].includes(a.slug))
             )
         );
     }
