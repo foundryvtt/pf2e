@@ -33,6 +33,7 @@ import { Migration744MigrateSpellHeighten } from "@module/migration/migrations/7
 import { Migration745EffectTargetToChoiceSet } from "@module/migration/migrations/745-effect-target-to-choice-set";
 import { Migration746StandardizePricing } from "@module/migration/migrations/746-standardize-pricing";
 import { Migration748BatchConsumablePricing } from "@module/migration/migrations/748-batch-consumable-pricing";
+import { Migration749AssuranceREs } from "@module/migration/migrations/749-assurance-res";
 
 const migrations: MigrationBase[] = [
     new Migration717TakeFeatLimits(),
@@ -62,6 +63,7 @@ const migrations: MigrationBase[] = [
     new Migration745EffectTargetToChoiceSet(),
     new Migration746StandardizePricing(),
     new Migration748BatchConsumablePricing(),
+    new Migration749AssuranceREs(),
 ];
 
 global.deepClone = <T>(original: T): T => {

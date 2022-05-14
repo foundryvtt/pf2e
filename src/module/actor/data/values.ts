@@ -1,6 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "./base";
-import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage";
+import { ATTACK_TYPES, DAMAGE_CATEGORIES, DAMAGE_TRAITS, DAMAGE_TYPES } from "@system/damage/calculation";
 import { MAGIC_SCHOOLS } from "@module/item/spell/data/values";
 
 export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);

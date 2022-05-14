@@ -2239,7 +2239,28 @@
                         }
                     ]
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "athletics",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": {
+                            "all": [
+                                "substitute:assurance"
+                            ],
+                            "not": [
+                                "bonus:type:proficiency"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "suppress": true
+                    }
+                ],
                 "slug": "assurance-athletics",
                 "source": {
                     "value": ""
