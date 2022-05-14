@@ -160,11 +160,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         this.knownFormulas = Object.values(formulasByLevel)
             .flat()
-            .reduce((result, entry) => {
+            .reduce((result: Record<string, CraftingFormula>, entry) => {
                 entry.batchSize = this.formulaQuantities[entry.uuid] ?? entry.batchSize;
                 result[entry.uuid] = entry;
                 return result;
-            }, {} as Record<string, CraftingFormula>);
+            }, {});
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
