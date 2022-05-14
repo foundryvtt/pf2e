@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import { Coins } from "@item/physical/data";
+import { Coins, Price } from "@item/physical/data";
 import { coinsToString } from "@item/treasure/helpers";
 import { getActionGlyph, ordinal } from "../util";
 
@@ -177,8 +177,12 @@ export function registerHandlebarsHelpers() {
         return value === null || value === undefined;
     });
 
-    Handlebars.registerHelper("coinLabel", function (value: Coins) {
+    Handlebars.registerHelper("coinLabel", function (value: Coins | Price) {
         if (!value) return null;
+        if ("value" in value) {
+            // todo: handle per pricing
+            return coinsToString(value.value);
+        }
         return coinsToString(value);
     });
 }
