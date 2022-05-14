@@ -124,7 +124,9 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                 const changeValue = match[2];
 
                                 const traitRegex = new RegExp(`${changeBaseTrait}-(\\d*d?\\d*)`);
-                                const existingTraitMatch = traits.value.map((trait) => trait.match(traitRegex)).find((match) => !!match);
+                                const existingTraitMatch = traits.value
+                                    .map((trait) => trait.match(traitRegex))
+                                    .find((match) => !!match);
                                 if (existingTraitMatch) {
                                     const existingTraitScore = getTraitScore(existingTraitMatch[1]);
                                     const changeTraitScore = getTraitScore(changeValue);
@@ -153,8 +155,8 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 function getTraitScore(traitValue: string) {
     const traitValueMatch = traitValue.match(/(\d*)d(\d+)/);
     return traitValueMatch
-    ? (Number(traitValueMatch[1] || 1)) * ((Number(traitValueMatch[2]) + 1) / 2)
-    : Number(traitValue);
+        ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
+        : Number(traitValue);
 }
 
 interface AdjustStrikeRuleElement extends AELikeRuleElement {
