@@ -330,11 +330,23 @@ class NPCPF2e extends CreaturePF2e {
                         const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: name });
                         const rollOptions = args.options ?? [];
                         const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-                        const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
+                        const substitutions = extractRollSubstitutions(
+                            this.synthetics.rollSubstitutions,
+                            domains,
+                            rollOptions
+                        );
 
                         const roll = await CheckPF2e.roll(
                             new CheckModifier(label, stat),
-                            { actor: this, type: "skill-check", options: args.options, dc: args.dc, rollTwice, substitutions, notes },
+                            {
+                                actor: this,
+                                type: "skill-check",
+                                options: args.options,
+                                dc: args.dc,
+                                rollTwice,
+                                substitutions,
+                                notes,
+                            },
                             args.event,
                             args.callback
                         );
@@ -409,7 +421,11 @@ class NPCPF2e extends CreaturePF2e {
                     const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: itemData.name });
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-                    const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
+                    const substitutions = extractRollSubstitutions(
+                        this.synthetics.rollSubstitutions,
+                        domains,
+                        rollOptions
+                    );
 
                     const context: CheckRollContext = {
                         actor: this,
@@ -625,7 +641,11 @@ class NPCPF2e extends CreaturePF2e {
                                     notes: rollNotes,
                                     dc: args.dc ?? context.dc,
                                     rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, rollOptions),
-                                    substitutions: extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions),
+                                    substitutions: extractRollSubstitutions(
+                                        this.synthetics.rollSubstitutions,
+                                        domains,
+                                        rollOptions
+                                    ),
                                     traits: action.traits,
                                 },
                                 args.event

@@ -1827,7 +1827,11 @@ class CharacterPF2e extends CreaturePF2e {
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
                     const rollTwice = extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
-                    const substitutions = extractRollSubstitutions(context.self.actor.synthetics.rollSubstitutions, selectors, finalRollOptions);
+                    const substitutions = extractRollSubstitutions(
+                        context.self.actor.synthetics.rollSubstitutions,
+                        selectors,
+                        finalRollOptions
+                    );
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
@@ -1839,7 +1843,7 @@ class CharacterPF2e extends CreaturePF2e {
                         dc,
                         traits,
                         rollTwice,
-                        substitutions
+                        substitutions,
                     };
 
                     if (!this.consumeAmmo(item, args)) return null;

@@ -205,7 +205,11 @@ export class FamiliarPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier("attack", modifiers), {
                 roll: async ({ event, options = [], callback }: RollParameters): Promise<Rolled<CheckRoll> | null> => {
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, options);
-                    const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, selectors, options);
+                    const substitutions = extractRollSubstitutions(
+                        this.synthetics.rollSubstitutions,
+                        selectors,
+                        options
+                    );
 
                     const roll = await CheckPF2e.roll(
                         new CheckModifier("Attack Roll", stat),
@@ -254,11 +258,22 @@ export class FamiliarPF2e extends CreaturePF2e {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 const rollOptions = args.options ?? [];
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, rollOptions);
-                const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, selectors, rollOptions);
+                const substitutions = extractRollSubstitutions(
+                    this.synthetics.rollSubstitutions,
+                    selectors,
+                    rollOptions
+                );
 
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: "perception-check", options: rollOptions, dc: args.dc, rollTwice, substitutions },
+                    {
+                        actor: this,
+                        type: "perception-check",
+                        options: rollOptions,
+                        dc: args.dc,
+                        rollTwice,
+                        substitutions,
+                    },
                     args.event,
                     args.callback
                 );
@@ -299,11 +314,22 @@ export class FamiliarPF2e extends CreaturePF2e {
                     });
                     const rollOptions = args.options ?? [];
                     const rollTwice = extractRollTwice(this.synthetics.rollTwice, selectors, rollOptions);
-                    const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, selectors, rollOptions);
+                    const substitutions = extractRollSubstitutions(
+                        this.synthetics.rollSubstitutions,
+                        selectors,
+                        rollOptions
+                    );
 
                     const roll = await CheckPF2e.roll(
                         new CheckModifier(label, stat),
-                        { actor: this, type: "skill-check", options: rollOptions, dc: args.dc, rollTwice, substitutions },
+                        {
+                            actor: this,
+                            type: "skill-check",
+                            options: rollOptions,
+                            dc: args.dc,
+                            rollTwice,
+                            substitutions,
+                        },
                         args.event,
                         args.callback
                     );
