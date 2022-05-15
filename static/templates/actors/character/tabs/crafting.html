@@ -55,9 +55,9 @@
                             <div class="formula-dc">{{craftedItem.dc}}</div>
                             <div class="formula-cost">{{coinLabel craftedItem.cost}}</div>
                             <div class="formula-quantity">
-                                <a class="formula-decrease-quantity">-</a>
-                                <input type="number" class="formula-number" value="{{#if @root.crafting.noCost}}{{craftedItem.minimumBatchSize}}{{else}}{{craftedItem.batchSize}}{{/if}}" />
-                                <a class="formula-increase-quantity">+</a>
+                                <a class="formula-quantity-adjust" data-action="decrease-quantity">-</a>
+                                <input type="number" class="formula-number" data-action="enter-quantity" value="{{#if @root.crafting.noCost}}{{craftedItem.minimumBatchSize}}{{else}}{{craftedItem.batchSize}}{{/if}}" />
+                                <a class="formula-quantity-adjust" data-action="increase-quantity">+</a>
                             </div>
 
                             {{#if @root.owner}}
