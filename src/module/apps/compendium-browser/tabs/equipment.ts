@@ -58,8 +58,10 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         continue;
                     }
 
-                    // Store price as a number for better sorting
-                    const coinValue = coinValueInCopper(itemData.data.price.value);
+                    // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
+                    const priceValue = itemData.data.price.value;
+                    const priceCoins = typeof priceValue === "string" ? coinStringToCoins(priceValue) : priceValue;
+                    const coinValue = coinValueInCopper(priceCoins);
 
                     // add item.type into the correct format for filtering
                     itemData.data.itemTypes = { value: itemData.type };
@@ -83,7 +85,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         category: itemData.data.category ?? "",
                         group: itemData.data.group ?? "",
                         consumableType: itemData.data.consumableType?.value ?? "",
-                        price: coinsToString(itemData.data.price.value, { reduce: false }),
+                        price: coinsToString(priceCoins, { reduce: false }),
                         priceInCopper: coinValue,
                         traits: itemData.data.traits.value,
                         rarity: itemData.data.traits.rarity,
