@@ -12,6 +12,10 @@ export class Migration746StandardizePricing extends MigrationBase {
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
+        if (typeof item.data.price === "string") {
+            item.data.price = { value: coinStringToCoins(item.data.price) };
+        }
+
         if (item.type === "treasure") {
             const systemData: TreasureSystemOld = item.data;
             if (systemData.denomination || systemData.value) {
