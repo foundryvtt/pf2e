@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 3.10.1
+
+### Bugfixes
+* (JDCalvert) Fix parsing of die size on NPC attacks with the Deadly trait
+* (stwlam) Fix issue causing incorrect degree of success to be reported with substituted rolls (e.g., Assurance)
+* (stwlam) Fix issue causing infused reagents remaining to not be changeable
+* (Supe) Fix updating weapon price
+* (Supe) Fix taking and purchasing items from third party compendiums
+
+### Data Updates
+* (NullWolf) Update NPCs from Troubles in Otari and add Hypnotic Stare Bestiary Effect
+* (SpartanCPA) Localize Persistent Poison notes
+* (stwlam) Fix CHA penalty on stupefied condition
+
+
 ## Version 3.10.0
 
 ### New Features
