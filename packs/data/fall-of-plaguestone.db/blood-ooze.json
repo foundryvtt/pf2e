@@ -138,9 +138,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
