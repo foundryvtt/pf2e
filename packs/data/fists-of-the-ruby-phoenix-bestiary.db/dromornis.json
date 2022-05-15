@@ -129,13 +129,24 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d8.success]</p>"
                 },
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The beak also deals [[/r {1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d8.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d8.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -178,13 +189,24 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
                 },
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The talon also deals [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
