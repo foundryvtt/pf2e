@@ -536,12 +536,14 @@ class CharacterPF2e extends CreaturePF2e {
                 }
 
                 const rollTwice = extractRollTwice(synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
                 const context: CheckRollContext = {
                     actor: this,
                     type: "perception-check",
                     options: rollOptions,
                     dc: args.dc,
                     rollTwice,
+                    substitutions,
                     notes: stat.notes,
                 };
 
@@ -1825,6 +1827,7 @@ class CharacterPF2e extends CreaturePF2e {
                     const item = context.self.item;
                     const traits = [attackTrait, [...item.traits].map((t) => toStrikeTrait(t))].flat();
                     const rollTwice = extractRollTwice(synthetics.rollTwice, selectors, finalRollOptions);
+                    const substitutions = extractRollSubstitutions(context.self.actor.synthetics.rollSubstitutions, selectors, finalRollOptions);
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
@@ -1836,6 +1839,7 @@ class CharacterPF2e extends CreaturePF2e {
                         dc,
                         traits,
                         rollTwice,
+                        substitutions
                     };
 
                     if (!this.consumeAmmo(item, args)) return null;
