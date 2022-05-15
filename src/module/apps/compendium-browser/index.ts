@@ -549,14 +549,16 @@ export class CompendiumBrowser extends Application {
 
         // Add an item to selected tokens' actors' inventories
         $items.find("a[data-action=take-item]").on("click", async (event) => {
-            const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
-            this.takePhysicalItem(itemId);
+            const $li = $(event.currentTarget).closest("li");
+            const { entryCompendium, entryId } = $li.data();
+            this.takePhysicalItem(entryCompendium, entryId);
         });
 
         // Attempt to buy an item with the selected tokens' actors'
         $items.find("a[data-action=buy-item]").on("click", (event) => {
-            const itemId = $(event.currentTarget).closest("li").attr("data-entry-id") ?? "";
-            this.buyPhysicalItem(itemId);
+            const $li = $(event.currentTarget).closest("li");
+            const { entryCompendium, entryId } = $li.data();
+            this.buyPhysicalItem(entryCompendium, entryId);
         });
 
         // Lazy load list when scrollbar reaches bottom
@@ -578,9 +580,9 @@ export class CompendiumBrowser extends Application {
         $list.data("listeners-active", true);
     }
 
-    private async takePhysicalItem(itemId: string): Promise<void> {
+    private async takePhysicalItem(compendiumId: string, itemId: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(itemId);
+        const item = await this.getPhysicalItem(compendiumId, itemId);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -603,9 +605,9 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    private async buyPhysicalItem(itemId: string): Promise<void> {
+    private async buyPhysicalItem(compendiumId: string, itemId: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(itemId);
+        const item = await this.getPhysicalItem(compendiumId, itemId);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -654,8 +656,8 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    private async getPhysicalItem(itemId: string): Promise<PhysicalItemPF2e | KitPF2e> {
-        const item = await game.packs.get("pf2e.equipment-srd")?.getDocument(itemId);
+    private async getPhysicalItem(compendiumId: string, itemId: string): Promise<PhysicalItemPF2e | KitPF2e> {
+        const item = await game.packs.get(compendiumId)?.getDocument(itemId);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
         }
