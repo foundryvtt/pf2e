@@ -711,7 +711,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": {
+                            "all": [
+                                "action:shove"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "text": "<p><strong>{item|name}</strong></p><p>{item|data.description.value}</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
