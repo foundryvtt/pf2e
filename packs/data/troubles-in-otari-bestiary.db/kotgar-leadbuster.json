@@ -788,7 +788,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Shove",
+                        "predicate": {
+                            "all": [
+                                "action:shove"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -797,11 +809,17 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+14 to shove",
+                        "options": "action:shove"
+                    }
                 }
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+14 to Shove)",
+            "name": "Athletics",
             "sort": 1100000,
             "type": "lore"
         },

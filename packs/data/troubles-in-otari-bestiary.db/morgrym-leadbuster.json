@@ -2362,7 +2362,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>@Compendium[pf2e.spells-srd.Fear]</p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>"
+                    "value": "<p><em>@Compendium[pf2e.spells-srd.Fear]</em></p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -2602,7 +2602,28 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "twoHanded",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": {
+                            "all": [
+                                "twoHanded"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2772,7 +2793,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>Morgrym deals with the grim powers of life and death and has focused his magic to aid him in this endeavor. He can cast @Compendium[pf2e.spells-srd.Fear]{Fear} as a school spell.</p>"
+                    "value": "<p>Morgrym deals with the grim powers of life and death and has focused his magic to aid him in this endeavor. He can cast <em>@Compendium[pf2e.spells-srd.Fear]{Fear}</em> as a school spell.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2870,7 +2891,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Against Demons",
+                        "predicate": {
+                            "all": [
+                                "target:trait:demon"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "value": 2
+                    }
+                ],
+
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2879,11 +2913,18 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 against Demons",
+                        "options": "target:trait:demon"
+                    }
                 }
+
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy (+15 against demons)",
+            "name": "Diplomacy",
             "sort": 2800000,
             "type": "lore"
         },
@@ -2941,7 +2982,7 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
+            "name": "Demon Lore",
             "sort": 3000000,
             "type": "lore"
         },
