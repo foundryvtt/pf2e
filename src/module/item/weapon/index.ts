@@ -122,6 +122,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             super.getRollOptions(prefix),
             Object.entries({
                 [`category:${this.category}`]: true,
+                [`category:nonproficiency:${this.category}`]: true,
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
                 [`hands-held:${this.handsHeld}`]: this.isEquipped && this.handsHeld > 0,
