@@ -491,14 +491,15 @@ export class StatisticModifier {
     }
 
     /** Obtain the total modifier, optionally retesting predicates, and finally applying stacking rules. */
-    calculateTotal(rollOptions?: string[]): void {
-        if (rollOptions) {
+    calculateTotal(rollOptions: string[] = []): void {
+        if (rollOptions.length > 0) {
             for (const modifier of this._modifiers) {
                 modifier.test(rollOptions);
             }
+
+            this.applyAdjustments(rollOptions);
         }
 
-        if (rollOptions) this.applyAdjustments(rollOptions);
         applyStackingRules(this._modifiers);
 
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
