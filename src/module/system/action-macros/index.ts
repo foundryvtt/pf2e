@@ -45,6 +45,7 @@ import { makeAnImpression } from "./diplomacy/make-an-impression";
 import { request } from "./diplomacy/request";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
+import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
 import { hide } from "./stealth/hide";
@@ -157,6 +158,7 @@ export class ActionMacros {
         demoralize,
 
         // Medicine
+        treatDisease,
         treatPoison,
 
         // Nature
