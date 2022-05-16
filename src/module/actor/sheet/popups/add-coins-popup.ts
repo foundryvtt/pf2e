@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base";
 import { Coins } from "@item/physical/data";
 
-interface AddCoinsFormData extends Coins {
+interface AddCoinsFormData extends Partial<Coins> {
     combineStacks: boolean;
 }
 

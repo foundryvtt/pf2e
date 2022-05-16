@@ -21,7 +21,7 @@ type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemSource> & {
     flags: DeepPartial<WeaponFlags>;
 };
 
-type WeaponData = Omit<WeaponSource, "effects" | "flags"> &
+type WeaponData = Omit<WeaponSource, "data" | "effects" | "flags"> &
     BasePhysicalItemData<WeaponPF2e, "weapon", WeaponSystemData, WeaponSource> & {
         flags: WeaponFlags;
     };
@@ -137,7 +137,9 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     selectedAmmoId: string | null;
 }
 
-interface WeaponSystemData extends Omit<WeaponSystemSource, "temporary" | "usage">, Investable<PhysicalSystemData> {
+interface WeaponSystemData
+    extends Omit<WeaponSystemSource, "price" | "temporary" | "usage">,
+        Investable<PhysicalSystemData> {
     baseItem: BaseWeaponType | null;
     traits: WeaponTraits;
     runes: {

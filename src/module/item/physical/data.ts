@@ -30,7 +30,7 @@ type BasePhysicalItemData<
     TType extends PhysicalItemType = PhysicalItemType,
     TSystemData extends PhysicalSystemData = PhysicalSystemData,
     TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
-> = Omit<BasePhysicalItemSource, "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
+> = Omit<BasePhysicalItemSource, "data" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
 
 type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
 
@@ -49,7 +49,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     unequippedBulk: {
         value: string;
     };
-    price: Price;
+    price: PartialPrice;
     equipped: EquippedData;
     identification: IdentificationData;
     stackGroup: string | null;
@@ -72,6 +72,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
 }
 
 interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
+    price: Price;
     traits: PhysicalItemTraits;
     temporary: boolean;
     usage: UsageDetails;
@@ -169,15 +170,20 @@ interface PhysicalItemHitPoints {
 }
 
 interface Coins {
-    pp?: number;
-    gp?: number;
-    sp?: number;
-    cp?: number;
+    pp: number;
+    gp: number;
+    sp: number;
+    cp: number;
 }
 
-interface Price {
-    value: Coins;
+interface PartialPrice {
+    value: Partial<Coins>;
     per?: number;
+}
+
+interface Price extends PartialPrice {
+    value: Coins;
+    per: number;
 }
 
 export {
@@ -193,6 +199,7 @@ export {
     ItemActivation,
     ItemCarryType,
     MystifiedData,
+    PartialPrice,
     PhysicalItemHitPoints,
     PhysicalItemTrait,
     PhysicalItemTraits,
