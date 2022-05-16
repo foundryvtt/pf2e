@@ -202,12 +202,18 @@ async function migrate() {
         const updated = await (async (): Promise<
             ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource
         > => {
+            source.flags ??= {};
             try {
                 if (isActorData(source)) {
+                    for (const embedded of source.items) {
+                        embedded.flags ??= {};
+                    }
                     const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     delete (updatedActor.data as { schema?: unknown }).schema;
+                    pruneFlags(updatedActor);
                     for (const updatedItem of updatedActor.items) {
                         delete (updatedItem.data as { schema?: unknown }).schema;
+                        pruneFlags(updatedItem);
                     }
                     return updatedActor;
                 } else if (isItemData(source)) {
@@ -215,13 +221,17 @@ async function migrate() {
                     const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     delete (updatedItem.data as { schema?: unknown }).schema;
                     delete (updatedItem.data as { slug?: unknown }).slug;
-                    delete (source.data as { slug?: unknown }).slug;
+                    pruneFlags(updatedItem);
 
                     return updatedItem;
                 } else if (isMacroData(source)) {
-                    return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                    const updated = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                    pruneFlags(updated);
+                    return updated;
                 } else if (isTableData(source)) {
-                    return await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                    const updated = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                    pruneFlags(updated);
+                    return updated;
                 } else {
                     return source;
                 }
@@ -244,6 +254,15 @@ async function migrate() {
                 }
             }
         }
+    }
+}
+
+function pruneFlags(source: { flags?: Record<string, Record<string, unknown> | undefined> }): void {
+    if (source.flags && Object.keys(source.flags.pf2e ?? {}).length === 0) {
+        delete source.flags.pf2e;
+    }
+    if (Object.keys(source.flags ?? {}).length === 0) {
+        delete (source as { flags?: object }).flags;
     }
 }
 
