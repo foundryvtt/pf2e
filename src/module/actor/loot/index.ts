@@ -8,6 +8,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ScenePF2e } from "@module/scene";
+import { multiplyPrice } from "@item/treasure/helpers";
 
 export class LootPF2e extends ActorPF2e {
     get isLoot(): boolean {
@@ -58,7 +59,7 @@ export class LootPF2e extends ActorPF2e {
             return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
         }
         if (this.isMerchant && item instanceof PhysicalItemPF2e) {
-            const itemValue = item.assetValue;
+            const itemValue = multiplyPrice(item.price, quantity);
             if (await targetActor.removeCoins(itemValue)) {
                 await item.actor.addCoins(itemValue);
                 return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
