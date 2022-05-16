@@ -56,9 +56,9 @@
                             <div class="formula-cost"></div>
 
                             <div class="formula-quantity">
-                                <a class="formula-decrease-quantity">-</a>
-                                <input type="number" class="formula-number" value="{{this.quantity}}" />
-                                <a class="formula-increase-quantity">+</a>
+                                <a class="formula-quantity-adjust" data-action="decrease-quantity">-</a>
+                                <input type="number" class="formula-number" data-action="enter-quantity" value="{{this.quantity}}" />
+                                <a class="formula-quantity-adjust" data-action="increase-quantity">+</a>
                             </div>
 
                             {{#if @root.owner}}

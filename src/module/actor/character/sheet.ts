@@ -772,11 +772,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             craft({ difficultyClass, item: formula.item, quantity: itemQuantity, event, actors: this.actor });
         });
 
-        $formulas.find(".formula-number").on("change", (event) => {
+        $formulas.find("[data-action=enter-quantity]").on("change", async (event) => {
             const $target = $(event.currentTarget);
             const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
             const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
-            if (entrySelector) return;
+            if (entrySelector) {
+                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+
+                const index = $target.closest("li.formula-item").attr("data-item-index");
+                await craftingEntry.setFormulaQuantity(Number(index), itemUUID ?? "", Number($target.val()));
+                return;
+            }
 
             const formula = this.knownFormulas[itemUUID ?? ""];
             if (!formula) throw ErrorPF2e("Formula not found");
@@ -784,30 +791,32 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.render(true);
         });
 
-        $formulas.find(".formula-increase-quantity, .formula-decrease-quantity").on("click", async (event) => {
-            const $target = $(event.currentTarget);
+        $formulas
+            .find("[data-action=increase-quantity], [data-action=decrease-quantity]")
+            .on("click", async (event) => {
+                const $target = $(event.currentTarget);
 
-            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
-            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
-            if (entrySelector) {
-                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
-                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-                const index = $target.closest("li.formula-item").attr("data-item-index");
-                $target.text().trim() === "+"
-                    ? await craftingEntry.increaseFormulaQuantity(Number(index), itemUUID ?? "")
-                    : await craftingEntry.decreaseFormulaQuantity(Number(index), itemUUID ?? "");
-                return;
-            }
+                const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
+                const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
+                if (entrySelector) {
+                    const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+                    if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+                    const index = $target.closest("li.formula-item").attr("data-item-index");
+                    $target.attr("data-action") === "increase-quantity"
+                        ? await craftingEntry.increaseFormulaQuantity(Number(index), itemUUID ?? "")
+                        : await craftingEntry.decreaseFormulaQuantity(Number(index), itemUUID ?? "");
+                    return;
+                }
 
-            const formula = this.knownFormulas[itemUUID ?? ""];
-            if (!formula) throw ErrorPF2e("Formula not found");
+                const formula = this.knownFormulas[itemUUID ?? ""];
+                if (!formula) throw ErrorPF2e("Formula not found");
 
-            const minBatchSize = formula.minimumBatchSize;
-            const step = $target.text().trim() === "+" ? minBatchSize : -minBatchSize;
-            const newValue = (Number($target.siblings("input").val()) || step) + step;
-            this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
-            this.render();
-        });
+                const minBatchSize = formula.minimumBatchSize;
+                const step = $target.attr("data-action") === "increase-quantity" ? minBatchSize : -minBatchSize;
+                const newValue = (Number($target.siblings("input").val()) || step) + step;
+                this.formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
+                this.render();
+            });
 
         $formulas.find(".formula-unprepare").on("click", async (event) => {
             const $target = $(event.currentTarget);
