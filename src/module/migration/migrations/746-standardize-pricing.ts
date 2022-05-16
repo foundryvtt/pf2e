@@ -49,7 +49,7 @@ export class Migration746StandardizePricing extends MigrationBase {
 
 interface PhysicalDataOld {
     price: {
-        value: string | Coins;
+        value: string | Partial<Coins>;
     };
 }
 

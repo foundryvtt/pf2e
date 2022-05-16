@@ -1,17 +1,17 @@
-import { ItemPF2e, ContainerPF2e } from "@item";
-import { PhysicalItemData, TraitChatData } from "@item/data";
-import { LocalizePF2e } from "@module/system/localize";
-import { Rarity, Size } from "@module/data";
 import { LootPF2e } from "@actor";
+import { type ContainerPF2e, ItemPF2e } from "@item";
+import { PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
+import { coinStringToCoins, multiplyPrice, noCoins } from "@item/treasure/helpers";
+import { Rarity, Size } from "@module/data";
+import { LocalizePF2e } from "@module/system/localize";
+import { UserPF2e } from "@module/user";
+import { isObject } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { Coins, IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
-import { UserPF2e } from "@module/user";
-import { getUsageDetails, isEquipped } from "./usage";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
-import { coinStringToCoins, multiplyPrice } from "@item/treasure/helpers";
+import { getUsageDetails, isEquipped } from "./usage";
 import { DENOMINATIONS } from "./values";
-import { isObject } from "@util";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -173,8 +173,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             systemData.price.value = coinStringToCoins(systemData.price.value);
         }
 
-        // Normalize price string
-        if (this.isTemporary) systemData.price.value = { gp: 0 };
+        // Normalize and fill price data
+        systemData.price.value = mergeObject(noCoins(), this.isTemporary ? {} : systemData.price.value);
         systemData.price.per = Math.max(1, systemData.price.per ?? 1);
 
         // Fill out usage and equipped status

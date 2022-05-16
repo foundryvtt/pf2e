@@ -1,5 +1,5 @@
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base";
-import { PhysicalItemTraits, Price } from "@item/physical/data";
+import { PhysicalItemTraits, PartialPrice } from "@item/physical/data";
 import type { KitPF2e } from ".";
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
@@ -19,7 +19,7 @@ interface KitEntryData {
 interface KitSystemSource extends ItemSystemSource {
     traits: PhysicalItemTraits;
     items: Record<string, KitEntryData>;
-    price: Price;
+    price: PartialPrice;
 }
 
 type KitSystemData = KitSystemSource;

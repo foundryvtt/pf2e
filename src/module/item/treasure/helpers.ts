@@ -1,18 +1,18 @@
 import type { ActorPF2e } from "@actor";
 import type { PhysicalItemData } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { Coins, Price } from "@item/physical/data";
+import { Coins, PartialPrice } from "@item/physical/data";
 
 // Redefined to avoid cyclical reference
 const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
 
-export function coinValueInCopper(coins: Coins) {
+export function coinValueInCopper(coins: Partial<Coins>): number {
     const { cp, sp, gp, pp } = mergeObject(noCoins(), coins);
     return cp + sp * 10 + gp * 100 + pp * 1000;
 }
 
 /** Convert a `Coins` object into a price string */
-export function coinsToString(coins: Coins, { reduce = true }: { reduce?: boolean } = {}): string {
+export function coinsToString(coins: Partial<Coins>, { reduce = true }: { reduce?: boolean } = {}): string {
     if (DENOMINATIONS.every((denomination) => !coins[denomination])) {
         return "0 gp";
     }
@@ -44,13 +44,13 @@ export function coinsToString(coins: Coins, { reduce = true }: { reduce?: boolea
 /**
  * always return a new copy
  */
-export function noCoins(): Required<Coins> {
+export function noCoins(): Coins {
     return { pp: 0, gp: 0, sp: 0, cp: 0 };
 }
 
-export function combineCoins<A extends Coins, B extends Coins>(first: A, second: B): A & B {
-    function addMaybe(a?: number, b?: number) {
-        return a === undefined ? b : b === undefined ? a : a + b;
+export function combineCoins(first: Partial<Coins>, second: Partial<Coins>): Coins {
+    function addMaybe(a?: number, b?: number): number {
+        return a === undefined ? b ?? 0 : b === undefined ? a : a + b;
     }
 
     return {
@@ -58,7 +58,7 @@ export function combineCoins<A extends Coins, B extends Coins>(first: A, second:
         gp: addMaybe(first.gp, second.gp),
         sp: addMaybe(first.sp, second.sp),
         cp: addMaybe(first.cp, second.cp),
-    } as A & B;
+    };
 }
 
 export function coinStringToCoins(coinString: string, quantity = 1): Coins {
@@ -73,7 +73,7 @@ export function coinStringToCoins(coinString: string, quantity = 1): Coins {
         .reduce(combineCoins, noCoins());
 }
 
-export function multiplyCoins(coins: Coins, factor: number): Coins {
+export function multiplyCoins(coins: Partial<Coins>, factor: number): Coins {
     const result = mergeObject(noCoins(), coins);
     result.pp *= factor;
     result.gp *= factor;
@@ -95,7 +95,7 @@ export function multiplyCoins(coins: Coins, factor: number): Coins {
     return result;
 }
 
-export function multiplyPrice(price: Price, factor: number): Coins {
+export function multiplyPrice(price: PartialPrice, factor: number): Coins {
     const per = Math.max(1, price.per ?? 1);
     return multiplyCoins(price.value, factor / per);
 }
@@ -121,7 +121,7 @@ export const coinCompendiumIds = {
 
 export async function sellAllTreasure(actor: ActorPF2e): Promise<void> {
     const treasureIds: string[] = [];
-    const coins: Coins = actor.itemTypes.treasure
+    const coins = actor.itemTypes.treasure
         .filter((item) => !item.isCoinage)
         .map((item): Coins => {
             treasureIds.push(item.id);

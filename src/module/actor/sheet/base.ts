@@ -141,7 +141,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return (this.element as JQuery).find(".tab.active .directory-list");
     }
 
-    protected static coinsToSheetData(coins: Coins): CoinageSummary {
+    protected static coinsToSheetData(coins: Partial<Coins>): CoinageSummary {
         return DENOMINATIONS.reduce(
             (accumulated, denomination) => ({
                 ...accumulated,
