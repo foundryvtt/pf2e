@@ -45,8 +45,18 @@
         height: 100%;
         gap: 5px;
 
-        textarea {
+        & > .cm-editor {
             flex: 1;
+            background-color: white;
+            overflow: hidden;
+
+            .cm-scroller {
+                @include scrollbar;
+            }
+
+            ::selection {
+                color: black;
+            }
         }
 
         .item-controls {
