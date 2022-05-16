@@ -12,7 +12,7 @@ declare module foundry {
             folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class MacroData<

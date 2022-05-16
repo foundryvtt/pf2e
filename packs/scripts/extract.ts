@@ -141,6 +141,13 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             ) as ImagePath;
 
             if ("type" in docSource) {
+                if (docSource.flags && Object.keys(docSource.flags.pf2e ?? {}).length === 0) {
+                    delete docSource.flags.pf2e;
+                }
+                if (Object.keys(docSource.flags ?? {}).length === 0) {
+                    delete (docSource as { flags?: object }).flags;
+                }
+
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
                     delete (docSource as { effects?: unknown }).effects;
@@ -176,6 +183,8 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     docSource.data.description = { value: docSource.data.description.value };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.data as { identification?: unknown }).identification;
+                    } else if (docSource.type === "action" && !docSource.data.deathNote) {
+                        delete (docSource.data as { deathNote?: boolean }).deathNote;
                     } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
                         delete (docSource.data as { ability?: unknown }).ability;
                     } else if (docSource.type === "feat") {
