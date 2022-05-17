@@ -15,7 +15,7 @@
                 "value": 12
             },
             "stealth": {
-                "details": "DC 19 Perception check (or 0 after the hazard is triggered)",
+                "details": "<p>(or 0 after the hazard is triggered)</p>",
                 "value": 9
             }
         },
@@ -23,7 +23,7 @@
         "customModifiers": {},
         "details": {
             "description": "<p>A section of splintery and rotten floorboards drop a creature 6 feet onto uneven rocks and piercing shards of wood.</p>",
-            "disable": "<p>DC 15 Crafting (trained) to replace or cover the weak sections of flooring, or DC 15 Survival (trained) to crumble the rotten floorboards from a safe distance.</p>",
+            "disable": "<p>@Check[type:crafting|dc:15] (trained) to replace or cover the weak sections of flooring, or @Check[type:survival|dc:15] (trained) to crumble the rotten floorboards from a safe distance</p>",
             "isComplex": false,
             "level": {
                 "value": 1
@@ -67,7 +67,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -87,7 +88,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a creature walks on the area marked on the map, it falls through the weakened floorboards onto uneven rocks and sharp shards of wood, taking [[1d4]] piercing damage and [[1d6]] bludgeoning damage. The creature can use the Grab an Edge reaction to avoid the fall and the damage.</p>"
+                    "value": "<p>If a creature walks on the area marked on the map, it falls through the weakened floorboards onto uneven rocks and sharp shards of wood, taking [[/r {1d4}[piercing]]]{1d4 piercing damage} and [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage}. The creature can use the @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} reaction to avoid the fall and the damage.</p>"
                 },
                 "requirements": {
                     "value": ""
