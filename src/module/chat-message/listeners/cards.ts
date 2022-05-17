@@ -131,7 +131,7 @@ export const ChatCards = {
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = multiplyPrice(item.price, quantity);
                     const coinsToRemove = $button.hasClass("full") ? craftingCost : multiplyCoins(craftingCost, 0.5);
-                    if (!(await actor.removeCoins(coinsToRemove))) {
+                    if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                         return;
                     }
@@ -178,7 +178,7 @@ export const ChatCards = {
                     const craftingCost = multiplyPrice(item.price, quantity);
                     const materialCosts = multiplyCoins(craftingCost, 0.5);
                     const coinsToRemove = multiplyCoins(materialCosts, 0.1);
-                    if (!(await actor.removeCoins(coinsToRemove))) {
+                    if (!(await actor.inventory.removeCoins(coinsToRemove))) {
                         ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     } else {
                         ChatMessagePF2e.create({

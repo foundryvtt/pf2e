@@ -34,7 +34,7 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
             }
             const currentSource = token.actor;
             if (selectionData[i] && currentSource) {
-                const currentSourceItemData = currentSource.physicalItems.map((item) => item.toObject());
+                const currentSourceItemData = currentSource.inventory.map((item) => item.toObject());
                 itemData.push(...currentSourceItemData);
                 const idsToDelete = currentSourceItemData.map((item) => item._id);
                 currentSource.deleteEmbeddedDocuments("Item", idsToDelete);
