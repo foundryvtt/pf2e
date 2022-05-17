@@ -1,5 +1,30 @@
 # Changelog
 
+## Version 3.10.2
+
+### Bugfixes
+* (Cerapter) Fix reagent number reacting to formula quantity adjustments, make quantity adjustments more responsive
+* (stwlam) Fix display of attack roll modifiers on PC sheets when Devise a Stratagem is enabled
+* (stwlam) Fix temporary-item deletion in Rest for the Night macro
+* (stwlam) Fix issue causing @Check prompts sent to chat to not display proper DC
+* (stwlam) Hide price of unidentified items on loot actor sheets
+* (stwlam) Fix setting of purchase price when buying from merchants
+* (Supe) Fix migration of Acid Splash spell damage
+
+### Data Updates
+* (Abaddon) Update Cornugon (Bestiary 2)
+* (Delzoun) Add automation to most ancestry weapon expertise feats
+* (InfamousSky) Add icons to all SoM items, several Guns & Gears items
+* (Kuroni Kobayakawa) Fix formatting errors on a handful of feat descriptions
+* (SpartanCPA) Make a few magical staves into weapon items
+* (SpartanCPA) Localize Persistent Bleed d4-d8 (Part 1)
+* (SpartanCPA) Make corrections to Boots of Dancing
+* (stwlam) Add appropriate predicates to Animal Skin feat REs
+* (TMun) Add/update NPCs from PFS 2-10, PFS 2-11, PFS 2-17, PFS 2-13, PFS 3-04
+* (TMun) Add sources and missing states to actions
+* (TMun) Add missing GMG subsystem actions
+
+
 ## Version 3.10.1
 
 ### Bugfixes

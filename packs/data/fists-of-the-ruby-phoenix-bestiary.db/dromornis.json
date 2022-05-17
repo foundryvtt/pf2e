@@ -107,7 +107,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -129,13 +128,24 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d8.success]</p>"
                 },
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The beak also deals [[/r {1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d8.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d8.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -153,7 +163,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Beak",
             "sort": 100000,
@@ -178,13 +187,24 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
                 },
                 "rules": [
                     {
                         "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Effect</strong> The talon also deals [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.criticalSuccess]</p>"
                     }
                 ],
                 "slug": null,
@@ -202,7 +222,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Talon",
             "sort": 200000,
@@ -336,7 +355,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Pack Ambush",
             "sort": 500000,
@@ -396,7 +414,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
             "sort": 600000,
@@ -438,7 +455,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Rushing Attack",
             "sort": 700000,
@@ -513,7 +529,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 900000,
@@ -542,7 +557,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1000000,
@@ -571,7 +585,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1100000,
@@ -600,7 +613,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1200000,

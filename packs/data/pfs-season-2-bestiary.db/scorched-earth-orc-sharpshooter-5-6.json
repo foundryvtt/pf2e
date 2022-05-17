@@ -59,7 +59,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-10: In Burning Dawn"
             }
         },
         "resources": {},
@@ -617,7 +617,7 @@
                 "damageRolls": {
                     "0": {
                         "damage": "1d6+8",
-                        "damageType": "slashing"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -666,7 +666,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(deadly d10, propulsive, volley 30 ft.)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -693,7 +693,53 @@
             "type": "melee"
         },
         {
-            "_id": "38HeHJZmZjDhTFjA",
+            "_id": "0o4rTv303SMxuMDy",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": false,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "k8PEmzgV5sBXpGUg",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -735,11 +781,57 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "6bfq0rhJCDqLPplC",
+            "_id": "vitvxHloHqQrdzPU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "ferocity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "NPuaTmC7cWgaNoCB",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -752,7 +844,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>Scorched Earth orcs deal an extra [[/r {2d6}[precision]]]{2d6 precision damage} to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                    "value": "<p>Scorched Earth orcs deal an extra 2d6 precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -760,26 +852,12 @@
                 "rules": [
                     {
                         "category": "precision",
-                        "diceNumber": 1,
+                        "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
+                                "target:condition:flat-footed"
                             ]
                         },
                         "selector": "strike-damage"
@@ -808,7 +886,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -825,7 +903,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p>The Scorched Earth sharpshooter makes a ranged Strike, firing an arrow attached to a line at a creature in range.</p>\n<p>If it hits, in addition to taking [[/r {1d8+4}[piercing]]]{1d8+4 piercing damage}, that creature must attempt a @Check[type:reflex|dc:20] save, with the following effects.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is clumsy 1 for 1 minute or until it Escapes (DC 20).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is pulled 5 feet toward the sharpshooter.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p>The Scorched Earth sharpshooter makes a ranged Strike, firing an arrow attached to a line at a creature in range.</p>\n<p>If it hits, in addition to taking [[/r {1d8+4}[piercing]]]{1d8+4 piercing damage}, that creature must attempt a @Check[type:reflex|dc:20] save, with the following effects.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 minute or until it @Compendium[pf2e.actionspf2e.Escape]{Escapes}(DC 20).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is pulled 5 feet toward the sharpshooter.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -854,7 +932,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Tethered Shot",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -883,7 +961,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -912,7 +990,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -941,7 +1019,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],

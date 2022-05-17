@@ -113,7 +113,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -509,7 +508,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Tusk",
             "sort": 400000,
@@ -535,9 +533,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -553,7 +568,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 500000,
@@ -600,7 +614,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
             "sort": 600000,
@@ -738,7 +751,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Consecration Vulnerability",
             "sort": 900000,
@@ -779,7 +791,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Mortic Ferocity",
             "sort": 1000000,
@@ -824,7 +835,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Soul Feast",
             "sort": 1100000,
@@ -865,7 +875,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Death Gasp",
             "sort": 1200000,
@@ -906,7 +915,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghost Hunter",
             "sort": 1300000,
@@ -950,7 +958,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Leech Essence",
             "sort": 1400000,
@@ -979,7 +986,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1500000,
@@ -1008,7 +1014,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1600000,
@@ -1037,7 +1042,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 1700000,

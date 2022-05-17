@@ -236,7 +236,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.clone({ flags: { pf2e: { rollOptions: { all: rollOptionsAll } } } }, { keepId: true });
     }
 
-    async addCoins(coins: Coins, { combineStacks = true }: { combineStacks?: boolean } = {}) {
+    async addCoins(coins: Partial<Coins>, { combineStacks = true }: { combineStacks?: boolean } = {}) {
         const topLevelCoins = this.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
 
@@ -264,7 +264,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    async removeCoins(coins: Coins, { byValue = true }: { byValue?: boolean } = {}) {
+    async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
         const coinsToRemove = mergeObject(noCoins(), coins);
         const actorCoins = mergeObject(noCoins(), this.coins);
         const coinsToAdd = noCoins();
@@ -275,7 +275,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 return false;
             }
 
-            //  Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation where we need to break a coin that has already been "removed"
+            // Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation
+            // where we need to break a coin that has already been "removed"
             if (valueToRemoveInCopper % 10 > actorCoins.cp) {
                 coinsToAdd.cp = 10;
                 coinsToRemove.cp = valueToRemoveInCopper % 10;
@@ -963,18 +964,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param containerId Id of the container that will contain the item.
      */
     async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
-        if (container && !isCycle(item.id, container.id, [item.data])) {
+        if (!container) {
+            await item.update({
+                "data.containerId": null,
+                "data.equipped.carryType": "worn",
+                "data.equipped.handsHeld": 0,
+                "data.equipped.inSlot": false,
+            });
+        } else if (!isCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "data.containerId": container.id,
                 "data.equipped.carryType": carryType,
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": false,
-            });
-        } else {
-            await item.update({
-                "data.containerId": null,
-                "data.equipped.carryType": "worn",
                 "data.equipped.handsHeld": 0,
                 "data.equipped.inSlot": false,
             });

@@ -223,23 +223,24 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 formData["data.preciousMaterialGrade.value"] = null;
             }
 
-            // Seal specific magic weapon data if set to true
-            const isSpecific = formData["data.specific.value"];
-            if (isSpecific !== weapon.isSpecific) {
-                if (isSpecific === true) {
-                    formData["data.specific.price"] = formData["data.price.value"];
-                    formData["data.specific.material"] = weapon.material;
-                    formData["data.specific.runes"] = {
-                        potency: formData["data.potencyRune.value"],
-                        striking: formData["data.strikingRune.value"],
-                    };
-                } else if (isSpecific === false) {
-                    formData["data.specific.-=material"] = null;
-                    formData["data.specific.-=runes"] = null;
-                }
-            }
-
             delete formData["preciousMaterial"];
+        }
+
+        // Seal specific magic weapon data if set to true
+        const isSpecific = formData["data.specific.value"];
+        if (isSpecific !== weapon.isSpecific) {
+            if (isSpecific === true) {
+                formData["data.price.value"] = this.item.price.value;
+                formData["data.specific.price"] = this.item.price.value;
+                formData["data.specific.material"] = weapon.material;
+                formData["data.specific.runes"] = {
+                    potency: formData["data.potencyRune.value"],
+                    striking: formData["data.strikingRune.value"],
+                };
+            } else if (isSpecific === false) {
+                formData["data.specific.-=material"] = null;
+                formData["data.specific.-=runes"] = null;
+            }
         }
 
         // Ensure melee usage is absent if not a combination weapon

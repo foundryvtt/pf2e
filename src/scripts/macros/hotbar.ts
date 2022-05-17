@@ -24,7 +24,7 @@ export async function createItemMacro(item: ItemSourcePF2e, slot: number): Promi
                 name: item.name,
                 type: "script",
                 img: item.img,
-                flags: { "pf2e.itemMacro": true },
+                flags: { pf2e: { itemMacro: true } },
             },
             { renderSheet: false }
         ));
@@ -61,7 +61,7 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
                 name: macroName,
                 type: "script",
                 img: action.imageUrl,
-                flags: { "pf2e.actionMacro": true },
+                flags: { pf2e: { actionMacro: true } },
             },
             { renderSheet: false }
         ));
@@ -88,9 +88,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     content,
                     type: CONST.CHAT_MESSAGE_TYPES.OTHER,
                     flags: {
-                        core: {
-                            canPopout: true,
-                        },
+                        core: { canPopout: true },
                     },
                 };
 
@@ -128,7 +126,7 @@ if (a) {
                 name: macroName,
                 type: "script",
                 img: "icons/svg/d20-grey.svg",
-                flags: { "pf2e.skillMacro": true },
+                flags: { pf2e: { skillMacro: true } },
             },
             { renderSheet: false }
         ));

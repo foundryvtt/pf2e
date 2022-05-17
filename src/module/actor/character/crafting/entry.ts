@@ -157,6 +157,17 @@ export class CraftingEntry implements CraftingEntryData {
         this.updateActorEntryFormulas();
     }
 
+    async setFormulaQuantity(index: number, itemUUID: string, quantity: number) {
+        const prepData = this.preparedFormulas[index];
+        if (!prepData || prepData.item.uuid !== itemUUID) return;
+        prepData.quantity = quantity;
+        if (prepData.quantity <= 0) {
+            await this.unprepareFormula(index, itemUUID);
+            return;
+        }
+        this.updateActorEntryFormulas();
+    }
+
     async toggleFormulaExpended(index: number, itemUUID: string) {
         const prepData = this.preparedFormulas[index];
         if (!prepData || prepData.item.uuid !== itemUUID) return;

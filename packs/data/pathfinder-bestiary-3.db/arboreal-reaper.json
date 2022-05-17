@@ -134,7 +134,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -250,7 +249,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Primal Innate Spells",
             "sort": 100000,
@@ -528,7 +526,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Branch",
             "sort": 400000,
@@ -574,7 +571,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Root",
             "sort": 500000,
@@ -600,9 +596,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d4.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -616,7 +629,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Thorns",
             "sort": 600000,
@@ -747,7 +759,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Axe Vulnerability",
             "sort": 900000,
@@ -788,7 +799,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Leech Moisture",
             "sort": 1000000,
@@ -862,7 +872,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1200000,
@@ -891,7 +900,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1300000,
@@ -920,7 +928,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
             "sort": 1400000,
@@ -967,7 +974,6 @@
                     }
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1500000,

@@ -19,6 +19,7 @@
         "level": {
             "value": 13
         },
+        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -26,7 +27,26 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-sling.rank",
+                "value": "@actor.data.data.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-halfling-sling-staff.rank",
+                "value": "@actor.data.data.martial.unarmed.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.weapon-base-shortsword.rank",
+                "value": "@actor.data.data.martial.unarmed.rank"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
@@ -38,7 +58,6 @@
             ]
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Halfling Weapon Expertise",
     "type": "feat"

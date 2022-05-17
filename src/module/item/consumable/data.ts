@@ -11,7 +11,7 @@ import type { ConsumablePF2e } from ".";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
-type ConsumableData = Omit<ConsumableSource, "effects" | "flags"> &
+type ConsumableData = Omit<ConsumableSource, "data" | "effects" | "flags"> &
     BasePhysicalItemData<ConsumablePF2e, "consumable", ConsumableSystemData, ConsumableSource>;
 
 type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
@@ -52,6 +52,11 @@ interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectDa
     };
 }
 
-type ConsumableSystemData = ConsumableSystemSource & PhysicalSystemData;
+type ConsumableSystemData = Omit<ConsumableSystemSource, "price"> &
+    PhysicalSystemData & {
+        equipped: {
+            invested?: never;
+        };
+    };
 
 export { ConsumableData, ConsumableSource, ConsumableTrait, ConsumableType };
