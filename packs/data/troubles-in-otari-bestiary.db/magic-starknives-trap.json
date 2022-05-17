@@ -15,7 +15,7 @@
                 "value": 14
             },
             "stealth": {
-                "details": "DC 22 Perception check to spot the magical energies reverberating in the pillars",
+                "details": "<p>to spot the magical energies reverberating in the pillars</p>",
                 "value": 12
             }
         },
@@ -23,7 +23,7 @@
         "customModifiers": {},
         "details": {
             "description": "<p>Starknife symbols on the six pillars glow and shoot across the room.</p>",
-            "disable": "<p>DC 21 Thievery (expert) or dispel magic on any four of the six pillars disables the entire trap (the trap is a 2nd-level spell and the DC to dispel it is 21). Destroying any four of the six pillars also disables the trap.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21|traits:action:disable-a-device] (expert) or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> on any four of the six pillars disables the entire trap (the trap is a 2nd-level spell and the DC to dispel it is 21). Destroying any four of the six pillars also disables the trap.</p>",
             "isComplex": true,
             "level": {
                 "value": 5
@@ -67,7 +67,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "magical"
+                    "magical",
+                    "trap"
                 ]
             }
         }
@@ -87,7 +88,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>(arcane, evocation) If a creature passes the middle pair of pillars, both doors leading out of the room slam shut and lock; while the trap is active, the doors must be battered open with a successful @Check[type:athletics|dc:23|name:Batter Open Door] check or sufficient damage (Hardness 12; HP 48 [BT 24]). One of the starknife carvings glows with light, detaches from the pillar, and then flies outward, making a magical starknife Ranged Strike against a random creature within range. The trap then rolls initiative with its Stealth modifier of +12.</p>"
+                    "value": "<p>If a creature passes the middle pair of pillars, both doors leading out of the room slam shut and lock; while the trap is active, the doors must be battered open with a successful @Check[type:athletics|dc:23|name:Batter Open Door|traits:action:force-open] check or sufficient damage (Hardness 12; HP 48 [BT 24]). One of the starknife carvings glows with light, detaches from the pillar, and then flies outward, making a magical starknife Ranged Strike against a random creature within range. The trap then rolls initiative with its Stealth modifier of +12</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -100,7 +101,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "arcane",
+                        "evocation"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -147,7 +151,7 @@
                         "agile",
                         "deadly-d6",
                         "magical",
-                        "range-increment-40"
+                        "range-40"
                     ]
                 },
                 "weaponType": {
