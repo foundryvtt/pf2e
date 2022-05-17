@@ -1,5 +1,5 @@
-import { getContainerMap, isCycle } from "../../../src/module/item/container/helpers";
-import { indexBulkItemsById, toBulkItems } from "../../../src/module/item/physical/bulk";
+import { getContainerMap } from "@item/container/helpers";
+import { indexBulkItemsById, toBulkItems } from "@item/physical/bulk";
 import { PhysicalItemData } from "@item/data";
 
 function createItem({
@@ -225,33 +225,5 @@ describe("should create container data", () => {
         const overloadedBackpack = containerData.get("7")!;
         expect(overloadedBackpack.fullPercentage).toBe(100);
         expect(overloadedBackpack.isOverLoaded).toBe(true);
-    });
-
-    test("should detect container cycles", () => {
-        const items = [
-            createItem({
-                id: "1",
-            }),
-            createItem({
-                id: "2",
-                containerId: "1",
-            }),
-            createItem({
-                id: "3",
-            }),
-            createItem({
-                id: "4",
-                containerId: "2",
-            }),
-        ];
-
-        expect(isCycle("1", "3", items)).toBe(false);
-        expect(isCycle("3", "1", items)).toBe(false);
-        expect(isCycle("2", "1", items)).toBe(false);
-        expect(isCycle("2", "3", items)).toBe(false);
-        expect(isCycle("1", "1", items)).toBe(true);
-        expect(isCycle("1", "4", items)).toBe(true);
-        expect(isCycle("1", "2", items)).toBe(true);
-        expect(isCycle("2", "2", items)).toBe(true);
     });
 });
