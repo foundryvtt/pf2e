@@ -700,7 +700,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Bloody Barber leader makes a successful war razor Strike and has one free hand</p>\n<hr />\n<p><strong>Effect</strong> The target of the triggering war razor Strike is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the leader's next turn or until it leaves the leader's reach, whichever comes first.</p>"
+                    "value": "<p><strong>Trigger</strong> The Bloody Barber leader makes a successful war razor Strike and has one free hand</p>\n<p><strong>Effect</strong> The target of the triggering war razor Strike is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the leader's next turn or until it leaves the leader's reach, whichever comes first.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -765,7 +765,7 @@
             "type": "action"
         },
         {
-            "_id": "5VngugjhSVDJdSkA",
+            "_id": "MjS5NSdzq8Y5gqYr",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -778,7 +778,7 @@
                 },
                 "deathNote": false,
                 "description": {
-                    "value": "<p>The Bloody Barber leader deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>The Bloody Barber leader deals an extra 1d6 precision damage to flat-footed creatures.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -791,7 +791,21 @@
                         "key": "DamageDice",
                         "predicate": {
                             "all": [
-                                "target:condition:flat-footed"
+                                "target:condition:flat-footed",
+                                {
+                                    "or": [
+                                        "finesse",
+                                        "agile",
+                                        {
+                                            "and": [
+                                                "ranged",
+                                                {
+                                                    "not": "thrown"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         "selector": "strike-damage"
