@@ -551,15 +551,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     ): Promise<void> {
         const { usage } = item.data.data;
         if (carryType === "stowed") {
-            // since there's still an "items need to be in a tree" view, we
-            // need to actually put the item in a container when it's stowed.
-            const container = item.actor.itemTypes.backpack.filter((b) => !isCycle(item.id, b.id, [item.data]))[0];
-            await item.update({
-                "data.containerId": container?.id ?? "",
-                "data.equipped.carryType": "stowed",
-                "data.equipped.handsHeld": 0,
-                "data.equipped.inSlot": usage.type === "worn" && usage.where ? false : undefined,
-            });
+            const container = item.actor.itemTypes.backpack.find((c) => c !== item.container && !isCycle(item, c));
+            if (container) await item.actor.stowOrUnstow(item, container);
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,
