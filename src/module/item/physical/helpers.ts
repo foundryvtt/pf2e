@@ -3,34 +3,92 @@ import { Coins, PartialPrice } from "@item/physical/data";
 // Redefined to avoid cyclical reference
 const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
 
-function coinValueInCopper(coins: Partial<Coins>): number {
-    const { cp, sp, gp, pp } = mergeObject(noCoins(), coins);
-    return cp + sp * 10 + gp * 100 + pp * 1000;
-}
+/** Coins class that exposes methods to perform operations on coins without side effects */
+class CoinsPF2e implements Coins {
+    cp: number;
+    sp: number;
+    gp: number;
+    pp: number;
 
-/** Convert a `Coins` object into a price string */
-function coinsToString(coins: Partial<Coins>, { reduce = true }: { reduce?: boolean } = {}): string {
-    if (DENOMINATIONS.every((denomination) => !coins[denomination])) {
-        return "0 gp";
+    constructor(data: Coins = {}) {
+        this.cp = data.cp ?? 0;
+        this.sp = data.sp ?? 0;
+        this.gp = data.gp ?? 0;
+        this.pp = data.pp ?? 0;
     }
 
-    const DENOMINATIONS_REVERSED = [...DENOMINATIONS].reverse();
+    /** The total value of this coins in copper */
+    get copperValue(): number {
+        const { cp, sp, gp, pp } = this;
+        return cp + sp * 10 + gp * 100 + pp * 1000;
+    }
 
-    if (reduce) {
-        const denomination = DENOMINATIONS_REVERSED.reduce((highest, denomination) => {
-            return coins[denomination] ? denomination : highest;
+    add(coins: Coins): CoinsPF2e {
+        const other = new CoinsPF2e(coins);
+        return new CoinsPF2e({
+            pp: this.pp + other.pp,
+            gp: this.gp + other.gp,
+            sp: this.sp + other.sp,
+            cp: this.cp + other.cp,
         });
+    }
 
-        const pp = coins["pp"] ?? 0;
-        const gp = pp * 10 + (coins["gp"] ?? 0);
-        const sp = gp * 10 + (coins["sp"] ?? 0);
-        const value = { pp, gp, sp, cp: coinValueInCopper(coins) }[denomination];
-        return `${value} ${denomination}`;
-    } else {
+    scale(factor: number): CoinsPF2e {
+        const result = new CoinsPF2e(this);
+        result.pp *= factor;
+        result.gp *= factor;
+        result.sp *= factor;
+        result.cp *= factor;
+
+        // If the factor is not a whole number, we will need to handle coin spillover
+        if (factor % 1 !== 0) {
+            result.gp += (result.pp % 1) * 10;
+            result.sp += (result.gp % 1) * 10;
+            result.cp += (result.sp % 1) * 10;
+
+            // Some computations like 2.8 % 1 evaluate to 0.79999, so we can't just floor
+            for (const denomination of DENOMINATIONS) {
+                result[denomination] = Math.floor(Number(result[denomination].toFixed(1)));
+            }
+        }
+
+        return result;
+    }
+
+    /** Returns a coins data object with all zero value denominations omitted */
+    strip(): Coins {
+        return DENOMINATIONS.reduce((result, denomination) => {
+            if (this[denomination] !== 0) {
+                return { ...result, [denomination]: this[denomination] };
+            }
+            return result;
+        }, {});
+    }
+
+    /** Parses a price string such as "5 gp" and returns a new CoinsPF2e object */
+    static fromString(coinString: string, quantity = 1): CoinsPF2e {
+        // This requires preprocessing, as large gold values contain , for their value
+        const priceTag = String(coinString).trim().replace(/,/g, "");
+        return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
+            .map((match) => {
+                const [value, denomination] = match.slice(1, 3);
+                const computedValue = (Number(value) || 0) * quantity;
+                return { [denomination]: computedValue };
+            })
+            .reduce((first, second) => first.add(second), new CoinsPF2e());
+    }
+
+    /** Creates a new price string such as "5 gp" from this object */
+    toString(): string {
+        if (DENOMINATIONS.every((denomination) => !this[denomination])) {
+            return "0 gp";
+        }
+
+        const DENOMINATIONS_REVERSED = [...DENOMINATIONS].reverse();
         const parts: string[] = [];
         for (const denomation of DENOMINATIONS_REVERSED) {
-            if (coins[denomation]) {
-                parts.push(`${coins[denomation]} ${denomation}`);
+            if (this[denomation]) {
+                parts.push(`${this[denomation]} ${denomation}`);
             }
         }
 
@@ -38,63 +96,9 @@ function coinsToString(coins: Partial<Coins>, { reduce = true }: { reduce?: bool
     }
 }
 
-/**
- * always return a new copy
- */
-function noCoins(): Coins {
-    return { pp: 0, gp: 0, sp: 0, cp: 0 };
-}
-
-function combineCoins(first: Partial<Coins>, second: Partial<Coins>): Coins {
-    function addMaybe(a?: number, b?: number): number {
-        return a === undefined ? b ?? 0 : b === undefined ? a : a + b;
-    }
-
-    return {
-        pp: addMaybe(first.pp, second.pp),
-        gp: addMaybe(first.gp, second.gp),
-        sp: addMaybe(first.sp, second.sp),
-        cp: addMaybe(first.cp, second.cp),
-    };
-}
-
-function coinStringToCoins(coinString: string, quantity = 1): Coins {
-    // This requires preprocessing, as large gold values contain , for their value
-    const priceTag = String(coinString).trim().replace(/,/g, "");
-    return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
-        .map((match) => {
-            const [value, denomination] = match.slice(1, 3);
-            const computedValue = (Number(value) || 0) * quantity;
-            return { [denomination]: computedValue };
-        })
-        .reduce(combineCoins, noCoins());
-}
-
-function multiplyCoins(coins: Partial<Coins>, factor: number): Coins {
-    const result = mergeObject(noCoins(), coins);
-    result.pp *= factor;
-    result.gp *= factor;
-    result.sp *= factor;
-    result.cp *= factor;
-
-    // If the factor is not a whole number, we will need to handle coin spillover
-    if (factor % 1 !== 0) {
-        result.gp += (result.pp % 1) * 10;
-        result.sp += (result.gp % 1) * 10;
-        result.cp += (result.sp % 1) * 10;
-
-        // Some computations like 2.8 % 1 evaluate to 0.79999, so we can't just floor
-        for (const denomination of DENOMINATIONS) {
-            result[denomination] = Math.floor(Number(result[denomination].toFixed(1)));
-        }
-    }
-
-    return result;
-}
-
-function multiplyPrice(price: PartialPrice, factor: number): Coins {
+function multiplyPrice(price: PartialPrice, factor: number): CoinsPF2e {
     const per = Math.max(1, price.per ?? 1);
-    return multiplyCoins(price.value, factor / per);
+    return new CoinsPF2e(price.value).scale(factor / per);
 }
 
 const coinCompendiumIds = {
@@ -104,13 +108,4 @@ const coinCompendiumIds = {
     cp: "lzJ8AVhRcbFul5fh",
 };
 
-export {
-    coinCompendiumIds,
-    coinStringToCoins,
-    coinsToString,
-    coinValueInCopper,
-    combineCoins,
-    multiplyCoins,
-    multiplyPrice,
-    noCoins,
-};
+export { CoinsPF2e, coinCompendiumIds, multiplyPrice };

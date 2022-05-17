@@ -3,7 +3,7 @@ import { PhysicalItemPF2e, TreasurePF2e } from "@item";
 import { Bulk, computeTotalBulk } from "@item/physical/bulk";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
-import { coinCompendiumIds, coinValueInCopper, combineCoins, noCoins } from "@item/physical/helpers";
+import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
 import { groupBy } from "@util";
 
 class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
@@ -11,16 +11,16 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         super(entries?.map((entry) => [entry.id, entry]));
     }
 
-    get coins(): Coins {
+    get coins(): CoinsPF2e {
         return this.filter((i) => i.isOfType("treasure") && i.isCoinage)
             .map((item) => item.assetValue)
-            .reduce(combineCoins, noCoins());
+            .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
-    get totalWealth(): Coins {
+    get totalWealth(): CoinsPF2e {
         return this.filter((item) => game.user.isGM || item.isIdentified)
             .map((item) => item.assetValue)
-            .reduce(combineCoins, noCoins());
+            .reduce((first, second) => first.add(second), new CoinsPF2e());
     }
 
     get totalBulk(): Bulk {
@@ -56,13 +56,13 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
     }
 
     async removeCoins(coins: Partial<Coins>, { byValue = true }: { byValue?: boolean } = {}) {
-        const coinsToRemove = mergeObject(noCoins(), coins);
-        const actorCoins = mergeObject(noCoins(), this.coins);
-        const coinsToAdd = noCoins();
+        const coinsToRemove = new CoinsPF2e(coins);
+        const actorCoins = this.coins;
+        const coinsToAdd = new CoinsPF2e();
 
         if (byValue) {
-            let valueToRemoveInCopper = coinValueInCopper(coinsToRemove);
-            if (valueToRemoveInCopper > coinValueInCopper(this.coins)) {
+            let valueToRemoveInCopper = coinsToRemove.copperValue;
+            if (valueToRemoveInCopper > actorCoins.copperValue) {
                 return false;
             }
 
@@ -111,7 +111,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         }
 
         // Test if the actor has enough coins to pull
-        const coinsToPull = combineCoins(actorCoins, coinsToAdd);
+        const coinsToPull = actorCoins.add(coinsToAdd);
         const sufficient =
             coinsToRemove.pp <= coinsToPull.pp &&
             coinsToRemove.gp <= coinsToPull.gp &&
@@ -168,7 +168,9 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
     async sellAllTreasure(): Promise<void> {
         const treasures = this.actor.itemTypes.treasure.filter((item) => !item.isCoinage);
         const treasureIds = treasures.map((item) => item.id);
-        const coins = treasures.map((item) => item.assetValue).reduce(combineCoins, noCoins());
+        const coins = treasures
+            .map((item) => item.assetValue)
+            .reduce((first, second) => first.add(second), new CoinsPF2e());
         await this.actor.deleteEmbeddedDocuments("Item", treasureIds);
         await this.actor.inventory.addCoins(coins);
     }

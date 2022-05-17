@@ -1,9 +1,8 @@
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
 import { TreasureSystemSource } from "@item/treasure/data";
-import { coinStringToCoins } from "@item/physical/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { MigrationBase } from "../base";
 
 export class Migration746StandardizePricing extends MigrationBase {
@@ -13,7 +12,7 @@ export class Migration746StandardizePricing extends MigrationBase {
         if (!isPhysicalData(item) && item.type !== "kit") return;
 
         if (typeof item.data.price === "string") {
-            item.data.price = { value: coinStringToCoins(item.data.price) };
+            item.data.price = { value: CoinsPF2e.fromString(item.data.price).strip() };
         }
 
         if (item.type === "treasure") {
@@ -31,17 +30,7 @@ export class Migration746StandardizePricing extends MigrationBase {
         } else {
             const systemData: PhysicalDataOld = item.data;
             if (typeof systemData.price.value === "string") {
-                systemData.price.value = coinStringToCoins(systemData.price.value);
-            }
-        }
-
-        // strip all zero value denominations from the result
-        if (item.data.price.value) {
-            const coins = item.data.price.value;
-            for (const denomination of DENOMINATIONS) {
-                if (coins[denomination] === 0) {
-                    delete coins[denomination];
-                }
+                systemData.price.value = CoinsPF2e.fromString(systemData.price.value).strip();
             }
         }
     }
@@ -49,7 +38,7 @@ export class Migration746StandardizePricing extends MigrationBase {
 
 interface PhysicalDataOld {
     price: {
-        value: string | Partial<Coins>;
+        value: string | Coins;
     };
 }
 

@@ -1,6 +1,6 @@
 import { ActorPF2e } from "../../base";
 import { CharacterPF2e } from "@actor/character";
-import { coinValueInCopper, multiplyCoins, noCoins } from "@item/physical/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     selection?: string[];
@@ -43,9 +43,9 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         }
 
         if (thisActor instanceof ActorPF2e) {
-            const coinShare = { pp: 0, gp: 0, sp: 0, cp: 0 };
+            const coinShare = new CoinsPF2e();
             if (formData.breakCoins) {
-                const thisActorCopperValue = coinValueInCopper(thisActor.inventory.coins);
+                const thisActorCopperValue = thisActor.inventory.coins.copperValue;
                 const copperToDistribute = Math.trunc(thisActorCopperValue / playerCount);
                 // return if there is nothing to distribute
                 if (copperToDistribute === 0) {
@@ -58,7 +58,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
                 coinShare.gp = Math.trunc(copperToDistribute / 100) % 10;
                 coinShare.pp = Math.trunc(copperToDistribute / 1000);
             } else {
-                const thisActorCurrency = mergeObject(noCoins(), thisActor.inventory.coins);
+                const thisActorCurrency = thisActor.inventory.coins;
                 coinShare.pp = Math.trunc(thisActorCurrency.pp / playerCount);
                 coinShare.cp = Math.trunc(thisActorCurrency.cp / playerCount);
                 coinShare.gp = Math.trunc(thisActorCurrency.gp / playerCount);
@@ -69,7 +69,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
                     return;
                 }
 
-                const coinsToRemove = multiplyCoins(coinShare, playerCount);
+                const coinsToRemove = coinShare.scale(playerCount);
                 thisActor.inventory.removeCoins(coinsToRemove, { byValue: false });
             }
             let message = `Distributed `;

@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
-import { coinsToString, coinStringToCoins, noCoins } from "@item/physical/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
@@ -18,8 +18,8 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         return {
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
-            basePriceString: coinsToString(this.item.data._source.data.price.value),
-            priceString: coinsToString(this.item.price.value),
+            basePriceString: new CoinsPF2e(this.item.data._source.data.price.value).toString(),
+            priceString: this.item.price.value.toString(),
             actionTypes: CONFIG.PF2E.actionTypes,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
@@ -96,8 +96,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
 
         // Convert price from a string to an actual object
         if (formData["data.price.value"]) {
-            const coins = coinStringToCoins(String(formData["data.price.value"]));
-            formData["data.price.value"] = mergeObject(noCoins(), coins);
+            formData["data.price.value"] = CoinsPF2e.fromString(String(formData["data.price.value"]));
         }
 
         // Normalize nullable fields for embedded actions

@@ -1,6 +1,6 @@
 import { ItemPF2e } from "@item";
 import { Coins, PartialPrice } from "@item/physical/data";
-import { coinsToString } from "@item/physical/helpers";
+import { CoinsPF2e } from "@item/physical/helpers";
 import { getActionGlyph, ordinal } from "../util";
 
 export function registerHandlebarsHelpers() {
@@ -177,12 +177,12 @@ export function registerHandlebarsHelpers() {
         return value === null || value === undefined;
     });
 
-    Handlebars.registerHelper("coinLabel", function (value: Partial<Coins> | PartialPrice) {
+    Handlebars.registerHelper("coinLabel", function (value: Coins | PartialPrice) {
         if (!value) return null;
         if ("value" in value) {
             // todo: handle per pricing
-            return coinsToString(value.value);
+            return new CoinsPF2e(value.value);
         }
-        return coinsToString(value);
+        return new CoinsPF2e(value);
     });
 }

@@ -1,6 +1,5 @@
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { coinsToString } from "@item/physical/helpers";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -88,7 +87,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
         const $priceLabel =
             itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup !== "coins"
                 ? ((): JQuery => {
-                      const price = coinsToString(item.price.value);
+                      const price = item.price.value.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
                       return $(`<p>${priceLabel}</p>`);
                   })()

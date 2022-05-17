@@ -1,7 +1,7 @@
 import { Coins } from "@item/physical/data";
 import { ActorPF2e } from "@actor";
 
-interface PopupFormData extends Partial<Coins> {
+interface PopupFormData extends Coins {
     removeByValue: boolean;
 }
 
