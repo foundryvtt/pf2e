@@ -136,7 +136,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -244,7 +243,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
@@ -1514,7 +1512,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Soul Gem",
             "sort": 1200000,
@@ -1626,7 +1623,6 @@
                     "value": "-"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Steeped Weapon (7-10)",
             "sort": 1300000,
@@ -1655,9 +1651,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {4d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed4d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed4d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed4d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1677,7 +1690,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Glaive",
             "sort": 1400000,
@@ -1706,9 +1718,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {4d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed4d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed4d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed4d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1728,7 +1757,6 @@
                     "value": "ranged"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hurled Weapon",
             "sort": 1500000,
@@ -1969,7 +1997,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 2000000,
@@ -2013,7 +2040,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hurl Weapon",
             "sort": 2100000,
@@ -2056,7 +2082,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Recall Weapon",
             "sort": 2200000,
@@ -2099,7 +2124,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Steep Weapon",
             "sort": 2300000,
@@ -2140,7 +2164,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Twist the Blade",
             "sort": 2400000,
@@ -2169,7 +2192,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 2500000,
@@ -2198,7 +2220,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 2600000,
@@ -2227,7 +2248,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
             "sort": 2700000,
@@ -2256,7 +2276,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2800000,
@@ -2285,7 +2304,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 2900000,
@@ -2314,7 +2332,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
             "sort": 3000000,

@@ -3,24 +3,22 @@
  */
 
 import { ProficiencyRank } from "@item/data";
-import type { Coins } from "@item/physical/data";
+import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { multiplyCoins } from "@item/treasure/helpers";
 import { calculateDC, DCOptions } from "@module/dc";
 import { DegreeIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-success";
 
 // you have to be at least trained to earn income
-export type TrainedProficiencies = Exclude<ProficiencyRank, "untrained">;
-type Rewards = {
-    [rank in TrainedProficiencies]: Coins;
-};
+export type TrainedProficiency = Exclude<ProficiencyRank, "untrained">;
+type Rewards = Record<TrainedProficiency, Partial<Coins>>;
 
 /**
  * There is a cap at each level for a certain proficiency
  * rank. If you go over that, it does not matter what rank
  * you actually performed
  */
-function buildRewards(...rewards: Coins[]): Rewards {
+function buildRewards(...rewards: Partial<Coins>[]): Rewards {
     const [trained, expert, master, legendary] = rewards;
     return {
         trained: trained,
@@ -64,8 +62,8 @@ export function getIncomeForLevel(level: number): IncomeForLevel {
 
 export interface EarnIncomeResult {
     rewards: {
-        perDay: Coins;
-        combined: Coins;
+        perDay: Partial<Coins>;
+        combined: Partial<Coins>;
     };
     degreeOfSuccess: DegreeIndex;
     daysSpentWorking: number;
@@ -75,7 +73,7 @@ export interface EarnIncomeResult {
 }
 
 export interface PerDayEarnIncomeResult {
-    rewards: Coins;
+    rewards: Partial<Coins>;
     degreeOfSuccess: DegreeIndex;
 }
 
@@ -91,7 +89,7 @@ function applyIncomeOptions(
     result: PerDayEarnIncomeResult,
     earnIncomeOptions: EarnIncomeOptions,
     level: number,
-    proficiency: TrainedProficiencies
+    proficiency: TrainedProficiency
 ) {
     if (earnIncomeOptions.useLoreAsExperiencedProfessional) {
         if (result.degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
@@ -103,7 +101,7 @@ function applyIncomeOptions(
     }
 }
 
-function stripCoins(coins: Coins): Coins {
+function stripCoins(coins: Partial<Coins>): Partial<Coins> {
     for (const denomination of DENOMINATIONS) {
         if (coins[denomination] === 0) {
             delete coins[denomination];
@@ -124,7 +122,7 @@ export function earnIncome(
     level: number,
     days: number,
     rollBrief: RollBrief,
-    proficiency: TrainedProficiencies,
+    proficiency: TrainedProficiency,
     earnIncomeOptions: EarnIncomeOptions,
     dcOptions: DCOptions
 ): EarnIncomeResult {

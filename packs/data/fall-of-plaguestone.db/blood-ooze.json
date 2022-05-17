@@ -116,7 +116,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -138,9 +137,26 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
+                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.success]</p>"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text' data-visibility='gm'>@Localize[PF2E.PersistentDamage.Bleed1d6.criticalSuccess]</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -156,7 +172,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Pseudopod",
             "sort": 100000,
@@ -197,7 +212,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Infuse Corpse",
             "sort": 200000,
@@ -238,7 +252,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Motion Sense 60 feet",
             "sort": 300000,
@@ -279,7 +292,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Blood Pool",
             "sort": 400000,
@@ -320,7 +332,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Clot",
             "sort": 500000,
@@ -361,7 +372,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Siphon Vitality",
             "sort": 600000,
@@ -390,7 +400,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 700000,
@@ -437,7 +446,6 @@
                     }
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 800000,

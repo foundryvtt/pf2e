@@ -48,6 +48,6 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
 
 interface PhysicalDataOld extends Omit<PhysicalSystemSource, "price"> {
     price: {
-        value?: string | Coins;
+        value?: string | Partial<Coins>;
     };
 }

@@ -11,7 +11,7 @@
         {{/if}}
     </div>
     {{#if (eq @root.actor.type "loot")}}
-        <span class="item-sell-value">{{coinLabel item.data.price.value}}</span>
+        <span class="item-sell-value">{{#if (or item.isIdentified @root.user.isGM)}}{{coinLabel item.data.price.value}}{{/if}}</span>
     {{else}}
         {{#if (eq item.type "treasure")}}
             <span class="item-sell-value">{{coinLabel item.assetValue}}</span>

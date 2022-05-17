@@ -35,18 +35,25 @@
                 "key": "FlatModifier",
                 "predicate": {
                     "all": [
-                        "devise-a-stratagem"
-                    ],
-                    "any": [
-                        "agile",
-                        "finesse",
-                        "ranged"
-                    ],
-                    "not": [
-                        "investigator-dedication"
+                        "class:investigator",
+                        "devise-a-stratagem",
+                        {
+                            "or": [
+                                "weapon:trait:finesse",
+                                "weapon:trait:agile",
+                                {
+                                    "and": [
+                                        "weapon:ranged",
+                                        {
+                                            "not": "weapon:trait:thrown"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
-                "selector": "attack",
+                "selector": "attack-roll",
                 "type": "ability"
             },
             {
@@ -65,7 +72,6 @@
             ]
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/features/classes/devise-a-stratagem.webp",
     "name": "Devise a Stratagem",
     "type": "feat"

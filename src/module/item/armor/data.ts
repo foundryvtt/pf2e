@@ -12,7 +12,7 @@ import type { ArmorPF2e } from ".";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
 
-type ArmorData = Omit<ArmorSource, "effects" | "flags"> &
+type ArmorData = Omit<ArmorSource, "data" | "effects" | "flags"> &
     BasePhysicalItemData<ArmorPF2e, "armor", ArmorSystemData, ArmorSource>;
 
 type ArmorTrait = keyof ConfigPF2e["PF2E"]["armorTraits"];
@@ -64,7 +64,9 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     };
 }
 
-interface ArmorSystemData extends Omit<ArmorSystemSource, "temporary" | "usage">, Investable<PhysicalSystemData> {
+interface ArmorSystemData
+    extends Omit<ArmorSystemSource, "price" | "temporary" | "usage">,
+        Investable<PhysicalSystemData> {
     baseItem: BaseArmorType;
     traits: ArmorTraits;
     runes: {

@@ -162,6 +162,7 @@ export class CompendiumPack {
             throw PackError(`${docSource.name} (${this.name}) has a link to a world item: ${worldItemLink[0]}`);
         }
 
+        docSource.flags ??= {};
         docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
             docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
@@ -276,7 +277,6 @@ export class CompendiumPack {
         if (!isObject(maybeDocSource)) return false;
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === "string",
-            flags: (data: unknown) => typeof data === "object" && data !== null && "flags" in data,
             permission: (data: { permission?: { default: unknown } }) =>
                 !data.permission ||
                 (typeof data.permission === "object" &&

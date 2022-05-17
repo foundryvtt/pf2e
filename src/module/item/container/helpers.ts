@@ -10,6 +10,8 @@ import {
 import { PhysicalItemData } from "../data";
 import { groupBy } from "@util";
 import { Size } from "@module/data";
+import { PhysicalItemPF2e } from "@item/physical";
+import { ContainerPF2e } from ".";
 
 /**
  * Datatype that holds container information for *every* item, even non containers
@@ -150,34 +152,15 @@ function toContainer({
     });
 }
 
-function detectCycle(
-    itemId: string,
-    containerId: string | null = null,
-    idIndexedItems: Map<string, PhysicalItemData>
-): boolean {
-    const currentItem = idIndexedItems.get(containerId ?? "");
-    if (currentItem) {
-        if (itemId === currentItem?._id) {
-            return true;
-        }
-        return detectCycle(itemId, currentItem.data.containerId, idIndexedItems);
-    }
-    return false;
-}
-
 /**
- * Detect if a new container id would produce a cycle
- * @param itemId
- * @param containerId
- * @param items
- * @returns
+ * Detect if adding an item to a container would produce a cycle
+ * @param item The item being added to a container
+ * @param container The container to which the item is being added
  */
-export function isCycle(itemId: string, containerId: string, items: PhysicalItemData[]): boolean {
-    const idIndexedItems = new Map();
-    for (const item of items) {
-        idIndexedItems.set(item._id, item);
-    }
-    return detectCycle(itemId, containerId, idIndexedItems);
+export function isCycle(item: PhysicalItemPF2e, container: Embedded<ContainerPF2e>): boolean {
+    if (item === container) return true;
+    if (container.container) return isCycle(item, container.container);
+    return false;
 }
 
 /**

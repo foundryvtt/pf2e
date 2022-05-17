@@ -124,7 +124,6 @@
             }
         }
     },
-    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -232,7 +231,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Innate Divine Spells",
             "sort": 100000,
@@ -343,7 +341,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
             "sort": 200000,
@@ -718,7 +715,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 600000,
@@ -768,7 +764,6 @@
                     "value": "melee"
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 700000,
@@ -903,7 +898,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sloth",
             "sort": 1000000,
@@ -974,7 +968,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Cower",
             "sort": 1100000,
@@ -1015,7 +1008,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Frenzied Slashes",
             "sort": 1200000,
@@ -1034,12 +1026,21 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A dretch makes the most of any weakness it finds. Whenever a dretch scores a critical hit with its claw Strike, the target takes an additional [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}.</p>"
+                    "value": "<p>A dretch makes the most of any weakness it finds. Whenever a dretch scores a critical hit with its claw Strike, the target takes an additional @Localize[PF2E.PersistentDamage.Bleed1d6.success].</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "claw-damage",
+                        "text": "<p><strong>{item|name}</strong></p>{item|data.description.value}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1056,7 +1057,6 @@
                     "value": ""
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vicious Criticals",
             "sort": 1300000,
@@ -1085,7 +1085,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1400000,
@@ -1114,7 +1113,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1500000,
@@ -1143,7 +1141,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1600000,
@@ -1172,7 +1169,6 @@
                     "value": []
                 }
             },
-            "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1700000,

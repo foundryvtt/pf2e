@@ -1449,11 +1449,10 @@ class CharacterPF2e extends CreaturePF2e {
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments affecting the weapon
-        const weaponRollOptions = weapon.getRollOptions();
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
-
+        const weaponRollOptions = weapon.getRollOptions();
         const weaponTraits = weapon.traits;
 
         // Determine the default ability and score for this attack.
@@ -1512,18 +1511,20 @@ class CharacterPF2e extends CreaturePF2e {
             "attack-roll",
             "all",
         ];
-        const defaultOptions = this.getRollOptions(baseSelectors)
-            .concat(...weaponTraits) // always add weapon traits as options
-            .concat(weaponRollOptions)
-            .concat(meleeOrRanged);
-        ensureProficiencyOption(defaultOptions, proficiencyRank);
+        const baseOptions = [
+            ...this.getRollOptions(baseSelectors),
+            ...weaponTraits, // always add weapon traits as options
+            ...weaponRollOptions,
+            ...meleeOrRanged,
+        ];
+        ensureProficiencyOption(baseOptions, proficiencyRank);
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
             const options = { resolvables: { weapon } };
             const abilityModifier = [...modifiers, ...extractModifiers(statisticsModifiers, baseSelectors, options)]
                 .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
-                .flatMap((modifier) => (modifier.predicate.test(defaultOptions) ? modifier : []))
+                .flatMap((modifier) => (modifier.predicate.test(baseOptions) ? modifier : []))
                 .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
 
             if (!abilityModifier) {
@@ -1532,6 +1533,7 @@ class CharacterPF2e extends CreaturePF2e {
                 );
                 return baseSelectors;
             }
+
             const ability = abilityModifier.ability;
 
             return [
@@ -1558,7 +1560,7 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponPotency = (() => {
             const potency = selectors
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
-                .filter((wp) => PredicatePF2e.test(wp.predicate, defaultOptions));
+                .filter((wp) => PredicatePF2e.test(wp.predicate, baseOptions));
             ABP.applyPropertyRunes(potency, weapon);
             const potencyRune = Number(itemData.data.potencyRune?.value) || 0;
 
@@ -1587,7 +1589,7 @@ class CharacterPF2e extends CreaturePF2e {
             const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
             for (const key of selectors) {
                 (synthetics.multipleAttackPenalties[key] ?? [])
-                    .filter((map) => PredicatePF2e.test(map.predicate, defaultOptions))
+                    .filter((map) => PredicatePF2e.test(map.predicate, baseOptions))
                     .forEach((map) => multipleAttackPenalties.push(map));
             }
 
@@ -1666,7 +1668,7 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         const flavor = this.getStrikeDescription(weapon);
-        const rollOptions = this.getRollOptions(defaultOptions);
+        const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(weapon.name, modifiers, rollOptions);
         const meleeUsage = weapon.toMeleeUsage();
 
@@ -1797,7 +1799,7 @@ class CharacterPF2e extends CreaturePF2e {
                     const rangeIncrement = getRangeIncrement(context.target?.distance ?? null);
                     const incrementOption = rangeIncrement ? `target:range-increment:${rangeIncrement}` : [];
                     const otherModifiers = [
-                        this.getRangePenalty(rangeIncrement, selectors, defaultOptions) ?? [],
+                        this.getRangePenalty(rangeIncrement, selectors, baseOptions) ?? [],
                         context.self.modifiers,
                     ].flat();
 
@@ -1807,7 +1809,7 @@ class CharacterPF2e extends CreaturePF2e {
                         args.options,
                         context.options,
                         action.options,
-                        defaultOptions,
+                        baseOptions,
                         incrementOption,
                     ].flat();
 
@@ -1869,7 +1871,7 @@ class CharacterPF2e extends CreaturePF2e {
                     typeof rangeIncrement === "number" ? `target:range-increment:${rangeIncrement}` : [];
                 args.options ??= [];
                 const options = Array.from(
-                    new Set([args.options, context.options, action.options, defaultOptions, incrementOption].flat())
+                    new Set([args.options, context.options, action.options, baseOptions, incrementOption].flat())
                 );
                 const traits = [attackTrait, [...context.self.item.traits].map((t) => toStrikeTrait(t))].flat();
 

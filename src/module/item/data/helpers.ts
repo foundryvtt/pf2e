@@ -15,10 +15,11 @@ import { PHYSICAL_ITEM_TYPES } from "./values";
 
 export function isItemSystemData(data: unknown): data is ItemSystemData {
     return (
-        isObject<Record<"type" | "description", unknown>>(data) &&
-        typeof data.type === "string" &&
+        isObject<Record<"description" | "rules" | "slug", unknown>>(data) &&
         isObject<{ value?: unknown }>(data.description) &&
-        typeof data.description.value === "string"
+        typeof data.description.value === "string" &&
+        Array.isArray(data.rules) &&
+        (data.slug === null || typeof data.slug === "string")
     );
 }
 
