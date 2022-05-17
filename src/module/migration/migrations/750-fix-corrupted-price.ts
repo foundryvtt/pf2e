@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { coinStringToCoins } from "@item/treasure/helpers";
+import { coinStringToCoins } from "@item/physical/helpers";
 import { MigrationBase } from "../base";
 
 export class Migration750FixCorruptedPrice extends MigrationBase {

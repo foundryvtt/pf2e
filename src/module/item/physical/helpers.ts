@@ -3,13 +3,13 @@ import { Coins, PartialPrice } from "@item/physical/data";
 // Redefined to avoid cyclical reference
 const DENOMINATIONS = ["cp", "sp", "gp", "pp"] as const;
 
-export function coinValueInCopper(coins: Partial<Coins>): number {
+function coinValueInCopper(coins: Partial<Coins>): number {
     const { cp, sp, gp, pp } = mergeObject(noCoins(), coins);
     return cp + sp * 10 + gp * 100 + pp * 1000;
 }
 
 /** Convert a `Coins` object into a price string */
-export function coinsToString(coins: Partial<Coins>, { reduce = true }: { reduce?: boolean } = {}): string {
+function coinsToString(coins: Partial<Coins>, { reduce = true }: { reduce?: boolean } = {}): string {
     if (DENOMINATIONS.every((denomination) => !coins[denomination])) {
         return "0 gp";
     }
@@ -41,11 +41,11 @@ export function coinsToString(coins: Partial<Coins>, { reduce = true }: { reduce
 /**
  * always return a new copy
  */
-export function noCoins(): Coins {
+function noCoins(): Coins {
     return { pp: 0, gp: 0, sp: 0, cp: 0 };
 }
 
-export function combineCoins(first: Partial<Coins>, second: Partial<Coins>): Coins {
+function combineCoins(first: Partial<Coins>, second: Partial<Coins>): Coins {
     function addMaybe(a?: number, b?: number): number {
         return a === undefined ? b ?? 0 : b === undefined ? a : a + b;
     }
@@ -58,7 +58,7 @@ export function combineCoins(first: Partial<Coins>, second: Partial<Coins>): Coi
     };
 }
 
-export function coinStringToCoins(coinString: string, quantity = 1): Coins {
+function coinStringToCoins(coinString: string, quantity = 1): Coins {
     // This requires preprocessing, as large gold values contain , for their value
     const priceTag = String(coinString).trim().replace(/,/g, "");
     return [...priceTag.matchAll(/(\d+)\s*([pgsc]p)/g)]
@@ -70,7 +70,7 @@ export function coinStringToCoins(coinString: string, quantity = 1): Coins {
         .reduce(combineCoins, noCoins());
 }
 
-export function multiplyCoins(coins: Partial<Coins>, factor: number): Coins {
+function multiplyCoins(coins: Partial<Coins>, factor: number): Coins {
     const result = mergeObject(noCoins(), coins);
     result.pp *= factor;
     result.gp *= factor;
@@ -92,14 +92,25 @@ export function multiplyCoins(coins: Partial<Coins>, factor: number): Coins {
     return result;
 }
 
-export function multiplyPrice(price: PartialPrice, factor: number): Coins {
+function multiplyPrice(price: PartialPrice, factor: number): Coins {
     const per = Math.max(1, price.per ?? 1);
     return multiplyCoins(price.value, factor / per);
 }
 
-export const coinCompendiumIds = {
+const coinCompendiumIds = {
     pp: "JuNPeK5Qm1w6wpb4",
     gp: "B6B7tBWJSqOBz5zz",
     sp: "5Ew82vBF9YfaiY9f",
     cp: "lzJ8AVhRcbFul5fh",
+};
+
+export {
+    coinCompendiumIds,
+    coinStringToCoins,
+    coinsToString,
+    coinValueInCopper,
+    combineCoins,
+    multiplyCoins,
+    multiplyPrice,
+    noCoins,
 };

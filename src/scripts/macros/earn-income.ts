@@ -5,7 +5,7 @@
 import { ProficiencyRank } from "@item/data";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
-import { multiplyCoins } from "@item/treasure/helpers";
+import { multiplyCoins } from "@item/physical/helpers";
 import { calculateDC, DCOptions } from "@module/dc";
 import { DegreeIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-success";
 

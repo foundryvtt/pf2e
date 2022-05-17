@@ -1,6 +1,6 @@
 import { ItemPF2e } from "@item";
 import { Coins, PartialPrice } from "@item/physical/data";
-import { coinsToString } from "@item/treasure/helpers";
+import { coinsToString } from "@item/physical/helpers";
 import { getActionGlyph, ordinal } from "../util";
 
 export function registerHandlebarsHelpers() {

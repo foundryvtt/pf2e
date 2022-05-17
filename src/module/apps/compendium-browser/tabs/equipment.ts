@@ -1,4 +1,4 @@
-import { coinsToString, coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { coinsToString, coinStringToCoins, coinValueInCopper } from "@item/physical/helpers";
 import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";

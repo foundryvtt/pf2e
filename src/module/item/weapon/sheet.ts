@@ -3,7 +3,7 @@ import { PreciousMaterialGrade } from "@item/physical/types";
 import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
 import { PhysicalItemSheetData } from "@item/sheet/data-types";
-import { coinsToString, coinValueInCopper, multiplyCoins } from "@item/treasure/helpers";
+import { coinsToString, coinValueInCopper, multiplyCoins } from "@item/physical/helpers";
 import { OneToFour, OneToThree } from "@module/data";
 import { objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";

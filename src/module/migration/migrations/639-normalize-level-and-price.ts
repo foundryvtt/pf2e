@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins, PhysicalSystemSource } from "@item/physical/data";
-import { coinStringToCoins, coinValueInCopper } from "@item/treasure/helpers";
+import { coinStringToCoins, coinValueInCopper } from "@item/physical/helpers";
 import { isObject } from "@util";
 import { MigrationBase } from "../base";
 

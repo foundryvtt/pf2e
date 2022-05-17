@@ -2,7 +2,7 @@ import { LootPF2e } from "@actor";
 import { type ContainerPF2e, ItemPF2e } from "@item";
 import { PhysicalItemData, TraitChatData } from "@item/data";
 import { MystifiedTraits } from "@item/data/values";
-import { coinStringToCoins, multiplyPrice, noCoins } from "@item/treasure/helpers";
+import { coinStringToCoins, multiplyPrice, noCoins } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";

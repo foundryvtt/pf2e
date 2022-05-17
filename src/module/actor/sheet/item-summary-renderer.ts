@@ -1,6 +1,6 @@
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
 import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { coinsToString } from "@item/treasure/helpers";
+import { coinsToString } from "@item/physical/helpers";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";

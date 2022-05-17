@@ -1,6 +1,6 @@
 import { ActorPF2e } from "../../base";
 import { CharacterPF2e } from "@actor/character";
-import { coinValueInCopper, multiplyCoins, noCoins } from "@item/treasure/helpers";
+import { coinValueInCopper, multiplyCoins, noCoins } from "@item/physical/helpers";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     selection?: string[];

@@ -3,7 +3,7 @@ import { isPhysicalData } from "@item/data/helpers";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { TreasureSystemSource } from "@item/treasure/data";
-import { coinStringToCoins } from "@item/treasure/helpers";
+import { coinStringToCoins } from "@item/physical/helpers";
 import { MigrationBase } from "../base";
 
 export class Migration746StandardizePricing extends MigrationBase {

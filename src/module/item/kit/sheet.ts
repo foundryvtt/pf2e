@@ -1,6 +1,6 @@
 import { KitPF2e } from "@item/kit";
 import { PhysicalItemPF2e } from "@item/physical";
-import { coinsToString, coinStringToCoins, noCoins } from "@item/treasure/helpers";
+import { coinsToString, coinStringToCoins, noCoins } from "@item/physical/helpers";
 import { createSheetTags } from "@module/sheet/helpers";
 import { ItemSheetPF2e } from "../sheet/base";
 

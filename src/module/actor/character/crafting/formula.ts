@@ -1,7 +1,7 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { stackDefinitions } from "@item/physical/bulk";
 import { Coins, Price } from "@item/physical/data";
-import { multiplyPrice } from "@item/treasure/helpers";
+import { multiplyPrice } from "@item/physical/helpers";
 import { Rarity } from "@module/data";
 import { calculateDC } from "@module/dc";
 

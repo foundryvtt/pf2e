@@ -14,7 +14,7 @@ import {
     WeaponSource,
     WeaponTrait,
 } from "./data";
-import { coinValueInCopper, noCoins } from "@item/treasure/helpers";
+import { coinValueInCopper, noCoins } from "@item/physical/helpers";
 import { ErrorPF2e, tupleHasValue } from "@util";
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
 import { toBulkItem } from "@item/physical/bulk";

@@ -3,7 +3,7 @@ import { PhysicalItemPF2e, TreasurePF2e } from "@item";
 import { Bulk, computeTotalBulk } from "@item/physical/bulk";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
-import { coinCompendiumIds, coinValueInCopper, combineCoins, noCoins } from "@item/treasure/helpers";
+import { coinCompendiumIds, coinValueInCopper, combineCoins, noCoins } from "@item/physical/helpers";
 import { groupBy } from "@util";
 
 class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {

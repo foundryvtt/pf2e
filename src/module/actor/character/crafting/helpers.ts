@@ -1,7 +1,7 @@
 /**
  * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
  */
-import { coinsToString, coinValueInCopper, multiplyCoins, multiplyPrice } from "@module/item/treasure/helpers";
+import { coinsToString, coinValueInCopper, multiplyCoins, multiplyPrice } from "@item/physical/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";

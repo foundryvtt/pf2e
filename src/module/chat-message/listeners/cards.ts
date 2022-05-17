@@ -5,7 +5,7 @@ import { StrikeData } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
-import { coinsToString, multiplyCoins, multiplyPrice } from "@item/treasure/helpers";
+import { coinsToString, multiplyCoins, multiplyPrice } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";

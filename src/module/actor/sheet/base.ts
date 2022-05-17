@@ -3,7 +3,7 @@ import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasureP
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { coinValueInCopper } from "@item/treasure/helpers";
+import { coinValueInCopper } from "@item/physical/helpers";
 import {
     BasicConstructorOptions,
     TagSelectorBasic,

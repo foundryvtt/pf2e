@@ -3,7 +3,7 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { ItemSheetDataPF2e, PhysicalItemSheetData } from "@item/sheet/data-types";
 import { BasePhysicalItemSource, ItemActivation } from "./data";
 import { createSheetTags } from "@module/sheet/helpers";
-import { coinsToString, coinStringToCoins, noCoins } from "@item/treasure/helpers";
+import { coinsToString, coinStringToCoins, noCoins } from "@item/physical/helpers";
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
