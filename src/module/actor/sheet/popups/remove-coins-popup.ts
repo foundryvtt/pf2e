@@ -28,7 +28,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
             cp: formData.cp,
         };
 
-        if (!(await actor.removeCoins(coinsToRemove, { byValue: formData.removeByValue }))) {
+        if (!(await actor.inventory.removeCoins(coinsToRemove, { byValue: formData.removeByValue }))) {
             ui.notifications.warn("PF2E.ErrorMessage.NotEnoughCoins", { localize: true });
         }
     }

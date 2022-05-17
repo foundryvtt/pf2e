@@ -87,7 +87,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
 
         if (this.data.resizeEquipment) {
             const sizeDifference = originalSize.difference(this.actor.data.data.traits.size);
-            for (const item of this.actor.physicalItems.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
+            for (const item of this.actor.inventory.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {
                     item.data.data.size = this.incrementSize(item.size, Math.abs(sizeDifference));
                 } else if (sizeDifference > 0) {
