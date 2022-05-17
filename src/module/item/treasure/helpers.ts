@@ -1,6 +1,4 @@
 import type { ActorPF2e } from "@actor";
-import type { PhysicalItemData } from "@item/data";
-import { isPhysicalData } from "@item/data/helpers";
 import { Coins, PartialPrice } from "@item/physical/data";
 
 // Redefined to avoid cyclical reference
@@ -100,18 +98,6 @@ export function multiplyPrice(price: PartialPrice, factor: number): Coins {
     return multiplyCoins(price.value, factor / per);
 }
 
-/**
- * Sums up all wealth of a character, not just the treasure, but all other equipment
- * @param items
- */
-export function calculateTotalWealth(items: PhysicalItemData[]): Coins {
-    items = game.user.isGM ? items : items.filter((i) => i.data.identification.status === "identified");
-    return items
-        .filter((itemData) => isPhysicalData(itemData))
-        .map((item) => multiplyPrice(item.data.price, item.data.quantity))
-        .reduce(combineCoins, noCoins());
-}
-
 export const coinCompendiumIds = {
     pp: "JuNPeK5Qm1w6wpb4",
     gp: "B6B7tBWJSqOBz5zz",
@@ -130,5 +116,5 @@ export async function sellAllTreasure(actor: ActorPF2e): Promise<void> {
         .reduce(combineCoins, noCoins());
 
     await actor.deleteEmbeddedDocuments("Item", treasureIds);
-    await actor.addCoins(coins);
+    await actor.inventory.addCoins(coins);
 }
