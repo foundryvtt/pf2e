@@ -3,7 +3,7 @@ import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, TreasureP
 import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { calculateTotalWealth, coinValueInCopper, sellAllTreasure } from "@item/treasure/helpers";
+import { coinValueInCopper, sellAllTreasure } from "@item/treasure/helpers";
 import {
     BasicConstructorOptions,
     TagSelectorBasic,
@@ -80,11 +80,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         // Calculate financial and total wealth
-        const coins = this.actor.coins;
+        const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
         const totalCoinageGold = (coinValueInCopper(coins) / 100).toFixed(2);
 
-        const totalWealth = calculateTotalWealth(inventoryItems);
+        const totalWealth = this.actor.inventory.totalWealth;
         const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
 
         // IWR
@@ -324,10 +324,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Sell treasure item
         $html.find(".item-sell-treasure").on("click", async (event) => {
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
-            const item = this.actor.physicalItems.get(itemId);
+            const item = this.actor.inventory.get(itemId);
             if (item instanceof TreasurePF2e && !item.isCoinage) {
                 await item.delete();
-                await this.actor.addCoins(item.assetValue);
+                await this.actor.inventory.addCoins(item.assetValue);
             }
         });
 
@@ -739,7 +739,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (item instanceof PhysicalItemPF2e) {
             const $target = $(event.target).closest("[data-item-id]");
             const targetId = $target.attr("data-item-id") ?? "";
-            const target = this.actor.physicalItems.get(targetId);
+            const target = this.actor.inventory.get(targetId);
 
             if (target && item.isStackableWith(target)) {
                 const stackQuantity = item.quantity + target.quantity;
@@ -752,7 +752,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
             const $container = $(event.target).closest('[data-item-is-container="true"]');
             const containerId = $container.attr("data-item-id") ?? "";
-            const container = this.actor.physicalItems.get(containerId);
+            const container = this.actor.inventory.get(containerId);
             const pullingOutOfContainer = item.isInContainer && !container;
             const puttingIntoContainer = container?.isOfType("backpack") && item.container?.id !== container.id;
             if (pullingOutOfContainer || puttingIntoContainer) {

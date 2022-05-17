@@ -22,6 +22,6 @@ export class AddCoinsPopup extends FormApplication<ActorPF2e> {
     override async _updateObject(_event: Event, formData: Record<string, unknown> & AddCoinsFormData): Promise<void> {
         const combineStacks = formData.combineStacks;
         const coins = { pp: formData.pp, gp: formData.gp, sp: formData.sp, cp: formData.cp };
-        this.object.addCoins(coins, { combineStacks });
+        this.object.inventory.addCoins(coins, { combineStacks });
     }
 }
