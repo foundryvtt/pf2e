@@ -9,14 +9,16 @@ before_script:
     - apt-get install zip
 
 cache:
+    key:
+        files:
+            - package-lock.json
     paths:
-        - node_modules/
+        - .npm/
 
 build:
     stage: build
     script:
-        - export
-        - npm ci
+        - npm ci --cache .npm --prefer-offline
         - node updatebuildno.js --buildno=$CI_PIPELINE_IID --branch=$CI_COMMIT_BRANCH --gitlabpath=$CI_PROJECT_PATH
         - npm run build
         - mv dist pf2e
@@ -29,4 +31,6 @@ build:
 
 testing_testing:
     stage: test
-    script: npm test
+    script:
+        - npm ci --cache .npm --prefer-offline
+        - npm test
