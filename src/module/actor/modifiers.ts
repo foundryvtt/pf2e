@@ -81,6 +81,7 @@ export interface BaseRawModifier {
 }
 
 export interface ModifierAdjustment {
+    /** A slug for matching against modifiers: `null` will match against all modifiers within a selector */
     slug: string | null;
     predicate: PredicatePF2e;
     damageType?: DamageType;
